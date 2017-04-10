@@ -8,3 +8,5 @@ sites/*/private
 # Ignore site configuration files
 robots.txt
 .htaccess
+sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
+
