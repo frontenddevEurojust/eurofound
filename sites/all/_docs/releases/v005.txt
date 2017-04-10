@@ -1,0 +1,68 @@
+drush sql-query "insert into schema_migrations(code,extra)values('005', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+::update all modules and core
+::can be commented out in fresh db installations
+drush up -y
+
+
+:: MODULES ::
+
+:: autocomplete deluxe module for autotag widget (chosen like) 
+:: with adding new functionality and custom delimiters (not working with copy-paste)
+drush dl -y autocomplete_deluxe
+drush en -y autocomplete_deluxe
+drush cc all
+
+:: diff module for node revisions
+drush dl -y diff
+drush en -y diff
+drush cc all
+
+:: workbench moderation module for authors' content moderation
+drush dl -y workbench_moderation
+drush en -y workbench_moderation
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+:: create empty contrib module in custom (resolves bug with missing contrib module)
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: apply patch on module hierarchical_select
+:: patches/v005-hs_taxonomy_views_handler_filter_term_node_tid.inc
+
+:: disable my account from user menu
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

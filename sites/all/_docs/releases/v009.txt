@@ -1,0 +1,113 @@
+drush sql-query "insert into schema_migrations(code,extra)values('009', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+::update all modules except core
+::can be commented out in fresh db installations
+drush up -y --no-core
+
+
+
+:: MODULES ::
+
+:: custom eworx
+drush en -y ef_ckeditor_custom_styles
+
+drush dl -y colorbox_node
+drush en -y colorbox_node
+drush cc all
+
+drush en -y ef_node_moderation_links
+
+drush dl -y tabtamer
+drush en -y tabtamer
+drush cc all
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: Fix for features exported roles ids - the id of the role 'Author' in the development environment is  '5' but in the production is '7'. 
+:: Apply the change below BEFORE feature revert and ONLY in the production-staging environment.
+:: Ensure before apply the patch: drush sql-query "select * from role"
+
+:: Fix 1
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.views_default.inc and change the code below
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+:: 5 => '5',
+:: );
+
+:: TO
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+::  7 => '7',
+::  );
+
+:: Fix 2
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.features.field_base.inc and change the code below
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        5 => 5,
+:: ...
+
+:: TO
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        7 => 7,
+:: ...
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: on stag ans s.2 only update drush else colorbox not being enabled
+sudo drush self-update
+
+:: sites/all/libraries - colorbox
+:: wget https://github.com/jackmoore/colorbox/archive/1.x.zip
+:: unzip colorbox*.zip -d sites/all/libraries
+:: rm colorbox*.zip
+::
+drush colorbox-plugin
+
+:: goto admin/config/system/tabtamer
+:: make hidden: node/%/moderation
+
+:: goto admin/config/media/colorbox
+:: remove from adv settings:
+:: node/add/*
+:: node/*/edit
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

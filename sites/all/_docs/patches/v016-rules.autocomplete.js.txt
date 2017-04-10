@@ -1,0 +1,8 @@
+patch for bug on Rules not working with jQuery Update 7.x-2.3
+https://drupal.org/node/1810656
+https://drupal.org/node/1539032
+
+
+Patch diff:
+
+this.jqObject.data("autocomplete") => this.jqObject.data("ui-autocomplete")

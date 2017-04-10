@@ -1,0 +1,464 @@
+﻿<pre><style>.error{background:red;margin-left:5px;margin-right:5px}</style><pre><style>.warning{background:orange;margin-left:5px;margin-right:5px}</style><pre><style>.message{background:#6FE302;margin-left:5px;margin-right:5px}</style>processing row: 1<br/>processing row: 2<br/>processing row: 3<br/>processing row: 4<br/>processing row: 5<br/>processing row: 6<br/>processing row: 7<br/>processing row: 8<br/>processing row: 9<br/>processing row: 10<br/>processing row: 11<br/>processing row: 12<br/>processing row: 13<br/>processing row: 14<br/>processing row: 15<br/>processing row: 16<br/>processing row: 17<br/>processing row: 18<br/>processing row: 19<br/>processing row: 20<br/>processing row: 21<br/>processing row: 22<br/>processing row: 23<br/>processing row: 24<br/>processing row: 25<br/>processing row: 26<br/>processing row: 27<br/>processing row: 28<br/>processing row: 29<br/>processing row: 30<br/>processing row: 31<br/>processing row: 32<br/>processing row: 33<br/>processing row: 34Array
+(
+    [Country] => FINLAND
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Awareness raising
+)
+<br/>processing row: 35Array
+(
+    [Country] => SLOVENIA
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Care-related supports, Awareness raising
+)
+<br/>processing row: 36Array
+(
+    [Country] => BELGIUM
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Private sector
+    [Initiative type] => Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 37Array
+(
+    [Country] => SLOVENIA
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Work adjustments, Health/wellbeing, Care-related supports, Awareness raising
+)
+<br/>processing row: 38Array
+(
+    [Country] => PORTUGAL
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Public sector
+    [Initiative type] => Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 39Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 40Array
+(
+    [Country] => PORTUGAL
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Awareness raising
+)
+<br/>processing row: 41Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 42Array
+(
+    [Country] => FINLAND
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments
+)
+<br/>processing row: 43Array
+(
+    [Country] => IRELAND
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 44Array
+(
+    [Country] => SLOVENIA
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Work adjustments, Health/wellbeing, Care-related supports, Awareness raising
+)
+<br/>processing row: 45Array
+(
+    [Country] => POLAND
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Care-related supports
+)
+<br/>processing row: 46Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Health/wellbeing, Care-related supports, Awareness raising
+)
+<br/>processing row: 47Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports
+)
+<br/>processing row: 48Array
+(
+    [Country] => IRELAND
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Work adjustments
+)
+<br/>processing row: 49Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 50Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Leave-related, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 51Array
+(
+    [Country] => BELGIUM
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Leave-related, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 52Array
+(
+    [Country] => POLAND
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Work adjustments, Care-related supports
+)
+<br/>processing row: 53Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports
+)
+<br/>processing row: 54Array
+(
+    [Country] => POLAND
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Work adjustments, Care-related supports
+)
+<br/>processing row: 55Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 56Array
+(
+    [Country] => GERMANY
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 57Array
+(
+    [Country] => PORTUGAL
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Public sector
+    [Initiative type] => Hours reduction, Work adjustments, Awareness raising
+)
+<br/>processing row: 58Array
+(
+    [Country] => UNITED KINGDOM
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Awareness raising
+)
+<br/>processing row: 59Array
+(
+    [Country] => FINLAND
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments
+)
+<br/>processing row: 60Array
+(
+    [Country] => SLOVENIA
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 61Array
+(
+    [Country] => UNITED KINGDOM
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Health/wellbeing, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 62Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 63Array
+(
+    [Country] => FRANCE
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Hours reduction, Care-related supports, Awareness raising
+)
+<br/>processing row: 64Array
+(
+    [Country] => PORTUGAL
+    [Org size] => Small or medium (&lt;250)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports
+)
+<br/>processing row: 65Array
+(
+    [Country] => GERMANY
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 66Array
+(
+    [Country] => IRELAND
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 67Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 68Array
+(
+    [Country] => UNITED KINGDOM
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 69Array
+(
+    [Country] => GERMANY
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 70Array
+(
+    [Country] => PORTUGAL
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports
+)
+<br/>processing row: 71Array
+(
+    [Country] => UNITED KINGDOM
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Awareness raising
+)
+<br/>processing row: 72Array
+(
+    [Country] => BELGIUM
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Care-related supports, Awareness raising
+)
+<br/>processing row: 73Array
+(
+    [Country] => IRELAND
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Health/wellbeing, Care-related supports, Awareness raising
+)
+<br/>processing row: 74Array
+(
+    [Country] => POLAND
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Care-related supports
+)
+<br/>processing row: 75Array
+(
+    [Country] => IRELAND
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports
+)
+<br/>processing row: 76Array
+(
+    [Country] => GERMANY
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Hours reduction, Work adjustments, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 77Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => NGO / non-profit organisation
+    [Initiative type] => Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 78Array
+(
+    [Country] => NETHERLANDS
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Leave-related, Work adjustments, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 79Array
+(
+    [Country] => UNITED KINGDOM
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Work adjustments, Health/wellbeing, Care-related supports, Awareness raising, Co-operation with external agencies
+)
+<br/>processing row: 80Array
+(
+    [Country] => GERMANY
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Care-related supports, Awareness raising
+)
+<br/>processing row: 81Array
+(
+    [Country] => FRANCE
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Health/wellbeing, Care-related supports, Awareness raising
+)
+<br/>processing row: 82Array
+(
+    [Country] => POLAND
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Care-related supports, Awareness raising
+)
+<br/>processing row: 83Array
+(
+    [Country] => SLOVENIA
+    [Org size] => Large (250+)
+    [Sector] => Private sector
+    [Initiative type] => Leave-related, Work adjustments, Health/wellbeing, Awareness raising
+)
+<br/>processing row: 84Array
+(
+    [Country] => AUSTRIA
+    [Org size] => Large (250+)
+    [Sector] => Public sector
+    [Initiative type] => Work adjustments, Care-related supports, Awareness raising
+)
+<br/>processing row: 85Array
+(
+    [Country] => Spain
+    [Company size] => 500+
+    [Sector] => Transport
+)
+<br/>processing row: 86Array
+(
+    [Country] => Germany
+    [Company size] => 500+
+    [Sector] => Transport
+)
+<br/>processing row: 87Array
+(
+    [Country] => Germany
+    [Company size] => 100-499
+    [Sector] => Energy
+)
+<br/>processing row: 88Array
+(
+    [Country] => Slovenia
+    [Company size] => 100-499
+    [Sector] => Energy
+)
+<br/>processing row: 89Array
+(
+    [Country] => Luxembourg
+    [Company size] => 100-499
+    [Sector] => Distribution and trade
+)
+<br/>processing row: 90Array
+(
+    [Country] => Italy
+    [Company size] => 0-99
+    [Sector] => Energy
+)
+<br/>processing row: 91Array
+(
+    [Country] => Italy
+    [Company size] => 0-99
+    [Sector] => Automotive
+)
+<br/>processing row: 92Array
+(
+    [Country] => Cyprus
+    [Company size] => 500+
+    [Sector] => Energy
+)
+<br/>processing row: 93Array
+(
+    [Country] => Romania
+    [Company size] => 500+
+    [Sector] => Energy
+)
+<br/>processing row: 94Array
+(
+    [Country] => Norway
+    [Company size] => 100-499
+    [Sector] => Shipbuilding
+)
+<br/>processing row: 95Array
+(
+    [Country] => Latvia
+    [Company size] => 0-99
+    [Sector] => Energy
+)
+<br/>processing row: 96Array
+(
+    [Country] => Portugal
+    [Company size] => 500+
+    [Sector] => Energy
+)
+<br/>processing row: 97Array
+(
+    [Country] => Sweden
+    [Company size] => 500+
+    [Sector] => Furniture
+)
+<br/>processing row: 98Array
+(
+    [Country] => Bulgaria
+    [Company size] => 500+
+    [Sector] => 
+)
+<br/>processing row: 99Array
+(
+    [Country] => Poland
+    [Company size] => 500+
+    [Sector] => Chemicals
+)
+<br/>processing row: 100Array
+(
+    [Country] => Lithuania
+    [Company size] => 0-99
+    [Sector] => Energy
+)
+<br/><br/><br/>----------------------------------------------<br /><strong>ef_case_study</strong><br />  <em></em><br />  <em>99 items found!</em><br />----------------------------------------------<br /><br /><br /><br /><strong>RESULTS</strong><br /><table><tr><th>No.</th><th>Title</th><th>Url</th><th>Old url</th></tr><tr><td>1</td><td>Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/ireland-1">http://efstaging.eworx.gr/observatories/case-studies/ireland-1</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/ir1.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/ir1.htm</a></td></tr><tr><td>2</td><td>Allemagne</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/allemagne-14">http://efstaging.eworx.gr/observatories/case-studies/allemagne-14</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/germany_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/germany_fr.htm</a></td></tr><tr><td>3</td><td>Social public services:  
+        The Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-netherlands">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/netherlands.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/netherlands.htm</a></td></tr><tr><td>4</td><td>Royaume-Uni</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/royaume-uni-7">http://efstaging.eworx.gr/observatories/case-studies/royaume-uni-7</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/uk7_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/uk7_fr.htm</a></td></tr><tr><td>5</td><td>Social 
+        public services: Le Méridien mental health service</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-le-mridien-mental-health-service">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-le-mridien-mental-health-service</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/be8.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/be8.htm</a></td></tr><tr><td>6</td><td>United 
+        Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-8">http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-8</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/uk2.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/uk2.htm</a></td></tr><tr><td>7</td><td>Spain</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/spain-6">http://efstaging.eworx.gr/observatories/case-studies/spain-6</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/sp3.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/sp3.htm</a></td></tr><tr><td>8</td><td>France</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/france-25">http://efstaging.eworx.gr/observatories/case-studies/france-25</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fr6.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fr6.htm</a></td></tr><tr><td>9</td><td>France</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/france-26">http://efstaging.eworx.gr/observatories/case-studies/france-26</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fr4.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fr4.htm</a></td></tr><tr><td>10</td><td>Social 
+        public services: Vienna Red Cross</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-vienna-red-cross">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-vienna-red-cross</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/au1.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/au1.htm</a></td></tr><tr><td>11</td><td>Social public services: Askovgården Social and Psychiatric Activities (ASPA)</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-askovgrden-social-and-psychiatric-activities-aspa">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-askovgrden-social-and-psychiatric-activities-aspa</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/de5.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/de5.htm</a></td></tr><tr><td>12</td><td>Spain</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/spain-7">http://efstaging.eworx.gr/observatories/case-studies/spain-7</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/sp2.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/sp2.htm</a></td></tr><tr><td>13</td><td>Suède</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/sude-3">http://efstaging.eworx.gr/observatories/case-studies/sude-3</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/sw1_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/sw1_fr.htm</a></td></tr><tr><td>14</td><td>Greece</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/greece-14">http://efstaging.eworx.gr/observatories/case-studies/greece-14</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/gr8.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/gr8.htm</a></td></tr><tr><td>15</td><td>Germany</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/germany-14">http://efstaging.eworx.gr/observatories/case-studies/germany-14</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/ge4.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/ge4.htm</a></td></tr><tr><td>16</td><td>Social public services: Assisted employment of the people with learning disabilities
+       in Helsinki</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-assisted-employment-of-the-people-with-learning-disabilities-in-helsinki">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-assisted-employment-of-the-people-with-learning-disabilities-in-helsinki</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fi8.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fi8.htm</a></td></tr><tr><td>17</td><td>United 
+        Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-9">http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-9</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/uk4.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/uk4.htm</a></td></tr><tr><td>18</td><td>Social public services: Local quality systems project, Halikko</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-local-quality-systems-project-halikko">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-local-quality-systems-project-halikko</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fi9.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fi9.htm</a></td></tr><tr><td>19</td><td>Irlande</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/irlande-1">http://efstaging.eworx.gr/observatories/case-studies/irlande-1</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/ir1_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/ir1_fr.htm</a></td></tr><tr><td>20</td><td>Social 
+        public services: Lebenshilfe Ennstal supported-employment project</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-lebenshilfe-ennstal-supported-employment-project">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-lebenshilfe-ennstal-supported-employment-project</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/au11.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/au11.htm</a></td></tr><tr><td>21</td><td>Espagne</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/espagne-11">http://efstaging.eworx.gr/observatories/case-studies/espagne-11</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/sp5_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/sp5_fr.htm</a></td></tr><tr><td>22</td><td>Grèce</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/grce-10">http://efstaging.eworx.gr/observatories/case-studies/grce-10</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/greece_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/greece_fr.htm</a></td></tr><tr><td>23</td><td>Grèce</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/grce-11">http://efstaging.eworx.gr/observatories/case-studies/grce-11</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/gr8_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/gr8_fr.htm</a></td></tr><tr><td>24</td><td>Danemark</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/danemark-9">http://efstaging.eworx.gr/observatories/case-studies/danemark-9</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/de1_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/de1_fr.htm</a></td></tr><tr><td>25</td><td>Grèce</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/grce-12">http://efstaging.eworx.gr/observatories/case-studies/grce-12</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/gr3_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/gr3_fr.htm</a></td></tr><tr><td>26</td><td>France</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/france-27">http://efstaging.eworx.gr/observatories/case-studies/france-27</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fr1.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fr1.htm</a></td></tr><tr><td>27</td><td>Royaume-Uni</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/royaume-uni-8">http://efstaging.eworx.gr/observatories/case-studies/royaume-uni-8</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/uk4_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/uk4_fr.htm</a></td></tr><tr><td>28</td><td>Social 
+        public services: The Centre, Charleroi and Thudinie Family Support Service</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-centre-charleroi-and-thudinie-family-support-service">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-centre-charleroi-and-thudinie-family-support-service</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/be4.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/be4.htm</a></td></tr><tr><td>29</td><td>Social 
+        public services: The Amandas Matz Advice Bureau</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-amandas-matz-advice-bureau">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-the-amandas-matz-advice-bureau</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/au7.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/au7.htm</a></td></tr><tr><td>30</td><td>United 
+        Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-10">http://efstaging.eworx.gr/observatories/case-studies/united-kingdom-10</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/uk1.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/uk1.htm</a></td></tr><tr><td>31</td><td>Grèce</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/grce-13">http://efstaging.eworx.gr/observatories/case-studies/grce-13</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/gr7_fr.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/gr7_fr.htm</a></td></tr><tr><td>32</td><td>Spain</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/spain-8">http://efstaging.eworx.gr/observatories/case-studies/spain-8</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/sp4.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/sp4.htm</a></td></tr><tr><td>33</td><td>Social public services: KEKKU project in Mäntsälä</td><td><a href="http://efstaging.eworx.gr/observatories/case-studies/social-public-services-kekku-project-in-mntsl">http://efstaging.eworx.gr/observatories/case-studies/social-public-services-kekku-project-in-mntsl</a></td><td><a href="http://eurofound.europa.eu/areas/socialprotection/casestudies/fi10.htm">http://eurofound.europa.eu/areas/socialprotection/casestudies/fi10.htm</a></td></tr><tr><td>34</td><td>Case Study: Health and well-being – Vorova, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-health-and-well-being-vorova-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-health-and-well-being-vorova-finland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi003.htm</a></td></tr><tr><td>35</td><td>Case Study: Awareness raising – Sava, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-sava-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-sava-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si003.htm</a></td></tr><tr><td>36</td><td>Case Study: Awareness raising – CERA Cooperative, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-cera-cooperative-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-cera-cooperative-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be003.htm</a></td></tr><tr><td>37</td><td>Case Study: Awareness raising – Zavarovalnica Maribor, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-zavarovalnica-maribor-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-zavarovalnica-maribor-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si002.htm</a></td></tr><tr><td>38</td><td>Case Study: Care-related supports – Nova Gráfica, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-nova-grfica-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-nova-grfica-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt001.htm</a></td></tr><tr><td>39</td><td>Case Study: Leave-related Measures, T-Mobile, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-t-mobile-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-t-mobile-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at001.htm</a></td></tr><tr><td>40</td><td>Case Study: Hours reduction – Labamoro, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-labamoro-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-labamoro-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt002.htm</a></td></tr><tr><td>41</td><td>Case Study: Awareness raising – Hypo Oberösterreich, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-hypo-obersterreich-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-hypo-obersterreich-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at003.htm</a></td></tr><tr><td>42</td><td>Case Study: Leave-related measures – Travel Agency, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-travel-agency-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-travel-agency-finland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi001.htm</a></td></tr><tr><td>43</td><td>Case Study: Care-related Supports – Dublin City Council, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-dublin-city-council-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-dublin-city-council-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie002.htm</a></td></tr><tr><td>44</td><td>Case Study: Awareness raising – Mercator, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-mercator-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-mercator-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si001.htm</a></td></tr><tr><td>45</td><td>Case Study: Work adjustments – Constituency office of Tadeusz Woźniak MP, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-constituency-office-of-tadeusz-woniak-mp-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-constituency-office-of-tadeusz-woniak-mp-poland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl001.htm</a></td></tr><tr><td>46</td><td>Case Study: Care-related supports, Steiermärkische Sparkasse, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-steiermrkische-sparkasse-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-steiermrkische-sparkasse-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at002.htm</a></td></tr><tr><td>47</td><td>Case Study: Work Adjustments – Connexxion, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-connexxion-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-connexxion-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl002.htm</a></td></tr><tr><td>48</td><td>Case Study: Hours reduction – Irish Civil Service, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-irish-civil-service-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-irish-civil-service-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie003.htm</a></td></tr><tr><td>49</td><td>Case Study: Leave-related Measures – Achmea, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-achmea-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-achmea-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl001.htm</a></td></tr><tr><td>50</td><td>Case Study: Awareness raising – Wirtschaftskammer Österreich, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-wirtschaftskammer-sterreich-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-wirtschaftskammer-sterreich-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at004.htm</a></td></tr><tr><td>51</td><td>Case Study: Leave-related measures – Alliance Nationale des Mutualités Chrétiennes (MC), Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-alliance-nationale-des-mutualits-chrtiennes-mc-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-alliance-nationale-des-mutualits-chrtiennes-mc-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be001.htm</a></td></tr><tr><td>52</td><td>Case Study: Care-related supports – Warsaw City Hall, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-warsaw-city-hall-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-warsaw-city-hall-poland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl004.htm</a></td></tr><tr><td>53</td><td>Case Study: Leave-related Measures – Weleda NL, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-weleda-nl-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-weleda-nl-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl004.htm</a></td></tr><tr><td>54</td><td>Case Study: Care-related supports – Edward Szczeklik Specialist Hospital, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-edward-szczeklik-specialist-hospital-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-edward-szczeklik-specialist-hospital-poland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl002.htm</a></td></tr><tr><td>55</td><td>Case Study: Leave-related measures – Bundesimmobiliengesellschaft, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-bundesimmobiliengesellschaft-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-bundesimmobiliengesellschaft-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at006.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at006.htm</a></td></tr><tr><td>56</td><td>Case Study: Awareness Raising – Weleda, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-weleda-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-weleda-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de004.htm</a></td></tr><tr><td>57</td><td>Case Study: Work adjustments – Axa, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-axa-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-axa-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt003.htm</a></td></tr><tr><td>58</td><td>Case Study: Awareness Raising – Allen and Overy, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-allen-and-overy-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-allen-and-overy-uk</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk005.htm</a></td></tr><tr><td>59</td><td>Case Study: Work adjustments – Prime Minister’s Office, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-prime-ministers-office-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-prime-ministers-office-finland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fi002.htm</a></td></tr><tr><td>60</td><td>Case Study: Awareness raising – Pharmaceutical company, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-pharmaceutical-company-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-pharmaceutical-company-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si004.htm</a></td></tr><tr><td>61</td><td>Case Study: Care-related Supports – 5 Boroughs Partnership, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-5-boroughs-partnership-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-5-boroughs-partnership-uk</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk002.htm</a></td></tr><tr><td>62</td><td>Case Study: Awareness Raising – Novel Zorg and Wonen, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-novel-zorg-and-wonen-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-novel-zorg-and-wonen-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl003.htm</a></td></tr><tr><td>63</td><td>Case Study: Care-related supports – Novartis, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-novartis-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-novartis-france</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fr002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fr002.htm</a></td></tr><tr><td>64</td><td>Case Study: Care-related supports – Gebalis, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-gebalis-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-gebalis-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt004.htm</a></td></tr><tr><td>65</td><td>Case Study: Care-related Supports – AOK Hessen, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-aok-hessen-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-aok-hessen-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de002.htm</a></td></tr><tr><td>66</td><td>Case Study: Awareness Raising – Dublin Bus, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-dublin-bus-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-dublin-bus-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie004.htm</a></td></tr><tr><td>67</td><td>Case Study: Awareness Raising – Menzis, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-menzis-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-menzis-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl005.htm</a></td></tr><tr><td>68</td><td>Case Study: Awareness Raising – Centrica, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-centrica-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-centrica-uk</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk004.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk004.htm</a></td></tr><tr><td>69</td><td>Case Study: Awareness Raising – District Administration Rhein-Hunsrück, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-district-administration-rhein-hunsrck-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-district-administration-rhein-hunsrck-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de005.htm</a></td></tr><tr><td>70</td><td>Case Study: Care-related supports – Casa Pia de Lisboa, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-casa-pia-de-lisboa-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-casa-pia-de-lisboa-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pt005.htm</a></td></tr><tr><td>71</td><td>Case Study: Hours Reduction – Trades Union Congress (TUC), UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-trades-union-congress-tuc-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-hours-reduction-trades-union-congress-tuc-uk</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk001.htm</a></td></tr><tr><td>72</td><td>Case Study: Awareness raising – Mensura, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-mensura-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-mensura-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be002.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/be002.htm</a></td></tr><tr><td>73</td><td>Case Study: Work Adjustment – Eircom, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustment-eircom-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustment-eircom-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie001.htm</a></td></tr><tr><td>74</td><td>Case Study: Work adjustments –Pharmaceutical company, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-pharmaceutical-company-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-work-adjustments-pharmaceutical-company-poland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl003.htm</a></td></tr><tr><td>75</td><td>Case Study: Leave-related Measures – Hewlett Packard, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-hewlett-packard-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-leave-related-measures-hewlett-packard-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/ie005.htm</a></td></tr><tr><td>76</td><td>Case Study: Awareness Raising – Vodafone D2, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-vodafone-d2-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-vodafone-d2-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de003.htm</a></td></tr><tr><td>77</td><td>Case Study: Awareness Raising – Zorggroep Noordwest-Veluwe, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-zorggroep-noordwest-veluwe-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-zorggroep-noordwest-veluwe-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl007.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl007.htm</a></td></tr><tr><td>78</td><td>Case Study: Awareness raising – Versa Welzijn, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-versa-welzijn-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-versa-welzijn-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl006.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/nl006.htm</a></td></tr><tr><td>79</td><td>Case Study: Care-related Supports – BT, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-bt-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-bt-uk</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk003.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/uk003.htm</a></td></tr><tr><td>80</td><td>Case Study: Care-related Supports – Ford-Werke, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-ford-werke-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-ford-werke-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/de001.htm</a></td></tr><tr><td>81</td><td>Case Study: Care-related supports – EDF South-West, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-edf-south-west-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-edf-south-west-france</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fr001.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/fr001.htm</a></td></tr><tr><td>82</td><td>Case Study: Care-related supports – Bank Pekao, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-bank-pekao-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-bank-pekao-poland</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/pl005.htm</a></td></tr><tr><td>83</td><td>Case Study: Awareness raising – Elektro Ljubljana, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-elektro-ljubljana-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-awareness-raising-elektro-ljubljana-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/si005.htm</a></td></tr><tr><td>84</td><td>Case Study: Care-related supports – Graz University, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-graz-university-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/workers-with-care-responsibilities/case-study-care-related-supports-graz-university-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at005.htm">http://eurofound.europa.eu/areas/populationandsociety/workingcaring/cases/at005.htm</a></td></tr><tr><td>85</td><td>Spain: AENA – Barcelona Airport, el Prat de Llobregat, case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/spain-aena-barcelona-airport-el-prat-de-llobregat-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/spain-aena-barcelona-airport-el-prat-de-llobregat-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/aenaspain.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/aenaspain.htm</a></td></tr><tr><td>86</td><td>Germany: Dynamic Parcel Distribution (DPD)</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/germany-dynamic-parcel-distribution-dpd">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/germany-dynamic-parcel-distribution-dpd</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/dpdgermany.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/dpdgermany.htm</a></td></tr><tr><td>87</td><td>Germany: ENERTRAG AG case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/germany-enertrag-ag-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/germany-enertrag-ag-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/enertraggermany.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/enertraggermany.htm</a></td></tr><tr><td>88</td><td>Slovenia: Danfoss Trata case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/slovenia-danfoss-trata-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/slovenia-danfoss-trata-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/danfosstrataslovenia.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/danfosstrataslovenia.htm</a></td></tr><tr><td>89</td><td>Luxembourg: Biogros SA</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/luxembourg-biogros-sa">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/luxembourg-biogros-sa</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/biogrosluxembourg.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/biogrosluxembourg.htm</a></td></tr><tr><td>90</td><td>Italy: System Photonics, case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/italy-system-photonics-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/italy-system-photonics-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/systemphotonicsitaly.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/systemphotonicsitaly.htm</a></td></tr><tr><td>91</td><td>Italy: EnerBLU srl case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/italy-enerblu-srl-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/italy-enerblu-srl-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/enerbluitaly.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/enerbluitaly.htm</a></td></tr><tr><td>92</td><td>Cyprus: Electricity Authority of Cyprus</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/cyprus-electricity-authority-of-cyprus">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/cyprus-electricity-authority-of-cyprus</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/eaccyprus.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/eaccyprus.htm</a></td></tr><tr><td>93</td><td>Romania: CEZ Cogealac-Fântânele wind farm case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/romania-cez-cogealac-fntnele-wind-farm-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/romania-cez-cogealac-fntnele-wind-farm-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/cezgroupromania.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/cezgroupromania.htm</a></td></tr><tr><td>94</td><td>Norway: Kleven Maritime</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/norway-kleven-maritime">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/norway-kleven-maritime</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/klevennorway.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/klevennorway.htm</a></td></tr><tr><td>95</td><td>Latvia: Getliņi EKO Ltd</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/latvia-getlii-eko-ltd">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/latvia-getlii-eko-ltd</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/getliniekolatvia.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/getliniekolatvia.htm</a></td></tr><tr><td>96</td><td>Portugal: EDP Group case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/portugal-edp-group-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/portugal-edp-group-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/edpgroupportugal.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/edpgroupportugal.htm</a></td></tr><tr><td>97</td><td>Sweden: Kinnarps case study report</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/sweden-kinnarps-case-study-report">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/sweden-kinnarps-case-study-report</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/kinnarpssweden.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/kinnarpssweden.htm</a></td></tr><tr><td>98</td><td>Bulgaria: Sofiyska Voda</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/bulgaria-sofiyska-voda">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/bulgaria-sofiyska-voda</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/sofiyskavodabulgaria.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/sofiyskavodabulgaria.htm</a></td></tr><tr><td>99</td><td>Poland: ANWIL S.A. case study</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/poland-anwil-sa-case-study">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/poland-anwil-sa-case-study</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/anwilsapoland.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/anwilsapoland.htm</a></td></tr><tr><td>100</td><td>Lithuania: Statybos Projektu Sprendimai</td><td><a href="http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/lithuania-statybos-projektu-sprendimai">http://efstaging.eworx.gr/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu/lithuania-statybos-projektu-sprendimai</a></td><td><a href="http://eurofound.europa.eu/emcc/labourmarket/greening/cases/statyboslithuania.htm">http://eurofound.europa.eu/emcc/labourmarket/greening/cases/statyboslithuania.htm</a></td></tr><tr><td colspan="4">Total: 100 nodes saved!</td></tr></table><br /><br />errors: 0<br /><br />

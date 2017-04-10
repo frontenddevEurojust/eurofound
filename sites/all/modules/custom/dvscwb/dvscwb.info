@@ -1,0 +1,5 @@
+name = DVS CWB
+description = Data Visualization System (DVS) Drupal integration functions - scope CWB
+core = 7.x
+package = Eworx modules
+files[] = dvscwb.module

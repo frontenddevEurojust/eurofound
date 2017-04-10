@@ -1,0 +1,29 @@
+<?php
+
+
+/*
+ *  Implements hook_path_update
+*/
+function ef_path_cache_control_path_update($path) {
+  drupal_clear_path_cache($path['source']);
+}
+/*
+ *  Implements hook_cron
+*/
+function ef_path_cache_control_cron() {
+
+  $ccuac = variable_get('cache_clear_url_alias_control');
+
+  if(!isset($ccuac)) {
+
+    variable_set('cache_clear_url_alias_control', 0);
+
+    $sql = "SELECT distinct(source) from url_alias";
+    $sources = db_query($sql)->fetchAll();
+
+    foreach ($sources as $source) {
+      drupal_clear_path_cache($source);
+    }
+  }
+}
+

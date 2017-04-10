@@ -1,0 +1,145 @@
+<?php
+require_once('includes/file.inc');
+
+function ef_qrr_schema() {
+   $schema = array();
+
+   $schema['qrr_rating'] = array(
+     'description' => 'QRR ratings',
+     'fields' => array(
+       'rtid' => array(
+         'description' => 'QR rating primary ID',
+         'type' => 'serial',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'rid' => array(
+         'description' => 'Revision ID',
+         'type' => 'int',
+         'not null' => TRUE,
+       ),
+       'riid' => array(
+         'description' => 'Rating item ID',
+         'type' => 'int',
+         'not null' => TRUE,
+       ),
+       'rating' => array(
+         'description' => 'Rating',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => FALSE,
+       ),
+     ),
+     'primary key' => array('rtid'),
+   );
+
+   $schema['qrr_revision'] = array(
+     'description' => 'Rating revisions',
+     'fields' => array(
+       'rid' => array(
+         'description' => 'Primary Key: Unique revision ID.',
+         'type' => 'serial',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'nid' => array(
+         'description' => 'Associated node ID',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'uid' => array(
+         'description' => 'User ID',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'created' => array(
+         'description' => 'Creation date',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'comments' => array(
+         'description' => 'Reviewer comments',
+         'type' => 'varchar',
+         'length' => '500',
+         'not null' => FALSE,
+       ),
+       'current' => array(
+         'description' => 'TRUE if this is the current revision',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => FALSE,
+       ),
+     ),
+     'primary key' => array('rid'),
+   );
+
+   $schema['qrr_rating_item'] = array(
+     'description' => 'Rating items',
+     'fields' => array(
+       'riid' => array(
+         'description' => 'Rating item primary ID',
+         'type' => 'serial',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+       ),
+       'name' => array(
+         'description' => 'Rating item name',
+         'type' => 'varchar',
+         'length' => '100',
+         'not null' => TRUE,
+       ),
+       'description' => array(
+         'description' => 'Rating item full description',
+         'type' => 'varchar',
+         'length' => '200',
+         'not null' => TRUE,
+       ),
+       'weight' => array(
+         'description' => 'Item weight for ordering',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => TRUE,
+       ),
+     ),
+     'primary key' => array('riid'),
+   ); 
+
+   return $schema;
+}
+
+function ef_qrr_install() {
+   $qrr_rating_item = array(
+     array('riid' => '1','name' => 'Quality of contents','description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.','weight' => '0'),
+     array('riid' => '2','name' => 'Balance in reporting','description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.','weight' => '1'),
+     array('riid' => '3','name' => 'Style and presentation','description' => 'The style and presentation must be simple and clear and free of jargon which risks masking the meaning to readers unfamiliar with the subject.','weight' => '2'),
+     array('riid' => '4','name' => 'Excellent command of English','description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.','weight' => '3'),
+     array('riid' => '5','name' => 'Product specific criteria','description' => 'To be applied on IC Quartely Reports only.','weight' => '4')
+   );
+
+   foreach ( $qrr_rating_item as $item ) {
+      db_insert('qrr_rating_item')->
+         fields($item)->
+         execute();
+   }
+}
+
+function ef_qrr_update_7100() {
+   $current = array(
+         'description' => 'TRUE if this is the current revision',
+         'type' => 'int',
+         'size' => 'tiny',
+         'not null' => FALSE,
+   );
+
+   db_add_field('qrr_revision', 'current', $current);
+}
+
+/**
+ * Drop unused table qrr_attachment
+ */
+function ef_qrr_update_7120() {
+   db_drop_table('qrr_attachment');
+}

@@ -1,0 +1,7 @@
+Exported views do not use i18n_views translations whereas they should
+https://www.drupal.org/node/1248716
+https://www.drupal.org/files/issues/views-1248716-5-exported-view-translation.patch
+
+In views/includes
+admin.inc
+views.inc

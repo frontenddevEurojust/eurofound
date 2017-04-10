@@ -1,0 +1,11 @@
+workbench moderation
+1) patch to export states and transitions
+2) patch to fix Error Warning: Missing argument 1 for _workbench_moderation_revision_access() in _workbench_moderation_revision_access()
+
+Found at:
+1) https://drupal.org/node/1314508#comment-7523089
+2) https://drupal.org/node/1233354
+
+Patch file:
+1) https://drupal.org/files/1314508-workbench-moderation-features.patch
+2) https://drupal.org/files/Missing_arg_1-for-workbench_moderation_revision_access-1233354-13.patch

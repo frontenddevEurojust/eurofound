@@ -1,0 +1,154 @@
+
+/* MLT SSI css style */
+body.page-ssi-login #ssiframe td.form-title{
+	font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
+	font-weight: normal!important;
+	font-size: 1.1em;
+}
+body.page-ssi-login .form-title-caps{
+	font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
+	font-weight: normal!important;
+	font-size: 1.3em;
+	text-transform: uppercase;
+}
+body.page-ssi-login #ssiframe td.menu{
+	font-size: 1.1em;
+	font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+}
+body.page-ssi-login #ssiframe tr.row-1
+{
+	background-color: #F5F5F5
+}
+body.page-ssi-login #ssiframe td.category,
+body.page-ssi-login #ssiframe td.row-category-history{
+	background-color: #F0F0F0;
+	width: 25%;
+	font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+	font-weight: normal;
+}
+body.page-ssi-login #ssiframe tr.row-2{
+    background-color: #FCFCFC;
+}
+body.page-ssi-login #ssiframe input.button, body.page-ssi-login #ssiframe select{
+	width: auto;
+	max-width: none;
+}
+body.page-ssi-login #ssiframe input.button {
+	border-color: #004798;
+}
+body.page-ssi-login #ssiframe table.hide{
+	margin-top: 30px;
+}
+body.page-ssi-login #ssiframe table{
+	margin: 5px 0px;
+}
+body.page-ssi-login #ssiframe table.width100{
+	border: 1px solid #dddddd 
+}
+body.page-access .view-access .views-table{display:none;}
+body.page-ssi-login .ssi70{
+	max-width:70% !important;
+}
+body.page-ssi-login #ssiframe tbody{
+	border: none;
+}
+body.page-ssi-login #ssiframeUrl{
+	background-color: #F0F0F0;
+	padding-top:20px;
+	padding-bottom:20px;
+	width:100%;
+	float: right;
+	text-align:center;
+}
+body.page-ssi-login #ssiNavigation{
+	margin-bottom: 50px;
+}
+body.page-ssi-login #ssiframe, #ef-main{
+	-webkit-transition: all 800ms ease;
+	-moz-transition: all 800ms ease;
+	-ms-transition: all 800ms ease;
+	-o-transition: all 800ms ease;
+	transition: all 800ms ease;
+	width:100%;
+	opacity: 1;
+}
+
+body.page-ssi-login #ssiframe.loading{
+	opacity: 0 !important;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;	
+}
+body.page-ssi-login #ssiframeUrl #inputSsiframeUrl {
+	width: 70%;
+}
+body.page-ssi-login #ssiframeUrl input{
+font-size:0.8em;
+}
+body.page-ssi-login #ssiframe table.width100,
+body.page-ssi-login #ssiframe table.width75,
+body.page-ssi-login #ssiframe table.width50{
+	 border: 1px solid #dddddd;
+}
+body.page-ssi-login .view-ssi-login {
+	display:none;
+}
+body.page-ssi-login #ssiframe td{
+	line-height: 1em
+}
+body.page-ssi-login #relationships_open,
+body.page-ssi-login #upload_form_open,
+body.page-ssi-login #monitoring_open,
+body.page-ssi-login #relationships_closed,
+body.page-ssi-login #upload_form_closed,
+body.page-ssi-login #monitoring_closed{
+	width: 33%;
+	float: left;
+	vertical-align: top;
+}
+body.page-ssi-login #upload_form_open,
+body.page-ssi-login #upload_form_closed{margin-top:-14px;}
+
+body.page-ssi-login #monitoring_open,
+body.page-ssi-login #monitoring_closed{margin-top:-28px;}
+
+body.page-ssi-login #ssiframe span.small{
+	color: #646473;
+	font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+}
+
+
+body.page-ssi-login #relationships_open input,
+body.page-ssi-login #monitoring_open input{display: inline; margin-top:10px;}
+
+body.page-ssi-login #monitoring_open form.delegated{
+	clear: both;
+	display: block
+}
+body.page-ssi-login #ssiframe input{
+	padding: 0.4em;
+}
+body.page-ssi-login #ssiframe input.button{
+	padding: 0.6em;
+}
+body.page-ssi-login #ssierror{
+	color: #bb0000;
+}
+body.page-ssi-login #ssiframe #filter_open .row-category2{
+	background-color: #FCFCFC
+}
+body.page-ssi-login #ssiframe input.button-small{
+	margin-left: 0px;
+	margin-right:10px; 
+}
+/*body.page-ssi-login #ssiframe pre{
+	font-size: 80%
+}*/
+body.page-ssi-login #ssiframe #bugnotes_open,
+body.page-ssi-login #ssiframe #bugnotes_closed,
+body.page-ssi-login #ssiframe #bugnote_add_open,
+body.page-ssi-login #ssiframe #bugnote_add_closed{
+	clear: both
+}

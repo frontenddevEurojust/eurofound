@@ -1,0 +1,21 @@
+<?php
+
+function ef_ckeditor_annotation_wysiwyg_plugin($editor, $version) {
+  switch ($editor) {
+    case 'ckeditor':
+      return array(
+        'annotation' => array( // Internal plugin name
+          'extensions' => array(
+            'annotation' => t('Annotation'), // Internal plugin name as key, name visible in editor profile config UI as value.
+          ),
+          'load' => TRUE,
+          'internal' => FALSE,
+          'buttons' => array(
+            'Annotation' => t('Annotation'),
+          ),
+          'path' => drupal_get_path('module', 'ckannotation') . '/plugins/annotation',
+        ),
+      );
+     break;
+  }
+}

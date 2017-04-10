@@ -1,0 +1,85 @@
+
+CREATE TEMPORARY TABLE  eflinksmd5 /*B2*/
+(INDEX b2_link_index (ef_referencing_link_md5))
+	select  	
+		 
+		LOWER(concat("/",
+			  replace(
+			  	replace(
+	            replace(
+	            	replace(referenced_base_page, "WEB_PATH/", ""),
+	            	"http://www.eurofound.europa.eu/",
+	            	""
+	            ),
+	        ".html", ".htm")
+	      	, "//", "/"    
+				))) ef_referencing_link,	
+	    md5(
+	    	LOWER(concat("/",
+			  replace(
+			   
+			  	replace(
+	            replace(
+	            	replace(referenced_base_page, "WEB_PATH/", ""),
+	            	"http://www.eurofound.europa.eu/",
+	            	""
+	            ),
+	        ".html", ".htm")
+	      	, "//", "/"    
+				) 
+			))) ef_referencing_link_md5,				        
+		link,		
+		referenced_page full_reference
+		from 
+		
+			efpages_links
+	        
+	        where referenced_base_page is not null 
+	        and category = "webpage" ;
+	        
+
+CREATE TEMPORARY TABLE efpagesmd5 /*C*/
+(INDEX c_link_index (ef_link_md5))
+
+	select  
+	  page_id,
+	  type_id,
+	  md5(
+	  concat("/",
+
+	  LOWER(
+	  replace(
+			concat(path, page_name), 
+			"/EFWEB/", 
+			"" 
+		)))) ef_link_md5,
+
+		concat("/",LOWER(
+		replace(
+			concat(path, page_name), 
+			"/EFWEB/", 
+			"" 
+		))) ef_link,
+		
+		new_url ef_new_link
+		
+		from 
+		
+			efpages 
+
+		where (type_id <200 or type_id>299);
+
+select 
+    alpha
+from
+(
+	select distinct
+        (hex(link)),
+        concat('update efpages_links set replace_with = unhex("', hex(ef_new_link), '") where link = unhex("', hex(link), '");') alpha
+    from
+        eflinksmd5
+    inner join 
+		efpagesmd5 
+		ON eflinksmd5.ef_referencing_link_md5 = efpagesmd5.ef_link_md5
+    order by ef_referencing_link
+) aaa;

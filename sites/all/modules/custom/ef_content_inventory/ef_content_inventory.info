@@ -1,0 +1,4 @@
+name = EF Content Inventory
+description = Retrieves info from all published nodes
+package = EF modules
+core = 7.x

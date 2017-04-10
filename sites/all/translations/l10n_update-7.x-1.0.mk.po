@@ -1,0 +1,20 @@
+# Macedonian translation of Localization update (7.x-1.0)
+# Copyright (c) 2014 by the Macedonian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Localization update (7.x-1.0)\n"
+"POT-Creation-Date: 2014-04-12 19:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Macedonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(((n==1)||((n%10)==1))?(0):1);\n"
+
+msgid "Modules"
+msgstr "Модули"
+msgid "Themes"
+msgstr "Теми"
+msgid "locale"
+msgstr "локализација"

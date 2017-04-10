@@ -1,0 +1,204 @@
+<?php
+
+
+/*
+  Implements hook_permission()
+*/
+
+function ef_my_dashboard_permission(){
+  return array(
+    'access_ef_my_dashboard' => array(
+      'title' => t('Access to MyDashboard page'),
+      'description' => t('Allow access to MyDashboard'),
+    ),
+  );
+}
+
+/*
+  Implements hook_menu()
+*/
+function ef_my_dashboard_menu(){
+
+   $items['ef-my-dashboard'] = array(
+    'page callback' => 'my_dashboard',
+    'access callback' => 'user_access',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+   return $items;
+}
+
+/*
+  Implements hook_theme()
+*/
+function ef_my_dashboard_theme(){
+   return array(
+    'ef_my_dashboard' => array(
+      // template file name will be ef-my-dashboard.tpl.php
+      'template' => 'ef-my-dashboard',
+      'variables' => array(
+                      'links' => NULL,
+                      'role' => NULL,
+                      'observatory' => NULL,
+                      'full_user' => NULL,
+                      'aux_mail' => NULL,
+                    ),
+    ),
+  );
+}
+
+/*
+  Implements template_preprocess_HOOK()
+  HOOK refers to template name. Hyphens should be renamed to underscores
+*/
+function template_preprocess_ef_my_dashboard(&$variables){
+  //Links to present are classified per role
+  foreach ($variables['user']->roles as $key => $value) {
+    if($value != 'authenticated user'){
+      
+      switch ($value) {
+        case 'Quality Manager':
+
+          $query = "SELECT a.field_ef_observatory_tid
+                      FROM field_data_field_ef_observatory a
+                      WHERE a.entity_id = :uid
+                      AND a.entity_type = 'user'";
+
+          $result = db_query($query,array(":uid" => $variables['user']->uid))->fetchAll();
+          $observatory = $result[0]->field_ef_observatory_tid;
+
+          $observatory_name = taxonomy_term_load($observatory)->name;
+          //Differences between observatory
+          switch ($observatory_name) {
+            case 'EurWORK':
+              $observatory = 'EurWORK';
+              $links = array(
+                'National contribution' => array(
+                  'national-contributions-export' => 'National Contribution export',
+                  'national-correspondents' => 'National Correspondents',
+                  'car-nc-autocreation' => 'CAR and National Contribution autocreation'
+                  ),
+                'Quarterly Reports' => array(
+                  'quarterly-reports' => 'Quarterly reports',
+                  'quarterly-reports-export' => 'Quarterly Reports export',
+                  'qr-autocreation'=>'Quarterly reports autocreation'
+                  )
+                );
+              break;
+            
+            //EMCC  
+            case 'EMCC':
+              $links = array(
+                'National contribution' => array(
+                  'national-contributions-export' => 'National Contribution exports',
+                  'national-correspondents' => 'National Correspondents',
+                  'car-nc-autocreation' => 'CAR and National Contribution autocreation'
+                  ),
+                'ERM' => array(
+                  'factsheets-admin-view' => 'Factsheets admin view',
+                  'observatories/emcc/erm/support-instrument/admin' => 'Support instruments admin view',
+                  'observatories/emcc/erm/legislation/admin' => 'Legal database admin view',
+                  'erm-data-export' => 'ERM data export',
+                  'erm-media-sources-overview-of-web-forms' => 'ERM media sources',
+                  'importapp/case-studies-import-page' => 'EMCC Case studies import',
+                  ),
+                );
+              break;
+            
+            //Other
+            case 'Other':
+              $links = array(
+                'National contribution' => array(
+                  'national-contributions-export' => 'National Contribution exports',
+                  'national-correspondents' => 'National Correspondents'
+                  ),
+                'Quarterly Reports' => array(
+                  'quarterly-reports' => 'Quarterly reports',
+                  'quarterly-reports-export' => 'Quarterly Reports export',
+                  'qr-autocreation' => 'Quarterly reports autocreation')
+              );
+              break;
+          }
+          break;
+
+        case 'Quality Manager +':
+            
+          $query = "SELECT a.field_ef_observatory_tid
+                    FROM field_data_field_ef_observatory a
+                    WHERE a.entity_id = :uid
+                    AND a.entity_type = 'user'";
+
+          $result = db_query($query,array(":uid" => $variables['user']->uid))->fetchAll();
+          $observatory = $result[0]->field_ef_observatory_tid;
+
+          $observatory_name = taxonomy_term_load($observatory)->name;
+          //Differences between observatory
+          switch ($observatory_name) {
+          case 'EurWORK':
+            $links = array(
+              'National contribution' => array(
+                  'national-contributions-export' => 'National Contribution export',
+                  'national-correspondents' => 'National Correspondents',
+                  'car-nc-autocreation' => 'CAR and National Contribution autocreation'
+                ),
+              'Quarterly Reports' => array(
+                'quarterly-reports' => 'Quarterly reports',
+                'quarterly-reports-export' => 'Quarterly Reports export',
+                'qr-autocreation' => 'Quarterly reports autocreation'
+              )
+            );
+            break;
+            
+          //EMCC  
+          case 'EMCC':
+            $links = array(
+                'National contribution' => array(
+                  'national-contributions-export' => 'National Contribution exports',
+                  'national-correspondents' => 'National Correspondents',
+                  'car-nc-autocreation' => 'CAR and National Contribution autocreation'
+                ),
+                'ERM' => array(
+                  'factsheets-admin-view' => 'Factsheets admin view',
+                  'observatories/emcc/erm/support-instrument/admin' => 'Support instruments admin view',
+                  'observatories/emcc/erm/legislation/admin' => 'Legal database admin view',
+                  'erm-data-export' => 'ERM data export',
+                  'erm-media-sources-overview-of-web-forms' => 'ERM media sources',
+                  'importapp/case-studies-import-page' => 'EMCC Case studies'),
+                );
+              break;
+            
+          //Other
+          case 'Other':
+            $links = array(
+              'National contribution' => array(
+                'national-contributions-export' => 'National Contribution exports',
+                'national-correspondents' => 'National Correspondents'),
+              'Quarterly Reports' => array(
+                'quarterly-reports' => 'Quarterly reports',
+                'quarterly-reports-export' => 'Quarterly Reports export',
+                'qr-autocreation' => 'Quarterly reports autocreation')
+            );
+              break;
+          }
+        break;
+      }
+      // Mail modification in order to fit layout
+      if(strlen($variables['user']->mail) > 18){
+        $aux_mail = substr($variables['user']->mail,0,18);
+        $aux_mail = $aux_mail . '...';
+      }
+      drupal_add_css(drupal_get_path('module', 'ef_my_dashboard') . '/ef_my_dashboard.css');
+      $variables['observatory'] = $observatory_name;
+      $variables['role'] = $value;
+      $variables['links'] = $links;
+      $variables['full_user'] = user_load($variables['user']->uid);
+      $variables['mail_aux'] = $aux_mail;
+    } 
+  }
+}
+
+
+function my_dashboard(){
+  return theme('ef_my_dashboard',array('links' => NULL, 'role' => NULL,'observatory' => NULL,'full_user' => NULL,'mail_aux' => NULL));
+}

@@ -1,0 +1,10 @@
+patch extracting counter (delta) info from field collection fieldset legends
+
+Patch diff:
+comment out lines near 264:
+
+      $element['#title'] = t($instance['label'] . ' @delta', array('@delta' => $delta + 1));
+      if (function_exists('i18n_string_object_translate')) {
+        $translated = i18n_string_object_translate('field_instance', $instance);
+        $element['#title'] = format_string('@label @delta', array('@label' => $translated['label'], '@delta' => $delta + 1));
+      }

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the EF DVS feature.
+ */
+
+include_once 'ef_dvs.features.inc';

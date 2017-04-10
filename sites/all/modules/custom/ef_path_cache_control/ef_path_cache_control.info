@@ -1,0 +1,4 @@
+name = EF Path Cache Control
+description = Clear the static cache
+package = EF modules
+core = 7.x

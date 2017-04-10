@@ -1,0 +1,20 @@
+sudo apt-get install mysql-server
+sudo apt-get install drush
+sudo apt-get install imagemagick
+
+edit \etc\apache2\default and add AllowOverride All where needed
+
+
+change paths in settings.php
+
+sudo chown -R eworx:www-data /web-pub/ef
+sudo chmod -R 755 /web-pub/ef 
+
+sudo chmod 775 -R /web-pub/ef/sites/default/files
+sudo chmod 775 -R /web-pub/ef/sites/default/files/private
+sudo chmod 775 -R /web-pub/ef/sites/default/temp
+
+
+set Imagemagick path to /usr/bin/convert
+
+

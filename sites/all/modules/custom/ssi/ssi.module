@@ -1,0 +1,193 @@
+<?php
+/*********************************************************
+* Eworx S.A. 2014
+* @Author kp@eworx.gr
+* implements mantis seemless login
+* implements intergration to the ef drupal site by using the *access* view
+**********************************************************/
+
+function ssi_views_post_render(&$view, &$output, &$cache){
+
+		// new test implementation access by drupal role. username equivelances assumed
+
+		if ($view->name == 'access') {
+			foreach($view->result as $r => $result) {
+		//-------------------------------------------
+			global $user;
+			$ssi_user=$user->name;
+
+
+			$php_class = $result->field_field_integration[0]['rendered']['#markup'];
+
+			$login_url = $result->field_field_login_url[0]['rendered']['#markup'];
+			$login_parameter = $result->field_field_username_parameter[0]['rendered']['#markup'];
+
+			$landingUrl = "/" . $result->field_field_landing_url[0]['rendered']['#markup'] . "/";
+
+      if ($user->uid == 1195) {
+        dpm($login_url);
+        dpm($landingUrl);
+      }
+
+		//-------------------------------------------
+
+		if($php_class == "mantis"){
+			$res = mantisAutologin($login_url,  $login_parameter,  $ssi_user, $landingUrl);
+
+      dpm($res);
+
+			global $base_url;
+
+			$jsCode = file_get_contents($base_url . '/sites/all/modules/custom/ssi/ssi.js');
+			$cssCode = file_get_contents($base_url . '/sites/all/modules/custom/ssi/ssi.css');
+
+			$serviceLink = $base_url .'/access'. $landingUrl;
+
+			$htmlout = //$res .
+			"
+			<section id='ssiNavigation'>
+
+			<div id='ssiframeUrl'>
+				<input class='button-small' id = 'ssiframeUrlHome' type='submit' value='Home'>
+				<input class='button-small' id = 'ssiframeUrlBack' type='submit' value='<'>
+				<input class='button-small hide' id=  'ssiframeUrlNext' type='submit' value='>'>
+				<input id='inputSsiframeUrl' 'name='ssiframeUrl'/>
+				<input class='button-small' id= 'ssiframeUrlJump' type='submit' value='Go'>
+			</div>
+
+			</section>
+			<div id='ssiframe'>...</div>
+			<div id='ssierror'></div>
+			<script>
+			var landingUrl = '$landingUrl';
+			var serviceLink = '$serviceLink';
+
+			</script>
+
+			". $jsCode ." <style>".$cssCode."</style>";
+		}
+
+		$output.= $htmlout;
+
+		//-------------------------------------------
+
+		}
+	}
+}
+
+
+function mantisAutologin($login_url,  $login_parameter,  $ssi_user, $landingUrl){
+
+	//EFDR-408
+	// Single sign in // server cookies deligation
+	// mantis api patched to login without a password if the requester is the server (authentication api )
+	// The page requests the login page and deligates the received cookies to the user, achieving seemless login to mantis
+
+	//--------------------------------------------------------------
+	// LOGIN REQUEST
+	//--------------------------------------------------------------
+
+	$ch = curl_init();
+
+	$post = $login_parameter. "=". $ssi_user ;
+
+	global $user;
+
+	$user_fields = user_load($user->uid);
+	$userName = $user_fields->name;
+	$firstname = $user_fields->field_ef_first_name['und'][0]['safe_value'];
+	$lastname = $user_fields->field_ef_last_name['und'][0]['safe_value'];
+	$userMail = $user_fields->mail;
+
+	$post_ = array(
+		$login_parameter => $ssi_user,
+		'real_name' => $firstname . ' ' . $lastname,
+		'ef_userMail' => $userMail
+	);
+
+	$post = http_build_query( $post_);
+
+	//////////////////
+
+	curl_setopt($ch, CURLOPT_URL, $login_url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+	curl_setopt($ch, CURLOPT_HEADER, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+	$res = curl_exec($ch);
+
+	curl_close($ch);
+
+	//--------------------------------------------------------------
+	// parse web server response
+	//--------------------------------------------------------------
+
+	$duration = 93600;
+	$cookies = deligateReceivedCookies($res, $duration, $landingUrl);
+
+	$cookies["MANTIS_secure_session"] = 1;
+	setcookie("MANTIS_secure_session", "1", time() + $duration, $landingUrl);
+
+
+	//$content.=$landingUrl;
+
+	$ch = curl_init($landingUrl);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+
+	$content = curl_exec($ch);
+
+	curl_close($ch);
+
+	return  '<pre>'.$res.'</pre>' . $content;
+}
+
+function deligateReceivedCookies($res, $duration = 93600, $webpath = "/"){
+	$recievedCookies = "";
+	$resLines = explode("\n", $res);
+
+	foreach( $resLines as $value) {
+		$cookie ="";
+
+		preg_match('/Set-Cookie: (.*)\s/', $value, $cookie);
+
+		if(strlen($cookie[0])>0 && $cookie[0] != 'PHPSESSID'){
+
+			$cookie = str_replace("; path=/; httponly", "", $cookie[0]);
+			$cookie = str_replace("; path=/; HttpOnly", "", $cookie);
+			$cookie = str_replace("Set-Cookie: ", "", $cookie);
+			$cookie = explode("=", $cookie);
+
+			$name = $cookie[0];
+			$value = str_replace("\r","", $cookie[1]);
+			$cookies[$name]=$value;
+			setcookie($name , $value , time() + $duration, $webpath);
+		}
+	}
+	return $cookies;
+}
+
+function parseLocation($res){
+	$location ="";
+	preg_match('/Location: (.*)\s/',$res, $location);
+	return str_replace("Location: ", "", $location[0]);
+}
+
+
+function parseCookies($res){
+	$recievedCookies = "";
+
+	$resLines = explode("\n", $res);
+	foreach( $resLines as $value) {
+		$cookie = "";
+		preg_match('/Set-Cookie: (.*)\s/', $value, $cookie);
+		if(strlen($cookie[0]) > 0){
+			$cookie = str_replace(" path=/; httponly", "", $cookie[0]);
+			$cookie = str_replace(" path=/; HttpOnly", "", $cookie);
+			$cookie = str_replace("Set-Cookie: ", "", $cookie);
+			$recievedCookies .= $cookie;
+		}
+	}
+	return $recievedCookies;
+}

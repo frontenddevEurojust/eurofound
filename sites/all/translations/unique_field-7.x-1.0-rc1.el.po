@@ -1,0 +1,28 @@
+# Greek translation of Unique field (7.x-1.0-rc1)
+# Copyright (c) 2013 by the Greek translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Unique field (7.x-1.0-rc1)\n"
+"POT-Creation-Date: 2013-12-07 05:05+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Greek\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Title"
+msgstr "Τίτλος"
+msgid "title"
+msgstr "τίτλος"
+msgid "Author"
+msgstr "Συντάκτης"
+msgid "Language"
+msgstr "Γλώσσα"
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+msgid "Content type"
+msgstr "Τύπος ύλης"
+msgid "here"
+msgstr "εδώ"

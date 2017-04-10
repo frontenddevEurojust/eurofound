@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CWB timelines content 2 feature.
+ */
+
+include_once 'cwb_timelines_content_2.features.inc';

@@ -1,0 +1,14 @@
+name = EF ERM dump feature
+core = 7.x
+package = Features
+dependencies[] = better_exposed_filters
+dependencies[] = ef_erm_dump
+dependencies[] = views
+dependencies[] = views_data_export
+dependencies[] = views_mediatable
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = factsheets_export_primary
+features[views_view][] = factsheets_export_secondary
+features_exclude[dependencies][ctools] = ctools
+project path = sites/all/modules/custom/ef_erm_dump

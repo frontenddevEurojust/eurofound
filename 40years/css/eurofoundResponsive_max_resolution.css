@@ -1,0 +1,30 @@
+@media  all and (min-width:1165px) {
+
+section.home{
+	height:auto!important;
+}
+
+section.home .fp-tableCell{
+	height:auto!important;
+}
+
+.content_section5{
+	width:1200px;
+	float:left;
+}
+
+.content_wide{
+	top:100px;
+	height: 110px;
+	background-color:#556185
+}
+
+.listDeputyDirectors li:nth-child(5) {
+margin-left:0;
+}
+
+.listDeputyDirectors li:nth-child(6) {
+	margin-left: 12%;
+}
+	
+}

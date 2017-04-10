@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the EF Search Index feature.
+ */
+
+include_once 'ef_search_index.features.inc';

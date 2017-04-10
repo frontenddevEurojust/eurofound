@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the EF ERM dump feature feature.
+ */
+
+include_once 'ef_erm_dump_feature.features.inc';

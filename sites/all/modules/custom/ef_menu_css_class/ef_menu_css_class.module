@@ -1,0 +1,69 @@
+<?php
+
+/**
+* EFDR-940 optimise this functionality  
+ */
+
+
+
+function ef_menu_css_class_translated_menu_link_alter(&$item,$map){
+		
+	 if(($item['menu_name']=='main-menu') && ($item['depth']==1)){
+		$iconClass = "";
+
+$english_title = $item["link_title"];
+
+$enlow = strtolower($english_title);
+$enlowtrim = trim($enlow);
+str_replace('/[^a-z0-9]+/gi', '_', $enlowtrim);
+str_replace('/^_+/', '', $enlowtrim);
+str_replace('/_+$/','',$enlowtrim);
+$enlowtrim = preg_replace("[\s]" ,"_", $enlowtrim);
+$iconClass = "icon-ef_".$enlowtrim;
+$item['localized_options']['attributes']['class']=array($iconClass);	
+//array_push($item['localized_options']['attributes']['class'], "icon-ef_".$enlowtrim);
+
+		/*
+		$link_tsid = $item['i18n_tsid'];
+
+	 	if($link_tsid == 165){
+			$iconClass = "icon-ef_publications";
+	 	}elseif($link_tsid == 166){
+			$iconClass = "icon-ef_news";
+	 	}elseif($link_tsid == 177){
+			$iconClass = "icon-ef_events";	 		
+	 	}elseif($link_tsid == 178){
+			$iconClass = "icon-ef_surveys";	 		
+	 	}elseif($link_tsid == 186){
+			$iconClass = "icon-ef_themes";	 		
+	 	}elseif($link_tsid == 194){
+			$iconClass = "icon-ef_observatories";	 		
+	 	}elseif($link_tsid == 221){
+			$iconClass = "icon-ef_about_eurofound";	 		
+	 	}
+
+	 	if($iconClass!=""){
+			$item['localized_options']['attributes']['class']=array($iconClass);			
+	 	}
+	 	*/
+ 
+			/*
+		 	$item['localized_options']['attributes']['class']=array();
+		 	$link_tsid = $item['i18n_tsid'];
+		 	$query =  "SELECT * FROM menu_links WHERE i18n_tsid = " .$link_tsid .   ' AND language = \'en\' ';
+		    $result = db_query($query);
+		 	$record = $result->fetchObject();  
+		 	$english_title = $record->link_title;
+		 	$enlow = strtolower($english_title);
+		 	$enlowtrim = trim($enlow);
+		 	str_replace('/[^a-z0-9]+/gi', '_', $enlowtrim);
+			str_replace('/^_+/', '', $enlowtrim);
+			str_replace('/_+$/','',$enlowtrim);
+			$enlowtrim = preg_replace("[\s]" ,"_", $enlowtrim);
+			array_push($item['localized_options']['attributes']['class'], "icon-ef_".$enlowtrim);
+			*/
+
+	
+	 }
+
+}

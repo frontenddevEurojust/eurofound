@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_install()
+ *
+ * Change the weight of the module.
+ * This module's hook implementations will be the last to run, we need them to run after
+ * workbench moderation's implemntations
+ */
+function ef_contract_install() {
+  db_update('system')
+    ->fields(array('weight' => 100))
+    ->condition('name', 'ef_contract', '=')
+    ->execute();
+}

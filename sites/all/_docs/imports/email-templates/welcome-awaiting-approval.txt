@@ -1,0 +1,20 @@
+Subject: 
+
+Account details for [user:field_ef_first_name] [user:field_ef_last_name] at [site:url-brief]
+
+Body: 
+
+Dear [user:field_ef_first_name] [user:field_ef_last_name], 
+
+This is an automated email.
+
+Thank you for registering at the [site:url-brief]
+
+Your application for an account is currently pending approval. Once it has been approved by the EF Web Team, you will receive another e-mail containing information about how to log in, set your password, and other details.
+
+In case you have any questions please contact us at: web@eurofound.europa.eu
+
+
+Kind Regards,
+
+The Eurofound web team

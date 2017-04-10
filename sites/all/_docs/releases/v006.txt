@@ -1,0 +1,112 @@
+drush sql-query "insert into schema_migrations(code,extra)values('006', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: Filter Permissions
+drush dl -y filter_perms
+drush en -y filter_perms
+drush cc all
+
+:: Role Delegation
+drush dl -y role_delegation
+drush en -y role_delegation
+drush cc all
+
+:: Duplicate Role
+drush dl -y duplicate_role
+drush en -y duplicate_role
+drush cc all
+
+:: Permission Grid
+drush dl -y permission_grid
+drush en -y permission_grid
+drush cc all
+
+:: Permissions Lock
+drush dl -y permissions_lock
+drush en -y permissions_lock
+drush cc all
+
+drush dl -y revisioning
+drush en -y revisioning*
+drush cc all
+
+drush dl messaging
+::select [2]
+drush en -y messaging
+drush en -y messaging_htmlmail
+drush cc all
+
+:: workbench module for workflows
+:: workbench_moderation module already enabled in previous release
+drush dl -y workbench
+drush en -y workbench
+drush cc all
+
+:: workbench email module for transition notifications
+drush dl -y workbench_email
+drush en -y workbench_email
+drush cc all
+
+:: custom eworx module for extra workbench related tokens (e.g. last moderator name and email)
+drush en -y ef_workbench_tokens
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+drush vset -y admin_menu_cache_client 0 
+drush vset -y revisioning_show_taxonomy_terms 0
+drush vset -y revisioning_in_views_show_unpublished_content_terms 0
+drush vset -y shortcut_max_slots 16
+
+::change SMTP variable in php.ini
+
+:: apply patch on module workbench_moderation
+:: patches/v006-workbench_moderation.txt
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+:: populate workbench emails programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\populate-workbench-emails
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-workbench-emails.php
+
+
+
+:: FEATURES ::
+
+drush en -y ef_roles_and_permissions
+
+drush fr -y ef_publications
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: disable default
+drush views-disable workbench_moderation
+
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

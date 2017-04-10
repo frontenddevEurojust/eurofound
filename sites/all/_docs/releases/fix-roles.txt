@@ -1,0 +1,100 @@
+:: Fix for features exported roles ids - the id of the role 'Author' in the development environment is  '5' but in the production is '7'. 
+:: Apply the change below BEFORE feature revert and ONLY in the production-staging environment.
+:: Ensure before apply the patch: drush sql-query "select * from role"
+
+
+:: Fix 1
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.views_default.inc and change the code below (MULTIPLE REPLACE)
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+:: 5 => '5',
+:: );
+
+:: TO
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+::  7 => '7',
+::  );
+
+
+
+:: Fix 2
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.views_default.inc and change the code below
+
+:: $handler->display->display_options['access']['role'] = array(
+::   3 => '3',
+::   4 => '4',
+::   7 => '7',
+:: );
+
+:: TO
+
+:: $handler->display->display_options['access']['role'] = array(
+::   3 => '3',
+::   4 => '4',
+::   5 => '5',
+:: );
+
+
+
+:: Fix 3
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.features.field_base.inc and change the code below
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        5 => 5,
+:: ...
+
+:: TO
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        7 => 7,
+:: ...
+
+
+:: Fix 4
+:: edit sites\all\modules\features\ef_publications\ef_publications.views_default.inc (MULTIPLE REPLACE)
+
+::  $handler->display->display_options['access']['role'] = array(
+::    3 => '3',
+::    4 => '4',
+::    7 => '7',
+::    9 => '9',
+::  );
+  
+  
+::  TO
+  
+::  $handler->display->display_options['access']['role'] = array(
+::    3 => '3',
+::    4 => '4',
+::    5 => '5',
+::    9 => '9',
+::  );
+
+:: AND
+
+::  $handler->display->display_options['access']['role'] = array(
+::    5 => '5',
+::  );
+
+:: TO
+
+::  $handler->display->display_options['access']['role'] = array(
+::    7 => '7',
+::  );
+
+
+:: Fix 5
+:: edit sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.rules_defaults.inc
+
+::  "roles" : { "value" : { "7" : "7", "4" : "4" } },
+
+:: TO
+
+::  "roles" : { "value" : { "5" : "5", "4" : "4" } },

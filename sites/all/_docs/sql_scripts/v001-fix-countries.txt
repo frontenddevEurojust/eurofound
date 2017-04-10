@@ -1,0 +1,1 @@
+drush sql-query "UPDATE `ef-drupal`.`countries_country` SET `continent` = 'EU' WHERE `name` like 'Cyprus' -- Cyprus in continent Europe and not Asia"

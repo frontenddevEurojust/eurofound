@@ -1,0 +1,61 @@
+drush sql-query "insert into schema_migrations(code,extra)values('013', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+::Fivestar
+drush dl -y fivestar
+drush en -y fivestar
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+drush views-disable ef_my_requested_items -y
+
+drush field-delete field_ef_car_report_deadline -y
+drush field-delete field_ef_contribution_deadline -y
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: in admin/config/user-interface/chosen
+:: set 'Always apply' for 'Minimum number of options for single select ' and 'Minimum number of options for multi select' 
+:: set Apply Chosen to the following elements: .view-filters select
+
+:: in admin/config/regional/date-time change the date format for each type to a European Format
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

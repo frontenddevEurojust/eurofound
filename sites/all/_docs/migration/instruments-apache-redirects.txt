@@ -1,0 +1,2 @@
+:: no individual page per node, just one for the listing
+ 

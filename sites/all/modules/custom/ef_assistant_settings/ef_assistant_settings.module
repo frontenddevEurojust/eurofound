@@ -1,0 +1,6 @@
+<?php
+
+/* --- ef_assistant_settings: Assistant features --- */
+
+include 'ef_assistant_settings.permissions.inc';
+include 'ef_assistant_settings.form.inc';

@@ -1,0 +1,791 @@
+<?php
+
+define('PHPEXCEL_ERROR_LIBRARY_NOT_FOUND', 1);
+define('PHPEXCEL_ERROR_FILE_NOT_READABLE', 2);
+
+/**
+ * Implements hook_libraries_info().
+ */
+function ef_case_studies_import_libraries_info() {
+  return array(
+    'PHPExcel' => array(
+      'name' => 'PHPExcel',
+      'vendor url' => 'http://phpexcel.codeplex.com/',
+      'download url' => 'https://github.com/PHPOffice/PHPExcel',
+      'version callback' => 'phpexcel_get_library_version',
+      'path' => 'Classes',
+      'files' => array(
+        'php' => array(
+          'PHPExcel.php',
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Libraries API version callback.
+ */
+function phpexcel_get_library_version() {
+  $library = libraries_load('PHPExcel');
+  $changelog_file = $library['library path'] . '/changelog.txt';
+
+  if (file_exists($changelog_file)) {
+    $changelog = file_get_contents($changelog_file);
+    $match;
+
+    if (preg_match('/\d{4}-\d{2}-\d{2}\s+\(v([0-9\.]+)/', $changelog, $match)) {
+      return $match[1];
+    }
+    elseif (preg_match('/@version\s+([0-9\.]+)/', $changelog, $match)) {
+      return $match[1];
+    }
+  }
+
+  return 'n/a';
+}
+
+/**
+ * Implementation of hook_permission().
+ */
+function ef_case_studies_import_permission() {
+  return array(
+    'access case study import' => array(
+      'title' => t('Access to Case Studies import page'),
+      'description' => t('Allow access to Case Studies import page'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function ef_case_studies_import_menu() {
+  $items = array();
+  $items['importapp/case-studies-import-page'] = array(
+    'title' => 'Case Studies Import page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('case_studies_import_form'),
+    'access arguments' => array('access case study import'),
+  );
+
+  return $items;
+}
+
+/**
+ * Form to upload import file with Confirmation Form
+ */
+function case_studies_import_form($form, &$form_submit) {
+
+  $path = current_path();
+
+  $confirmation_form = $_SESSION['ef_case_studies_confirmation_form'];
+  //If there is nothing to confirm it loads the main form
+  if (!$confirmation_form) {
+
+    //Main form loaded if there is no confirmation yet
+    $form['disclaimer'] = array('#markup' => '<p>Only files with the following extensions are allowed: .xls</p>');
+
+    $form['xls_file'] = array(
+      '#type' => 'file',
+      '#title' => t('Choose an import file'),
+    );
+    //Just a submit button
+    $form['submit'] = array(
+      '#id' => 'upload',
+      '#type' => 'submit',
+      '#value' => t('Upload file'),
+    );
+
+    return $form;
+  }
+  else {
+    //Confirmation form
+
+    // Retrieve the recently imported nodes
+    $imported_nodes = $_SESSION['ef_case_studies_import'];
+
+    _ef_case_studies_import_split_nodes_imported_or_created($imported_nodes);
+
+    //Retrieve the nodes from Drupal variables
+    $imported_nodes = $_SESSION['ef_case_studies_import'];
+    $updated_nodes = $_SESSION['ef_case_studies_update'];
+
+    //Contructing the content for an HTML form element
+    if ($imported_nodes) {
+      $count_imported_nodes = 0;
+      $content .= '<div class="imported-nodes">';
+      $content .= '<h3> Content to be created </h3> <ul>';
+      foreach ($imported_nodes as $key => $imported_node) {
+        $count_imported_nodes++;
+        $content .= '<li>' . $count_imported_nodes . ': ' . $imported_node['Title'] . ' - ' . $imported_node['Country'] . '</li>';
+      }
+      $content .= '</ul> </div>';
+    }
+
+    if ($updated_nodes) {
+      $content .= '<div class="updated-nodes">';
+      $content .= '<h3> Content to be updated </h3> <ul>';
+      foreach ($updated_nodes as $key => $updated_node) {
+        $content .= '<li> Content ID - ' . $key . ': ' . $updated_node['Title'] . ' - ' . $updated_node['Country'] . '</li>';
+      }
+      $content .= '</ul> </div>';
+    }
+
+    //Populating the HTML form element
+    $form['intro'] = array('#markup' => $content);
+
+    $form['assign_to_user'] = array(
+      '#title' => t('Assign to User'),
+      '#type' => 'select',
+      '#options' => _ef_csi_get_quality_managers(),
+    );
+
+    //Form buttons
+    $form['import'] = array(
+      '#id' => 'import',
+      '#type' => 'submit',
+      '#value' => t('Confirm'),
+      '#submit' => array('case_studies_import_form_submit'),
+    );
+
+    $form['cancel'] = array(
+      '#id' => 'cancel',
+      '#type' => 'submit',
+      '#value' => t('Cancel'),
+      '#submit' => array('case_studies_import_cancel'),
+    );
+
+    return $form;
+
+  }
+
+}
+
+/**
+ * Validates the form.
+ */
+function case_studies_import_form_validate($form, &$form_state) {
+
+  $confirmation_form = $_SESSION['ef_case_studies_confirmation_form'];
+
+  if (!$confirmation_form) {
+    //File not added, file extension is validated on upload
+    if (!$form_state['values']['xls_file']) {
+      form_set_error('xls_file', t('File not found. You must upload a valid file.'));
+    }
+  }
+
+}
+
+/**
+ * Submit handler function to the form.
+ */
+function case_studies_import_form_submit($form, &$form_state) {
+
+  $confirmation_form = $_SESSION['ef_case_studies_confirmation_form'];
+
+  if (!$confirmation_form) {
+    //Submitting the Main Form
+    //Save the file to our directory
+    $file = file_save_upload('xls_file', array(
+        'file_validate_extensions' => array('xls xlsx xlsm'),
+    ));
+    $filesdir = "public://case_studies_import/";
+    file_prepare_directory($filesdir, FILE_CREATE_DIRECTORY);
+    $file = file_move($file, $filesdir.'/'.$file->filename);
+
+    //Read the file and retrieve
+    $imported_nodes = _ef_case_studies_import_read_xls_file($file->uri);
+
+    //Save the imported nodes to a Drupal variable
+    //and set confirmation to TRUE to load Confirm Form
+    $_SESSION['ef_case_studies_import'] = $imported_nodes;
+    $_SESSION['ef_case_studies_confirmation_form'] = 1;
+
+    file_delete($file);
+
+    //Rebuild the form
+    $form_state['rebuild'] = TRUE;
+  }
+  else {
+    //Submitting the Confirm Form
+    //All the logic applied after the confirmation here
+    //Retrieve the values to populate the nodes
+    $imported_nodes = $_SESSION['ef_case_studies_import'];
+    $updated_nodes = $_SESSION['ef_case_studies_update'];
+
+    $assign_to_user = $form_state['values']['assign_to_user'];
+
+    //Functions to save the data to Drupal content
+    _ef_case_studies_import_create_xls_nodes($imported_nodes, $assign_to_user);
+    _ef_case_studies_import_update_xls_nodes($updated_nodes, $assign_to_user);
+    //Reset the Drupal variables. Flush.
+    _csi_reset_vars();
+
+    drupal_set_message('File has been processed succesfully');
+  }
+
+}
+
+/**
+ * Cancel handler function to the form.
+ */
+function case_studies_import_cancel($form, &$form_state) {
+  //Import is cancelled so we reset the Drupal
+  //variables containing the data to be uploaded
+  _csi_reset_vars();
+  drupal_set_message('Import cancelled. No content has been created or updated.');
+}
+
+/**
+ * Split the imported nodes in two arrays
+ *
+ * This function will save two arrays to the variables table.
+ * One array for the created nodes will be save in the existing
+ * variable 'ef_case_studies_import'. Existing nodes will be
+ * will be saved to 'ef_case_studies_update' variable
+ *
+ * @param array $imported_nodes
+ *   Contains the data retrieved from the XLS file
+ *
+ */
+function _ef_case_studies_import_split_nodes_imported_or_created($imported_nodes) {
+  foreach ($imported_nodes as $key => $imported_node) {
+    //If node exists
+    if (_ef_case_studies_import_node_exist($imported_node['Title'], $imported_node['Country'])) {
+      //Save the data to be updated. The key of each element of the array
+      //should be the nid of the node to be updated
+      $nodes_to_be_updated[_ef_case_studies_import_node_exist($imported_node['Title'], $imported_node['Country'])] = $imported_node;
+    }
+    else {
+      //Save the data to populate the new nodes
+      $nodes_to_be_created[] = $imported_node;
+    }
+  }
+
+  //Save the nodes separately to Drupal variables
+  $_SESSION['ef_case_studies_import'] = $nodes_to_be_created;
+  $_SESSION['ef_case_studies_update'] = $nodes_to_be_updated;
+}
+
+/**
+ * Function to check if node exists.
+ *
+ * @param string $title
+ *   Title to check if node exists.
+ *
+ * @param string $country
+ *   Country to double check if node exists.
+ *
+ * @return int $nid_exists
+ *   An int containing the nid of the content if exists, otherwise FALSE.
+ *
+ */
+function _ef_case_studies_import_node_exist($title, $country) {
+  //If the title exists then we catch the nid to check if country exists too
+  $db_or = db_or();
+  $db_or->condition('n.title', $title, '=')
+        ->condition('n.title', $title . '_', 'LIKE');
+  $title = trim($title);
+  $query = db_select('node', 'n')
+    ->fields('n', array('title', 'nid', 'type'))
+    ->condition($db_or)
+    ->condition('n.type', 'case_study_publication', '=');
+  $result = $query->execute();
+
+  foreach ($result as $row){
+    if (!empty($row)) {
+      $nid_exists = $row->nid;
+    }
+  }
+  //Check country where entity_id is the retrieved nid
+  $i = 0;
+  $country_check = _ef_csi_prepare_term($country, $vid = 58, $multi = TRUE);
+  foreach ($country_check as $key => $country) {
+    $i++;
+    $node_exists[$i] = FALSE;
+    $query = db_select('field_data_field_country_csp', 'n')
+      ->fields('n', array('field_country_csp_tid'))
+      ->condition('entity_id', $nid_exists, '=')
+      ->condition('field_country_csp_tid', $country, '=');
+    $result = $query->execute();
+    foreach ($result as $row) {
+      if (!empty($row)) {
+        $node_exists[$i] = TRUE;
+      }
+    }
+    if (!$node_exists[$i]) {
+      return FALSE;
+    }
+  }
+
+  return $nid_exists;
+}
+
+/**
+ * Resets the values of all Drupal persistent variables
+ * used during the import process
+ */
+function _csi_reset_vars() {
+  unset($_SESSION['ef_case_studies_confirmation_form']);
+  unset($_SESSION['ef_case_studies_import']);
+  unset($_SESSION['ef_case_studies_update']);
+  if (isset($_SESSION['batches'])) {
+    unset($_SESSION['batches']);
+  }
+}
+
+/**
+ * Saves the imported data form the XLS file in a new node
+ */
+function _ef_case_studies_import_create_xls_nodes($imported_nodes, $assign_to_user) {
+
+  global $user;
+
+  foreach ($imported_nodes as $key => $imported_node) {
+
+    $node = new stdClass();
+    $node->language = "en";
+    $node->title = trim($imported_node['Title']);
+    $node->type = 'case_study_publication';
+    node_object_prepare($node);
+    $node->uid = $user->uid;
+    $node->status = 0;
+    $node->promote = 0;
+
+    //Single value field assignment
+    $field = _ef_csi_prepare_term($imported_node['Affected establishment size'], $vid = 75);
+    $node->field_affected_est_size_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($imported_node['Observatory'], $vid = 3);
+    $node->field_observatory_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($imported_node['Organisation size'], $vid = 37);
+    $node->field_organisation_size_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($imported_node['Sector'], $vid = 38);
+    $node->field_sectors_csp['und'][0]['tid'] = $field;
+
+    //Regions (Nuts) have a different format due to the hierarchy
+    //There is a unique value splitted into several fields
+    $field = _ef_case_studies_import_retrieve_nuts_value($imported_node['Region 1'], $imported_node['Region 2'], $imported_node['Region 3']);
+    $node->field_nuts_csp['und'][0]['tid'] = $field;
+
+    //Multivalue field assignment
+    $field = _ef_csi_prepare_term($imported_node['Anticipation of change activities'], $vid = 70, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_ant_change_activ_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($imported_node['Country'], $vid = 58, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_country_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term( $imported_node['Involved actors'], $vid = 71, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_involved_actors_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($imported_node['Keywords'], $vid = 72, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_keywords_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($imported_node['Management of change activities'], $vid = 73, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_man_change_activ_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($imported_node['Ownership'], $vid = 39, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_ownership_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($imported_node['Type of restructuring'], $vid = 9, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_type_of_restructuring_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    //Eurofound Group
+    $node->field_ef_assign_to_country_group['und'][0]['target_id'] = 31;
+    //Author by default
+    $node->field_ef_assign_to_author['und'][0]['target_id'] = 202;
+    //Contract by default
+    $node->field_ef_author_contract['und'][0]['tid'] = 20220;
+    //Assign to User
+    if ($assign_to_user != 0) {
+      $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    }
+
+
+    //New nodes must be saved with this WM State
+    $node->workbench_moderation_state_new = 'submitted_qr';
+
+    $node = node_submit($node);
+    node_save($node);
+
+    unset($node);
+  }
+}
+
+/**
+ * Updates existing nodes with the data retrieved from the XLS file
+ */
+function _ef_case_studies_import_update_xls_nodes($updated_nodes, $assign_to_user) {
+
+  global $user;
+
+  foreach ($updated_nodes as $nid => $updated_node){
+    $node = node_load($nid, $node->workbench_moderation['current']->vid);
+
+    node_object_prepare($node);
+
+    $node->revision = 1;
+
+    //Single value field assignment
+    $field = _ef_csi_prepare_term($updated_node['Affected establishment size'], $vid = 75);
+    $node->field_affected_est_size_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($updated_node['Observatory'], $vid = 3);
+    $node->field_observatory_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($updated_node['Organisation size'], $vid = 37);
+    $node->field_organisation_size_csp['und'][0]['tid'] = $field;
+
+    $field = _ef_csi_prepare_term($updated_node['Sector'], $vid = 38);
+    $node->field_sectors_csp['und'][0]['tid'] = $field;
+
+    //Regions (Nuts) have a different format due to the hierarchy
+    //There is a unique value splitted into several fields
+    $field = _ef_case_studies_import_retrieve_nuts_value($updated_node['Region 1'], $updated_node['Region 2'], $updated_node['Region 3']);
+    $node->field_nuts_csp['und'][0]['tid'] = $field;
+
+    //Multivalue field assignment
+    $field = _ef_csi_prepare_term($updated_node['Anticipation of change activities'], $vid = 70, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_ant_change_activ_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($updated_node['Country'], $vid = 58, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_country_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term( $updated_node['Involved actors'], $vid = 71, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_involved_actors_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($updated_node['Keywords'], $vid = 72, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_keywords_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($updated_node['Management of change activities'], $vid = 73, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_man_change_activ_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($updated_node['Ownership'], $vid = 39, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_ownership_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    $field = _ef_csi_prepare_term($updated_node['Type of restructuring'], $vid = 9, $multi = TRUE);
+    $term_index = 0 ;
+    foreach ($field as $key => $value) {
+      $node->field_type_of_restructuring_csp['und'][$term_index]['tid'] = $value;
+      $term_index++;
+    }
+
+    //Eurofound Group
+    if (!isset($node->field_ef_assign_to_country_group['und'][0]['target_id'])) {
+      $node->field_ef_assign_to_country_group['und'][0]['target_id'] = 31;
+    }
+    //Author by default
+    if (!isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
+      $node->field_ef_assign_to_author['und'][0]['target_id'] = 202;
+    }
+    //Contract by default
+    if (!isset($node->field_ef_author_contract['und'][0]['tid'])) {
+      $node->field_ef_author_contract['und'][0]['tid'] = 20220;
+    }
+    //Assign to User
+    if ($assign_to_user != 0) {
+      $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    }
+
+    $node->workbench_moderation_state_new = 'submitted_qr';
+
+    $node = node_submit($node);
+    node_save($node);
+
+    unset($node);
+  }
+}
+
+
+/**
+ * Prepares the taxonomy terms to be saved as field values in the node.
+ *
+ * @param string $value
+ *   Human name of the taxonomy term or terms.
+ *
+ * @param int $vid
+ *   Vocabulary id to retrieve tid of the term or terms
+ *
+ * @param bool $multi
+ *   Tells if the function is receiving data for a multivalue field or not.
+ *
+ * @return string|array $term|$terms
+ *   An array containing the values to populate a multivalue field, otherwise
+ *   an string containing a value for a single value field.
+ */
+function _ef_csi_prepare_term($value, $vid, $multi = FALSE) {
+  if ($multi) {
+    $values = explode(',', $value);
+    foreach ($values as $key => $term) {
+      $found = FALSE;
+      $tree = taxonomy_get_tree($vid);
+      foreach ($tree as $tree_term) {
+        if ($tree_term->name == trim($term)) {
+          $terms[] = $tree_term->tid;
+          $found = TRUE;
+        }
+      }
+      if (!$found) {
+        dpm('Not found: ' . $vid . ' - ' . $term);
+      }
+    }
+    return $terms;
+  }
+  else {
+    $found = FALSE;
+    $tree = taxonomy_get_tree($vid);
+    foreach ($tree as $tree_term) {
+      if ($tree_term->name == trim($value)) {
+        $term = $tree_term->tid;
+      }
+    }
+    if (empty($term)) {
+      dpm('Not found: ' . $vid . ' - ' . $value);
+    }
+    return $term;
+  }
+}
+
+/**
+ * Prepares the taxonomy terms to be saved as field values in the node.
+ *
+ * @param string $level1
+ *   First level of the nuts taxonomy hierarchy
+ *
+ * @param string $level2
+ *   Second level of the nuts taxonomy hierarchy
+ *
+ * @param string $level3
+ *   Third level of the nuts taxonomy hierarchy
+ *
+ * @return int $tid
+ *   Taxonomy id of the term
+ *
+ */
+function _ef_case_studies_import_retrieve_nuts_value($level1, $level2, $level3) {
+  //This is only for the nuts taxonomy
+  $vid = 8;
+  if (isset($level3) && !empty($level3)) {
+    $tree = taxonomy_get_tree($vid);
+    foreach ($tree as $tree_term) {
+      if ($tree_term->name == trim($level3)) {
+        $tid = $tree_term->tid;
+      }
+    }
+    if (empty($tid)) {
+      dpm('Not found: ' . ' nuts ' . $vid . ' - ' . $level3);
+    }
+    return $tid;
+  }
+  elseif (isset($level2) && !empty($level2)) {
+    foreach ($tree as $tree_term) {
+      if ($tree_term->name == trim($level2)) {
+        $tid = $tree_term->tid;
+      }
+    }
+    if (empty($tid)) {
+      dpm('Not found: ' . ' nuts ' . ' - ' . $level2);
+    }
+    return $tid;
+  }
+  elseif (isset($level1) && !empty($level1)) {
+    foreach ($tree as $tree_term) {
+      if ($tree_term->name == trim($level1)) {
+        $tid = $tree_term->tid;
+      }
+    }
+    if (empty($tid)) {
+      dpm('Not found: ' . ' nuts ' . ' - ' . $level1);
+    }
+    return $tid;
+  }
+}
+
+/**
+ * Import an Excel file.
+ *
+ * Simple API function that will load an Excel file from $path and parse it
+ * as a multidimensional array.
+ *
+ * @param string $path
+ *    The path to the Excel file. Must be readable.
+ *
+ * @return array $imported_nodes
+ *    The parsed data as an array on success, PHPEXCEL_ERROR_LIBRARY_NOT_FOUND
+ *    or PHPEXCEL_ERROR_FILE_NOT_READABLE on error.
+ *
+ */
+function _ef_case_studies_import_read_xls_file($path) {
+  $field_keys = array();
+  $imported_nodes = array();
+  $import_has_ended = FALSE;
+
+  if (is_readable($path)) {
+    $library = libraries_load('PHPExcel');
+
+    if (!empty($library['loaded'])) {
+      //Creates an Excel reader depending on file format
+      $xls_reader = PHPExcel_IOFactory::createReaderForFile($path);
+
+      $xls_reader->setReadDataOnly(True);
+      //Load the XLS file
+      $xls_data = $xls_reader->load($path);
+
+      foreach ($xls_data->getWorksheetIterator() as $worksheet) {
+
+        $worksheet_title = $worksheet->getTitle();
+
+        //We are only interested in the rows from the Metadata page
+        if ($worksheet_title == 'Metadata') {
+          foreach ($worksheet->getRowIterator() as $row) {
+
+            $cells = $row->getCellIterator();
+            $cells->setIterateOnlyExistingCells(FALSE);
+            //Getting content from the cells
+            foreach ($cells as $cell) {
+              $row = $cell->getRow();
+              $column = $cell->getColumn();
+              $value = $cell->getValue();
+              $value = drupal_strlen($value) ? trim($value) : '';
+              switch ($row) {
+                //We got the headers at row 1
+                case 1:
+                  $field_keys[$column] = $value;
+                  break;
+                //And the data is here
+                default:
+                  //At some row there will be no title, this means
+                  //that we have reach our arbitrary End Of File
+                  //and there will be no more nodes to import/update
+                  //So let's control this
+                  switch ($import_has_ended) {
+                    case TRUE:
+                      break;
+
+                    default:
+                      if ($column == 'A' && empty($value)) {
+                        $import_has_ended = TRUE;
+                      }
+                      elseif (!$import_has_ended) {
+                        $imported_nodes[$row - 1][$field_keys[$column]] = $value;
+                      }
+                      break;
+                  }
+                  break;
+              }
+            }
+          }
+        }
+      }
+
+      // Free up memory.
+      $xls_data->disconnectWorksheets();
+      unset($xls_data);
+
+      return $imported_nodes;
+    }
+    //Save the errors to be shown at the Drupal error reports
+    else {
+      watchdog('phpexcel', "Couldn't find the PHPExcel library. Excel import aborted.", array(), WATCHDOG_ERROR);
+      return PHPEXCEL_ERROR_LIBRARY_NOT_FOUND;
+    }
+  }
+  else {
+    watchdog('phpexcel', "The path '@path' is not readable. Excel import aborted.", array('@path' => $path));
+    return PHPEXCEL_ERROR_FILE_NOT_READABLE;
+  }
+}
+
+/**
+ * Checks the database to find all QMs and QM+s to be provided
+ * as options for the field Assign To User in the Confirm Form.
+ */
+function _ef_csi_get_quality_managers() {
+
+  $users = array();
+  //Query to retrieve QMs
+  $sql = db_select('users', 'u');
+
+  $sql->innerJoin('users_roles', 'ur', 'ur.uid = u.uid');
+  $sql->innerJoin('role', 'r', 'r.rid = ur.rid');
+  $sql->innerJoin('field_data_field_ef_first_name', 'fn', 'fn.entity_id = u.uid');
+  $sql->innerJoin('field_data_field_ef_last_name', 'ln', 'ln.entity_id = u.uid');
+
+  $sql->fields('u', array('uid', 'name'));
+  $sql->fields('fn', array('field_ef_first_name_value'));
+  $sql->fields('ln', array('field_ef_last_name_value'));
+  $sql->fields('r', array('rid', 'name'));
+
+  $sql->condition('r.name', '%Quality Manager%', 'LIKE');
+
+  $sql->orderBy('ln.field_ef_last_name_value', 'ASC');
+
+  $results = $sql->execute()->fetchAll();
+
+  //Add a dummy user in case importer does not want to update
+  //the value for Assign To User field
+  $users[0] = '- None -';
+  //Populate $users array with the result of the query
+  foreach ($results as $key => $value) {
+    $users[$value->uid] = $value->field_ef_last_name_value . ', ' .
+    $value->field_ef_first_name_value . ' - ' . $value->name . ' -';
+  }
+
+  return $users;
+}

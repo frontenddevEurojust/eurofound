@@ -1,0 +1,97 @@
+#my-todo-list-form h3:first-child {
+    margin-top: 30px;
+}
+fieldset#edit-filters{
+  width: 70%;
+  margin: auto;
+}
+#my-todo-list-form table tbody td{
+  vertical-align: top;
+}
+#my-todo-list-form .pagination-centered .item-list {
+    float: none;
+}
+#my-todo-list-form table tbody td:first-child,
+#my-todo-list-form table thead th:first-child{
+  display: none;
+}
+#my-todo-list-form table tbody td:nth-child(4){
+  color: #F7931E;
+  font-size: 0.9em;
+  width: 13%;
+}
+#my-todo-list-form table thead th:nth-child(5){
+   text-align: center;
+}
+#my-todo-list-form table tbody td:nth-child(5) {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  color: #000;
+   text-align: center;
+  font-family: 'OpenSans-bold-webfont',Arial,Helvetica,sans-serif;
+}
+#my-todo-list-form table thead th:nth-child(6),
+#my-todo-list-form table thead th:nth-child(7),
+#my-todo-list-form table tbody td:nth-child(6),
+#my-todo-list-form table tbody td:nth-child(7){
+  text-align: center;
+  width: 7%;
+}
+#my-todo-list-form table tbody td:last-child a{
+  background-color: #D6DFE8;
+  border-color: #9CB1C7;
+  color: #37628E;
+  padding: 0.3em 0.2em;
+  font-size: 0.9em;
+  border-style: solid;
+  border-width: 1px;
+  font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif!important;
+  line-height: normal;
+  margin: auto;
+  display: block;
+}
+#my-todo-list-form table thead th:nth-child(8),
+#my-todo-list-form table thead th:nth-child(9),
+#my-todo-list-form table tbody td:nth-child(8),
+#my-todo-list-form table tbody td:nth-child(9){
+  font-size: 0.85em;
+  text-align: center;
+}
+#my-todo-list-form .fieldset-wrapper {
+  background: #f9f9f9;
+
+}
+#my-todo-list-form fieldset {
+  border:0;
+  border-bottom: 1px dotted #CCC;
+}
+#my-todo-list-form legend:hover {
+  opacity: 0.8;
+}
+#my-todo-list-form .form-item-title{
+  float: left;
+  width: 60%;
+}
+#my-todo-list-form .form-item-type{
+  float: left;
+  margin-left:2%;
+  width: 30%;
+}
+#my-todo-list-form #edit-container {
+  clear: both;
+  display: block;
+}
+#my-todo-list-form #edit-container button {
+  margin-right:1em;
+}
+.go-back-to{
+  text-align: right;
+  margin-top: -30px;
+}
+#edit-content-topside-wrapper{
+  margin-top: -22px;
+}
+.l-main {
+    max-width:100% !important;
+}
+

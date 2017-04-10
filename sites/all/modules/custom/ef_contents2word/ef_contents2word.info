@@ -1,0 +1,11 @@
+name = "EF Export from Drupal to MS Word"
+description = "Export from Drupal Contents to Microsoft Word files"
+core = 7.x
+package = EF modules
+
+files[] = ef_contents2word.module
+files[] = ef_contents2word.install
+
+;configure = admin/config/wordtools/contents2word
+project = "ef_contents2word"
+

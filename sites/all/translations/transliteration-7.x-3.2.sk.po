@@ -1,0 +1,22 @@
+# Slovak translation of Transliteration (7.x-3.2)
+# Copyright (c) 2014 by the Slovak translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Transliteration (7.x-3.2)\n"
+"POT-Creation-Date: 2014-03-18 18:24+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+msgid "This action cannot be undone."
+msgstr "Túto akciu nemožno vrátiť späť."
+msgid "Settings"
+msgstr "Nastavenia"
+msgid "Transliteration"
+msgstr "Transliteration"
+msgid "Convert all characters to US-ASCII"
+msgstr "Konvertovať všetky znaky do US-ASCII"

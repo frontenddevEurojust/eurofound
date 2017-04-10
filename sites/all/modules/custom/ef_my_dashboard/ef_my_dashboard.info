@@ -1,0 +1,4 @@
+name = EF MyDashboard
+description = Customized Dashboard for QMs
+package = EF modules
+core = 7.x

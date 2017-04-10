@@ -1,0 +1,26 @@
+# Estonian translation of Unique field (7.x-1.0-rc1)
+# Copyright (c) 2011 by the Estonian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Unique field (7.x-1.0-rc1)\n"
+"POT-Creation-Date: 2011-12-03 10:20+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Estonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Title"
+msgstr "Pealkiri"
+msgid "title"
+msgstr "pealkiri"
+msgid "Author"
+msgstr "Autor"
+msgid "Language"
+msgstr "Keel"
+msgid "Enabled"
+msgstr "Lubatud"
+msgid "Content type"
+msgstr "Sisutüüp"

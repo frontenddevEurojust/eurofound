@@ -1,0 +1,28 @@
+Subject:
+Your account at Eurofound CMS has been approved
+
+Body:
+
+Dear [user:field_ef_first_name] [user:field_ef_last_name], 
+
+This is an automated email.
+
+Your account at the [site:url-brief] has been activated by the EF Web Team.
+
+You may now log in by clicking the following link or copying and pasting it into your browser:
+
+[user:one-time-login-url]
+
+This link can only be used once to log in and will lead you to a page where you can set your password.
+
+After setting your password, you will be able to log in at [site:login-url] in the future using:
+
+username: [user:name]
+password: Your password
+
+In case you have any questions please contact us at: web@eurofound.europa.eu
+
+
+Kind Regards,
+
+The Eurofound web team

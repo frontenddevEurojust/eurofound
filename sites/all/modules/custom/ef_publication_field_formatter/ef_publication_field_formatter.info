@@ -1,0 +1,4 @@
+name = EF publication field formatter
+description = EF publication field formatter
+package = EF modules
+core = 7.x

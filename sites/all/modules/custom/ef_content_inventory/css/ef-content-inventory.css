@@ -1,0 +1,103 @@
+/* content inventory */
+
+#ef-content-inventory-download-form ul li{
+  list-style-type: none;
+  background: #FFF;
+  border-top: 1px dotted #ccc;
+  padding: 0;
+  margin: 0;
+  background: #f9f9f9;
+}
+#ef-content-inventory-download-form ul li:last-child{
+  border-bottom: 1px dotted #ccc;
+}
+#ef-content-inventory-download-form ul li .form-type-item{
+  display: inline-block;
+  width: 90%;
+  margin: 0;
+  padding: 0;
+}
+
+#ef-content-inventory-download-form ul li .form-type-item > a{
+  display: block;
+  padding: 10px 5px;
+}
+#ef-content-inventory-download-form ul li .form-type-item > a:hover{
+  background: #f2f2f2;
+  text-decoration: none;
+}
+
+#ef-content-inventory-download-form ul li .form-type-item > a:before{
+  content: "\f1c3";
+  font-family: 'fontawesome';
+  margin-right: 5px;
+  position: relative;
+  font-size: 1.2rem;
+  top: 1px;
+}
+#ef-content-inventory-download-form ul li input{
+  display: inline-block;
+  width: 6%;
+  border-radius: 3px;
+  padding: 10px 0 !important;
+  margin: 0;
+  background: #ffdada;
+  font-size: 11px;
+  margin-left: 1%;
+}
+#ef-content-inventory-download-form ul li input:hover{
+  background: #666;
+  color: #FFF;
+}
+#ef-content-inventory-download-form ul li input.form-submit:active {
+    background: #666;
+    color: #FFF;
+    border-color: #555;
+    text-shadow: #222 0 0px 0;
+}
+#ef-content-inventory-download-form ul + input.form-submit{
+  margin-top: 2rem;
+  border-radius: 0;
+  padding: 0.5rem 1rem !important;
+  background: #f9f9f9;
+  margin-left: 20px;
+}
+#ef-content-inventory-download-form ul + input.form-submit:hover{
+  background: #666;
+  color: #FFF;
+  border-color: #555;
+  text-shadow: #222 0 0px 0;
+}
+#ef-content-inventory-download-form input.form-button-disabled{
+  margin-top: 0;
+  border-radius: 0;
+  padding: 0.5rem 1rem !important;
+  background: #f9f9f9;
+  margin-left: 20px;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+#edit-file-is-being-created{
+  padding: 3rem;
+  text-align: center;
+  margin: 3rem 0;
+  background: #f9f9f9;
+-webkit-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
+-moz-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
+box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
+}
+#edit-file-is-being-created > p{
+  color: #a88d1b !important;
+  font-size: 1rem;
+  line-height: 1.8rem;
+}
+
+#edit-file-is-being-created > p:before{
+  content: "\f071";
+  font-family: 'fontawesome';
+  margin-right: 5px;
+  position: relative;
+  font-size: 1.4rem;
+  top: 1px;
+}
+

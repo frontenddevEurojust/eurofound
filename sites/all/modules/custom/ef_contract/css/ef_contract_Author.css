@@ -1,0 +1,13 @@
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] button,
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] input,
+fieldset[id |="edit-field-ef-source-documents-und"] div[class |="form-item form-type-managed-file form-item-field-ef-source-documents-und"]{
+  display:none;
+}
+
+
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] td:nth-child(4),
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] td:nth-child(6),
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] th:nth-child(4),
+fieldset[id |="edit-field-ef-source-documents-und"] table[id |="edit-field-ef-source-documents"] th:nth-child(6) {
+   display: none;
+}

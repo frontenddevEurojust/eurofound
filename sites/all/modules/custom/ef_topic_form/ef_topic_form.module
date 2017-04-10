@@ -1,0 +1,28 @@
+<?php
+
+/**
+  *  Autocomplete the topic field when redirected from topic pages.
+**/
+ function ef_topic_form_form_alter(&$form, &$form_state, $form_id){
+ 		$url =  $_SERVER['HTTP_REFERER'];
+ 		$current_url = current_path();
+ 		$domain_topics = strstr($url, '/topics/');
+ 		$domain_page = strstr($current_url,'add/page');
+ 		if(!empty($domain_topics) && !empty($domain_page)  ){
+		 		if(!isset($form['#node']->field_ef_topic)) {
+		 			$topic_name = substr($domain_topics, 8);
+		 			$topic_name_fixed = str_replace('-', ' ', $topic_name); 
+		 			$result = taxonomy_get_term_by_name($topic_name_fixed,'ef_topics');
+		 			$taxonomy_id = current($result)->tid;
+		 			$form['#node']->field_ef_topic = array();
+		 			$form['#node']->field_ef_topic[LANGUAGE_NONE]=array();
+		 			$form['#node']->field_ef_topic[LANGUAGE_NONE][0] = array();
+		 			$form['#node']->field_ef_topic[LANGUAGE_NONE][0]['tid']= $taxonomy_id;
+		 			$form['field_ef_topic'][LANGUAGE_NONE]['#default_value'][0]=$taxonomy_id;
+		 		
+		 		 }
+		}
+ 	
+ 		
+  
+ }

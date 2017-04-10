@@ -1,0 +1,335 @@
+<?php
+
+require_once 'helpers/functions.inc';
+
+/**
+ * Implements hook_form_alter(&$form, &$form_state, $form_id).
+ */
+function ef_customised_forms_views_pre_render(&$view){
+
+  $previous_page = $_SERVER['HTTP_REFERER'];
+  $host= $_SERVER["HTTP_HOST"];
+  $url= $_SERVER["REQUEST_URI"];
+  $current_page = "http://" . $host . $url;
+
+  if(strpos($current_page,'/deliverable-kinds/research-in-focus-extended')){
+    $view->build_info['title'] = 'National working life surveys';
+  }
+}
+/**
+ * Implements hook_form_alter(&$form, &$form_state, $form_id).
+ */
+function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
+  global $user;
+
+  //Prevent Old token error in search forms
+  if ($form_id == 'views_exposed_form' ) {
+    unset($form['#token']);
+  }
+  // Unset 'Disable all revisions' button
+  if (strpos($form_id, '_node_form') !== FALSE) {
+    if (isset($form['actions']['delete'])){
+      unset($form['actions']['delete']);
+    }
+  }
+  /*
+    ** Issue: #3703. Webform download form.
+    */
+  if($form_id == 'webform_results_download_form'){
+    // Remove Completed time value for download
+    unset($form['components']['#default_value'][4]);
+    // Remove Modified time value for download
+    unset($form['components']['#default_value'][5]);
+  }
+  /*
+   * Annual Progress Report changes #3691
+   *
+   */
+  if($form['#node_edit_form'] == TRUE && $form['type']['#value'] == 'ef_annual_progress_report'){
+    $form['field_ef_network_tend_other']['#states'] = array(
+      'visible' => array(
+        ':input[name="field_ef_network_tend_main_area[und][6 ]"]' => array('checked' => TRUE),
+      ),
+    );
+  }
+  /* --- VIEW: Home Jump blocks --- */
+  /*
+   * Makes translatable Empty options
+   */
+  if ($form_id == 'ctools_jump_menu') {
+    $form['jump']['#empty_option'] = t('- Select -');
+  }
+
+  //Hide some Timeline_data content type fields. Issue #3608
+  if ($form['type']['#value'] == 'timeline_date' && $form['#node_edit_form'] == TRUE){
+    $form['field_cmscode']['#type'] = 'hidden';
+    $form['field_timeline_media_image']['#type'] = 'hidden';
+    $form['field_timeline_media_link']['#type'] = 'hidden';
+    $form['field_timeline_caption_text']['#type'] = 'hidden';
+    $form['field_timeline_credit_text']['#type'] = 'hidden';
+  }
+  /** ---- VIEW: Case studies EMCC (Content) ----
+  ***
+  *** Display name: Page
+  *** Path: observatories/emcc/erm/restructuring-case-studies
+  ***
+  *** Issue: Ordering the filter options: Organisation Size and Establishment Size
+  ***/
+  if($form['#id'] == 'views-exposed-form-case-studies-emcc-page'){
+
+	 if(!empty($form['field_organisation_size_csp_tid_selective']['#options'])){
+
+	   $org_size = $form['field_organisation_size_csp_tid_selective']['#options'];
+	   $org_size_sort = sort_taxonomy_by_weight($org_size);
+
+	   $form['field_organisation_size_csp_tid_selective']['#options'] = $org_size_sort;
+
+	 }
+
+	 if(!empty($form['field_affected_est_size_csp_tid_selective']['#options'])){
+
+	   $est_size = $form['field_affected_est_size_csp_tid_selective']['#options'];
+	   $est_size_sort = sort_taxonomy_by_weight($est_size);
+
+	   $form['field_affected_est_size_csp_tid_selective']['#options'] = $est_size_sort;
+
+	 }
+
+	 return $form;
+
+  }
+  /** ---- VIEW: Eurwork Content ----
+  ***
+  *** Display name: Page
+  *** Path: observatories/eurwork/content
+  ***
+  *** Issue: Update sector filter values
+  ***/
+ if ($form['#id'] == 'views-exposed-form-ef-eurwork-content-page') {
+
+    $form['field_ef_sector_tid']['#options'] = selective_sector_eurwork_view();
+    return $form;
+  }
+
+   /** ---- PAGE: Factsheet node form ----
+  ***
+  *** Path: node/add/ef-factsheet
+  ***
+  *** Issue: New taxonomy term only for Case Studies 3451
+  ***/
+  if($form['#form_id'] == 'ef_factsheet_node_form'){
+    //Remove 'Avoiding bankruptcy' and 'Reshoring'
+    unset($form['field_ef_type_of_restructuring']['und']['#options'][21302]);
+    unset($form['field_ef_type_of_restructuring']['und']['#options'][21049]);
+    global $user;
+    if(in_array('Author', $user->roles)||in_array('Author +', $user->roles)){
+      $form['field_ef_comment']['#type'] = 'hidden';
+    }
+  }
+
+   /** ---- FORM: Restructuring in SMEs node form ----
+  ***
+  *** Path: node/add/ef-restructuring-in-smes
+  ***
+  *** Issue: 0003451: New taxonomy term
+  ***/
+  if ($form['#form_id'] == 'ef_restructuring_in_smes_node_form') {
+
+    //Remove 'Bankruptcy' and 'Bankruptcy/Closure'
+    unset($form['field_ef_type_of_restructuring']['und']['#options'][1106]);
+    unset($form['field_ef_type_of_restructuring']['und']['#options'][20383]);
+  }
+     /** ---- FORM: Case Study node form ----
+  ***
+  *** Path: node/add/ef-case-study
+  ***
+  *** Issue: 0003451: New taxonomy term
+  ***/
+  if ($form['#form_id'] == 'ef_case_study_node_form') {
+
+   //Remove 'Bankruptcy' and 'Bankruptcy/Closure'
+    unset($form['field_type_of_restructuring']['und']['#options'][1106]);
+    unset($form['field_type_of_restructuring']['und']['#options'][20383]);
+  }
+  /** ---- FORM: Case Study Publication node form ----
+  ***
+  *** Path: node/add/case-study-publication
+  ***
+  *** Issue: 0003451: New taxonomy term
+  ***/
+  if ($form['#form_id'] == 'case_study_publication_node_form') {
+
+   //Remove 'Bankruptcy' and 'Bankruptcy/Closure'
+    unset($form['field_type_of_restructuring_csp']['und']['#options'][1106]);
+    unset($form['field_type_of_restructuring_csp']['und']['#options'][20383]);
+  }
+  /** ---- VIEW: Find content ----
+  ***
+  *** Display name: Page
+  *** Path: find-content
+  ***
+  *** Issue: Change updated after filter
+  ***/
+/*
+  if($form['#id'] == 'views-exposed-form-ef-find-content-page-1'){
+
+      $form['#attached']['js'] = array(
+        drupal_get_path('module', 'ef_customised_forms') . '/ef_customised_forms.js',
+      );
+
+      $form['changed']['#type'] = 'date_popup';
+      $form['changed']['#date_format'] = 'd/m/Y';
+
+
+  }
+*/
+
+  /** ---- VIEW: Restructuring in SMEs ----
+  ***
+  *** Display name: Page
+  *** Path: observatories/emcc/erm/restructuring-in-smes
+  ***
+  *** Issue: Filter changes 3288
+  ***/
+
+  if($form['#id'] == 'views-exposed-form-ef-restructurings-in-smes-page'){
+
+
+      $array_sector = $form['tid']['#options'];
+
+      foreach ($array_sector as $key => $value) {
+        // just need top levels of the taxonomy
+        // No Child term
+
+          $parent = taxonomy_get_parents($key);
+          if(empty($parent)){
+            $final_array_sector[$key] = $value;
+          }
+      }
+
+      natsort($final_array_sector);
+      //Repeated values
+      $array_unique = array_unique($final_array_sector);
+      $form['tid']['#options'] = $array_unique;
+
+      unset($form['field_ef_employees_before_restr_tid']['#options'][13740]);
+
+  }
+
+   /** ---- VIEW: ERM Factsheet ----
+  ***
+  *** Display name: Page
+  *** Path: observatories/emcc/erm/factsheets
+  ***
+  *** Issue: Make Sector filter just show first level of hierarchy
+  ***/
+
+  if($form['#id'] == 'views-exposed-form-ef-factsheets-view-page'){
+
+
+    $array_sector = $form['term_node_tid_depth']['#options'];
+
+    foreach ($array_sector as $key => $value) {
+      // just need top levels of the taxonomy
+      // No Child term
+      $parent = taxonomy_get_parents($key);
+      if(empty($parent)){
+        $final_array_sector[$key] = $value;
+      }
+    }
+    natsort($final_array_sector);
+    //Repeated values
+    $array_unique = array_unique($final_array_sector);
+    $form['term_node_tid_depth']['#options'] = $array_unique;
+  }
+
+  $moderated_types = array(
+    'ef_factsheet_node_form',
+    'ef_report_node_form',
+    'ef_ic_quarterly_report_node_form',
+    'ef_national_contribution_node_form',
+    'ef_network_quarterly_report_node_form',
+    'ef_erm_regulation_node_form',
+    'erm_support_instrument_node_form',
+    'ef_input_to_erm_node_form',
+    'ef_ir_dictionary_node_form',
+    'ef_report_node_form',
+    'ef_national_contribution_node_form',
+    'ef_comparative_analytical_report_node_form'
+  );
+
+  if (in_array($form['#form_id'], $moderated_types) && isset($form['actions']['save_edit'])) {
+    $form['save_edit_warning'] = array(
+      '#type' => 'item',
+      '#markup' => "<p>(*) Save and Edit button shouldn't be used after changing the status,
+          to save the final work use Save button.</p>",
+      '#weight' => 100,
+    );
+    $form['actions']['save_edit']['#value'] = "Save and Edit (*)";
+  }
+
+  /** ---- VIEW: My to do list ----
+  ***
+  *** Display name: Page
+  *** Path: my-to-do-list
+  ***
+  *** Issue: Make selective Type filter
+  ***/
+  if ( $form['#id'] == 'views-exposed-form-my-to-do-list-page' ) {
+
+    $query = "SELECT DISTINCT node.type AS node_type
+              FROM node node
+              LEFT JOIN field_revision_field_ef_assign_to_user field_revision_field_ef_assign_to_user ON node.nid = field_revision_field_ef_assign_to_user.entity_id
+              AND (field_revision_field_ef_assign_to_user.entity_type = 'node' AND field_revision_field_ef_assign_to_user.deleted = '0')
+              LEFT JOIN users users_field_data_field_ef_assign_to_user ON field_revision_field_ef_assign_to_user.field_ef_assign_to_user_target_id = users_field_data_field_ef_assign_to_user.uid
+              LEFT JOIN group_membership group_membership_users ON users_field_data_field_ef_assign_to_user.uid = group_membership_users.uid
+              LEFT JOIN node_revision node_revision ON node.vid = node_revision.vid
+              INNER JOIN workbench_moderation_node_history workbench_moderation_node_history ON node_revision.nid = workbench_moderation_node_history.nid
+              INNER JOIN users users_workbench_moderation_node_history ON workbench_moderation_node_history.uid = users_workbench_moderation_node_history.uid
+              LEFT JOIN group_entity group_entity ON node.nid = group_entity.entity_id AND group_entity.entity_type = 'node'
+              LEFT JOIN groups node_parent_groups ON group_entity.gid = node_parent_groups.gid
+              LEFT JOIN node node_node_revision ON node_revision.nid = node_node_revision.nid
+              WHERE (( (users_field_data_field_ef_assign_to_user.uid = :uid ) )
+              AND(( (workbench_moderation_node_history.current <> '0')
+              AND (workbench_moderation_node_history.published = '0')
+              AND (workbench_moderation_node_history.state NOT IN  ('approved', 'published', 'unpublished')))))
+              ";
+    $result = db_query($query,array(':uid' => $user->uid))->fetchAll();
+
+    $aux;
+    foreach ($result as $key => $value) {
+      $aux[$value->node_type] = $value->node_type;
+    }
+
+    foreach ($form['type']['#options'] as $key => $value) {
+
+        if(!in_array($key, $aux)){
+          unset($form['type']['#options'][$key]);
+        }
+    }
+
+
+  }
+
+
+  /** ---- FORM: Factsheet, Input to ERM, Photo Gallery and EF Regulation edition forms ----
+  ***
+  *** Path: node/add/ef-factsheet, node/add/ef-input-to-erm, node/add/ef-photo-gallery, node/add/ef-regulation
+  ***
+  *** Issue: 0003730: Remove Topic field from Factsheets
+  ***/
+  if ( $form['#id'] == 'ef-regulation-node-form' || $form['#id'] == 'ef-input-to-erm-node-form' ||
+    $form['#id'] == 'ef-factsheet-node-form' || $form['#id'] == 'ef-photo-gallery-node-form' ||
+    $form['#id'] == 'ef-erm-regulation-node-form'){
+    if (!(in_array('administrator', $user->roles)) && !(in_array('Metadata Manager', $user->roles))){
+      $form['field_ef_topic']['#access'] = FALSE;
+    }
+  }
+
+
+  if ($form['#id'] =='user-profile-form') {
+    $form['account']['mail']['#weight'] = -8;
+  }
+}
+
+

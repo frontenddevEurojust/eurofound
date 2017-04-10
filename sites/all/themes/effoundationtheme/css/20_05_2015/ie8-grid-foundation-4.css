@@ -1,0 +1,313 @@
+.lt-ie9 .row { width: 80em; max-width: 100%; min-width: 1024px; margin: 0 auto; }
+.lt-ie9 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+.lt-ie9 .row.large-collapse .column,
+.lt-ie9 .row.large-collapse .columns { padding: 0; }
+.lt-ie9 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
+.lt-ie9 .row .row.large-collapse { margin: 0; }
+
+.lt-ie9 .column, .lt-ie9 .columns { float: left; min-height: 1px; padding: 0 15px; position: relative; }
+.lt-ie9 .column.large-centered, .columns.large-centered { float: none; margin: 0 auto; }
+
+.lt-ie9 [class="column"] + [class="column"]:last-child { float: right; }
+.lt-ie9 [class="column"] + [class="column"].end { float: left; }
+
+.lt-ie9 .large-1,
+.lt-ie9 .row .large-1 { width: 8.33333%; }
+
+.lt-ie9 .large-2,
+.lt-ie9 .row .large-2 { width: 16.66667%; }
+
+.lt-ie9 .large-3,
+.lt-ie9 .row .large-3 { width: 25%; }
+
+.lt-ie9 .large-4,
+.lt-ie9 .row .large-4 { width: 33.33333%; }
+
+.lt-ie9 .large-5,
+.lt-ie9 .row .large-5 { width: 41.66667%; }
+
+.lt-ie9 .large-6,
+.lt-ie9 .row .large-6 { width: 50%; }
+
+.lt-ie9 .large-7,
+.lt-ie9 .row .large-7 { width: 58.33333%; }
+
+.lt-ie9 .large-8,
+.lt-ie9 .row .large-8 { width: 66.66667%; }
+
+.lt-ie9 .large-9,
+.lt-ie9 .row .large-9 { width: 75%; }
+
+.lt-ie9 .large-10,
+.lt-ie9 .row .large-10 { width: 83.33333%; }
+
+.lt-ie9 .large-11,
+.lt-ie9 .row .large-11 { width: 91.66667%; }
+
+.lt-ie9 .large-12,
+.lt-ie9 .row .large-12 { width: 100%; }
+
+.lt-ie9 .row .large-offset-1 { margin-left: 8.33333%; }
+.lt-ie9 .row .large-offset-2 { margin-left: 16.66667%; }
+.lt-ie9 .row .large-offset-3 { margin-left: 25%; }
+.lt-ie9 .row .large-offset-4 { margin-left: 33.33333%; }
+.lt-ie9 .row .large-offset-5 { margin-left: 41.66667%; }
+.lt-ie9 .row .large-offset-6 { margin-left: 50%; }
+.lt-ie9 .row .large-offset-7 { margin-left: 58.33333%; }
+.lt-ie9 .row .large-offset-8 { margin-left: 66.66667%; }
+.lt-ie9 .row .large-offset-9 { margin-left: 75%; }
+.lt-ie9 .row .large-offset-10 { margin-left: 83.33333%; }
+
+.lt-ie9 .pull-2 { right: 16.66667%; }
+.lt-ie9 .pull-3 { right: 25%; }
+.lt-ie9 .pull-4 { right: 33.33333%; }
+.lt-ie9 .pull-5 { right: 41.66667%; }
+.lt-ie9 .pull-6 { right: 50%; }
+.lt-ie9 .pull-7 { right: 58.33333%; }
+.lt-ie9 .pull-8 { right: 66.66667%; }
+.lt-ie9 .pull-9 { right: 75%; }
+.lt-ie9 .pull-10 { right: 83.33333%; }
+
+.lt-ie9 .push-2 { left: 16.66667%; }
+.lt-ie9 .push-3 { left: 25%; }
+.lt-ie9 .push-4 { left: 33.33333%; }
+.lt-ie9 .push-5 { left: 41.66667%; }
+.lt-ie9 .push-6 { left: 50%; }
+.lt-ie9 .push-7 { left: 58.33333%; }
+.lt-ie9 .push-8 { left: 66.66667%; }
+.lt-ie9 .push-9 { left: 75%; }
+.lt-ie9 .push-10 { left: 83.33333%; }
+
+/* Nicolas Gallagher's micro clearfix */
+.lt-ie9 .row { *zoom: 1; }
+.lt-ie9 .row:before, .row:after { content: " "; display: table; }
+.lt-ie9 .row:after { clear: both; }
+
+/* Foundation Visibility HTML Classes fix for IE */
+.lt-ie9 .show-for-small,
+.show-for-medium-down,
+.show-for-large-down {
+display: none !important; }
+
+.lt-ie9 .show-for-medium,
+.show-for-medium-up,
+.show-for-large,
+.show-for-large-up,
+.show-for-xlarge {
+display: none !important; }
+
+.lt-ie9 .hide-for-medium,
+.hide-for-medium-up,
+.hide-for-large,
+.hide-for-large-up,
+.hide-for-xlarge {
+display: block !important; }
+
+.lt-ie9 .hide-for-small,
+.hide-for-medium-down,
+.hide-for-large-down {
+display: block !important; }
+
+
+
+
+
+/*-------Eurofound IE FIXES---------------*/
+/*.views-slideshow-pager-field-item {
+    background:rgb(255,255,255);
+  background: transparent\9;
+  background:rgba(255,255,255,0.8);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ccffffff,endColorstr=#ccffffff);
+  zoom: 1;
+  font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+  font-size: 1em;
+}
+
+.sidebar .item-list li div.icon {
+    background:url(../images/triangle.png) no-repeat 0 -1px transparent;
+    height: 44px;
+    left: 0;
+    position: absolute;
+    text-indent: 0;
+    top: 0;
+    width: 44px;
+    z-index: 500;
+}
+
+.eit-groupLevel .panel .info:hover {
+    background-color:#4163CF;
+    color: #FFFFFF !important;
+   
+}
+
+.eit-groupLevel .icon:before {
+    color: #4163CF;
+    display: block;
+    font-size: 25px;
+    
+	margin-left:15px!important;
+}
+.eit-groupLevel .info {
+    background-color: #F3F3F3;
+    display: block;
+    height: 280px;
+    overflow: hidden;
+    padding: 20px;
+}
+.eit-groupLevel .panel.board {
+    background: #4163CF!important;
+}
+.calendar-calendar .month-view .full tr td.single-day, .calendar-calendar .month-view .full td.single-day .inner .event-info {
+    margin-top: -33px;
+    position: relative;
+    text-align: center;
+}
+.content-wrapper img{
+	width:auto;
+	}
+	
+#sliding-popup .popup-content #popup-buttons button {
+   color:#333!important;
+	
+}
+.l-footer-columns .large-4 .touch{
+  background-color: #B2BFE9
+}
+.views-slideshow-pager-field-item:nth-child(n) {
+  filter: none;
+}
+#page{
+	overflow: hidden;
+}
+.eit-footer{
+	clear: both
+}
+.l-header div.large-9 {
+    float: right;
+}
+.copyright{
+  
+    padding-top: 12px!important;
+   
+}
+.l-footer .large-8{
+  width: 45.55%!important;
+}
+.footer-eu{
+   float: right!important;
+   width: 15.55%!important;
+}
+.small-meta div{
+  display: block!important;
+  float: left!important;
+}
+.small-meta div.dates, .small-meta div.location-data{
+  clear: none;
+}
+.small-meta div.end-date{
+  margin-top:-4px;
+}
+.page-collaborate-2014-call-for-kics div.events ul li .venue,
+.section-home-page div.events ul li .country,
+.section-home-page div.events ul li .city {
+  margin-top: 0px;
+}
+.country, .city, .community, .location-data{
+  margin-top: -2px;
+}
+*/
+.ef-footer{
+  background-color: #024999;
+}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+    margin: 5px;
+    padding: 13px;
+    
+}
+
+
+.columns , .column {
+	padding-right:15px;
+	
+	}
+/*.views-slideshow-pager-field-item {
+	background:#eee;}
+
+.eit-list .image:before {
+	color:#eee;}
+.eit-list ul li .title-wrapper {
+	background: #fff;}*/
+	
+span.error {
+color:#FA8376;}
+
+/*.front .l-featured .row{ padding:50px 15px 15px 15px;}
+
+div .collapsiblock a {
+    background: url("../images/expanded.png") no-repeat scroll right 15px rgba(0, 0, 0, 0)!important;
+	
+    background-color:transparent;
+    background-image:url("../images/expanded.png");
+    background-repeat:no-repeat;
+ 
+    background-position:right 15px;
+
+}
+div .collapsiblockCollapsed a {
+    background: url("../images/collapsed.png") no-repeat scroll right 15px rgba(0, 0, 0, 0)!important;
+	background-color:transparent;
+    background-image:url("../images/collapsed.png");
+    background-repeat:no-repeat;
+    background-position:right 15px;
+}
+
+div.view .eit-list ul li a div.title-wrapper span {
+    background:#FFFFFF;
+	border:2px solid #4163D1;
+    bottom: 5px;
+    color: #4163D1;
+    font-family: 'OpenSans-Semibold-webfont';
+    font-size: 12px;
+    left: 40%;
+    opacity:1;
+    padding: 4px 8px;
+    position: absolute;
+	zoom: 1;
+	filter: alpha(opacity =0);
+   
+}
+div.view ul li:hover a div.title-wrapper span {
+	border: 2px solid #4163d1!important;
+	color: #4163d1!important;
+	opacity: 1;
+	
+	filter: alpha(opacity = 100);
+}
+
+.innoenergy .term-content .term-description{
+background: none repeat scroll 0 0 rgb(144, 173, 21) !important;}
+
+.foundation .term-content .term-description{
+background: none repeat scroll 0 0 rgb(45, 45, 79) !important;}
+
+.labs .term-content .term-description{
+background: none repeat scroll 0 0 rgb(63, 170, 137) !important;}
+
+.climate-kic .term-content .term-description{
+background: none repeat scroll 0 0 rgb(118, 111, 179) !important;}
+
+.term-content .term-description {
+    display:none;
+}
+.navigation-links{
+	display:none;}
+
+#sliding-popup .popup-content #popup-buttons button {
+	color:#ffffff!important;
+	}*/
+
+
+
+
+   

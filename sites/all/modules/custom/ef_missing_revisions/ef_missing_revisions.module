@@ -1,0 +1,57 @@
+<?php
+// Implements hook_init() in order to add alert messages to avoid 'exit without saving'
+function ef_missing_revisions_init() {
+	Global $user;
+	$current_path = current_path();
+  $node = menu_get_object();
+  if (drupal_match_path($current_path, "node/*/edit"))  {
+  	if((in_array('Quality Manager', $user->roles)) || (in_array('Author', $user->roles)) || (in_array('Editor', $user->roles))
+  	|| (in_array('External Editor', $user->roles)) || (in_array('Quality Manager +', $user->roles)) || (in_array('Author +', $user->roles))
+    || (in_array('administrator', $user->roles)) || (in_array('Eurofound Administrator', $user->roles)) || (in_array('OSU', $user->roles))) {
+
+			drupal_add_js(drupal_get_path('module', 'ef_missing_revisions') . '/ef_missing_revisions.js');
+      drupal_add_css(drupal_get_path('module', 'ef_missing_revisions') . '/ef_missing_revisions.css');
+		}
+  }
+}
+
+// Implements hook_node_submit() in order to add alert messages about 'Status change after saving'
+function ef_missing_revisions_node_submit($node, $form, &$form_state) {
+	Global $user;
+  $current_path = current_path();
+	if (drupal_match_path($current_path, "node/*/edit")) {
+    //------------------This messages are only for contents with workflow----------------------------
+    $moderated_content_types =  workbench_moderation_moderate_node_types();
+    if(in_array($node->type, $moderated_content_types)){
+    	$current_state = $node->workbench_moderation_state_current;
+    	$new_state = $node->workbench_moderation_state_new;
+      $new_state1 = $node->field_ef_moderation_state;
+
+      //-----------If the new state is saved in workbench_moderation_state_new-----------------------
+      //----------- External Editors only have permission to moderate the content which are in 'On External Editing' state---------------
+      if(!isset($new_state1)){
+        if($current_state == $new_state) {
+          if(in_array('External Editor', $user->roles)) {
+            if($current_state == 'on_external_editing') {
+              drupal_set_message('Changes saved. Do you want to change the status now and assign to another user?', 'error');
+            }
+          }else {
+             drupal_set_message('Changes saved. Do you want to change the status now and assign to another user?', 'error');
+          }
+        }
+      //-----------If the new state is saved in field_ef_moderation_state---------------------------
+      }else {
+      	if($current_state == $new_state1) {
+      		if(in_array('External Editor', $user->roles)) {
+            if($current_state == 'on_external_editing') {
+              drupal_set_message('Changes saved. Do you want to change the status now and assign to another user?', 'error');
+            }
+          }else {
+            drupal_set_message('Changes saved. Do you want to change the status now and assign to another user?', 'error');
+          }
+      	}
+      }
+    }
+	}
+}
+

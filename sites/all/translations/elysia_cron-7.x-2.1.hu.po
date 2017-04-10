@@ -1,0 +1,24 @@
+# Hungarian translation of Elysia Cron (7.x-2.1)
+# Copyright (c) 2012 by the Hungarian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Elysia Cron (7.x-2.1)\n"
+"POT-Creation-Date: 2012-04-05 03:39+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Hungarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "cron"
+msgstr "időzítő"
+msgid "Cron could not run because an invalid key was used."
+msgstr ""
+"Az időzítő futtatása nem lehetséges, mert hibás a hozzáférési "
+"kulcs."
+msgid "Cron could not run because the site is in maintenance mode."
+msgstr ""
+"Az időzítő futtatása nem lehetséges, ha a webhely karbantartási "
+"módban van."

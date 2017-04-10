@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the EF Basics feature.
+ */
+
+include_once 'ef_basics.features.inc';

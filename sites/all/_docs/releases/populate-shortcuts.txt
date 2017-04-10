@@ -1,0 +1,5 @@
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php

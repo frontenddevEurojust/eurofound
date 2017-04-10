@@ -1,0 +1,1181 @@
+ Package      Name                                    Type    Status   Version  
+ Access       Content Access (content_access)         Module  Not      7.x-1.2- 
+ control                                                      install  beta2    
+                                                              ed                
+ Access       Content Access Rules Integrations       Module  Not      7.x-1.2- 
+ control      (content_access_rules)                          install  beta2    
+                                                              ed                
+ Administrat  Actions permissions (VBO)               Module  Enabled  7.x-3.2  
+ ion          (actions_permissions)                                             
+ Administrat  Administration Development tools        Module  Enabled  7.x-3.0- 
+ ion          (admin_devel)                                            rc4      
+ Administrat  Administration menu (admin_menu)        Module  Enabled  7.x-3.0- 
+ ion                                                                   rc4      
+ Administrat  Administration menu Toolbar style       Module  Enabled  7.x-3.0- 
+ ion          (admin_menu_toolbar)                                     rc4      
+ Administrat  Administration views (admin_views)      Module  Enabled  7.x-1.2  
+ ion                                                                            
+ Administrat  Filter permissions (filter_perms)       Module  Enabled  7.x-1.0  
+ ion                                                                            
+ Administrat  Save & Edit (save_edit)                 Module  Enabled  7.x-1.0- 
+ ion                                                                   beta1    
+ Advanced     AdvAgg Bundler (advagg_bundler)         Module  Enabled  7.x-2.7  
+ CSS/JS                                                                         
+ Aggregation                                                                    
+ Advanced     AdvAgg CDN CSS (advagg_css_cdn)         Module  Not      7.x-2.7  
+ CSS/JS                                                       install           
+ Aggregation                                                  ed                
+ Advanced     AdvAgg CDN Javascript (advagg_js_cdn)   Module  Not      7.x-2.7  
+ CSS/JS                                                       install           
+ Aggregation                                                  ed                
+ Advanced     AdvAgg Compress CSS                     Module  Not      7.x-2.7  
+ CSS/JS       (advagg_css_compress)                           install           
+ Aggregation                                                  ed                
+ Advanced     AdvAgg Compress Javascript              Module  Not      7.x-2.7  
+ CSS/JS       (advagg_js_compress)                            install           
+ Aggregation                                                  ed                
+ Advanced     AdvAgg CSS/JS Validator                 Module  Not      7.x-2.7  
+ CSS/JS       (advagg_validator)                              install           
+ Aggregation                                                  ed                
+ Advanced     AdvAgg Modifier (advagg_mod)            Module  Enabled  7.x-2.7  
+ CSS/JS                                                                         
+ Aggregation                                                                    
+ Advanced     Advanced CSS/JS Aggregation (advagg)    Module  Enabled  7.x-2.7  
+ CSS/JS                                                                         
+ Aggregation                                                                    
+ BEF Tests    BEF Test Content (bef_test_content)     Module  Not      7.x-3.0- 
+                                                              install  beta4    
+                                                              ed                
+ Caching      Varnish (varnish)                       Module  Enabled  7.x-1.1  
+ Chaos tool   Bulk Export (bulk_export)               Module  Not      7.x-1.4  
+ suite                                                        install           
+                                                              ed                
+ Chaos tool   Chaos tools (ctools)                    Module  Enabled  7.x-1.4  
+ suite                                                                          
+ Chaos tool   Chaos Tools (CTools) AJAX Example       Module  Not      7.x-1.4  
+ suite        (ctools_ajax_sample)                            install           
+                                                              ed                
+ Chaos tool   Chaos Tools (CTools) Plugin Example     Module  Not      7.x-1.4  
+ suite        (ctools_plugin_example)                         install           
+                                                              ed                
+ Chaos tool   Custom content panes                    Module  Not      7.x-1.4  
+ suite        (ctools_custom_content)                         install           
+                                                              ed                
+ Chaos tool   Custom rulesets                         Module  Not      7.x-1.4  
+ suite        (ctools_access_ruleset)                         install           
+                                                              ed                
+ Chaos tool   Page manager (page_manager)             Module  Enabled  7.x-1.4  
+ suite                                                                          
+ Chaos tool   Stylizer (stylizer)                     Module  Not      7.x-1.4  
+ suite                                                        install           
+                                                              ed                
+ Chaos tool   Term Depth access (term_depth)          Module  Not      7.x-1.4  
+ suite                                                        install           
+                                                              ed                
+ Chaos tool   Views content panes (views_content)     Module  Enabled  7.x-1.4  
+ suite                                                                          
+ colorbox     Colorbox Node (colorbox_node)           Module  Enabled  7.x-3.3  
+ Context      Context (context)                       Module  Enabled  7.x-3.6  
+ Context      Context layouts (context_layouts)       Module  Not      7.x-3.6  
+                                                              install           
+                                                              ed                
+ Context      Context UI (context_ui)                 Module  Enabled  7.x-3.6  
+ Core         Aggregator (aggregator)                 Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Block (block)                           Module  Enabled  7.53     
+ Core         Blog (blog)                             Module  Disable  7.53     
+                                                              d                 
+ Core         Book (book)                             Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Color (color)                           Module  Disable  7.53     
+                                                              d                 
+ Core         Comment (comment)                       Module  Enabled  7.53     
+ Core         Contact (contact)                       Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Content translation (translation)       Module  Enabled  7.53     
+ Core         Contextual links (contextual)           Module  Enabled  7.53     
+ Core         Dashboard (dashboard)                   Module  Enabled  7.53     
+ Core         Database logging (dblog)                Module  Enabled  7.53     
+ Core         Field (field)                           Module  Enabled  7.53     
+ Core         Field SQL storage (field_sql_storage)   Module  Enabled  7.53     
+ Core         Field UI (field_ui)                     Module  Enabled  7.53     
+ Core         File (file)                             Module  Enabled  7.53     
+ Core         Filter (filter)                         Module  Enabled  7.53     
+ Core         Forum (forum)                           Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Help (help)                             Module  Enabled  7.53     
+ Core         Image (image)                           Module  Enabled  7.53     
+ Core         List (list)                             Module  Enabled  7.53     
+ Core         Locale (locale)                         Module  Enabled  7.53     
+ Core         Menu (menu)                             Module  Enabled  7.53     
+ Core         Node (node)                             Module  Enabled  7.53     
+ Core         Number (number)                         Module  Enabled  7.53     
+ Core         OpenID (openid)                         Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Options (options)                       Module  Enabled  7.53     
+ Core         Overlay (overlay)                       Module  Disable  7.53     
+                                                              d                 
+ Core         Path (path)                             Module  Enabled  7.53     
+ Core         PHP filter (php)                        Module  Enabled  7.53     
+ Core         Poll (poll)                             Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         RDF (rdf)                               Module  Enabled  7.53     
+ Core         Search (search)                         Module  Enabled  7.53     
+ Core         Shortcut (shortcut)                     Module  Enabled  7.53     
+ Core         Statistics (statistics)                 Module  Enabled  7.53     
+ Core         Syslog (syslog)                         Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         System (system)                         Module  Enabled  7.53     
+ Core         Taxonomy (taxonomy)                     Module  Enabled  7.53     
+ Core         Testing (simpletest)                    Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Text (text)                             Module  Enabled  7.53     
+ Core         Toolbar (toolbar)                       Module  Disable  7.53     
+                                                              d                 
+ Core         Tracker (tracker)                       Module  Enabled  7.53     
+ Core         Trigger (trigger)                       Module  Not      7.53     
+                                                              install           
+                                                              ed                
+ Core         Update manager (update)                 Module  Disable  7.53     
+                                                              d                 
+ Core         User (user)                             Module  Enabled  7.53     
+ Countries    Better Countries (better_countries)     Module  Enabled  7.x-1.1  
+ Date/Time    Calendar (calendar)                     Module  Enabled  7.x-3.4  
+ Date/Time    Date (date)                             Module  Enabled  7.x-2.8  
+ Date/Time    Date All Day (date_all_day)             Module  Not      7.x-2.8  
+                                                              install           
+                                                              ed                
+ Date/Time    Date API (date_api)                     Module  Enabled  7.x-2.8  
+ Date/Time    Date Context (date_context)             Module  Not      7.x-2.8  
+                                                              install           
+                                                              ed                
+ Date/Time    Date Popup (date_popup)                 Module  Enabled  7.x-2.8  
+ Date/Time    Date Repeat API (date_repeat)           Module  Not      7.x-2.8  
+                                                              install           
+                                                              ed                
+ Date/Time    Date Repeat Field (date_repeat_field)   Module  Not      7.x-2.8  
+                                                              install           
+                                                              ed                
+ Date/Time    Date Tools (date_tools)                 Module  Not      7.x-2.8  
+                                                              install           
+                                                              ed                
+ Date/Time    Date Views (date_views)                 Module  Enabled  7.x-2.8  
+ Development  Delete content and users (delete_all)   Module  Enabled  7.x-1.1  
+ Development  Devel (devel)                           Module  Enabled  7.x-1.4  
+ Development  Devel generate (devel_generate)         Module  Enabled  7.x-1.4  
+ Development  Devel node access (devel_node_access)   Module  Not      7.x-1.4  
+                                                              install           
+                                                              ed                
+ Development  Menu import (menu_import)               Module  Enabled  7.x-1.6  
+ Development  Metatag: Devel (metatag_devel)          Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ Development  Nodequeue generate                      Module  Not      7.x-2.0- 
+              (nodequeue_generate)                            install  beta1    
+                                                              ed                
+ Display      Display Suite (ds)                      Module  Enabled  7.x-2.6  
+ Suite                                                                          
+ Display      Display Suite Devel (ds_devel)          Module  Not      7.x-2.6  
+ Suite                                                        install           
+                                                              ed                
+ Display      Display Suite Extras (ds_extras)        Module  Enabled  7.x-2.6  
+ Suite                                                                          
+ Display      Display Suite Format (ds_format)        Module  Not      7.x-2.6  
+ Suite                                                        install           
+                                                              ed                
+ Display      Display Suite Forms (ds_forms)          Module  Not      7.x-2.6  
+ Suite                                                        install           
+                                                              ed                
+ Display      Display Suite Search (ds_search)        Module  Not      7.x-2.6  
+ Suite                                                        install           
+                                                              ed                
+ Display      Display Suite UI (ds_ui)                Module  Enabled  7.x-2.6  
+ Suite                                                                          
+ EF modules   Auto-creation of Car and Nc             Module  Enabled           
+              (ef_car_nc_autocreation)                                          
+ EF modules   Auto-creation of the Annual Progress    Module  Enabled           
+              Report                                                            
+              (ef_annual_progress_report_autocreatio                            
+              n)                                                                
+ EF modules   Auto-creation of the Quarterly reports  Module  Enabled           
+              (ef_qr_autocreation)                                              
+ EF modules   Change the exposed filter value         Module  Enabled           
+              (ef_contract_number)                                              
+ EF modules   Data Visualization System DVS (dvs)     Module  Enabled           
+ EF modules   EF 404 (ef_404)                         Module  Enabled           
+ EF modules   EF Add DS fields (ef_add_ds_fields)     Module  Enabled           
+ EF modules   Ef Admin Css (ef_admin_css)             Module  Enabled           
+ EF modules   EF Authors Quarterly Report View        Module  Enabled           
+              (ef_quarterly_report_authors_view)                                
+ EF modules   EF Back Button (ef_back_search_button)  Module  Enabled           
+ EF modules   EF Case Studies import                  Module  Enabled           
+              (ef_case_studies_import)                                          
+ EF modules   EF CKEditor custom styles               Module  Enabled           
+              (ef_ckeditor_custom_styles)                                       
+ EF modules   EF CKEditor height                      Module  Enabled           
+              (ef_ckeditor_height)                                              
+ EF modules   EF CKEditor tableresize plugin          Module  Enabled           
+              (ef_ckeditor_tableresize)                                         
+ EF modules   EF Color Button Plugin for CKEditor     Module  Enabled           
+              (ef_ckeditor_colorbutton)                                         
+ EF modules   EF concurrent editing notification      Module  Enabled           
+              (ef_concurrent_editing_notification)                              
+ EF modules   EF Content Inventory                    Module  Enabled           
+              (ef_content_inventory)                                            
+ EF modules   EF contract (ef_contract)               Module  Enabled           
+ EF modules   EF Contrib (contrib)                    Module  Enabled           
+ EF modules   EF CRM wrapper (ef_crm_wrapper)         Module  Enabled           
+ EF modules   EF Date Jump Duplicates                 Module  Enabled           
+              (ef_date_jump_duplicates)                                         
+ EF modules   EF Default Formats                      Module  Enabled           
+              (ef_default_formats)                                              
+ EF modules   EF deliverable kind field               Module  Enabled           
+              (ef_deliverable_kind_field)                                       
+ EF modules   EF ERM dump (ef_erm_dump)               Module  Enabled           
+ EF modules   EF ERM regulaion (ef_erm_regulation)    Module  Enabled           
+ EF modules   EF ERM support instrument               Module  Enabled           
+              (ef_erm_support_instrument)                                       
+ EF modules   EF Export from Drupal to MS Word        Module  Enabled           
+              (ef_contents2word)                                                
+ EF modules   EF Extranet page access                 Module  Enabled           
+              (ef_extranet_page_access)                                         
+ EF modules   EF Factsheet Admin View Alter           Module  Enabled           
+              (ef_factsheet_admin_view_alter)                                   
+ EF modules   EF Find Content (ef_find_content)       Module  Enabled           
+ EF modules   EF Help Text Ratings                    Module  Enabled           
+              (ef_help_text_ratings)                                            
+ EF modules   EF Missing Revisions                    Module  Enabled           
+              (ef_missing_revisions)                                            
+ EF modules   EF MyDashboard (ef_my_dashboard)        Module  Enabled           
+ EF modules   EF MyNewsDesk (ef_my_news_desk)         Module  Enabled           
+ EF modules   EF MyToDoLists (ef_lists)               Module  Enabled           
+ EF modules   EF NC-CAR Breadcrumbs                   Module  Enabled           
+              (ef_nc_breadcrumbs)                                               
+ EF modules   EF node moderation links                Module  Disable           
+              (ef_node_moderation_links)                      d                 
+ EF modules   EF Notifications (ef_notifications)     Module  Enabled           
+ EF modules   EF Nuts (ef_nuts)                       Module  Enabled           
+ EF modules   EF OSU Contract (ef_osu_contract)       Module  Enabled           
+ EF modules   EF Path Cache Control                   Module  Disable           
+              (ef_path_cache_control)                         d                 
+ EF modules   EF proposals (ef_proposals)             Module  Enabled           
+ EF modules   EF publication date year filter         Module  Enabled           
+              (ef_publication_date_year_filter)                                 
+ EF modules   EF publication field formatter          Module  Enabled           
+              (ef_publication_field_formatter)                                  
+ EF modules   EF Publications (ef_publications_ct)    Module  Enabled           
+ EF modules   EF request assignee                     Module  Enabled           
+              (ef_request_assignee)                                             
+ EF modules   EF show contract numbers in contract    Module  Enabled           
+              fields                                                            
+              (ef_show_contract_numbers_in_contract_                            
+              fields)                                                           
+ EF modules   EF spotlight summary                    Module  Enabled           
+              (ef_spotlight_summary)                                            
+ EF modules   EF Taxonomy Field Optgroup              Module  Enabled           
+              (ef_taxonomy_field_optgroup)                                      
+ EF modules   Ef Topic Form (ef_topic_form)           Module  Not               
+                                                              install           
+                                                              ed                
+ EF modules   EF Topics page (ef_topics_page)         Module  Enabled           
+ EF modules   EF Users Management                     Module  Enabled           
+              (ef_users_management)                                             
+ EF modules   EF Webform Limited Supply Options       Module  Enabled           
+              (ef_webform_limited_list)                                         
+ EF modules   EF Word Counter Plugin for CKEditor     Module  Enabled           
+              (ef_ckeditor_word_counter)                                        
+ EF modules   EF Workbench Moderation State Access    Module  Enabled  7.x-1.1  
+              (ef_workbench_moderation_state_access)                            
+ EF modules   EF Workbench State Premissions          Module  Disable           
+              (ef_workbench_state_premissions)                d                 
+ EF modules   EF Workbench Tokens                     Module  Enabled           
+              (ef_workbench_tokens)                                             
+ EF modules   ef_browse_by_jump_block                 Module  Enabled           
+              (ef_browse_by_jump_block)                                         
+ EF modules   ef_case_studies (ef_case_studies)       Module  Enabled           
+ EF modules   ef_comment_sector (ef_comment_sector)   Module  Enabled           
+ EF modules   ef_customised_forms                     Module  Enabled           
+              (ef_customised_forms)                                             
+ EF modules   ef_factsheet_form (ef_factsheet)        Module  Enabled           
+ EF modules   ef_factsheet_id (ef_factsheet_id)       Module  Enabled           
+ EF modules   ef_factsheet_statistics                 Module  Enabled           
+              (ef_factsheet_statistics)                                         
+ EF modules   ef_irdictionary_reset_button            Module  Enabled  7.x-1.0  
+              (ef_irdictionary_reset_button)                                    
+ EF modules   ef_language_list (ef_language_list)     Module  Enabled           
+ EF modules   Invalid Reference                       Module  Enabled           
+              (ef_invalid_reference)                                            
+ EF modules   Menu Css Class (ef_menu_css_class)      Module  Enabled           
+ EF modules   Single sign in services SSI (ssi)       Module  Enabled           
+ ef_assistan  ef_assistant_settings                   Module  Enabled           
+ t_settings   (ef_assistant_settings)                                           
+ ef_permissi  ef_permissions (ef_permissions)         Module  Enabled           
+ ons                                                                            
+ Eworx        DVS CWB (dvscwb)                        Module  Enabled           
+ modules                                                                        
+ Example      Authcache User Cookie                   Module  Not      7.x-2.0- 
+ modules      (authcache_usercookie)                          install  beta7    
+                                                              ed                
+ Example      Countries Example (countries_example)   Module  Not      7.x-2.1  
+ modules                                                      install           
+                                                              ed                
+ Example      Variable example (variable_example)     Module  Not      7.x-2.4  
+ modules                                                      install           
+                                                              ed                
+ Features     Business Components                     Module  Enabled           
+              (ef_business_components)                                          
+ Features     Country group (country_group)           Module  Enabled  7.x-1.0  
+ Features     CWB DVS model (cwb_model)               Module  Enabled           
+ Features     CWB migrated content A                  Module  Disable           
+              (cwb_migrated_content_a)                        d                 
+ Features     CWB migrated content B                  Module  Disable           
+              (cwb_migrated_content_b)                        d                 
+ Features     CWB schema content                      Module  Disable           
+              (cwb_schema_content)                            d                 
+ Features     CWB Timelines                           Module  Enabled  7.x-1.0- 
+              (views_timelinejs_feature)                               alpha1   
+ Features     CWB timelines content 1                 Module  Disable           
+              (cwb_timelines_content_1)                       d                 
+ Features     CWB timelines content 2                 Module  Disable           
+              (cwb_timelines_content_2)                       d                 
+ Features     Data visualisation addons               Module  Enabled           
+              (data_visualisation_addons)                                       
+ Features     Date Migration Example                  Module  Not      7.x-2.8  
+              (date_migrate_example)                          install           
+                                                              ed                
+ Features     DVS CWB interface (dvs_cwb_interface)   Module  Enabled           
+ Features     ef annual progress report               Module  Enabled  7.x-1.0- 
+              (ef_annual_progress_report)                              alpha    
+ Features     EF Basics (ef_basics)                   Module  Enabled           
+ Features     EF CAR group documents                  Module  Enabled           
+              (ef_car_group_documents)                                          
+ Features     EF DVS (ef_dvs)                         Module  Enabled           
+ Features     EF ERM dump feature                     Module  Enabled           
+              (ef_erm_dump_feature)                                             
+ Features     EF Search Index (ef_search_index)       Module  Enabled           
+ Features     ef_case_study_publication_importer      Module  Enabled  7.x-1.0  
+              (ef_case_study_publication_importer)                              
+ Features     ERM Legal database                      Module  Enabled           
+              (erm_legal_database)                                              
+ Features     ERM Support Instruments                 Module  Disable           
+              (erm_support_instruments)                       d                 
+ Features     Events (ef_events)                      Module  Enabled           
+ Features     fe CS Feed (cs_feed)                    Module  Enabled           
+ Features     fe cspub CT (fe_cspub_ct)               Module  Disable           
+                                                              d                 
+ Features     Features (features)                     Module  Enabled  7.x-2.0  
+ Features     Media (ef_media)                        Module  Enabled           
+ Features     News (ef_news)                          Module  Enabled           
+ Features     Publications (ef_publications)          Module  Enabled           
+ Features     Restructuring (ef_restructuring)        Module  Enabled           
+ Features     Roles, Permissions and Rules            Module  Enabled           
+              (ef_roles_and_permissions)                                        
+ Features     Spotlight (ef_spotlight)                Module  Enabled           
+ Features     SSI web apps intergration               Module  Enabled           
+              (ssi_web_apps_intergration)                                       
+ Features     Surveys (ef_surveys)                    Module  Enabled           
+ Features     Taxonomy Permissions                    Module  Enabled           
+              (ef_taxonomy_permissions)                                         
+ Features     UUID default entities example           Module  Not      7.x-1.0- 
+              (uuid_default_entities_example)                 install  alpha5   
+                                                              ed                
+ Features     UUID Features (uuid_features)           Module  Enabled  7.x-1.0- 
+                                                                       alpha4+2 
+                                                                       5-dev    
+ Features     UUID Services Example                   Module  Not      7.x-1.0- 
+              (uuid_services_example)                         install  alpha5   
+                                                              ed                
+ Features     Workbench Moderation State Access       Module  Enabled           
+              (fe_workbench_moderation_state_access)                            
+ Features     Workflow Permissions                    Module  Enabled           
+              (ef_workflow_permissions)                                         
+ Features     Workflows, Revisions and Notifications  Module  Enabled           
+              (workflows)                                                       
+ Features     FE Block (fe_block)                     Module  Enabled  7.x-1.0- 
+ extra                                                                 beta1    
+ Features     FE Nodequeue (fe_nodequeue)             Module  Enabled  7.x-1.0- 
+ extra                                                                 beta1    
+ Features     FE Profile (fe_profile)                 Module  Not      7.x-1.0- 
+ extra                                                        install  beta1    
+                                                              ed                
+ Feeds        Feeds (feeds)                           Module  Enabled  7.x-2.0- 
+                                                                       alpha8   
+ Feeds        Feeds Admin UI (feeds_ui)               Module  Enabled  7.x-2.0- 
+                                                                       alpha8   
+ Feeds        Feeds Import (feeds_import)             Module  Enabled  7.x-2.0- 
+                                                                       alpha8   
+ Feeds        Feeds News (feeds_news)                 Module  Not      7.x-2.0- 
+                                                              install  alpha8   
+                                                              ed                
+ Feeds        Feeds Tamper (feeds_tamper)             Module  Enabled  7.x-1.0  
+ Feeds        Feeds Tamper Admin UI                   Module  Enabled  7.x-1.0  
+              (feeds_tamper_ui)                                                 
+ Fieldgroup   Fieldgroup Test (field_group_test)      Module  Not      7.x-1.3  
+                                                              install           
+                                                              ed                
+ Fields       Colectomy (colectomy)                   Module  Enabled  7.x-1.0- 
+                                                                       beta2    
+ Fields       Computed Field (computed_field)         Module  Enabled  7.x-1.0  
+ Fields       Computed Field Tools                    Module  Enabled  7.x-1.0  
+              (computed_field_tools)                                            
+ Fields       Conditional Fields                      Module  Enabled  7.x-3.0- 
+              (conditional_fields)                                     alpha1   
+ Fields       Countries (countries)                   Module  Enabled  7.x-2.1  
+ Fields       Countries configuration                 Module  Not      7.x-2.1  
+              (countries_configuration)                       install           
+                                                              ed                
+ Fields       Custom Formatters (custom_formatters)   Module  Enabled  7.x-2.2  
+ Fields       Editable Fields (editablefields)        Module  Enabled  7.x-1.0- 
+                                                                       alpha2   
+ Fields       EF File Additional Information          Module  Enabled  7.x-1.0  
+              (ef_file_additional_info)                                         
+ Fields       Email (email)                           Module  Enabled  7.x-1.3  
+ Fields       Entity Reference (entityreference)      Module  Enabled  7.x-1.1  
+ Fields       Entity Reference Behavior Example       Module  Not      7.x-1.1  
+              (entityreference_behavior_example)              install           
+                                                              ed                
+ Fields       Field collection (field_collection)     Module  Enabled  7.x-1.0- 
+                                                                       beta8    
+ Fields       Field Collection Fieldset               Module  Enabled  7.x-2.3  
+              (field_collection_fieldset)                                       
+ Fields       Field Permissions (field_permissions)   Module  Enabled  7.x-1.0- 
+                                                                       beta2    
+ Fields       Field Validation (field_validation)     Module  Enabled  7.x-2.4  
+ Fields       Field validation extras                 Module  Enabled  7.x-2.4  
+              (field_validation_extras)                                         
+ Fields       Field Validation UI                     Module  Enabled  7.x-2.4  
+              (field_validation_ui)                                             
+ Fields       Fieldgroup (field_group)                Module  Enabled  7.x-1.3  
+ Fields       Link (link)                             Module  Enabled  7.x-1.2  
+ Fields       Multifield (multifield)                 Module  Enabled  7.x-1.0- 
+                                                                       alpha1   
+ Fields       Property Validation                     Module  Not      7.x-2.4  
+              (property_validation)                           install           
+                                                              ed                
+ Fields       Title (title)                           Module  Enabled  7.x-1.0- 
+                                                                       alpha8   
+ Fields       User role field (user_role_field)       Module  Enabled  7.x-1.1  
+ FlexSlider   FlexSlider (flexslider)                 Module  Enabled  7.x-2.0- 
+                                                                       alpha3   
+ FlexSlider   FlexSlider Example                      Module  Not      7.x-2.0- 
+              (flexslider_example)                            install  alpha3   
+                                                              ed                
+ FlexSlider   FlexSlider Fields (flexslider_fields)   Module  Not      7.x-2.0- 
+                                                              install  alpha3   
+                                                              ed                
+ FlexSlider   FlexSlider Views Style                  Module  Not      7.x-2.0- 
+              (flexslider_views)                              install  alpha3   
+                                                              ed                
+ Form         Hierarchical Select                     Module  Enabled  7.x-3.0- 
+ Elements     (hierarchical_select)                                    alpha13  
+ Form         Hierarchical Select Entity Reference    Module  Not      7.x-3.0- 
+ Elements     (hser)                                          install  alpha13  
+                                                              ed                
+ Form         Hierarchical Select Flat List           Module  Not      7.x-3.0- 
+ Elements     (hs_flatlist)                                   install  alpha13  
+                                                              ed                
+ Form         Hierarchical Select Menu (hs_menu)      Module  Not      7.x-3.0- 
+ Elements                                                     install  alpha13  
+                                                              ed                
+ Form         Hierarchical Select Small Hierarchy     Module  Not      7.x-3.0- 
+ Elements     (hs_smallhierarchy)                             install  alpha13  
+                                                              ed                
+ Form         Hierarchical Select Taxonomy            Module  Enabled  7.x-3.0- 
+ Elements     (hs_taxonomy)                                            alpha13  
+ Form         Hierarchical Select Taxonomy Views      Module  Enabled  7.x-3.0- 
+ Elements     (hs_taxonomy_views)                                      alpha13  
+ Geolocation  Geolocation (geolocation)               Module  Enabled  7.x-1.4  
+ Geolocation  Geolocation Google Maps                 Module  Enabled  7.x-1.4  
+              (geolocation_googlemaps)                                          
+ Geolocation  Geolocation HTML5 (geolocation_html5)   Module  Not      7.x-1.4  
+                                                              install           
+                                                              ed                
+ Group        EF group (ef_group)                     Module  Enabled           
+ Group        Group (group)                           Module  Enabled  7.x-1.0- 
+                                                                       beta3    
+ Group        Group add (gadd)                        Module  Enabled  7.x-1.0- 
+                                                                       beta3    
+ Group        Group invite (ginvite)                  Module  Not      7.x-1.0- 
+                                                              install  beta3    
+                                                              ed                
+ Group        Group member profiles (gprofile)        Module  Enabled  7.x-1.0- 
+                                                                       beta3    
+ Group        Group Node (gnode)                      Module  Enabled  7.x-1.0- 
+                                                                       beta3    
+ Group        Subgroup (ggroup)                       Module  Not      7.x-1.0- 
+                                                              install  beta3    
+                                                              ed                
+ Input        Pathologic (pathologic)                 Module  Enabled  7.x-2.12 
+ filters                                                                        
+ Kaltura      Kaltura as a field (field_kaltura)      Module  Not      7.x-2.0  
+ Media                                                        install           
+ Management                                                   ed                
+ Kaltura      Kaltura Media Views (kaltura_views)     Module  Not      7.x-2.0  
+ Media                                                        install           
+ Management                                                   ed                
+ Kaltura      Kaltura Module (kaltura)                Module  Not      7.x-2.0  
+ Media                                                        install           
+ Management                                                   ed                
+ Mail         Mail System (mailsystem)                Module  Enabled  7.x-2.34 
+ Mail         Mime Mail (mimemail)                    Module  Enabled  7.x-1.0- 
+                                                                       beta3    
+ Mail         Mime Mail Action (mimemail_action)      Module  Not      7.x-1.0- 
+                                                              install  beta3    
+                                                              ed                
+ Mail         Mime Mail CSS Compressor                Module  Not      7.x-1.0- 
+              (mimemail_compress)                             install  beta3    
+                                                              ed                
+ Mail         Simplenews (simplenews)                 Module  Enabled  7.x-1.1  
+ Mail         Simplenews Content Selection (scs)      Module  Enabled  7.x-2.0  
+ Mail         Simplenews Content Selection Views      Module  Enabled  7.x-2.0  
+              Integration (scs_views)                                           
+ Mail         Simplenews rules (simplenews_rules)     Module  Not      7.x-1.1  
+                                                              install           
+                                                              ed                
+ Mail         SMTP Authentication Support (smtp)      Module  Enabled  7.x-1.0  
+ Media        File entity (file_entity)               Module  Enabled  7.x-2.0- 
+                                                                       alpha3   
+ Media        Media (media)                           Module  Enabled  7.x-2.0- 
+                                                                       beta1    
+ Media        Media Bulk Upload (media_bulk_upload)   Module  Not      7.x-2.0- 
+                                                              install  beta1    
+                                                              ed                
+ Media        Media Field (mediafield)                Module  Enabled  7.x-2.0- 
+                                                                       beta1    
+ Media        Media Internet Sources                  Module  Enabled  7.x-2.0- 
+              (media_internet)                                         beta1    
+ Media        Media WYSIWYG (media_wysiwyg)           Module  Enabled  7.x-2.0- 
+                                                                       beta1    
+ Media        Media WYSIWYG View Mode                 Module  Enabled  7.x-2.0- 
+              (media_wysiwyg_view_mode)                                beta1    
+ Media        Media: Vimeo (media_vimeo)              Module  Enabled  7.x-1.0- 
+                                                                       beta5    
+ Media        Media: YouTube (media_youtube)          Module  Enabled  7.x-2.0- 
+                                                                       rc4      
+ Media        PDF Preview (pdfpreview)                Module  Enabled  7.x-2.1  
+ Menu         i18n Menu overview                      Module  Disable  7.x-3.1  
+              (i18n_menu_overview)                            d                 
+ Menu         Menu Minipanels (menu_minipanels)       Module  Enabled  7.x-1.1  
+ Messaging    HTML Mail (messaging_htmlmail)          Module  Enabled  7.x-1.0- 
+                                                                       alpha2   
+ Messaging    Messaging (messaging)                   Module  Enabled  7.x-1.0- 
+                                                                       alpha2   
+ Messaging    Messaging template                      Module  Not      7.x-1.0- 
+              (messaging_template)                            install  alpha2   
+                                                              ed                
+ Messaging    Simple Mail (messaging_mail)            Module  Enabled  7.x-1.0- 
+                                                                       alpha2   
+ Messaging    Web messaging (messaging_simple)        Module  Not      7.x-1.0- 
+                                                              install  alpha2   
+                                                              ed                
+ More         More Buttons (mb)                       Module  Enabled  7.x-1.0- 
+ Buttons                                                               beta1    
+ More         More Buttons Comment (mb_comment)       Module  Not      7.x-1.0- 
+ Buttons                                                      install  beta1    
+                                                              ed                
+ More         More Buttons Content (mb_content)       Module  Enabled  7.x-1.0- 
+ Buttons                                                               beta1    
+ More         More Buttons Extra (mb_extra)           Module  Not      7.x-1.0- 
+ Buttons                                                      install  beta1    
+                                                              ed                
+ More         More Buttons User (mb_user)             Module  Not      7.x-1.0- 
+ Buttons                                                      install  beta1    
+                                                              ed                
+ Multilingua  EF Synchronize Translation Paths        Module  Enabled  7.x-1.1  
+ l            (ef_synchronize_translation_paths)                                
+ Multilingua  Language Icons (languageicons)          Module  Not      7.x-1.1  
+ l                                                            install           
+                                                              ed                
+ Multilingua  Language Switcher Dropdown              Module  Enabled  7.x-2.5  
+ l            (lang_dropdown)                                                   
+ Multilingua  Language Switcher Dropdown Hideout      Module  Not      7.x-2.5  
+ l            (lang_dropdown_hideout)                         install           
+                                                              ed                
+ Multilingua  Localization update (l10n_update)       Module  Enabled  7.x-1.0  
+ l                                                                              
+ Multilingua  Synchronize Translation Paths           Module  Disable  7.x-1.0- 
+ l            (synchronize_translation_paths)                 d        beta1    
+ Multilingua  Entity Translation                      Module  Enabled  7.x-1.0- 
+ l - Entity   (entity_translation)                                     beta4    
+ Translation                                                                    
+ Multilingua  Entity Translation Menu                 Module  Enabled  7.x-1.0- 
+ l - Entity   (entity_translation_i18n_menu)                           beta4    
+ Translation                                                                    
+ Multilingua  Entity Translation Upgrade              Module  Not      7.x-1.0- 
+ l - Entity   (entity_translation_upgrade)                    install  beta4    
+ Translation                                                  ed                
+ Multilingua  Block languages (i18n_block)            Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Contact translation (i18n_contact)      Module  Not      7.x-1.11 
+ l -                                                          install           
+ Internation                                                  ed                
+ alization                                                                      
+ Multilingua  Countries translation (countries_i18n)  Module  Enabled  7.x-2.1  
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Field translation (i18n_field)          Module  Disable  7.x-1.11 
+ l -                                                          d                 
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Internationalization (i18n)             Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Menu translation (i18n_menu)            Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Multilingual content (i18n_node)        Module  Not      7.x-1.11 
+ l -                                                          install           
+ Internation                                                  ed                
+ alization                                                                      
+ Multilingua  Multilingual forum (i18n_forum)         Module  Not      7.x-1.11 
+ l -                                                          install           
+ Internation                                                  ed                
+ alization                                                                      
+ Multilingua  Multilingual select (i18n_select)       Module  Disable  7.x-1.11 
+ l -                                                          d                 
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Panels translation (i18n_panels)        Module  Enabled  7.x-3.4  
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Path translation (i18n_path)            Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Rules translation (rules_i18n)          Module  Enabled  7.x-2.7  
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  String translation (i18n_string)        Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Synchronize translations (i18n_sync)    Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Taxonomy translation (i18n_taxonomy)    Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Translation redirect (i18n_redirect)    Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Translation sets (i18n_translation)     Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Translation table (translation_table)   Module  Enabled  7.x-1.0- 
+ l -                                                                   beta1    
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  User mail translation (i18n_user)       Module  Not      7.x-1.11 
+ l -                                                          install           
+ Internation                                                  ed                
+ alization                                                                      
+ Multilingua  Variable translation (i18n_variable)    Module  Enabled  7.x-1.11 
+ l -                                                                            
+ Internation                                                                    
+ alization                                                                      
+ Multilingua  Views translation (i18nviews)           Module  Enabled  7.x-3.x- 
+ l -                                                                   dev      
+ Internation                                                                    
+ alization                                                                      
+ Node export  Node export (node_export)               Module  Enabled  7.x-3.0  
+ Node export  Node export dependency (experimental)   Module  Not      7.x-3.0  
+              (node_export_dependency)                        install           
+                                                              ed                
+ Node export  Node export features                    Module  Not      7.x-3.0  
+              (node_export_features)                          install           
+                                                              ed                
+ Node export  Node export feeds (node_export_feeds)   Module  Not      7.x-3.0  
+                                                              install           
+                                                              ed                
+ Node export  Node export relation (deprecated)       Module  Not      7.x-3.0  
+              (node_export_relation)                          install           
+                                                              ed                
+ Nodequeue    Nodequeue (nodequeue)                   Module  Enabled  7.x-2.0- 
+                                                                       beta1    
+ Nodequeue    Nodequeue Service (nodequeue_service)   Module  Not      7.x-2.0- 
+                                                              install  beta1    
+                                                              ed                
+ Nodequeue    Smartqueue taxonomy (smartqueue)        Module  Not      7.x-2.0- 
+                                                              install  beta1    
+                                                              ed                
+ Other        'me' Aliases (me)                       Module  Enabled  7.x-1.1  
+ Other        Advanced help (advanced_help)           Module  Enabled  7.x-1.1  
+ Other        Advanced help example (help_example)    Module  Not      7.x-1.1  
+                                                              install           
+                                                              ed                
+ Other        Authcache User (authcache_user)         Module  Enabled  7.x-2.0- 
+                                                                       beta7    
+ Other        Autosave (autosave)                     Module  Disable  7.x-2.2  
+                                                              d                 
+ Other        Block Class (block_class)               Module  Enabled  7.x-2.1  
+ Other        Colorbox (colorbox)                     Module  Enabled  7.x-2.6  
+ Other        Conditional Stylesheets                 Module  Enabled  7.x-2.2  
+              (conditional_styles)                                              
+ Other        Custom Publishing Options (custom_pub)  Module  Enabled  7.x-1.3+ 
+                                                                       0-dev    
+ Other        Custom tokens (token_custom)            Module  Enabled  7.x-2.0- 
+                                                                       beta3    
+ Other        Diff (diff)                             Module  Enabled  7.x-3.2  
+ Other        Duplicate Role (duplicate_role)         Module  Enabled  7.x-1.2  
+ Other        Easy Social (easy_social)               Module  Enabled  7.x-2.11 
+ Other        EF Metatags (ef_metatags)               Module  Enabled  7.x-1.x  
+ Other        EF Quality Rating and Reporting         Module  Enabled  7.x-1.20 
+              (ef_qrr)                                                 -dev     
+ Other        Elysia Cron (elysia_cron)               Module  Enabled  7.x-2.1  
+ Other        Entity API (entity)                     Module  Enabled  7.x-1.6  
+ Other        Entity tokens (entity_token)            Module  Enabled  7.x-1.6  
+ Other        EU Cookie Compliance                    Module  Enabled  7.x-1.14 
+              (eu_cookie_compliance)                                            
+ Other        Field formatter conditions (ffc)        Module  Enabled  7.x-1.0- 
+                                                                       beta2    
+ Other        Field formatter settings API            Module  Enabled  7.x-1.1  
+              (field_formatter_settings)                                        
+ Other        Flood unblock (flood_unblock)           Module  Enabled  7.x-1.3  
+ Other        ImageMagick (imagemagick)               Module  Enabled  7.x-1.0  
+ Other        ImageMagick Advanced                    Module  Not      7.x-1.0  
+              (imagemagick_advanced)                          install           
+                                                              ed                
+ Other        Insert (insert)                         Module  Enabled  7.x-1.3  
+ Other        Job Scheduler (job_scheduler)           Module  Enabled  7.x-2.0- 
+                                                                       alpha3   
+ Other        Job Scheduler Trigger                   Module  Not      7.x-2.0- 
+              (job_scheduler_trigger)                         install  alpha3   
+                                                              ed                
+ Other        Lexicon (lexicon)                       Module  Enabled  7.x-1.10 
+ Other        Libraries (libraries)                   Module  Enabled  7.x-2.2  
+ Other        Link checker (linkchecker)              Module  Enabled  7.x-1.2  
+ Other        Login Destination (login_destination)   Module  Enabled  7.x-1.1  
+ Other        Login Disable (login_disable)           Module  Enabled  7.x-1.2  
+ Other        Mail Editor (mail_edit)                 Module  Enabled  7.x-1.0  
+ Other        Masquerade (masquerade)                 Module  Enabled  7.x-1.0- 
+                                                                       rc7      
+ Other        Menu Block (menu_block)                 Module  Enabled  7.x-2.7  
+ Other        Menu Block Export (menu_block_export)   Module  Not      7.x-2.7  
+                                                              install           
+                                                              ed                
+ Other        Menu position (menu_position)           Module  Enabled  7.x-1.1  
+ Other        Module filter (module_filter)           Module  Enabled  7.x-1.8  
+ Other        Node clone (clone)                      Module  Enabled  7.x-1.0- 
+                                                                       rc2      
+ Other        Node Convert (node_convert)             Module  Enabled  7.x-1.2  
+ Other        Path Checker (path_checker)             Module  Not      7.x-1.0  
+                                                              install           
+                                                              ed                
+ Other        Pathauto (pathauto)                     Module  Enabled  7.x-1.3  
+ Other        Permissions grid (permission_grid)      Module  Enabled  7.x-1.3  
+ Other        Permissions Lock (permissions_lock)     Module  Enabled  7.x-1.0  
+ Other        Publication Date (publication_date)     Module  Enabled  7.x-2.1  
+ Other        Publish Content (publishcontent)        Module  Enabled  7.x-1.3  
+ Other        Quicktabs (quicktabs)                   Module  Enabled  7.x-3.6  
+ Other        Quicktabs Styles (quicktabs_tabstyles)  Module  Enabled  7.x-3.6  
+ Other        Redirect (redirect)                     Module  Not      7.x-1.0- 
+                                                              install  rc3      
+                                                              ed                
+ Other        Revisioning (revisioning)               Module  Enabled  7.x-1.9  
+ Other        Revisioning Scheduler                   Module  Enabled  7.x-1.9  
+              (revisioning_scheduler)                                           
+ Other        Revisioning UX (revisioning_ux)         Module  Enabled  7.x-1.9  
+ Other        Role delegation (role_delegation)       Module  Enabled  7.x-1.1  
+ Other        Scheduler (scheduler)                   Module  Enabled  7.x-1.3  
+ Other        Security Review (security_review)       Module  Enabled  7.x-1.1  
+ Other        Shortcut per Role (shortcut_per_role)   Module  Enabled  7.x-1.1  
+ Other        Simple hierarchical select (shs)        Module  Enabled  7.x-1.6  
+ Other        simplehtmldom API (simplehtmldom)       Module  Not      7.x-2.1  
+                                                              install           
+                                                              ed                
+ Other        Site map (site_map)                     Module  Enabled  7.x-1.2  
+ Other        String Overrides (stringoverrides)      Module  Enabled  7.x-1.8  
+ Other        String Overrides Migrate                Module  Not      7.x-1.8  
+              (stringoverrides_migrate)                       install           
+                                                              ed                
+ Other        Strongarm (strongarm)                   Module  Enabled  7.x-2.0  
+ Other        Tab Tamer (tabtamer)                    Module  Enabled  7.x-1.1  
+ Other        TableField (tablefield)                 Module  Enabled  7.x-2.3  
+ Other        Token (token)                           Module  Enabled  7.x-1.5  
+ Other        Token tweaks (token_tweaks)             Module  Enabled  7.x-1.x- 
+                                                                       dev      
+ Other        Transliteration (transliteration)       Module  Enabled  7.x-3.2  
+ Other        TVI: Taxonomy View Integrator (tvi)     Module  Enabled  7.x-1.0- 
+                                                                       beta4    
+ Other        Unique Field (unique_field)             Module  Enabled  7.x-1.0- 
+                                                                       rc1      
+ Other        Value is (form element validators)      Module  Enabled  7.x-1.9  
+              (value_is)                                                        
+ Other        Views dependent filters                 Module  Enabled  7.x-1.1  
+              (views_dependent_filters)                                         
+ Panels       Mini panels (panels_mini)               Module  Enabled  7.x-3.4  
+ Panels       Panel nodes (panels_node)               Module  Enabled  7.x-3.4  
+ Panels       Panels (panels)                         Module  Enabled  7.x-3.4  
+ Panels       Panels Breadcrumbs                      Module  Enabled  7.x-2.2  
+              (panels_breadcrumbs)                                              
+ Panels       Panels In-Place Editor (panels_ipe)     Module  Not      7.x-3.4  
+                                                              install           
+                                                              ed                
+ Path         Global Redirect (globalredirect)        Module  Enabled  7.x-1.5  
+ management                                                                     
+ Performance  Redis (redis)                           Module  Not      7.x-2.13 
+                                                              install           
+                                                              ed                
+ Performance  Asynchronous Prefetch Database Query    Module  Disable  7.x-1.0- 
+ and          Cache (apdqc)                                   d        rc1      
+ scalability                                                                    
+ Performance  Authcache (authcache)                   Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Ajax (authcache_ajax)         Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Block (authcache_block)       Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Builtin Cache Expiration v1   Module  Not      7.x-2.0- 
+ and          (authcache_builtin_expire_v1)                   install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Builtin Cache Expiration v2   Module  Enabled  7.x-2.0- 
+ and          (authcache_builtin_expire_v2)                            beta7    
+ scalability                                                                    
+ Performance  Authcache Builtin Storage Backend       Module  Enabled  7.x-2.0- 
+ and          (authcache_builtin)                                      beta7    
+ scalability                                                                    
+ Performance  Authcache Comment (authcache_comment)   Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Commerce                      Module  Not      7.x-2.0- 
+ and          (authcache_commerce)                            install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Debug (authcache_debug)       Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Enumerate (authcache_enum)    Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache ESI (authcache_esi)           Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache ESI Debug                     Module  Not      7.x-2.0- 
+ and          (authcache_esi_debug)                           install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Field (authcache_field)       Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Flag (authcache_flag)         Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Form (authcache_form)         Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Forum (authcache_forum)       Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Menu (authcache_menu)         Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Node History                  Module  Not      7.x-2.0- 
+ and          (authcache_node_history)                        install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Page Manager                  Module  Not      7.x-2.0- 
+ and          (authcache_page_manager)                        install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Panels (authcache_panels)     Module  Enabled  7.x-2.0- 
+ and                                                                   beta7    
+ scalability                                                                    
+ Performance  Authcache Panels by Page Manager        Module  Not      7.x-2.0- 
+ and          (authcache_panels_page_manager)                 install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Personalization API           Module  Enabled  7.x-2.0- 
+ and          (authcache_p13n)                                         beta7    
+ scalability                                                                    
+ Performance  Authcache Poll (authcache_poll)         Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Relation                      Module  Not      7.x-2.0- 
+ and          (authcache_relation)                            install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Varnish Storage Backend       Module  Not      7.x-2.0- 
+ and          (authcache_varnish)                             install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Views (authcache_views)       Module  Not      7.x-2.0- 
+ and                                                          install  beta7    
+ scalability                                                  ed                
+ Performance  Authcache Voting API                    Module  Not      7.x-2.0- 
+ and          (authcache_votingapi)                           install  beta7    
+ scalability                                                  ed                
+ Performance  Cache Expiration (expire)               Module  Enabled  7.x-2.0- 
+ and                                                                   rc3      
+ scalability                                                                    
+ Performance  Entity cache (entitycache)              Module  Enabled  7.x-1.2  
+ and                                                                            
+ scalability                                                                    
+ Performance  HTTP Parallel Request Library (httprl)  Module  Enabled  7.x-1.14 
+ and                                                                            
+ scalability                                                                    
+ Performance  Purge (purge)                           Module  Enabled  7.x-1.7  
+ and                                                                            
+ scalability                                                                    
+ Printer,     dompdf library handler                  Module  Enabled  7.x-2.0  
+ email and    (print_pdf_dompdf)                                                
+ PDF                                                                            
+ versions                                                                       
+ Printer,     EPUB version (print_epub)               Module  Not      7.x-2.0  
+ email and                                                    install           
+ PDF                                                          ed                
+ versions                                                                       
+ Printer,     mPDF library handler (print_pdf_mpdf)   Module  Not      7.x-2.0  
+ email and                                                    install           
+ PDF                                                          ed                
+ versions                                                                       
+ Printer,     PDF version (print_pdf)                 Module  Enabled  7.x-2.0  
+ email and                                                                      
+ PDF                                                                            
+ versions                                                                       
+ Printer,     PHPePub library handler                 Module  Not      7.x-2.0  
+ email and    (print_epub_phpepub)                            install           
+ PDF                                                          ed                
+ versions                                                                       
+ Printer,     Printer-friendly pages (print)          Module  Enabled  7.x-2.0  
+ email and                                                                      
+ PDF                                                                            
+ versions                                                                       
+ Printer,     Printer-friendly pages UI (print_ui)    Module  Enabled  7.x-2.0  
+ email and                                                                      
+ PDF                                                                            
+ versions                                                                       
+ Printer,     Send by email (print_mail)              Module  Not      7.x-2.0  
+ email and                                                    install           
+ PDF                                                          ed                
+ versions                                                                       
+ Printer,     TCPDF library handler                   Module  Not      7.x-2.0  
+ email and    (print_pdf_tcpdf)                               install           
+ PDF                                                          ed                
+ versions                                                                       
+ Printer,     wkhtmltopdf library handler             Module  Not      7.x-2.0  
+ email and    (print_pdf_wkhtmltopdf)                         install           
+ PDF                                                          ed                
+ versions                                                                       
+ Registratio  Registration (registration)             Module  Enabled  7.x-1.3  
+ n                                                                              
+ Registratio  Registration Entity Access              Module  Enabled  7.x-1.3  
+ n            (registration_entity_access)                                      
+ Registratio  Registration Views                      Module  Enabled  7.x-1.3  
+ n            (registration_views)                                              
+ Registratio  Registration Wait list                  Module  Enabled  7.x-1.3  
+ n            (registration_waitlist)                                           
+ Rules        Rules (rules)                           Module  Enabled  7.x-2.7  
+ Rules        Rules Scheduler (rules_scheduler)       Module  Enabled  7.x-2.7  
+ Rules        Rules UI (rules_admin)                  Module  Enabled  7.x-2.7  
+ Search       ef_search (ef_search)                   Module  Enabled  7.x-1.0  
+ Search       Search API (search_api)                 Module  Enabled  7.x-1.14 
+ Search       Search API Entity Translation           Module  Enabled  7.x-2.x- 
+              (search_api_et)                                          dev      
+ Search       Search API Entity Translation for Solr  Module  Enabled  7.x-1.x- 
+              (search_api_et_solr)                                     dev      
+ Search       Search Autocomplete                     Module  Enabled  7.x-4.1  
+              (search_autocomplete)                                             
+ Search       Search Configuration (search_config)    Module  Enabled  7.x-1.1  
+ Search       Search facets (search_api_facetapi)     Module  Enabled  7.x-1.14 
+ Search       Search views (search_api_views)         Module  Enabled  7.x-1.14 
+ Search       Solr search (search_api_solr)           Module  Enabled  7.x-1.6  
+ Search       Current Search Blocks (current_search)  Module  Not      7.x-1.5  
+ Toolkit                                                      install           
+                                                              ed                
+ Search       Facet API (facetapi)                    Module  Enabled  7.x-1.5  
+ Toolkit                                                                        
+ SEO          Metatag (metatag)                       Module  Enabled  7.x-1.18 
+ SEO          Metatag Importer (metatag_importer)     Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: App Links (metatag_app_links)  Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Context (metatag_context)      Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Dublin Core (metatag_dc)       Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Dublin Core Advanced           Module  Not      7.x-1.18 
+              (metatag_dc_advanced)                           install           
+                                                              ed                
+ SEO          Metatag: Facebook (metatag_facebook)    Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: favicons (metatag_favicons)    Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Google CSE - Custom Search     Module  Not      7.x-1.18 
+              Engine (metatag_google_cse)                     install           
+                                                              ed                
+ SEO          Metatag: Google+ (metatag_google_plus)  Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: hreflang (metatag_hreflang)    Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Mobile & UI Adjustments        Module  Not      7.x-1.18 
+              (metatag_mobile)                                install           
+                                                              ed                
+ SEO          Metatag: OpenGraph (metatag_opengraph)  Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Panels (metatag_panels)        Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag: Twitter Cards                  Module  Not      7.x-1.18 
+              (metatag_twitter_cards)                         install           
+                                                              ed                
+ SEO          Metatag: Verification                   Module  Not      7.x-1.18 
+              (metatag_verification)                          install           
+                                                              ed                
+ SEO          Metatag: Views (metatag_views)          Module  Not      7.x-1.18 
+                                                              install           
+                                                              ed                
+ SEO          Metatag:OpenGraph Products              Module  Not      7.x-1.18 
+              (metatag_opengraph_products)                    install           
+                                                              ed                
+ Services -   UUID Services (uuid_services)           Module  Not      7.x-1.0- 
+ resources                                                    install  alpha5   
+                                                              ed                
+ Spam         Honeypot (honeypot)                     Module  Enabled  7.x-1.17 
+ control                                                                        
+ Statistics   Google Analytics (googleanalytics)      Module  Disable  7.x-2.1  
+                                                              d                 
+ Statistics   Piwik Web Analytics (piwik)             Module  Disable  7.x-2.6  
+                                                              d                 
+ Taxonomy     Taxonomy access fix                     Module  Enabled  7.x-2.1  
+              (taxonomy_access_fix)                                             
+ Taxonomy     Taxonomy CSV import/export              Module  Enabled  7.x-5.10 
+              (taxonomy_csv)                                                    
+ Taxonomy     Term Merge (term_merge)                 Module  Enabled  7.x-1.2  
+ Testing      Features Extra test feature             Module  Not      7.x-1.0- 
+              (features_extra_test)                           install  beta1    
+                                                              ed                
+ User         Annotation Plugin for CKEditor          Module  Enabled           
+ interface    (ef_ckeditor_annotation)                                          
+ User         Autocomplete Deluxe                     Module  Enabled  7.x-2.0- 
+ interface    (autocomplete_deluxe)                                    beta3    
+ User         Chosen (chosen)                         Module  Enabled  7.x-2.0- 
+ interface                                                             beta4    
+ User         CKAnnotation (ckannotation)             Module  Enabled  7.x-1.1  
+ interface                                                                      
+ User         jQuery Update (jquery_update)           Module  Enabled  7.x-2.4  
+ interface                                                                      
+ User         Lightbox2 (lightbox2)                   Module  Enabled  7.x-1.0- 
+ interface                                                             beta1    
+ User         Popup (popup)                           Module  Enabled  7.x-1.3  
+ interface                                                                      
+ User         Popup block (popup_block)               Module  Enabled  7.x-1.3  
+ interface                                                                      
+ User         Popup descriptions                      Module  Not      7.x-1.3  
+ interface    (popup_descriptions)                            install           
+                                                              ed                
+ User         Popup Filter (popup_filter)             Module  Not      7.x-1.3  
+ interface                                                    install           
+                                                              ed                
+ User         Popup menu (popup_menu)                 Module  Not      7.x-1.3  
+ interface                                                    install           
+                                                              ed                
+ User         Popup Nodereference                     Module  Not      7.x-1.3  
+ interface    (popup_nodereference)                           install           
+                                                              ed                
+ User         Popup test (popup_test)                 Module  Not      7.x-1.3  
+ interface                                                    install           
+                                                              ed                
+ User         Popup UI (popup_ui)                     Module  Enabled  7.x-1.3  
+ interface                                                                      
+ User         Wysiwyg (wysiwyg)                       Module  Enabled  7.x-2.2+ 
+ interface                                                             57-dev   
+ UUID         Universally Unique ID (uuid)            Module  Enabled  7.x-1.0- 
+                                                                       alpha5   
+ UUID         UUID Path (uuid_path)                   Module  Not      7.x-1.0- 
+                                                              install  alpha5   
+                                                              ed                
+ Variable     Variable (variable)                     Module  Enabled  7.x-2.4  
+ Variable     Variable admin (variable_admin)         Module  Enabled  7.x-2.4  
+ Variable     Variable realm (variable_realm)         Module  Enabled  7.x-2.4  
+ Variable     Variable store (variable_store)         Module  Enabled  7.x-2.4  
+ Variable     Variable views (variable_views)         Module  Not      7.x-2.4  
+                                                              install           
+                                                              ed                
+ Views        Better Exposed Filters                  Module  Enabled  7.x-3.0- 
+              (better_exposed_filters)                                 beta4    
+ Views        Draggableviews (draggableviews)         Module  Enabled  7.x-2.1  
+ Views        Draggableviews Book                     Module  Not      7.x-2.1  
+              (draggableviews_book)                           install           
+                                                              ed                
+ Views        Editable Views (editableviews)          Module  Enabled  7.x-1.0- 
+                                                                       beta9    
+ Views        Views (views)                           Module  Enabled  7.x-3.7  
+ Views        Views Aggregator Plus                   Module  Enabled  7.x-1.2  
+              (views_aggregator)                                                
+ Views        Views Bulk Operations                   Module  Enabled  7.x-3.2  
+              (views_bulk_operations)                                           
+ Views        Views Data Export (views_data_export)   Module  Enabled  7.x-3.0- 
+                                                                       beta7    
+ Views        Views Dynamic Fields                    Module  Enabled  7.x-1.0- 
+              (views_dynamic_fields)                                   alpha2   
+ Views        Views Field View (views_field_view)     Module  Enabled  7.x-1.1  
+ Views        Views Glossary (views_glossary)         Module  Enabled  7.x-1.0  
+ Views        Views importer (views_import)           Module  Enabled  7.x-1.1  
+ Views        Views MediaTable (views_mediatable)     Module  Enabled  7.x-1.0  
+ Views        Views PHP (views_php)                   Module  Enabled  7.x-1.0- 
+                                                                       alpha1   
+ Views        Views Selective Exposed Filters         Module  Enabled  7.x-1.0  
+              (views_filters_selective)                                         
+ Views        Views TimelineJS (views_timelinejs)     Module  Enabled  7.x-1.0- 
+                                                                       alpha1   
+ Views        Views UI (views_ui)                     Module  Enabled  7.x-3.7  
+ Voting       Fivestar (fivestar)                     Module  Enabled  7.x-2.1  
+ Voting       Voting API (votingapi)                  Module  Enabled  7.x-2.11 
+ Webform      Webform (webform)                       Module  Enabled  7.x-4.14 
+ Webform      Webform Add More (webform_addmore)      Module  Enabled  7.x-1.2  
+ Webform      Webform Rules (webform_rules)           Module  Enabled  7.x-1.6  
+ Webform      Webform Share (webform_share)           Module  Enabled  7.x-1.2  
+ Workbench    Workbench (workbench)                   Module  Enabled  7.x-1.2  
+ Workbench    Workbench Email (workbench_email)       Module  Disable  7.x-2.2  
+                                                              d                 
+ Workbench    Workbench Moderation                    Module  Enabled  7.x-1.3  
+              (workbench_moderation)                                            
+ XML sitemap  XML sitemap (xmlsitemap)                Module  Enabled  7.x-2.2  
+ XML sitemap  XML sitemap custom (xmlsitemap_custom)  Module  Enabled  7.x-2.2  
+ XML sitemap  XML sitemap engines                     Module  Not      7.x-2.2  
+              (xmlsitemap_engines)                            install           
+                                                              ed                
+ XML sitemap  XML sitemap internationalization        Module  Enabled  7.x-2.2  
+              (xmlsitemap_i18n)                                                 
+ XML sitemap  XML sitemap menu (xmlsitemap_menu)      Module  Enabled  7.x-2.2  
+ XML sitemap  XML sitemap node (xmlsitemap_node)      Module  Enabled  7.x-2.2  
+ XML sitemap  XML sitemap taxonomy                    Module  Enabled  7.x-2.2  
+              (xmlsitemap_taxonomy)                                             
+ XML sitemap  XML sitemap user (xmlsitemap_user)      Module  Not      7.x-2.2  
+                                                              install           
+                                                              ed                
+ Core         Bartik (bartik)                         Theme   Disable  7.53     
+                                                              d                 
+ Core         Garland (garland)                       Theme   Disable  7.53     
+                                                              d                 
+ Core         Seven (seven)                           Theme   Disable  7.53     
+                                                              d                 
+ Core         Stark (stark)                           Theme   Disable  7.53     
+                                                              d                 
+ Other        EF Foundation (effoundationtheme)       Theme   Enabled           
+ Other        ZURB Foundation (zurb_foundation)       Theme   Enabled  7.x-4.0  
+

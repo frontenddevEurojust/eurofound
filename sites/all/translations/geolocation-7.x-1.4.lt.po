@@ -1,0 +1,26 @@
+# Lithuanian translation of Geolocation Field (7.x-1.4)
+# Copyright (c) 2014 by the Lithuanian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Geolocation Field (7.x-1.4)\n"
+"POT-Creation-Date: 2014-04-10 02:42+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Lithuanian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):((((n%10)>=2)&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+msgid "Remove"
+msgstr "Pašalinti"
+msgid "Yes"
+msgstr "Taip"
+msgid "No"
+msgstr "Ne"
+msgid "Latitude"
+msgstr "Platuma"
+msgid "Longitude"
+msgstr "Ilguma"
+msgid "!name field is required."
+msgstr "Laukelis '!name'  būtinas."

@@ -1,0 +1,4 @@
+name = EF Find Content
+description = Alter the Find Content View
+core = 7.x
+package = EF modules

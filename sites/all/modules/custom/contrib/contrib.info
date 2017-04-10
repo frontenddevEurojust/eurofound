@@ -1,0 +1,4 @@
+name = EF Contrib
+description = Empty contrib module to resolve a features bug looking for unresolved contrib module.
+core = 7.x
+package = EF modules

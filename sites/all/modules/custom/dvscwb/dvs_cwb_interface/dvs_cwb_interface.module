@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the DVS CWB interface feature.
+ */
+
+include_once 'dvs_cwb_interface.features.inc';

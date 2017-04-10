@@ -1,0 +1,28 @@
+# Slovak translation of Unique field (7.x-1.0-rc1)
+# Copyright (c) 2011 by the Slovak translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Unique field (7.x-1.0-rc1)\n"
+"POT-Creation-Date: 2011-07-27 02:47+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+msgid "Title"
+msgstr "Nadpis"
+msgid "title"
+msgstr "názov"
+msgid "Author"
+msgstr "Autor"
+msgid "Language"
+msgstr "Jazyk"
+msgid "Enabled"
+msgstr "Povolené"
+msgid "Content type"
+msgstr "Typ obsahu"
+msgid "here"
+msgstr "tu"

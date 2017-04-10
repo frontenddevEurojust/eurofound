@@ -1,0 +1,6 @@
+summary field renaming patch
+1) patch to rename summary field to abstract (line 1089 of /*/modules/field/modules/text/text.js).
+
+Patch diff:
+1) Edit summary -> Edit abstract
+2) Hide summary -> Hide abstract

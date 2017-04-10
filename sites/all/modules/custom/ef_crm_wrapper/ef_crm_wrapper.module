@@ -1,0 +1,74 @@
+<?php
+/*********************************************************
+* Eworx S.A. 2014
+* @Author kp@eworx.gr
+* implements a drupal wrapping page for arbitrary path requests of the form
+* domain/crm/xxx/parameter where xxx the pagename.apsx and xxxx the token=xxxxx and subs.domain the url to pass on an iframe.
+* EFDR-229 Integration of Microsoft CRM
+**********************************************************/
+
+/**
+ * Implementation of hook_menu().
+ */
+function ef_crm_wrapper_menu() {
+  $items['crm'] = array(
+    'title' => 'Subscriptions',
+    'description' => 'EF CRM wrapper',
+    'page callback' => 'ef_crm_wrapper_view',
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+function ef_crm_wrapper_view() {
+
+  if ($_SERVER['HTTPS'] == 'on') {
+    $subs_url = 'https://subs.eurofound.europa.eu/Portal/';
+  }
+  else {
+    $subs_url = 'http://subs.eurofound.europa.eu/Portal/';
+  }
+
+	$request = "{$_SERVER['REQUEST_URI']}";
+	$page = '';
+	$parameter = '';
+	$iframeSrc = '';
+	$missingPage = false;
+
+	$pos = strpos($request, "crm/");
+	if (!($pos === false)) {
+		$request = substr($request, $pos + 4, strlen($request));
+
+		$pos = strpos($request, "/");
+		if (!($pos === false)) {
+
+			$page = substr($request, 0, $pos);
+			$page .= ".aspx";
+			$parameter = substr($request, $pos +1 , strlen($request));
+			$parameter = "?Token=". $parameter;
+		}else{
+			$page = $request.".aspx";
+			if($page == ".aspx"){
+				$missingPage = true;
+			}
+		}
+
+		$iframeSrc = $subs_url . $page . $parameter;
+	}
+
+	$iframe = '
+		<iframe name="iframe2" width="100%" height="1000" src="' . $iframeSrc . '" frameborder="0" scrolling="auto"  scrollbar="auto"> </iframe>
+	';
+
+	if($missingPage){
+		return '';
+	}else
+
+	return getMarkUp( $iframe );
+}
+
+function getMarkUp($html){
+	return array('#markup' => '<p>' . $html . '</p>');
+}
+

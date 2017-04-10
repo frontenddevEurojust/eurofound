@@ -1,0 +1,85 @@
+drush sql-query "insert into schema_migrations(code,extra)values('003', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+::update drupal core
+::can be commented out in fresh db installations
+drush pm-update drupal -y
+
+
+
+:: MODULES ::
+
+:: Menu Attributes (disable)
+drush pm-disable -y menu_attributes
+drush pm-uninstall -y menu_attributes
+drush cc all
+
+:: Views Field View (nested views)
+drush dl -y views_field_view
+drush en -y views_field_view
+drush cc all
+
+:: Tracker (core module disable by default)
+drush en -y tracker
+
+:: Administration Views
+drush dl -y admin_views
+drush en -y admin_views
+drush cc all
+
+:: Node export
+drush dl -y node_export
+drush cc all
+drush en -y node_export
+drush cc all
+
+
+
+:: FEATURES ::
+
+drush en -y ef_surveys
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+::
+:: || Survey Families | import/ef_vocabulary_survey_families_import | sites\all\_docs\feeds\vocabulary_survey_families.csv ||
+:: re-import (with update existing terms options selected)
+:: || Observatories | import/ef_vocabulary_observatories_import | sites\all\_docs\feeds\vocabulary_observatories.csv ||
+
+
+:: MENU LINKS :: (re-import )
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+::
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+
+
+
+:: CONFIGURATIONS ::
+
+:: add some survey nodes and sub-pages (non production deployments - in production: migration of nodes)
+
+:: disable default
+drush views-disable admin_views_node
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

@@ -1,0 +1,256 @@
+/*********************************/
+/* --- ERM REGULATION VIEWS --- */
+/*******************************/
+
+
+/* ---------------- */
+/* FRONT & BACK END */
+
+#views-exposed-form-erm-regulations-page-admin label.option,
+#views-exposed-form-erm-regulations-page label.option{
+    display: inline-block !important;
+    margin-left: 5px;
+}
+/* HEADER */
+.view-id-erm_regulations .view-header > div{
+    margin: 10px 0;
+}
+
+.view-id-erm_regulations .filter-description{
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.view-id-erm_regulations .filter-description span{
+    font-weight: bold; 
+    margin-right: 1em;
+}
+.view-id-erm_regulations .filter-description-more{
+    padding-bottom: 15px;
+    padding-left: 10px;
+}
+.view-id-erm_regulations .filter-description-more span.closed:before{
+    content: "\f067";
+}
+.view-id-erm_regulations .filter-description-more span.opened:before{
+    content: "\f068";
+}
+.view-id-erm_regulations .filter-description-more span:before{
+    margin-right: 0.5em;
+    font-family: 'fontAwesome';
+}
+.view-id-erm_regulations .filter-description-more span{
+    cursor: pointer;
+    color: #1859A2;
+    -webkit-transition-delay:color 0.4s ease;
+    -moz-transition-delay:color 0.4s ease;
+    -ms-transition-delay:color 0.4s ease;
+    -o-transition-delay:color 0.4s ease;
+    transition: color 0.4s ease;    
+}
+.view-id-erm_regulations .filter-description-more span:hover,
+.view-id-erm_regulations .filter-description-more span:focus{
+    color: #F7921D;
+}
+
+/* RESET */
+.view-id-erm_regulations #edit-reset{
+    background-color: #2e67aa;
+    border-color: #004798;
+    color: #fff !important;
+}
+.view-id-erm_regulations #edit-reset:hover,
+.view-id-erm_regulations #edit-reset:focus{
+    background-color: #004798;
+}
+
+
+
+/* --- FRONT-END view --- */
+
+#views-exposed-form-erm-regulations-page .views-exposed-widget {
+    width: 32%;
+}
+#views-exposed-form-erm-regulations-page .wrap-row-filters:nth-child(3) .views-exposed-widget{
+    width: 48%;
+}
+#views-exposed-form-erm-regulations-page .wrap-row-filters:nth-child(3) .views-exposed-widget .views-widget{
+    font-size: 0.9em;
+    text-align: left;
+}
+#views-exposed-form-erm-regulations-page .wrap-row-filters:nth-child(4) .views-exposed-widget{
+    width: 15%;
+}
+
+#views-exposed-form-erm-regulations-page .chosen-container {
+	max-width: 100%;
+}
+
+/*******************************/
+/*******************************/
+/*******************************/
+
+/* --- BACK-END view --- */
+
+#views-exposed-form-erm-regulations-page-admin .views-exposed-widget {
+    width: 32%;
+}
+
+#views-exposed-form-erm-regulations-page-admin .chosen-container {
+	max-width: 100%;
+}
+
+/* STATE */
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-state.Draft {
+    /*background-color: lightblue;*/
+}
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-state.Published {
+    background-color: #85B000;
+    color: #fff;
+}
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-state.Unpublished {
+    background-color: red;
+}
+
+/* STATUS */
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-status.Yes:before{
+	content: "\f00c";
+	font-family: fontAwesome;
+	margin-right: 2px;
+}
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-status.No:before{
+	content: "\f00d";
+	font-family: fontAwesome;
+	margin-right: 2px;
+}
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-status.Yes {
+	color: #85B000;
+}
+.view-id-erm_regulations.view-display-id-page_admin .views-field.views-field-status.No {
+	color: red;
+}
+
+/* HEADER */
+
+.view-display-id-page_admin .view-header .intro{
+	padding: 10px;
+}
+#create-new-erm-reg{
+    padding: 10px;
+}
+#create-new-erm-reg span:before{
+     content: "\f016";
+     margin-right: 0.5em;
+     font-family: 'fontAwesome';
+}
+#create-new-erm-reg span {
+    color: #2d68aa;
+    -webkit-transition-delay:color 0.4s ease;
+    -moz-transition-delay:color 0.4s ease;
+    -ms-transition-delay:color 0.4s ease;
+    -o-transition-delay:color 0.4s ease;
+    transition: color 0.4s ease;
+}
+#create-new-erm-reg span:hover, 
+#create-new-erm-reg span:focus{
+    color: #F7931E;
+}
+
+.view-id-erm_regulations .erm-summary-results {
+    color: #848484;
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* Filters */
+.view-display-id-page_admin .view-filters {
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.view-display-id-page_admin fieldset {
+    width: 33%;
+}
+
+.view-display-id-page_admin fieldset .form-submit{
+	margin-top: 10px;
+}
+
+.views-field.views-field-edit-node.persist.essential > a {
+    float: left;
+    margin-bottom: 2px;
+    width: 95%;
+    text-align: center;
+}
+
+/* Results */
+#views-form-erm-regulations-page-admin .views-field.views-field-views-bulk-operations.persist.essential > a,
+#views-form-erm-regulations-page-admin .form-item.form-type-radio.form-item-views-bulk-operations {
+    display: inline-block;
+    margin: 0 2px;
+}
+
+/* columns */
+/*
+.view-id-erm_regulations .mediaTableMenu{
+    display: inline-block;
+}
+*/
+.view-display-id-page_admin #edit-changed-wrapper .views-widget > div{
+    display: inline-block;
+}
+.view-display-id-page_admin #edit-changed-wrapper .form-item-changed-max > label{
+    display: none;
+}
+.view-display-id-page_admin #edit-changed-wrapper .form-item.form-type-textfield.form-item-changed-min::after {
+    content: "to ";
+    float: left;
+    padding-left: 5px;
+    padding-top: 8px;
+    color: #8d8d8d;
+    font-style: italic;
+}
+.view-display-id-page_admin #edit-changed-wrapper .form-item.form-type-textfield.form-item-changed-min::before {
+    content: "from";
+    float: left;
+    margin-left: 2px;
+    padding-right: 5px;
+    padding-top: 8px;
+    color: #8d8d8d;
+    font-style: italic;
+}
+
+/* --- assign to, bulk operations --- */
+#views-form-erm-regulations-page-admin #node_ef_erm_regulation_form_group_contract_erm_reg{
+    width: 100%;
+    overflow: visible;
+}
+#views-form-erm-regulations-page-admin #edit-actions-submit{
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+/* --- to ef.css --- */
+.list-items {
+    font-family: opensans-regular-webfont !important;
+}
+
+/* --- erm data export --- */
+.view-id-erm_data_export .view-header{
+    margin-bottom: 10px;
+}
+.view-id-erm_data_export #MediaTable-0{
+    display: none;
+}
+.view-id-erm_data_export .pagination-centered{
+    display: none;
+}

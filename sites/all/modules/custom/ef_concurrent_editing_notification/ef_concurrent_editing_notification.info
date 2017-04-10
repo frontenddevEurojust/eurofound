@@ -1,0 +1,5 @@
+name = EF concurrent editing notification
+description = EF concurrent editing notification
+package = EF modules
+core = 7.x
+dependencies[] = statistics

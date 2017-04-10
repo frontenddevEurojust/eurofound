@@ -1,0 +1,134 @@
+<?php
+
+// hook_form_alter()
+function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_id){
+
+
+  if( isset($form_id) && $form_id == 'views_exposed_form' && isset($form['published_at']) ){
+
+
+    if($form['#id'] == 'views-exposed-form-ef-publications-view-page'
+      || $form['#id'] == 'views-exposed-form-ef-publications-view-page-4'
+      || $form['#id'] == 'views-exposed-form-ef-publications-view-page-3')
+    {
+        $type = 'ef_publication';
+    }
+
+    if($form['#id'] == 'views-exposed-form-ef-articles-page'
+      || $form['#id'] == 'views-exposed-form-ef-articles-page-1'
+      || $form['#id'] == 'views-exposed-form-ef-articles-page-2'
+      || $form['#id'] == 'views-exposed-form-ef-articles-page-4')
+    {
+        $type = 'ef_report';
+    }
+
+    if($form['#id'] == 'views-exposed-form-ef-news-page' || $form['#id'] == 'views-exposed-form-ef-news-news-page-view'){
+      $type = 'ef_news';
+    }
+
+    if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page'){
+      $type = 'ef_comparative_analytical_report';
+    }
+
+    $years = array();
+    $years = get_years($type);
+
+    // Don't use default value !!
+      $form['published_at'] = array(
+        '#type' => 'select',
+        '#options' => $years,
+        /*'#default_value' => '-1',*/
+        "#empty_option"=>t('Any'),
+        '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
+        '#suffix' => '</div>'
+      );
+
+      $form['#attached']['css'] = array(
+        drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css',
+      );
+
+      return $form;
+  }
+
+
+}
+
+// hook_views_query_alter()
+function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
+
+  if(isset($view->name)){
+
+    if($view->name == 'ef_publications_view' && $view->vid == 75){$type = 'ef_publication';}
+    if($view->name == 'ef_articles' && $view->vid == 52){$type = 'ef_report';}
+    if($view->name == 'ef_news' && $view->vid == 63){$type = 'ef_news';}
+    if($view->name == 'ef_ir_dictionary' && $view->vid == 84){
+        $type='ef_ir_dictionary';
+        $conditions = $query->where[1]['conditions'];
+        foreach ($conditions as $key => $value) {
+          if($value['field'] === 'publication_date.published_at = 0'){
+            unset($query->where[1]['conditions'][$key]);
+          }
+        }
+    }
+    if($view->name == 'ef_car_reports' && $view->vid == 71){$type = 'ef_comparative_analytical_report';}
+
+    $years = array();
+    $years = get_years($type);
+
+    $field = 'publication_date.published_at';
+
+
+    if(isset($view->exposed_data['published_at']) && $view->exposed_data['published_at'] >= '0'){
+
+      $year_index = $view->exposed_data['published_at'];
+
+      $year = $years[$year_index];
+
+      $year_begin = $year . '-01-01 00:00:00';
+      $year_end = $year . '-12-31 23:59:59';
+
+      $date_begin = new DateTime($year_begin);
+      $min = $date_begin->getTimestamp();
+      $date_end = new DateTime($year_end);
+      $max = $date_end->getTimestamp();
+
+      $query->where[1]['conditions'][4]['field'] = $field;
+      $query->where[1]['conditions'][4]['value'] = $min;
+      $query->where[1]['conditions'][4]['operator'] = '>=';
+
+      $query->where[1]['conditions'][5]['field'] = $field;
+      $query->where[1]['conditions'][5]['value'] = $max;
+      $query->where[1]['conditions'][5]['operator'] = '<=';
+
+    }
+
+  }
+
+}
+
+// get years
+function get_years($type){
+
+  $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
+            as fecha
+            from publication_date
+            inner join node on node.nid = publication_date.nid
+            where node.type like :type
+            and node.status = '1'
+            and from_unixtime(publication_date.published_at, '%Y') is not null
+            order by fecha asc";
+
+  $results = db_query($select_years, array(':type' => '%' . $type . '%'))->fetchAll();
+
+  $years = array();
+  $min_year = $results[0]->fecha;
+  $max_year = date('Y');
+
+  foreach (range($max_year, $min_year) as $i => $year) {
+    $years[] = $year;
+  }
+
+
+  return $years;
+
+}

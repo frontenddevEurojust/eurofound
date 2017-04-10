@@ -1,0 +1,24 @@
+# Macedonian translation of ZURB Foundation (7.x-4.0)
+# Copyright (c) 2014 by the Macedonian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ZURB Foundation (7.x-4.0)\n"
+"POT-Creation-Date: 2014-02-23 19:51+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Macedonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(((n==1)||((n%10)==1))?(0):1);\n"
+
+msgid "Home"
+msgstr "Дома"
+msgid "Content"
+msgstr "Содржина"
+msgid "‹ previous"
+msgstr "‹ претходно"
+msgid "« first"
+msgstr "« прв"
+msgid "last »"
+msgstr "последно »"

@@ -1,0 +1,6 @@
+name = EF Term Merge
+description = Term merge for updating taxonomic tables, field_data_field and field_revision_tables
+package = EF modules
+core = 7.x
+dependencies[] = taxonomy
+dependencies[] = ef_content_inventory

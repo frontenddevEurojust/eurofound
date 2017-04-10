@@ -1,0 +1,4 @@
+name = EF Word Counter Plugin for CKEditor
+description = EF Word Counter Plugin for CKEditor
+core = 7.x
+package = EF modules

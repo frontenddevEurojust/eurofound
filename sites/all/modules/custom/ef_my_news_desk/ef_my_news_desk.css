@@ -1,0 +1,64 @@
+#mynewsdesk-form table td{
+  display: table-cell;
+}
+#mynewsdesk-form table td.fa-check{
+  color:#008040;
+}
+
+#mynewsdesk-form .description,
+#mynewsdesk-form .form-item-date-start-date > label,
+#mynewsdesk-form .form-item-date-end-date > label{
+  display: none;
+}
+
+.mynewsdesk-filter{
+  padding: 1em;
+  background: #f9f9f9;
+  margin: 0.5em;
+  overflow: auto;
+}
+.mynewsdesk-filter > .form-item{
+  width: 25%;
+  float: left;
+  margin-right: 2%;
+}
+
+.mynewsdesk-filter > .container-inline-date{
+  width:auto;
+  float: left;
+  clear: none;
+  margin-top: 1.5em;
+}
+.mynewsdesk-filter > .container-inline-date .date-padding{
+    padding-top: 0;
+    padding-left: 0;
+}
+
+#mynewsdesk-form .form-submit-button{
+  clear: both;
+}
+@media only screen and (min-width: 800px) and (max-width: 1024px){
+  .mynewsdesk-filter > .form-item{
+  width: 35%;
+
+  }
+  .mynewsdesk-filter > .form-item:nth-child(2){
+    width:18%;
+  }
+}
+
+@media only screen and (max-width: 800px){
+  .mynewsdesk-filter > .form-item{
+    width: 100%;
+  }
+  .mynewsdesk-filter > .form-item:nth-child(2){
+    width: 33%;
+  }
+  .mynewsdesk-filter > .container-inline-date{
+    width:30%;
+  }
+  .mynewsdesk-filter > .container-inline-date > .form-item,
+  .mynewsdesk-filter > .container-inline-date > .form-item input{
+    width:100%;
+  }
+}

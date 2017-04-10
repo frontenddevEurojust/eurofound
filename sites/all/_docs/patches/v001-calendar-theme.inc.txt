@@ -1,0 +1,9 @@
+Illegal string offset 'data' in template_preprocess_calendar_month
+
+Found at:
+https://drupal.org/node/1471400
+https://drupal.org/node/1471400#comment-7861249
+
+Patch file:
+https://drupal.org/files/calendar-php54-1471400-58.patch
+

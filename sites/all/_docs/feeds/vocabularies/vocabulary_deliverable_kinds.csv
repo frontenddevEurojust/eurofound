@@ -1,0 +1,29 @@
+"guid"	"title"	"parentguid"	"weight"
+"deliverable_1"	"EF Article"	0	0
+"deliverable_2"	"CAR / REP Report"	0	1
+"deliverable_3"	"National Contribution"	0	2
+"deliverable_4"	"Spotlight report "	"deliverable_1"	0
+"deliverable_5"	"Research in focus - standard"	"deliverable_1"	1
+"deliverable_6"	"Research in focus - extended"	"deliverable_1"	2
+"deliverable_7"	"CAR "	"deliverable_2"	0
+"deliverable_8"	"annual update "	"deliverable_2"	1
+"deliverable_9"	"REP "	"deliverable_2"	2
+"deliverable_10"	"CAR - Standard contribution"	"deliverable_3"	0
+"deliverable_11"	"CAR - Short contribution"	"deliverable_3"	1
+"deliverable_12"	"Contribution to representative studies"	"deliverable_3"	2
+"deliverable_13"	"IR country profile update"	"deliverable_3"	3
+"deliverable_14"	"Case Study"	0	3
+"deliverable_15"	"Factsheet"	0	4
+"deliverable_16"	"Support Instrument"	0	5
+"deliverable_17"	"Regulation"	0	6
+"deliverable_18"	"Restructuring in SMEs"	0	7
+"deliverable_19"	"IR dictionary"	0	8
+"deliverable_20"	"Input to ERM"	0	9
+"deliverable_21"	"Case study"	"deliverable_14"	0
+"deliverable_22"	"Fact sheet"	"deliverable_15"	0
+"deliverable_23"	"Support instrument update"	"deliverable_16"	0
+"deliverable_24"	"Legal database update"	"deliverable_17"	0
+"deliverable_25"	"Restructuring in SMEs"	"deliverable_18"	0
+"deliverable_26"	"IR entry"	"deliverable_19"	0
+"deliverable_27"	"ERM quarterly"	"deliverable_20"	0
+"deliverable_28"	"ERM annual"	"deliverable_20"	1

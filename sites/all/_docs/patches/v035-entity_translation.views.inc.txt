@@ -1,0 +1,4 @@
+Entity translation: Views field language filter
+https://www.drupal.org/node/1330332#comment-8918191
+https://www.drupal.org/files/issues/entity_translation-filter_views-1330332-47.patch
+Apply patch in: sites\all\modules\contrib\entity_translation\views\entity_translation.views.inc

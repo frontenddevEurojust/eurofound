@@ -1,0 +1,3 @@
+Patch for error at search results on views.
+
+see also : https://www.drupal.org/node/2284593

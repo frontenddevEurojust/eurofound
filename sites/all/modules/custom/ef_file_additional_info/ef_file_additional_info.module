@@ -1,0 +1,479 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ *
+ * Provide a UI for uploading media.
+ */
+function ef_file_additional_info_menu() {
+  $items = array();
+
+  $items["node/%/moderation/files"] = array(
+    'title' => 'Files',
+    'description' => 'Show file information for each revision',
+    'page callback' => 'ef_file_additional_info_view_revisions',
+    'page arguments' => array(1),
+	'access callback' => '_ef_file_additional_info_access',
+    'access arguments' => array(1),
+	'file' => 'ef_file_additional_info.node.inc',
+    'type' => MENU_LOCAL_TASK,
+  );  
+
+  return $items;
+}
+
+
+/**
+ * Custom access handler for node operations.
+ *
+ * @param $node
+ *   The node being acted upon.
+ *
+ * @return
+ *   Boolean TRUE or FALSE.
+ */
+function _ef_file_additional_info_access($nid) {
+  global $user;
+
+  $node = node_load($nid);
+   
+  // If we do not control this node type, deny access.
+  if (workbench_moderation_node_type_moderated($node->type) === FALSE) {
+    return FALSE;
+  }
+
+  $access = TRUE;
+
+  // The user must be able to view the moderation history.
+  $access &= user_access('view moderation history');
+
+  // The user must be able to edit this node.
+  $access &= node_access('update', $node);
+
+  return $access;
+}
+
+
+/**
+ * @defgroup ef_file_additional_info_formatter Extended File Field Formatter
+ * @{
+ * Functions that implement the extended file table formatter.
+ */
+
+/**
+ * Implements hook_field_formatter_info().
+ *
+ * Provides a formatter for file fields which renders file information as a 
+ * additional text (single file) or a table of files (multiple files) with
+ * associated metadata (author and timestamp).
+ *
+ * @return array
+ *   An array of default values for the ef_file_additional_info formatter
+ *   configuration settings.
+ */
+function ef_file_additional_info_field_formatter_info() {
+  return array(
+    'ef_file_additional_info' => array(
+      'label' => t('File with additional info'),
+      'field types' => array('file'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_prepare_view().
+ *
+ * Because core removes any files with display=FALSE from the $items array,
+ * we need to re-add them in order to display hidden files in the formatter.
+ *
+ * @see https://drupal.org/node/993728 for fixing this in core.
+ *
+ * @param $entity_type
+ *   The type of $entity.
+ * @param $entities
+ *   Array of entities being displayed, keyed by enitity ID.
+ * @param $field
+ *   The field structure for the operation
+ * @param $instances
+ *   Array of $field instance structures for each entity, keyed by entity_id.
+ * @param $langcode
+ *   The language associated with $items.
+ * @param $items
+ *   Array of file values for this field
+ * @param $displays
+ *   Array of display settings to use for each entity, keyed by entity_id.
+ *
+ */
+function ef_file_additional_info_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+  if (!empty($field['settings']['display_field'])) {
+	$entity_ids = array_keys($entities);
+    if (!empty($entity_ids)) {
+      entity_get_controller($entity_type)->resetCache($entity_ids);
+      $entities = entity_load($entity_type, $entity_ids);
+      // Update the $items array
+      foreach ($entities as $entity_id => $entity) {
+        $items[$entity_id] = (!empty($entity->{$field['field_name']})) ? $entity->{$field['field_name']}[$langcode] : array();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ *
+ * Generates the ef_file_additional_info render array for the field's value.  
+ *
+ * @param $entity_type
+ *   The type of $entity.
+ * @param $entity
+ *   The entity being displayed.
+ * @param $field
+ *   The field structure.
+ * @param $instance
+ *   The field instance.
+ * @param $langcode
+ *   The language associated with $items.
+ * @param $items
+ *   Array of file values for this field
+ * @param $display
+ *   The display settings to use, as found in the 'display' entry of instance
+ *   definitions.  Contains keys of 'type' (name of the formatter to use) and
+ *   'settings' (the array of formatter settings).
+ *
+ * @return array
+ *   A renderable array for the $items, as an array of child elements.
+ */
+function ef_file_additional_info_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+
+  $elements = array();
+
+  // Remove any NULL values from the $items array.
+  $items = array_filter($items);
+  
+  // Delete in array hidden files
+  foreach ($items as $key => $value) {
+	if (isset($value['display']) && $value['display'] == 0) {
+	  unset($items[$key]);
+	}
+  }
+  
+  // Add file list
+  if (!empty($items)) {
+    $field_instance = field_info_instance($entity_type, $field['field_name'], $entity->type);
+	$elements[] = ef_file_additional_info_generate_list($items,$field_instance['label']);
+  }
+
+  return $elements;
+}
+
+
+/**
+ * Generate the final file listing
+ *
+ * @param array $header
+ *   An array defining the table header.
+ * @param array $rows
+ *   An array of $rows information for this table.
+ * @param string $table_id
+ *   The (CSS) id for this table.
+ *
+ * @return array
+ *   The render array for this item list.
+ */
+function ef_file_additional_info_generate_list($items,$title='',$showrevisions = false) {
+  global $user;
+  
+  $count = 0;
+  
+  foreach ($items as $item) {
+	$data = '<a href="'.file_create_url($item['uri']).'">'.$item['filename'].'</a> - ';
+	// Add file additional info only for logged in users
+	if ($user->uid != 0) {
+	  $data .= theme('username', array('account' => user_load($item['uid']))) . ', ' . format_date($item['timestamp'],'short','',$user->timezone);
+	  if ($showrevisions) {
+		  $data .= ' [Rev. '.$item['vid'].']';
+	  }
+	}
+	
+	$files[] = array(
+	  'data' => $data,
+	  'class'=> array('item-' . ++$count),
+    );
+  }
+
+  $list = array(
+	'#theme' => 'item_list',
+    '#title' => $title,
+    '#items' => $files,
+    '#attributes' => array('class' => array('nc-documents-list','no-bullet')),
+  );
+  return $list;
+}
+
+/**
+ * @} End of "defgroup ef_file_additional_info_formatter".
+ */
+
+/**
+ * @defgroup ef_file_additional_info_widget_enhancements File widget enhancements
+ * @{
+ * Functions that implement the file upload/edit widget enhancements.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ef_file_additional_info_theme() {
+  return array(
+	'ef_file_additional_info_widget_single' => array(
+      'render element' => 'element',
+    ),
+	'ef_file_additional_info_widget_multiple' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Alters the 'file_generic' widget form. Overrides the theme used to render the
+ * the appropiate widget.
+ */
+function ef_file_additional_info_field_widget_file_generic_form_alter(&$element, &$form_state, $context) {
+  // Override the #theme function for the widget, so that we may display our additional metadata
+  if ($context['field']['cardinality'] == 1) {
+	$element['#theme'] = 'ef_file_additional_info_widget_single';
+  } else {
+    $element['#theme'] = 'ef_file_additional_info_widget_multiple';
+  } 
+}
+
+/**
+ * Implements hook_preprocess_TEMPLATE().
+ *
+ * Disables the 'remove' buttons from file listings on the edit page, for
+ * theme_ef_file_additional_info_widget_multiple() calls.
+ */
+function ef_file_additional_info_preprocess_ef_file_additional_info_widget_multiple(&$variables) {
+  global $user;
+  
+  $element = $variables['element'];
+
+  // Retrieve the file elements.
+  foreach (element_children($element) as $key) {
+    if (!empty($element[$key]['#file']->status)) {
+      $fids[$key] = $element[$key]['#value']['fid'];
+    }
+  }
+  $files = !empty($fids) ? file_load_multiple($fids) : array();
+  $element_keys = !empty($fids) ? array_flip($fids) : array();
+
+  // Cast file objects into arrays for compatibility with the field formatter
+  // functions.
+  $items = array();
+  foreach ($files as $key => $file) {
+    $items[$file->fid] = (array) $file;
+  }
+
+  // Generate the markup for the additional info for each file.
+  foreach ($items as $key => $item) {
+	// Submitted on (timestamp)
+    $variables['element'][$element_keys[$item['fid']]]['ef_file_additional_info_widget_metadata_timestamp'] = array(
+      '#type' => 'markup',
+      '#markup' => format_date($item['timestamp'], 'short','',$user->timezone),
+    );
+	// Author (uid)
+	$variables['element'][$element_keys[$item['fid']]]['ef_file_additional_info_widget_metadata_uid'] = array(
+      '#type' => 'markup',
+      '#markup' => theme('username', array('account' => user_load($item['uid']))),
+    );
+  } 
+
+}
+
+
+/**
+ * Returns HTML for a group of file upload widgets.
+ *
+ * Mostly duplicated from theme_file_widget_multiple() in core. Enhanced to
+ * properly handle the Operations column (hide it completely if there are no
+ * visible operations).
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: A render element representing the widgets.
+ *
+ * @see theme_file_widget_multiple()
+ * @ingroup themeable
+ */
+function theme_ef_file_additional_info_widget_multiple($variables) {
+  $element = $variables['element'];
+
+  $have_operations = FALSE;
+
+  // Special ID and classes for draggable tables.
+  $weight_class = $element['#id'] . '-weight';
+  $table_id = $element['#id'] . '-table';
+
+  // Build up a table of applicable fields.
+  $headers = array();
+  $headers[] = t('File information');
+  $headers[] = t('Submitted on');
+  $headers[] = t('Author');
+
+  if (isset($element['#display_field']) && $element['#display_field']) {
+    $headers[] = array(
+      'data' => t('Display'),
+      'class' => array('checkbox'),
+    );
+  }
+  $headers[] = t('Weight');
+
+  // Get our list of widgets in order (needed when the form comes back after
+  // preview or failed validation).
+  $widgets = array();
+  foreach (element_children($element) as $key) {
+    // Screen out any empty file placeholders, but keep the file upload widget.
+    if ($element[$key]['#file'] == FALSE && $key != $element['#file_upload_delta']) {
+      unset($element[$key]);
+      continue;
+    }
+    $widgets[] = &$element[$key];
+  }
+  usort($widgets, '_field_sort_items_value_helper');
+
+
+  $rows = array();
+  foreach ($widgets as $key => &$widget) {
+    // Save the uploading row for last.
+    if ($widget['#file'] == FALSE) {
+      $widget['#title'] = $element['#file_upload_title'];
+      $widget['#description'] = $element['#file_upload_description'];
+      $upload_widget = &$widget;
+      continue;
+    }
+    // Delay rendering of the buttons, so that they can be rendered later in
+    // the "operations" column.
+    $operations_elements = array();
+    foreach (element_children($widget) as $sub_key) {
+      if ((isset($widget[$sub_key]['#type']) && $widget[$sub_key]['#type'] == 'submit') || $sub_key == 'deletecontents_link' || $sub_key == 'insert') {
+        hide($widget[$sub_key]);
+        $operations_elements[] = &$widget[$sub_key];
+      }
+    }
+
+    // Delay rendering of the "Display" option and the weight selector, so that
+    // each can be rendered later in its own column.
+    if (isset($element['#display_field']) && $element['#display_field']) {
+      hide($widget['display']);
+    }
+    hide($widget['_weight']);
+
+    // Delay rendering of any added metadata types, so that each can be
+    // rendered later in it's own column.
+    hide($widget['ef_file_additional_info_widget_metadata_timestamp']);
+	hide($widget['ef_file_additional_info_widget_metadata_uid']);
+
+    // Render everything else together in a column, without the normal wrappers.
+    $widget['#theme_wrappers'] = array();
+    $information = drupal_render($widget);
+
+    // Render the previously hidden elements, using render() instead of
+    // drupal_render(), to undo the earlier hide().
+    $operations = '';
+    foreach ($operations_elements as $operation_element) {
+      $operations .= render($operation_element);
+    }
+    // Remember if *any* rows have any operations.
+    if (!empty($operations)) {
+      $have_operations = TRUE;
+    }
+    $display = '';
+    if (isset($element['#display_field']) && $element['#display_field']) {
+      unset($widget['display']['#title']);
+      $display = array(
+        'data' => render($widget['display']),
+        'class' => array('checkbox'),
+      );
+    }
+    $widget['_weight']['#attributes']['class'] = array($weight_class);
+    $weight = render($widget['_weight']);
+
+    // Arrange the row with all of the rendered columns.
+    $row = array();
+    $row[] = $information;
+	$row[] = render($widget['ef_file_additional_info_widget_metadata_timestamp']);
+	$row[] = render($widget['ef_file_additional_info_widget_metadata_uid']);
+
+    if (isset($element['#display_field']) && $element['#display_field']) {
+      $row[] = $display;
+    }
+    $row[] = $weight;
+
+    // Always add an operations table cell. We'll rip all these out later if
+    // we don't see *any* operations in any rows.
+    $row['operations'] = $operations;
+    $rows[] = array(
+      'data' => $row,
+      'class' => isset($widget['#attributes']['class']) ? array_merge($widget['#attributes']['class'], array('draggable')) : array('draggable'),
+    );
+  }
+
+  drupal_add_tabledrag($table_id, 'order', 'sibling', $weight_class);
+
+  // If we saw any rows with operations, add the header for that column.
+  if ($have_operations) {
+    $headers[] = t('Operations');
+  }
+  // Otherwise, remove those empty cells from all our rows.
+  else {
+    foreach ($rows as $key => &$row) {
+      unset($row['data']['operations']);
+    }
+  }
+
+  $output = '';
+  $output .= empty($rows) ? '' : theme('table', array('header' => $headers, 'rows' => $rows, 'attributes' => array('id' => $table_id)));
+  $output .= drupal_render_children($element);
+  return $output;
+}
+
+/**
+ * Returns HTML for a group of file upload widgets.
+ *
+ * Adds user and timestamp information
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: A render element representing the widgets.
+ *
+ * @see theme_file_widget()
+ * @ingroup themeable
+ */
+function theme_ef_file_additional_info_widget_single($variables) {  
+  global $user;
+  
+  $element = $variables['element'];
+
+  $output = '';
+
+  // The "form-managed-file" class is required for proper Ajax functionality.
+  $output .= '<div class="file-widget form-managed-file clearfix">';
+  if ($element[0]['#value']['fid'] != 0 || isset($element['filename']['#markup'])) {
+	// Add author
+	$element[0]['filename']['#markup'] .= ' - ';
+	$element[0]['filename']['#markup'] .= theme('username', array('account' => user_load($element[0]['#value']['uid'])));
+	// Add timestamp
+	$element[0]['filename']['#markup'] .= ', ';
+	$element[0]['filename']['#markup'] .= format_date($element[0]['#value']['timestamp'],'short','',$user->timezone);
+  }
+  $output .= drupal_render_children($element);
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * @} End of "defgroup ef_file_additional_info_widget_enhancements".
+ */

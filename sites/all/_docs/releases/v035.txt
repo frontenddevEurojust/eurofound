@@ -1,0 +1,47 @@
+drush sql-query "insert into schema_migrations(code,extra)values('035', '...')"
+
+drush vset -y maintenance_mode 1
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+:: patch for entity translation view language filter
+:: patches/v035-entity_translation.views.inc.txt	
+
+
+
+:: MODULES ::
+
+drush dl -y search_config
+drush en -y search_config 
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+:: fix language on created nodes based on translatability.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts fix_language_nodes
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/fix_language_nodes.php
+
+
+:: import Reimbursement of Meeting Expenses with webforms
+:: navigate to node/add/node_export and for each file below copy and paste the code for import
+	:: sites\all\_docs\imports\nodes\node-export-reimbursement-of-meeting-expenses.txt
+
+	
+
+drush vset -y maintenance_mode 0
+drush cc all

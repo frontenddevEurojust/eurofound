@@ -1,0 +1,623 @@
+<?php
+
+include 'functions/ef_erm_support_instrument.functions.inc';
+include 'functions/ef_erm_support_instrument.ajax_submit_validate.inc';
+
+/**
+*** HOOK FORM ALTER
+**/
+function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
+
+	global $user;
+	global $base_url;
+
+  //VBO form update for Published to Draft operation
+  /*
+  if($form['#form_id'] == 'views_form_erm_support_instruments_support_instrument_bulk_qm' && isset($form['confirm']))
+  {
+
+    $form['revision_deadline'] = array(
+      '#type' => 'date_popup',
+      '#title' => t('Revision deadline'),
+      '#date_format' => 'd/m/Y',
+      );
+
+    $form['actions']['submit']['#submit'][] = 'revision_deadline_submit';
+  }
+  */
+	// Edit MODE
+
+	if($form_id == 'erm_support_instrument_node_form'){
+
+	  $form['field_ef_involved_actors_tax']['#type'] = 'hidden';
+	  $form['title_field']['#type'] = 'hidden';
+		$form['field_observatory_erm_si']['#type'] = 'hidden';
+		$form['field_theme_erm_si']['#type'] = 'hidden';
+	  $form['field_phase_erm_si']['#type'] = 'hidden';
+	  $form['actions']['delete']['#type'] = 'hidden';
+	  // hide updated date and migration old status
+	  //$form['field_updated_date_erm_si']['#type'] = 'hidden';
+	  $form['field_migration_oldstatus_erm_si']['#type'] = 'hidden';
+
+	  // ADD adn EDIT term TYPE
+	  $type_taxonomy_machine_name = 'erm_support_instrument_types';
+
+	  // Defining ID to AJAX callback
+	  $form['field_type_erm_si']['#id'] = 'edit-field-type-erm-si-und';
+	  // Getting weight in order to order the new elemtns within the form
+	  $type_weight = $form['field_type_erm_si']['#weight'];
+	  // High permissions roles
+	  $type_edit_roles = array(
+	  	'Quality Manager', 'Quality Manager +', 'administrator',
+	  );
+	  // Allowed roles
+	  $allow_to_edit = FALSE;
+	  foreach ($type_edit_roles as $index => $role) {
+	  	if ( in_array($role, $user->roles) ) {
+	  		$allow_to_edit = TRUE;
+	  	}
+	  }
+
+	  if ( $allow_to_edit ) {
+
+			$form['type_taxonomy_management'] = array(
+				'#markup' => '<div class="taxonomy-management"><ul><li><span id="new-type-popup">'.t('Add new Category').'</span></li><li><span id="edit-type-popup" class="edit-mode-off">'.t('Edit categories').'</span></li></ul></div>',
+				'#weight' => $type_weight + 1,
+			);
+
+			$form['taxonomy_management'] = array(
+				'#type' => 'fieldset',
+				'#title' => 'Taxonomy TYPE',
+				'#weight' => $type_weight + 1,
+				'#prefix' => '<div class="element-invisible">',
+				'#suffix' => '</div>',
+			);
+
+			$form['taxonomy_management']['select_phase'] = array(
+				'#group' => 'taxonomy_management',
+				'#type' => 'select',
+				'#title' => 'Phase',
+				'#options' => get_phase_options($type_taxonomy_machine_name),
+		  	'#empty_option' => '- Select -',
+		  	'#default_value' => '- Select -',
+			);
+			$form['taxonomy_management']['add_new_term'] = array(
+				'#group' => 'taxonomy_management',
+				'#type' => 'textfield',
+				'#title' => 'New term',
+		  	'#size' => 60,
+		  	'#max_length' => 128,
+			);
+			$form['taxonomy_management']['edit_term'] = array(
+				'#group' => 'taxonomy_management',
+				'#type' => 'textfield',
+				'#title' => 'Edit term',
+		  	'#size' => 60,
+		  	'#max_length' => 128,
+
+			);
+			$form['taxonomy_management']['edit_tid'] = array(
+				'#group' => 'taxonomy_management',
+				'#type' => 'textfield',
+				'#title' => 'Term id',
+		  	'#size' => 30,
+		  	'#max_length' => 128,
+			);
+			$form['taxonomy_management']['term_submit'] = array(
+				'#group' => 'taxonomy_management',
+				'#type' => 'submit',
+				'#value' => t('Submit'),
+				'#submit' => array('submit_taxonomy_management'),
+				'#limit_validation_errors' => array(),
+				'#ajax' => array(
+		      'callback' => 'taxonomy_management_ajax_callback',
+		      'wrapper' => 'edit-field-type-erm-si-und',
+		      'method' => 'replace',
+		      'effect' => 'fade',
+		      'event' => 'click',
+	      ),
+	      '#validate' => array('validate_taxonomy_management'),
+			);
+
+	  }
+	  // end ADD and EDIT term TYPE
+
+	  // Moderate Revision log messages
+	  if (in_array('Author', $user->roles) || in_array('Author +', $user->roles) || in_array('Quality Manager',$user->roles) || in_array('Quality Manager +', $user->roles)) {
+
+		  $moderation_cause_weight = $form['field_moderation_cause']['#weight'];
+		  $revision_log_messages_summary = '<div class="revision-log-messages-summary">';
+		  $revision_log_messages_summary = $revision_log_messages_summary . '<h5>'.t('Previous revision log messages').'</h5>';
+		  $revision_log_messages_summary = $revision_log_messages_summary . '<ul>';
+		  if ( isset($form['nid']['#value']) ) {
+		  	$node = node_load($form['nid']['#value']);
+		  	$revisions = node_revision_list($node);
+		  	foreach ($revisions as $vid => $revision) {
+		  		$node_revision = node_load($node->nid, $revision->vid);
+		  		if (isset($node_revision->workbench_moderation['my_revision'])) {
+		  			$from_state = $node_revision->workbench_moderation['my_revision']->from_state;
+		  			$current_state = $node_revision->workbench_moderation['my_revision']->state;
+		  		} else {
+		  			$from_state = $node_revision->workbench_moderation['current']->from_state;
+		  			$current_state = $node_revision->workbench_moderation['current']->state;
+		  		}
+		  		if ($from_state == ''){$from_state = '-';}
+		  		$log = '<li><a href="' . $base_url . '/node/' . $node->nid . '/moderation"><p>';
+		  		$log = $log . 'From <span>' . $from_state;
+		  		$log = $log . '</span> to <span>' . $current_state . '</span>';
+		  		$log = $log . ', ' . t('revised by ') . '<span>' . $revision->name . '</span><br>';
+		  		$log = $log . $revision->log;
+		  		$log = $log . '</p></a></li>';
+		  		$revision_log_messages_summary = $revision_log_messages_summary . $log;
+		  	}
+		  }
+		  $revision_log_messages_summary = $revision_log_messages_summary . '</ul></div>';
+		  $form['revision_log_messages_summary'] = array(
+		  	'#markup' => $revision_log_messages_summary,
+		  	'#weight' => $moderation_cause_weight + 1,
+		  );
+		  $form['#groups']['group_ef_publishing_options']->children[] = 'revision_log_messages_summary';
+		  $form['#group_children']['revision_log_messages_summary'] = 'group_ef_publishing_options';
+	  }
+
+	  // end Revision log messages
+
+
+		// JS and CSS ATTACHED FILES
+		//drupal_add_js(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
+	  //drupal_add_css(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['js'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
+	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+
+
+	  $key_anticipation = get_aticipation_key($type_taxonomy_machine_name);
+	  $key_management = get_management_key($type_taxonomy_machine_name);
+		$settings['key_anticipation'] = variable_get('ef_erm_support_instrument', $key_anticipation);
+		$settings['key_management'] = variable_get('ef_erm_support_instrument', $key_management);
+		$settings['allow_to_edit_notes'] = variable_get('ef_erm_support_instrument', $allow_to_edit);
+    drupal_add_js(array('ef_erm_support_instrument' => $settings), 'setting');
+
+  	return $form;
+
+	}
+
+	// ERM Support Instruments FRONT END
+	if($form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-frontend'){
+
+	  //Alphabetical order for the following filters: Support of SMEs,Funding
+	   $types_array = $form['field_type_erm_si_tid_selective']['#options'];
+	   //natcasesort($types_array);
+
+		foreach ($types_array as $key => $value) {
+		   $parent = taxonomy_get_parents($key);
+
+
+		   //20933 tid for management
+		   //20932 tid for anticipation
+		   if($parent[20933]->name == 'Management'){
+		    $types_array[$key] = 'Management' . ' - ' . $value;
+		   }else if($parent[20932]->name == 'Anticipation'){
+		    $types_array[$key] = 'Anticipation' . ' - ' . $value;
+		   }
+		}
+
+		$fundings_array = $form['field_funding_erm_si_tid']['#options'];
+		natsort($fundings_array);
+
+		$involved_actors_array = $form['field_ef_involvement_types_tid']['#options'];
+		natsort($involved_actors_array);
+
+		$phase_array = $form['field_phase_erm_si_value']['#options'];
+		natsort($phase_array);
+
+
+		foreach ($fundings_array as $key => $value){
+
+		  $array_tids = array('20940','20939','20944','20941','20945','20943','20942','20938');
+		  if(!in_array($key,$array_tids)){
+		    $fundings_no_dup[$key] = $value;
+		  }
+		}
+		//definitive assignments to the form
+		$form['field_type_erm_si_tid_selective']['#options'] = $types_array;
+		$form['field_ef_involvement_types_tid']['#options'] = $involved_actors_array;
+		$form['field_funding_erm_si_tid']['#options'] = $fundings_no_dup;
+		$form['field_phase_erm_si_value']['#options'] = $phase_array;
+
+		//Strange behavior: phase filter does not work unless we have both(standard and selective)
+		//obviously, one of them, selective, will be hidden
+		$form['field_phase_erm_si_value_selective']['#type'] = 'hidden';
+		//$form['field_phase_erm_si_value_selective']['#disabled'] = TRUE;
+		$form['#info']['filter-field_phase_erm_si_value_selective']['label'] = '';
+
+		return $form;
+
+	}
+
+	// ERM support instruments Admin view - BACKEND
+	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-admin-view'
+		&& $form['reset']['#access'] == TRUE) {
+
+		unset($form['field_country_erm_si_tid_selective']['#options'][21122]);
+		$form['#submit'][] = 'support_instrument_user_session_variable_saving_function';
+
+	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+
+		return $form;
+	}
+	// ERM support instruments Authors bulk view
+	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-authors'
+		&& $form['reset']['#access'] == TRUE ) {
+		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	}
+	// ERM support instruments QM bulk view
+	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-qm'
+		&& $form['reset']['#access'] == TRUE ) {
+		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	}
+
+
+
+}
+
+/**
+*** HOOK presave
+**/
+function ef_erm_support_instrument_node_presave($node){
+
+	if($node->type == 'erm_support_instrument'){
+
+	  // PHASE AUTO SAVE
+	  if(isset($node->field_type_erm_si['und'][0]['tid'])){
+	    $type_tid = $node->field_type_erm_si['und'][0]['tid'];
+	    $type = taxonomy_term_load($type_tid);
+
+	      $phase_array = taxonomy_get_parents($type_tid);
+	      foreach ($phase_array as $key => $value) {
+	        $phase = $value->name;
+	      }
+
+	      switch ($phase) {
+	        case 'Management':
+
+	          $node->field_phase_erm_si['und'][0]['value'] = 0;
+	          break;
+
+	        case 'Anticipation':
+	          $node->field_phase_erm_si['und'][0]['value'] = 1;
+	          break;
+
+	        default:
+	          $node->field_phase_erm_si['und'][0]['value'] = null;
+	          break;
+	      }
+	  }
+	  foreach ($node->field_ef_involved_actors_tax as $key => $value) {
+	    unset($node->field_ef_involved_actors_tax[$key]);
+	  }
+
+	  // Notes management
+    $new_note = array();
+    $all_notes = array();
+
+    $new_note['title'] = $node->field_name_notes_erm_si['und'][0]['value'];
+    $new_note['involved_actors'] = $node->field_involved_actors_notes['und'][0]['value'];
+    $new_note['funding'] = $node->field_funding_notes_erm_si['und'][0]['value'];
+    $new_note['sources'] = $node->field_sources_notes_erm_si['und'][0]['value'];
+
+    $all_notes['title'] = $node->field_name_notes_memory_erm_si['und'][0]['value'];
+    $all_notes['involved_actors'] = $node->field_involved_actors_notes_memo['und'][0]['value'];
+    $all_notes['funding'] = $node->field_funding_notes_memo_si['und'][0]['value'];
+    $all_notes['sources'] = $node->field_sources_notes_memory['und'][0]['value'];
+
+    foreach ($new_note as $key => $value) {
+
+      if(isset($value)){
+
+        if(isset($all_notes[$key])){
+          $memo = $all_notes[$key];
+        }else{
+          $memo = null;
+        }
+
+        $full_note = get_last_note($memo, $value);
+
+        switch ($key) {
+
+          case 'title':
+            unset($node->field_name_notes_erm_si['und'][0]['value']);
+            $node->field_name_notes_memory_erm_si['und'][0]['value'] = $full_note;
+            break;
+
+          case 'involved_actors':
+            unset($node->field_involved_actors_notes['und'][0]['value']);
+            $node->field_involved_actors_notes_memo['und'][0]['value'] = $full_note;
+            break;
+
+          case 'funding':
+            unset($node->field_funding_notes_erm_si['und'][0]['value']);
+            $node->field_funding_notes_memo_si['und'][0]['value'] = $full_note;
+            break;
+
+          case 'sources':
+            unset($node->field_sources_notes_erm_si['und'][0]['value']);
+            $node->field_sources_notes_memory['und'][0]['value'] = $full_note;
+            break;
+
+        }
+
+      }
+    }
+    // end Notes
+
+	  //------------ Involved Actors filter to be rebuilt ----------------------
+	  if(isset($node->field_national_govermment_erm_si['und'][0]['value'])) {
+	    check_involved_actors_terms('National government',$node);
+	  }
+	  if(isset($node->field_other_erm_si['und'][0]['value'])) {
+	    check_involved_actors_terms('Other',$node);
+	  }
+	  if(isset($node->field_public_employ_serv_erm_si['und'][0]['value'])) {
+	    check_involved_actors_terms('Public employment services',$node);
+	  }
+	  if(isset($node->field_reg_local_gov_erm_si['und'][0]['value'])) {
+	    check_involved_actors_terms('Regional/local government',$node);
+	  }
+	  if(isset($node->field_employers_org_erm_si['und'][0]['value'])) {
+	    check_involved_actors_terms("Employer's or employee's organisations",$node);
+	  }
+	  //------------ End Involved Actors filter to be rebuilt ----------------------
+
+	}
+
+	// SORT TITLE (from english name field)
+	if($node->type == 'erm_support_instrument' && empty($node->title) ){
+
+	  $en_name = $node->field_english_name_erm_si['und'][0]['value'];
+	  $lenght = strlen($en_name);
+	  if($lenght > 60){
+	    $limit = 60;
+	    do{
+	      $title = $en_name;
+	      $title = substr($title, 0, $limit);
+
+	      $last_char = substr($title, -1);
+	      $limit++;
+	    }while($last_char != ' ' || $limit < 69);
+
+	    $title = rtrim($title, ' ');
+	    $node->title = $title;
+	  }else{
+	    $node->title = $en_name;
+	  }
+
+
+	}
+
+
+}
+
+/**
+*** HOOK Views query alter
+**/
+function ef_erm_support_instrument_views_query_alter(&$view, &$query){
+
+	if(isset($view->name)){
+		if($view->name == 'erm_support_instruments'){
+			if(isset($query->table_queue['workbench_moderation_node_history'])){
+				$query->table_queue['workbench_moderation_node_history']['join']->left_field = 'nid';
+				$query->table_queue['workbench_moderation_node_history']['join']->field = 'nid';
+
+				$query->table_queue['workbench_moderation_node_history']['join']->definition['left_field'] = 'nid';
+				$query->table_queue['workbench_moderation_node_history']['join']->definition['field'] = 'nid';
+			}
+		}
+	}
+
+}
+// This feature has relationship with PATCH 1.0
+// Custom action for VBO (View Bulk Operation module)
+// See view http://www.efstaging.bilbomatica.es/update-contracts
+/**
+ * Implements hook_action_info().
+ */
+function ef_erm_support_instrument_action_info() {
+
+  // Change ERM Support Instrument/ERM Regulation status
+  // from draft to submitted to qm
+  $actions['ef_draft_to_submitted_to_qr'] = array(
+    'type' => 'node',
+    'label' => t('Change status from draft to submitted to qm'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'vbo_configurable' => FALSE,
+    'pass rows' => TRUE,
+  );
+
+ 	// Change ERM Support Instrument/ERM Regulation status
+  // from under revision request to submitted to qm
+  $actions['ef_under_revision_request_to_submitted_to_qr'] = array(
+    'type' => 'node', // Here come's the name of your custom entity type
+    'label' => t('Change status from under revision request to submitted to qm'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'vbo_configurable' => FALSE,
+    'pass rows' => TRUE,
+  );
+
+  // Change ERM Support Instrument/ERM Regulation status
+  // from submitted to qm  to approved for editing
+  $actions['ef_submitted_to_qr_to_published'] = array(
+    'type' => 'node', // Here come's the name of your custom entity type
+    'label' => t('Change status from submitted to qm to published'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'behavior' => array('changes_property'),
+    'pass rows' => TRUE,
+  );
+
+  // Change ERM Support Instrument/ERM Regulation status
+  // from submitted to qm  to approved for editing
+  $actions['ef_submitted_to_qr_to_under_revision_request'] = array(
+    'type' => 'node', // Here come's the name of your custom entity type
+    'label' => t('Change status from submitted to qm to under revision request'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'vbo_configurable' => FALSE,
+    'pass rows' => TRUE,
+  );
+
+  $actions['ef_published_to_draft'] = array(
+    'type' => 'node', // Here come's the name of your custom entity type
+    'label' => t('Change status from published to draft'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'vbo_configurable' => FALSE,
+    'pass rows' => TRUE,
+  );
+
+  return $actions;
+}
+
+function ef_draft_to_submitted_to_qr($entity, $context) {
+	if($entity->workbench_moderation['current']->state == 'draft'
+		&& $entity->workbench_moderation['current']->current == 1) {
+
+    $node = node_load($entity->nid, $entity->workbench_moderation['current']->vid);
+    //get new values to change for the node
+    //assigned to QM default user by default
+    $assign_to_user = get_assign_to_user_role_dependency_by_default($entity, $role = 'Quality Manager');
+
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    $new_state = 'submitted_qr';
+
+    workbench_moderation_moderate($node, $new_state);
+    field_attach_update('node', $node);
+    entity_get_controller('node')->resetCache(array($node->nid));
+    ef_notifications_save_transition_records($node, 'draft', $new_state);
+
+    drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been submitted'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
+  }
+  else {
+  	drupal_set_message(l(t("Chosen node is not in draft status."), $base_url . '/node/' . $entity->nid), 'error');
+  }
+}
+
+function ef_under_revision_request_to_submitted_to_qr($entity, $context) {
+  if($entity->workbench_moderation['current']->state == 'under_revision_request'
+    && $entity->workbench_moderation['current']->current == 1) {
+
+    $node = node_load($entity->nid, $entity->workbench_moderation['current']->vid);
+    //get new values to change for the node
+    //assigned to QM default user by default
+    $assign_to_user = get_assign_to_user_role_dependency_by_default($entity, $role = 'Quality Manager');
+
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    $new_state = 'submitted_qr';
+
+    workbench_moderation_moderate($node, $new_state);
+    field_attach_update('node', $node);
+    entity_get_controller('node')->resetCache(array($node->nid));
+    ef_notifications_save_transition_records($node, 'under_revision_request', $new_state);
+
+    drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been submitted'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
+  }
+  else {
+
+    drupal_set_message(l(t("Chosen node is not under revision request."), $base_url . '/node/' . $entity->nid), 'error');
+  }
+}
+
+function ef_submitted_to_qr_to_published($entity, $context) {
+  if($entity->workbench_moderation['current']->state == 'submitted_qr'
+    && $entity->workbench_moderation['current']->current == 1) {
+
+    $node = node_load($entity->nid, $entity->workbench_moderation['current']->vid);
+    //get new values to change for the node
+    //assigned to QM default user by default
+    $assign_to_user = get_assign_to_user_role_dependency_by_default($entity, $role = 'Quality Manager');
+
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    $new_state = 'published';
+
+    workbench_moderation_moderate($node, $new_state);
+    field_attach_update('node', $node);
+    entity_get_controller('node')->resetCache(array($node->nid));
+     ef_notifications_save_transition_records($node, 'submitted_qr', $new_state);
+
+    drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been submitted'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
+  }
+  else {
+    drupal_set_message(l(t("Chosen node is not submitted to Quality Manager."), $base_url . '/node/' . $entity->nid), 'error');
+  }
+}
+
+function ef_submitted_to_qr_to_under_revision_request($entity, $context) {
+  if($entity->workbench_moderation['current']->state == 'submitted_qr'
+    && $entity->workbench_moderation['current']->current == 1){
+
+    $node = node_load($entity->nid, $entity->workbench_moderation['current']->vid);
+    //get new values to change for the node
+    //assigned to QM default user by default
+    $assign_to_user = get_assign_to_user_author_by_default($entity->field_ef_assign_to_country_group['und'][0]['target_id'], null, $entity);
+
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+    $new_state = 'under_revision_request';
+
+    //ef_notifications_save_transition_records($node, 'submitted_qr', $new_state);
+    workbench_moderation_moderate($node, $new_state);
+    field_attach_update('node', $node);
+    entity_get_controller('node')->resetCache(array($node->nid));
+    ef_notifications_save_transition_records($node, 'submitted_qr', $new_state);
+
+    drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been moderated to under revision request'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
+  }
+  else {
+    drupal_set_message(l(t("Chosen node is not submitted to Quality Manager."), $base_url . '/node/' . $entity->nid), 'error');
+  }
+}
+
+function ef_published_to_draft($entity, $context){
+
+
+   if($entity->workbench_moderation['current']->state == 'published'
+    && $entity->workbench_moderation['current']->current == 1) {
+
+    $node = node_load($entity->nid, $entity->workbench_moderation['current']->vid);
+    //get new values to change for the node
+    //assigned to an Author depending on the country group
+    $assign_to_user = get_assign_to_user_author_by_default($entity->field_ef_assign_to_country_group['und'][0]['target_id'], null, $entity);
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
+
+    $new_state = 'draft';
+
+    if(!empty($node->field_ef_approved_for_payment))
+      unset($node->field_ef_approved_for_payment['und']);
+
+    //if(isset($_SESSION['revision_deadline_update'])){
+      //$node->field_ef_revision_deadline['und'][0]['value'] = $_SESSION['revision_deadline_update'];
+      $node->field_ef_revision_deadline['und'][0]['value'] = '2016-06-24 00:00:00';
+      $node->field_ef_revision_deadline['und'][0]['timezone'] = 'Europe/Dublin';
+      $node->field_ef_revision_deadline['und'][0]['timezone_db'] = 'Europe/Dublin';
+      $node->field_ef_revision_deadline['und'][0]['date_type'] = 'datetime';
+      //unset($_SESSION['revision_deadline_update']);
+    //}
+
+      //$node->field_ef_revision_deadline = '2016-05-11 00:00:00';
+    $node->revision = 1;
+    dpm($node);
+    node_save($node);
+    dpm($node);
+
+    drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been changed to draft'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
+  }
+  else {
+    drupal_set_message(l(t("Chosen node has not been published before, so, the operation can't be completed."), $base_url . '/node/' . $entity->nid), 'error');
+  }
+}
+
+function revision_deadline_submit($form,&$form_state){
+  if(!empty($form_state['values']['revision_deadline'])){
+    $_SESSION['revision_deadline_update'] = $form_state['values']['revision_deadline'];
+  }
+}

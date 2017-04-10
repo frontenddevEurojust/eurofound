@@ -1,0 +1,27 @@
+:: edit the file sites\all\modules\features\ef_basics\ef_basics.pages_default.inc
+:: in the part below change the 'block-8' to the id of the production-staging environment.
+
+::  $pane->subtype = 'block-8';
+::  $pane->shown = TRUE;
+::  $pane->access = array();
+::  $pane->configuration = array(
+::    'override_title' => 0,
+::   'override_title_text' => 'EMCC Landing page',
+
+:: block-6 in stag
+
+
+:: edit the file sites\all\modules\features\ef_basics\ef_basics.pages_default.inc
+:: in the part below change the 'block-9' to the id of the production-staging environment.
+
+:: $pane->subtype = 'block-9';
+:: $pane->shown = TRUE;
+:: $pane->access = array();
+:: $pane->configuration = array(
+::   'override_title' => 0,
+::   'override_title_text' => 'EurWORK landing page',
+:: );
+
+:: block-8 in stag
+ 
+

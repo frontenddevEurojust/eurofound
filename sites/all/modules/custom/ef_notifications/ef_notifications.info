@@ -1,0 +1,4 @@
+name = EF Notifications
+description = Provides integration between Workbench Moderation and EF mail system
+package = EF modules
+core = 7.x

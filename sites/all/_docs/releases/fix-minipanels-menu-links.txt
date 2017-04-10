@@ -1,0 +1,7 @@
+:: edit the file sites\all\modules\features\ef_basics\ef_basics.panels_default.inc
+
+:: change 6075 (ma's dev) => About Eurofound menu link id 
+:: change 6070 (ma's dev) => News menu link  id 
+:: change 6074 (ma's dev) => Observations menu link  id 
+:: change 6072 (ma's dev) => Surveys menu link  id 
+:: change 6073 (ma's dev) => Themes menu link  id 

@@ -1,0 +1,28 @@
+:: import latest version of easa old db locally and use MySqlFront to run some queries and export results as csv
+
+select cs.title,cs.company,cs.abstract,cs.content, c.name as country,  lcase(n.title) as nace, eb.title as employee_before, 
+ef.title as employee_after, LCASE(GROUP_CONCAT(DISTINCT k.title SEPARATOR '*')) as keywords, LCASE(GROUP_CONCAT(DISTINCT t.title SEPARATOR '*')) as types, survey_date
+from case_studies cs
+left join countries c on  cs.country=c.id 
+left join nace_two n on cs.nace_two=n.id 
+left join employees eb on cs.employee_before=eb.id
+left join employees ef on cs.employee_after=ef.id
+left join case_studies_keywords csks on csks.case_study_id=cs.id 
+left join keywords k on k.id=csks.keyword_id
+left join case_studies_types csts on csts.case_study_id=cs.id 
+left join types t on t.id=csts.type_id
+where status=1
+group by cs.id
+
+
+:: select all results (ctrl+A)
+:: right click, export as text file
+:: change file name to 'smes.csv'
+:: options
+  :: Write Headline, checked
+  :: Delimiter, character '~'
+  :: Quote Strings checked
+:: leave field names as is and 'Finish'
+:: move generated file to 'sites\all\_docs\scripts\migration\files' (or save it there in the first place)
+
+:: run sites/all/_docs/scripts/migration/smes.php

@@ -1,0 +1,2 @@
+File is in sites\all\modules\contrib\jquery_update\replace\ui\themes\base\minified directory
+Changed the z-index so that it's higher than the 9995 of the fullscreen editor.

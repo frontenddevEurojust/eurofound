@@ -1,0 +1,176 @@
+
+/*
+** Create/Edit FORM
+*/
+.node-form fieldset.group-ef-contract{
+	background-color: #e8e8e8;
+}
+#field_ef_assign_to_user optgroup{
+    background-color: #e8e8e8;
+    font-size: 1.1em;
+    padding: 4px 0;
+}
+#field_ef_assign_to_user option{
+    background-color: #fff;
+    margin: 0;
+}
+#field_ef_assign_to_user option:first-child(){
+	margin-top: 4px;
+}
+
+/*
+** View mode FORM
+*/
+.workbench-info-block{
+	border: 1px solid #ccc !important;
+	background-color: #E0E0E0 !important;
+	padding: 0.5em !important;
+}
+#workbench-moderation-moderate-form .form-item-state,
+#field-assign-to-user-wrapper{
+	display: inline-block !important;
+	width: 40% !important;
+	margin: 0 !important;
+}
+#workbench-moderation-moderate-form .form-item-state select,
+#field-assign-to-user-wrapper select{
+	width: 100% !important;
+}
+#workbench-moderation-moderate-form button{
+	margin-left: 0.5em;
+}
+#edit-group_ef_publishing_options .group-ef-publishing-options-label{
+	font-size: 1.4em !important;
+}
+
+/*
+** APR message
+*/
+p.apr-pseudomandatory-warning{
+	text-transform: lowercase;
+	color: #0E519E;
+}
+p.apr-pseudomandatory-warning > span{
+	text-transform: uppercase;
+}
+p.apr-pseudomandatory-warning:before{
+	content: "\f040";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+/*
+**	Revision deadline
+*/
+.revision-deadline-wrapper > label{
+	display: inline-block;
+	color: #666;
+}
+.revision-deadline-wrapper .revision-deadline{
+	display: inline-block;
+	margin-left: 5px;
+}
+.revision-deadline-wrapper::before {
+    color: #666;
+    content: "\f073";
+    font-family: fontawesome;
+    font-style: normal;
+    margin-right: 0.5em;
+    float: left;
+}
+/*
+** My group to do list
+*/
+.editablefield-item.editablefield-processed .form-required{
+	display: none !important;
+}
+.editablefield-item.editablefield-processed > .field-type-entityreference{
+	display: inline-block;
+	width: 65%;
+}
+.editablefield-item.editablefield-processed > .form-actions{
+	display: inline-block;
+	width: 30%;
+	text-align: right;
+}
+.editablefield-item.editablefield-processed > .form-actions .form-submit{
+	border: 1px solid #aaa;
+	border-radius: 0px !important;
+}
+.editablefield-item.editablefield-processed{
+	text-align: left;
+}
+.block-views.my-group-to-do-list{
+	position: relative;
+}
+.block-views.my-group-to-do-list > h2{
+	position: absolute;
+	background-color: rgba(255, 255, 255, 1);
+    bottom: 75px;
+    left: 30px;
+    padding: 5px;
+}
+#views-exposed-form-country-groups-country-groups-page{
+	padding-top: 15px;
+}
+
+/*
+ * Correct contracts
+ */
+.group-ef-contract .contract-correct-link,
+#node_ef_erm_regulation_form_group_ef_contract .contract-correct-link{
+	text-decoration: none;
+	font-size: 1.1em;
+	margin-left: 2px;
+}
+.group-ef-contract .contract-correct-link > i,
+#node_ef_erm_regulation_form_group_ef_contract .contract-correct-link > i{
+	transition: background-color 0.3s ease;
+	background-color: #004798;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #FFF;
+}
+.group-ef-contract .contract-correct-link:hover > i,
+#node_ef_erm_regulation_form_group_ef_contract .contract-correct-link:hover > i,
+.group-ef-contract .contract-correct-link:focus > i,
+#node_ef_erm_regulation_form_group_ef_contract .contract-correct-link:focus > i{
+	background-color: #1A9ADA;
+}
+.view-id-update_groups_and_contracts .update-contract-options-button {
+    margin-left: 15px;
+    margin-top: 20px;
+}
+.view-id-update_groups_and_contracts .view-filters{
+    border: 1px solid #ccc;
+    margin-top: 30px;
+}
+.view-id-update_groups_and_contracts .view-header p:last-child{
+	background-color: #eeeeee;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+.view-id-update_groups_and_contracts .form-actions.form-wrapper {
+    width: 100% !important;
+}
+.view-id-update_groups_and_contracts .form-actions.form-wrapper button{
+	float: left;
+}
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only {
+    width: 100%;
+}
+.ui-dialog-eurofound .ui-dialog-buttonset button{
+    border-radius: 0px;
+    background-image: none;
+    transition: color ease 0.5s;
+	transition: background-color ease 0.5s;
+}
+.ui-dialog-eurofound .ui-dialog-buttonset button:hover,
+.ui-dialog-eurofound .ui-dialog-buttonset button:focus{
+    background-color: #E1E2DC;
+    color: #000;
+}
+.ajax-progress-throbber {
+    position: relative;
+    float: left;
+}

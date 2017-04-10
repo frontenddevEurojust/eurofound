@@ -1,0 +1,76 @@
+drush sql-query "insert into schema_migrations(code,extra)values('012', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+:: custom eworx
+drush en -y ef_deliverable_kind_field
+
+drush dl -y stringoverrides
+drush en -y stringoverrides
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+drush field-delete field_ef_report_type --bundle=ef_report
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Deliverable Kinds | import/ef_vocabulary_deliverable_kinds_import | sites\all\_docs\feeds\vocabulary_deliverable_kinds.csv ||
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: goto admin/config/regional/stringoverrides
+:: add: Summary|Abstract
+
+
+:: apply patch v012-text.js.txt
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+:: goto admin/config/system/tabtamer/settings
+:: enable admin links configuration
+
+:: goto admin/config/system/tabtamer
+:: make hidden: admin/workbench links
+:: make hidden: admin/content links
+:: make hidden: user links
+
+
+:: goto admin/config/people/accounts/fields
+:: reorder manually user fields to have order:
+:: first name, last name, username and password, language, etc...
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

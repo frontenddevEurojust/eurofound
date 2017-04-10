@@ -1,0 +1,406 @@
+Script started on Wed 22 Oct 2014 15:25:16 CEST
+sh-4.2$ bash
+groups: cannot find name for group ID 1000
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ wget "http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del" [K
+--2014-10-22 15:25:29--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1022 [text/html]
+Saving to: `national-basic-pages.php?action=del'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 1,022       --.-K/s   in 0s      
+
+2014-10-22 15:27:42 (169 MB/s) - `national-basic-pages.php?action=del' saved [1022/1022]
+
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ ls
+basic-pages.php?action=del  migration-c-1.txt  migration-c.txt	migration-national.txt	national-basic-pages.php?action=del  re-migrate-basic-pages.sh	survey-basic-pages.php?action=del  wget-log
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ sh re-migrate-basic-pages.sh
+--2014-10-22 15:29:51--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=0&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38414 (38K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=0&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 38,414      --.-K/s   in 0s      
+
+2014-10-22 15:30:05 (222 MB/s) - `basic-pages.php?action=migrate&from=0&to=100' saved [38414/38414]
+
+--2014-10-22 15:30:05--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:30:08--
+Total wall clock time: 17s
+Downloaded: 1 files, 38K in 0s (222 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:30:08--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=100&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 37329 (36K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=100&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 37,329      --.-K/s   in 0s      
+
+2014-10-22 15:30:21 (216 MB/s) - `basic-pages.php?action=migrate&from=100&to=100' saved [37329/37329]
+
+--2014-10-22 15:30:21--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:30:21--
+Total wall clock time: 13s
+Downloaded: 1 files, 36K in 0s (216 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:30:21--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=200&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 35836 (35K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=200&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 35,836      --.-K/s   in 0s      
+
+2014-10-22 15:30:34 (568 MB/s) - `basic-pages.php?action=migrate&from=200&to=100' saved [35836/35836]
+
+--2014-10-22 15:30:34--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:30:34--
+Total wall clock time: 13s
+Downloaded: 1 files, 35K in 0s (568 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:30:34--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=300&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 33103 (32K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=300&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 33,103      --.-K/s   in 0s      
+
+2014-10-22 15:30:47 (192 MB/s) - `basic-pages.php?action=migrate&from=300&to=100' saved [33103/33103]
+
+--2014-10-22 15:30:47--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:30:47--
+Total wall clock time: 13s
+Downloaded: 1 files, 32K in 0s (192 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:30:47--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=400&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 33325 (33K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=400&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 33,325      --.-K/s   in 0s      
+
+2014-10-22 15:30:59 (519 MB/s) - `basic-pages.php?action=migrate&from=400&to=100' saved [33325/33325]
+
+--2014-10-22 15:30:59--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:30:59--
+Total wall clock time: 12s
+Downloaded: 1 files, 33K in 0s (519 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:30:59--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=500&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38752 (38K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=500&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 38,752      --.-K/s   in 0s      
+
+2014-10-22 15:31:12 (559 MB/s) - `basic-pages.php?action=migrate&from=500&to=100' saved [38752/38752]
+
+--2014-10-22 15:31:12--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:12--
+Total wall clock time: 13s
+Downloaded: 1 files, 38K in 0s (559 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:12--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=600&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 26419 (26K) [text/html]
+Saving to: `basic-pages.php?action=migrate&from=600&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 26,419      --.-K/s   in 0s      
+
+2014-10-22 15:31:21 (179 MB/s) - `basic-pages.php?action=migrate&from=600&to=100' saved [26419/26419]
+
+--2014-10-22 15:31:21--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:21--
+Total wall clock time: 9.7s
+Downloaded: 1 files, 26K in 0s (179 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:21--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=700&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `basic-pages.php?action=migrate&from=700&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:22 (48.1 MB/s) - `basic-pages.php?action=migrate&from=700&to=100' saved [678/678]
+
+--2014-10-22 15:31:22--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:22--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (48.1 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:22--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=800&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `basic-pages.php?action=migrate&from=800&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:22 (49.2 MB/s) - `basic-pages.php?action=migrate&from=800&to=100' saved [678/678]
+
+--2014-10-22 15:31:22--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:22--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (49.2 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:22--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=900&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `basic-pages.php?action=migrate&from=900&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:23 (45.8 MB/s) - `basic-pages.php?action=migrate&from=900&to=100' saved [678/678]
+
+--2014-10-22 15:31:23--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:23--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (45.8 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:23--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=migrate&from=1000&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `basic-pages.php?action=migrate&from=1000&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:23 (120 MB/s) - `basic-pages.php?action=migrate&from=1000&to=100' saved [678/678]
+
+--2014-10-22 15:31:23--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:23--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (120 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:23--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=0&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38947 (38K) [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=0&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 38,947      --.-K/s   in 0s      
+
+2014-10-22 15:31:39 (232 MB/s) - `survey-basic-pages.php?action=migrate&from=0&to=100' saved [38947/38947]
+
+--2014-10-22 15:31:39--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:39--
+Total wall clock time: 16s
+Downloaded: 1 files, 38K in 0s (232 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:39--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=100&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 26558 (26K) [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=100&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 26,558      --.-K/s   in 0s      
+
+2014-10-22 15:31:50 (175 MB/s) - `survey-basic-pages.php?action=migrate&from=100&to=100' saved [26558/26558]
+
+--2014-10-22 15:31:50--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:50--
+Total wall clock time: 11s
+Downloaded: 1 files, 26K in 0s (175 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:50--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=200&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=200&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:50 (43.5 MB/s) - `survey-basic-pages.php?action=migrate&from=200&to=100' saved [678/678]
+
+--2014-10-22 15:31:50--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:50--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (43.5 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:50--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=300&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 677 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=300&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 677         --.-K/s   in 0s      
+
+2014-10-22 15:31:51 (117 MB/s) - `survey-basic-pages.php?action=migrate&from=300&to=100' saved [677/677]
+
+--2014-10-22 15:31:51--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:51--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 677 in 0s (117 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:51--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=400&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=400&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:51 (117 MB/s) - `survey-basic-pages.php?action=migrate&from=400&to=100' saved [678/678]
+
+--2014-10-22 15:31:51--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:51--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (117 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:51--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=500&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=500&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:52 (118 MB/s) - `survey-basic-pages.php?action=migrate&from=500&to=100' saved [678/678]
+
+--2014-10-22 15:31:52--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:52--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (118 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:52--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=600&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=600&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:52 (45.5 MB/s) - `survey-basic-pages.php?action=migrate&from=600&to=100' saved [678/678]
+
+--2014-10-22 15:31:52--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:52--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (45.5 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:52--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=700&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=700&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:53 (43.4 MB/s) - `survey-basic-pages.php?action=migrate&from=700&to=100' saved [678/678]
+
+--2014-10-22 15:31:53--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:53--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (43.4 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:53--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=800&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=800&to=100'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 678         --.-K/s   in 0s      
+
+2014-10-22 15:31:53 (45.0 MB/s) - `survey-basic-pages.php?action=migrate&from=800&to=100' saved [678/678]
+
+--2014-10-22 15:31:53--  http://%0D/
+Resolving \r (\r)... failed: Name or service not known.
+wget: unable to resolve host address `\r'
+FINISHED --2014-10-22 15:31:53--
+Total wall clock time: 0.5s
+Downloaded: 1 files, 678 in 0s (45.0 MB/s)
+sleep: invalid time interval `3\r'
+Try `sleep --help' for more information.
+--2014-10-22 15:31:53--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/survey-basic-pages.php?action=migrate&from=900&to=100
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 678 [text/html]
+Saving to: `survey-basic-pages.php?action=migrate&from=900&to=100'
+
+ 0

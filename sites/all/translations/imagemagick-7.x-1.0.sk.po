@@ -1,0 +1,28 @@
+# Slovak translation of ImageMagick (7.x-1.0)
+# Copyright (c) 2013 by the Slovak translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ImageMagick (7.x-1.0)\n"
+"POT-Creation-Date: 2013-03-02 17:21+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+msgid "Gray"
+msgstr "Odtiene šedej"
+msgid "Path to the \"convert\" binary"
+msgstr "Cesta k spustiteľnému súboru \"convert\""
+msgid "Display debugging information"
+msgstr "Zobraziť ladiace informácie"
+msgid "Convert colorspace"
+msgstr "Zmeniť farebnosť"
+msgid "Change image resolution to 72 ppi"
+msgstr "Zmeniť rozlíšenie obrázka na 72 dpi"
+msgid "Version information"
+msgstr "Informácie o verzií"
+msgid "Administer site configuration"
+msgstr "Spravovať nastavenia stránky"

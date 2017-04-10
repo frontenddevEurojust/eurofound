@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CWB Timelines feature.
+ */
+
+include_once 'views_timelinejs_feature.features.inc';

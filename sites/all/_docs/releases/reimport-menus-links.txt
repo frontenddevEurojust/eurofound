@@ -1,0 +1,53 @@
+:: MENU LINKS :: (re-import )
+::
+:: Before import:
+:: go to admin/structure/types/manage/page
+:: and uncheck the following revision options, else menu importing does not work:
+:: Uncheck: Create new revision 
+:: Uncheck: New revision in draft, pending moderation (requires "Create new revision") 
+::
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+:: Default Language : English
+
+:: || Target Menu | Menu File ||
+:: || Footer Links| sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+:: Default Language : English
+
+:: || Target Menu | Menu File ||
+:: || Quick Links| sites\all\_docs\imports\menus\menu-ef-quick-links-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+:: Default Language : English
+
+:: After import:
+:: go to admin/structure/types/manage/page
+:: and re-check the following revision options:
+:: Check: Create new revision 
+:: Check: New revision in draft, pending moderation (requires "Create new revision") 
+

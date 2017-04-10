@@ -1,0 +1,4 @@
+name = EF node moderation links
+description = EF node moderation links
+core = 7.x
+package = EF modules

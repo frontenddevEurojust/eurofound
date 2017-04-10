@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file ef_deliverable_kind_field.module
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function ef_deliverable_kind_field_form_alter(&$form, &$form_state, $form_id) {
+
+  if (isset($form['#node_edit_form']) && !isset($form['field_ef_deliverable_kind'])) {
+    $form['field_ef_deliverable_kind']['und'][0]['tid']['#default_value'] = get_deliverable_kind_id($form);
+    $form['#after_build'][] = '_ef_deliverable_kind_after_build';
+  }
+}
+
+
+function _ef_deliverable_kind_after_build(&$form, &$form_state) {
+  drupal_add_js(drupal_get_path('module', 'ef_deliverable_kind_field') .'/ef_deliverable_kind_field.js');
+  return $form;
+}
+
+function get_deliverable_kind_id($form) {
+
+  switch ($form['type']['#value']) {
+      case 'ef_report':
+        $parent_deliverable_kind = "EF Article";
+        break;
+      case 'ef_comparative_analytical_report':
+        $parent_deliverable_kind = "CAR / REP Report";
+        break;
+      case 'ef_national_contribution':
+        $parent_deliverable_kind = "National Contribution";
+        break;
+      case 'ef_working_life_country_profiles':
+        $parent_deliverable_kind = "National Contribution";
+        break;
+      case 'ef_erm_regulation':
+        $parent_deliverable_kind = "Regulation";
+        break;
+      case 'ef_ir_dictionary':
+        $parent_deliverable_kind = "IR dictionary";
+        break;
+      case 'ef_network_quarterly_report':
+        $parent_deliverable_kind = "Network Quarterly Report";
+        break;
+      case 'ef_ic_quarterly_report':
+        $parent_deliverable_kind = "IC Quarterly Report";
+        break;
+      case 'ef_input_to_erm':
+        $parent_deliverable_kind = "Input to ERM";
+        break;
+      case 'ef_factsheet':
+        $parent_deliverable_kind = "Factsheet";
+        break;
+      case 'erm_support_instrument':
+        $parent_deliverable_kind = "Support Instrument";
+        break;
+      case 'ef_annual_progress_report':
+        $parent_deliverable_kind = "Annual Progress Report";
+        break;
+      default:
+        $parent_deliverable_kind = "EF Article";
+        break;
+    }
+
+    $deliverable_kinds = taxonomy_get_term_by_name($parent_deliverable_kind, 'ef_deliverable_kinds');
+
+    foreach ($deliverable_kinds as $deliverable_kind) {
+      return $deliverable_kind->tid;
+    }
+}

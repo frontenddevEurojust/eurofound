@@ -1,0 +1,38 @@
+drush sql-query "insert into schema_migrations(code,extra)values('034', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+drush en -y ef_car_nc_autocreation
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+
+:: Add missing titles and descriptions.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts taxonomy_fix
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/taxonomy_fix.php
+
+
+drush vset -y maintenance_mode 0
+drush cc all

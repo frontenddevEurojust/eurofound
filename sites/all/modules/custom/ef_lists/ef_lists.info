@@ -1,0 +1,4 @@
+name = EF MyToDoLists
+description = MyToDoList pages
+package = EF modules
+core = 7.x

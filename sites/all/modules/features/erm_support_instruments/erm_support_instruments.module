@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ERM Support Instruments feature.
+ */
+
+include_once 'erm_support_instruments.features.inc';

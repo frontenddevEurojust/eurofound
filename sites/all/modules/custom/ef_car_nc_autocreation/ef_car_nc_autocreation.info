@@ -1,0 +1,4 @@
+name = Auto-creation of Car and Nc
+description = Auto-creation of Car and Nc
+package = EF modules
+core = 7.x

@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_state, $form_id) {
+  // user create and edit forms
+  if (($form['#form_id'] == 'user_register_form' || $form['#form_id'] == 'user_profile_form')
+    && isset($form['field_ef_contracts']) && $form['field_ef_contracts']['#access']) {
+    show_contract_numbers_in_selects($form, 'field_ef_contracts');
+  }
+  // node edit forms
+  /*if (isset($form['#node']->type) && isset($form['#node_edit_form']) && isset($form['field_ef_contract'])) {
+    show_contract_numbers_in_selects($form, 'field_ef_contract');
+  }*/
+}
+
+function show_contract_numbers_in_selects(&$form, $field_name) {
+  $contract_options = $form[$field_name][LANGUAGE_NONE]['#options']; // contract id -> contract title
+  foreach ($contract_options as $contract_id => $contract_title) {
+    if ($contract_id !== '_none') {
+      $contract = taxonomy_get_term_by_name($contract_title, 'ef_contracts');
+      $contract_number = $contract[$contract_id]->field_ef_contract_number['und'][0]['safe_value'];
+      $contract_title_short = str_replace("Network of Correspondents - ", "", $contract_title);
+      $contract_title_short = str_replace("Provision of ", "", $contract_title_short);
+      $contract_options_with_number[$contract_id] = $contract_number . ': ' . $contract_title_short;
+    }
+  }
+  $form[$field_name][LANGUAGE_NONE]['#options'] = $contract_options_with_number;
+}

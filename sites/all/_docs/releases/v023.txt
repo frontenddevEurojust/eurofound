@@ -1,0 +1,95 @@
+drush sql-query "insert into schema_migrations(code,extra)values('023', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:Download and place the MediaTable library into your libraries directory ( e.g. /sites/all/libraries/MediaTable/jquery.mediaTable.js ). The MediaTable library from here: https://github.com/thepeg/MediaTable
+wget https://github.com/thepeg/MediaTable/archive/master.zip --no-check-certificate
+:: unzip master*.zip -d sites/all/libraries
+:: rm master*.zip
+
+drush dl -y views_mediatable
+drush en -y views_mediatable
+
+wget http://download.ckeditor.com/colorbutton/releases/colorbutton_4.3.5.zip
+:: unzip colorbutton_4.3.5.zip -d sites/all/libraries/ckeditor/plugins
+:: rm colorbutton_4.3.5.zip
+
+wget http://download.ckeditor.com/panelbutton/releases/panelbutton_4.3.5.zip
+:: unzip panelbutton_4.3.5.zip -d sites/all/libraries/ckeditor/plugins
+:: rm panelbutton_4.3.5.zip
+
+:: eworx custom modules
+drush en -y ef_ckeditor_colorbutton
+
+drush dl -y views_data_export
+drush en -y views_data_export
+drush cc all
+
+drush dl -y views_dynamic_fields
+drush en -y views_dynamic_fields
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+
+
+:: FEATURES ::
+
+drush en -y ssi_web_apps_intergration
+drush fr -y ssi_web_apps_intergration
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Units | import/ef_vocabulary_units_import | sites\all\_docs\feeds\vocabularies\vocabulary_units.csv ||
+:: || Work Programme Areas | import/ef_vocabulary_work_programme_areas_import | sites\all\_docs\feeds\vocabularies\vocabulary_work_programme_areas.csv ||
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+drush views-disable case-studies
+drush views-disable national-contributions
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+:: curl php installation
+:: linux command
+sudo apt-get install php5-curl
+
+:: install mantis
+:: see http://jira.eworx.gr:8090/browse/EFDR-408
+:: The mantis ssi service will be set manually as it is considered content.
+::   Values
+::       Title: Mantis
+::       Body: The entry allows access to the mantis web application and intergration.
+::       Integration : mantis
+::       Login url: http://localhost/mantis/login.php
+::       Landing url: mantis
+::       Username parameter: username
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

@@ -1,0 +1,380 @@
+<?php
+/*********************************************************
+* Eworx S.A. - 2013 - 2014
+* @Author kp@eworx.gr, som@eworx.gr
+* DVS intergration / common base functions and properties
+* used by : views-view-field--cwb-time-series--page--field-time-series-data.tpl.php, views-view--cwb-time-series--page.tpl.php
+* Version 2 
+**********************************************************/
+
+
+function dvscwb_views_timelinejs_data_alter(&$vars, &$view) {
+
+	foreach($vars as $key=>$value) {
+		$vars[$key]['title']="title";
+		$date = str_replace(',', '-', $vars[$key]['startDate']);
+		$vars[$key]['startDate'] = date('Y,m', strtotime($date));
+		$credit = $vars[$key]['asset']['credit'];
+		$publication = "<p><a href=\"$credit\">".
+     //$vars[$key]['asset']['caption'] .
+    ($vars[$key]['tag'] ? $vars[$key]['tag'].": " : '') .
+    "".$vars[$key]['headline']."</a></p>";
+		$vars[$key]['text'] = "<br/>".$vars[$key]['text'].$publication;
+		$headline = "<span class=\"".($vars[$key]['tag'])." timelineHeadline\"> <a target=\"_blank\" href=\"$credit\">"
+                . ($vars[$key]['tag'] ? $vars[$key]['tag'].": " : '') .
+                $vars[$key]['headline']."</a></span>";
+		$vars[$key]['headline'] = $headline;
+		//$vars[$key]['tag']=""; // ??
+
+	}
+}
+
+
+
+/* appends tpl overides of the module */
+function dvscwb_views_api() {
+  return array(
+    'api' => 3,
+    'template path' => drupal_get_path('module', 'dvscwb') . '/theme/templates',
+  );
+}
+
+//-----------------------------
+
+function getParametersSeparator(){
+	return "_";
+}
+
+function getInvalidCharactersSubstitute(){
+	return "-";
+}
+
+function getParameterValuesSeparator(){
+	return ",";
+}
+
+//-----------------------------
+
+function getDVSHttpRelativeURL(){
+	return "/DVS/render/";
+}
+
+function getDVSBaseFolder(){
+	return "/web-pub/foundation/html/DVS/";
+}
+
+function getDVSCWBRelativeDataSourceLocation(){
+	return "import/cwb/";
+}
+
+function getTimeSeriesDataSourceLocation(){
+	return getDVSBaseFolder(). getDVSCWBRelativeDataSourceLocation() . "time-series/";
+}
+
+function getContextMapDataSourceLocation(){
+	return getDVSBaseFolder(). getDVSCWBRelativeDataSourceLocation() . "context-map/";
+}
+
+function getOutcomesMapDataSourceLocation(){
+	return getDVSBaseFolder(). getDVSCWBRelativeDataSourceLocation() . "outcomes-map/";
+}
+
+//-----------------------------
+
+function useCache(){
+	return false;
+}
+
+function getVisualizationOptionsTemplateArray(){
+	return array(array("property", "value"));
+}
+
+//-----------------------------
+
+/*
+function removeColumnsFromArray($tableData, $columns=array()){
+	$newData = array();
+	$headers = $tableData[0];
+
+	for($rowIndex = 0; $rowIndex < count($tableData); $rowIndex++){
+		$tempRow = array();
+		for($headerIndex = 0; $headerIndex < count($headers); $headerIndex++){
+			if(!in_array($headers[$headerIndex], $columns )){
+				array_push($tempRow, $tableData[$rowIndex][$headerIndex]);
+			}
+		}
+		array_push($newData, $tempRow);		
+	}
+	
+	return $newData;		
+}
+*/
+
+function reIndexArray($tableData){
+	$newData = array();	
+	foreach($tableData as $key=>$data){
+		$tempRow = array();
+		foreach($data as $index=>$value){
+			array_push($tempRow, $value);
+		}
+		array_push($newData, $tempRow);
+	}
+	return $newData;
+}
+ 
+function removeColumnsFromArray($tableData, $columns=array()) {
+
+	$removedColumns = array();
+
+	if(!empty($columns) && !empty($tableData)){
+
+		foreach($columns as $column){
+			foreach($tableData[0] as $key=>$value){
+				if($value==$column){
+					$removedColumns[]=$key;
+				}
+			}
+		}
+
+		foreach($tableData as $key=>$data){
+			foreach($data as $index=>$value){
+				if(in_array($index, $removedColumns)){
+					unset($tableData[$key][$index]);
+				}
+			}
+		}
+	}
+ 
+	return  ($tableData);
+}
+ 
+function emptyNonNumericalRowsForColumns($tableData, $columns=array()){
+	$tableData = reIndexArray($tableData);	
+	$headers = $tableData[0];
+	$newData = array($headers);
+
+	for($rowIndex = 1; $rowIndex < count($tableData); $rowIndex++){
+		$tempRow = array();
+		for($headerIndex = 0; $headerIndex < count($headers); $headerIndex++){
+
+			if(in_array($headers[$headerIndex], $columns ) && (!is_numeric($tableData[$rowIndex][$headerIndex])) ){				
+					array_push($tempRow, "");
+			}else{
+				array_push($tempRow, $tableData[$rowIndex][$headerIndex]);
+			}
+		}
+		array_push($newData, $tempRow);		
+	}
+	
+	return $newData;		
+}
+
+
+
+function removeNonNumericalRowsForColumns($tableData,$columns) { 
+	$removedColumns=array();
+	if(!empty($columns) && !empty($tableData)){
+		foreach($columns as $column){
+			foreach($tableData[0] as $key=>$value){
+				if($value==$column){
+					$removedColumns[]=$key;
+				}
+			}
+		}
+		foreach($tableData as $key=>$data){
+			if($key!=0){
+				foreach($data as $index=>$value){
+					if(in_array($index,$removedColumns)){
+						if(!is_numeric($value)){
+							//unset($tableData[$key]);
+							$value = "";
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return  ($tableData);
+}
+
+
+function convertArrayTableToHtmlTable($newTableData){
+	$newTableData = reIndexArray($newTableData);
+	$outputHtmlTable = '<table class="tablefield tablesorter sticky-enabled tableheader-processed sticky-table"> ';
+	$rowIndex = -1;
+
+	foreach ($newTableData as &$value) {
+		$rowIndex++;
+		$row = $value;
+
+		if($rowIndex == 0)
+			$outputHtmlTable .="<thead>";
+
+		$outputHtmlTable = $outputHtmlTable  . ' <tr class="row_'.$rowIndex.'">';
+		$columnIndex = -1;
+
+		foreach ($row as &$value)  {
+			$columnIndex++;
+			$cell = $value;
+
+
+			$cellClass = "td";
+
+			$extraAttributes = "";
+			$extraAttributes = 'cell_row="'.$rowIndex.'" class = "';
+			$extraAttributes .= "column_" . $columnIndex . " ";
+
+			if(strlen(trim($cell))>0)
+				$extraAttributes .= "nonEmpty ";
+			
+
+			$extraAttributes .= stringToIdentifier($newTableData[0][$columnIndex]) ." ". stringToIdentifier($cell) ;
+			
+			if($newTableData[0][$columnIndex] == "Degree of coordination")
+				$extraAttributes .= " _". stringToIdentifier($newTableData[$rowIndex][$columnIndex-1]);
+
+			if($rowIndex != 0 &&  matchesPattern("/.*P$/", $newTableData[0][$columnIndex]) && $cell != "")
+				$cell.="%";
+
+			$extraAttributes .= '"';
+
+	 		if($rowIndex == 0)
+	 			$cellClass = "th";
+
+			$outputHtmlTable = $outputHtmlTable . '<'.$cellClass . ' ' .$extraAttributes . '>' . $cell . '</' . $cellClass . '>';
+		}
+
+		$outputHtmlTable = $outputHtmlTable . '</tr>';
+		if($rowIndex == 0)
+			$outputHtmlTable .="</thead><tbody>";
+
+	}
+	$outputHtmlTable= $outputHtmlTable.'</tbody></table>';
+	return $outputHtmlTable;
+
+}
+
+function matchesPattern($pattern, $str){	
+	$matches = array();
+	if (preg_match($pattern, $str, $matches)) {
+    	return true;
+	}
+	return false;
+}
+//-----------------------------
+
+function writeArrayTableToCSV($csvLocation, $data){
+	$csvDelimiter = chr(9);
+	$fp = fopen($csvLocation, 'w');
+	foreach ($data as &$value)
+		fputcsv($fp, $value, $csvDelimiter);
+	fclose($fp);
+}
+
+//-----------------------------
+
+function getUniqueTimeSeriesIdentifier($view, $variables){
+
+	$parametersSeparator = getParametersSeparator();
+	
+	$parameterValuesSeparator = getParameterValuesSeparator();
+
+	$timeSeriesName = $view->result[0]->node_title;
+	$timeSeriesRevisionId = $view ->result[0]->field_series_id_node__node_revision_vid;
+	$timeSeriesNameSanitized = stringToIdentifier($timeSeriesName);
+
+	$visualizationID =
+		$timeSeriesNameSanitized . $parametersSeparator .
+		implode($variables, $parameterValuesSeparator). $parametersSeparator .
+		"vid" . $timeSeriesRevisionId;
+
+	return $visualizationID;
+}
+
+function getTimeSeriesLocationDataSource($uniqueIdentifier){
+	return getTimeSeriesDataSourceLocation() . $uniqueIdentifier . ".csv";
+}
+
+function stringToIdentifier($theString){
+	$theString = trim($theString);
+	$invalidCharactersSubstitute = getInvalidCharactersSubstitute();
+	return strtolower(preg_replace("/[^a-zA-Z0-9]/", $invalidCharactersSubstitute, $theString));
+
+}
+//-----------------------------
+
+function getUniqueContextMapVisualisationIdentifier($view){
+	
+	$parametersSeparator = getParametersSeparator();
+
+	$year = $view->result[0]->field_field_year[0]['raw']['value'];
+	$year = date("Y", strtotime($year));
+		
+	$revisionId = $view->result[0]->node_revision_vid; 
+
+	$visualizationID =
+		$year . $parametersSeparator .
+		"vid" . $revisionId;
+
+	return $visualizationID;
+}
+
+function getContextMapLocationDataSource($uniqueIdentifier){
+	return getContextMapDataSourceLocation() . $uniqueIdentifier . ".csv";
+}
+
+//-----------------------------
+
+function getUniqueOutcomesMapVisualisationIdentifier($view){
+	
+	$parametersSeparator = getParametersSeparator();
+	
+
+	//$year = $view->result[0]->field_field_year[0]['raw']['value'];
+	//$year = date("Y", strtotime($year));
+	// comment should only need revision
+	
+
+	$revisionId = "1";
+
+	for($i =0;$i<count($view->result);$i++){
+		$revisionId .= "-" . $view->result[$i]->field_series_id_node__node_revision_vid;
+	}
+	$revisionId = hash('ripemd160', $revisionId);
+	$revisionId = stringToIdentifier($revisionId);
+		
+	
+
+	$visualizationID =
+		stringToIdentifier($_GET["year"]) . $parametersSeparator . 
+		stringToIdentifier($_GET['field_variables_tid']) . $parametersSeparator .
+		"vid" . $revisionId;
+
+	return $visualizationID;
+}
+
+function getOutcomesMapLocationDataSource($uniqueIdentifier){
+	return getOutcomesMapDataSourceLocation() . $uniqueIdentifier . ".csv";
+}
+
+//-----------------------------
+
+function convertArrayTableColumnsToRows($data){
+	$newData = array();
+	$headers = $data[0];
+	for($headerIndex = 0; $headerIndex < count($headers); $headerIndex++){
+		$tempColumn = array();
+
+		for($rowIndex = 1; $rowIndex < count($data); $rowIndex++){
+			array_push($tempColumn, $data[$rowIndex][$headerIndex]);
+		}
+		array_push($newData, $tempColumn);
+	}
+	return $newData;
+}
+
+function calculate_min_max($arr) {
+    sort($arr);
+    return array($arr[0], $arr[count($arr)-1]);
+}

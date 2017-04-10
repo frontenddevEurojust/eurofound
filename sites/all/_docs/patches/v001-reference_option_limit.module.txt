@@ -1,0 +1,8 @@
+Errors in the form with other ajax elements
+
+Found at:
+https://drupal.org/node/1649470#comment-7559949
+
+Patch file:
+https://drupal.org/files/2006798-16.reference_option_limit.ajax-elements.patch
+

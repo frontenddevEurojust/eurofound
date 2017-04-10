@@ -1,0 +1,4 @@
+name = EF Help Text Ratings
+description = Improve the help text styles in the quality ratings
+package = EF modules
+core = 7.x

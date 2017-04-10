@@ -1,0 +1,77 @@
+<?php
+
+/*
+ * implements hook_form_alter
+ */
+function ef_proposals_form_alter(&$form, &$form_state, $form_id){
+
+	if( $form_id == 'ef_report_node_form'){
+
+		global $user;
+
+		if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
+
+			$form['field_ef_approved_for_payment']['#type'] = 'hidden';
+			//$form['field_ef_contract']['#type'] = 'hidden';
+			$form['field_ef_assign_to']['#type'] = 'hidden';
+
+			$form['#attached']['js'] = array(
+     			drupal_get_path('module', 'ef_proposals') . '/ef_proposals.js',
+   			);
+
+		}
+
+	}
+}
+
+/*
+ * implements hook_node_presave
+ */
+function ef_proposals_node_presave($node){
+
+	$author_content_types = array('ef_report', 'ef_factsheet', 'ef_input_to_erm',
+		'ef_ir_dictionary', 'ef_erm_regulation', 'erm_support_instrument'
+	);
+
+	if (in_array($node->type, $author_content_types)){
+
+		$author_user = user_load($node->uid);
+
+		if($node->is_new && (in_array('Author', $author_user->roles) || in_array('Author +', $author_user->roles))){
+
+			// new contract (group integration)
+			if (isset($node->group)) {
+				$gid = $node->group;
+				$author_membership = group_membership_load($gid, $author_user->uid);
+				$node->field_ef_assign_to_author['und'][0]['target_id'] = $author_membership->mid;
+				$node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
+				// issue 3506 - Automatic contracts
+				$contract_tid = get_assigned_contract($gid, $node->type);
+				$node->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
+				// end 3506
+			}
+			// old contract (without groups)
+			else {
+
+				$node->field_ef_assign_to['und'][0]['target_id'] = $author_user->uid;
+				$node->field_ef_contract['und'][0]['tid'] = $author_user->field_ef_contracts['und'][0]['tid'];
+
+				$gids = get_group_by_user($author_user);
+				$gid = key($gids);
+
+				$node->group = $gid;
+				$author_membership = group_membership_load($gid, $author_user->uid);
+				$node->field_ef_assign_to_author['und'][0]['target_id'] = $author_membership->mid;
+				$node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
+				// issue 3506 - Automatic contracts
+				$contract_tid = get_assigned_contract($gid, $node->type);
+				$node->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
+				// end 3506
+
+			}
+
+		}
+
+	}
+
+}

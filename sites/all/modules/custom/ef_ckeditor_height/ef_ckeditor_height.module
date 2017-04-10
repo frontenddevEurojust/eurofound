@@ -1,0 +1,8 @@
+<?php
+
+function ef_ckeditor_height_wysiwyg_editor_settings_alter(&$settings, $context) {
+   if ($context['profile']->editor == 'ckeditor') {
+	   drupal_add_js(drupal_get_path('module', 'ef_ckeditor_height') .'/ef_ckeditor_height.js');
+  }
+}
+ 

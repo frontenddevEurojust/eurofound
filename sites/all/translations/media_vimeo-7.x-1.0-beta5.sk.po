@@ -1,0 +1,28 @@
+# Slovak translation of Media: Vimeo (7.x-1.0-beta5)
+# Copyright (c) 2012 by the Slovak translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Media: Vimeo (7.x-1.0-beta5)\n"
+"POT-Creation-Date: 2012-04-05 03:56+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+msgid "Width"
+msgstr "Šírka"
+msgid "Height"
+msgstr "Výška"
+msgid "Thumbnail"
+msgstr "Miniatúra"
+msgid "Media"
+msgstr "Médiá"
+msgid "Resize"
+msgstr "Zmeniť veľkosť"
+msgid "Image style"
+msgstr "Štýl obrázka"
+msgid "None (original image)"
+msgstr "Žiadny (pôvodný obrázok)"

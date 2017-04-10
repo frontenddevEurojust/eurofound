@@ -1,0 +1,669 @@
+<?php
+
+//Include admin form for settings
+module_load_include('inc', 'ef_search', 'ef_search.admin');
+
+/**
+ * Implements hook_menu
+ */
+function ef_search_menu() {
+  $items = array();
+  $items['search_autocomplete/%'] = array(
+    'page callback' => 'ef_search_autocomplete_callback',
+    'access callback' => TRUE,
+    'page arguments' => array(1)
+  );
+  //Admin menu
+  $items['admin/config/search/ef_search'] = array(
+    'title' => 'EF Search',
+    'description' => 'Config information for Eurofound search',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_search_admin_form'),
+    'access arguments' => array('administer site configuration'),
+  );
+
+		/*$items['admin/config/search/ef_search/ef_search_settings'] = array(
+			'title' => 'EF Search Configuration',
+			'description' => 'Config information for Eurofound search',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('ef_search_settings_form'),
+			'access arguments' => array('administer site configuration'),
+		);*/
+
+		$items['admin/content/ef_search_settings'] = array(
+			'title' => 'EF Search Configuration',
+			'description' => 'Config information for Eurofound search',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('ef_search_settings_form'),
+			'access arguments' => array('administer ef_search terms configuration'),
+		);
+
+		$items['search_terms_autocomplete'] = array(
+    'page callback' => 'search_terms_autocomplete',
+		'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ef_search_permission() {
+  $permissions = array();
+  $permissions['administer ef_search terms configuration'] = array(
+    'title' => t('Administer Search Terms'),
+    'description' => t('Perform administration of search terms.'),
+  );
+  return $permissions;
+}
+
+
+/**
+ * Implements hook_form_alter
+ */
+function ef_search_form_alter(&$form, &$form_state, $form_id) {
+	global $user;
+
+
+	if ($form_id == 'ef_search_settings_form') {
+		$form['#submit'][] = 'imput_terms_submit';
+		$form['#validate'][] = 'imput_terms_form_validate';
+
+	}
+
+
+  if ($form_id == 'search_block_form') {
+    // Override the search page default url.
+    $form['#action'] = url('search');
+    // The related view will use a contextual filter
+    // to catch the text from the search_block_form.
+    $form['#method'] = 'get';
+    //$form['#ajax'] => array(
+    //  'progress' => array('type' => 'none'),
+    //),
+    // Unset the form elements.
+    unset($form['#submit']);
+    unset($form['form_build_id']);
+    unset($form['form_id']);
+
+
+    $current_path = current_path();
+    //dpm($current_path);
+
+    if($current_path == 'search'){
+      $form['search_block_form']['phrase'] = array(
+      '#type' =>
+      'checkbox',
+      '#title' => t('phrase'),
+
+    );
+      //dpm($form);
+      $form['#attached']['js'] = array(
+        drupal_get_path('module', 'ef_search') . '/ef_search.js',
+      );
+    }
+  //if(isset )
+
+
+  }
+
+
+
+   /**
+   *
+   * https://www.drupal.org/node/2378945
+   *
+   * SITUATION: Search forms with facet filters and keywords search.
+   * PROBLEM: When searching for a keyword after using a facet filter, the
+   * facet filter is ignored by Views.
+   * SOLUTION: Add facet filters as hidden form fields to Views exposed forms.
+   */
+
+  // Check if this form is a Search API form. This could be replaced with the
+  // value of a custom Views setting like ie. "Include facets".
+  if (isset($form_state['view']) && $form_state['view']->base_table === 'search_api_index_default_multilingual_node_index') {
+    // Get quary parameters.
+    $query_parameters = drupal_get_query_parameters();
+
+    // If any facet query parameters are provided.
+    if (!empty($query_parameters['f'])) {
+      // Iterate through facet query parameters.
+      foreach ($query_parameters['f'] as $key => $value) {
+        // Add hidden form field for facet parameter.
+        $form['f[' . $key . ']'] = array(
+          '#type' => 'hidden',
+          '#value' => $value,
+          '#weight' => -1,
+        );
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements imput_terms_submit().
+ * Load, Insert and Update terms
+ *
+ */
+
+
+ /*function validate_terms_nodes($element,$form, &$form_state){
+	if(empty($element['#value'])){
+		  form_set_error($element, t('The Nodes field is mandatory.'));
+	}
+ }*/
+
+ function remove_term($form, &$form_state){
+
+	$sql = "select node from ef_search_terms where term='".$form_state['values']['ef_search_terms_autocomplete']."'";
+	$result = db_query($sql)->fetchAll();
+
+	if(empty($result))
+	{
+		form_error($form, t('This keyword does not exist'));
+		return;
+	}
+
+
+	if(!empty($form_state['input']['ef_search_terms_autocomplete']))
+	{
+
+		ef_search_remove_term($form_state['input']['ef_search_terms_autocomplete']);
+		drupal_set_message('The keyword have been removed.');
+		return $form;
+	}
+
+	return $form;
+ }
+
+
+ function clear_term($form, &$form_state){
+
+	return $form;
+ }
+
+
+ function imput_terms_form_validate($form, &$form_state) {
+
+	/*
+	if (empty($form_state['values']['ef_search_term_nodes'])) {
+    form_set_error('ef_search_term_nodes ', t('You have to add any nodes.'));
+  }*/
+
+
+
+}
+
+
+ function imput_terms_submit($form, &$form_state){
+
+
+	$term = $form_state['values']['ef_search_terms_autocomplete'];
+	$term_nodes = $form_state['values']['ef_search_term_nodes'];
+
+
+	if(!empty($term))
+	{
+		$records = ef_search_load_term($term);
+
+		if(empty($records))
+		{
+
+			ef_search_save_new_term($term,$term_nodes);
+
+
+
+		}
+		else
+		{
+
+			ef_search_update_term($term,$term_nodes);
+			drupal_set_message('The keyword have been updated.');
+		}
+
+		return 0;
+	}
+
+	$term = $form_state['values']['ef_search_term_nodes_combo'];
+	$term_nodes = $form_state['values']['ef_search_term_nodes'];
+
+	if(!empty($term))
+	{
+		ef_search_update_term($term,$term_nodes);
+		drupal_set_message('The keyword have been updated.');
+		//return 0;
+	}
+
+
+ }
+
+
+
+
+/**
+ * Implements hook_block_info().
+ *
+ * Adds a block to clear the filters
+ */
+function ef_search_block_info() {
+  $blocks['ef_search_clear_filters'] = array(
+    'info' => t('Search filters header with clear filter'),
+    'status' => 1,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'search',
+    'cache' => DRUPAL_NO_CACHE,
+    'weight' => 0,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function ef_search_block_view($delta = '') {
+  if ($delta != 'ef_search_clear_filters') {
+    return;
+  }
+  $content['header'] = array(
+    '#type' => 'markup',
+    '#markup' => '<h3>' . t('Filter results') . '</h3>',
+  );
+  $query_params = drupal_get_query_parameters();
+  if (!empty($query_params)) {
+    //Click on the link 'Clear filters' will just
+    //link to the same URL but without parameters
+    //reloading the search page
+    $content['link'] = array(
+      '#type' => 'markup',
+      '#markup' => l(t('Clear filter'), current_path()),
+    );
+  }
+  return array(
+    'subject' => '<none>',
+    'content' => drupal_render($content),
+  );
+}
+
+//*************SEARCH AUTOCOMPLETE APPROACH******************************************************************
+
+function ef_search_autocomplete_callback($search = '*') {
+  $search = check_plain($search);
+  global $language;
+  $lang = $language->language;
+  $allowed_bundles = variable_get('ef_search_bundles', array());
+  $bundles = node_type_get_types();
+
+  $index = search_api_index_load('default_multilingual_node_index');
+  $server = search_api_server_load('ef_solr');
+  $connection = new SearchApiSolrConnection($server->options);
+
+  //Filters for the solr query
+  $params = array(
+    'group' => 'true',
+    'group.field' => 'ss_type',
+    'group.limit' => variable_get('ef_search_ac_items_limit', 3),
+  );
+  $params['fq'][] = 'ss_search_api_language:"' . $lang . '"';
+  $params['fq'][] = 'is_status:"1"';
+  foreach ($bundles as $key => $bundle) {
+    if (empty($allowed_bundles[$key])) {
+      $params['fq'][] = '{!tag=ss_type}*:* AND -(ss_type:"' . $key . '")';
+    }
+  }
+
+  //Fields for the query
+  $fields = $index->getFields();
+  //$search_fields = variable_get('ef_search_ac_fields', array());
+
+  $search_fields = array('title', 'title_field', 'body$value');
+
+  foreach ($search_fields as $field) {
+    $params['qf'][] = 'tm_' . $lang . '_' . $field . '^' . $fields[$field]['boost'];
+  }
+
+  //Send query to Solr
+  $request = $connection->search($search, $params);
+  //Solr retrieves the data
+  $data = json_decode($request->data);
+
+  $total_groups = count($data->grouped->ss_type->groups);
+  $total_items = $data->grouped->ss_type->matches;
+
+  $return = array();
+
+  $showing_categ = variable_get('ef_search_ac_categ_limit', 3);
+  $showing_items = variable_get('ef_search_ac_items_limit', 3);
+  $count_categ = 0;
+  $showed_items = 0;
+  $showed_categ = 0;
+  $total_on_showed_categ = 0;
+
+  //ef_search_autocomplete_add_group will do the dirty work ordering
+  //the data in separated groups by content type
+  foreach ($data->grouped->ss_type->groups as &$group) {
+    $ret = ef_search_autocomplete_add_group($group, $lang, $showing_items, $search);
+    $showed_items += $ret['count'];
+    $showed_categ += ($ret['count']) ? 1 : 0;
+    $total_on_showed_categ += $group->doclist->numFound;
+    $return = array_merge($return, $ret['results']);
+  }
+
+  //Returns the JSON object to be displayed by search autocomplete
+  print_r(json_encode($return));
+  exit;
+}
+
+function ef_search_autocomplete_add_group($group, $lang, $showing_items, $search, $see_all_path = 'search') {
+  $return = array();
+  $count_items = 0;
+  $bundles = node_type_get_types();
+  $in_this_categ = $group->doclist->numFound;
+  foreach ($group->doclist->docs as &$item) {
+    $count_items++;
+    $ac_item = array(
+      "link" => url($item->ss_url),
+      "value" => $item->{'tm_' . $lang . '_title_field'},
+      "fields" => array(
+        "title_field" => $item->{'tm_' . $lang . '_title_field'},
+      ),
+    );
+    if ($count_items == 1) {
+      $ac_item["group"] = array(
+        "group_id" => $item->ss_type,
+        "group_name" => t('@bundle', array(
+          '@bundle' => $bundles[$item->ss_type]->name,)
+        ),
+      );
+    }
+    $return[] = $ac_item;
+  }
+  return array(
+    'results' => $return,
+    'count' => $count_items,
+  );
+
+}
+
+/*
+ *
+ *This is the function for the date boosting of search api
+ *
+ *Modifies the query adding a new parameter
+ *
+ */
+
+function ef_search_search_api_solr_query_alter(array &$call_args, SearchApiQueryInterface $query) {
+
+	global $user;
+	$call_args['params']['bf'][] = 'recip(ms(NOW,ds_published_at),3.16e-11,125,1)';
+
+  $sql = "select term,node from ef_search_terms";
+	$result = db_query($sql)->fetchAll();
+
+	if (!empty($call_args['query'])) {
+		$term = str_replace('"','',$call_args['query']);
+		$results = ef_search_load_term($term);
+
+
+		if (!empty($results->node)) {
+
+			print "<div class='terms_node' style='display:none'>";
+			print ($results->node);
+			print "</div>";
+		}
+	}
+
+	foreach ($result as $key => $value) {
+		if ($call_args['query'] == '"' . $value->term . '"') {
+			$call_args['params']['qf'][] = 'item_id^10000.0';
+			$term_nodes = explode(',',$value->node);
+			for ($i=0;$i<count($term_nodes);$i++) {
+				$call_args['query'] .= ' OR item_id:"en_' . $term_nodes[$i] . '"';
+			}
+		}
+	}
+}
+
+
+//************VIEW APPROACH*********************************************************************************
+
+
+
+//*************SEARCH API AUTOCOMPLETE APPROACH**************************************************************
+
+//function ef_search_search_api_autocomplete_types() {
+//  $types['ef_search'] = array(
+//    'name' => t('EF searches'),
+//    'description' => t('Searches provided by the <em>ef_search</em> module.'),
+//    'list searches' => 'ef_search_list_autocomplete_searches',
+//    'create query' => 'ef_search_create_autocomplete_query',
+//    // OPTIONAL – only if you want additional search-specific options, like for Views:
+//    //'config form' => 'MODULE_autocomplete_config_form',
+//);
+//
+//  return $types;
+//}
+//
+//function ef_search_list_autocomplete_searches(SearchApiIndex $index) {
+//  $ret = array();
+//  $ret['ef_search']['name'] = t('EF search');
+//
+//  return $ret;
+//}
+//
+//function ef_search_create_autocomplete_query(SearchApiAutocompleteSearch $search, $complete, $incomplete) {
+//  // Create a search query just like you do in the custom search submit function.
+//  // If you have this in a separate function, all the better!
+//  $query = ef_search_create_query($search->options['custom']);
+//  $query->keys($complete);
+//  return $query;
+//}
+//
+//function ef_search_search_form(array $form, array &$form_state) {
+//  $form['keys'] = array(
+//    'type' => 'textfield',
+//    'title' => t('Enter keywords'),
+//  );
+//  return $form;
+//}
+//
+//function ef_search_create_query(){
+//  //Aquí iría la query para poblar el autocomplete
+//}
+/*
+function ef_search_query_alter(QueryAlterableInterface $query) {
+  if ($query->hasTag('views')) {
+    static $count;
+    $view =& $query->getMetaData('view');
+
+    if (strstr($groupby = $view->query->options['query_comment'], 'groupby')) {
+      list($action, $field) = explode(':', $groupby);
+
+      if (strlen($field) > 0) {
+        $query->groupBy($field);
+      }
+    }
+  }
+}
+*/
+
+/********************************************/
+
+function ef_search_save_new_term($term, $term_nodes) {
+
+	$str = preg_match('/[^\d,]/',$term_nodes);
+
+		if($str == 0)
+		{
+			$str = substr($term_nodes, -1);
+
+			if($str == ","){
+				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				return;
+			}
+			$str = substr($term_nodes, 0,1);
+
+			if($str == ","){
+				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				return;
+			}
+
+		 	/*if (isset($term) && !empty($term_nodes)) {
+					$term_nodes = str_replace(' ','',$term_nodes);
+					$query = db_insert('ef_search_terms');
+					$query->fields(
+						array(
+							'term' => $term,
+							'node' => $term_nodes
+						 )
+					);
+
+					$query->execute();
+
+					drupal_set_message('The keyword have been saved.');
+				}
+				else
+				{
+					form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				}
+			*/
+
+			if (isset($term) && !empty($term_nodes)) {
+					$term_nodes = str_replace(' ','',$term_nodes);
+					$query = db_insert('ef_search_terms');
+					//guardar la cadena de texto tal cual se inserta
+					$query->fields(
+						array(
+							'term' => $term,
+							'node' => $term_nodes
+						 )
+					);
+					$query->execute();
+					//convertir a mayusculas
+					$term = strtoupper($term);
+					$query = db_insert('ef_search_terms');
+					$query->fields(
+						array(
+							'term' => $term,
+							'node' => $term_nodes
+						 )
+					);
+					$query->execute();
+					//convertir a minisculas
+					$term = strtolower($term);
+					$query = db_insert('ef_search_terms');
+					$query->fields(
+						array(
+							'term' => $term,
+							'node' => $term_nodes
+						 )
+					);
+					$query->execute();
+					//convertir la primera letra a mayusculas
+					$term = ucfirst($term);
+					$query = db_insert('ef_search_terms');
+					$query->fields(
+						array(
+							'term' => $term,
+							'node' => $term_nodes
+						 )
+					);
+					$query->execute();
+
+					drupal_set_message('The keyword have been saved.');
+				}
+				else
+				{
+					form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				}
+
+		}
+		else
+		{
+			  form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+		}
+
+}
+
+
+function ef_search_update_term($term, $term_nodes) {
+  if (isset($term) && isset($term_nodes)) {
+    $term_nodes = str_replace(' ','',$term_nodes);
+
+		$str = preg_match('/[^\d,]/',$term_nodes);
+
+		if($str == 0)
+		{
+
+			$str = substr($term_nodes, -1);
+
+			if($str == ","){
+				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				return;
+			}
+			$str = substr($term_nodes, 0,1);
+
+			if($str == ","){
+				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+				return;
+			}
+
+		 $values = "update ef_search_terms set node='".$term_nodes."' where term='".$term."'";
+	   $query = db_query($values);
+		}
+		else
+		{
+			  form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+		}
+
+  }
+	else
+	{
+		 form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+	}
+}
+
+
+function ef_search_load_term($term)
+{
+	 if(isset($term))
+	 {
+       $values = "select * from ef_search_terms where term = '".$term."'";
+	   $query = db_query($values);
+	   $records = $query->fetchObject();
+	 }
+	return $records;
+
+}
+
+function ef_search_load_all_terms()
+{
+  $sql = "select term_id,term from ef_search_terms";
+	$result = db_query($sql)->fetchAll();
+	$options = array();
+
+	foreach ($result as $value) {
+    	$options[$value->term] = $value->term;
+	}
+  	return $options;
+}
+
+function ef_search_remove_term($term)
+{
+	 if(isset($term))
+	 {
+		 $values = "DELETE FROM ef_search_terms WHERE term= '".$term."'";
+     $query = db_query($values);
+	   //$records = $query->fetchObject();
+	 }
+	return;
+
+}
+
+
+
+

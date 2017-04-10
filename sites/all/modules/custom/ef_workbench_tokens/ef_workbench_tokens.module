@@ -1,0 +1,88 @@
+<?php
+
+/**
+* Implements hook_entity_property_info_alter().
+*/
+function ef_workbench_tokens_entity_property_info_alter(&$info) {
+  $info['node']['properties']['current-revision-author-name'] = array(
+    'label' => t('Revision author name'),
+    'type' => 'text',
+    'description' => t('The name of the author of the current revision of the node.'),
+    'computed' => TRUE,
+    'field' => FALSE,
+  );
+  $info['node']['properties']['current-revision-author-mail'] = array(
+    'label' => t('Revision author email'),
+    'type' => 'text',
+    'description' => t('The mail of the author of the current revision of the node.'),
+    'computed' => TRUE,
+    'field' => FALSE,
+  );
+  /*$info['node']['properties']['country-authors'] = array(
+    'label' => t('Country authors'),
+    'type' => 'text',
+    'description' => t('Authors having contracts for the country of the node.'),
+    'computed' => TRUE,
+    'field' => FALSE,
+  );*/
+}
+/**
+* Implements hook_tokens().
+* Not sure why
+*/
+function ef_workbench_tokens_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  if ($type == 'entity' && $data['entity_type'] == 'node') {
+    $values = array ();
+    foreach ($tokens as $token => $full_token) {
+      switch ($token) {
+        case 'current-revision-author-name':
+          $node = $data['entity'];
+          $account = user_load ($node->workbench_moderation['current']->uid);
+          $values[$full_token] = $account->name;
+          break;
+        case 'current-revision-author-mail':
+          $node = $data['entity'];
+          $account = user_load ($node->workbench_moderation['current']->uid);
+          $values[$full_token] = $account->mail;
+          break;
+        /*case 'country-authors':
+          $node = $data['entity'];
+
+          $author_names = array();
+
+          $latest_node = node_load($node->nid, $node->workbench_moderation['current']->vid);
+          $node_country = $latest_node->field_ef_quarter_report_country['und'][0]['iso2'];
+
+
+          $role = user_role_load_by_name('Author');
+          $query = 'SELECT DISTINCT(ur.uid) FROM {users_roles} AS ur WHERE ur.rid IN (:rids)';
+          $result = db_query($query, array(':rids' => array($role->rid)));
+          $uids = $result->fetchCol();
+          $authors = user_load_multiple($uids);
+
+          foreach($authors as $author ) {
+            $userContracts=array();
+            foreach($author->field_ef_contracts['und'] as $term){
+              $userContracts[]=taxonomy_term_load($term['tid']);
+            }
+            $userCountries=array();
+            foreach($userContracts as $contract){
+              $countryIso=$contract->field_ef_eu_related_countries['und'][0]['iso2'];
+              if(!in_array($countryIso, $userCountries)){
+                $userCountries[] = $countryIso;
+              }
+            }
+
+            if(in_array($node_country, $userCountries)){
+              $author_names[] = $author->name;
+            }
+
+          }
+
+          $values[$full_token] = $author_names;
+          break;*/
+      }
+    }
+    return $values;
+  }
+}

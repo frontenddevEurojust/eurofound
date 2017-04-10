@@ -1,0 +1,4 @@
+name = EF CKEditor custom styles
+description = TODO: Description of module / Disable source button for Authors and Quality Manager
+package = EF modules
+core = 7.x

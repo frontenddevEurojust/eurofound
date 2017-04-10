@@ -1,0 +1,26 @@
+# Latvian translation of Webform Rules (7.x-1.6)
+# Copyright (c) 2013 by the Latvian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Webform Rules (7.x-1.6)\n"
+"POT-Creation-Date: 2013-03-17 10:38+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Latvian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):((n!=0)?(1):2));\n"
+
+msgid "Content"
+msgstr "Saturs"
+msgid "Node ID"
+msgstr "Ieraksta ID"
+msgid "Webforms"
+msgstr "Webformas"
+msgid "Webform"
+msgstr "Webforma"
+msgid "Save Draft"
+msgstr "Saglabāt melnrakstu"
+msgid "Submission ID"
+msgstr "Iesnieguma ID"

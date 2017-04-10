@@ -1,0 +1,223 @@
+<?php
+
+/**
+ * @file
+ * The module file
+ *
+ * This module makes it possible to remove information in the flood table
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function flood_unblock_menu() {
+  $items['admin/config/system/flood-unblock'] = array(
+    'title'            => 'Flood unblock',
+    'description'      => 'List all user blocked by the flood table.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('flood_unblock_settings'),
+    'access arguments' => array('access flood unblock'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function flood_unblock_permission() {
+  return array(
+    'access flood unblock' => array(
+      'title' => t('Access the flood unblock module'),
+    ),
+  );
+}
+
+/**
+ * The settings form function
+ */
+function flood_unblock_settings() {
+  $entries = _flood_unblock_get_entries();
+  $ip_limit = variable_get('user_failed_login_ip_limit', 50);
+  $user_limit = variable_get('user_failed_login_user_limit', 5);
+
+  $blocks = array();
+  foreach ($entries as $identifier => $entry) {
+    $blocks[$identifier] = array(
+      'identifier' => $identifier,
+      'type' => $entry['type'],
+      'count' => $entry['count'],
+    );
+    if ($entry['type'] == 'ip') {
+      $blocks[$identifier]['ip'] = $entry['ip'] . $entry['location'];
+      $blocks[$identifier]['uid'] = '';
+      $blocks[$identifier]['blocked'] = $entry['count'] >= $ip_limit ? "Yes" : "";
+    }
+    if ($entry['type'] == 'user') {
+      $blocks[$identifier]['ip'] = $entry['ip'] . $entry['location'];
+      $blocks[$identifier]['uid'] = $entry['username'];
+      $blocks[$identifier]['blocked'] = $entry['count'] >= $user_limit ? "Yes" : "";
+    }
+  }
+
+  $header = array(
+    'blocked' => t('Blocked'),
+    'type' => t('Type of block'),
+    'count' => t('Count'),
+    // 'identifier' => t('Identifier'),
+    'uid' => t('Account name'),
+    'ip' => t('IP Address'),
+  );
+
+  $options = array();
+  foreach ($blocks as $block) {
+    $rows = array();
+    $options[$block['identifier']] = array(
+      'blocked' => $block['blocked'],
+      'type' => $block['type'],
+      'count' => $block['count'],
+      // 'identifier' => $block['identifier'],
+      'uid' => $block['uid'],
+      'ip' => $block['ip'],
+    );
+  }
+
+  $prefix = 'Drupal has two types of blocks available:<br />' .
+            '<ul><li>One where the incorrect password of an existing user account is being used. The user account being used and the IP address is logged.' .
+            '<li>One where an incorrect user name is being used. The IP address is logged.</ul>' .
+            '<br/>' .
+            'Both types of blocks has different settings. ';
+  if (module_exists('flood_control')) {
+    $prefix .= l('Click here to look at these settings.','admin/config/system/flood-control') . '<br />';
+  }
+  else {
+    $prefix .= 'These settings can be looked at by installed and enabling the ' . l('Flood Control module.','http://drupal.org/project/flood_control') . '<br />';
+  }
+
+  $prefix .= '<br />';
+
+  if (!function_exists('smart_ip_get_location')) {
+    $prefix .= 'If the ' . l('Smart IP', 'http://drupal.org/project/smart_ip') . ' module is loaded, the physical location of the IP address will be shown.<br />';
+    $prefix .= '<br />';
+  }
+
+  $form['table'] = array
+  (
+    '#type' => 'tableselect',
+    '#header' => $header,
+    '#options' => $options,
+    '#empty' => t('There are no failed logins at this time.'),
+    '#prefix' => t($prefix),
+    '#suffix' => t(''),
+  );
+
+  $form['submit']           = array(
+    '#type'  => 'submit',
+    '#value' => t('Clear flood'),
+  );
+
+  $entries = _flood_unblock_get_entries();
+  if (count($entries) == 0) {
+    $form['submit']['#disabled'] = TRUE;
+  }
+
+  return $form;
+}
+
+/**
+ * The validation function.
+ */
+function flood_unblock_settings_validate($form, &$form_state) {
+  $count = 0;
+  foreach ($form_state['values']['table'] as $value) {
+    if ($value <> "0") {
+      $count++;
+    }
+    }
+  if ($count == 0) {
+    form_set_error('', t('Please make a selection.'));
+  }
+}
+
+
+/**
+ * The submit function.
+ */
+function flood_unblock_settings_submit($form, &$form_state) {
+  foreach ($form_state['values']['table'] as $value) {
+    if ($value <> "0") {
+      $type = $form['table']['#options'][$value]['type'];
+      switch ($type) {
+      case 'ip':
+      $type = 'failed_login_attempt_ip';
+      break;
+    case 'user':
+      $type = 'failed_login_attempt_user';
+      break;
+  }
+
+      $identifier = $value;
+      flood_unblock_clear_event($type, $identifier);
+
+    }
+  }
+}
+
+/**
+ * The function that clear the flood.
+ */
+function flood_unblock_clear_event($type, $identifier) {
+  $txn = db_transaction();
+  try {
+  $query = db_delete('flood')->condition('event', $type);
+    if (isset($identifier)) {
+      $query->condition('identifier', $identifier);
+    }
+    $success = $query->execute();
+    if ($success) {
+      drupal_set_message(t('Flood entries cleared.'), 'status', FALSE);
+    }
+  }
+  catch (Exception $e) {
+   // Something went wrong somewhere, so roll back now.
+    $txn->rollback();
+    // Log the exception to watchdog.
+    watchdog_exception('type', $e);
+    drupal_set_message("Error: " . $e, 'error');
+  }
+}
+
+
+function  _flood_unblock_get_entries() {
+  $entries = array();
+
+  $sql = "SELECT identifier,identifier as ip, count(*) count FROM flood WHERE event='failed_login_attempt_ip' GROUP BY identifier;";
+  $results = db_query($sql);
+  foreach ($results as $result) {
+    if (function_exists('smart_ip_get_location')) {
+      $location = smart_ip_get_location($result->ip);
+      $location_string = sprintf(" (%s %s %s)", $location['city'], $location['region'], $location['country_code']);
+  }
+    else {
+      $location_string = '';
+    }
+    $entries[$result->identifier] = array('type' => 'ip', 'ip' => $result->ip, 'count' => $result->count, 'location' => $location_string);
+  }
+
+  $sql = "SELECT identifier,count(*) count,SUBSTRING_INDEX(identifier, '-',1) AS uid, SUBSTRING_INDEX(identifier, '-',-1) AS ip FROM flood WHERE event='failed_login_attempt_user' group by identifier";
+  $results = db_query($sql);
+  foreach ($results as $result) {
+    if (function_exists('smart_ip_get_location')) {
+      $location = smart_ip_get_location($result->ip);
+      $location_string = sprintf(" (%s %s %s)", $location['city'], $location['region'], $location['country_code']);
+    }
+    else {
+      $location_string = '';
+    }
+
+    $user = user_load($result->uid);
+    $entries[$result->identifier] = array('type' => 'user', 'uid' => $result->uid, 'ip' => $result->ip, 'username' => $user->name, 'count' => $result->count, 'location' => $location_string);
+  }
+
+  return $entries;
+}

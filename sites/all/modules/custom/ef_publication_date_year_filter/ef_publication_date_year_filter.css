@@ -1,0 +1,12 @@
+
+/* fa-calendar */
+#edit-published-at-wrapper > label:before{
+	content: "\f073";
+	font-family: FontAwesome;
+}
+
+/* fa-star-o*/
+#edit-field-ef-topic-tid-selective-wrapper > label:before{
+	content: "\f006";
+	font-family: FontAwesome;
+}

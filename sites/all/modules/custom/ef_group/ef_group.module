@@ -1,0 +1,634 @@
+<?php
+/**
+ * @file
+ * Main module code for the EF Group custom module.
+ */
+
+
+/**
+ * Load our helper functions
+ */
+require_once 'EF_helpers/group_add_country.inc';
+require_once 'EF_helpers/group_add_member.inc';
+require_once 'EF_helpers/functions.inc';
+
+
+/**
+ * --------------------------
+ * Implements hook_permission
+ * --------------------------
+ */
+function ef_group_permission(){
+
+  $permissions = array();
+
+  $permissions = array(
+    'manage group' => array(
+      'title' => t('Manage group'),
+      'description' => t('Manage the group, its content and members'),
+      'restrict access' => TRUE,
+    )
+  );
+  return $permissions;
+}
+
+// Permissions:
+// Modified sites/all/modules/contrib/group/group.entity.inc
+// lines 224, 229, 262, 267, 271
+// Modified sites/all/modules/contrib/group/group.group.inc
+// line 239
+// Modified function group_group_member_operation_links in group.group.inc
+// line 229
+
+/**
+ * -------------------------------------
+ * Implements hook_group_operation_links
+ * -------------------------------------
+ */
+function ef_group_group_operation_links(Group $group) {
+
+  global $user;
+
+  $operations = array();
+
+  // Retrieve the destination url.
+  $destination = drupal_get_destination();
+
+  if (group_access('update', $group) || user_access('manage group', $user)) {
+    $operations['edit'] = array(
+      'title' => t('edit'),
+      'href' => "group/$group->gid/edit",
+      'query' => $destination,
+    );
+  }
+  // Add a 'delete' link if available.
+  if (group_access('delete', $group) /*|| user_access('manage group', $user)*/) {
+    $operations['delete'] = array(
+      'title' => t('delete'),
+      'href' => "group/$group->gid/delete",
+      'query' => $destination,
+    );
+  }
+  return $operations;
+}
+
+function group_manage($permission, Group $group, $account = NULL) {
+  global $user;
+
+  if (!isset($account)) {
+    $account = $user;
+  }
+
+  return user_access('manage group', $account);
+}
+
+/**
+ * --------------------------
+ * Implements hook_form_alter
+ * --------------------------
+ */
+function ef_group_form_alter(&$form, &$form_state, $form_id){
+
+  global $user;
+
+  /*
+   * Creating a new group
+   */
+  if($form_id == "group_edit_country_group_form"){
+    
+    $action = $form['#action'];
+    $group = get_group_by_form($action);
+
+    $actions = split('/', $action);
+
+    // Edit form
+    if (in_array('add', $actions)) {
+      $form['title'] = array(
+        '#type' => 'select',
+        '#title' => 'Country Group Name',
+        '#description' => 'The name of the Country group',
+        '#required' => TRUE,
+        '#options' => get_country_name_list()
+      );
+    }
+
+
+    // Fieldset 'UPDATE Group creator' for Admins
+    if(in_array('administrator', $user->roles)){
+
+      $form['group_creator_change_form'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Update Group Administrator'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#description' => t('Edit the group member who will be able to manage this Country group'),
+      );
+
+      $form['group_creator_change_form']['creator'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Current group administrator'),
+        '#default_value' => get_current_group_admin($group),
+        '#size' => 60,
+        '#maxlength' => 128,
+        '#disabled' => TRUE,
+        '#weight' => 1,
+        '#prefix' => '<div id="ajax-creator-form">',
+        '#suffix' => '</div>',
+        '#group' => 'group_creator_change_form'
+      );
+
+      $form['group_creator_change_form']['new_creator_select'] = array(
+        '#type' => 'select',
+        '#title' => t('New group administrator'),
+        '#options' => get_new_possible_admins(),
+        '#default_value' => get_current_group_admin_uid($group),
+        '#description' => t('Select a new user for being the administrator of this Country group'),
+        '#weight' => 2,
+        '#ajax' => array(
+          'callback' => 'ajax_update_group_creator',
+          'wrapper' => 'ajax-creator-form',
+          'effect' => 'fade',
+          'method' => 'replace',
+        ),
+      );
+    }
+
+    return $form;
+  }
+
+  /*
+   * Removing a group
+   */
+  if ($form_id == 'group_operation_form') {
+
+    $form['info']['#markup'] = 'By deleting this group you will delete all of its members and content as well';
+    /*
+    $form['#attached']['css'] = array(
+      drupal_get_path('module', 'ef_group') . '/css/gadd.css',
+    );
+
+    $form['#attached']['js'] = array(
+      drupal_get_path('module', 'ef_group') . '/js/gadd.js',
+    );
+    */
+
+    drupal_add_js(drupal_get_path('module', 'ef_group') . '/js/gadd.js');
+    drupal_add_css(drupal_get_path('module', 'ef_group') . '/css/gadd.css');
+
+    return $form;
+  }
+
+  /*
+   * Adding a new membership
+   */
+  if($form_id == 'gadd_add_member_form'){
+
+    // getting the current group
+  	$action = $form['#action'];
+  	$group = get_group_by_form($action);
+
+    // Checking if group type is 'Country Group'
+    if($group->type == 'country_group'){
+
+      // Group ID should be a global variable
+      $GLOBALS['gid'] = $group->gid;
+
+      // Country form definition
+      $form['country'] = array(
+        '#type' => 'select',
+        '#title' => t('Selected country'),
+        '#options' => get_countries($gid),
+        '#default_value' => $category['selected'],
+        '#description' => t('Country select'),
+        '#weight' => 2,
+        '#ajax' => array(
+          'callback' => 'ajax_get_authors_callback',
+          'wrapper' => 'ajax-user-form-node',
+          'effect' => 'fade',
+        ),
+      );
+
+      // User form definition
+      $form['user'] = array(
+        '#type' => 'select',
+        '#title' => t('Selected name'),
+        '#options' => get_authors($group->gid),
+        '#default_value' => $category['selected'],
+        '#description' => t('Author select'),
+        '#required' => TRUE,
+        '#weight' => 3,
+        '#prefix' => '<div id="ajax-user-form-node">',
+        '#suffix' => '</div>',
+        '#ajax' => array(
+          'callback' => 'ajax_check_roles',
+          'wrapper' => 'ajax-user-roles',
+          'effect' => 'fade',
+        ),
+      );
+
+
+      // Member option is selected by default
+      $form['roles'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Roles'),
+        '#description' => t('Select the roles the member will receive.'),
+        '#options' => get_roles_by_group_type($group->type, $account=null),
+        '#default_value' => array('country_group_member'),
+        '#required' => TRUE,
+        '#weight' => 4,
+        '#prefix' => '<div id="ajax-user-roles">',
+        '#suffix' => '</div>',
+        '#ajax' => array(
+          'callback' => 'ajax_change_leader_callback',
+          'wrapper' => 'ajax-leader-form-node',
+          'effect' => 'fade',
+        ),
+      );
+
+      // Who is the group leader?
+      $leader = get_group_leader($group->gid);
+
+      // Only If the leader exists, his/her name is displayed
+      if(isset($leader)){
+        $leader_label = $leader->name.': '
+          .$leader->field_ef_first_name['und'][0]['safe_value'].' '
+          .$leader->field_ef_last_name['und'][0]['safe_value'];
+
+        $form['leader'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Group leader'),
+          '#default_value' => $leader_label,
+          '#size' => 60,
+          '#maxlength' => 128,
+          '#disabled' => TRUE,
+          '#weight' => 1,
+          '#prefix' => '<div id="ajax-leader-form-node">',
+          '#suffix' => '</div>',
+        );
+
+      }
+      // If group leader doesn't exist, the member option shouldn't be displayed
+
+      else {
+        $roles = get_roles_by_group_type($group->type, $account=null);
+        $form['roles']['#options'] = array($roles['country_group_leader']);
+        $form['roles']['#value'] = array('country_group_leader');
+
+      }
+
+      /*
+      $form['#attached']['css'] = array(
+        drupal_get_path('module', 'ef_group') . '/css/gadd.css',
+      );
+
+      $form['#attached']['js'] = array(
+        drupal_get_path('module', 'ef_group') . '/js/gadd.js',
+      );
+      */
+
+      drupal_add_js(drupal_get_path('module', 'ef_group') . '/js/gadd.js');
+      drupal_add_css(drupal_get_path('module', 'ef_group') . '/css/gadd.css');
+
+      $form['submit']['#weight'] = 50;
+
+      return $form;
+
+    }
+
+  }
+
+  /*
+   * Editing a group member's profile
+   */
+  if( $form_id == 'group_membership_form' ){
+
+    if (user_access('manage group', $user)) {
+
+      // getting the current group
+      $action = $form['#action'];
+      $group = get_group_by_form($action);
+      $account = get_author_by_form($action);
+
+
+      // Checking if group type is 'Country Group'
+      if($group->type == 'country_group'){
+
+
+        // Group ID should be a global variable
+        $GLOBALS['gid'] = $group->gid;
+
+        // A user can be a 'LEADER' for one Country Group and not
+        // on another one
+        $out_gid = check_roles($account->uid, $group->gid);
+
+        if($out_gid != 0){
+
+          is_leader_in_other_group($account->uid, $out_gid);
+          $out_group = group_load($out_gid);
+
+          $form['roles']['#disabled'] = true;
+          $form['actions']['submit']['#type'] = 'hidden';
+
+          $form['actions']['edit'] = array(
+            '#markup' => l(t('Go to Edit the other group'), 'group/'.$out_group->gid.'/member'),
+            '#weight' => 10,
+            '#prefix' => '<div class="form-submit">',
+            '#suffix' => '</div>'
+          );
+          $form['actions']['cancel'] = array(
+            '#markup' => l(t('Cancel'), 'group/'.$group->gid.'/member'),
+            '#weight' => 20,
+            '#prefix' => '<div class="form-submit">',
+            '#suffix' => '</div>'
+          );
+        }
+
+
+        $form['roles']['#options'] = get_roles_by_group_type($group->type, $account);
+        $form['roles']['#prefix'] = '<div id="ajax-user-roles">';
+        $form['roles']['#suffix'] = '</div>';
+
+
+
+        if( ( in_array('OSU', $user->roles)
+              || in_array('Eurofound Administrator', $user->roles)
+              || in_array('Eurofound Content Manager', $user->roles) )
+          && ( in_array('OSU', $account->roles)
+              || in_array('Eurofound Administrator', $account->roles)
+              || in_array('Eurofound Content Manager', $account->roles) )
+          ){
+          $form['roles']['#disabled'] = true;
+        }
+
+        $form['#validate'][1] = 'role_validation_callback';
+        //$form['#submit'][2] = 'your_new_submission_callback';
+        /*
+        $form['#attached']['css'] = array(
+          drupal_get_path('module', 'ef_group') . '/css/gadd.css',
+        );
+
+        $form['#attached']['js'] = array(
+          drupal_get_path('module', 'ef_group') . '/js/gadd.js',
+        );
+        */
+        drupal_add_js(drupal_get_path('module', 'ef_group') . '/js/gadd.js');
+        drupal_add_css(drupal_get_path('module', 'ef_group') . '/css/gadd.css');
+
+        return $form;
+
+      }
+
+    } else {
+
+      drupal_access_denied();
+      
+    }
+
+  }
+  // Group members view
+  if($form_id == 'group_member_overview_form'){
+
+    global $user;
+
+    if(in_array('Author', $user->roles)){
+
+      $new_options = array();
+
+      $old_options = $form['members']['members']['#options'];
+
+      foreach ($old_options as $o => $option) {
+
+        if(!in_array('Country group creator', $option['roles']['data']['#items'])){
+          $new_options[$o] = $option;
+        }
+      }
+
+      $form['members']['members']['#options'] = $new_options;
+
+    }
+
+    return $form;
+
+  }
+
+  if($form_id == 'group_membership_cancel_form'){
+
+    $actions = split('/', $form['#action']);
+    $gid = $actions[2];
+    $uid = $actions[4];
+    $member = group_membership_load($gid, $uid);
+
+    if (in_array('country_group_leader', $member->roles)) {
+      $member_user = user_load($uid);
+      $group = group_load($gid);
+      $form['description']['#markup'] = t("Warning: '") . $member_user->name .
+        t("' is the leader of '") . $group->title . t("' country group, so it's not possible to remove him.
+          It's necessary to change his role to 'Country group member' before");
+      $form['actions']['submit']['#type'] = 'hidden';
+    }
+
+  }
+
+  if ($form_id == 'group_overview_form') {
+
+    global $user;
+
+    // bug: there are two different values for links, it's necessary to remove one of them in order to
+    // make visible operation links (Only for ADMINS)
+    if (in_array('administrator', $user->roles)) {
+
+      $links = array();
+      foreach ($form['groups']['groups']['#options'] as $gid => $country_group) {
+
+        $links[$gid]['edit'] = $country_group['operations']['data']['#links']['edit']['href'][0];
+        $links[$gid]['delete'] = $country_group['operations']['data']['#links']['delete']['href'][0];
+
+        $form['groups']['groups']['#options'][$gid]['operations']['data']['#links']['edit']['title'] = 'edit';
+        $form['groups']['groups']['#options'][$gid]['operations']['data']['#links']['delete']['title'] = 'delete';
+        $form['groups']['groups']['#options'][$gid]['operations']['data']['#links']['edit']['href'] = $links[$gid]['edit'];
+        $form['groups']['groups']['#options'][$gid]['operations']['data']['#links']['delete']['href'] = $links[$gid]['delete'];
+
+      }
+
+    }
+
+  }
+
+
+   /** ---- VIEW: Country group view mode ----
+  ***
+  *** Path: group/country-group/%
+  ***
+  *** Issue: Groups
+  ***/
+  if($form['#id'] == 'group-membership-actions-form'){
+    unset($form['group_join']);
+    unset($form['group_join_form']);
+    unset($form['group_request_membership']);
+    unset($form['group_request_membership_form']);
+  }
+
+}
+
+/**
+ * Author's form: AJAX callback function
+ */
+function ajax_get_authors_callback($form, $form_state) {
+
+  $gid = $GLOBALS['gid'];
+
+  $iso_country = $form_state['input']['country'];
+  $form['user']['#options'] = get_authors_by_country($gid, $iso_country);
+
+  return $form['user'];
+}
+
+/**
+ * Role's form: AJAX callback function
+ */
+function ajax_change_leader_callback($form, $form_state) {
+
+  if(isset($form_state['input']['roles']['country_group_leader'])){
+    if(isset($form_state['input']['user']) != ''){
+      $new_leader = $form_state['input']['user'];
+
+      $form['leader']['#value'] = $new_leader;
+    }
+  }
+
+  return $form['leader'];
+}
+
+/**
+ * Role's form: AJAX callback function
+ */
+function ajax_check_roles($form, $form_state){
+
+  $gid = $GLOBALS['gid'];
+
+  $author_name = $form_state['input']['user'];
+  $author = user_load_by_name($author_name);
+
+
+  // A user can be a 'LEADER' for one Country Group and not
+  // on another one
+  $out_gid = check_roles($author->uid, $gid);
+
+  if($out_gid != 0){
+
+    $out_group = group_load($out_gid);
+    $message = 'This author is already the leader in group of ' . $out_group->title;
+    $message_type = 'warning';
+
+  }else{
+    $is_leader = get_group_leader($gid);
+    if ($is_leader) {
+      $message = 'It is possible to select any role for this author';
+    }else{
+      $message = 'This author is the first member in this group and must be "Group leader".';
+    }
+    $message_type = 'status';
+  }
+
+  drupal_set_message($message, $message_type);
+
+  return $form['roles'];
+
+}
+/**
+ * Country group's Creator form: AJAX callback function
+ */
+function ajax_update_group_creator($form, &$form_state){
+
+
+  $new_admin_uid = $form_state['input']['new_creator_select'];
+  $new_admin = user_load($new_admin_uid);
+
+  $new_fn = $new_admin->field_ef_first_name['und'][0]['value'];
+  $new_ln = $new_admin->field_ef_last_name['und'][0]['value'];
+  $new_name = $new_admin->name;
+
+  $new_admin_string = $new_fn . ' ' . $new_ln . ' - ' . $new_name . ' -';
+
+  $form['group_creator_change_form']['creator']['#value'] = $new_admin_string;
+
+  return $form['group_creator_change_form']['creator'];
+}
+
+/**
+ * Role's form: VALIDATION function
+ */
+function role_validation_callback($form, &$form_state){
+
+  $gid = $GLOBALS['gid'];
+  $group = group_load($gid);
+  $group_name = $group->title;
+  $group_name = ucfirst($group_name);
+
+  $leader_role = $form_state['input']['roles']['country_group_leader'];
+  $member_role = $form_state['input']['roles']['country_group_member'];
+
+  if (!is_null($leader_role)){
+    overthrow($gid);
+
+    $message = 'In the Country group "'. $group_name .'", the leader has been updated';
+    drupal_set_message($message, 'warning');
+  }
+
+  if (!is_null($member_role)) {
+
+    $actions = split('/', $form['#action']);
+    $uid = $actions[4];
+
+    if (inherit_leadership($gid, $uid) ){
+      $error_message = t("This Author is the leader in this Group. It's not possible to change his role to 'MEMBER'.
+        You must define another Author like 'LEADER' before.");
+      form_set_error($member_role, $error_message);
+    }
+
+  }
+
+}
+
+
+/**
+ * ------------------------------
+ * Implements hook_entity_presave
+ * ------------------------------
+ */
+function ef_group_entity_presave($entity, $type){
+
+	if(isset($type) && $type == 'group_membership'){
+
+		$gid = $entity->gid;
+
+		// if the selected role is 'LEADER'
+		// the previous leader has to be 'dethroned'
+		if(isset($entity->roles['country_group_leader'])){
+    		overthrow($gid);
+    }
+
+	}
+
+	if(isset($type) && $type == 'group'){
+
+		if(isset($entity->new_creator_select)){
+
+			$current_admin_uid = get_current_group_admin_uid($entity);
+			$new_admin_uid = $entity->new_creator_select;
+
+			$update = "UPDATE group_membership gm
+              set gm.uid = :new_uid
+              where gm.uid = :old_uid";
+
+      $args = array(':new_uid' => $new_admin_uid, ':old_uid' => $current_admin_uid);
+      db_query($update, $args);
+
+   	}
+
+	}
+
+
+}
+
+

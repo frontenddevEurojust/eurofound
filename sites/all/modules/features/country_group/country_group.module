@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Country group feature.
+ */
+
+include_once 'country_group.features.inc';

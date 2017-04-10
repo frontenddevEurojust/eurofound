@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file ef_node_moderation_links.module
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function ef_node_moderation_links_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['#node_edit_form']) && isset($form['#node']->workbench_moderation)) {
+  	drupal_add_css(drupal_get_path('module', 'ef_node_moderation_links') .'/ef_node_moderation_links.css');
+
+    $my_markup_content = '<div class="ef-edit-links"><a href="'.base_path().'node/'.$form['nid']['#value'] . '/moderation" class="colorbox-node small button" data-inner-width="800" data-inner-height="600">Moderation</a>';
+    $my_markup_content .= '<a href="'.base_path().'node/'.$form['nid']['#value'] . '/moderation/diff" class="colorbox-node small button" data-inner-width="800" data-inner-height="600">Compare revisions</a></div>';
+	
+	$form['title']['#prefix'] = $my_markup_content;
+	//added for the custom title field (the non-drupal) usedin entity translated CTs
+    //$form['title_field']['#prefix'] = $my_markup_content;
+  }
+}
+

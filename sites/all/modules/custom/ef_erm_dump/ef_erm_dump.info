@@ -1,0 +1,4 @@
+name = EF ERM dump
+description = Exports the factsheets
+package = EF modules
+core = 7.x

@@ -1,0 +1,20 @@
+# Hungarian translation of Value is (7.x-1.9)
+# Copyright (c) 2014 by the Hungarian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Value is (7.x-1.9)\n"
+"POT-Creation-Date: 2014-02-01 14:42+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Hungarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Only numbers are allowed in %field."
+msgstr "%field mező csak számokat tartalmazhat."
+msgid "%name: the value may be no less than %min."
+msgstr "%name: az érték nem lehet kisebb, mint %min."
+msgid "%name: the value may be no greater than %max."
+msgstr "%name: az érték nem lehet nagyobb, mint %max."

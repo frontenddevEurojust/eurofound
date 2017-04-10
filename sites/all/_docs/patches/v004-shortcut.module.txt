@@ -1,0 +1,8 @@
+set_name in shortcut_set_save() doesn't seem to work
+
+Found at:
+https://drupal.org/node/1175700
+
+Patch file:
+https://drupal.org/files/fix-shortcut-set-save-1175700-10.patch
+

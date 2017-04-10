@@ -1,0 +1,61 @@
+drush sql-query "insert into schema_migrations(code,extra)values('011', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+:: custom eworx
+
+:: Login Destination
+drush dl -y login_destination
+drush en -y login_destination
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: edit the previous contact us page (CT Contact form) and update the url alias
+
+:: navigate to admin/config/people/login-destination/add
+:: in the textarea 'Redirect to page' set <front> (probably already set)
+:: and save.
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

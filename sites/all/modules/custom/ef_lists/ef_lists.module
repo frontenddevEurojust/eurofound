@@ -1,0 +1,85 @@
+<?php
+
+/*
+* Implements hook_permission()
+*/
+function ef_lists_permission()
+{
+	return array(
+		'access_ef_lists' => array(
+			'title' => t('Access to EF MyTo-Do list pages'),
+			'description' => t('Allow access to EF MyTo-Do list'),
+		),
+	);
+}
+
+/*
+* Implements hook_menu()
+*/
+function ef_lists_menu()
+{
+
+	global $user;
+
+	$items['ef-my-todo-list'] = array(
+		'title' => "My To Do list",
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('my_todo_list_form'),
+		'access arguments' => array('access_ef_lists'),
+		'type' => MENU_NORMAL_ITEM,
+		'file' => 'ef_my_todo_list.admin.inc',
+	);
+
+	$items['ef-my-group-todo-list'] = array(
+		'title' => 'My Group To Do list',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('my_group_todo_list_form'),
+		'access arguments' => array('access_ef_lists'),
+		'type' => MENU_NORMAL_ITEM,
+		'file' => 'ef_my_group_todo_list.admin.inc',
+	);
+
+	$items['groups/country-group/%'] = array(
+		'title' => '%',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('country_form',2),
+		'access arguments' => array('access_ef_lists'),
+		'type' => MENU_NORMAL_ITEM,
+		'file' => 'ef_country.admin.inc',
+	);
+
+	$items['save/assign_to_user/%/%/%'] = array(
+		'page callback' => '_update_assign_to_user',
+		'page arguments' => array(2,3,4),
+		'type' => MENU_CALLBACK,
+		'access arguments' => array('access_ef_lists'),
+	);
+
+return $items;
+}
+
+/*
+* @description: AJAX callback for assign to user value update
+* @args: $nid -> node identifier.
+*        $rev_id -> revision identifier.
+*        $user -> user identifier
+*/
+function _update_assign_to_user($nid,$rev_id,$uid)
+{
+
+	$node = node_load($nid,$rev_id);
+
+	$node->field_ef_assign_to_user['und'][0]['target_id'] = $uid;
+	field_attach_update('node', $node);
+	ef_notifications_assignment_notification($node, $uid);
+
+	// When calling this function outside an entity save operation be sure to clear caches for the entity:
+	entity_get_controller('node')->resetCache(array($nid));
+	$text = 'Node updated';
+	drupal_json_output(array('status' => 0, 'data' => $text));
+
+}
+
+
+
+

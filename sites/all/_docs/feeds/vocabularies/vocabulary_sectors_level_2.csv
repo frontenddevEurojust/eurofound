@@ -1,0 +1,81 @@
+name	parent
+Fishing	Agriculture
+Forestry	Agriculture
+Gambling	Arts & entertainment
+Libraries	Arts & entertainment
+Museums	Arts & entertainment
+Parks & gardens	Arts & entertainment
+Performing arts	Arts & entertainment
+Sport	Arts & entertainment
+Visual arts	Arts & entertainment
+Administrative services	Business support services
+Security 	Business support services
+Industrial cleaning	Cleaning & maintenance 
+Footwear	Clothing & textiles
+Leather 	Clothing & textiles
+Textiles	Clothing & textiles
+Building construction	Construction
+Civil engineering	Construction
+Building completion	Construction
+Higher education	Education 
+Pre-school education	Education
+Primary education	Education
+Secondary education	Education
+Technical and vocational education	Education
+Electricity	Energy
+Fuel	Energy
+Gas	Energy
+Mining	Extractive industries
+Quarrying	Extractive industries
+Banking 	Financial Services
+Insurance	Financial Services
+Food	Food & Drink
+Drink	Food & Drink
+Sugar	Food & Drink
+Tobacco	Food & Drink
+Hairdressing	Hair & beauty
+Beauty services	Hair & beauty
+Child care	Healthcare
+Hospitals	Healthcare
+Social care	Healthcare
+Accommodation	Hospitality services
+Hotels	Hospitality services
+Catering	Hospitality services
+Restaurants	Hospitality services
+Information technology	Information & communications
+Media	Information & communications
+Postal services	Information & communications
+Publishing	Information & communications
+Telecommunications	Information & communications
+Cement	Manufacturing
+Chemicals	Manufacturing
+Furniture	Manufacturing
+Glass	Manufacturing
+Machinery	Manufacturing
+Metals	Manufacturing
+Pulp & paper	Manufacturing
+Shipbuilding	Manufacturing
+Steel	Manufacturing
+Accounting	Professional services
+Architecture	Professional services
+Consultancy business services	Professional services
+Engineering	Professional services
+Legal services	Professional services
+Management	Professional services
+Armed forces	Public administration & defence
+Central government	Public administration & defence
+Civil service	Public administration & defence
+Local government	Public administration & defence
+Police	Public administration & defence
+Regional government	Public administration & defence
+Temporary agency work	Recruitment agencies
+Distribution	Transport & storage
+Civil aviation	Transport & storage
+Inland waterways	Transport & storage
+Maritime transport	Transport & storage
+Railways	Transport & storage
+Road transport	Transport & storage
+Storage	Transport & storage
+Sewerage	Water
+Water supply	Water
+Waste management	Water

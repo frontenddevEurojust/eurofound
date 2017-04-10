@@ -1,0 +1,883 @@
+<?php
+/**
+ * @file
+ * Content inventory generating file.
+ */
+
+/**
+ * Implements hook_menu()
+ */
+function ef_content_inventory_menu() {
+  $items = array();
+
+  $items['admin/config/content-inventory'] = array(
+    'title' => 'EF Content Inventory',
+    'description' => 'Administer EF Content Inventory',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/content-inventory/settings'] = array(
+    'title' => 'Content Inventory Settings',
+    'description' => 'Configure Content Inventory',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_content_inventory_settings_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ef_content_inventory.admin.inc',
+  );
+  $items['admin/config/content-inventory/download'] = array(
+    'title' => 'Content Inventory Download',
+    'description' => 'Download Content Inventory',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_content_inventory_download_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ef_content_inventory.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_node_insert()
+ */
+function ef_content_inventory_node_insert($node) {
+  $node_bc_to_be_updated = variable_get('ef_content_inventory_nodes_to_be_updated', array());
+  if (!in_array($node->nid, $node_bc_to_be_updated)) {
+    $node_bc_to_be_updated[] = $node->nid;
+  }
+  variable_set('ef_content_inventory_nodes_to_be_updated', $node_bc_to_be_updated);
+}
+
+/**
+ * Implements hook_node_update())
+ */
+function ef_content_inventory_node_update($node) {
+  $node_bc_to_be_updated = variable_get('ef_content_inventory_nodes_to_be_updated', array());
+  if (!in_array($node->nid, $node_bc_to_be_updated)) {
+    $node_bc_to_be_updated[] = $node->nid;
+  }
+  variable_set('ef_content_inventory_nodes_to_be_updated', $node_bc_to_be_updated);
+}
+
+
+/**
+ * Main function. No Params, returning nothing. Just works.
+ */
+function dl_content_inventory() {
+  //--------------------------------------NODE CONTENT------------------------------------------------
+  //Retrieve all the published node IDs in a indexed array
+
+  //This is a very heavy task, can take over 5 hours when no breadcrumbs are saved in memory.
+  ini_set('memory_limit','10G');
+  set_time_limit(18000);
+  global $base_url;
+
+  //Let's initialise some vars
+  $ct_by_vocabulary = array();
+  $taxonomy_fields = array();
+
+  //Save all fields in a structured arrays
+  $fields = field_info_field_map();
+
+  //We need to know which taxonomic fields apply to each content type
+  //and the vocabulary they come from
+  //We will store this info in an array with this structure:
+  //var['vid']['content type'] => 'field'
+  //seems easier than it really is
+  foreach ($fields as $field => $field_data) {
+    if (isset($field_data['bundles']['node'])) {
+      $cts = implode(',', $field_data['bundles']['node']);
+      if ($field_data['type'] == 'taxonomy_term_reference') {
+        $taxonomy_fields[$field] = $cts;
+      }
+    }
+  }
+
+  foreach ($taxonomy_fields as $field => $cts) {
+    $info = field_info_field($field);
+    foreach ($info['settings']['allowed_values'] as $item) {
+      $vocabulary_obj = taxonomy_vocabulary_machine_name_load($item['vocabulary']);
+      $ct_by_vocabulary[$vocabulary_obj->vid][$cts] = $field;
+    }
+  }
+
+  //We need this to be persistent every time an inventory is requested
+  variable_set('ef_content_inventory_taxonomic_fields_by_content_type', $ct_by_vocabulary);
+
+  //Configuration setting: User can request an inventory for specific content types
+  $ch_content_types = variable_get('ef_content_inventory_checked_content_types');
+  foreach ($ch_content_types as $key => $value) {
+    if ($value) {
+      $ci_content_types[] = $key;
+    }
+  }
+
+  //Configuration setting: User can request an inventory for specific nodes
+  $node_selection_active = variable_get('ef_content_inventory_enable_node_selection');
+
+  //if specific nodes
+  if ($node_selection_active) {
+    $nids = variable_get('ef_content_inventory_node_selection_node_ids');
+  }
+  //else all content from the enabled content types
+  else {
+    $nids = db_select('node', 'n')
+      ->fields('n', array('nid'))
+      ->condition('n.status', 1)
+      ->condition('n.type', array($ci_content_types, 'IN'))
+      ->execute()
+      ->fetchCol();
+  }
+
+  ctools_include('export');
+
+  $configs = ctools_export_crud_load_all('metatag_config');
+  uksort($configs, '_metatag_config_instance_sort');
+  foreach ($configs as $key => $value) {
+    if (strpos($key, 'node:') === 0) {
+      $type = str_replace('node:', '', $key);
+      foreach ($value->config as $config => $field) {
+        $extract_keywords_node[$type][$config] = $field;
+      }
+    }
+    if (strpos($key, 'taxonomy_term:') === 0) {
+      $type = str_replace('taxonomy_term:', '', $key);
+      foreach ($value->config as $config => $field) {
+        $extract_keywords_term[$type][$config] = $field;
+      }
+    }
+  }
+
+  //Let's get the data
+  foreach ($nids as $key => $nid) {
+    //Loading node
+    $node = node_load($nid);
+
+    //Save all important info in an array
+    $row_content[$nid]['nid'] = $nid;
+    $row_content[$nid]['H1-title'] = $node->title;
+    $row_content[$nid]['shortlink_url'] = 'node/' . $nid;
+    $row_content[$nid]['url'] = url('node/' . $nid);
+    $row_content[$nid]['canonical_url'] = $base_url . $row_content[$nid]['url'];
+
+    //Extract metatags
+    if (isset($extract_keywords_node[$node->type])) {
+      foreach ($extract_keywords_node[$node->type] as $config => $value) {
+        foreach ($value as $key => $field_token) {
+          $field = str_replace('[node:', '', $field_token);
+          $field = str_replace(']', '', $field);
+          $lang = 'und';
+          $field_values = field_get_items('node', $node, $field, $lang);
+          foreach ($field_values as $delta => $field_array) {
+            foreach ($field_array as $mark => $result) {
+              $term = taxonomy_term_load($result);
+              $term_name = $term->name;
+              $values[] = $term_name;
+            }
+          }
+          $result = implode(',', $values);
+          if (!empty($result)) {
+            $keywords[] = $config . ': ' . $result;
+          }
+          else {
+            $keywords[] = $config . ': ' . 'No value for this MetaTag';
+          }
+          unset($values);
+        }
+      }
+    }
+
+    if (isset($keywords)) {
+      $row_content[$nid]['metatags'] = implode('|', $keywords);
+      unset($keywords);
+    }
+    else {
+      $row_content[$nid]['metatags'] = ' ';
+    }
+
+    $row_content[$nid]['type'] = node_type_get_name($node) . '(' . $node->type . ')';
+    $url_pattern = variable_get('pathauto_node_' . $node->type . '_pattern');
+    $row_content[$nid]['url_pattern'] = !empty($url_pattern) ? $url_pattern : variable_get('pathauto_node_pattern');
+    $creator = user_load($node->uid);
+    $row_content[$nid]['author'] = $creator->name . ' (ID: ' . $node->uid . ')';
+
+    //Configuration setting: Inventory file can be created without breadcrumbs
+    if (variable_get('ef_content_inventory_enable_breadcrumbs')) {
+      if ($node->type == 'ef_network_extranet_page' || $node->type == 'board_member_page') {
+        $row_content[$nid]['breadcrumb'] = 'Home > ' .  $node->title;
+        $row_content[$nid]['ia_location'] = (string) substr_count($row_content[$nid]['url'], '/') + 1;
+        $row_content[$nid]['drupal_location'] = '2';
+        _ef_content_inventory_save_breadcrumb($row_content[$nid], $nid);
+      }
+      else {
+        $bc = _get_breadcrumb_by_nid($nid);
+        if (strlen($bc) > 5) {
+          $row_content[$nid]['breadcrumb'] = $bc;
+          $row_content[$nid]['ia_location'] = (string) substr_count($row_content[$nid]['url'], '/') + 1;
+          $row_content[$nid]['drupal_location'] = (string) substr_count($bc, '>') + 1;
+          _ef_content_inventory_save_breadcrumb($row_content[$nid], $nid);
+        }
+        else {
+          $row_content[$nid]['breadcrumb'] = 'An error ocurred while retrieving this value';
+          $row_content[$nid]['ia_location'] = 'An error ocurred while retrieving this value';
+        }
+      }
+    }
+    else {
+      $row_content[$nid]['breadcrumb'] = ' ';
+      $row_content[$nid]['ia_location'] = ' ';
+    }
+
+    //Get all the values from the taxonomic fields
+    $taxonomic_values = get_taxonomic_values($node);
+    //Get all the vocabularies
+    $taxonomies = taxonomy_get_vocabularies();
+
+    //We need this data with the same structure as the XLS file, so:
+    foreach ($taxonomies as $vid => $taxonomy) {
+      if (array_key_exists($vid, $ct_by_vocabulary)) {
+        $terms = array();
+        if (isset($taxonomic_values[$taxonomy->name])) {
+          foreach ($taxonomic_values[$taxonomy->name] as $key => $value) {
+            $term = taxonomy_term_load($value);
+            $terms[] = $term->name . " (tid: " . $value . ")";
+          }
+          $result = implode(',', $terms);
+          $row_content[$nid][$taxonomy->name] = $result;
+        }
+        //If there is no value for the taxonomy there are two cases
+        //Taxonomy applies to the content type, we put a blank
+        //or does not apply, we put a 'Not applicable mark'
+        else {
+          if (_taxonomy_applies_to_content_type($node->type,$vid)) {
+            $row_content[$nid][$taxonomy->name] = ' ';
+          } else {
+            $row_content[$nid][$taxonomy->name] = '-NA-';
+          }
+        }
+      }
+    }
+
+    //Extract languages from entity translation
+    $langs = db_select('entity_translation', 'et')
+      ->fields('et', array('language'))
+      ->condition('et.entity_id', $nid)
+      ->condition('et.entity_type', 'node')
+      ->execute()
+      ->fetchCol();
+    $row_content[$nid]['languages'] = implode(', ', $langs);
+    //if it has no translations in an ET way go for $node
+    if (empty($row_content[$nid]['languages'])) $row_content[$nid]['languages'] = $node->language;
+    //Finally if it has not values then we can assume the content is in english
+    if (empty($row_content[$nid]['languages'])) $row_content[$nid]['languages'] = 'en';
+  }
+  //--------------------------------------END NODE CONTENT------------------------------------------------
+
+  //--------------------------------------TAXONOMY CONTENT------------------------------------------------
+
+  //Get all the info from taxonomies and save it with the structure we need
+  foreach ($taxonomies as $vid => $vocabulary_data) {
+    $terms = taxonomy_get_tree($vid);
+    foreach ($terms as $tid => $term_obj) {
+      $row_taxonomy[$term_obj->tid]['term'] = $term_obj->name;
+      $row_taxonomy[$term_obj->tid]['term_id'] = $term_obj->tid;
+      $row_taxonomy[$term_obj->tid]['vocabulary'] = $vocabulary_data->name;
+      $row_taxonomy[$term_obj->tid]['vocabulary_id'] = $vid;
+      $row_taxonomy[$term_obj->tid]['drupal_url'] = 'taxonomy/term/' . $term_obj->tid;
+      $row_taxonomy[$term_obj->tid]['url'] = $base_url . url('taxonomy/term/' . $term_obj->tid);
+      $row_taxonomy[$term_obj->tid]['canonical_url'] = $row_taxonomy[$term_obj->tid]['url'];
+
+      //Extract metatags
+      if (isset($extract_keywords_term[$vocabulary_data->machine_name])) {
+        foreach ($extract_keywords_term[$vocabulary_data->machine_name] as $config => $value) {
+          foreach ($value as $key => $field_token) {
+            $field = str_replace('[term:', '', $field_token);
+            $field = str_replace(']', '', $field);
+            $taxonomy_term_object = taxonomy_term_load($term_obj->tid);
+            $field_values = field_get_items('taxonomy_term', $taxonomy_term_object, $field);
+            if (!empty($field_values)) {
+              foreach ($field_values as $delta => $field_array) {
+                foreach ($field_array as $mark => $result) {
+                  $term = taxonomy_term_load($result);
+                  $term_name = $term->name;
+                  $values[] = $term_name;
+                }
+              }
+              $result = implode(',', $values);
+            }
+
+            if (!empty($result)) {
+              $keywords[] = $config . ': ' . $result;
+            }
+            else {
+              $keywords[] = $config . ': ' . 'No value for this MetaTag';
+            }
+            unset($values);
+          }
+        }
+      }
+
+      if (isset($keywords)) {
+        $row_taxonomy[$term_obj->tid]['metatags'] = implode('|', $keywords);
+        unset($keywords);
+      }
+      else {
+        $row_taxonomy[$term_obj->tid]['metatags'] = ' ';
+      }
+
+      $row_taxonomy[$term_obj->tid]['related_content_types'] = _get_taxonomy_related_content_types($ct_by_vocabulary[$vid]);
+      //Extract languages from entity translation
+      $langs = db_select('entity_translation', 'et')
+        ->fields('et', array('language'))
+        ->condition('et.entity_id', $term_obj->tid)
+        ->condition('et.entity_type', 'taxonomy_term')
+        ->execute()
+        ->fetchCol();
+      $row_taxonomy[$term_obj->tid]['languages'] = implode(', ', $langs);
+      //If it has not values then we can assume the content is in english
+      if (empty($row_taxonomy[$term_obj->tid]['languages'])) $row_taxonomy[$term_obj->tid]['languages'] = 'en';
+    }
+  }
+
+  //--------------------------------------END TAXONOMY CONTENT--------------------------------------------
+
+  //--------------------------------------VIEWS CONTENT---------------------------------------------------
+
+  //Get all the info from views and save it with the structure we need
+  $all_views = views_get_all_views();
+  foreach ($all_views as $key => $view_data) {
+    if (!$view_data->disabled) {
+      foreach ($view_data->display as $display) {
+        $is_admin_path = strpos($display->display_options['path'], 'admin');
+        $is_contextual = strpos($display->display_options['path'], '%');
+        $path = $display->display_options['path'];
+        if (isset($display->display_options['path']) && !isset($display->display_options['access'])
+            && $is_admin_path === FALSE && $is_contextual === FALSE) {
+          $row_view[$path]['view_name'] = $view_data->human_name;
+          $row_view[$path]['path'] = $display->display_options['path'];
+          $row_view[$path]['canonical_url'] = $base_url . '/' . $display->display_options['path'];
+          if (isset($path)) {
+            $bc = _get_breadcrumb_by_url($path);
+            $row_view[$path]['breadcrumb'] = $bc;
+            $row_view[$path]['ia_location'] = (string) substr_count($bc, '>') + 1;
+          }
+          if (empty($row_view[$path]['breadcrumb'])) {
+            unset($row_view[$path]);
+          }
+        }
+      }
+    }
+  }
+  //Save the breadcrumb from views pages
+  _ef_content_inventory_save_view_breadcrumbs($row_view);
+
+  //--------------------------------------END VIEWS CONTENT------------------------------------------
+
+  //Call the function to create the file
+  _ef_content_inventory_save_inventory($row_content, $row_taxonomy, $row_view);
+
+  return;
+}
+
+/**
+ * Checks if a given taxonomy applies to a given content type.
+ *
+ * @param string $type
+ *   Content type of the node
+ *
+ * @param integer $vid
+ *   Vocabulary ID
+ *
+ * @return boolean
+ *   TRUE in the content type has a field referencing this vocabulary,
+ *   otherwise FALSE
+ *
+ */
+function _taxonomy_applies_to_content_type($type, $vid) {
+  //Retrieve our persistent structured array
+  $ct_by_vocabulary = variable_get('ef_content_inventory_taxonomic_fields_by_content_type');
+  $vocabulary_data = $ct_by_vocabulary[$vid];
+  foreach ($vocabulary_data as $cts => $field) {
+    //Now $cts is a string containing comma separated content types
+    //We prefer an array because the code is easier to read
+    $ct_array = explode(',', $cts);
+    //Here comes the magic, just
+    if (in_array($type, $ct_array)) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Extracts the content types' readable names related to a taxonomy
+ *
+ * @param array $ctkeys
+ *   An array containing the content types as keys
+ *
+ * @return string $ret
+ *   An string containing the content types related to a given taxonomy,
+ *   these content types are extracted from the keys
+ */
+function _get_taxonomy_related_content_types($ctkeys) {
+  if (!empty($ctkeys)) {
+    foreach ($ctkeys as $key => $value) {
+      $ctstring .= $key . ',';
+    }
+  }
+  else {
+    return 'No related content types';
+  }
+
+  $ctstring = rtrim($ctstring, ',');
+
+  $ctarray = explode(',', $ctstring);
+
+  foreach ($ctarray as $key => $value) {
+    $ret[] = node_type_get_name($value);
+  }
+
+  $ret = implode(', ', $ret);
+
+  return $ret;
+}
+
+/**
+ * Extracts all values from the taxonomic fields of a given node. This is the optimised
+ * version of the function, the previous one was easier to read but it was slower (it was
+ * a switch with a statement for each taxonomy) and too large (a thousand lines of code).
+ *
+ * @param obj $node
+ *   The node object.
+ *
+ * @return array $tid
+ *   An array containing all the taxonomic values from the node with taxonomy as key.
+ */
+function get_taxonomic_values($node){
+  $ct_by_vocabulary = variable_get('ef_content_inventory_taxonomic_fields_by_content_type');
+  $tid = array();
+
+  foreach ($ct_by_vocabulary as $vid => $vocabulary_ct_fields) {
+    $vocabulary = taxonomy_vocabulary_load($vid);
+    $vocabulary_name = $vocabulary->name;
+    foreach ($vocabulary_ct_fields as $cts => $field) {
+      $content_types = explode(',', $cts);
+      if (in_array($node->type, $content_types)) {
+        if (!isset($node->$field)) {
+          $tid[$vocabulary_name][0] = ' ';
+        }
+        foreach ($node->$field as $item => $taxonomy_values) {
+          foreach ($taxonomy_values as $key => $value) {
+            $tid[$vocabulary_name][] = $value['tid'];
+          }
+        }
+      }
+    }
+  }
+  return $tid;
+}
+
+/**
+ * Retrieves the breadcrumb from the HTML
+ *
+ * @param int $nid
+ *   The node ID.
+ *
+ * @return string $breadcrumb
+ *   The breadcrumb converted into a string
+ */
+function _get_breadcrumb_by_nid($nid) {
+  // Check if the breadcrumb is stored in the memory
+  $stored_breadcrumbs = variable_get('ef_content_inventory_stored_breadcrumbs');
+  // If it is stored, return it
+  if (isset($stored_breadcrumbs[$nid]) && strlen($stored_breadcrumbs[$nid]) > 5) {
+    return $stored_breadcrumbs[$nid];
+  }
+  // If not, well, we have to get the HTML.
+  $content = file_get_contents("http://5.196.64.159/node/" . $nid);
+
+  //Extract the breadcrumb part from the HTML
+  foreach (preg_split("/((\r?\n)|(\r\n?))/", $content) as $line) {
+    $patternopen = "/ef-breadcrumb/";
+    $patternclose = "/\/section/";
+
+    if (preg_match($patternopen, $line) || $init) {
+      $init = TRUE;
+      $crumb .= $line;
+    }
+
+    if (preg_match($patternclose, $line) && $init) {
+      $init = FALSE;
+      break;
+    }
+  }
+
+  // We have the HTML with all its tags, classes... etc., but we just need
+  // the breadcrumb elements separated by a '>' so let's clean this
+  if (!empty($crumb)) {
+    $breadcrumb = _clean_breadcrumb($crumb);
+  }
+
+  return $breadcrumb;
+}
+
+/*
+ * Preprocess function to retrieve the breadcrumb from the HTML
+ */
+function _get_breadcrumb_by_url($url) {
+  // Check if the breadcrumb is stored in the memory
+  $stored_breadcrumbs = variable_get('ef_content_inventory_view_breadcrumbs');
+  // If it is stored, return it
+  if (isset($stored_breadcrumbs[$url])) {
+    return $stored_breadcrumbs[$url];
+  }
+  // If not, well, we have to get the HTML.
+  $content = file_get_contents("http://5.196.64.159/" . $url);
+
+  //Extract the breadcrumb part from the HTML
+  foreach (preg_split("/((\r?\n)|(\r\n?))/", $content) as $line) {
+    $patternopen = "/ef-breadcrumb/";
+    $patternclose = "/\/section/";
+
+    if (preg_match($patternopen, $line) || $init) {
+      $init = TRUE;
+      $crumb .= $line;
+    }
+
+    if (preg_match($patternclose, $line) && $init) {
+      $init = FALSE;
+      break;
+    }
+  }
+
+  // We have the HTML with all its tags, classes... etc., but we just need
+  // the breadcrumb elements separated by a '>' so let's clean this
+  if (!empty($crumb)) {
+    $breadcrumb = _clean_breadcrumb($crumb);
+  }
+
+  return $breadcrumb;
+}
+
+/**
+ * Cleans the breadcrumb
+ *
+ * @param string $crumb
+ *   The HTML code containing the breadcrumb
+ *
+ * @return string $bc
+ *   The breadcrumb converted into a string
+ */
+function _clean_breadcrumb($crumb) {
+  //Breadcrumb is an HTML list, we can explode it by li tags
+  //and work on each element separately
+  $crumb_elements = explode('<li', $crumb);
+
+  //Remove all tags from each element
+  foreach ($crumb_elements as $key => $element) {
+    if ($key != 0) {
+      $elements[] = html_entity_decode(strip_tags($element));
+    }
+  }
+
+  //Remove the surviving part of the exploded li tag
+  foreach ($elements as $key => $value) {
+    $item = substr($value, strpos($value, '>') + 1);
+    $bccrumb[] = preg_replace('/\s+/', ' ', $item);
+  }
+
+  //Implode the elements to a string separating each element
+  $bc = implode(' > ', $bccrumb);
+
+  return $bc;
+}
+
+/**
+ * Saves all the extracted data to an Excel file
+ *
+ * @param array $content
+ *   Extracted data from nodes
+ *
+ * @param array $taxonomy
+ *   Extracted data from taxonomy terms
+ *
+ * @param array $view
+ *   Extracted data from views
+ */
+function _ef_content_inventory_save_inventory($content, $taxonomy, $view) {
+  //Load the Excel library
+  $library = libraries_load('PHPExcel');
+  //Create new PHPExcel object
+  $objPHPExcel = new PHPExcel;
+  //Set default font
+  $objPHPExcel->getDefaultStyle()->getFont()->setName('Calibri');
+  //Set default font size
+  $objPHPExcel->getDefaultStyle()->getFont()->setSize(8);
+  //Create the writer
+  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+
+  //Writer already created the first sheet for us, let's get it
+  $objSheet = $objPHPExcel->getActiveSheet();
+  //Rename this sheet for NODE inventory
+  $objSheet->setTitle('Content');
+
+  //Let's bold and size the header
+  $objSheet->getStyle('A1:BZ1')->getFont()->setBold(true);
+
+  //We can extract the first row (headers) from the keys of the content
+  foreach ($content as $nid => $field) {
+    $header = array_keys($field);
+    break;
+  }
+  //Then add them to the sheet
+  $objPHPExcel->getActiveSheet()->fromArray($header, NULL, 'A1');
+
+  //And there goes all the content row by row
+  $from_cell = 'A';
+  $begin_row = 2;
+  foreach ($content as $nid => $field) {
+    foreach ($field as $key => $value) {
+      $row[] = $value;
+    }
+    $cell = $from_cell . (string) $begin_row;
+    $objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
+    unset($row);
+    $begin_row ++;
+  }
+
+
+  //Create a new sheet for the taxonomies
+  $objPHPExcel->createSheet(1);
+  //Set it as active sheet
+  $objPHPExcel->setActiveSheetIndex(1);
+  //Get it
+  $objSheet = $objPHPExcel->getActiveSheet(1);
+  //Styling the first row
+  $objSheet->getStyle('A1:BZ1')->getFont()->setBold(true);
+  //Name it
+  $objSheet->setTitle('Taxonomy');
+
+  //Get the headers as in the content sheet
+  foreach ($taxonomy as $tid => $field) {
+    $header = array_keys($field);
+    break;
+  }
+
+  //Add headers to taxonomy sheet
+  $objPHPExcel->getActiveSheet()->fromArray($header, NULL, 'A1');
+
+  //And there go all the taxonomy terms row by row
+  $begin_row = 2;
+  foreach ($taxonomy as $tid => $field) {
+    foreach ($field as $key => $value) {
+      $row[] = $value;
+    }
+    $cell = $from_cell . (string) $begin_row;
+    $objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
+    unset($row);
+    $begin_row ++;
+  }
+
+  //Create a new sheet for the views
+  $objPHPExcel->createSheet(2);
+  //Set it as active sheet
+  $objPHPExcel->setActiveSheetIndex(2);
+  //Get it
+  $objSheet = $objPHPExcel->getActiveSheet(2);
+  //Styling the first row
+  $objSheet->getStyle('A1:BZ1')->getFont()->setBold(true);
+  //Name it
+  $objSheet->setTitle('View');
+
+  //Get the headers as in the previous sheets
+  foreach ($view as $vid => $field) {
+    $header = array_keys($field);
+    break;
+  }
+
+  //Add headers to views sheet
+  $objPHPExcel->getActiveSheet()->fromArray($header, NULL, 'A1');
+
+  //And there go all the views row by row
+  $begin_row = 2;
+  foreach ($view as $vid => $field) {
+    foreach ($field as $key => $value) {
+      $row[] = $value;
+    }
+    $cell = $from_cell . (string) $begin_row;
+    $objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
+    unset($row);
+    $begin_row ++;
+  }
+
+  $objPHPExcel->setActiveSheetIndex(0);
+
+  //Set the directory to store the files
+  $dir = file_stream_wrapper_get_instance_by_uri('public://content-inventory/')->realpath();
+  //Name the files
+  $filename = date('j-M-Y--H-i', time()) . '-content-inventory.xlsx';
+  $path = "$dir/$filename";
+
+  //Now we can restore the variables to enable the disabled button so the user
+  //could request another content inventory for this one is finished
+  _reset_ci();
+
+  //Save the file, that's all
+  $objWriter->save($path);
+
+  return;
+}
+
+/**
+ * Implements hook_cron()
+ */
+function ef_content_inventory_cron() {
+  //Is there a request to create a new content inventory?
+  $generate = variable_get('ef_content_inventory_generate_on_cron');
+  //Is a new content inventory being created right now?
+  $generating = variable_get('ef_content_inventory_cron_working');
+  //If there is a request to create one but not started yet, let's go,
+  //if not, let's just store breadcrumbs to memory to leverage the next process
+  if ($generate && !$generating) {
+    variable_set('ef_content_inventory_cron_working', TRUE);
+    variable_set('ef_content_inventory_generate_on_cron', FALSE);
+    dl_content_inventory();
+    variable_set('ef_content_inventory_cron_working', FALSE);
+  }
+  else {
+    _update_stored_breadcrumbs();
+  }
+
+  return;
+}
+
+/**
+ * Stores the breadcrumbs extracted from the content to a Drupal variable
+ *
+ * @param array $content
+ *   We get the breadcrumb from $content['breadcrumb']
+ */
+function _ef_content_inventory_save_breadcrumbs($content) {
+  $stored_breadcrumbs = variable_get('ef_content_inventory_stored_breadcrumbs');
+  foreach ($content as $nid => $field) {
+    if (!isset($stored_breadcrumbs[$nid])) {
+      $stored_breadcrumbs[$nid] = $field['breadcrumb'];
+    }
+  }
+  variable_set('ef_content_inventory_stored_breadcrumbs', $stored_breadcrumbs);
+
+  return;
+}
+
+/**
+ * Stores one breadcrumb extracted from the content to a Drupal variable
+ *
+ * @param array $content
+ *   We get the breadcrumb from $content['breadcrumb']
+ */
+function _ef_content_inventory_save_breadcrumb($content, $nid) {
+  $stored_breadcrumbs = variable_get('ef_content_inventory_stored_breadcrumbs');
+  foreach ($content as $key => $field) {
+    if (!isset($stored_breadcrumbs[$nid]) && $key == 'breadcrumb') {
+      $stored_breadcrumbs[$nid] = $field;
+    }
+  }
+  variable_set('ef_content_inventory_stored_breadcrumbs', $stored_breadcrumbs);
+
+  return;
+}
+
+/**
+ * Stores the breadcrumbs extracted from the views pages to a Drupal variable
+ *
+ * @param string $crumb
+ *   The HTML code containing the breadcrumb
+ */
+function _ef_content_inventory_save_view_breadcrumbs($view) {
+  $stored_breadcrumbs = variable_get('ef_content_inventory_view_breadcrumbs');
+  foreach ($view as $path => $field) {
+    if (!isset($stored_breadcrumbs[$path])) {
+      $stored_breadcrumbs[$path] = $field['breadcrumb'];
+    }
+  }
+  variable_set('ef_content_inventory_view_breadcrumbs', $stored_breadcrumbs);
+
+  return;
+}
+
+/**
+ * Provides a way to reset the Drupal variables involved in the request and creation so the
+ * content inventory generation button can be enabled again using "drush ev '_reset_ci();'"
+ */
+function _reset_ci() {
+  variable_set('ef_content_inventory_generate_on_cron', FALSE);
+  variable_set('ef_content_inventory_cron_working', FALSE);
+
+  return;
+}
+
+/**
+ * Function called by cron to store breadcrumbs during cron runs and reduce the use of resources
+ * of this feature
+ */
+function _collect_breadcrumbs() {
+  //Retrieve the settings and the data we need
+  $ci_content_types = variable_get('ef_content_inventory_enabled_content_types');
+  $from_nid = variable_get('ef_content_inventory_collect_breadcrumbs_from_nid', 0);
+
+  $stored_breadcrumbs = variable_get('ef_content_inventory_stored_breadcrumbs');
+
+  //Retrieve all the nids
+  $nids = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('n.status', 1)
+    ->condition('n.type', array($ci_content_types, 'IN'))
+    ->execute()
+    ->fetchCol();
+
+  $cron_items = 5000;
+
+  //And now beginning from the last stored page, get as new pages as introduced
+  //in the 'cron_items' setting
+  for ($i=0; $i < $cron_items ; $i++) {
+    if (isset($nids[$from_nid])) {
+      $stored_breadcrumbs[$nids[$from_nid]] = _get_breadcrumb_by_nid($nids[$from_nid]);
+      $from_nid++;
+    }
+    else {
+      $from_nid = 0;
+    }
+  }
+
+  //Then, store the new items and the last checked page, et voilá!
+  variable_set('ef_content_inventory_collect_breadcrumbs_from_nid', $from_nid);
+  variable_set('ef_content_inventory_stored_breadcrumbs', $stored_breadcrumbs);
+
+  return;
+}
+
+function _ci_test() {
+
+}
+
+/**
+ * Function called by cron to store breadcrumbs during cron runs and reduce the use of resources
+ * of this feature
+ */
+function _update_stored_breadcrumbs() {
+  //Retrieve the settings and the data we need
+  $ci_content_types = variable_get('ef_content_inventory_enabled_content_types');
+  $node_bc_to_be_updated = variable_get('ef_content_inventory_nodes_to_be_updated', array());
+
+  $stored_breadcrumbs = variable_get('ef_content_inventory_stored_breadcrumbs');
+
+  foreach ($node_bc_to_be_updated as $key => $nid) {
+    $stored_breadcrumbs[$nid] = _get_breadcrumb_by_nid($nid);
+  }
+
+  variable_set('ef_content_inventory_stored_breadcrumbs', $stored_breadcrumbs);
+  variable_set('ef_content_inventory_nodes_to_be_updated', array());
+
+  return;
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Business Components feature.
+ */
+
+include_once 'ef_business_components.features.inc';

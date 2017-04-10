@@ -1,0 +1,12 @@
+Subject:
+[user:field_ef_first_name] [user:field_ef_last_name]  created an account at [site:url-brief] (pending approval)
+
+Body:
+
+This is an automated email.
+
+ [user:field_ef_first_name] [user:field_ef_last_name]  ([user:name]) has completed the registration form and is waiting for approval. To activate the user click on the following link: [user:edit-url]
+
+Please make sure that you assign the appropriate role to the user.
+
+The Eurofound CMS

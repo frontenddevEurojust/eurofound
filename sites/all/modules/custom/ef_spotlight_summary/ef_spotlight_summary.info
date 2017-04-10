@@ -1,0 +1,4 @@
+name = EF spotlight summary
+description = Displays the summary on Spotlight entry.
+package = EF modules
+core = 7.x

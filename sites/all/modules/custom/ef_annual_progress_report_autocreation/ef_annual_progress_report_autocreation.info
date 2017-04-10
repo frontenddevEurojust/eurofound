@@ -1,0 +1,6 @@
+name = Auto-creation of the Annual Progress Report
+description = EF Annual Progress Report Autocreation form
+package = EF modules
+core = 7.x
+;dependencies[] = date_api
+;dependencies[] = date_popup

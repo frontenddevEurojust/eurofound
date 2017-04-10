@@ -1,0 +1,131 @@
+drush sql-query "insert into schema_migrations(code,extra)values('032', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+::Go to admin/structure/types/manage/page  Publishing options tab and select Enable publishcontent
+
+:: MODULES ::
+
+drush dl -y save_edit
+drush en -y save_edit 
+
+
+
+:: FEATURES ::
+
+:: goto admin/structure/features
+:: disable the one-off content features:
+
+:: CWB migrated content A
+:: CWB migrated content B
+:: CWB schema content
+:: CWB timelines content 1
+:: CWB timelines content 2
+
+drush fr-all -y
+drush cc all
+
+drush en -y ef_workflow_permissions
+drush en -y workflows
+
+drush fr-all -y
+drush cc all
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+::add missing titles and change 'und' nodes
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts title_language_change
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/title_language_change.php
+
+
+
+
+:: populate workbench emails programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-workbench-emails
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-workbench-emails.php
+
+
+:: patch for CKeditor  module
+:: patches/v032-jquery.ui.core.min.txt
+
+:: patch for views  module
+:: patches/v032-views.txt
+
+:: goto admin/structure/views/settings/advanced
+:: select Use same translation method for exported views 
+
+
+::WINDOWS
+drush language-import bg sites\all\translations\Views_Translations\Views_BG.po --group=views
+drush language-import cs sites\all\translations\Views_Translations\Views_CS.po --group=views
+drush language-import hr sites\all\translations\Views_Translations\Views_HR.po --group=views
+drush language-import da sites\all\translations\Views_Translations\Views_DA.po --group=views
+drush language-import de sites\all\translations\Views_Translations\Views_DE.po --group=views
+drush language-import et sites\all\translations\Views_Translations\Views_ET.po --group=views
+drush language-import el sites\all\translations\Views_Translations\Views_EL.po --group=views
+drush language-import fi sites\all\translations\Views_Translations\Views_FI.po --group=views
+drush language-import fr sites\all\translations\Views_Translations\Views_FR.po --group=views
+drush language-import it sites\all\translations\Views_Translations\Views_IT.po --group=views
+drush language-import lv sites\all\translations\Views_Translations\Views_LV.po --group=views
+drush language-import lt sites\all\translations\Views_Translations\Views_LT.po --group=views
+drush language-import hu sites\all\translations\Views_Translations\Views_HU.po --group=views
+drush language-import mt sites\all\translations\Views_Translations\Views_MT.po --group=views
+drush language-import nl sites\all\translations\Views_Translations\Views_NL.po --group=views
+drush language-import pl sites\all\translations\Views_Translations\Views_PL.po --group=views
+drush language-import pt sites\all\translations\Views_Translations\Views_PT.po --group=views
+drush language-import ro sites\all\translations\Views_Translations\Views_RO.po --group=views
+drush language-import sk sites\all\translations\Views_Translations\Views_SK.po --group=views
+drush language-import sl sites\all\translations\Views_Translations\Views_SL.po --group=views
+drush language-import es sites\all\translations\Views_Translations\Views_ES.po --group=views
+drush language-import sv sites\all\translations\Views_Translations\Views_SV.po --group=views
+drush language-import tr sites\all\translations\Views_Translations\Views_TR.po --group=views
+drush language-import ga sites\all\translations\Views_Translations\Views_GA.po --group=views
+drush language-import mk sites\all\translations\Views_Translations\Views_MK.po --group=views
+drush language-import is sites\all\translations\Views_Translations\Views_IS.po --group=views
+drush language-import sq sites\all\translations\Views_Translations\Views_SQ.po --group=views
+drush language-import sr sites\all\translations\Views_Translations\Views_SR.po --group=views
+
+::LINUX - STAGING
+
+drush language-import bg /web-pub/ef/sites/all/translations/Views_Translations/Views_BG.po --group=views
+drush language-import cs /web-pub/ef/sites/all/translations/Views_Translations/Views_CS.po --group=views
+drush language-import hr /web-pub/ef/sites/all/translations/Views_Translations/Views_HR.po --group=views
+drush language-import da /web-pub/ef/sites/all/translations/Views_Translations/Views_DA.po --group=views
+drush language-import de /web-pub/ef/sites/all/translations/Views_Translations/Views_DE.po --group=views
+drush language-import et /web-pub/ef/sites/all/translations/Views_Translations/Views_ET.po --group=views
+drush language-import el /web-pub/ef/sites/all/translations/Views_Translations/Views_EL.po --group=views
+drush language-import fi /web-pub/ef/sites/all/translations/Views_Translations/Views_FI.po --group=views
+drush language-import fr /web-pub/ef/sites/all/translations/Views_Translations/Views_FR.po --group=views
+drush language-import it /web-pub/ef/sites/all/translations/Views_Translations/Views_IT.po --group=views
+drush language-import lv /web-pub/ef/sites/all/translations/Views_Translations/Views_LV.po --group=views
+drush language-import lt /web-pub/ef/sites/all/translations/Views_Translations/Views_LT.po --group=views
+drush language-import hu /web-pub/ef/sites/all/translations/Views_Translations/Views_HU.po --group=views
+drush language-import mt /web-pub/ef/sites/all/translations/Views_Translations/Views_MT.po --group=views
+drush language-import nl /web-pub/ef/sites/all/translations/Views_Translations/Views_NL.po --group=views
+drush language-import pl /web-pub/ef/sites/all/translations/Views_Translations/Views_PL.po --group=views
+drush language-import pt /web-pub/ef/sites/all/translations/Views_Translations/Views_PT.po --group=views
+drush language-import ro /web-pub/ef/sites/all/translations/Views_Translations/Views_RO.po --group=views
+drush language-import sk /web-pub/ef/sites/all/translations/Views_Translations/Views_SK.po --group=views
+drush language-import sl /web-pub/ef/sites/all/translations/Views_Translations/Views_SL.po --group=views
+drush language-import es /web-pub/ef/sites/all/translations/Views_Translations/Views_ES.po --group=views
+drush language-import sv /web-pub/ef/sites/all/translations/Views_Translations/Views_SV.po --group=views
+drush language-import tr /web-pub/ef/sites/all/translations/Views_Translations/Views_TR.po --group=views
+drush language-import ga /web-pub/ef/sites/all/translations/Views_Translations/Views_GA.po --group=views
+drush language-import mk /web-pub/ef/sites/all/translations/Views_Translations/Views_MK.po --group=views
+drush language-import is /web-pub/ef/sites/all/translations/Views_Translations/Views_IS.po --group=views
+drush language-import sq /web-pub/ef/sites/all/translations/Views_Translations/Views_SQ.po --group=views
+drush language-import sr /web-pub/ef/sites/all/translations/Views_Translations/Views_SR.po --group=views
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

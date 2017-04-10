@@ -1,0 +1,92 @@
+<?php
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function ef_request_assignee_form_alter(&$form, &$form_state, $form_id) {
+  //if node create/edit form and contains fields assign_to and contract
+  if (isset($form['#node_edit_form']) && isset($form['field_ef_assign_to']) && isset($form['field_ef_contract'])) {
+
+    place_request_assignee_field_group($form);
+
+    apply_dependent_dropdowns_assignee_contracts($form, $form_state);
+
+  }
+}
+
+function place_request_assignee_field_group(&$form) {
+  // add weight to the Request assignee field group > than Publishing options (=90+30) to appear below it
+  // see field_group.module 1014 about the +30
+  if (isset($form['#groups']['group_ef_request_assignee'])) {
+    $form['#groups']['group_ef_request_assignee']->weight = 150;
+  }
+}
+
+function apply_dependent_dropdowns_assignee_contracts(&$form, &$form_state) {
+  unset($form['field_ef_assign_to']['und']['#options']['_none']);
+  unset($form['field_ef_contract']['und']['#options']['_none']);
+
+  if (!isset($form_state['assignee_options'])) {
+    $form_state['assignee_options'] = $form['field_ef_assign_to']['und']['#options'];
+  }
+  $assignee_options = $form_state['assignee_options'];
+  if (!isset($form_state['contract_options'])) {
+    $form_state['contract_options'] = $form['field_ef_contract']['und']['#options'];
+  }
+  $contract_options = $form_state['contract_options'];
+
+  $initial_assignee = isset($form['#node']->field_ef_assign_to) && isset($form['#node']->field_ef_assign_to['und']) 
+    && isset($assignee_options[$form['#node']->field_ef_assign_to['und'][0]['target_id']]) ?
+    $form['#node']->field_ef_assign_to['und'][0]['target_id'] : key($assignee_options);
+  $selected_assignee = isset($form_state['values']['field_ef_assign_to']['und']) && isset($form_state['values']['field_ef_assign_to']['und'][0]['target_id'])
+    ? $form_state['values']['field_ef_assign_to']['und'][0]['target_id'] : $initial_assignee;
+
+  $initial_contract = isset($form['#node']->field_ef_contract) && isset($form['#node']->field_ef_contract['und']) 
+    && isset($contract_options[$form['#node']->field_ef_contract['und'][0]['tid']]) ?
+    $form['#node']->field_ef_contract['und'][0]['tid'] : key($contract_options);
+  $selected_contract = isset($form_state['values']['field_ef_contract']['und']) && isset($form_state['values']['field_ef_contract']['und'][0]['tid'])
+    ? $form_state['values']['field_ef_contract']['und'][0]['tid'] : $initial_contract;
+
+  $form['field_ef_assign_to']['und']['#ajax'] = array(
+    'callback' => 'ajax_dependent_dropdown_callback',
+    'wrapper' => 'dropdown-second-replace',
+  );
+  $form['field_ef_assign_to']['und']['#default_value'] = $selected_assignee;
+
+  $form['field_ef_contract']['und']['#prefix'] = '<div id="dropdown-second-replace">';
+  $form['field_ef_contract']['und']['#suffix'] = '</div>';
+  $form['field_ef_contract']['und']['#options'] = ajax_get_contract_options($form_state, $selected_assignee);
+  $form['field_ef_contract']['und']['#default_value'] = $selected_contract;
+
+}
+
+function ajax_dependent_dropdown_callback($form, $form_state) {
+  return $form['field_ef_contract']['und'];
+}
+
+function ajax_get_contract_options($form_state, $key = '') {
+  $assignee_options = $form_state['assignee_options'];
+  $options = array();
+
+  foreach ($assignee_options as $assignee_id => $assignee_name) {
+    if ($assignee_id !== '_none') {
+      $assignee = user_load($assignee_id);
+      if (isset($assignee) && isset($assignee->field_ef_contracts) && isset($assignee->field_ef_contracts['und'])) {
+        $assignee_contracts = $assignee->field_ef_contracts['und'];
+        foreach ($assignee_contracts as $assignee_contract) {
+          $contract = taxonomy_term_load($assignee_contract['tid']);
+          $contract_number = $contract->field_ef_contract_number['und'][0]['safe_value'];
+          $options[$assignee_id][$assignee_contract['tid']] = $contract_number . ': ' . $contract->name;
+        }
+      }
+    }
+  }
+
+  if (isset($options[$key])) {
+    return $options[$key];
+  } else {
+    return array();
+  }
+}
+

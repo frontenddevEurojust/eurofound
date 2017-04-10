@@ -1,0 +1,56 @@
+<?php
+/*Funcion que consigue todos los niveles del nuts*/
+function getLevelsNuts($nnode) {
+
+	$sql = "SELECT n.nid as nid, n.title as title, nuts.delta as delta, nuts.field_ef_nuts_tid as tid,
+			h.parent, t.name
+			from node n
+			inner join field_data_field_ef_nuts nuts on nuts.entity_id = n.nid
+			inner join taxonomy_term_hierarchy h on h.tid = nuts.field_ef_nuts_tid
+			inner join taxonomy_term_data t on t.tid = nuts.field_ef_nuts_tid
+			where n.type = 'ef_factsheet'
+			and n.nid = :nid ";
+
+	$result = db_query($sql, array(':nid' => $nnode))->fetchAll();
+
+	return $result;
+
+}
+
+function getLevelsNace($nnode) {
+
+	$sql = "SELECT n.nid as nid, n.title as title, nace.delta as delta, nace.field_ef_nace_tid as tid,
+			h.parent, t.name
+			from node n
+			inner join field_data_field_ef_nace nace on nace.entity_id = n.nid
+			inner join taxonomy_term_hierarchy h on h.tid = nace.field_ef_nace_tid
+			inner join taxonomy_term_data t on t.tid = nace.field_ef_nace_tid
+			where n.type = 'ef_factsheet'
+			and n.nid = :nid ";
+
+	$result = db_query($sql, array(':nid' => $nnode))->fetchAll();
+
+	return $result;
+
+}
+
+function ef_nuts_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+
+	if($form_id == 'ef_factsheet_node_form') {
+
+		$nnode = $form['nid']['#value']; 	//Retrieve node ID
+
+		$levels = getLevelsNuts($nnode); 		//Retrieve taxonomy hierarchy   first for NUTS and then for NACE
+		$levels1 = getLevelsNace($nnode);
+
+		$last_level = array_pop($levels);
+		$last_level1 = array_pop($levels1);
+
+		$last_tid = $last_level->tid;
+		$last_tid1 = $last_level1->tid;
+
+		$form['field_ef_nuts']['und'][0]['tid']['#default_value'] = $last_tid;
+		$form['field_ef_nace']['und'][0]['tid']['#default_value'] = $last_tid1;
+	}
+}

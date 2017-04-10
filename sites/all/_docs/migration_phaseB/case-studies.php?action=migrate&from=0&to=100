@@ -1,0 +1,701 @@
+﻿<pre><style>.error{background:red;margin-left:5px;margin-right:5px}</style><pre><style>.warning{background:orange;margin-left:5px;margin-right:5px}</style><pre><style>.message{background:#6FE302;margin-left:5px;margin-right:5px}</style>processing row: 1Array
+(
+    [Category] => Fostering employability
+    [Country] => Austria
+    [Organisation Size] => Small
+    [Sector] => Chemical
+)
+<br/>processing row: 2Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Energy
+)
+<br/>processing row: 3Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Germany
+    [Organisation Size] => Medium
+    [Sector] => Publishing and Media
+)
+<br/>processing row: 4Array
+(
+    [Category] => Fostering employability
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Food Beverage and Tobacco
+)
+<br/>processing row: 5Array
+(
+    [Category] => Making work pay
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 6Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Commerce
+)
+<br/>processing row: 7Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 8Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 9Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Energy
+)
+<br/>processing row: 10Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+)
+<br/>processing row: 11Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 12Array
+(
+    [Category] => Integrating people at risk of exclusion into the labour market
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => 
+)
+<br/>processing row: 13Array
+(
+    [Category] => Making work pay
+    [Country] => France
+    [Organisation Size] => Small
+    [Sector] => Commerce
+)
+<br/>processing row: 14Array
+(
+    [Category] => Fostering employability
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Energy
+)
+<br/>processing row: 15Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Electrical, Energy, Metal and Machinery
+)
+<br/>processing row: 16Array
+(
+    [Category] => Making work pay
+    [Country] => Germany
+    [Organisation Size] => Medium
+    [Sector] => Commerce, Motor
+)
+<br/>processing row: 17Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Chemical, Electrical
+)
+<br/>processing row: 18Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 19Array
+(
+    [Category] => Making work pay
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Commerce
+)
+<br/>processing row: 20Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 21Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Sweden
+    [Organisation Size] => Small
+    [Sector] => Hotel Restaurant and Catering
+)
+<br/>processing row: 22Array
+(
+    [Category] => Fostering employability
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 23Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Motor
+)
+<br/>processing row: 24Array
+(
+    [Category] => Fostering employability
+    [Country] => Netherlands
+    [Organisation Size] => Small
+    [Sector] => Construction and Woodworking
+)
+<br/>processing row: 25Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 26Array
+(
+    [Category] => Fostering employability
+    [Country] => United Kingdom
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 27Array
+(
+    [Category] => Making work pay
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Information Technology, Post and Telecommunications
+)
+<br/>processing row: 28Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => France
+    [Organisation Size] => Small
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 29Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Construction and Woodworking, Extractive Industries, Metal and Machinery
+)
+<br/>processing row: 30Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Education
+)
+<br/>processing row: 31Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 32Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 33Array
+(
+    [Category] => Fostering employability
+    [Country] => France
+    [Organisation Size] => Small
+    [Sector] => Construction and Woodworking
+)
+<br/>processing row: 34Array
+(
+    [Category] => Making work pay
+    [Country] => Austria
+    [Organisation Size] => Small
+    [Sector] => Commerce, Metal and Machinery
+)
+<br/>processing row: 35Array
+(
+    [Category] => Fostering employability
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 36Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 37Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 38Array
+(
+    [Category] => Fostering employability
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Food Beverage and Tobacco
+)
+<br/>processing row: 39Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Construction and Woodworking, Metal and Machinery
+)
+<br/>processing row: 40Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Agriculture and Fishing, Construction and Woodworking, Extractive Industries, Hotel Restaurant and Catering
+)
+<br/>processing row: 41Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 42Array
+(
+    [Category] => Making work pay
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 43Array
+(
+    [Category] => Integrating people at risk of exclusion into the labour market
+    [Country] => Austria
+    [Organisation Size] => Medium
+    [Sector] => Consultancy business services
+)
+<br/>processing row: 44Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Italy
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 45Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 46Array
+(
+    [Category] => Making work pay
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+)
+<br/>processing row: 47Array
+(
+    [Category] => Fostering employability
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 48Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Austria
+    [Organisation Size] => Small
+    [Sector] => Chemical
+)
+<br/>processing row: 49Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 50Array
+(
+    [Category] => Fostering employability
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Commerce
+)
+<br/>processing row: 51Array
+(
+    [Category] => Making work pay
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Commerce, Consultancy Business Services
+)
+<br/>processing row: 52Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+)
+<br/>processing row: 53Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Energy
+)
+<br/>processing row: 54Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 55Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 56Array
+(
+    [Category] => Making work pay
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 57Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Motor
+)
+<br/>processing row: 58Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 59Array
+(
+    [Category] => Increasing labour market participation of underrepresented groups
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Motor
+)
+<br/>processing row: 60Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => United Kingdom
+    [Organisation Size] => Small
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 61Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 62Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 63Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 64Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 65Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 66Array
+(
+    [Category] => Fostering employability
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Commerce
+)
+<br/>processing row: 67Array
+(
+    [Category] => Fostering employability
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+)
+<br/>processing row: 68Array
+(
+    [Category] => Fostering employability
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 69Array
+(
+    [Category] => Fostering employability
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 70Array
+(
+    [Category] => Making work pay
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 71Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 72Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 73Array
+(
+    [Category] => Fostering employability
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 74Array
+(
+    [Category] => Making work pay
+    [Country] => Sweden
+    [Organisation Size] => Small
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 75Array
+(
+    [Category] => Making work pay
+    [Country] => Austria
+    [Organisation Size] => Medium
+    [Sector] => Chemical, Food Beverage and Tobacco
+)
+<br/>processing row: 76Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Motor
+)
+<br/>processing row: 77Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => France
+    [Organisation Size] => Small
+    [Sector] => Health and Social Work
+)
+<br/>processing row: 78Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Electrical
+)
+<br/>processing row: 79Array
+(
+    [Category] => Fostering employability
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 80Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Sweden
+    [Organisation Size] => Medium
+    [Sector] => Construction and Woodworking
+)
+<br/>processing row: 81Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 82Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Netherlands
+    [Organisation Size] => Large
+    [Sector] => Information Technology
+)
+<br/>processing row: 83Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Sweden
+    [Organisation Size] => Small
+    [Sector] => Consultancy Business Services
+)
+<br/>processing row: 84Array
+(
+    [Category] => Fostering employability
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Motor
+)
+<br/>processing row: 85Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Austria
+    [Organisation Size] => Medium
+    [Sector] => Electrical
+)
+<br/>processing row: 86Array
+(
+    [Category] => Making work pay
+    [Country] => Germany
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 87Array
+(
+    [Category] => Making work pay
+    [Country] => Netherlands
+    [Organisation Size] => Small
+    [Sector] => Hotel Restaurant and Catering
+)
+<br/>processing row: 88Array
+(
+    [Category] => Fostering employability
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 89Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Italy
+    [Organisation Size] => Large
+    [Sector] => Chemical
+)
+<br/>processing row: 90Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Construction and Woodworking
+)
+<br/>processing row: 91Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Netherlands
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 92Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => France
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 93Array
+(
+    [Category] => increasing labour market participation of underrepresented groups
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 94Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => United Kingdom
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+)
+<br/>processing row: 95Array
+(
+    [Category] => Making work pay
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Extractive Industries
+)
+<br/>processing row: 96Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Sweden
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+)
+<br/>processing row: 97Array
+(
+    [Category] => integrating people at risk of exclusion into the labour market
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Energy, Extractive Industries
+)
+<br/>processing row: 98Array
+(
+    [Category] => Business creation and entrepreneurship
+    [Country] => Austria
+    [Organisation Size] => Large
+    [Sector] => Information Technology
+)
+<br/>processing row: 99Array
+(
+    [Category] => Fostering employability
+    [Country] => Sweden
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+)
+<br/>processing row: 100Array
+(
+    [Category] => Towards a balanced flexibility
+    [Country] => Germany
+    [Organisation Size] => Large
+    [Sector] => Consultancy Business Services
+)
+<br/><br/><br/>----------------------------------------------<br /><strong>ef_case_study</strong><br />  <em></em><br />  <em>99 items found!</em><br />----------------------------------------------<br /><br /><br /><br /><strong>RESULTS</strong><br /><table><tr><th>No.</th><th>Title</th><th>Url</th><th>Old url</th></tr><tr><td>1</td><td>KCCS, Austria: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/kccs-austria-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/kccs-austria-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01kccs.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01kccs.htm</a></td></tr><tr><td>2</td><td>ScottishPower, UK: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/scottishpower-uk-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/scottishpower-uk-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk03scottishpower.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk03scottishpower.htm</a></td></tr><tr><td>3</td><td>De Gruyter, Germany: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-gruyter-germany-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-gruyter-germany-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de05degruyter.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de05degruyter.htm</a></td></tr><tr><td>4</td><td>Mars, Austria: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/mars-austria-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/mars-austria-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01mars.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01mars.htm</a></td></tr><tr><td>5</td><td>Unipol Banca, Italy: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/unipol-banca-italy-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/unipol-banca-italy-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it04unipolbanca.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it04unipolbanca.htm</a></td></tr><tr><td>6</td><td>Spar–Jobfabrik, Austria: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sparjobfabrik-austria-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sparjobfabrik-austria-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at03spar.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at03spar.htm</a></td></tr><tr><td>7</td><td>Folksam, Sweden: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/folksam-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/folksam-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02folksam.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02folksam.htm</a></td></tr><tr><td>8</td><td>Basell, Italy: Increasing the labour market participation of underrepresented groups – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/basell-italy-increasing-the-labour-market-participation-of-underrepresented-groups-young-people">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/basell-italy-increasing-the-labour-market-participation-of-underrepresented-groups-young-people</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it02basell.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it02basell.htm</a></td></tr><tr><td>9</td><td>E.ON Energy, Germany: Increasing the labour market participation of underrepresented groups – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eon-energy-germany-increasing-the-labour-market-participation-of-underrepresented-groups-young">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eon-energy-germany-increasing-the-labour-market-participation-of-underrepresented-groups-young</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02eon.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02eon.htm</a></td></tr><tr><td>10</td><td>BT, UK: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bt-uk-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bt-uk-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk05bt.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk05bt.htm</a></td></tr><tr><td>11</td><td>voestalpine Stahl, Austria: Increasing the participation of underrepresented groups in the labour market – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/voestalpine-stahl-austria-increasing-the-participation-of-underrepresented-groups-in-the-labour">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/voestalpine-stahl-austria-increasing-the-participation-of-underrepresented-groups-in-the-labour</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at02voest.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at02voest.htm</a></td></tr><tr><td>12</td><td>Eurogate, Germany: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eurogate-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eurogate-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03eurogate.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03eurogate.htm</a></td></tr><tr><td>13</td><td>Canal Bio, France: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/canal-bio-france-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/canal-bio-france-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr04canalbio.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr04canalbio.htm</a></td></tr><tr><td>14</td><td>OKG, Sweden: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/okg-sweden-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/okg-sweden-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se01okg.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se01okg.htm</a></td></tr><tr><td>15</td><td>Siemens Industrial Turbomachinery, UK: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-industrial-turbomachinery-uk-increasing-the-labour-market-participation-of-underrepresented">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-industrial-turbomachinery-uk-increasing-the-labour-market-participation-of-underrepresented</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk02siemens.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk02siemens.htm</a></td></tr><tr><td>16</td><td>Opel Hoppmann, Germany: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/opel-hoppmann-germany-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/opel-hoppmann-germany-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de04opelhoppmann.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de04opelhoppmann.htm</a></td></tr><tr><td>17</td><td>Bayer, Germany: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bayer-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bayer-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03bayer.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03bayer.htm</a></td></tr><tr><td>18</td><td>Erste Bank, Austria: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/erste-bank-austria-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/erste-bank-austria-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at02erstebank.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at02erstebank.htm</a></td></tr><tr><td>19</td><td>Tesco, UK: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/tesco-uk-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/tesco-uk-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk04tesco.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk04tesco.htm</a></td></tr><tr><td>20</td><td>Ilva, Italy: Integration into the labour market of people at risk of exclusion – early school-leavers and long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ilva-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ilva-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it03ilva.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it03ilva.htm</a></td></tr><tr><td>21</td><td>Sätra Brunn, Sweden: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/stra-brunn-sweden-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/stra-brunn-sweden-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se05satrabrunn.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se05satrabrunn.htm</a></td></tr><tr><td>22</td><td>Serco, UK: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/serco-uk-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/serco-uk-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01serco.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01serco.htm</a></td></tr><tr><td>23</td><td>Siemens Vdo Automotive, Italy: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-vdo-automotive-italy-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-vdo-automotive-italy-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05siemens.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05siemens.htm</a></td></tr><tr><td>24</td><td>Painters and Plasterers, the Netherlands: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/painters-and-plasterers-the-netherlands-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/painters-and-plasterers-the-netherlands-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01painters.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01painters.htm</a></td></tr><tr><td>25</td><td>Laboratoires Boiron, France: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/laboratoires-boiron-france-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/laboratoires-boiron-france-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr05laboratoiresboiron.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr05laboratoiresboiron.htm</a></td></tr><tr><td>26</td><td>Schaeffler, UK: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/schaeffler-uk-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/schaeffler-uk-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01schaeffler.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01schaeffler.htm</a></td></tr><tr><td>27</td><td>Alcatel, France: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/alcatel-france-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/alcatel-france-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr04alcatel.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr04alcatel.htm</a></td></tr><tr><td>28</td><td>SODESI, France: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sodesi-france-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sodesi-france-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr06sodesi.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr06sodesi.htm</a></td></tr><tr><td>29</td><td>Atlas Copco, Sweden: Increasing the labour market participation of underrepresented groups – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/atlas-copco-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-young">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/atlas-copco-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-young</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02atlascopco.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02atlascopco.htm</a></td></tr><tr><td>30</td><td>University of Siena, Italy: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/university-of-siena-italy-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/university-of-siena-italy-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05universityofsiena.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05universityofsiena.htm</a></td></tr><tr><td>31</td><td>Bosch Rexroth, the Netherlands: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bosch-rexroth-the-netherlands-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bosch-rexroth-the-netherlands-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl05boschrexroth.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl05boschrexroth.htm</a></td></tr><tr><td>32</td><td>Adecco, France: Integration into the labour market of people at risk of exclusion – people with disabilities</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/adecco-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people-with">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/adecco-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people-with</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03adecco.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03adecco.htm</a></td></tr><tr><td>33</td><td>SPL, France: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/spl-france-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/spl-france-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01spl.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01spl.htm</a></td></tr><tr><td>34</td><td>Stasto Stocker, Austria: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/stasto-stocker-austria-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/stasto-stocker-austria-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04stasto.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04stasto.htm</a></td></tr><tr><td>35</td><td>Boehringer Ingelheim, Germany: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/boehringer-ingelheim-germany-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/boehringer-ingelheim-germany-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de01boehringeringelheim.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de01boehringeringelheim.htm</a></td></tr><tr><td>36</td><td>Philips Research, the Netherlands: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-research-the-netherlands-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-research-the-netherlands-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl06philipscampus.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl06philipscampus.htm</a></td></tr><tr><td>37</td><td>Sanofi-aventis, France: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sanofi-aventis-france-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sanofi-aventis-france-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr06sanofiaventis.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr06sanofiaventis.htm</a></td></tr><tr><td>38</td><td>Philip Morris Holland, the Netherlands: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philip-morris-holland-the-netherlands-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philip-morris-holland-the-netherlands-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01philipmorris.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01philipmorris.htm</a></td></tr><tr><td>39</td><td>De Schalm, the Netherlands: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-schalm-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-schalm-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03deschalm.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03deschalm.htm</a></td></tr><tr><td>40</td><td>Koersvast, the Netherlands: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/koersvast-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/koersvast-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03koersvast.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03koersvast.htm</a></td></tr><tr><td>41</td><td>CNV Bedrijvenbond, the Netherlands: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/cnv-bedrijvenbond-the-netherlands-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/cnv-bedrijvenbond-the-netherlands-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl06cnv.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl06cnv.htm</a></td></tr><tr><td>42</td><td>HBOS, UK: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/hbos-uk-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/hbos-uk-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk04hbos.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk04hbos.htm</a></td></tr><tr><td>43</td><td>Flexwork, Austria: Integration into the labour market of people at risk of exclusion</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/flexwork-austria-integration-into-the-labour-market-of-people-at-risk-of-exclusion">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/flexwork-austria-integration-into-the-labour-market-of-people-at-risk-of-exclusion</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at03flexwork.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at03flexwork.htm</a></td></tr><tr><td>44</td><td>DI.CO. Service, Italy: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/dico-service-italy-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/dico-service-italy-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it06dicoservice.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it06dicoservice.htm</a></td></tr><tr><td>45</td><td>Whirlpool, Italy: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/whirlpool-italy-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/whirlpool-italy-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it06whirlpool.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it06whirlpool.htm</a></td></tr><tr><td>46</td><td>Vodafone Omnitel, Italy: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vodafone-omnitel-italy-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vodafone-omnitel-italy-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it04vodafone.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it04vodafone.htm</a></td></tr><tr><td>47</td><td>ACC Verdichter, Austria: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/acc-verdichter-austria-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/acc-verdichter-austria-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01accverdichter.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at01accverdichter.htm</a></td></tr><tr><td>48</td><td>Green Hills Biotechnology, Austria: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/green-hills-biotechnology-austria-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/green-hills-biotechnology-austria-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at06greenhills.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at06greenhills.htm</a></td></tr><tr><td>49</td><td>HSBC, UK: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/hsbc-uk-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/hsbc-uk-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk02hsbc.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk02hsbc.htm</a></td></tr><tr><td>50</td><td>FNAC, France: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/fnac-france-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/fnac-france-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01fnac.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01fnac.htm</a></td></tr><tr><td>51</td><td>KEMA, the Netherlands: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/kema-the-netherlands-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/kema-the-netherlands-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl04kema.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl04kema.htm</a></td></tr><tr><td>52</td><td>Falu Hospital, Sweden: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/falu-hospital-sweden-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/falu-hospital-sweden-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se05faluhospital.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se05faluhospital.htm</a></td></tr><tr><td>53</td><td>EDF, France: Integration into the labour market of people at risk of exclusion – people with disabilities</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/edf-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people-with">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/edf-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people-with</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03edf.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03edf.htm</a></td></tr><tr><td>54</td><td>Palfinger, Austria: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/palfinger-austria-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/palfinger-austria-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at05palfinger.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at05palfinger.htm</a></td></tr><tr><td>55</td><td>Corus, the Netherlands: Increasing the labour market participation of underrepresented groups – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/corus-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-young">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/corus-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-young</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02corus.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02corus.htm</a></td></tr><tr><td>56</td><td>Handelsbanken, Sweden: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/handelsbanken-sweden-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/handelsbanken-sweden-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04handelsbanken.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04handelsbanken.htm</a></td></tr><tr><td>57</td><td>Ford, UK: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ford-uk-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ford-uk-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk06ford.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk06ford.htm</a></td></tr><tr><td>58</td><td>ArcelorMittal Eisenhüttenstadt, Germany: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/arcelormittal-eisenhttenstadt-germany-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/arcelormittal-eisenhttenstadt-germany-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06arcelormittaleisenhuettenstadt.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06arcelormittaleisenhuettenstadt.htm</a></td></tr><tr><td>59</td><td>BMW-Leipzig, Germany: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bmw-leipzig-germany-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bmw-leipzig-germany-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02bmw.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02bmw.htm</a></td></tr><tr><td>60</td><td>UK Steel Enterprise, UK: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/uk-steel-enterprise-uk-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/uk-steel-enterprise-uk-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk06uksteelenterprise.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk06uksteelenterprise.htm</a></td></tr><tr><td>61</td><td>Adecco, Italy: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/adecco-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term-unemployed">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/adecco-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term-unemployed</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it03adecco.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it03adecco.htm</a></td></tr><tr><td>62</td><td>Indesit, Italy: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/indesit-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/indesit-italy-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school-leavers</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/ito3indesit.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/ito3indesit.htm</a></td></tr><tr><td>63</td><td>DSM, the Netherlands: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/dsm-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/dsm-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02dsm.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02dsm.htm</a></td></tr><tr><td>64</td><td>Henkel, Germany: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/henkel-germany-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/henkel-germany-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02henkel.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de02henkel.htm</a></td></tr><tr><td>65</td><td>Jenoptik, Germany: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/jenoptik-germany-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/jenoptik-germany-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06jenoptik.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06jenoptik.htm</a></td></tr><tr><td>66</td><td>Sick, Germany: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sick-germany-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/sick-germany-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de01sick.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de01sick.htm</a></td></tr><tr><td>67</td><td>Guastalla hospital, Italy: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/guastalla-hospital-italy-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/guastalla-hospital-italy-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01guastalla.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01guastalla.htm</a></td></tr><tr><td>68</td><td>AXA, France: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/axa-france-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/axa-france-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01axa.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr01axa.htm</a></td></tr><tr><td>69</td><td>Eni Group, Italy: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eni-group-italy-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/eni-group-italy-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01eni.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01eni.htm</a></td></tr><tr><td>70</td><td>SSAB, Sweden: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ssab-sweden-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ssab-sweden-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04ssab.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04ssab.htm</a></td></tr><tr><td>71</td><td>Schneider Electric, France: Increasing the labour market participation of underrepresented groups – young people</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/schneider-electric-france-increasing-the-labour-market-participation-of-underrepresented-groups">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/schneider-electric-france-increasing-the-labour-market-participation-of-underrepresented-groups</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr02schneiderelectric.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr02schneiderelectric.htm</a></td></tr><tr><td>72</td><td>Siemens Medical Solutions, Germany: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-medical-solutions-germany-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/siemens-medical-solutions-germany-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06siemensmedicalsolutions.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de06siemensmedicalsolutions.htm</a></td></tr><tr><td>73</td><td>VX Company, the Netherlands: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vx-company-the-netherlands-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vx-company-the-netherlands-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01vx.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl01vx.htm</a></td></tr><tr><td>74</td><td>Polyproject Sweden, Sweden: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/polyproject-sweden-sweden-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/polyproject-sweden-sweden-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04polyproject.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se04polyproject.htm</a></td></tr><tr><td>75</td><td>Salinen Austria, Austria: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/salinen-austria-austria-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/salinen-austria-austria-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04salinenaustria.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04salinenaustria.htm</a></td></tr><tr><td>76</td><td>Ferrari Auto, Italy: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ferrari-auto-italy-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ferrari-auto-italy-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05ferrari.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it05ferrari.htm</a></td></tr><tr><td>77</td><td>Company A, France: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/company-a-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/company-a-france-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long-term</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03companya.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr03companya.htm</a></td></tr><tr><td>78</td><td>Philips, the Netherlands: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-the-netherlands-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03philips.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl03philips.htm</a></td></tr><tr><td>79</td><td>VT Shipbuilding, UK: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vt-shipbuilding-uk-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/vt-shipbuilding-uk-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01vtshipbuilding.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk01vtshipbuilding.htm</a></td></tr><tr><td>80</td><td>Spectra Collection, Sweden: Integration into the labour market of people at risk of exclusion – long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/spectra-collection-sweden-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/spectra-collection-sweden-integration-into-the-labour-market-of-people-at-risk-of-exclusion-long</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se03spectra.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se03spectra.htm</a></td></tr><tr><td>81</td><td>Saab VCC, Sweden: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/saab-vcc-sweden-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/saab-vcc-sweden-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se06saab.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se06saab.htm</a></td></tr><tr><td>82</td><td>IBM, the Netherlands: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ibm-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ibm-the-netherlands-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02ibm.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl02ibm.htm</a></td></tr><tr><td>83</td><td>BAI, Sweden: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bai-sweden-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bai-sweden-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se06bai.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se06bai.htm</a></td></tr><tr><td>84</td><td>Volvo Cars Engine, Sweden: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/volvo-cars-engine-sweden-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/volvo-cars-engine-sweden-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se01volvo.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se01volvo.htm</a></td></tr><tr><td>85</td><td>E+E Electronics, Austria: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ee-electronics-austria-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/ee-electronics-austria-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at05eande.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at05eande.htm</a></td></tr><tr><td>86</td><td>Grünbeck Wasseraufbereitung, Germany: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/grnbeck-wasseraufbereitung-germany-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/grnbeck-wasseraufbereitung-germany-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de04gruenbeck.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de04gruenbeck.htm</a></td></tr><tr><td>87</td><td>De Zeeuwse Stromen, the Netherlands: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-zeeuwse-stromen-the-netherlands-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/de-zeeuwse-stromen-the-netherlands-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl04dzs.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nl04dzs.htm</a></td></tr><tr><td>88</td><td>BNL, Italy: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bnl-italy-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/bnl-italy-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01bnl.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it01bnl.htm</a></td></tr><tr><td>89</td><td>Marazzi, Italy: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/marazzi-italy-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/marazzi-italy-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it02marazzi.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/it02marazzi.htm</a></td></tr><tr><td>90</td><td>Laing O’Rourke, UK: Integration into the labour market of people at risk of exclusion – early school-leavers and long-term unemployed</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/laing-orourke-uk-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/laing-orourke-uk-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early-school</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk03laingorourke.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk03laingorourke.htm</a></td></tr><tr><td>91</td><td>Inalfa Roof Systems, the Netherlands: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/inalfa-roof-systems-the-netherlands-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/inalfa-roof-systems-the-netherlands-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nlo5inalfa.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/nlo5inalfa.htm</a></td></tr><tr><td>92</td><td>Société Générale, France: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/socit-gnrale-france-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/socit-gnrale-france-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr02societegenerale.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/fr02societegenerale.htm</a></td></tr><tr><td>93</td><td>Swedbank, Sweden: Increasing the labour market participation of underrepresented groups – women</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/swedbank-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-women">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/swedbank-sweden-increasing-the-labour-market-participation-of-underrepresented-groups-women</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02swedbank.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se02swedbank.htm</a></td></tr><tr><td>94</td><td>Newcastle Building Society, UK: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/newcastle-building-society-uk-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/newcastle-building-society-uk-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk05newcastlebs.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/uk05newcastlebs.htm</a></td></tr><tr><td>95</td><td>RHI, Austria: Make work pay – make work attractive</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/rhi-austria-make-work-pay-make-work-attractive">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/rhi-austria-make-work-pay-make-work-attractive</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04rhi.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at04rhi.htm</a></td></tr><tr><td>96</td><td>City of Stockholm, Sweden: Integration into the labour market of people at risk of exclusion – early school-leavers</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/city-of-stockholm-sweden-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/city-of-stockholm-sweden-integration-into-the-labour-market-of-people-at-risk-of-exclusion-early</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se03cityofstockholm.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se03cityofstockholm.htm</a></td></tr><tr><td>97</td><td>Deutsche Steinkohle, Germany: Integration into the labour market of people at risk of exclusion – people with disabilities</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/deutsche-steinkohle-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/deutsche-steinkohle-germany-integration-into-the-labour-market-of-people-at-risk-of-exclusion-people</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03deutschesteinkohle.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de03deutschesteinkohle.htm</a></td></tr><tr><td>98</td><td>Philips, Austria: Business creation and entrepreneurship</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-austria-business-creation-and-entrepreneurship">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/philips-austria-business-creation-and-entrepreneurship</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at06philips.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/at06philips.htm</a></td></tr><tr><td>99</td><td>Karlskrona Employer Ring, Sweden: Fostering employability</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/karlskrona-employer-ring-sweden-fostering-employability">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/karlskrona-employer-ring-sweden-fostering-employability</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se001karlskronaemployerring.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/se001karlskronaemployerring.htm</a></td></tr><tr><td>100</td><td>Randstad, Germany: Towards a balanced flexibility</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/randstad-germany-towards-a-balanced-flexibility">http://efstaging.eworx.gr/observatories/eurwork/case-studies/attractive-workplace-for-all-company-cases/randstad-germany-towards-a-balanced-flexibility</a></td><td><a href="http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de05randstad.htm">http://eurofound.europa.eu/areas/qualityofwork/betterjobs/cases/de05randstad.htm</a></td></tr><tr><td colspan="4">Total: 100 nodes saved!</td></tr></table><br /><br />errors: 0<br /><br />

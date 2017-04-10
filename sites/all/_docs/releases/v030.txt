@@ -1,0 +1,74 @@
+drush sql-query "insert into schema_migrations(code,extra)values('030', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: MODULES ::
+
+drush dl -y languageicons
+drush en -y languageicons
+
+drush en -y ef_topic_form
+
+drush dl -y deny_access
+drush en -y deny_access
+
+drush dl -y content_access
+drush en -y content_access
+
+drush en -y ef_menu_css_class
+
+:: FEATURES ::
+
+drush en -y workflows
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: not dev machines
+::  Add to robots.txt last link  :   Disallow: /board-members-extranet/
+
+:: replace topics basic page with view
+:: Go to /topics and delete the existing node before importing the menu.
+
+
+
+
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Footer Links| sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: NOT Checked 
+:: Language: English
+
+:: Populates menu link translations (test greek translations).
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-link-translations
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-link-translations.php
+
+:: patch for Shortcut core module
+:: patches/v030-shortcut.module.txt
+
+:: patch for i18n menu module
+:: patches/v030-i18n_menu.txt
+
+:: goto Translate interface's import tab: admin/config/regional/translate/import
+:: import all .po files from: sites\all\translations\imported
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

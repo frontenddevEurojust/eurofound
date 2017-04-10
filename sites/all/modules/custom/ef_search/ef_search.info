@@ -1,0 +1,8 @@
+name = ef_search
+description = Search customizations
+core = 7.x
+package = Search
+version = 7.x-1.0
+project = ef_search
+
+configure = admin/config/search/ef_search

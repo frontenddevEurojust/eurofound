@@ -1,0 +1,4 @@
+name = EF Case Studies import
+description = Adds an interface to upload and import Case Studies
+core = 7.x
+package = EF modules

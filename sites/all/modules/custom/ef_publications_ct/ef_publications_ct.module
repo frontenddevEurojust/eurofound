@@ -1,0 +1,126 @@
+<?php
+
+/*
+*  Implements hook_node_access($node, $op, $account). Make publications visible to everyone when forthcoming status
+*/
+function ef_publications_ct_node_access($node, $op, $account) {
+
+	if(isset($node->workbench_moderation) && ($node->type == 'ef_publication') && ($op == 'view') && ($node->workbench_moderation['current']->state == 'forthcoming'))
+	{
+		return NODE_ACCESS_ALLOW;
+	}
+}
+
+/*
+*  Implements hook_node_view_alter(&$build). 
+*/
+function ef_publications_ct_node_view_alter(&$build)
+{
+	
+	$node = $build['#node'];
+
+    if($node->type == "ef_publication"){
+    	
+    	if(isset($node->field_ef_subscription_msg['und'][0]['value']))
+    	{
+    
+    		$build['field_term_subscription_url'][0]['#markup'] = "<p class='topic-subscription'><a href='" . $node->field_term_subscription_url['und'][0]['safe_value'] . "'><i class='fa fa-envelope-o' aria-hidden='true'></i>" . $node->field_term_subscription_text['und'][0]['value'] . "</a></p>";
+    		
+    	}
+
+	    if(isset($build['field_ef_document']['#items']))
+	    {      
+	      
+	      $file_size=$build['field_ef_document']['#items'][0]['filesize'];
+	      $file_size = intval($file_size);
+	      
+	      if ($file_size < 1024) 
+	      {
+	      		 $file_size = round($file_size, 0);
+			     $file['formatted_filesize']['size_type'] = 'bytes';
+				 $file_size_format = strval($file_size);
+		  }
+		  else if ($file_size >= 1048576) 
+		  {
+				 $file_size = round(($file_size / 1024 / 1024), 0);
+				 $file_size_format = strval($file_size) . "MB";
+		  }
+		  elseif ($file_size >= 1024) 
+		  {
+				 $file_size = round(($file_size / 1024), 0);
+				 $file_size_format = strval($file_size) . "KB";
+		  }
+
+		  $build['field_ef_document'][0]['#file']->filename = t('Download PDF') . ' (' . $file_size_format . ')';
+
+	    }
+    }
+}
+/*
+* Implements hook_form_alter(&$form, &$form_state, $form_id)
+*/
+function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
+{
+
+	if($form['#id'] == 'ef-publication-node-form') {
+
+		$form['field_ef_theme']['#type'] = 'hidden';
+
+		// For checkboxes checked condition needs to be used
+	    $form['field_term_subscription_url']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
+	        );
+
+	    $form['field_term_subscription_text']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
+	        );
+
+	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
+	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.js');
+	}
+	
+	if($form['#id'] == 'views-exposed-form-ef-publications-view-page'){
+		
+		$form['checkbox_forthcoming_filtering'] = array(
+	      '#type' => 'checkbox',
+	      '#title' => t('Show forthcoming publications'),
+      	);
+
+      	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
+	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
+	}	
+
+	return $form;
+}
+/*
+* Implements hook_views_query_alter(&$view, &$query)
+*/
+function ef_publications_ct_views_query_alter(&$view, &$query)
+{
+	if($view->name == 'ef_publications_view')
+	{
+
+		if($view->exposed_input['checkbox_forthcoming_filtering'] === '1')
+		{
+
+			foreach ($query->where[1]['conditions'] as $key => $condition) 
+			{
+
+				if($condition['field'] == 'workbench_moderation_node_history.state')
+				{
+					$query->where[1]['conditions'][$key]['value'][] = 'forthcoming';
+				}			
+			}
+		}
+	}
+}
+/*
+ * Implements hook_update_N(). 
+ * Add index to field_ef_publication_date field to improve performance as it's used as ordering field (Avoid creating temporary tables due to ORDER BY clause)
+ */
+function ef_publications_ct_update_7100()
+{
+	db_add_index('field_data_field_ef_publication_date', 'field_ef_publication_date_value_index', array('field_ef_publication_date_value'));
+}

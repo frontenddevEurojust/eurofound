@@ -1,0 +1,61 @@
+<?php
+
+function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
+	global $user;
+	if($form_id=='ef_factsheet_node_form'){
+		$form['field_ef_factsheet_sources']['#access']=FALSE;
+
+   		$form['actions']['submit']['#validate'][] = 'ef_factsheet_form_validate';
+		if (in_array('Author', $user->roles)) {
+			$form['field_ef_observatory']['#access'] = FALSE;
+			$form['field_ef_theme']['#access'] = FALSE;
+			$form['#attributes']['class'][]='author-role';
+			$form['field_ef_migration_datetime']['#access']=FALSE;
+			$form['field_ef_migration_old_url']['#access']=FALSE;
+			$form['field_ef_migration_details']['#access']=FALSE;
+			$form['field_ef_migration_fact_base_id']['#access']=FALSE;
+			$form['field_ef_migration_factsheet_id']['#access']=FALSE;
+			$form['field_ef_migration_factsheet_key']['#access']=FALSE;
+			$form['field_ef_migration_old_user']['#access']=FALSE;
+			$form['field_ef_factsheet_sources']['#access']=FALSE;
+
+		}
+		drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
+    }
+}
+
+
+
+function ef_factsheet_form_validate($form, &$form_state) {
+	$employed_number = $form_state['values']['field_ef_number_employed']['und'][0]['value'];
+	$min_jobs = $form_state['values']['field_ef_job_reductions_min']['und'][0]['value'];
+	$min_jobs_int = intval($min_jobs);
+	$employed_number_int = intval($employed_number);
+
+	if(FALSE){
+		if(($min_jobs!=0)){
+			if($min_jobs_int<25){
+				form_set_error('field_ef_job_reductions_min', t('Planned job reductions (min.) must be at least 25.'));
+				$form_state['rebuild'] = TRUE;
+			}
+		}
+		if( ($employed_number!=0) && ($min_jobs!=0) ) {
+
+			if( ($min_jobs_int<100) && ( ($employed_number_int/10) > $min_jobs_int)){
+				form_set_error('field_ef_number_employed', t('Planned job reductions (min.) must be >= 100, or if not, then at least equal to 10% of number employed.'));
+				$form_state['rebuild'] = TRUE;
+
+			}
+
+	}
+	}
+
+	if(($min_jobs!=0)){
+		$term_id = $form_state['values']['field_ef_type_of_restructuring']['und'][0]['tid'];
+		if(intval($term_id)!=1103){
+				if(!isset($form_state['values']['field_ef_job_reductions_min']['und'][0]['value']) || empty($form_state['values']['field_ef_job_reductions_min']['und'][0]['value'])){
+					form_set_error('field_ef_type_of_restructuring',t('Planned Job Reduction is obligatory for all expansion cases except Bussiness Expansionn.'));
+				}
+		}
+	}
+}

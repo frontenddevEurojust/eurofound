@@ -1,0 +1,4 @@
+name = EF CKEditor tableresize plugin
+description = EF CKEditor tableresize plugin
+core = 7.x
+package = EF modules

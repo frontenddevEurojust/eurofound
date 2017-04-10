@@ -1,0 +1,71 @@
+.view-display-id-variables_attachment {
+    font-size: 0.8em;
+    display:none;
+}
+.view-cwb-time-series .view-display-id-variables_attachment h4{
+    font-size: 1.1em !important
+}
+.view-cwb-time-series .view-display-id-variables_attachment p{
+    font-size: 1.05em !important
+}
+
+
+ 
+
+.timeSeriesMetaData{
+	font-size:0.8em;
+}
+
+
+.views-field-field-provider-of-database{
+	display:inline-block;	
+}
+
+.views-field-field-provider-of-database, .views-field-field-type-of-data .views-field-field-sector-covered-by-agreemen{
+	display:inline-block;
+}
+
+#edit-scope-employee{
+  width:255px
+}
+#edit-series-id{
+	width:86px
+}
+
+
+.cwb_visualization{
+	margin-top:30px;
+}
+
+h3 span{
+ font-size: 0.8em;
+}
+
+/*h3{
+ font-size: 1.4em;
+}*/
+
+h3 span a{
+ font-size: 1.4em;
+}
+
+.time-series-by-year{
+	margin-left:15px
+}
+
+#views-exposed-form-cwb-outcomes-page #edit-scope-employee {
+    width: 539px !important;
+}
+
+#views-exposed-form-cwb-outcomes-page #edit-variable-type-wrapper div{
+	display:inline-block;	
+}
+
+#views-exposed-form-cwb-outcomes-page #edit-variable-unit-wrapper{
+	display:none;
+}
+
+
+.view-filters .views-exposed-form label {
+    display: inline-block !important;
+}

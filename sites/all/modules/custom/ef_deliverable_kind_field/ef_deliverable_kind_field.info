@@ -1,0 +1,4 @@
+name = EF deliverable kind field
+description = EF deliverable kind field
+package = EF modules
+core = 7.x

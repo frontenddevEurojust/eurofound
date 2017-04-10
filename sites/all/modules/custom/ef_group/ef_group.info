@@ -1,0 +1,8 @@
+name = EF group
+description = Group customizations
+core = 7.x
+package = Group
+
+dependencies[] = entity
+
+

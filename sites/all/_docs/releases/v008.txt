@@ -1,0 +1,85 @@
+drush sql-query "insert into schema_migrations(code,extra)values('008', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: custom eworx module
+drush en -y ef_show_contract_numbers_in_contract_fields
+
+:: custom eworx module
+drush en -y ef_request_assignee
+
+:: custom eworx module
+drush en -y ef_add_ds_fields
+
+:: Node Clone
+drush dl -y node_clone
+drush en -y clone
+drush cc all
+
+:: it may be already enabled
+drush en -y node_export
+
+:: Webform Add More
+drush dl -y webform_addmore
+drush en -y webform_addmore
+drush cc all
+
+:: custom eworx module for webforms
+drush en -y ef_webform_limited_list
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: MENU LINKS ::
+
+:: goto: admin/structure/menu/manage/menu-ef-user-login-links-menu/add
+:: add the following links:
+:: Login {"url":"user/login"}
+:: Sign up {"url":"user/register"}
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: webform configuration for Quarterly report CT
+:: navigate to admin/config/content/webform and in 'Webform-enabled content types' select the "Quarterly report" CT
+
+:: import quarterly report nodes with webforms
+:: navigate to node/add/node_export and for each file below copy and paste the code for import
+	:: sites\all\_docs\imports\nodes\node-export-quarterly-report-network-quarterly-report.txt
+	:: sites\all\_docs\imports\nodes\node-export--quarterly-report-network-of-correspondents.txt
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+:: apply contracts field only to authors
+:: go to admin/config/people/accounts/fields/field_ef_contracts
+:: select Apply only to: Author
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

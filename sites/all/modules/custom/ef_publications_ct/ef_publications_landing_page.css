@@ -1,0 +1,83 @@
+/** PUBLICATIONS VIEW LANDING PAGE***/
+ul.view-list-pdfpreview h2 {
+    font-family: 'OpenSans-Bold-webfont',Arial,Helvetica,sans-serif;
+    letter-spacing: -0.01em;
+    line-height: 1.3em;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+ul.view-list-pdfpreview .pdfpreview {
+    float: left;
+    width: 17%;
+    margin-right: 20px;
+}
+ul.view-list-pdfpreview .item-content{
+  width: 80%;
+  float: left;
+}
+ul.view-list-pdfpreview .item-content p{
+    margin: 1em 0 !important;
+}
+ul.metadata-list-type li {
+    padding: 0 !important;
+    color: #9D9FA0;
+    font-size: 0.75rem;
+    padding-right: 5px !important;
+    display: inline-flex;
+}
+ul.metadata-list li:after, 
+ul.metadata-list-type li:after{
+  content: ' | ';
+  color:#F7931E;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+ul.metadata-list li:last-child:after, 
+ul.metadata-list-type li:last-child:after {
+  content: '';
+}
+ul.metadata-list{
+  padding:0;
+  margin: 0;
+}
+ul.metadata-list li{
+  display: inline-block;
+  padding: 0 !important;
+  font-size: 0.75rem;
+}
+ul.metadata-list li span:after{
+  content: ' | ';
+  color:#F7931E;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+ul.metadata-list li span:last-child:after {
+  content: '';
+}
+ul.metadata-list li span:empty {
+  display: none;
+}
+#views-exposed-form-ef-publications-view-page .form-item-checkbox-forthcoming-filtering {
+    padding: 20px 0 20px 7%;
+    border-bottom: 1px solid #B1B0B0;
+    border-top: 1px solid #fff;
+    width: 100%;
+    clear: both;
+}
+#views-exposed-form-ef-publications-view-page .description{
+  display: none;
+}
+
+#views-exposed-form-ef-publications-view-page .form-item-checkbox-forthcoming-filtering label{
+   font-size: 1em !important;
+}
+#views-exposed-form-ef-publications-view-page .form-item-checkbox-forthcoming-filtering input{
+    margin-top: -3px;
+}
+#views-exposed-form-ef-publications-view-page .container-inline-date div, 
+#views-exposed-form-ef-publications-view-page .container-inline-date div input{
+      width: 100%!important;
+}
+
+
+/** END PUBLICATIONS VIEW LANDING PAGE* ***/

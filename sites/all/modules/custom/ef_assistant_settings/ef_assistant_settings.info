@@ -1,0 +1,4 @@
+name = ef_assistant_settings
+description = Module for management 'Assistant' role features (webform result permissions and comments on submissions)
+core = 7.x
+package = ef_assistant_settings

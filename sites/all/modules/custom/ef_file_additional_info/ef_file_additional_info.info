@@ -1,0 +1,14 @@
+name = EF File Additional Information
+description = Extends the core File field widget and provides information about user who uploaded the file and date.
+core = 7.x
+php = 5.3
+package = Fields
+dependencies[] = file
+dependencies[] = entity
+dependencies[] = workbench_moderation
+
+version = "7.x-1.0"
+core = "7.x"
+project = "ef_file_additional_info"
+datestamp = "1432027800"
+

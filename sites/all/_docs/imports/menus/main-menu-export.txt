@@ -1,0 +1,90 @@
+Publications {"url":"publications"}
+News {"url":"news"}
+-News articles {"url":"news/news-articles"}
+-Spotlight on {"url":"news/spotlight-on"}
+--Employment {"url":"news/spotlight-on/employment"}
+--Quality of life {"url":"news/spotlight-on/quality-of-life"}
+--Quality of work {"url":"news/spotlight-on/quality-of-work"}
+--Youth in Europe {"url":"news/spotlight-on/youth"}
+-Press releases {"url":"news/press-releases"}
+-Newsletters {"url":"news/newsletters"}
+-Social media {"url":"news/social-media"}
+-Media {"url":"news/media"}
+Events {"url":"events"}
+Surveys {"url":"surveys"}
+-European Quality of Life Surveys (EQLS) {"url":"surveys/eqls"}
+--EQLS Overview {"url":"surveys/eqls/overview"}
+--EQLS 2012 {"url":"surveys/eqls/2012/european-quality-of-life-survey-2012"}
+---Data Visualisation {"url":"surveys/data-visualisation/european-quality-of-life-survey-2012"}
+--EQLS 2007 {"url":"surveys/eqls/2007/european-quality-of-life-survey-2007"}
+---Data Visualisation {"url":"surveys/data-visualisation/european-quality-of-life-survey-2007"}
+--EQLS 2003 {"url":"surveys/eqls/2003/european-quality-of-life-survey-2003"}
+---Data Visualisation {"url":"surveys/data-visualisation/european-quality-of-life-survey-2003"}
+-European Company Surveys (ECS) {"url":"surveys/ecs"}
+--ECS Overview {"url":"surveys/ecs/overview"}
+--ECS 2013 {"url":"surveys/ecs/2013/european-company-survey-2013"}
+---Data Visualisation {"url":"surveys/data-visualisation/3rd-european-company-survey-ecs"}
+-European Working Conditions Surveys (EWCS) {"url":"surveys/ewcs"}
+--EWCS Overview {"url":"surveys/ewcs/overview"}
+--EWCS 2010 {"url":"surveys/ewcs/2010/fifth-european-working-conditions-survey-2010"}
+-Data Visualisation {"url":"surveys/data-visualisation"}
+Themes {"url":"ef-themes"}
+-Business {"url":"ef-themes/business"}
+-Industrial relations {"url":"ef-themes/industrial-relations"}
+-Labour market {"url":"ef-themes/labour-market"}
+-Law and regulation {"url":"ef-themes/law-and-regulation"}
+-Quality of life {"url":"ef-themes/quality-of-life"}
+-Social policies {"url":"ef-themes/social-policies"}
+-Working conditions {"url":"ef-themes/working-conditions"}
+Observatories {"url":"observatories"}
+-European Monitoring Centre on Change - EMCC {"url":"observatories/emcc"}
+--Articles {"url":"observatories/emcc/articles"}
+--Comparative information {"url":"observatories/emcc/comparative-information"}
+--European Restructuring Monitor {"url":"observatories/emcc/erm"}
+---Factsheets {"url":"observatories/emcc/erm/factsheets"}
+---Restructuring support instruments {"url":"observatories/emcc/erm/support-instruments"}
+---Restructuring related legislation {"url":"observatories/emcc/erm/legislation"}
+---Restructuring in SMEs {"url":"observatories/emcc/erm/restructuring-in-smes"}
+---Annual reports {"url":"observatories/emcc/erm/annual-reports"}
+---ERM quarterly {"url":"observatories/emcc/erm/erm-quarterly-newsletters"}
+---Survey reports {"url":"observatories/emcc/erm/survey-reports"}
+--European Jobs Monitor {"url":"observatories/emcc/european-jobs-monitor"}
+--Labour market research {"url":"observatories/emcc/labour-market-research"}
+--Case studies {"url":"observatories/emcc/case-studies"}
+---Restructuring in SMEs in Europe {"url":"observatories/emcc/case-studies/restructuring-in-smes-in-europe"}
+---The greening of industries in the EU {"url":"observatories/emcc/case-studies/the-greening-of-industries-in-the-eu"}
+---Tackling undeclared work in Europe {"url":"observatories/emcc/case-studies/tackling-undeclared-work-in-europe"}
+-European Observatory of Working Life - EurWORK {"url":"observatories/eurwork"}
+--Articles {"url":"observatories/eurwork/articles"}
+--Comparative Information {"url":"observatories/eurwork/comparative-information"}
+--Case studies {"url":"observatories/eurwork/case-studies"}
+---Attractive workplace for all {"url":"observatories/eurwork/case-studies/attractive-workplace-for-all"}
+---Ageing workforce {"url":"observatories/eurwork/case-studies/ageing-workforce"}
+---Workers with care responsibilities {"url":"observatories/eurwork/case-studies/workers-with-care-responsibilities"}
+--European Industrial Relations Dictionary {"url":"observatories/eurwork/industrial-relations-dictionary"}
+--Collective wage bargaining {"url":"observatories/eurwork/collective-wage-bargaining/context"}
+--Industrial relations links {"url":"observatories/eurwork/industrial-relations-links"}
+About Eurofound {"url":"about"}
+-What we do {"url":"about/what-we-do","expanded":true}
+--Background {"url":"about/what-we-do/background"}
+--Mission and tasks {"url":"about/what-we-do/mission-and-tasks"}
+--Current research {"url":"about/what-we-do/current-research"}
+--Annual reports {"url":"about/what-we-do/annual-reports"}
+--Work programmes {"url":"about/what-we-do/work-programmes"}
+--Eurofound services {"url":"about/what-we-do/eurofound-services"}
+-Who we are {"url":"about/who-we-are"}
+--Staff {"url":"about/who-we-are/staff"}
+--Governing board {"url":"about/who-we-are/governing-board"}
+---Governing Board documents {"url":"about/who-we-are/governing-board/gb-documents"}
+--Stakeholders and partners {"url":"about/who-we-are/stakeholders-and-partners"}
+-Procurement {"url":"about/procurement"}
+--Procurement opportunities {"url":"about/procurement/opportunities"}
+--Information on procurement {"url":"about/procurement/information-on-procurement"}
+--Awarded contracts {"url":"about/procurement/awarded-contracts"}
+-Vacancies {"url":"about/vacancies"}
+--Vacancies {"url":"about/vacancies/positions"}
+--Information for applicants {"url":"about/vacancies/applicants"}
+---Recruitment process {"url":"about/vacancies/applicants/recruitment-process"}
+---Grading and remuneration {"url":"about/vacancies/applicants/grading-renumeration"}
+---European language self-assessment grid {"url":"about/vacancies/applicants/eu-language-self-assessment-grid"}
+--Information for graduate traineeships {"url":"about/vacancies/information-for-graduate-traineeships"}

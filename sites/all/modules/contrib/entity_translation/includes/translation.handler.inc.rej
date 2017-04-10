@@ -1,0 +1,103 @@
+*************** class EntityTranslationDefaultHandler implements EntityTranslationHandlerInterfa
+*** 422,455 ****
+      $revisionable = self::isEntityTypeRevisionable($entity_type);
+      $revisions_ids = array();
+      foreach ($entities as $id => $entity) {
+-       $entities[$id]->{$translations_key} = self::emptyTranslations();
+        if ($revisionable) {
+          list(, $revisions_id,) = entity_extract_ids($entity_type, $entity);
+          $revisions_ids[$id] = $revisions_id;
+        }
+      }
+  
+-     $table = $revisionable ? 'entity_translation_revision' : 'entity_translation';
+-     $query = db_select($table, 'et')
+-       ->fields('et')
+-       ->condition('entity_type', $entity_type);
+  
+-     if (!$revisionable) {
+-       $query->condition('entity_id', array_keys($entities), 'IN');
+-     }
+-     else {
+-       $query->condition('revision_id', $revisions_ids, 'IN');
+-     }
+  
+-     $results = $query->execute();
+  
+-     foreach ($results as $row) {
+-       $id = $row->entity_id;
+-       $entities[$id]->{$translations_key}->data[$row->language] = (array) $row;
+  
+-       // Only the original translation has an empty source.
+-       if (empty($row->source)) {
+-         $entities[$id]->{$translations_key}->original = $row->language;
+        }
+      }
+    }
+--- 430,495 ----
+      $revisionable = self::isEntityTypeRevisionable($entity_type);
+      $revisions_ids = array();
+      foreach ($entities as $id => $entity) {
++       // Set empty values only if explicitly requested of if translations were
++       // not loaded yet.
++       if ($reset || !isset($entity->{$translations_key})) {
++         $entities[$id]->{$translations_key} = self::emptyTranslations();
++       }
++       else {
++         unset($entities[$id]);
++       }
+        if ($revisionable) {
+          list(, $revisions_id,) = entity_extract_ids($entity_type, $entity);
+          $revisions_ids[$id] = $revisions_id;
+        }
+      }
+  
++     if ($entities) {
++       $table = $revisionable ? 'entity_translation_revision' : 'entity_translation';
++       $query = db_select($table, 'et')
++         ->fields('et')
++         ->condition('entity_type', $entity_type);
+  
++       if (!$revisionable) {
++         $query->condition('entity_id', array_keys($entities), 'IN');
++       }
++       else {
++         $query->condition('revision_id', $revisions_ids, 'IN');
++       }
+  
++       if ($revisionable) {
++         $revisions_ids = array();
++         foreach ($entities as $id => $entity) {
++           list(, $revisions_id,) = entity_extract_ids($entity_type, $entity);
++           $revisions_ids[$id] = $revisions_id;
++         }
++         $table = 'entity_translation_revision';
++       }
+  
++       $query = db_select($table, 'et')
++         ->fields('et')
++         ->condition('entity_type', $entity_type);
+  
++       if (!$revisionable) {
++         $query->condition('entity_id', array_keys($entities), 'IN');
++       }
++       else {
++         $query->condition('revision_id', $revisions_ids, 'IN');
++       }
++ 
++       $results = $query
++         ->orderBy('entity_id')
++         ->orderBy('created')
++         ->execute();
++ 
++       foreach ($results as $row) {
++         $id = $row->entity_id;
++         $entities[$id]->{$translations_key}->data[$row->language] = (array) $row;
++ 
++         // Only the original translation has an empty source.
++         if (empty($row->source)) {
++           $entities[$id]->{$translations_key}->original = $row->language;
++         }
+        }
+      }
+    }

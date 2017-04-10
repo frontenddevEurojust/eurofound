@@ -1,0 +1,98 @@
+drush sql-query "insert into schema_migrations(code,extra)values('021', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+drush dl -y tvi
+drush en -y tvi
+
+drush dl -y nodequeue
+drush en -y nodequeue
+
+drush en -y fe_nodequeue
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+:: navigate to admin/structure/taxonomy/ef_themes
+:: edit each term and enable 'Generate automatic URL alias' and save
+:: re-run features revert. As we replaced the taxonomy default url with the panel url
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Case Study Names | import/ef_vocabulary_case_study_names_import | sites\all\_docs\feeds\vocabulary_cs_names.csv ||
+
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: navigate to admin/config/system/mailsystem
+:: In the 'Site-wide default MailSystemInterface class' select 'SmtpMailSystem'
+:: In the 'Mime Mail module class' select 'MimeMailSystem'
+
+:: reimport-menu-links.txt
+
+:: MENU LINKS :: (re-import )
+::
+:: Before import:
+:: go to admin/structure/types/manage/page
+:: and uncheck the following revision options, else menu importing does not work:
+:: Uncheck: Create new revision 
+:: Uncheck: New revision in draft, pending moderation (requires "Create new revision") 
+::
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Footer Links| sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: Link to existing content: Disabled
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+
+:: || Target Menu | Menu File ||
+:: || Quick Links| sites\all\_docs\imports\menus\menu-ef-quick-links-export.txt ||
+:: Link to existing content: Disabled
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+
+::
+:: After import:
+:: go to admin/structure/types/manage/page
+:: and re-check the following revision options:
+:: Check: Create new revision 
+:: Check: New revision in draft, pending moderation (requires "Create new revision") 
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

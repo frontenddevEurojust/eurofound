@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CWB model feature.
+ */
+
+include_once 'cwb_model.features.inc';

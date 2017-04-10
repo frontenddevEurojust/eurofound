@@ -1,0 +1,24 @@
+li > .menu-minipanel-panel{position:absolute;top:100%;z-index:99;max-height:0;overflow:hidden;-webkit-transition:max-height 0.15s ease-out;-moz-transition:max-height 0.15s ease-out;-ms-transition:max-height 0.15s ease-out;-o-transition:max-height 0.15s ease-out;transition:max-height 0.15s ease-out;}
+li:hover > .menu-minipanel-panel{max-height:500px;-webkit-transition:max-height 0.25s ease-in;-moz-transition:max-height 0.25s ease-in;-ms-transition:max-height 0.25s ease-in;-o-transition:max-height 0.25s ease-in;transition:max-height 0.25s ease-in;}
+.menu-minipanel-panel,
+.menu-minipanel-panel > li{list-style:none;padding:0;margin:0;}
+.menu-minipanel-panel .panel-display{background-color:#fff;}
+.menu-minipanel-panel{left:50%;right:inherit;overflow-y:visible;max-width:300px;margin-left:-150px;}
+.menu-minipanel-panel{right:0;left:inherit;margin-left:0;max-width:inherit;}
+.menu-minipanel-panel{left:0;right:inherit;margin-left:0;max-width:inherit;}
+.menu-minipanel-MINI-PANEL-MACHINE-NAME-HERE{}
+.menu-minipanel-MINI-PANEL-MACHINE-NAME-HERE .panel-display{}
+li:hover > .menu-minipanel-MINI-PANEL-MACHINE-NAME-HERE{}
+.menu-minipanel-NNN + .menu-minipanel-panel{}
+.menu-minipanel-NNN + .menu-minipanel-panel .panel-display{}
+li:hover > .menu-minipanel-NNN + .menu-minipanel-panel{}
+.dhtml-menu .menu-minipanel-panel .panel-display,
+.nice-menu .menu-minipanel-panel .panel-display,
+.sf-menu .menu-minipanel-panel .panel-display{background-color:transparent;}
+li.dhtml-menu > .menu-minipanel-panel,
+.nice-menu li > .menu-minipanel-panel,
+.sf-menu li > .menu-minipanel-panel{z-index:inherit;max-height:inherit;overflow:inherit;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
+li.dhtml-menu:hover > .menu-minipanel-panel,
+.nice-menu li:hover > .menu-minipanel-panel,
+.sf-menu li:hover > .menu-minipanel-panel{max-height:inherit;-webkit-transition:none;-moz-transition:none;-ms-transition:none;-o-transition:none;transition:none;}
+li.dhtml-menu > .menu-minipanel-panel{position:inherit;}

@@ -1,0 +1,4 @@
+name = EF OSU Contract
+description = Modify Data for the OSU contract reporting view
+package = EF modules
+core = 7.x

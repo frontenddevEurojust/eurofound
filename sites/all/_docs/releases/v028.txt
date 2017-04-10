@@ -1,0 +1,76 @@
+drush sql-query "insert into schema_migrations(code,extra)values('028', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+drush dl -y taxonomy_access_fix
+drush en -y taxonomy_access_fix
+
+drush en -y publication_pdf_link
+
+drush dl -y views_aggregator
+drush en -y views_aggregator
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+
+
+:: FEATURES ::
+drush en -y ef_taxonomy_permissions
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: Go to admin/structure/taxonomy/ef_themes
+:: Edit the term 'WORKING CONDITIONS' and rename to 'Working conditions'
+:: Edit the term 'LABOUR MARKET' and rename to 'Labour market'
+:: Edit the term 'INDUSTRIAL RELATIONS' and rename to 'Industrial relations'
+:: Edit the term 'LAW AND REGULATION' and rename to 'Law and regulation'
+:: Edit the term 'QUALITY OF LIFE' and rename to 'Quality of life'
+:: Edit the term 'SOCIAL POLICIES' and rename to 'Social policies'
+:: Edit the term 'BUSINESS' and rename to 'Business'
+
+:: CONTENT TYPE::
+:: Go to admin/structure/types and delete the Content type 'Venue'
+:: This needs to be done after the drush-fr-all -y.
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: Go to admin/config/user-interface/shortcut/add-set
+:: add shortcute set with the name 'OSU Shortcuts'
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+:: PHP CONFIGURATIONS
+
+:: Info for php: ef/admin/reports/status/php
+
+:: sudo nano /etc/php5/apache2/php.ini  and set
+:: upload_max_filesize = 10M
+:: post_max_size = 10M
+:: And then restart Apache
+:: sudo service apache2 restart
+
+drush vset -y maintenance_mode 0
+drush cc all

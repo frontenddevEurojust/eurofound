@@ -1,0 +1,68 @@
+drush sql-query "insert into schema_migrations(code,extra)values('014', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+:: custom eworx
+drush en -y ef_workbench_state_premissions
+
+::Autosave
+drush dl -y autosave
+drush en -y autosave
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+drush views-disable admin_views_user -y
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: Login Redirect - Override previous settings
+:: Go to admin/config/people/login-destination/edit/1
+:: In 'Redirect to page' select  'Page returned by this PHP code (experts only)' and paste the code below:
+::  <?php
+::  	if (isset($_GET['current'])) {
+::     		$current= $_GET['current'];
+::     		return array($current );
+::  	} else {
+::     		return array('<front>');
+::  	}	
+:: 	?>
+
+:: In 'Redirect upon triggers' select 'Login, registration, one-time login link'
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

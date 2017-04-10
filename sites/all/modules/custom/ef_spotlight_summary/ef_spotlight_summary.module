@@ -1,0 +1,5 @@
+<?php
+
+function ef_spotlight_summary_form_ef_spotlight_entry_node_form_alter(&$form, &$form_state, $form_id) {
+  unset($form['body'][LANGUAGE_NONE][0]['summary']['#attached']);
+}

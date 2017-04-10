@@ -1,0 +1,38 @@
+<?php
+/*
+* Implements hook_menu()
+*/
+function ef_term_merge_menu()
+{
+	
+	$items['admin/config/ef-term-merge'] = array(
+    	'title' => 'EF Term Merge',
+    	'page callback' => 'drupal_get_form',
+    	'page arguments' => array('ef_term_merge_form'),
+    	'access arguments' => array('access administration pages'),
+    	'file' => 'ef_term_merge.admin.inc',
+  	);
+
+	return $items;
+}
+/*
+* Implements hook_forn_FORM_ID_alter(&$form, &$form_state, $form_id)
+*/
+function ef_term_merge_form_ef_term_merge_form_alter(&$form, &$form_state, $form_id)
+{
+	
+    if(isset($form['confirm']))
+    {
+		
+        unset($form['actions']['cancel']);
+        $form['actions']['cancel'] = array(
+            '#type' => 'submit',
+            '#value' => 'Cancel'
+        );
+
+        $form['#submit'][0] = '_execute_merge_terms';
+        
+    }
+
+}
+

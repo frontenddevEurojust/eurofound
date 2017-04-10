@@ -1,0 +1,573 @@
+<?php
+/*********************************************************
+* Eworx S.A. 2014
+* @Author kp@eworx.gr
+* EFDR-806 // Exports the factsheets through the batch api
+**********************************************************/
+ 
+/**
+ * @file
+ * Outlines how a module can use the Batch API.
+ */
+
+/**
+ * @defgroup ef_erm_dump Example: Batch API
+ * @ingroup examples
+ * @{
+ * Outlines how a module can use the Batch API.
+ *
+ * Batches allow heavy processing to be spread out over several page
+ * requests, ensuring that the processing does not get interrupted
+ * because of a PHP timeout, while allowing the user to receive feedback
+ * on the progress of the ongoing operations. It also can prevent out of memory
+ * situations.
+ *
+ * The @link ef_erm_dump.install .install file @endlink also shows how the
+ * Batch API can be used to handle long-running hook_update_N() functions.
+ *
+ * Two harmless batches are defined:
+ * - batch 1: Load the node with the lowest nid 100 times.
+ * - batch 2: Load all nodes, 20 times and uses a progressive op, loading nodes
+ *   by groups of 5.
+ * @see batch
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ef_erm_dump_menu() {
+  $items = array();
+  $items['erm_data_export'] = array(
+    'title' => 'ERM export batch process',
+    'description' => 'Allows exporting the factsheets information in a batch processes',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_erm_dump_choose_batch_form'),
+    'access callback' => TRUE,    
+  );
+
+  return $items;
+}
+
+/**
+ * Form builder function to allow choice of which batch to run.
+ */
+function ef_erm_dump_choose_batch_form() {
+  global $user;
+
+  if (
+    in_array('Eurofound Administrator', $user->roles)||
+    in_array('Eurofound Content Manager', $user->roles)||
+    in_array('administrator', $user->roles) 
+  ) {
+  }else{
+    drupal_access_denied();
+    exit();
+    return;
+  }
+ 
+ //kprint_r($_COOKIE);
+  $form['description'] = array(
+    '#type' => 'markup',
+    '#markup' => t('The functionality offers two different batches. The first one provides the primary set of information and the second the secondary (text)'),
+  );
+
+  $form['batch'] = array(
+    '#type' => 'select',
+    '#title' => 'Choose batch',
+    '#options' => array(
+      'batch_1' => t('ERM primary data export'),
+      'batch_2' => t('ERM secondary data export'),
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Go',
+  );
+
+  // If no nodes, prevent submission.
+  // Find out if we have a node to work with. Otherwise it won't work.
+  $nid = ef_erm_dump_at_least_one_factsheet_nid();
+  if (empty($nid)) {
+    drupal_set_message(t("You don't currently have any factsheets. As a result, this form is disabled."));
+    $form['submit']['#disabled'] = TRUE;
+  }
+  return $form;
+}
+
+/**
+ * Submit handler.
+ *
+ * @param array $form
+ *   Form API form.
+ * @param array $form_state
+ *   Form API form.
+ */
+function ef_erm_dump_choose_batch_form_submit($form, &$form_state) {
+  $function = 'ef_erm_dump_' . $form_state['values']['batch'];
+
+  // Reset counter for debug information.
+  $_SESSION['http_request_count'] = 0;
+
+  // Execute the function named ef_erm_dump_1 or ef_erm_dump_2.
+  $batch = $function();
+  batch_set($batch);
+}
+
+
+//--------------------------------------------------------------
+   
+function hex($string){
+    $hex = '';
+    for ($i=0; $i<strlen($string); $i++){
+        $ord = ord($string[$i]);
+        $hexCode = dechex($ord);
+        $hex .= substr('0'.$hexCode, -2);
+    }
+    return strToUpper($hex);
+}
+
+/**
+ * Batch 1 definition:  
+ *  export primary set of data
+ */
+function ef_erm_dump_batch_1() {
+  $nid = ef_erm_dump_at_least_one_factsheet_nid();
+ 
+
+  $query = new EntityFieldQuery();
+
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'ef_factsheet')
+    ->propertyCondition('status', 1)
+    ->count()
+    ->execute();
+
+  //$result = 200;//limit
+  $maxItems = $num_operations = $result;
+  $itemsPerPage = 50;
+  $context['num_operations'] = $num_operations;
+  $context['itemsPerPage'] = $itemsPerPage;
+  $begining = microtime(true);
+  $path = 'public://';
+  $path=drupal_realpath($path);
+  $exportFileLocation = "$path/factsheets_primary.sql.txt";
+  $_SESSION['result_download_file'] = "sites/default/files/factsheets_primary.sql.txt";
+
+  unlink($exportFileLocation);
+ 
+
+  drupal_set_message(t('Scheduling @num page jobs', array('@num' => $num_operations)));
+
+  $operations = array(); 
+  for($page = 0;
+    $page < $maxItems/$itemsPerPage;
+    $page++
+  ){
+    $operations[] = array(
+      'ef_erm_dump_op_1',
+      array(
+        $page,
+        $itemsPerPage,
+        $maxItems,
+        $begining,
+        $exportFileLocation,
+        t('(Operation @operation)', array('@operation' => $page)),
+      ),
+    );
+  }
+
+  $batch = array(
+    'operations' => $operations,
+    'finished' => 'ef_erm_dump_finished',
+  );
+
+  return $batch;
+}
+/**
+ * Batch operation for batch 1: load a node.
+ *
+ * This is the function that is called on each operation in batch 1.
+ */
+function ef_erm_dump_op_1($page, $itemsPerPage, $maxItems, $begining, $exportFileLocation, $operation_details, &$context) {
+
+  $start = microtime(true);
+
+  $offset = $page  * $itemsPerPage;
+
+  $view = views_get_view("factsheets_export_primary");
+  $view->set_display('views_data_export_1');
+ 
+  //$view->set_arguments(array($tid));
+
+
+  $view->set_offset($offset);
+  $view->set_items_per_page($itemsPerPage);    
+  $view->pre_execute();
+  $view->execute();
+  
+  if($page!=0){
+    $view->style_plugin->options['header'] = 0;
+  }
+
+  $result = $view->preview();
+
+//----------------------------------
+  
+$headerData = "";
+   
+$headerDataTypes = array(3, 3, 1, 2, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 2, 2, 1, 3, 3);
+//3 do not add " //2 date format accordingly //1 add "
+
+
+$sqlTemplateBegin = "insert into ef_factsheets_export_primary VALUES (";
+$sqlTemplateEnd = ");\n";
+$completeSql = $page==0?"delete from ef_factsheets_export_primary;\n":"";
+ 
+$handle = fopen("php://memory", "wb+");
+fputs($handle , $result);
+rewind($handle);
+
+ $rowIndex=-1;
+ while($Data = fgetcsv($handle, 0, "\t")){
+  $rowIndex++; 
+
+    $cells =  $Data;
+
+    if($rowIndex == 0 && $page ==0){
+
+      $headerData = $cells;
+
+    }else{
+      $sqlInsert = $sqlTemplateBegin ;
+      $totalCells = count($cells);
+      for($cellIndex = 0;$cellIndex < $totalCells;$cellIndex++){
+
+          $type = $headerDataTypes[$cellIndex]; 
+
+          if($type == 1){//text
+            if(isset($cells[$cellIndex]) && strlen($cells[$cellIndex])>0){
+              $cells[$cellIndex] = "unhex(\"".hex($cells[$cellIndex]). "\")";
+            }
+
+          }elseif($type == 2){//date           
+            if($cells[$cellIndex] !=NULL)
+              $cells[$cellIndex] = "'". $cells[$cellIndex] . "'";
+            else 
+              $cells[$cellIndex] = "NULL";
+          }  
+
+          if(!isset($cells[$cellIndex]) || strlen($cells[$cellIndex])==0){          
+            $cells[$cellIndex] = "NULL";
+          }
+
+          $sqlInsert.= $cells[$cellIndex];
+
+          if($cellIndex<$totalCells-1)
+            $sqlInsert.= ', ';    
+          else
+          if($totalCells-1 == $cellIndex){
+            $sqlInsert .= $sqlTemplateEnd;
+            $completeSql .= $sqlInsert;
+
+          }
+        //-------------
+      }    
+    }
+    
+  }
+ 
+    
+  //------------------
+    
+  $result = $completeSql;
+  file_put_contents($exportFileLocation, $result, FILE_APPEND | LOCK_EX);
+
+  $time_elapsed_us = microtime(true) - $start;
+
+
+  $processed = ($page+1) * $itemsPerPage;
+  $estimation = microtime(true) - $begining;
+
+  $estimation = ($maxItems * $estimation ) / $processed;
+
+  $totalTime = (microtime(true) - $begining);
+
+  // Store some results for post-processing in the 'finished' callback.
+  // The contents of 'results' will be available as $results in the
+  // 'finished' function (in this example, ef_erm_dump_finished()).
+  $context['results'][] = $processed  . ' items processed out of '. $maxItems . ". Total time : " . $totalTime . "s";
+
+  // Optional message displayed under the progressbar.
+  $context['message'] = ' Processing '. $itemsPerPage .' items per page. Items '. $offset . ' of '. $maxItems .
+                        ' . Current batch processed in : ' . $time_elapsed_us . ' s. Total time estimation : ' . $estimation . " s." ;
+
+  _ef_erm_dump_update_http_requests();
+}
+
+
+
+//--------------------------------------------------------------
+
+//--------------------------------------------------------------
+
+/**
+ * Batch 2 definition:  
+ *  export primary set of data
+ */
+function ef_erm_dump_batch_2() {
+  $nid = ef_erm_dump_at_least_one_factsheet_nid();
+ 
+
+  $query = new EntityFieldQuery();
+
+
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'ef_factsheet')
+    ->propertyCondition('status', 1)
+    ->count()
+    ->execute(); 
+
+  //$result = 200;//limit
+
+  $maxItems = $num_operations = $result;
+  $itemsPerPage = 50;
+  $context['num_operations'] = $num_operations;
+  $context['itemsPerPage'] = $itemsPerPage;
+  $begining = microtime(true);
+  
+  $path = 'public://';
+  $path = drupal_realpath($path);
+  $exportFileLocation = "$path/factsheets_secondary.sql.txt";  
+  $_SESSION['result_download_file'] = "sites/default/files/factsheets_secondary.sql.txt";
+
+  unlink($exportFileLocation);
+ 
+
+  drupal_set_message(t('Scheduling @num items', array('@num' => $num_operations)));
+
+  $operations = array(); 
+  for($page = 0;
+    $page < $maxItems/$itemsPerPage;
+    $page++
+  ){
+    $operations[] = array(
+      'ef_erm_dump_op_2',
+      array(
+        $page,
+        $itemsPerPage,
+        $maxItems,
+        $begining,
+        $exportFileLocation,
+        t('(Operation @operation)', array('@operation' => $page)),
+      ),
+    );
+  }
+
+  $batch = array(
+    'operations' => $operations,
+    'finished' => 'ef_erm_dump_finished',
+  );
+
+  return $batch;
+}
+
+//--------------------------------------------------------------
+
+
+function ef_erm_dump_op_2($page, $itemsPerPage, $maxItems, $begining, $exportFileLocation, $operation_details, &$context) {
+
+  $start = microtime(true);
+
+  $offset = $page  * $itemsPerPage;
+
+  $view = views_get_view("factsheets_export_secondary");
+  $view->set_display('views_data_export_1');
+ 
+  //$view->set_arguments(array($tid));
+
+
+  $view->set_offset($offset);
+  $view->set_items_per_page($itemsPerPage);    
+  $view->pre_execute();
+  $view->execute();
+  
+  if($page!=0){
+    $view->style_plugin->options['header'] = 0;
+  }
+
+  $result = $view->preview();
+
+//----------------------------------
+ 
+$headerData = ""; 
+  
+$headerDataTypes = array(3,3,1,1,1,1,  //1,1,1,2,3,3,3,2,1,1,1);
+                                         1,1,1,2,3,3,2,1,1,1);
+//3 do not add " //2 date format accordingly //1 add "
+
+
+$sqlTemplateBegin = "insert into ef_factsheets_export_secondary VALUES (";
+$sqlTemplateEnd = ");\n";
+$completeSql = $page==0?"delete from ef_factsheets_export_secondary;\n":"";
+ 
+$handle = fopen("php://memory", "wb+");
+fputs($handle , $result);
+rewind($handle);
+
+ $rowIndex=-1;
+ while($Data = fgetcsv($handle, 0, "\t")){
+  $rowIndex++; 
+
+    $cells =  $Data;
+    
+    if($rowIndex == 0 && $page ==0){
+      $headerData = $cells;
+    }else{
+      $sqlInsert = $sqlTemplateBegin ;
+      $totalCells = count($cells);
+      for($cellIndex = 0;$cellIndex < $totalCells;$cellIndex++){
+
+          $type = $headerDataTypes[$cellIndex]; 
+
+          if($type == 1){//text
+            if(isset($cells[$cellIndex]) && strlen($cells[$cellIndex])>0){
+              $cells[$cellIndex] = "unhex(\"".hex($cells[$cellIndex]). "\")";
+            }
+
+          }elseif($type == 2){    //date 
+            
+            if($cells[$cellIndex] != NULL){
+              $cells[$cellIndex] = preg_replace("/ .*/", "", $cells[$cellIndex]);
+              $cells[$cellIndex] =  "\"" . $cells[$cellIndex] . "\"" ;
+            }else{
+              $cells[$cellIndex] = "NULL";
+            }
+            
+          }  
+
+          if(!isset($cells[$cellIndex]) || strlen($cells[$cellIndex])==0){          
+            $cells[$cellIndex] = "NULL";
+          }
+
+          $sqlInsert.= $cells[$cellIndex];
+
+          if($cellIndex<$totalCells-1)
+            $sqlInsert.= ', ';    
+          else
+          if($totalCells-1 == $cellIndex){
+            $sqlInsert .= $sqlTemplateEnd;
+            $completeSql .= $sqlInsert;
+
+          }
+        //-------------
+      }    
+    }
+    
+  }
+ 
+    
+  //------------------
+    
+  $result = $completeSql;
+  file_put_contents($exportFileLocation, $result, FILE_APPEND | LOCK_EX);
+
+  $time_elapsed_us = microtime(true) - $start;
+
+
+  $processed = ($page+1) * $itemsPerPage;
+  $estimation = microtime(true) - $begining;
+
+  $estimation = ($maxItems * $estimation ) / $processed;
+
+  $totalTime = (microtime(true) - $begining);
+
+  // Store some results for post-processing in the 'finished' callback.
+  // The contents of 'results' will be available as $results in the
+  // 'finished' function (in this example, ef_erm_dump_finished()).
+  $context['results'][] = $processed  . ' items processed out of '. $maxItems . ". Total time : " . $totalTime . "s";
+
+  // Optional message displayed under the progressbar.
+  $context['message'] = ' Processing '. $itemsPerPage .' items per page. Items '. $offset . ' of '. $maxItems .
+                        ' . Current batch processed in : ' . $time_elapsed_us . ' s. Total time estimation : ' . $estimation . " s." ;
+
+  _ef_erm_dump_update_http_requests();
+}
+
+//--------------------------------------------------------------
+
+/**
+ * Batch 'finished' callback used by both batch 1 and batch 2.
+ */
+function ef_erm_dump_finished($success, $results, $operations) {
+  if ($success) {
+    // Here we could do something meaningful with the results.
+    // We just display the number of nodes we processed...
+    drupal_set_message(t('@count pages were processed with  @requests HTTP requests.', array('@count' => count($results), '@requests' => _ef_erm_dump_get_http_requests())));
+
+    drupal_set_message(t('The ouput was "%final"', array('%final' => end($results))));
+
+
+
+    // Redirect to the download file.
+    $redirect = $_SESSION['result_download_file'];
+
+    $download_link = l(t('Click here to download the file'), $redirect );
+    $output = '<p>' . t('Your export is now ready for download. Click on the !download_link.', array('!download_link' => $download_link)) . '</p>';
+
+
+
+    drupal_set_message($output);
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    drupal_set_message(
+      t('An error occurred while processing @operation with arguments : @args',
+        array(
+          '@operation' => $error_operation[0],
+          '@args' => print_r($error_operation[0], TRUE),
+        )
+      )
+    );
+  }
+}
+
+//--------------------------------------------------------------
+
+
+/**
+ * Utility function - simply queries and loads one fact sheet
+ *
+ * @return int|NULL
+ *   A nid or NULL if there are no nodes.
+ */
+function ef_erm_dump_at_least_one_factsheet_nid() {
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'ef_factsheet')
+    ->propertyCondition('status', 1)
+    ->range(0, 1)
+    ->execute();
+  $nodes = node_load_multiple(array_keys($result['node']));
+  $result = array_keys($nodes);
+  return $result[0];
+}
+
+/**
+ * Utility function to increment HTTP requests in a session variable.
+ */
+function _ef_erm_dump_update_http_requests() {
+  $_SESSION['http_request_count']++;
+}
+
+/**
+ * Utility function to count the HTTP requests in a session variable.
+ *
+ * @return int
+ *   Number of requests.
+ */
+function _ef_erm_dump_get_http_requests() {
+  return !empty($_SESSION['http_request_count']) ? $_SESSION['http_request_count'] : 0;
+}
+ 

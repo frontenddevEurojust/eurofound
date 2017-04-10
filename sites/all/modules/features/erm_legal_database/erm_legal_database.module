@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ERM Legal database feature.
+ */
+
+include_once 'erm_legal_database.features.inc';

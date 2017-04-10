@@ -1,0 +1,4 @@
+name = EF Color Button Plugin for CKEditor
+description = EF Color Button Plugin for CKEditor
+core = 7.x
+package = EF modules

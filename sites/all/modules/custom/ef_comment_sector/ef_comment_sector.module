@@ -1,0 +1,7 @@
+<?php
+/**
+ * Implements hook_form_alter().
+ */
+function ef_comment_sector_node_view_alter (&$build) {
+  unset($build['links']['comment']['#links']['comment_forbidden']);
+}

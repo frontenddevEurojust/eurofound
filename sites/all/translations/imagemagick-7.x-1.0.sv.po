@@ -1,0 +1,28 @@
+# Swedish translation of ImageMagick (7.x-1.0)
+# Copyright (c) 2014 by the Swedish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ImageMagick (7.x-1.0)\n"
+"POT-Creation-Date: 2014-02-12 05:41+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Gray"
+msgstr "Grå"
+msgid "Path to the \"convert\" binary"
+msgstr "Sökväg till \"convert\"-binärerna."
+msgid "Display debugging information"
+msgstr "Visa felsökningsinformation."
+msgid "Convert colorspace"
+msgstr "Konvertera färgomfång"
+msgid "Change image resolution to 72 ppi"
+msgstr "Ändrar bildupplösning till 72 ppi"
+msgid "Version information"
+msgstr "Versionsinformation"
+msgid "Administer site configuration"
+msgstr "administrera konfiguration av webbplats"

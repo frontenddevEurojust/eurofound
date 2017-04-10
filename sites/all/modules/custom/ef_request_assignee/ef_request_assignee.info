@@ -1,0 +1,4 @@
+name = EF request assignee
+description = Functionality related to S.2 workflow request assignee and contract.
+package = EF modules
+core = 7.x

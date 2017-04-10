@@ -1,0 +1,22 @@
+# Finnish translation of Global Redirect (7.x-1.5)
+# Copyright (c) 2013 by the Finnish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Global Redirect (7.x-1.5)\n"
+"POT-Creation-Date: 2013-03-30 11:19+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Finnish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Reset to defaults"
+msgstr "Palauta oletukset"
+msgid "Disabled"
+msgstr "Ei käytössä"
+msgid "Save Configuration"
+msgstr "Tallenna asetukset"
+msgid "Site Information"
+msgstr "Sivuston tiedot"

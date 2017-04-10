@@ -1,0 +1,54 @@
+
+
+.level-of-wage-bargaining.centralised{
+    background-color: #286DA9;
+    color:#fff;
+}
+.level-of-wage-bargaining.decentralised{
+    background-color: #B75B2E;
+    color:#fff;
+}
+.level-of-wage-bargaining.intermediate{
+    background-color: #537E00;
+    color:#fff;
+}
+
+.highly-coordinated._centralised{
+    background-color: #286DA9;
+    color:#fff;
+}
+.highly-coordinated._decentralised{
+    background-color: #B75B2E;
+    color:#fff;
+}
+.highly-coordinated._intermediate{
+    background-color: #537E00;
+    color:#fff;
+}
+
+.medium-level-of-coordination._centralised{
+    background-color: #73A0C7;
+    color:#fff;
+}
+.medium-level-of-coordination._decentralised{
+    background-color: #D09477;
+    color:#fff;
+}
+.medium-level-of-coordination._intermediate{
+    background-color: #8FAB59;
+    color:#fff;
+}
+
+.low-level-of-coordination._centralised{
+    background-color: #A9C5DD;
+    color:#fff;
+}
+.low-level-of-coordination._decentralised{
+    background-color: #E2BDAB;
+    color:#fff;
+}
+.low-level-of-coordination._intermediate{
+    background-color: #BACB99;
+    color:#fff;
+}
+

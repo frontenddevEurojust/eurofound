@@ -1,0 +1,43 @@
+<?php
+
+/*
+ * CKEditor - The text editor for the Internet - http://ckeditor.com
+ * Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses of your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * @file
+ * CKEditor Module for Drupal 7.x
+ *
+ * This module allows Drupal to insert annotations with CKEditor
+ *
+ */
+
+/*
+ * Implementation of hook_install().
+ *
+ * This will automatically install the database tables for the CKEditor module for both MySQL and PostgreSQL databases.
+ *
+ * If you are using another database, you will have to install the tables manually, using the queries below as a reference.
+ *
+ * Note that the curly braces around table names are a Drupal-specific feature to allow for automatic database table prefixing,
+ * and will need to be removed.
+ */
+
+function ckannotation_install() {
+}
+

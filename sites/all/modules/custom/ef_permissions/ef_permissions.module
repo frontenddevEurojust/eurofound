@@ -1,0 +1,4 @@
+<?php
+
+/* --- Permissions for content type EVENT --- */
+include 'ef_permissions.event.inc';

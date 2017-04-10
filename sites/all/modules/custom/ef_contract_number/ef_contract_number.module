@@ -1,0 +1,47 @@
+<?php
+
+function ef_contract_number_form_alter(&$form, &$form_state, $form_id){
+	if($form['#action']=="/osu-contract-reporting"){
+        if($form_id == "views_exposed_form"){
+         $form['field_ef_contract_tid']['#autocomplete_path']='contract_number/autocomplete'; 
+         array_unshift($form['#submit'], 'manage_custom_filters');
+       }
+    }
+ }
+function ef_contract_number_menu(){
+	 $items = array();
+	 $items['contract_number/autocomplete'] = array(
+		  'title' => t('AutoComp Menu'),
+		  'page callback' => 'selectNumbers',
+		  'access arguments' => array('access content'),
+		  'type' => MENU_CALLBACK,
+	 );
+	 return $items;
+}
+
+function selectNumbers($string){
+$result = db_query("SELECT field_ef_contract_number_value FROM `ef-drupal`.field_data_field_ef_contract_number where field_ef_contract_number_value LIKE '%$string%' limit 10");
+  $matches = array();
+  foreach($result as $item) {
+   $matches[$item->field_ef_contract_number_value] = check_plain($item->field_ef_contract_number_value);
+  }
+  drupal_json_output($matches);
+  exit;
+}
+
+
+function manage_custom_filters($form, &$form_state) {
+	if($form_state['values']['field_ef_contract_tid']!=""){
+	   $value = $form_state['values']['field_ef_contract_tid'];
+	   $result2 = db_query("SELECT entity_id FROM `ef-drupal`.field_data_field_ef_contract_number where field_ef_contract_number_value ='$value'");
+  	   foreach ($result2 as $key ) {
+	  		$term = taxonomy_term_load($key->entity_id);
+  			$name = $term->name;
+  			$id = $key->entity_id;
+	   }
+	   $form_state['values']['field_ef_contract_tid'] = $id;
+	   $form_state['view']->display_handler->handlers['filter']['field_ef_contract_tid']->validated_exposed_input = $id;
+	   $form_state['input']['field_ef_contract_tid']=$id;
+
+	}
+}

@@ -1,0 +1,4 @@
+name = EF MyNewsDesk
+description = Integration for MyNewsDesk.com
+package = EF modules
+core = 7.x

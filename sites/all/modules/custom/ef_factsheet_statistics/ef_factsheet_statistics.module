@@ -1,0 +1,652 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function ef_factsheet_statistics_cron() {
+  _ef_factsheet_statistics_update_table();
+}
+
+/**
+ * Function called by hook_cron
+ * Updates the factsheet table with the current data
+ */
+function _ef_factsheet_statistics_update_table() {
+  //Truncate the table. Table must be empty to store the new data
+  db_truncate('factsheet_statistics')->execute();
+  //Retrieve new data
+  //SELECT
+  $select = db_select('node', 'n');
+  //LEFT JOIN (Tables can contain null values)
+  $select->leftJoin('field_data_field_ef_announcement_date', 'ad', 'ad.entity_id = n.nid');
+  $select->leftJoin('field_data_field_ef_job_reductions_min', 'jr', 'jr.entity_id = n.nid');
+  $select->leftJoin('field_data_field_ef_planned_job_creation', 'jc', 'jc.entity_id = n.nid');
+  $select->leftJoin('field_data_field_ef_type_of_restructuring', 'rt', 'rt.entity_id = n.nid');
+  $select->leftJoin('field_data_field_ef_nuts', 'nuts', 'nuts.entity_id = n.nid');
+  $select->leftJoin('field_data_field_ef_nace', 'nace', 'nace.entity_id = n.nid');
+  //INNER JOIN
+  $select->join('taxonomy_term_data', 'ttd', 'ttd.tid = rt.field_ef_type_of_restructuring_tid');
+  $select->join('taxonomy_country_by_nuts', 'cbn', 'cbn.level1 = nuts.field_ef_nuts_tid');
+  $select->join('taxonomy_sector_by_nace', 'sbn', 'sbn.level1 = nace.field_ef_nace_tid');
+  //FIELDS
+  $select->fields('n', array('nid'));
+  $select->fields('cbn', array('name'));
+  $select->fields('ttd', array('name'));
+  $select->fields('sbn', array('name'));
+  $select->fields('jr', array('field_ef_job_reductions_min_value'));
+  $select->fields('jc', array('field_ef_planned_job_creation_value'));
+  $select->fields('ad', array('field_ef_announcement_date_value'));
+  //CONDITIONS
+  $select->condition('nuts.field_ef_nuts_tid', array(9511,9521,0), 'NOT IN');
+  $select->condition('n.status', 1, '=');
+  $select->condition('n.type', 'ef_factsheet', '=');
+  //EXECUTE
+  $result = $select->execute();
+
+  //Save new data into the empty table
+  while($record = $result->fetchAssoc()) {
+    $record['ttd_name'] == "Business expansion" ?
+      $record['field_ef_job_reductions_min_value'] = 0 :
+      $record['field_ef_planned_job_creation_value'] = 0;
+
+    db_insert('factsheet_statistics')
+      ->fields(array(
+        'nid' => $record['nid'],
+        'country' => $record['name'],
+        'restructuring_type' => $record['ttd_name'],
+        'sector' => $record['sbn_name'],
+        'job_loss' => $record['field_ef_job_reductions_min_value'],
+        'job_gain' => $record['field_ef_planned_job_creation_value'],
+        'date' => $record['field_ef_announcement_date_value'],
+      ))
+      ->execute();
+  }
+
+}
+
+/**
+ * Performs all the possible queries depending on the filters' values
+ *
+ * @param array $fsfilters
+ *   An array containing the values of the filters
+ *
+ * @return array $tables
+ *   An array containing the values to populate the tables with the results
+ */
+function ef_factsheet_statistics_magic_queries($fsfilters) {
+  //Filter values
+  //'main' 'country' 'sector' 'restructuring' 'from' 'to'
+
+  //It's better if 'main' filter has a value
+  empty($fsfilters['main']) ? $fsfilters['main'] = 'country' : $fsfilters['main'] = $fsfilters['main'];
+  //Convert DATE filters to MySQL datetime format
+  if (!empty($fsfilters['from'])) {
+    $fsfilters['from'] = date('Y-m-d H:i:s', strtotime($fsfilters['from']));
+  }
+  if (!empty($fsfilters['to'])) {
+    $fsfilters['to'] = date('Y-m-d H:i:s', strtotime($fsfilters['to']));
+  }
+  //Convert TID filters to ef_factsheet_statistics table values
+  if (!empty($fsfilters['country']) && $fsfilters['country'] != 'All') {
+    $country = _ef_factsheet_statistics_get_country($fsfilters['country']);
+  }
+  if (!empty($fsfilters['sector']) && $fsfilters['sector'] != 'All') {
+    $sector = _ef_factsheet_statistics_get_sector($fsfilters['sector']);
+  }
+  if (!empty($fsfilters['restructuring']) && $fsfilters['restructuring'] != 'All') {
+    $restructuring = _ef_factsheet_statistics_get_restructuring_type($fsfilters['restructuring']);
+  }
+
+  //Queries for job reductions
+  switch ($fsfilters['main']) {
+    case 'country':
+      //Filters can be restructuring type, sector and dates
+      //Query for general data, median must have its own query
+      $query_job_loss = db_select('factsheet_statistics', 'fs');
+      $query_job_loss->addField('fs', 'country', 'grouping');
+      $query_job_loss->addExpression('COUNT(nid)', 'job_loss_cases');
+      $query_job_loss->addExpression('SUM(job_loss)', 'total_job_loss');
+      $query_job_loss->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($sector)) {
+        $query_job_loss->condition('fs.sector', $sector, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_loss->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_loss->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      $query_job_loss->groupBy('fs.country');
+
+      //Query to retrieve median by country and applied filters
+      $query_job_loss_median = db_select('factsheet_statistics', 'fs');
+      $query_job_loss_median->addField('fs', 'country', 'median');
+      $query_job_loss_median->addField('fs', 'job_loss');
+      $query_job_loss_median->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($sector)) {
+        $query_job_loss_median->condition('fs.sector', $sector, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_loss_median->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_loss_median->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      break;
+
+    case 'sector':
+      //Filters can be country, restructuring type and dates
+      $query_job_loss = db_select('factsheet_statistics', 'fs');
+      $query_job_loss->addField('fs', 'sector', 'grouping');
+      $query_job_loss->addExpression('COUNT(nid)', 'job_loss_cases');
+      $query_job_loss->addExpression('SUM(job_loss)', 'total_job_loss');
+      $query_job_loss->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_loss->condition('fs.country', $country, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_loss->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_loss->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      $query_job_loss->groupBy('fs.sector');
+
+      //Query to retrieve median by sector and applied filters
+      $query_job_loss_median = db_select('factsheet_statistics', 'fs');
+      $query_job_loss_median->addField('fs', 'sector', 'median');
+      $query_job_loss_median->addField('fs', 'job_loss');
+      $query_job_loss_median->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_loss_median->condition('fs.country', $country, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_loss_median->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_loss_median->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      break;
+
+    case 'restructuring_type':
+      //Filters can be country, sector and dates
+      $query_job_loss = db_select('factsheet_statistics', 'fs');
+      $query_job_loss->addField('fs', 'restructuring_type', 'grouping');
+      $query_job_loss->addExpression('COUNT(nid)', 'job_loss_cases');
+      $query_job_loss->addExpression('SUM(job_loss)', 'total_job_loss');
+      $query_job_loss->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_loss->condition('fs.country', $country, '=');
+      }
+      if (isset($sector)) {
+        $query_job_loss->condition('fs.sector', $sector, '=');
+      }
+      $query_job_loss->groupBy('fs.restructuring_type');
+
+      //Query to retrieve median by restructuring type and applied filters
+      $query_job_loss_median = db_select('factsheet_statistics', 'fs');
+      $query_job_loss_median->addField('fs', 'restructuring_type', 'median');
+      $query_job_loss_median->addField('fs', 'job_loss');
+      $query_job_loss_median->condition('fs.job_loss', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_loss_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_loss_median->condition('fs.country', $country, '=');
+      }
+      if (isset($sector)) {
+        $query_job_loss_median->condition('fs.sector', $sector, '=');
+      }
+      break;
+
+  }
+
+  //Queries for job gains
+  switch ($fsfilters['main']) {
+    case 'country':
+      //Filters can be restructuring type, sector and dates
+      //Query for general data, median must have its own query
+      $query_job_gain = db_select('factsheet_statistics', 'fs');
+      $query_job_gain->addField('fs', 'country', 'grouping');
+      $query_job_gain->addExpression('COUNT(nid)', 'job_gain_cases');
+      $query_job_gain->addExpression('SUM(job_gain)', 'total_job_gain');
+      $query_job_gain->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($sector)) {
+        $query_job_gain->condition('fs.sector', $sector, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_gain->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_gain->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      $query_job_gain->groupBy('fs.country');
+
+      //Query to retrieve median by country and applied filters
+      $query_job_gain_median = db_select('factsheet_statistics', 'fs');
+      $query_job_gain_median->addField('fs', 'country', 'median');
+      $query_job_gain_median->addField('fs', 'job_gain');
+      $query_job_gain_median->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($sector)) {
+        $query_job_gain_median->condition('fs.sector', $sector, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_gain_median->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_gain_median->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      break;
+
+    case 'sector':
+      //Filters can be country, restructuring type and dates
+      $query_job_gain = db_select('factsheet_statistics', 'fs');
+      $query_job_gain->addField('fs', 'sector', 'grouping');
+      $query_job_gain->addExpression('COUNT(nid)', 'job_gain_cases');
+      $query_job_gain->addExpression('SUM(job_gain)', 'total_job_gain');
+      $query_job_gain->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_gain->condition('fs.country', $country, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_gain->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_gain->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      $query_job_gain->groupBy('fs.sector');
+
+      //Query to retrieve median by country and applied filters
+      $query_job_gain_median = db_select('factsheet_statistics', 'fs');
+      $query_job_gain_median->addField('fs', 'sector', 'median');
+      $query_job_gain_median->addField('fs', 'job_gain');
+      $query_job_gain_median->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_gain_median->condition('fs.country', $country, '=');
+      }
+      if (isset($restructuring)) {
+        if (is_array($restructuring)) {
+          $query_job_gain_median->condition('fs.restructuring_type', $restructuring, 'IN');
+        }
+        else {
+          $query_job_gain_median->condition('fs.restructuring_type', $restructuring, '=');
+        }
+      }
+      break;
+
+    case 'restructuring_type':
+      //Filters can be country, sector and dates
+      $query_job_gain = db_select('factsheet_statistics', 'fs');
+      $query_job_gain->addField('fs', 'restructuring_type', 'grouping');
+      $query_job_gain->addExpression('COUNT(nid)', 'job_gain_cases');
+      $query_job_gain->addExpression('SUM(job_gain)', 'total_job_gain');
+      $query_job_gain->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_gain->condition('fs.country', $country, '=');
+      }
+      if (isset($sector)) {
+        $query_job_gain->condition('fs.sector', $sector, '=');
+      }
+      $query_job_gain->groupBy('fs.restructuring_type');
+
+      //Query to retrieve median by country and applied filters
+      $query_job_gain_median = db_select('factsheet_statistics', 'fs');
+      $query_job_gain_median->addField('fs', 'restructuring_type', 'median');
+      $query_job_gain_median->addField('fs', 'job_gain');
+      $query_job_gain_median->condition('fs.job_gain', 0, '>');
+      if (!empty($fsfilters['from'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['from'], '>');
+      }
+      if (!empty($fsfilters['to'])) {
+        $query_job_gain_median->condition('fs.date', $fsfilters['to'], '<');
+      }
+      if (isset($country)) {
+        $query_job_gain_median->condition('fs.country', $country, '=');
+      }
+      if (isset($sector)) {
+        $query_job_gain_median->condition('fs.sector', $sector, '=');
+      }
+      break;
+
+  }
+
+  //Save query results into arrays
+  $result = $query_job_loss->execute();
+  while($record = $result->fetchAssoc()) {
+    $tables['job_loss'][] = $record;
+  }
+
+  $result = $query_job_loss_median->execute();
+  while($record = $result->fetchAssoc()) {
+    $medianjl[$record['median']][] = $record['job_loss'];
+  }
+
+  $result = $query_job_gain->execute();
+  while($record = $result->fetchAssoc()) {
+    $tables['job_gain'][] = $record;
+  }
+
+  $result = $query_job_gain_median->execute();
+  while($record = $result->fetchAssoc()) {
+    $medianjg[$record['median']][] = $record['job_gain'];
+  }
+
+  $tables = _ef_factsheet_statistics_add_percentage($tables['job_loss'], $tables['job_gain']);
+  $tables = _ef_factsheet_statistics_add_median($tables, $medianjl, $medianjg);
+  $tables = _ef_factsheet_statistics_add_totals($tables);
+
+  return $tables;
+}
+
+/**
+ * Converts the Country TID to the human name
+ *
+ * @param int $country_tid
+ *  ID of the country
+ *
+ * @return string $country
+ *  Human name of the country
+ */
+function _ef_factsheet_statistics_get_country($country_tid) {
+  $select = db_select('taxonomy_country_by_nuts', 'cbn');
+  $select->fields('cbn', array('name'));
+  $select->condition('cbn.level1', $country_tid, '=');
+
+  $result = $select->execute();
+
+  while($record = $result->fetchAssoc()) {
+    $country = $record['name'];
+  }
+
+  return $country;
+}
+
+/**
+ * Converts the Sector TID to the human name
+ *
+ * @param int $sector_tid
+ *  ID of the sector
+ *
+ * @return string $country
+ *  Human name of the sector
+ */
+function _ef_factsheet_statistics_get_sector($sector_tid) {
+  $select = db_select('taxonomy_sector_by_nace', 'sbn');
+  $select->fields('sbn', array('name'));
+  $select->condition('sbn.level1', $sector_tid, '=');
+
+  $result = $select->execute();
+
+  while($record = $result->fetchAssoc()) {
+    $sector = $record['name'];
+  }
+
+  return $sector;
+}
+
+/**
+ * Converts the Restructuring Type TID to the human name
+ *
+ * @param int $restructuring_tid
+ *  ID of the restructuring type
+ *
+ * @return string $restructuring
+ *  Human name of the restructuring
+ */
+function _ef_factsheet_statistics_get_restructuring_type($restructuring_tid) {
+  //Merge items by restructuring type as requested
+  $restructuring_tid == 20383 ? $restructuring_tid = array(1106, 1107, 20383, 21302) : $restructuring_tid = $restructuring_tid;
+  $restructuring_tid == 1101 ? $restructuring_tid = array(1101, 1102) : $restructuring_tid = $restructuring_tid;
+
+  $select = db_select('taxonomy_term_data', 'ttd');
+  $select->fields('ttd', array('name'));
+  if (is_array($restructuring_tid)) {
+    $select->condition('ttd.tid', $restructuring_tid, 'IN');
+  }
+  else{
+    $select->condition('ttd.tid', $restructuring_tid, '=');
+  }
+
+  $result = $select->execute();
+
+  while($record = $result->fetchAssoc()) {
+    $restructuring[] = $record['name'];
+  }
+
+  return $restructuring;
+}
+
+/**
+ * Calculates the median for the job losses and job gains values stored
+ * in the table
+ *
+ * @param array $all_values
+ *  An array containing all the values for job gains or job losses
+ *
+ * @param array $datajobloss
+ *  Data to calculate the median for job loss
+ *
+ * @param array $datajobgain
+ *  Data to calculate the median for job gain
+ *
+ * @return array $table
+ *  Sum of both tables adding the median
+ */
+function _ef_factsheet_statistics_add_median($all_values, $datajobloss, $datajobgain) {
+
+  foreach ($datajobloss as $key => $value) {
+    //Sort the array
+    sort($value, SORT_NUMERIC);
+    //Count for all values in the array
+    $count = count($value);
+
+    //Find the middle value, or the lowest middle value
+    $mid_value = floor(($count - 1) / 2);
+
+    //If odd counting, we got the median yet
+    if ($count % 2) {
+      $median[$key] = $value[$mid_value];
+    }
+    //Even number, then we calculate avg of 2 medians
+    else {
+      $low = $value[$mid_value];
+      $high = $value[$mid_value + 1];
+      $median[$key] = (($low + $high) / 2);
+    }
+  }
+
+  foreach ($all_values['job_loss'] as $item) {
+    $item['median'] = $median[$item['grouping']];
+    $table['job_loss'][] = $item;
+  }
+
+  foreach ($datajobgain as $key => $value) {
+    //Sort the array
+    sort($value, SORT_NUMERIC);
+    //Count for all values in the array
+    $count = count($value);
+
+    //Find the middle value, or the lowest middle value
+    $mid_value = floor(($count - 1) / 2);
+
+    //If odd counting, we got the median yet
+    if ($count % 2) {
+      $median[$key] = $value[$mid_value];
+    }
+    //Even number, then we calculate avg of 2 medians
+    else {
+      $low = $value[$mid_value];
+      $high = $value[$mid_value + 1];
+      $median[$key] = (($low + $high) / 2);
+    }
+  }
+
+  foreach ($all_values['job_gain'] as $item) {
+    $item['median'] = $median[$item['grouping']];
+    $table['job_gain'][] = $item;
+  }
+
+  return $table;
+}
+
+/**
+ * Calculates the percentage for the job losses and job gains values stored
+ * in the table
+ *
+ * @param array $job_loss_values
+ *  An array containing all the values for job gains or job losses
+ *
+ * @param array $job_gain_values
+ *  An array containing all the values for job gains or job gains
+ *
+ * @return array $table
+ *  Sum of both tables with the percentage
+ */
+function _ef_factsheet_statistics_add_percentage($job_loss_values, $job_gain_values) {
+  //Sum all the values for job losses into one var
+  foreach ($job_loss_values as $key => $value) {
+    $totaljobloss = $totaljobloss + $value['total_job_loss'];
+  }
+
+  //Calculating percentage
+  foreach ($job_loss_values as $value) {
+    $percentage = $value['total_job_loss'] / $totaljobloss * 100;
+    $value['percentage'] = round($percentage, 2);
+    $table['job_loss'][] = $value;
+  }
+
+  //Sum all the values for job gains into one var
+  foreach ($job_gain_values as $key => $value) {
+    $totaljobgain = $totaljobgain + $value['total_job_gain'];
+  }
+
+  //Calculating percentage
+  foreach ($job_gain_values as $value) {
+    $percentage = $value['total_job_gain'] / $totaljobgain * 100;
+    $value['percentage'] = round($percentage, 2);
+    $table['job_gain'][] = $value;
+  }
+
+  return $table;
+}
+
+/**
+ * Adds the row shoing the total figures
+ *
+ * @param array $tables
+ *  An array containing all the values displayed in the tables
+ *
+ * @return int $tables
+ *  An array containing all the values displayed in the tables
+ */
+function _ef_factsheet_statistics_add_totals($tables) {
+  //Sum all the values for job losses into one var
+  foreach ($tables['job_loss'] as $key => $item) {
+    $totallosscases = $totallosscases + $item['job_loss_cases'];
+    $totaljobloss = $totaljobloss + $item['total_job_loss'];
+  }
+
+  $totals['grouping'] = '<b>TOTAL</b>';
+  $totals['job_loss_cases'] = '<b>' . $totallosscases . '</b>';
+  $totals['total_job_loss'] = '<b>' . $totaljobloss . '</b>';
+  $totals['percentage'] = '<b>' . '100.00'  . '</b>';
+
+  if (!empty($totallosscases)){
+    $tables['job_loss'][] = $totals;
+  }
+
+  $totals = array();
+
+  foreach ($tables['job_gain'] as $key => $item) {
+    $totalgaincases = $totalgaincases + $item['job_gain_cases'];
+    $totaljobgain = $totaljobgain + $item['total_job_gain'];
+  }
+
+  $totals['grouping'] = '<b>TOTAL</b>';
+  $totals['job_gain_cases'] = '<b>' . $totalgaincases . '</b>';
+  $totals['total_job_gain'] = '<b>' . $totaljobgain . '</b>';
+  $totals['percentage'] = '<b>' . '100.00'  . '</b>';
+
+  if (!empty($totalgaincases)) {
+    $tables['job_gain'][] = $totals;
+  }
+
+  return($tables);
+}

@@ -1,0 +1,28 @@
+EF Drupal Deployment Instructions
+
+1. Export all versioned items of sites/all in folder all
+2. Add folder to all.zip
+3. Connect with ssh to deployment machine
+3a. Clear caches
+  cd /var/www/ef/sites
+  drush cc all
+4. Backup deployment db and site
+	cd /var/www-backup
+	sudo sh backup.ef-drupal.sh
+5. Connect with sftp to deployment machine
+6. Move all.zip to /var/www/ef/sites
+7. unzip all.zip
+	cd /var/www/ef/sites
+	unzip all.zip A
+8. rm -rf all.zip
+9. change the folder permissions again after the ftp moving:
+	sudo chown -R eworx:www-data /web-pub/ef
+	
+	sudo chmod -R 755 /web-pub/ef 
+
+	sudo chmod 775 -R /web-pub/ef/sites/default/files
+	sudo chmod 775 -R /web-pub/ef/sites/default/files/private
+	sudo chmod 775 -R /web-pub/ef/sites/default/temp
+	sudo chmod 775 -R /web-pub/ef/sites/all/translations
+10. rm -rf /var/www-backup/ef
+11. run v0XX.txt commands

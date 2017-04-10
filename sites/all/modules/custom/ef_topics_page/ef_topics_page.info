@@ -1,0 +1,4 @@
+name = EF Topics page
+description = Contextual topics page
+package = EF modules
+core = 7.x

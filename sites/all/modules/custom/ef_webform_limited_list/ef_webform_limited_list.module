@@ -1,0 +1,44 @@
+<?php
+
+function ef_webform_limited_list_form_alter(&$form, $form_state, $form_id) {
+
+  // add a checkbox to the webform component edit form
+  if($form_id == 'webform_component_edit_form') {
+    $componentId = $form['cid']['#value'];
+    if($form['type']['#value'] == 'select') {
+	  if(isset($form['#node'])) {
+			$nodeObj = $form['#node'];
+		} else {
+			$nodeObj = node_load($form['nid']['#value']);
+	  }
+	$allComponentvalue=$nodeObj->webform['components'];
+	$componentvalue=$allComponentvalue[$componentId]['extra']['limited_supply'];
+      $limited_supply = FALSE;
+      $form['extra']['limited_supply'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Limited Supply'),
+        '#default_value' => $componentvalue,
+        '#description' => t('Check this option if an option/radio/checkbox should be removed from the list once it has been used in a submission'),
+      );
+    }
+  }
+
+  if(isset($form_state['webform'])) {
+	  $node = $form['#node'];
+	  if(!empty($node)) {
+		foreach($node->webform['components'] as $component) {
+		  if(isset($component['extra']['limited_supply']) && !empty($component['extra']['limited_supply'])) {
+			_webform_limited_list_remove_used_options($node->nid, $component['cid'], $component['form_key'], $form);
+		  }
+		}
+	  }
+  }
+}
+
+function _webform_limited_list_remove_used_options($nid, $cid, $cid_name, &$form) {
+  $resource = db_query('SELECT data FROM {webform_submitted_data} sd inner join {webform_submissions} s on s.sid=sd.sid WHERE sd.nid= :nid AND sd.cid= :cid  AND is_draft=0 ', array(':nid' => $nid, ':cid' => $cid));
+  foreach ($resource as $record) {
+	unset($form['submitted'][$cid_name]['#options'][$record->data]);
+  }
+}
+

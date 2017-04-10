@@ -1,0 +1,656 @@
+"name"	"key"	"theme"
+"Business change"	"UF: Industrial change
+UF: Organisational change"	"BUSINESS"
+"Business restructuring"	"UF: Company restructures
+UF: Company restructuring
+UF: Corporate restructuring
+UF: Restructuring"	"BUSINESS"
+"Bankruptcy"	"RT: Business closure 
+RT: Insolvency"	"BUSINESS"
+"Business closure"	"RT: Bankruptcy 
+RT: Insolvency"	"BUSINESS"
+"Business expansion"	"RT: Company growth"	"BUSINESS"
+"Insolvency"	"RT: Bankruptcy 
+RT: Business closure 
+RT: Business survival"	"BUSINESS"
+"Internal restructuring"		"BUSINESS"
+"Mergers and acquisitions"	"UF: Acquisitions
+UF: Company takeovers
+UF: M and A
+UF: Takeovers"	"BUSINESS"
+"Offshoring"	"UF: Delocalisation 
+RT: Outsourcing"	"BUSINESS"
+"Outsourcing"	"UF: Contracting out 
+RT: Offshoring"	"BUSINESS"
+"Relocation"		"BUSINESS"
+"Business transfers"	"UF: Business succession"	"BUSINESS"
+"Privatisation"		"BUSINESS"
+"Business creation"	"UF: Entreprise creation 
+RT: Business start ups 
+RT: Entrepreneurship"	"BUSINESS"
+"Business ethics"		"BUSINESS"
+"Business support"	"UF: Enterprise support
+UF: Start-up support"	"BUSINESS"
+"Business survival"	"RT: Insolvency"	"BUSINESS"
+"Company growth"	"RT: Business expansion 
+RT: Economic growth"	"BUSINESS"
+"Competitiveness"		"BUSINESS"
+"Corporate governance"		"BUSINESS"
+"Corporate social responsibility"	"UF: CSR 
+RT: Sustainable development"	"BUSINESS"
+"Enterprises"	"UF: Businesses
+UF: Companies
+UF: Firms"	"BUSINESS"
+"Business start ups"	"UF: New businesses 
+RT: Business creation 
+RT: Entrepreneurship"	"BUSINESS"
+"Cooperatives"		"BUSINESS"
+"European companies"		"BUSINESS"
+"European Private Companies"		"BUSINESS"
+"Multi-national companies"	"UF: MNCs
+UF: Transnational enterprises"	"BUSINESS"
+"Public-private partnerships"		"BUSINESS"
+"Small and medium-sized enterprises"	"UF: Small and medium entreprises
+UF: SMEs 
+RT: Entrepreneurship"	"BUSINESS"
+"Micro enterprises"		"BUSINESS"
+"One-person enterprises"		"BUSINESS"
+"Entrepreneurship"	"RT: Business creation 
+RT: Business start ups 
+RT: Small and medium-sized enterprises"	"BUSINESS"
+"Free movement of goods"		"BUSINESS"
+"Globalisation"		"BUSINESS"
+"Innovation"		"BUSINESS"
+"Internationalisation"		"BUSINESS"
+"Agreements"		"INDUSTRIAL RELATIONS"
+"Autonomous agreements"	"UF: Voluntary agreements"	"INDUSTRIAL RELATIONS"
+"Collective agreements"	"RT: Pay settlements"	"INDUSTRIAL RELATIONS"
+"Multi-sector agreements"		"INDUSTRIAL RELATIONS"
+"Arbitration"		"INDUSTRIAL RELATIONS"
+"Change management"	"UF: Management of change"	"INDUSTRIAL RELATIONS"
+"Collective bargaining"	"RT: Social dialogue"	"INDUSTRIAL RELATIONS"
+"Decentralisation"		"INDUSTRIAL RELATIONS"
+"Conciliation"		"INDUSTRIAL RELATIONS"
+"Dispute resolution"	"RT: Labour disputes"	"INDUSTRIAL RELATIONS"
+"Employee representation"	"UF: Workers' representation 
+RT: Trade unions"	"INDUSTRIAL RELATIONS"
+"Works councils"		"INDUSTRIAL RELATIONS"
+"European Works Councils"		"INDUSTRIAL RELATIONS"
+"Labour disputes"	"UF: Disputes
+UF: Industrial action
+UF: Industrial disputes
+UF: Trade disputes
+UF: Transnational industrial action 
+RT: Dispute resolution"	"INDUSTRIAL RELATIONS"
+"General strikes"		"INDUSTRIAL RELATIONS"
+"Lockouts"		"INDUSTRIAL RELATIONS"
+"Strikes"		"INDUSTRIAL RELATIONS"
+"Management prerogative"	"UF: Managerial prerogative"	"INDUSTRIAL RELATIONS"
+"Mediation"		"INDUSTRIAL RELATIONS"
+"Negotiation"		"INDUSTRIAL RELATIONS"
+"Participation"	"UF: Employee participation
+UF: Employment participation
+UF: Labour force participation
+UF: Participation at work
+UF: Worker participation"	"INDUSTRIAL RELATIONS"
+"Co-determination"		"INDUSTRIAL RELATIONS"
+"Direct participation"		"INDUSTRIAL RELATIONS"
+"Financial participation"		"INDUSTRIAL RELATIONS"
+"Profit sharing schemes"	"UF: Share ownership schemes"	"INDUSTRIAL RELATIONS"
+"Indirect participation"		"INDUSTRIAL RELATIONS"
+"Information and consultation"	"UF: Consultation in the enterprise"	"INDUSTRIAL RELATIONS"
+"Workplace partnerships"	"RT: Social partners"	"INDUSTRIAL RELATIONS"
+"Social dialogue"	"RT: Collective bargaining"	"INDUSTRIAL RELATIONS"
+"Cross-industry social dialogue"		"INDUSTRIAL RELATIONS"
+"European social dialogue"		"INDUSTRIAL RELATIONS"
+"Representativeness"		"INDUSTRIAL RELATIONS"
+"Sectoral social dialogue"		"INDUSTRIAL RELATIONS"
+"European sectoral social dialogue"		"INDUSTRIAL RELATIONS"
+"Social partners"	"UF: Management and labour 
+RT: Workplace partnerships"	"INDUSTRIAL RELATIONS"
+"Employers' organisations"	"UF: Employer associations
+UF: Employer federations"	"INDUSTRIAL RELATIONS"
+"European Social partners"		"INDUSTRIAL RELATIONS"
+"Trade unions"	"UF: European industry federations
+UF: Industry federations
+UF: Unions
+UF: Workers’ federations
+UF: Workers’ unions 
+RT: Employee representation"	"INDUSTRIAL RELATIONS"
+"Trade union confederations"		"INDUSTRIAL RELATIONS"
+"Trade union decline"		"INDUSTRIAL RELATIONS"
+"Trade union density"	"RT: Trade union membership"	"INDUSTRIAL RELATIONS"
+"Trade union membership"	"UF: Union membership 
+RT: Trade union density"	"INDUSTRIAL RELATIONS"
+"Solidarity"	"UF: Solidarity principle"	"INDUSTRIAL RELATIONS"
+"Voluntarism"		"INDUSTRIAL RELATIONS"
+"Economic climate"		"LABOUR MARKET"
+"Economic crisis"	"RT: Recession"	"LABOUR MARKET"
+"Economic growth"	"RT: Company growth"	"LABOUR MARKET"
+"Recession"	"RT: Economic crisis"	"LABOUR MARKET"
+"Economic development"		"LABOUR MARKET"
+"Sustainable development"	"RT: Corporate social responsibility 
+RT: Green jobs"	"LABOUR MARKET"
+"Employment policy"	"UF: Labour market policy"	"LABOUR MARKET"
+"Active labour market policy"	"UF: ALMP"	"LABOUR MARKET"
+"European Employment Strategy"		"LABOUR MARKET"
+"National Action Plans"	"RT: National Reform Programmes"	"LABOUR MARKET"
+"National Reform Programmes"	"RT: National Action Plans"	"LABOUR MARKET"
+"Passive labour market policy"		"LABOUR MARKET"
+"Employment status"	"RT: Transitions"	"LABOUR MARKET"
+"Casual employment"	"UF: Casual work"	"LABOUR MARKET"
+"Employees"	"UF: Personnel 
+UF: Staff"	"LABOUR MARKET"
+"Employers"		"LABOUR MARKET"
+"Fixed-term employment"		"LABOUR MARKET"
+"Full-time employment"	"UF: Full-time work"	"LABOUR MARKET"
+"Part-time employment"	"UF: Part-time work"	"LABOUR MARKET"
+"Precarious employment"	"RT: Job security"	"LABOUR MARKET"
+"Self-employment"		"LABOUR MARKET"
+"Temporary employment"	"UF: Agency work
+UF: Temporary work"	"LABOUR MARKET"
+"Unemployment"	"RT: Employment rate 
+RT: Job losses 
+RT: NEETs 
+RT: Unemployment benefits"	"LABOUR MARKET"
+"Long-term unemployed"		"LABOUR MARKET"
+"Youth unemployment"	"RT: NEETs 
+RT: Young people 
+RT: Youth employment"	"LABOUR MARKET"
+"Human capital"	"UF: Capital of human resources
+UF: Human resources 
+RT: Skills and competencies 
+RT: Training and skills development"	"LABOUR MARKET"
+"Ageing workforce"	"RT: Ageing population 
+RT: Older people 
+RT: Retirement 
+RT: Sustainable work"	"LABOUR MARKET"
+"NEETs"	"UF: Not in employment, education or training
+UF: Young people not in employment, education or training 
+RT: Unemployment 
+RT: Youth employment 
+RT: Youth unemployment"	"LABOUR MARKET"
+"Working poor"	"RT: Income inequality"	"LABOUR MARKET"
+"Working women"	"RT: Gender gap 
+RT: Women"	"LABOUR MARKET"
+"Youth employment"	"RT: NEETs 
+RT: Young people 
+RT: Youth unemployment"	"LABOUR MARKET"
+"Inclusive labour markets"	"RT: Integration"	"LABOUR MARKET"
+"Reintegration"	"RT: Integration"	"LABOUR MARKET"
+"Informal economy"	"UF: Grey economy
+UF: Hidden economy
+UF: Shadow economy 
+RT: Undeclared work"	"LABOUR MARKET"
+"Jobs"		"LABOUR MARKET"
+"Employment guidance services"	"UF: Job search support"	"LABOUR MARKET"
+"Employment rate"	"RT: Unemployment"	"LABOUR MARKET"
+"Green jobs"	"RT: Sustainable development"	"LABOUR MARKET"
+"Job creation"		"LABOUR MARKET"
+"Job losses"	"RT: Unemployment"	"LABOUR MARKET"
+"Job opportunities"	"UF: Job openings"	"LABOUR MARKET"
+"Job preservation"	"UF: Job retention"	"LABOUR MARKET"
+"Labour costs"		"LABOUR MARKET"
+"Labour market participation"		"LABOUR MARKET"
+"Labour market restructuring"		"LABOUR MARKET"
+"Labour mobility"	"UF: Job mobility
+UF: Occupational mobility
+UF: Worker mobility 
+RT: Free movement of citizens 
+RT: Migrant workers 
+RT: Social mobility"	"LABOUR MARKET"
+"Productivity"		"LABOUR MARKET"
+"Skill shortages"		"LABOUR MARKET"
+"Skills mismatch"		"LABOUR MARKET"
+"EU law"	"UF: European Union law 
+RT: EU labour law"	"LAW AND REGULATION"
+"Derogation"		"LAW AND REGULATION"
+"Directives"		"LAW AND REGULATION"
+"Infringement"		"LAW AND REGULATION"
+"Proportionality"	"UF: Principle of proportionality"	"LAW AND REGULATION"
+"Regulations"		"LAW AND REGULATION"
+"State liability"	"UF: State responsibility"	"LAW AND REGULATION"
+"Subsidiarity"		"LAW AND REGULATION"
+"Supremacy of EU law"		"LAW AND REGULATION"
+"Treaty provisions"		"LAW AND REGULATION"
+"Labour law"		"LAW AND REGULATION"
+"EU labour law"	"RT: EU law"	"LAW AND REGULATION"
+"International labour law"		"LAW AND REGULATION"
+"National labour law"		"LAW AND REGULATION"
+"Labour standards"	"RT: Social security"	"LAW AND REGULATION"
+"Compensation"		"LAW AND REGULATION"
+"Employment protection"		"LAW AND REGULATION"
+"Employment rights"	"UF: Labour rights
+UF: Workers' rights 
+RT: Gender equality"	"LAW AND REGULATION"
+"Law enforcement"		"LAW AND REGULATION"
+"European Court of Justice"		"LAW AND REGULATION"
+"Industrial tribunals"		"LAW AND REGULATION"
+"Living conditions"		"QUALITY OF LIFE"
+"Dependent-care responsibilities"	"UF: Carer responsibilities"	"QUALITY OF LIFE"
+"Deprivation"	"RT: Income inequality 
+RT: Low income households 
+RT: Poverty"	"QUALITY OF LIFE"
+"Employability"		"QUALITY OF LIFE"
+"Families"	"RT: Family benefits"	"QUALITY OF LIFE"
+"Family life"		"QUALITY OF LIFE"
+"Parenting"		"QUALITY OF LIFE"
+"Single parent families"	"UF: One-parent families
+UF: Single parent households"	"QUALITY OF LIFE"
+"Households"		"QUALITY OF LIFE"
+"Low income households"	"RT: Deprivation 
+RT: Poverty"	"QUALITY OF LIFE"
+"Housing"		"QUALITY OF LIFE"
+"Housing costs"	"UF: House prices"	"QUALITY OF LIFE"
+"Income"	"RT: Income inequality 
+RT: Pay"	"QUALITY OF LIFE"
+"Financial security"		"QUALITY OF LIFE"
+"Taxation"		"QUALITY OF LIFE"
+"Leisure"		"QUALITY OF LIFE"
+"Living standards"		"QUALITY OF LIFE"
+"Local environment"	"UF: Neighbourhood"	"QUALITY OF LIFE"
+"Time use"		"QUALITY OF LIFE"
+"Work-life balance"	"UF: Work–life options"	"QUALITY OF LIFE"
+"Quality of society"		"QUALITY OF LIFE"
+"Political participation"		"QUALITY OF LIFE"
+"Social participation"	"RT: Volunteering"	"QUALITY OF LIFE"
+"Trust"		"QUALITY OF LIFE"
+"Volunteering"	"RT: Social participation 
+RT: Unpaid work"	"QUALITY OF LIFE"
+"Subjective well-being"		"QUALITY OF LIFE"
+"Happiness"		"QUALITY OF LIFE"
+"Life satisfaction"		"QUALITY OF LIFE"
+"Sense of belonging"		"QUALITY OF LIFE"
+"Subjective health"	"RT: Health"	"QUALITY OF LIFE"
+"Care"	"RT: Healthcare 
+RT: Social services"	"SOCIAL POLICIES"
+"Care for the disabled"	"RT: Disability"	"SOCIAL POLICIES"
+"Care for the elderly"		"SOCIAL POLICIES"
+"Carers"		"SOCIAL POLICIES"
+"Childcare"	"UF: Care for children
+UF: Child care"	"SOCIAL POLICIES"
+"Home care"	"UF: Care in the home
+UF: Caring for ill, disabled or elderly in the home"	"SOCIAL POLICIES"
+"Long-term care"		"SOCIAL POLICIES"
+"Education"	"RT: Training and skills development"	"SOCIAL POLICIES"
+"Lifelong learning"	"UF: Adult education
+UF: Continuing education 
+RT: Career development 
+RT: Training and skills development"	"SOCIAL POLICIES"
+"Pre-school education"	"UF: Early-years education
+UF: Early childhood education
+UF: Pre-primary education 
+RT: Early childhood"	"SOCIAL POLICIES"
+"Equality"	"UF: Equal opportunities"	"SOCIAL POLICIES"
+"Discrimination"	"UF: Segregation 
+RT: Gender equality 
+RT: Racism"	"SOCIAL POLICIES"
+"Direct discrimination"	"RT: Indirect discrimination"	"SOCIAL POLICIES"
+"Indirect discrimination"	"RT: Direct discrimination"	"SOCIAL POLICIES"
+"Diversity"		"SOCIAL POLICIES"
+"Age"		"SOCIAL POLICIES"
+"Disability"	"UF: Disabled people
+UF: People with disabilities 
+RT: Care for the disabled"	"SOCIAL POLICIES"
+"Ethnic minorities"		"SOCIAL POLICIES"
+"Roma, travellers and gypsies"	"UF: Gypsies
+UF: Irish travellers
+UF: Travellers 
+RT: Racism 
+RT: Social exclusion"	"SOCIAL POLICIES"
+"Gender"	"RT: Gender equality 
+RT: Gender gap 
+RT: Gender mainstreaming 
+RT: Gender segregation 
+RT: Glass ceiling 
+RT: Men 
+RT: Women"	"SOCIAL POLICIES"
+"Nationality"		"SOCIAL POLICIES"
+"Race"		"SOCIAL POLICIES"
+" Racism"	"RT: Discrimination 
+RT: Roma, travellers and gypsies"	"SOCIAL POLICIES"
+"Religion and belief"		"SOCIAL POLICIES"
+"Sexual orientation"		"SOCIAL POLICIES"
+"Gender equality"	"UF: Equal treatment
+UF: Equality in the workplace
+UF: Sex discrimination
+UF: Sexual discrimination 
+RT: Discrimination 
+RT: Employment rights 
+RT: Gender"	"SOCIAL POLICIES"
+"Equal pay"	"RT: Gender gap"	"SOCIAL POLICIES"
+"Gender gap"	"UF: Gender pay gap 
+RT: Equal pay 
+RT: Gender 
+RT: Working women"	"SOCIAL POLICIES"
+"Gender mainstreaming"	"RT: Gender"	"SOCIAL POLICIES"
+"Gender segregation"	"RT: Gender"	"SOCIAL POLICIES"
+"Glass ceiling"	"RT: Gender"	"SOCIAL POLICIES"
+"Inequality"		"SOCIAL POLICIES"
+"Health inequality"		"SOCIAL POLICIES"
+"Income inequality"	"RT: Deprivation 
+RT: Income 
+RT: Working poor"	"SOCIAL POLICIES"
+"Social inequality"		"SOCIAL POLICIES"
+"EU social policy"		"SOCIAL POLICIES"
+"Child policy"	"RT: Children"	"SOCIAL POLICIES"
+"European social model"		"SOCIAL POLICIES"
+"International social policy"		"SOCIAL POLICIES"
+"National social policy"		"SOCIAL POLICIES"
+"Social cohesion"		"SOCIAL POLICIES"
+"Social innovation"		"SOCIAL POLICIES"
+"Social investment"		"SOCIAL POLICIES"
+"Welfare State"	"RT: Social welfare"	"SOCIAL POLICIES"
+"Youth policy"	"RT: Young people"	"SOCIAL POLICIES"
+"Health"	"UF: Physical, mental and social well-being 
+RT: Subjective health 
+RT: Workplace health promotion"	"SOCIAL POLICIES"
+"Health inequality"		"SOCIAL POLICIES"
+"Healthcare"	"UF: Health care
+UF: Health services 
+RT: Care 
+RT: Social services 
+RT: Social welfare"	"SOCIAL POLICIES"
+"Health monitoring"		"SOCIAL POLICIES"
+"Public health"		"SOCIAL POLICIES"
+"Illness"	"UF: Health problems
+UF: Sickness"	"SOCIAL POLICIES"
+"Chronic illnesses"		"SOCIAL POLICIES"
+"Mental illness"	"RT: Psychosocial work hazards"	"SOCIAL POLICIES"
+"Life course"		"SOCIAL POLICIES"
+"Adults"		"SOCIAL POLICIES"
+"Men"	"RT: Gender"	"SOCIAL POLICIES"
+"Women"	"RT: Gender 
+RT: Working women"	"SOCIAL POLICIES"
+"Ageing"		"SOCIAL POLICIES"
+"Children"	"RT: Child policy"	"SOCIAL POLICIES"
+"Early childhood"	"RT: Pre-school education"	"SOCIAL POLICIES"
+"Schoolchildren"	"RT: Early school-leavers"	"SOCIAL POLICIES"
+"Divorce"		"SOCIAL POLICIES"
+"Older people"	"UF: Elderly people
+UF: Senior citizens 
+RT: Ageing workforce 
+RT: Retirement"	"SOCIAL POLICIES"
+"Pregnancy and maternity"	"UF: Maternity 
+RT: Maternity leave"	"SOCIAL POLICIES"
+"Retirement"	"UF: Exit from work 
+RT: Ageing workforce 
+RT: Older people"	"SOCIAL POLICIES"
+"Early retirement"		"SOCIAL POLICIES"
+"Social mobility"	"RT: Labour mobility 
+RT: Migration 
+RT: Social change"	"SOCIAL POLICIES"
+"Transitions"	"RT: Employment status"	"SOCIAL POLICIES"
+"Working age"		"SOCIAL POLICIES"
+"Young people"	"UF: Youth 
+RT: Youth employment 
+RT: Youth policy 
+RT: Youth unemployment"	"SOCIAL POLICIES"
+"Early school-leavers"	"RT: Schoolchildren"	"SOCIAL POLICIES"
+"Migration"	"RT: Migrant workers 
+RT: Social mobility"	"SOCIAL POLICIES"
+"Free movement of citizens"	"RT: Labour mobility 
+RT: Migrant workers 
+RT: Third-country nationals"	"SOCIAL POLICIES"
+"Immigration"		"SOCIAL POLICIES"
+"Integration of migrants"	"RT: Migrant workers"	"SOCIAL POLICIES"
+"Social dumping"	"RT: Migrant workers"	"SOCIAL POLICIES"
+"Third-country nationals"	"RT: Free movement of citizens"	"SOCIAL POLICIES"
+"Social change"	"RT: Social mobility"	"SOCIAL POLICIES"
+"Demographic changes"		"SOCIAL POLICIES"
+"Ageing population"	"RT: Ageing workforce"	"SOCIAL POLICIES"
+"Social inclusion"		"SOCIAL POLICIES"
+"Active inclusion"		"SOCIAL POLICIES"
+"Financial exclusion"	"RT: Poverty 
+RT: Social exclusion"	"SOCIAL POLICIES"
+"Integration"	"RT: Inclusive labour markets 
+RT: Reintegration"	"SOCIAL POLICIES"
+"Integration of migrants"	"RT: Migrant workers"	"SOCIAL POLICIES"
+"Social exclusion"	"RT: Financial exclusion 
+RT: Roma, travellers and gypsies 
+RT: Social risks"	"SOCIAL POLICIES"
+"Social risks"	"UF: Social problems 
+RT: Social exclusion"	"SOCIAL POLICIES"
+"Alcohol abuse"		"SOCIAL POLICIES"
+"Crime"		"SOCIAL POLICIES"
+"Deprivation"	"RT: Income inequality 
+RT: Low income households 
+RT: Poverty"	"SOCIAL POLICIES"
+"Drug abuse"		"SOCIAL POLICIES"
+"Homelessness"		"SOCIAL POLICIES"
+"Poverty"	"RT: Deprivation 
+RT: Financial exclusion 
+RT: Low income households"	"SOCIAL POLICIES"
+"Child poverty"		"SOCIAL POLICIES"
+"Smoking"		"SOCIAL POLICIES"
+"Violence"	"RT: Violence and harassment at work"	"SOCIAL POLICIES"
+"Social security"	"UF: Benefits
+UF: Income support
+UF: Social assistance
+UF: Social protection 
+RT: Labour standards 
+RT: Social welfare"	"SOCIAL POLICIES"
+"Family benefits"	"UF: Child benefits 
+RT: Families"	"SOCIAL POLICIES"
+"Health insurance"		"SOCIAL POLICIES"
+"Incapacity benefits"		"SOCIAL POLICIES"
+"State pension schemes"	"UF: Pensions (state) 
+RT: Occupational pension schemes"	"SOCIAL POLICIES"
+"Unemployment benefits"	"RT: Unemployment"	"SOCIAL POLICIES"
+"Social welfare"	"RT: Healthcare 
+RT: Social security 
+RT: Welfare State"	"SOCIAL POLICIES"
+"Community development"		"SOCIAL POLICIES"
+"Social capital"		"SOCIAL POLICIES"
+"Social services"	"UF: Social public services 
+RT: Care 
+RT: Healthcare"	"SOCIAL POLICIES"
+"Employment rights"	"UF: Labour rights
+UF: Workers' rights 
+RT: Gender equality"	"WORKING CONDITIONS"
+"Gender equality"	"UF: Equal treatment
+UF: Equality in the workplace
+UF: Sex discrimination
+UF: Sexual discrimination 
+RT: Discrimination 
+RT: Employment rights 
+RT: Gender"	"WORKING CONDITIONS"
+"Equal pay"	"RT: Gender gap"	"WORKING CONDITIONS"
+"Gender gap"	"UF: Gender pay gap 
+RT: Equal pay 
+RT: Gender 
+RT: Working women"	"WORKING CONDITIONS"
+"Gender mainstreaming"	"RT: Gender"	"WORKING CONDITIONS"
+"Gender segregation"	"RT: Gender"	"WORKING CONDITIONS"
+"Glass ceiling"	"RT: Gender"	"WORKING CONDITIONS"
+"Health and Safety at work"	"UF: Accidents at work
+UF: Hazards at work
+UF: Occupational accidents and diseases
+UF: Occupational health
+UF: Occupational risk factors
+UF: Safety at work
+UF: Workplace health 
+RT: Risk assessment 
+RT: Risk exposure"	"WORKING CONDITIONS"
+"Physical work hazards"		"WORKING CONDITIONS"
+"Asbestos"		"WORKING CONDITIONS"
+"Back pain"		"WORKING CONDITIONS"
+"Dangerous substances"		"WORKING CONDITIONS"
+"Musculoskeletal disorders"		"WORKING CONDITIONS"
+"Psychosocial work hazards"	"RT: Mental illness"	"WORKING CONDITIONS"
+"Anxiety"		"WORKING CONDITIONS"
+"Burnout"		"WORKING CONDITIONS"
+"Depression"		"WORKING CONDITIONS"
+"Stress"		"WORKING CONDITIONS"
+"Workplace health promotion"	"RT: Health"	"WORKING CONDITIONS"
+"Quality of working life"		"WORKING CONDITIONS"
+"Access to employment"		"WORKING CONDITIONS"
+"Career development"	"RT: Lifelong learning 
+RT: Training and skills development"	"WORKING CONDITIONS"
+"Career security"	"RT: Job security"	"WORKING CONDITIONS"
+"Commuting"		"WORKING CONDITIONS"
+"Decent work"		"WORKING CONDITIONS"
+"Employee welfare"		"WORKING CONDITIONS"
+"Job satisfaction"		"WORKING CONDITIONS"
+"Job security"	"UF: Employment security 
+RT: Career security 
+RT: Flexicurity 
+RT: Precarious employment"	"WORKING CONDITIONS"
+"Promotion"		"WORKING CONDITIONS"
+"Skills and competencies"	"UF: Competencies
+UF: Skills
+UF: Workers' skills 
+RT: Human capital 
+RT: Training and skills development"	"WORKING CONDITIONS"
+"Sustainable work"	"UF: Work sustainability 
+RT: Ageing workforce 
+RT: Working environment"	"WORKING CONDITIONS"
+"Training and skills development"	"UF: Competence and skills development
+UF: Skills development
+UF: Vocational education and training
+UF: Vocational training 
+RT: Career development 
+RT: Education 
+RT: Human capital 
+RT: Lifelong learning 
+RT: Skills and competencies"	"WORKING CONDITIONS"
+"Informal training"	"UF: Non-formal training"	"WORKING CONDITIONS"
+"Violence and harassment at work"	"UF: Bullying
+UF: Harassment
+UF: Mobbing
+UF: Victimisation
+UF: Workplace violence 
+RT: Violence"	"WORKING CONDITIONS"
+"Sexual harassment"		"WORKING CONDITIONS"
+"Work-life balance"	"UF: Work–life options"	"WORKING CONDITIONS"
+"Work autonomy"		"WORKING CONDITIONS"
+"Terms and conditions of employment"	"UF: Terms of employment"	"WORKING CONDITIONS"
+"Codes of practice"		"WORKING CONDITIONS"
+"Codes of conduct"		"WORKING CONDITIONS"
+"Disciplinary procedures"		"WORKING CONDITIONS"
+"Contract of employment"	"UF: Employment relationship"	"WORKING CONDITIONS"
+"Employment incentives"	"UF: Financial incentives 
+RT: Bonuses 
+RT: Performance-related pay"	"WORKING CONDITIONS"
+"Leave"		"WORKING CONDITIONS"
+"Annual leave"	"UF: Holidays 
+UF: Vacations"	"WORKING CONDITIONS"
+"Maternity leave"	"RT: Pregnancy and maternity"	"WORKING CONDITIONS"
+"Parental leave"		"WORKING CONDITIONS"
+"Paternity leave"		"WORKING CONDITIONS"
+"Sick leave"		"WORKING CONDITIONS"
+"Occupational pension schemes"	"UF: Pensions (occupational) 
+RT: State pension schemes"	"WORKING CONDITIONS"
+"Pension reform"		"WORKING CONDITIONS"
+"Pay"	"UF: Earnings
+UF: Salary
+UF: Wages 
+RT: Income"	"WORKING CONDITIONS"
+"Equal pay"	"RT: Gender gap"	"WORKING CONDITIONS"
+"Lump-sum payments"	"RT: Redundancy payment"	"WORKING CONDITIONS"
+"Minimum wage"	"UF: Statutory minimum wage"	"WORKING CONDITIONS"
+"Pay increases"	"UF: Pay rises
+UF: Wage increases
+UF: Wage rises 
+RT: Pay moderation"	"WORKING CONDITIONS"
+"Pay indexation"	"UF: Index-linking
+UF: Indexation
+UF: Wage indexation"	"WORKING CONDITIONS"
+"Pay moderation"	"UF: Wage moderation 
+RT: Pay increases"	"WORKING CONDITIONS"
+"Pay settlements"	"UF: Pay agreements
+UF: Wage agreements
+UF: Wage settlements 
+RT: Collective agreements"	"WORKING CONDITIONS"
+"Redundancy payment"	"UF: Redundancy compensation
+UF: Severance pay 
+RT: Lump-sum payments"	"WORKING CONDITIONS"
+"Variable pay"	"UF: Incentive pay"	"WORKING CONDITIONS"
+" Bonuses"	"RT: Employment incentives 
+RT: Performance-related pay"	"WORKING CONDITIONS"
+" Performance-related pay"	"UF: Payment by results
+UF: Performance pay 
+RT: Bonuses 
+RT: Employment incentives 
+RT: Piecework pay"	"WORKING CONDITIONS"
+" Piecework pay"	"UF: Piece rate 
+RT: Performance-related pay"	"WORKING CONDITIONS"
+"Wage flexibility"	"UF: Pay flexibility"	"WORKING CONDITIONS"
+"Wage guarantees"		"WORKING CONDITIONS"
+"Wage policy"		"WORKING CONDITIONS"
+"Termination of employment"		"WORKING CONDITIONS"
+"Dismissal"		"WORKING CONDITIONS"
+" Collective dismissal"		"WORKING CONDITIONS"
+" Unfair dismissal"		"WORKING CONDITIONS"
+"Layoffs"		"WORKING CONDITIONS"
+"Notice period"		"WORKING CONDITIONS"
+"Redeployment"	"RT: Redundancy"	"WORKING CONDITIONS"
+"Redundancy"	"RT: Redeployment"	"WORKING CONDITIONS"
+" Collective redundancy"		"WORKING CONDITIONS"
+"Retirement"	"UF: Exit from work 
+RT: Ageing workforce 
+RT: Older people"	"WORKING CONDITIONS"
+" Early retirement"		"WORKING CONDITIONS"
+"Work"	"RT: LABOUR MARKET"	"WORKING CONDITIONS"
+"Work by type"		"WORKING CONDITIONS"
+"Apprenticeship"		"WORKING CONDITIONS"
+"Atypical work"		"WORKING CONDITIONS"
+"Child labour"		"WORKING CONDITIONS"
+"Economically dependent workers"		"WORKING CONDITIONS"
+"Frontier workers"		"WORKING CONDITIONS"
+"Homeworking"	"UF: Homeworkers"	"WORKING CONDITIONS"
+"Internship"	"UF: Work placements"	"WORKING CONDITIONS"
+"Low-qualified workers"		"WORKING CONDITIONS"
+"Low wage workers"	"UF: Low income workers"	"WORKING CONDITIONS"
+"Manual work"	"UF: Blue-collar workers"	"WORKING CONDITIONS"
+"Migrant workers"	"RT: Free movement of citizens 
+RT: Integration of migrants 
+RT: Labour mobility 
+RT: Migration 
+RT: Social dumping"	"WORKING CONDITIONS"
+"Posted workers"		"WORKING CONDITIONS"
+"Professional work"		"WORKING CONDITIONS"
+"Seasonal work"		"WORKING CONDITIONS"
+"Short-time work"		"WORKING CONDITIONS"
+"Skilled work"	"RT: Unskilled work"	"WORKING CONDITIONS"
+"Teleworking"	"UF: Telework"	"WORKING CONDITIONS"
+"Trainees"	"UF: Traineeships"	"WORKING CONDITIONS"
+"Undeclared work"	"RT: Informal economy"	"WORKING CONDITIONS"
+"Unpaid work"	"RT: Volunteering"	"WORKING CONDITIONS"
+"Unskilled work"	"UF: Low skilled work 
+RT: Skilled work"	"WORKING CONDITIONS"
+"Work organisation"		"WORKING CONDITIONS"
+"Deadlines"		"WORKING CONDITIONS"
+"Flexible working practices"	"UF: Flexible forms of work
+UF: Work flexibility 
+RT: Flexible working hours 
+RT: Flexicurity"	"WORKING CONDITIONS"
+"Flexicurity"	"RT: Flexible working practices 
+RT: Job security"	"WORKING CONDITIONS"
+"Job characteristics"		"WORKING CONDITIONS"
+"Work intensity"		"WORKING CONDITIONS"
+"Workplace innovation"		"WORKING CONDITIONS"
+"Working environment"	"RT: Sustainable work"	"WORKING CONDITIONS"
+"Ergonomics"		"WORKING CONDITIONS"
+"Job design"		"WORKING CONDITIONS"
+"Risk assessment"	"RT: Health and Safety at work"	"WORKING CONDITIONS"
+"Risk exposure"	"RT: Health and Safety at work"	"WORKING CONDITIONS"
+"Working time"	"UF: Hours of work
+UF: Working hours"	"WORKING CONDITIONS"
+"Flexible working hours"	"UF: Flexi-time
+UF: Hours banking
+UF: Time banking 
+RT: Flexible working practices 
+RT: Time-off in lieu"	"WORKING CONDITIONS"
+"Hours reduction"		"WORKING CONDITIONS"
+"Night work"		"WORKING CONDITIONS"
+"On-call working"		"WORKING CONDITIONS"
+"Overtime"		"WORKING CONDITIONS"
+"Rest periods"		"WORKING CONDITIONS"
+"Shift work"		"WORKING CONDITIONS"
+"Sunday working"	"RT: Weekend work"	"WORKING CONDITIONS"
+"Time off"		"WORKING CONDITIONS"
+"Absenteeism"	"UF: Absence from work"	"WORKING CONDITIONS"
+"Presenteeism"		"WORKING CONDITIONS"
+"Time-off in lieu"	"RT: Flexible working hours"	"WORKING CONDITIONS"
+"Weekend work"	"RT: Sunday working"	"WORKING CONDITIONS"

@@ -1,0 +1,4 @@
+name = EF Authors Quarterly Report View
+description = Authors Quarterly Report View Preselected Exposed Country Field
+core = 7.x
+package = EF modules

@@ -1,0 +1,35 @@
+div.hidden{
+	display: none;
+}
+div#edit-container > div{
+    display: inline-block;
+    vertical-align: middle;
+}
+div#edit-to-select{
+	width: 40%;
+}
+div#edit-buttons{
+	width: 20%;
+	padding-left: 100px;
+}
+div#edit-selected{
+	width: 30%;
+}
+#edit-terms-list-to-merge--2, #edit-terms-selected-to-merge--3{
+	width: 100%;
+}
+div#edit-merge-into{
+	width: 50%;
+}
+div#edit-to-select label{
+	margin-bottom: 10px;
+}
+div#edit-selected label{
+	margin-bottom: 10px;
+}
+div#edit-merge-into label{
+	margin-bottom: 10px;	
+}
+select#edit-vocabularies{
+	margin-top: 10px;
+}

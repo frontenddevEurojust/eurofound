@@ -1,0 +1,74 @@
+drush sql-query "insert into schema_migrations(code,extra)values('015', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+::update all modules except core
+::can be commented out in fresh db installations
+sudo drush up -y --no-core
+
+
+
+:: MODULES ::
+
+drush dl -y field_collection_fieldset
+drush en -y field_collection_fieldset
+drush cc all
+
+:: Only in efstaging to merge existing deliverable kinds as laready there is content with selected terms
+::drush dl -y term_merge
+::drush en -y term_merge
+::drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+::Terms Deletion
+:: Navigate to import/ef_vocabulary_deliverable_kinds_import  and delete the last imported deliverable kinds terms  import/ef_vocabulary_deliverable_kinds_import/delete-items
+
+::Terms Import
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Deliverable Kinds | import/ef_vocabulary_deliverable_kinds_import | sites\all\_docs\feeds\vocabulary_deliverable_kinds.csv ||
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: apply patch v015-field-collection_fieldset.module.txt
+
+:: Navigate to admin/config/media/file-settings and
+	:: Enable 'Skip scheme selection'
+
+:: Media Browser View Fix:
+	:: Naviagate to admin/structure/views/nojs/display/media_default/media_browser_1/access_options and set Permission to File Entity->Administer files click Apply and then Save the view
+	
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

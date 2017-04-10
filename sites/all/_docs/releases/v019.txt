@@ -1,0 +1,62 @@
+drush sql-query "insert into schema_migrations(code,extra)values('019', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+drush dl -y colectomy
+drush en -y colectomy
+
+drush dl -y flexslider
+drush en -y flexslider
+wget https://github.com/woothemes/FlexSlider/archive/master.zip
+:: unzip FlexSlider*.zip -d sites/all/libraries
+:: rm FlexSlider*.zip.zip
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+:: Go to admin/config/user-interface/chosen
+:: apply chosen to:
+:: .view-filters select, .views-exposed-form select
+
+
+
+:: MENU LINKS :: (re-import )
+:: Recreate manually the views found in the folloewing menu:
+:: (possible importing may cause deletion of basic pages with content - except that no delete option is selected in menu import but needs investigation)
+::
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+
+
+
+:: Disable and delete deprecated views
+drush views-disable ef-reports
+drush views-disable comparative_analytical_reports
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

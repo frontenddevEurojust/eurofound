@@ -1,0 +1,30 @@
+:: import latest version of easa old db locally and use MySqlFront to run some queries and export results as csv
+
+select r.name,r.english_name,r.description,article,comments,url,source,c.name,p.title as phase,f.title as funding,
+(GROUP_CONCAT(DISTINCT CONCAT_WS('#',LCASE(rnv.title),rnvs.comment) SEPARATOR '*')) as involvements,
+(GROUP_CONCAT(DISTINCT CONCAT_WS('#',LCASE(rth.title),rths.value) SEPARATOR '*')) as thresholds,LCASE(t.title) as type
+from regulations r
+     inner join countries c on  r.country=c.id      
+     left join phases p on  r.phase=p.id      
+     left join types t on  r.type=t.id      
+     left join fundings f on  r.funding=f.id      
+	 left join regulations_involvements rnvs on rnvs.regulation_id=r.id 
+	 left join involvements rnv on rnv.id=rnvs.involvement_id 
+	 left join regulations_thresholds rths on rths.regulation_id=r.id 
+	 left join thresholds rth on rth.id=rths.threshold_id
+where 
+	r.isRevision=0 and status=1
+group by r.id
+
+
+:: select all results (ctrl+A)
+:: right click, export as text file
+:: change file name to 'regulations.csv'
+:: options
+  :: Write Headline, checked
+  :: Delimiter, character '~'
+  :: Quote Strings checked
+:: leave field names as is and 'Finish'
+:: move generated file to 'sites\all\_docs\scripts\migration\files' (or save it there in the first place)
+
+:: run sites/all/_docs/scripts/migration/regulations.php

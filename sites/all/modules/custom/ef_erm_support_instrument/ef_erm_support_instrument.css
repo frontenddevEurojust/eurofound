@@ -1,0 +1,85 @@
+
+/* --- TYPE --- */
+#edit-field-type-erm-si-und > div > input{
+	display: none;
+}
+#edit-field-type-erm-si-und .erm-si-phase-item{
+	background-color: #e4e4e4;
+    border: 1px solid #2f2f2f;
+    font-size: 1.3em;
+    margin: 0;
+    padding: 5px 0 5px 25px;
+}
+#edit-field-type-erm-si-und .erm-si-phase-management label.disabled-type{
+	color: #666;
+}
+#edit-field-type-erm-si-und .erm-si-phase-management label.disabled-type:hover{
+	cursor: default;
+}
+#edit-field-type-erm-si-und .erm-si-phase{
+	font-size: 0.9em;
+	border-left: 1px solid #2f2f2f;
+	border-right: 1px solid #2f2f2f;
+	border-bottom: 1px solid #2f2f2f;
+}
+#edit-field-type-erm-si-und .erm-si-phase .erm-si-type-col{
+    display: inline-block;
+    padding: 4px;
+    vertical-align: top;
+    min-width: 24%;
+}
+
+/* --- FUNDING --- */
+.european-funds-options-wrap {
+    padding-left: 30px;
+}
+
+/* --- Involved actors --- */
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label{
+    display: inline-block;
+    width: 25%;
+    text-align: left;
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label:before{
+    margin-right: 5px;
+    font-family: 'fontawesome';
+    color: #005BAA;
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label.inv-act-open:before{
+    content:  "\f137";
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label.inv-act-closed:before{
+    content:  "\f138";
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item .form-textarea-wrapper{
+    display: inline-block;
+    vertical-align: top;
+    width: 74%;
+}
+
+/* --- Internal comments --- */
+#erm-support-instrument-node-form .erm-notes label{
+    cursor: pointer;
+    color: #0074c9;
+}
+#erm-support-instrument-node-form .erm-notes label:before{
+    margin-right: 0.5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #0074c9;
+}
+#erm-support-instrument-node-form .erm-notes label.closed:before{
+    content: "+";
+}
+#erm-support-instrument-node-form .erm-notes label.opened:before{
+    content: "-";
+}
+#erm-support-instrument-node-form .erm-notes textarea,
+#erm-support-instrument-node-form .erm-notes-memo textarea{
+    background-color: #f2f2f2;
+    border: 1px solid #0074c9;
+    color: #0074c9;
+    font-style: italic;
+    padding: 10px;
+}
+

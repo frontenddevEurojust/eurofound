@@ -1,0 +1,22 @@
+# Irish translation of Geolocation Field (7.x-1.4)
+# Copyright (c) 2013 by the Irish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Geolocation Field (7.x-1.4)\n"
+"POT-Creation-Date: 2013-07-30 10:24+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Irish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=((n==1)?(0):((n==2)?(1):((n<7)?(2):((n<11)?(3):4))));\n"
+
+msgid "Remove"
+msgstr "Bain"
+msgid "Yes"
+msgstr "Tá"
+msgid "No"
+msgstr "Níl"
+msgid "!name field is required."
+msgstr "Réimse '!name' riachtanach"

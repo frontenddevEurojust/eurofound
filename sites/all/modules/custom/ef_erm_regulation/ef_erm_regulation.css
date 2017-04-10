@@ -1,0 +1,75 @@
+
+#edit-field-country-erm-reg{
+	display: inline-block;
+	margin-left: 2%;
+}
+#edit-field-type-phase-erm-reg{
+    display: inline-block;
+    margin-left: 10%;
+    max-width: 30%;
+}
+
+#edit-field-erm-fundings-erm-reg {
+    border: 1px solid #c4c4c4;
+    padding: 10px;
+}
+
+#edit-field-erm-fundings-erm-reg-und > .fundings-col{
+	width: 30%;
+	padding-left: 2%;
+	display: inline-block;
+}
+
+#node_ef_erm_regulation_form_group_thresholds_erm_reg .fieldset-wrapper > div{
+	display: inline-block;
+}
+#node_ef_erm_regulation_form_group_thresholds_erm_reg .fieldset-wrapper > div:last-child{
+	display: inline;
+}
+
+#edit-field-company-size-erm-reg{
+	width: 35%;
+	margin: 0 5%;
+}
+
+
+/* --- hierarchical select --- */
+#edit-field-type-phase-erm-reg-und .phase-erm-reg{
+	background-color: #DFDFD7;
+	color: #343434;
+	text-align: right;
+	font-weight: bold;
+	padding-right: 8px;
+}
+
+/* --- Internal comments --- */
+#ef-erm-regulation-node-form .com-erm-reg label{
+	cursor: pointer;
+	color: #0074c9;
+}
+#ef-erm-regulation-node-form .com-erm-reg label:before{
+	margin-right: 0.5em;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #0074c9;
+}
+#ef-erm-regulation-node-form .com-erm-reg label.closed:before{
+	content: "+";
+}
+#ef-erm-regulation-node-form .com-erm-reg label.opened:before{
+	content: "-";
+}
+#ef-erm-regulation-node-form .com-erm-reg textarea,
+#ef-erm-regulation-node-form .notes-erm-reg textarea{
+	background-color: #f2f2f2;
+    border: 1px solid #0074c9;
+    color: #0074c9;
+    font-style: italic;
+    padding: 10px;
+}
+#ef-erm-regulation-node-form .erm-notes-memo  textarea{
+  opacity: 0.5;
+  cursor: not-allowed;
+  border: 1px solid #ccc;
+  background: #f2f2f2 url(text-no-edit.svg) no-repeat center;
+ }

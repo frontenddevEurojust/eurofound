@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Hook_schema.
+ */
+ 
+ function ef_search_schema() {
+	$schema['ef_search_terms'] = array(
+		'description' => t('Table to store terms search'),
+		'fields' => array(
+			'term_id' => array(
+				'description' => 'The term id',
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+				),
+			'term' => array(
+				'description' => 'The term',
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				),
+			'node' => array(
+				'description' => 'The nodes',
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => '',
+				),
+		),
+		'primary key' => array('term_id'),
+		);
+		// Se devuelve el esquema definido.
+	return $schema;
+}

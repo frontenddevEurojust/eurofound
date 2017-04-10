@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CWB migrated content B feature.
+ */
+
+include_once 'cwb_migrated_content_b.features.inc';

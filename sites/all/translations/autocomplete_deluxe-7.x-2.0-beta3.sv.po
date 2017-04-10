@@ -1,0 +1,22 @@
+# Swedish translation of Autocomplete Deluxe (7.x-2.0-beta3)
+# Copyright (c) 2014 by the Swedish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Autocomplete Deluxe (7.x-2.0-beta3)\n"
+"POT-Creation-Date: 2014-04-28 15:31+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "User interface"
+msgstr "Användargränssnitt"
+msgid "None"
+msgstr "Ingen"
+msgid "Size of textfield"
+msgstr "Storlek på textfält"
+msgid "The term '@term' will be added."
+msgstr "Termen \"@term\" kommer läggas till."

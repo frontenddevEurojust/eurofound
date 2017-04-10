@@ -1,0 +1,24 @@
+<?php
+
+/*
+ ** Searches the database for all references to the node that will be deleted in the table 'field_data_field_ef_related_content'
+ ** If the node is the target in those references, the references are deleted from the parent node and the array list of the parent
+ ** is re-indexed for the remaining references.
+*/
+function ef_invalid_reference_entity_delete($entity, $type){
+	if ($type === 'node') {		
+		$result = db_query("SELECT entity_id FROM field_data_field_ef_related_content WHERE field_ef_related_content_target_id = :entityid",array(':entityid'=>$entity->nid));
+		foreach ($result as $record) {
+			$myValue = $record->entity_id;
+			$tempNode = node_load($myValue);
+			foreach($tempNode->field_ef_related_content[LANGUAGE_NONE] as $key => $value) {
+				if($value['target_id']==$entity->nid){
+				$index = $key;
+				}
+			}
+			unset($tempNode->field_ef_related_content[LANGUAGE_NONE][$index]);
+			$tempNode->field_ef_related_content[LANGUAGE_NONE] = array_values($tempNode->field_ef_related_content[LANGUAGE_NONE]);
+			node_save($tempNode);
+		}
+	}
+}

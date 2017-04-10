@@ -1,0 +1,4 @@
+name = EF Taxonomy Field Optgroup
+description = Displays taxonomies' (children) custom field (parent) as an opt group element in child taxonomy select boxes. Eg. theme->topic. Compatible with the chosen module.
+core = 7.x
+package = EF modules

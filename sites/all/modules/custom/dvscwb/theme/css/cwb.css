@@ -1,0 +1,580 @@
+.ef-main section.block-views{
+    box-shadow: 0 0 0px #8b8b8b;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.abstract {
+    font-size: 0.9em;
+    font-style: italic;
+}
+.view-content svg{
+  overflow: visible !important;
+}
+
+.views-field-edit-node{
+    margin: 5px;
+    margin-left: 0px;
+}
+
+.moreLink,
+.dataSource{
+    font-size: 0.9em;
+    border: 1px solid #005baa;
+    display: inline-block;    
+    padding: 10px;
+    text-decoration: none; 
+    margin:10px;
+ } 
+
+
+
+div.horizontal-tabs {
+    border: 1px solid #CCCCCC;
+    margin: 20px 0 -1px 0;
+    padding: 0;
+    position: relative;
+	border:0px;	
+    overflow: hidden;
+}
+.horizontal-tabs ul.horizontal-tabs-list {
+    border: 0 ;
+    float: left;
+    height: auto;
+    list-style: none outside none;
+    margin: 0 0 -1px 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    background: none;
+}
+.horizontal-tabs fieldset.horizontal-tabs-pane {
+    border: 0 none;
+    padding: 0 0;
+    clear: both;
+}
+.horizontal-tabs-pane > legend {
+    display: none;
+}
+.horizontal-tabs ul.horizontal-tabs-list li {
+    background: none !important;
+    float: left;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    padding: 0 0 0 0;
+}
+.horizontal-tabs ul.horizontal-tabs-list li.selected {
+    background-color: #f5f5f5 !important;
+    padding: 0 0 0 0;
+    /*border-color: #A5CFBD;*/
+}
+
+
+
+.horizontal-tabs ul.horizontal-tabs-list li a,
+.horizontal-tabs ul.horizontal-tabs-list li.selected a {
+    display: block;
+    text-decoration: none;
+    padding: 0.8em 3.5em !important;
+    position: relative;
+    top: 0;
+}
+
+.contextTab a,
+.outcomesTab a,
+.timeSeriesTab a,
+.timeLineTab a,
+.countryInfoTab a{
+	padding: 1em 1.2em 1em 3.6em !important;
+	background-image: url('../img/tabs-icons.png');
+    background-repeat: no-repeat;
+}
+.horizontal-tabs ul.horizontal-tabs-list li a:hover{
+	background-color: transparent;
+}
+.contextTab a{
+	background-position: 10px 9px;
+}
+.contextTab.selected a{
+	background-position: 10px -42px;
+}
+.outcomesTab a{
+	background-position: 10px -97px;
+}
+.outcomesTab.selected a{
+	background-position: 10px -147px;
+}
+.timeSeriesTab a{
+	background-position: 10px -194px;
+}
+.timeSeriesTab.selected a{
+	background-position: 10px -240px;
+}
+.timeLineTab a{
+	background-position: 10px -293px;
+}
+.timeLineTab.selected a{
+	background-position: 10px -345px;
+}
+.countryInfoTab a{
+	background-position: 10px -404px;
+}
+.countryInfoTab.selected a{
+	background-position: 10px -458px;
+}
+
+
+.horizontal-tabs ul.horizontal-tabs-list li.selected strong{
+	font-weight: 700;
+	text-shadow: 1px 1px 0px #fff;
+}
+
+
+
+
+
+
+
+
+
+
+.horizontal-tabs ul.horizontal-tabs-list strong {
+    color: none;
+    font-weight: 300;
+}
+.horizontal-tabs ul.horizontal-tabs-list .summary {
+    display: block;
+}
+.horizontal-tabs ul.horizontal-tabs ul.horizontal-tabs-list .summary {
+    line-height: normal;
+    margin-bottom: 0;
+}
+
+div.field-group-htabs-wrapper .field-group-format-wrapper {
+    clear: both;
+    padding: 0 0 0.6em;
+}
+.horizontal-tabs .horizontal-tab-hidden {
+    display: block;
+    position: absolute;
+    top: -100000px;
+}
+
+
+/**********************************************************/
+/** tabs overrides */
+
+
+.horizontal-tabs fieldset{
+	background-color:#fff;
+}
+
+.horizontal-tabs h1{
+	font-size:0.95em!important
+}
+
+.horizontal-tabs table tr{
+	vertical-align:text-top;
+}
+
+.horizontal-tabs table{
+	vertical-align:text-top;
+	border: 0px;
+}
+.horizontal-tabs table tr td:first-child p{
+	font-style:italic !important;
+}
+.horizontal-tabs table tr td:nth-child(2) strong{	
+	font-weight:normal !important;
+	font-size:0.83em !important;
+}
+.horizontal-tabs table tr td:nth-child(2) p{	
+	font-weight:normal !important;
+	font-size:0.78em !important;
+}
+
+.horizontal-tab-button{
+    font-size: 0.8em;
+    margin-bottom: 0px !important;    
+}
+
+
+.exportOptions{
+	padding: 0px 0 0 0px;
+	margin: 0px 0 5px 0;
+ 
+	overflow: hidden;
+	float: left;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	min-height: 40px;
+}
+
+.exportOptions a{
+	display: inline-block;
+	border: 1px solid;
+	padding: 10px;
+	margin-top: 2px;
+    font-size: 0.85em;
+
+}
+
+/*
+
+.menuExportOptions a,
+.exportOptions a {
+    font-size: 0.8em;
+    background-image: url("../img/export-vis.png") !important;
+    background-repeat: no-repeat !important;
+}
+.menuExportOptions a{
+    font-size: 1em;
+}
+#toolUrlExport{
+    background-position: 3px 4px;
+}
+#pngExport{
+    background-position: 3px -32px;
+}
+#htmlExport{
+    background-position: 3px -79px;
+}
+#citeExport{
+    background-position: 3px -123px;
+}
+#csvExport{
+    background-position: 3px -160px;
+}
+#svgExport{
+    background-position: 3px -202px;
+}
+#epsExport{
+    background-position: 3px -248px;
+}
+#pdfExport{
+    background-position: 3px -291px;
+}
+*/
+
+.dataSource.metaData {
+    display: inline;
+    float: right;
+    margin-right: 0px;
+    margin-top: -43px;
+    font-size: 0.8em;
+}
+
+.yearNextPrev {
+    color: #444 !important;
+    font-size: 0.75em;
+    margin-top: 10px;
+    text-align: center;
+    /*   display: none;*/
+}
+ 
+.yearNextPrev a{
+    margin-right: 10px;
+
+}
+ 
+
+.ef-main [class*="column"]:last-child {
+    float: none !important;
+}
+
+
+/*
+==============================
+COUNTRY INFO
+==============================
+*/
+
+.view-cwb-country-info-page .view-content{
+    /*border: 1px solid #A5CFBD;*/
+    background: #f5f5f5;
+    padding: 0 20px 6px 20px;    
+}
+
+
+.form-radios .form-item, .view-filters .views-exposed-form label {
+    background-color: transparent !important;
+    float: none !important;
+    display: block !important;
+}
+
+ 
+.tooltip {
+    padding-left: 0px !important;
+    display: inline-block !important;
+  
+    border-radius: 0px !important;
+    color: #444 !important;
+    display: inline-block !important;
+    font-size: 0.9375em;
+   
+    left: 0% !important;
+    line-height: 1.3;
+    max-width: 100% !important ;
+    padding: 0.5em !important;
+    position: relative !important;
+    width: auto !important;   
+}
+.option.tooltip{
+    padding: 0px!important
+}
+input.form-checkbox, input.form-radio {
+    vertical-align: top;
+}
+.form-radios .form-item { 
+    margin: 8px 0 5px 0px!important;
+    padding: 0 !important;
+}
+
+#edit_sector_chosen{
+ width: 298px !important;
+}
+
+#edit-field-variables-tid-wrapper{
+    opacity:0; 
+}
+
+.view-content h3 {
+    color: #222 !important;
+    font-size: 1.25em !important;
+    letter-spacing: -0.055em !important;
+    margin-left: 0px !important;
+    margin-top: 12px !important;
+    padding-bottom: 15px !important;
+}
+
+#edit_sector_chosen, #edit_country_tid_chosen {
+    padding-top:5px !important;
+ }
+
+.t_Tooltip {
+    margin-top: 0px !important; /*tooltips overlaps*/
+    font-size: 0.75em;
+
+}
+.t_ContentContainer {
+    font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
+    padding: 18px 10px!important;
+}
+
+.noDataMessage {
+    background-color: #dddddd !important;
+    margin: 10px !important;
+    padding: 10px !important;
+    text-align: center;
+}
+
+.container-inline-date .form-item-year-date-filter-value, .container-inline-date .date-year {
+    width: 300px !important;
+}
+
+
+.view-content h2 {
+    color: #222 !important;
+    font-size: 1.25em !important;
+    letter-spacing: -0.055em !important;
+    font-weight: 300;
+    padding:0px !important;
+    margin:0px !important;
+    border: 0px !important;
+
+    margin-left: 12px !important;
+    margin-top: 8px !important;
+    padding-bottom: 15px !important;
+}
+.views-row{
+    padding: 0px !important;
+}
+
+
+
+/*--TOOLTIPS---*/
+
+.t_ContentContainer{
+    line-height: 1;
+}
+.t_ContentContainer *{
+    margin: 0;
+    padding: 0;
+}
+.t_ContentContainer h3{
+    color: #005baa;
+    font-weight: 500;
+    margin: 0 0 1em 0;
+    padding:0 0 0.7em 0;
+    border-bottom: 1px dotted #ccc;
+    font-size: 1.2em;
+}
+.page-outcomes .t_ContentContainer h3{
+    float: left;
+    margin-right: 5px;
+}
+.page-outcomes .t_ContentContainer h3:after{
+    content: " ";
+    width: 10px;
+    height: 12px;
+    margin: 0 0 -1px 5px;
+    display: inline-block;
+    background: url('../img/next-prev.png') no-repeat -130px -3px;
+}
+.t_ContentContainer h4{
+    margin: -0.7em 0 1em 0;
+    padding:0 0 0.7em 0px;
+    border-bottom: 1px dotted #ccc;
+}
+.page-outcomes .t_ContentContainer h4{
+    margin: 0 0 1em 0;
+    padding:0 0 0.7em 0;
+    font-size: 1.2em;
+    color: #999;
+    font-weight: 400;
+}
+.t_ContentContainer dl{
+    font-size: 0.01em;
+    letter-spacing: -2px;
+    position: relative;
+    max-width: 300px;
+}
+.page-outcomes .t_ContentContainer dl{
+    width: 100%;
+    clear: both;
+}
+.t_ContentContainer dt,
+.t_ContentContainer dd{
+    font-size: 96em;
+    letter-spacing: normal;
+    width: 110px;
+    min-height: 10px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
+    _height: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.t_ContentContainer dt{
+    font-weight: 700;
+    padding: 0 10px 5px 0;
+    overflow: visible;
+    position: relative;
+    margin: 0 2% 0 0;
+}
+.t_ContentContainer dt:after{
+    content: " ";
+    width: 10px;
+    height: 12px;
+    margin: 0 0 -1px 5px;
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    right: 0;
+    background: url('../img/next-prev.png') no-repeat -130px -3px;
+}
+.t_ContentContainer dt span{
+    font-weight: normal;    
+    font-size: 0.87em;
+    color: #999999;
+}
+.page-outcomes .t_ContentContainer dt{
+    width: 70%;
+}
+.page-outcomes .t_ContentContainer dt:after{
+    width: 0;
+    height: 0;
+    background:none;
+}
+.t_ContentContainer dd{
+    width: 60%;
+}
+.page-outcomes .t_ContentContainer dd, .t_ContentContainer dl.major  dd{
+    width: 30%;
+    position: absolute;
+    top: -5px;
+    right: 0;
+    font-size: 24px;
+    text-align: right;
+    color: #999;
+}
+ 
+
+.t_ContentContainer .views-field-field-type,
+.t_ContentContainer .views-field-field-unit{
+display:none;
+}
+
+.timeSeriesLink.tooltipLink{
+    background: url('../img/tabs-icons.png') no-repeat 0px -206px !important;
+    padding: 5px 0 9px 38px;
+    margin: 1.5em 0 0em 0;
+    display: block;
+}
+.t_ContentContainer .field-content{
+    margin: -0.7em 0 1em 0;
+    padding:0 0 0.7em 0px;
+  /*  border-bottom: 1px dotted #ccc;*/
+
+}
+.italics{
+    font-style:italic;  
+}
+
+
+.cwbCountryMetaDataTabContent h1 {
+    font-size: 1.5em !important;
+    letter-spacing: -0.02em !important;
+}
+
+.cwbCountryMetaDataTabContent table{
+    width: 100% !important;
+}
+
+.form-item.form-type-radio.form-item-variable-unit {
+    display: block !important;
+}
+
+.sidebar .block.block-views-cwb-country-info-block{
+     background-color: #F4F4F4;
+}
+.sidebar .block.block-views-cwb-country-info-block .item-list li{
+    font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;  
+}
+
+
+.sidebar .block.block-views-cwb-country-info-block h2{
+    border-top: 0px;
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Mozilla Firefox */ 
+    background-image: -moz-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Opera */ 
+    background-image: -o-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F77D1E), color-stop(1, #EA9F39));
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: linear-gradient(to bottom, #F77D1E 0%, #EA9F39 100%);
+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F77D1E', endColorstr='#EA9F39',GradientType=0 ); /* IE6-8 */
+    color: #fff!important;
+    cursor: default!important;
+    font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
+    font-size: 1.3em;
+    content: none!important;
+    padding: 18px 40px 18px 20px;
+    margin:-15px -15px 0px -15px;
+} 
+
+
+
