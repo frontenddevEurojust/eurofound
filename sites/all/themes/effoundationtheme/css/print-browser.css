@@ -42,15 +42,18 @@ content:'' !important;
 .element-invisible, .pagination-centered, .view-footer, .l-messages,.ef-home-page .l-main, .ds-node-comments, #adminboardlist{
  display:none !important;
  }
+ .ef-tagline-logo, .ef-logo-legend{
+  display: none !important;
+ }
 .breadcrumbs, .ef-breadcrumb{
   font-size: 8pt !important;
   padding-top: 0.5em!important;
   margin-left:0!important;
   color: #000 !important;
   font-style: italic !important;
-	display:block!important;
-    margin:0 !important;
-    padding:0 !important;
+	display:none!important;
+  margin:0 !important;
+  padding:0 !important;
  }
 .breadcrumbs a{
   font-size: 8pt !important;
