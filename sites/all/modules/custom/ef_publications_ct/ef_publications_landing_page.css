@@ -15,8 +15,11 @@ ul.view-list-pdfpreview .item-content{
   width: 80%;
   float: left;
 }
+ul.view-list-pdfpreview .item-content.without-image{
+  width: 100% !important;
+}
 ul.view-list-pdfpreview .item-content p{
-    margin: 1em 0 !important;
+    margin: 8px 0 !important;
 }
 ul.metadata-list-type li {
     padding: 0 !important;
@@ -54,8 +57,12 @@ ul.metadata-list li span:after{
 ul.metadata-list li span:last-child:after {
   content: '';
 }
-ul.metadata-list li span:empty {
+ul.metadata-list li span:empty, 
+ul.metadata-list li:empty{
   display: none;
+}
+ul.metadata-list-type li:empty {
+    display: none;
 }
 #views-exposed-form-ef-publications-view-page .form-item-checkbox-forthcoming-filtering {
     padding: 20px 0 20px 7%;

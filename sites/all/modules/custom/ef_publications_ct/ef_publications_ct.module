@@ -62,7 +62,8 @@ function ef_publications_ct_node_view_alter(&$build)
 function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 {
 
-	if($form['#id'] == 'ef-publication-node-form') {
+	if($form['#id'] == 'ef-publication-node-form') 
+	{
 
 		$form['field_ef_theme']['#type'] = 'hidden';
 
@@ -80,16 +81,27 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
 	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.js');
 	}
-	
-	if($form['#id'] == 'views-exposed-form-ef-publications-view-page'){
-		
-		$form['checkbox_forthcoming_filtering'] = array(
-	      '#type' => 'checkbox',
-	      '#title' => t('Show forthcoming publications'),
-      	);
 
-      	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
-	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
+	
+	if($form['#id'] == 'views-exposed-form-ef-publications-view-page')
+	{
+
+		$query = "SELECT * FROM workbench_moderation_node_history a WHERE a.state = 'forthcoming' AND a.current = 1";
+
+		$forthcoming_nodes = db_query($query)->fetchAll();
+
+		
+		if( count($forthcoming_nodes) > 0 )
+		{
+			$form['checkbox_forthcoming_filtering'] = array(
+		      '#type' => 'checkbox',
+		      '#title' => t('Show forthcoming publications'),
+	      	);
+
+			drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
+		}
+		
+	    
 	}	
 
 	return $form;

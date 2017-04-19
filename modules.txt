@@ -282,6 +282,7 @@
               (ef_spotlight_summary)                                            
  EF modules   EF Taxonomy Field Optgroup              Module  Enabled           
               (ef_taxonomy_field_optgroup)                                      
+ EF modules   EF Term Merge (ef_term_merge)           Module  Enabled           
  EF modules   Ef Topic Form (ef_topic_form)           Module  Not               
                                                               install           
                                                               ed                

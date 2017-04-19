@@ -149,27 +149,30 @@ h1.title.parent_emcc, h1.title.parent_eurwork{
 }
 
 table {
-page-break-after:auto ;
-margin: 1.5em 2% ;
-width: 96% !important;
-
+  page-break-after:auto ;
+  margin: 1.5em 2% ;
+  width: 96% !important;
+  border: 0 !important;
 }
 
 tr {
   page-break-inside:avoid ;
   page-break-after:auto ;
+  border: 0 !important;
 }
 td {
   page-break-inside:avoid ;
   page-break-after:auto ;
   width: auto !important;
+  border: 0 !important;
 }
 thead {
-  display:table-header-group ;
+  display:table-header-group;
+  border: 0 !important;
 }
 th{
-background:#DDD ;
-font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif ;
+  background:#DDD ;
+  font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif ;
   width: auto !important;
  }
 tfoot {
@@ -264,6 +267,7 @@ img.logo{
     thead {
       display:table-header-group ;
       background:#F0F0F0 ;
+      border: 0 !important;
     }
     tbody {
       display:table-row-group ;

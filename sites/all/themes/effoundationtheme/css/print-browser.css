@@ -1,7 +1,8 @@
 @font-face {
-        font-family: "OpenSans-Regular-webfont";
-        src: url("../fonts/OpenSans-Regular-webfont.woff");
+      /*  font-family: "OpenSans-Regular-webfont";
+        src: url("../fonts/OpenSans-Regular-webfont.woff");*/
 }
+
 @page {
   size: A4 portrait !important;
   font-size:9pt !important;
@@ -21,6 +22,7 @@ html, body{
   text-align:left!important;
   color: #000 !important;
  }
+
 @media only screen {
  html, body{margin:4%!important; }
 }
@@ -262,10 +264,12 @@ h2.title, h1.title{
   margin-top: 1em !important;
   padding-left:0 !important;
 }
-.boxed-block h1, .ef-main h1{
+.boxed-block h1{
  margin-left:-0.5cm !important;
  }
-
+.ef-main h1{
+ margin-left:0cm !important;
+ }
 .field-name-published-on{
   display:block !important;
  }
@@ -675,28 +679,59 @@ ul.cs-location-list.inline-list {
 
 /* end 3508 hide title and url rep studies, CARS and country profiles */
 /**working life country profile*/
+.summary-group.row {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.node-unpublished{
+    padding: 0 !important;
+}
 .section-container.vertical-tabs {
   visibility: visible !important;
   display: block !important;
-  margin: 0rem 1rem !important;
+  margin: 0rem 0rem !important;
+}
+.section-container.vertical-tabs>section {
+  /*background: #000 !important;*/
+
+
 }
 .section-container.vertical-tabs>section.active {
     padding-left: 0;
 }
 .section-container.vertical-tabs>section>.content{
    display: block !important;
+
 }
+
 .section-container.vertical-tabs > section > .title{
   position: static !important;
   display: none !important;
 }
 ul.list-metadata {
   margin: 1rem 0 2rem 0 !important;
-  padding-left: 1rem !important;
+  padding-left: 0rem !important;
+
 }
-.wp_about ul, .wp_about ul li {
+ul.list-metadata li > ul {
+    font-weight: normal;
+    display: inline;
+    margin: 0 !important;
+    padding-left: 0 !important;
+}
+.node-ef-working-life-country-profiles .wp_about ul, 
+.node-ef-working-life-country-profiles .wp_about ul li {
     list-style-type: none;
     padding: 0 !important;
     margin: 0 !important;
 }
+.node-ef-working-life-country-profiles .wp_about ul li span.small-3{
+	padding: 0;
+}
+
+.node-ef-working-life-country-profiles .wp_about{
+    margin: -10px 0 0 0%;
+    padding: 0 10px 10px;
+}
+
 /** end working life country profile*/

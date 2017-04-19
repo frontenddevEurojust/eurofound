@@ -39,8 +39,9 @@
   line-height: 1.3em !important;
   color: #222 !important;
 }
-p{
+p, p span{
 page-break-inside: avoid;
+font-size: 10px !important;
 }
 ul li{
   page-break-inside: avoid;
@@ -97,6 +98,7 @@ font-family: Arial,Helvetica,sans-serif !important;
 #node_ef_publication_print_group_ef_node_details a{
   margin-right:10px !important;
 }
+.section-container.vertical-tabs>section>.content p.subtitle{ display: none !important;}
 .group-node-tagging h3, .md_about{display: none !important;}
 .group-node-about {
     float: right !important;
@@ -165,12 +167,19 @@ float: left;
   font-size: 0.8em;
 
 }
-ul.metadata-items,  ul.inline-list{
+
+
+ul.metadata-items,  ul.inline-list {
   font-size: 0.8em!important;
   padding:0 !important;
   margin:0 !important;
 }
-ul.metadata-items li, ul.inline-list li{
+ul.list-metadata {
+    font-size: 0.8em!important;
+    margin: 1rem 0 2rem 0 !important;
+    padding:0 !important;
+}
+ul.metadata-items li, ul.inline-list li, ul.list-metadata li{
   padding:0!important;
   display:inline;
 }
@@ -179,6 +188,12 @@ ul.metadata-items li:after, ul.inline-list li:after{
 }
 ul.metadata-items li:last-child:after, ul.inline-list li:last-child:after{
   content: ".";
+}
+ul.list-metadata li > ul {
+    font-weight: normal;
+    display: inline !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
 }
 .views-row{
   float: none !important;
@@ -406,16 +421,6 @@ margin-left: 2cm;
 
 
 
-
-
-
-
-
-
-
-
-
-
 .footer-pdf{
 border-top:1px dotted #CCC;
 font-size: 0.8em;
@@ -468,15 +473,18 @@ margin: 0.5em 0 !important;
  table {
     margin: 1.5em auto !important;
     width:96% !important;
-    font-size: 9px;
+    font-size: 9px !important;
     border: 0 !important;
     border-bottom:1px solid #ccc !important;
 }
 th{
+    border: 0 !important;
     width: auto !important;
     padding-left: 0.3cm !important;
 }
 td{
+    border: 0 !important;
+    font-size: 9px !important;
     border-bottom:1px solid #ccc !important;
     border-collapse: collapse !important;
 }
@@ -484,10 +492,11 @@ table tr:last-child td{
   border-bottom:0px solid #ccc !important;
 }
 table.staff th{
-text-align: left !important;
+  text-align: left !important;
 }
 table.staff td{
-border: none !important;
+  border: 0 !important;
+  border: none !important;
 }
 td ul{
   margin:0 !important;
@@ -591,6 +600,7 @@ word-break: break-all;
   font-style: italic !important;
   text-align: right !important;
 }
+
 </style>
   </head>
   <body>
