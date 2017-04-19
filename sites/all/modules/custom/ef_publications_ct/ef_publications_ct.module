@@ -101,7 +101,7 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 			drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
 		}
 		
-	    
+	  drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
 	}	
 
 	return $form;
