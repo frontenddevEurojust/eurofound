@@ -679,6 +679,9 @@ ul.cs-location-list.inline-list {
 
 /* end 3508 hide title and url rep studies, CARS and country profiles */
 /**working life country profile*/
+.node-type-ef-working-life-country-profiles .main.columns{
+	float: none !important;
+}
 .summary-group.row {
     margin: 0 !important;
     padding: 0 !important;
@@ -691,17 +694,20 @@ ul.cs-location-list.inline-list {
   display: block !important;
   margin: 0rem 0rem !important;
 }
-.section-container.vertical-tabs>section {
-  /*background: #000 !important;*/
-
-
+.section-container.vertical-tabs > section {
+  height: auto !important;
+  min-height: auto !important;
 }
+.section-container.vertical-tabs > section > .content {
+  height: auto !important;
+  min-height: auto !important;
+}
+
 .section-container.vertical-tabs>section.active {
     padding-left: 0;
 }
 .section-container.vertical-tabs>section>.content{
    display: block !important;
-
 }
 
 .section-container.vertical-tabs > section > .title{
