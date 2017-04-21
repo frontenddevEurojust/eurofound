@@ -333,35 +333,5 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 }
 
 
-function delete_79266_node()
-{
-  
-  node_delete(79266);
 
-}
-
-
-function reduce_db_size()
-{
-  
-  //$query = "SELECT a.nid FROM node a WHERE a.type NOT IN ('page', 'dvs_survey', 'ef_survey')";
-
-  $query = "SELECT *
-            FROM node a
-            WHERE a.`type` = 'ef_report'
-            AND a.changed < 1480588891";
-
-  $total_nodes = db_query($query)->fetchAll();
-
-  //$query = "SELECT DISTINCT a.type FROM node WHERE a.type NOT IN ('page', 'dvs_survey', 'ef_survey')";
-  
-  foreach ($total_nodes as $object) 
-  {
-    
-    node_delete($object->nid);
-  
-  }
-  
-
-}
 
