@@ -333,5 +333,3 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 }
 
 
-
-
