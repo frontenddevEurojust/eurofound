@@ -4,9 +4,11 @@ sites/*/settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
-solar/*
+sites/default/temp/*
+solr/*
 
 # Ignore site configuration files
+modules.txt
 robots.txt
 .htaccess
 sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
