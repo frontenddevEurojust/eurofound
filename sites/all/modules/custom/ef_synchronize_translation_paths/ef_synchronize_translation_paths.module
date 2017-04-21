@@ -230,8 +230,6 @@ function ef_synchronize_translation_paths_get_setting($key) {
 function ef_synchronize_translation_paths_pathauto_alias_alter(&$alias, array &$context) {
   // Force all aliases to be saved as language neutral.
   //$context['language'] = LANGUAGE_NONE;
-  //dd('hi context');
-  //dd($context['']);
 }
 
 

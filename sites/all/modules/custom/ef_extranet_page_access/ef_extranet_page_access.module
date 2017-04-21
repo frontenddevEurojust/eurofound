@@ -117,7 +117,6 @@ function _ef_extranet_page_access_field_values() {
    $node->field_ef_finished_status[und][0]['value'] = 1;
    node_submit($node);
    node_save($node);
-   //dd($nid .'-----'. $node->field_ef_finished_status[und][0]['value'] );
   }
 
 }

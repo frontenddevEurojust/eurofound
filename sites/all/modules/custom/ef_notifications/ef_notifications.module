@@ -79,11 +79,6 @@ function ef_notifications_field_attach_update($entity_type, $entity) {
 
     $current_author = get_assigned_author_uid_by_mid($current_author_mid);
 
-    dd($entity->nid . 'qrr - Previous user: ' . $previous_user . ' Current user:' . $current_user);
-    dd($entity->nid . 'qrr - Previous author: ' . $previous_author . ' Current author:' . $current_author);
-
-    dd($entity);
-
     $current_timestamp = time();
 
     // We only will generate an assignment notification if the state stays the same

@@ -596,7 +596,6 @@ function _ef_contents2word_d2w_all_revisions_zip(&$form, &$form_state, $node){
 
 			}
 
-			dd('Redirijo a fichero');
 
 			$form_state['redirect'] = array('sites/default/files/d2w/zip/'.$user->uid.'/'.$file_zip);
 		}
@@ -693,7 +692,6 @@ function _ef_contents2word_d2w_related_contributions_zip(&$form, &$form_state, $
 
 				}
 
-				dd('Redirijo a fichero');
 
 				$file = $node->nid.'-RC-'.preg_replace("/[^a-z0-9\.]/", "-", strtolower($node->title)).'.zip';
 				if (!$flag_nothing) $form_state['redirect'] = array('sites/default/files/d2w/zip/'.$user->uid.'/'.$file);
