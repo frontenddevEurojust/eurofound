@@ -3,8 +3,12 @@
 }
 .orange-formatting {
 	border: 2px solid #F7931E;
-	padding: 18px 30px 18px 15px;
 }
 .orange-link{
 	color: #F58020 !important;
+	font-size: 1.2em;
+	text-align: left;
+	padding: 18px 30px 18px 15px;
+	display: block;
+	background: url('package.gif');	
 }
