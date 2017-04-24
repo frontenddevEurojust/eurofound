@@ -1,3 +1,10 @@
 .publication-date-popup .ui-datepicker-calendar{
 	display:none;
 }
+.orange-formatting {
+	border: 2px solid #F7931E;
+	padding: 18px 30px 18px 15px;
+}
+.orange-link{
+	color: #F58020 !important;
+}

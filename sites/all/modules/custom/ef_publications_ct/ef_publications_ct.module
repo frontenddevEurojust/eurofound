@@ -20,8 +20,8 @@ function ef_publications_ct_node_view_alter(&$build)
 	$node = $build['#node'];
 
     if($node->type == "ef_publication"){
-    	
-    	if(isset($node->field_ef_subscription_msg['und'][0]['value']))
+
+    	if($node->field_ef_subscription_msg['und'][0]['value'])
     	{
     
     		$build['field_term_subscription_url'][0]['#markup'] = "<p class='topic-subscription'><a href='" . $node->field_term_subscription_url['und'][0]['safe_value'] . "'><i class='fa fa-envelope-o' aria-hidden='true'></i>" . $node->field_term_subscription_text['und'][0]['value'] . "</a></p>";
@@ -54,6 +54,16 @@ function ef_publications_ct_node_view_alter(&$build)
 		  $build['field_ef_document'][0]['#file']->filename = t('Download PDF') . ' (' . $file_size_format . ')';
 
 	    }
+
+	    if($node->field_show_order_button['und'][0]['value'])
+	    {
+	  
+	    	$build['field_order_label'][0]['#markup'] = '<p class="orange-formatting"><a class="orange-link" href="' .  $node->field_order_url['und'][0]['value'].'">' . 
+	    		$build['field_order_label'][0]['#markup'] . '</a></p>';
+
+	    	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
+
+	    }
     }
 }
 /*
@@ -64,10 +74,12 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 
 	if($form['#id'] == 'ef-publication-node-form') 
 	{
-
+		
 		$form['field_ef_theme']['#type'] = 'hidden';
 
-		// For checkboxes checked condition needs to be used
+
+		// For checkboxes 'checked' condition needs to be used
+	    // Subscription URL
 	    $form['field_term_subscription_url']['#states'] = array(
 	      'visible' => array(
 	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
@@ -78,8 +90,21 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
 	        );
 
+	    // Order button
+	    $form['field_order_label']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE))
+	        );
+
+	    $form['field_order_url']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE))
+	        );
+
+
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
 	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.js');
+	
 	}
 
 	
