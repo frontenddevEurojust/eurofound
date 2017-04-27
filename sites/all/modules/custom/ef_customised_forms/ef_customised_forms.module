@@ -216,6 +216,51 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
   }
 
+  if($form_id == 'ef_report_node_form' || $form_id == 'ef_national_contribution_node_form' || $form_id == 'ef_comparative_analytical_report_node_form')
+  {
+    dpm($form);
+    // Moderate Revision log messages
+    if (in_array('Author', $user->roles) || in_array('Author +', $user->roles) || in_array('Quality Manager',$user->roles) || in_array('Quality Manager +', $user->roles)) {
+
+      $moderation_cause_weight = $form['field_moderation_cause']['#weight'];
+      $revision_log_messages_summary = '<div class="revision-log-messages-summary">';
+      $revision_log_messages_summary = $revision_log_messages_summary . '<h5>'.t('Previous revision log messages').'</h5>';
+      $revision_log_messages_summary = $revision_log_messages_summary . '<ul>';
+      if ( isset($form['nid']['#value']) ) {
+        $node = node_load($form['nid']['#value']);
+        $revisions = node_revision_list($node);
+        foreach ($revisions as $vid => $revision) {
+          $node_revision = node_load($node->nid, $revision->vid);
+          if (isset($node_revision->workbench_moderation['my_revision'])) {
+            $from_state = $node_revision->workbench_moderation['my_revision']->from_state;
+            $current_state = $node_revision->workbench_moderation['my_revision']->state;
+          } else {
+            $from_state = $node_revision->workbench_moderation['current']->from_state;
+            $current_state = $node_revision->workbench_moderation['current']->state;
+          }
+          if ($from_state == ''){$from_state = '-';}
+          $log = '<li><a href="' . $base_url . '/node/' . $node->nid . '/moderation"><p>';
+          $log = $log . 'From <span>' . $from_state;
+          $log = $log . '</span> to <span>' . $current_state . '</span>';
+          $log = $log . ', ' . t('revised by ') . '<span>' . $revision->name . '</span><br>';
+          $log = $log . $revision->log;
+          $log = $log . '</p></a></li>';
+          $revision_log_messages_summary = $revision_log_messages_summary . $log;
+        }
+      }
+      $revision_log_messages_summary = $revision_log_messages_summary . '</ul></div>';
+      $form['revision_log_messages_summary'] = array(
+        '#markup' => $revision_log_messages_summary,
+        '#weight' => $moderation_cause_weight + 1,
+      );
+      $form['#groups']['group_ef_publishing_options']->children[] = 'revision_log_messages_summary';
+      $form['#group_children']['revision_log_messages_summary'] = 'group_ef_publishing_options';
+
+      $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+    }
+
+  }
+
    /** ---- VIEW: ERM Factsheet ----
   ***
   *** Display name: Page
