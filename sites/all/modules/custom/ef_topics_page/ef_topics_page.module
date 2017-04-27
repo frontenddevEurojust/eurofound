@@ -1,5 +1,8 @@
 <?php
 
+/*
+* Implements hook_permission()
+*/
 function ef_topics_page_permission(){
   return array(
     'access_ef_topics_page' => array(
@@ -8,8 +11,9 @@ function ef_topics_page_permission(){
     ),
   );
 }
+
 /*
-  Implements hook_menu()
+* Implements hook_menu()
 */
 function ef_topics_page_menu(){
 
@@ -19,13 +23,14 @@ function ef_topics_page_menu(){
     'page arguments' => array(1),
     'access arguments' => array('access_ef_topics_page'),
     'type' => MENU_NORMAL_ITEM,
+    'file' => 'helpers/ef_topics_page.admin.inc',
   );
 
 
    return $items;
 }
 /*
-  Implements hook_theme()
+* Implements hook_theme()
 */
 function ef_topics_page_theme(){
   return array(
@@ -52,195 +57,15 @@ function ef_topics_page_theme(){
                       'url_3' => NULL,
                       'subscription_url' => NULL,
                     ),
+      'file' => 'preprocessor.inc'
     ),
   );
-}
-/*
-  Implements template_preprocess_HOOK()
-  HOOK refers to template name. Hyphens should be renamed to underscores
-*/
-function template_preprocess_ef_topics_page(&$variables){
-  // Images through media field are not rendered properly due to problems with drupal_render(). 
-  // https://api.drupal.org/api/drupal/includes%21common.inc/function/drupal_render/7.x
-
-  // Global $language variable is used for textfield translations
-  global $language;
-
-  // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
-  $url_alias_query = "SELECT DISTINCT a.source
-                      FROM url_alias a
-                      WHERE a.alias ='topics/" . strtolower($variables['contextual_term']) . "'";
-  $result = db_query($url_alias_query)->fetchAll();
-  if(empty($result)){
-    drupal_not_found();
-  }else{
-    
-    // Always follows the rule: 'taxonomy/term/id'
-    $aux = explode("/",$result[0]->source);
-    $tid = $aux[2];  
-    // Retrieve full term for $variables populating
-    $term = taxonomy_term_load($tid);
-    
-    
-
-
-
-    $variables['contextual_term'] = $term->name;
-    
-    // Blocks preprocessing
-    if(sizeof($term->field_ef_term_hide_tabs) == 0 || $term->field_ef_term_hide_tabs['und'][0]['value'] == '0') {
-      // Retrieve the block only when hide all tabs is disabled
-      $results_block = block_load('quicktabs', 'topics_page_quicktab');
-      $results_block_output = drupal_render(_block_get_renderable_array(_block_render_blocks(array($results_block))));
-    }
-
-
-    // Metatag data preprocessing
-    $string_ef_activities = ""; 
-    if(!empty($term->field_ef_activities['und'])){
-      foreach ($term->field_ef_activities['und'] as $key => $value) {
-        $ef_activity_term = taxonomy_term_load($value['tid']);
-        $string_ef_activities = $string_ef_activities . "," . $ef_activity_term->name; 
-      }
-    }
-    $string_ef_activities = substr($string_ef_activities, 1, strlen($string_ef_activities));
-
-
-    // Main image preprocessing
-    if(isset($term->field_ef_main_image['und'][0]['uri'])) { 
-      $variables['main_image'] = theme('image_style', 
-        array(
-          'style_name' => 'topic-page-image',
-          'path' => $term->field_ef_main_image['und'][0]['uri'],
-        )
-      );
-    }
-
-
-    // Subscription fields preprocessing 
-    if($term->field_ef_subscription_msg['und'][0]['value'] != 0)
-      $variables['subscription'] = $term->field_ef_subscription_msg['und'][0]['value'];
-
-    if(isset($term->field_term_subscription_url['und'][0]['value'])){
-      if(strpos($term->field_term_subscription_url['und'][0]['value'], "http://") === FALSE
-        && strpos($term->field_term_subscription_url['und'][0]['value'], "https://") === FALSE) {
-
-        $variables['subscription_url'] = "https://" . $term->field_term_subscription_url['und'][0]['value'];
-      }else{
-        $variables['subscription_url'] = $term->field_term_subscription_url['und'][0]['value'];
-      }
-    }
-
-
-    // Topics preprocessing for image and name
-    $topic1 = taxonomy_term_load($term->field_ef_related_topics['und'][0]['target_id']);
-    $topic2 = taxonomy_term_load($term->field_ef_related_topics['und'][1]['target_id']);
-    $topic3 = taxonomy_term_load($term->field_ef_related_topics['und'][2]['target_id']);
-    
-    if(!empty($topic1)) {
-      if(isset($topic1->field_ef_main_image['und'][0]['uri'])) {
-        $variables['related_topic1_image'] = theme('image_style', 
-          array(
-            'style_name' => 'topic-page-image',
-            'path' => $topic1->field_ef_main_image['und'][0]['uri'],
-          )
-        );
-      }
-      // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
-      $url1_query = "SELECT DISTINCT a.alias
-                        FROM url_alias a
-                        WHERE a.source ='taxonomy/term/" . $topic1->tid . "'";
-      $result1 = db_query($url1_query)->fetchAll();
-      // Always follows the rule: 'taxonomy/term/id' 
-      $variables['url_1'] = $result1[0]->alias;
-      $variables['related_topic1_name'] = $topic1->name;
-    }
-    
-    if(!empty($topic2)) {       
-      if(isset($topic2->field_ef_main_image['und'][0]['uri'])) {    
-        $variables['related_topic2_image'] = theme('image_style', 
-          array(
-            'style_name' => 'topic-page-image',
-            'path' => $topic2->field_ef_main_image['und'][0]['uri'],
-          )
-        );        
-      }
-      $url2_query = "SELECT DISTINCT a.alias
-                        FROM url_alias a
-                        WHERE a.source ='taxonomy/term/" . $topic2->tid . "'";
-      $result2 = db_query($url2_query)->fetchAll();
-      // Always follows the rule: 'taxonomy/term/id' 
-      $variables['url_2'] = $result2[0]->alias;
-      $variables['related_topic2_name'] = $topic2->name;
-    }
-    if(!empty($topic3)) {
-      if(isset($topic3->field_ef_main_image['und'][0]['uri'])) {
-        $variables['related_topic3_image'] = theme('image_style', 
-          array(
-            'style_name' => 'topic-page-image',
-            'path' => $topic3->field_ef_main_image['und'][0]['uri'],
-          )
-        );
-      }
-      $url3_query = "SELECT DISTINCT a.alias
-                        FROM url_alias a
-                        WHERE a.source ='taxonomy/term/" . $topic3->tid . "'";
-      $result3 = db_query($url3_query)->fetchAll();
-      // Always follows the rule: 'taxonomy/term/id' 
-      $variables['url_3'] = $result3[0]->alias;
-      $variables['related_topic3_name'] = $topic3->name;
-    }
-
-    // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
-    $metatag = array(
-      '#type' => 'html_tag',
-      '#tag' => 'meta', // The #tag is the html tag - 
-      '#attributes' => 
-        array( // Set up an array of attributes inside the tag 
-          'name' => 'ef-activities',
-          'content' => $string_ef_activities,
-        ),
-      '#weight' => '-99999',
-    );
-
-    if(!empty($string_ef_activities)){
-      $variables['ef_activities'] = $metatag;
-    }
-    
-    // Additional variables sent to ef_topics_page.tpl.php
-    $variables['results_block'] = $results_block_output;
-    $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
-    $variables['description'] = $term->description;
-    $variables['featured_block'] = $term->field_ef_featured_block_content[$language->language][0]['value'];
-    $variables['related_links_block'] = $term->field_ef_related_links_block[$language->language][0]['value'];
-    
-    
-    drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
-    if($term->field_ef_term_hide_tabs['und'][0]['value'] == '0'){
-      // Hide higlights tab
-      drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
-    }
-
-    // Use drupal_set_title function as hook_menu can't work with contextual values
-    drupal_set_title($variables['contextual_term']);
-
-  }  
-}
-
-/*
-  Form building function
-*/
-function topics_page($contextual_term = ''){
-  // Call defined theme for ef_topics_page
-  return theme('ef_topics_page',array('contextual_term' => $contextual_term,'main_image' => NULL, 'summary' => NULL,'subscription' => NULL,
-    'description' => NULL,'related_topic1_image' => NULL, 'related_topic1_name' => NULL,'related_topic2_image' => NULL, 'related_topic2_name' => NULL,
-    'related_topic3_image' => NULL, 'related_topic3_name' => NULL,'results_block' => NULL,'featured_block' => NULL, 'related_links_block' => NULL,
-    'ef_activities' => NULL,'url_1' => NULL,'url_2' => NULL,'url_3' => NULL, 'subscription_url' => NULL));
 }
 
 /*
  * Implements HOOK_views_query_alter(&$view,&$query) 
  */
+/*
 function ef_topics_page_views_query_alter(&$view, &$query){
   
   if($view->name == 'ef_topics_page_views' && $view->display_handler->display->display_title == 'Highlights'){
@@ -263,13 +88,16 @@ function ef_topics_page_views_query_alter(&$view, &$query){
                                                   
   }
 }
+*/
 
 /*
  * Implements HOOK_form_alter(&$form, &$form_state, $form_id)
  */
 function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
   
-  if($form['#id'] == 'taxonomy-form-term'){
+  if($form['#id'] == 'taxonomy-form-term')
+  {
+    
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
       'visible' => array(
@@ -280,6 +108,7 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
       'visible' => array(
         'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE))
         );
+ 
   }
 
 }

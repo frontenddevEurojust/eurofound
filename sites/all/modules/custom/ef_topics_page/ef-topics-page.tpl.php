@@ -75,7 +75,6 @@ if(!empty($variables['ef_activities'])){
         </ul>
         <?php endif; ?>
         <div>
-        <?php print $results_block; ?>
         </div>
     </section>
     <?php if(isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
