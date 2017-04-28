@@ -54,27 +54,28 @@ if(!empty($variables['ef_activities'])){
                 <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?php print $url_1; ?>"><?php print $related_topic1_name; ?></a></p>   
             </li>
         <?php endif; ?>
-        <?php if(isset($variables['related_topic2_name'])): ?>
-            <?php if(isset($variables['related_topic2_image'])): ?>
-            <li><?php print $related_topic2_image; ?>
-            <?php else: ?>
-            <li><img src="/<?php print(drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'); ?>">    
-            <?php endif; ?>
-                <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?php print $url_2; ?>"><?php print $related_topic2_name; ?></a></p>       
-            </li>
-        <?php endif; ?>
-        <?php if(isset($variables['related_topic3_name'])): ?>
-            <?php if(isset($variables['related_topic3_image'])): ?>
-            <li><?php print $related_topic3_image; ?>
-            <?php else: ?>
-            <li><img src="/<?php print(drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'); ?>">
-            <?php endif; ?>
-                <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?php print $url_3; ?>"><?php print $related_topic3_name; ?></a></p>   
-            </li>
-        <?php endif; ?>
+        
+        
         </ul>
         <?php endif; ?>
         <div>
+            <!-- PRINT CONTENT TABS 
+            <div class="section-container vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+            <?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
+                <?php if($i == 0): ?>
+                <section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+                <?php else: ?>
+                <section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+                <?php endif; ?>
+                    <h2 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h2>
+                    <div class="content" data-section-content>
+                        <p class="subtitle"><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?><p>
+                        <?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_body'][0]['#markup']); ?>
+                    </div>
+                </section>
+            <?php endfor; ?>
+            </div>
+            -->
         </div>
     </section>
     <?php if(isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>

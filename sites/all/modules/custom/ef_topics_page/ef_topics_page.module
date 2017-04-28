@@ -42,53 +42,17 @@ function ef_topics_page_theme(){
                       'summary' => NULL,
                       'subscription' => NULL,
                       'description' => NULL,
-                      'related_topic1_image' => NULL,
-                      'related_topic1_name' => NULL,
-                      'related_topic2_image' => NULL,
-                      'related_topic2_name' => NULL,
-                      'related_topic3_image' => NULL,
-                      'related_topic3_name' => NULL,
-                      'results_block' => NULL,
+                      'topics' => NULL,
+                      'tabs' => NULL,
                       'featured_block' => NULL,
                       'related_links_block' => NULL,
                       'ef_activities' => NULL,
-                      'url_1' => NULL,
-                      'url_2' => NULL,
-                      'url_3' => NULL,
                       'subscription_url' => NULL,
                     ),
       'file' => 'preprocessor.inc'
     ),
   );
 }
-
-/*
- * Implements HOOK_views_query_alter(&$view,&$query) 
- */
-/*
-function ef_topics_page_views_query_alter(&$view, &$query){
-  
-  if($view->name == 'ef_topics_page_views' && $view->display_handler->display->display_title == 'Highlights'){
-    $name = $view->args[0];    
-    // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
-    $url_alias_query = "SELECT DISTINCT a.source
-                      FROM url_alias a
-                      WHERE a.alias ='topics/" . $name . "'";
-
-    $result = db_query($url_alias_query)->fetchAll();
-    // Always follows the rule: 'taxonomy/term/id'
-    $aux = explode("/",$result[0]->source);
-    $tid = $aux[2];  
-    
-    $query->add_where_expression(0, "node.nid IN (SELECT b.field_ef_highlighted_target_id
-                                                  FROM taxonomy_term_data d
-                                                  INNER JOIN field_data_field_ef_highlighted b ON d.tid = b.entity_id
-                                                  WHERE b.entity_id = '" . $tid . "')"
-                                                  );      
-                                                  
-  }
-}
-*/
 
 /*
  * Implements HOOK_form_alter(&$form, &$form_state, $form_id)
