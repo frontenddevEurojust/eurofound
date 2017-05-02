@@ -23,12 +23,39 @@ function ef_topics_page_menu(){
     'page arguments' => array(1),
     'access arguments' => array('access_ef_topics_page'),
     'type' => MENU_NORMAL_ITEM,
-    'file' => 'helpers/ef_topics_page.admin.inc',
+  );
+
+  $items['topics_page/%/%'] = array(
+    'page callback' => '_update_topics_tab',
+    'page arguments' => array(2,3),
+    'type' => MENU_CALLBACK, 
   );
 
 
    return $items;
 }
+/*
+*  Form building function
+*/
+function topics_page($contextual_term = ''){
+  
+    // Call defined theme for ef_topics_page
+  return theme('ef_topics_page',
+      array(
+        'contextual_term' => $contextual_term,
+        'main_image' => NULL, 
+        'summary' => NULL,
+        'subscription' => NULL,
+        'description' => NULL,
+        'topics' => NULL,
+        'tabs' => NULL,
+        'featured_block' => NULL, 
+        'related_links_block' => NULL,
+        'ef_activities' => NULL,
+      )
+    );
+}
+
 /*
 * Implements hook_theme()
 */
@@ -54,11 +81,12 @@ function ef_topics_page_theme(){
   );
 }
 
+
 /*
  * Implements HOOK_form_alter(&$form, &$form_state, $form_id)
  */
 function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
-  
+
   if($form['#id'] == 'taxonomy-form-term')
   {
     
@@ -74,5 +102,11 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
         );
  
   }
+
+}
+
+function _update_topics_tab($content_type_name, $page){
+  dpm($content_type_name);
+  dpm($page);
 
 }

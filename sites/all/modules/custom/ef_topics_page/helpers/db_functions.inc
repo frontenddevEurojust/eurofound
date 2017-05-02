@@ -64,26 +64,38 @@ function add_highlighted_tab($variables, $tid){
 }
 
 function add_all_tab($variables, $tid){
-    /*
+
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
-    $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
-    $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
-    $query->addField('a', 'title', 'title');
+    $query->innerJoin('node_type', 'f', 'b.type = f.type');
+    $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
+    $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
+    $query->leftJoin('field_data_field_ef_event_start_date', 'g', 'b.nid = g.entity_id');
+    $query->addField('b', 'nid', 'node_id');
+    $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
-    $query->addField('d', 'published_at','published_at');
-    $query->condition('b.tid', $tid, '=');
-    $query->condition('a.`type`', array('ef_report', 'ef_event', 'ef_news', 'ef_publication'), 'IN');
-    $query->condition('a.status', 1, '=');
+    $query->addField('d', 'field_ef_publication_date_value','publication_date');
+    $query->addField('e', 'published_at','published_at');
+    $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
+    $query->condition('a.tid', $tid, '=');
+    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
+    $query->condition('b.status', 1, '=');
 
-    // Order by published_at field
-    $query->extend('TableSort')->orderBy('d.published_at', 'DESC');
+    // Order by publication_date field
+    $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8
     $query->range(0, 8);
-
+    
     $result = $query->execute();
-    */
-    //return;
+   
+    
+    if($result->rowCount() > 0)
+    {
+        $variables['tabs']['All'] = _db_result_to_array($result);
+    }
+  
+    
+    return $variables;
 
   /*
   SELECT node.title AS node_title, node.nid AS nid, node.language AS node_language, node.type AS node_type, publication_date.published_at AS publication_date_published_at, 'node' AS field_data_field_ef_event_start_date_node_entity_type, 'node' AS field_data_field_ef_publication_date_node_entity_type
@@ -99,11 +111,11 @@ function add_all_tab($variables, $tid){
 
 function add_publications_tab($variables, $tid){
 
-    dpm($tid);
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->innerJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
+    $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_publication_date_value','publication_date');
@@ -119,9 +131,11 @@ function add_publications_tab($variables, $tid){
 
     $result = $query->execute();
    
-  
-    $variables['tabs']['publications'] = _db_result_to_array($result);
     
+    if($result->rowCount() > 0)
+    {  
+        $variables['tabs']['Publications'] = _db_result_to_array($result);
+    }    
 
     return $variables;
 }
@@ -132,6 +146,7 @@ function add_articles_tab($variables, $tid){
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
+    $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
@@ -146,9 +161,10 @@ function add_articles_tab($variables, $tid){
 
     $result = $query->execute();
     
-
-    $variables['tabs']['articles'] = _db_result_to_array($result);
-    
+    if($result->rowCount() > 0)
+    {
+        $variables['tabs']['Articles'] = _db_result_to_array($result);
+    }
     
     return $variables;
   
@@ -161,6 +177,7 @@ function add_news_tab($variables, $tid){
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
+    $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
@@ -176,9 +193,11 @@ function add_news_tab($variables, $tid){
     $result = $query->execute();
 
 
-
-    $variables['tabs']['news'] = _db_result_to_array($result);
-
+    if($result->rowCount() > 0)
+    {
+        $variables['tabs']['News'] = _db_result_to_array($result);
+    }
+    
     return $variables;
  
 }
@@ -189,9 +208,12 @@ function add_events_tab($variables, $tid){
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('field_data_field_ef_event_start_date', 'd', 'b.nid = d.entity_id');
+    $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_event_start_date_value','event_start_date');
+    // DOES NOT WORK so tranformation is done via PHP
+    //$query->addExpression('DATE_FORMAT(field_ef_event_start_date_value,"%d %M %Y")','event_start_date');
     $query->condition('a.tid', $tid, '=');
     $query->condition('b.`type`', 'ef_event', '=');
     $query->condition('b.status', 1, '=');
@@ -204,21 +226,51 @@ function add_events_tab($variables, $tid){
     $result = $query->execute();
 
 
-
-    $variables['tabs']['events'] = _db_result_to_array($result);
-
+    if($result->rowCount() > 0)
+    {
+        $variables['tabs']['Events'] = _db_result_to_array($result);
+    }
+    
     return $variables;
-
 }
 
 function _db_result_to_array($result){
 
     $output = array();
     
-    foreach ($result as $value) 
+    foreach ($result as $node) 
     {
-        $output[] = $value;
+        $node = _transformDateFieldsIntoEfFormat($node);
+        $output[] = $node;
     }
 
     return $output;
+}
+
+function _transformDateFieldsIntoEfFormat($node){
+    
+    foreach ($node as $field_name => $field_value) 
+    {
+        
+        if($field_name == 'event_start_date' || $field_name == 'publication_date' )
+        {
+
+            $time = strtotime($field_value);
+
+            $date = date('d F Y',$time);
+
+            $node->{$field_name} = $date;
+        
+        }
+        elseif ($field_name == 'published_at') 
+        {
+            $date = date('d F Y', $field_value);
+
+            $node->{$field_name} = $date;
+        }
+    
+    }
+
+    return $node;
+   
 }

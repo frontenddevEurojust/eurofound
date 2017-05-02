@@ -9,11 +9,19 @@
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
+dpm($variables);
+
 ?>
 <!DOCTYPE html>
 <html>
 <body>
-    
+    <?php if($is_admin): ?>
+    <ul class="button-group">
+        <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
+        <li><a href="<?php print $url; ?>"><?php print str_replace("_"," ",$item_name);?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php endif; ?>
     <!--large-12 -->
     <?php if(isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
     <section class="large-9 columns">
@@ -43,40 +51,68 @@ if(!empty($variables['ef_activities'])){
             <?php print $description; ?>
         </div>
         <?php endif; ?>
-        <?php if(isset($variables['related_topic1_name']) || isset($variables['related_topic2_name']) || isset($variables['related_topic3_name'])): ?>
+        <?php if(count($variables['topics']) > 0): ?>
         <ul class="related-content-topic">
-        <?php if(isset($variables['related_topic1_name'])): ?>        
-            <?php if(isset($variables['related_topic1_image'])): ?>
-            <li><?php print $related_topic1_image; ?>
-            <?php else: ?>
-            <li><img src="/<?php print(drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'); ?>">
-            <?php endif; ?>
-                <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?php print $url_1; ?>"><?php print $related_topic1_name; ?></a></p>   
-            </li>
-        <?php endif; ?>
-        
-        
-        </ul>
-        <?php endif; ?>
-        <div>
-            <!-- PRINT CONTENT TABS 
-            <div class="section-container vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
-            <?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
-                <?php if($i == 0): ?>
-                <section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+            <?php foreach ($variables['topics'] as $topic): ?>     
+                <?php if(isset($topic['related_topic_image'])): ?>
+                <li><?php print $topic['related_topic_image']; ?>
                 <?php else: ?>
-                <section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+                <li><img src="/<?php print(drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'); ?>">
                 <?php endif; ?>
-                    <h2 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h2>
-                    <div class="content" data-section-content>
-                        <p class="subtitle"><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?><p>
-                        <?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_body'][0]['#markup']); ?>
+                    <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?php print $topic['url']; ?>"><?php print $topic['related_topic_name']; ?></a></p>   
+                </li>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        </ul>
+        
+        
+        <!-- PRINT CONTENT TABS -->
+       
+        <div class="section-container tabs" data-section="tabs">
+        <?php foreach ($variables['tabs'] as $tab_name => $tab_data): ?>
+            <?php if($tab_name == 'publications'): ?>
+            <section class="active" id="<?php print $tab_name; ?>">
+            <?php else: ?>
+            <section id="<?php print $tab_name; ?>">
+            <?php endif; ?>
+                <h3 class="title" data-section-title><a href="#"><?php print $tab_name; ?></a></h3>
+                <div class="content" data-section-content>
+                    <?php foreach ($tab_data as $node_data): ?>
+                        <ul class="latest-news-list">
+                            <li class=""><a href="url-title"><?php print $node_data->title; ?></a>
+                                <ul class="metadata-items">
+                                    <li><?php print $node_data->ct_name; ?></li>
+                                    <?php if($tab_name == 'Publications'): ?>
+                                        <li><?php print $node_data->publication_date; ?></li>
+                                    <?php elseif($tab_name == 'Events'): ?>
+                                        <li><?php print $node_data->event_start_date; ?></li>
+                                    <?php else: ?>
+                                        <li><?php print $node_data->published_at; ?></li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                        </ul>
+                    <?php endforeach; ?>
+                    <div class="pagination-centered">
+                        <div class="item-list">
+                            <ul class="pagination pager">
+                                <li class="current first"><a href="">1</a></li>
+                                <li><a title="Go to page 2" href="/topics_page/<?php print $tab_name; ?>/page=1">2</a></li>
+                                <li><a title="Go to page 3" href="/topics_page/<?php print $tab_name; ?>/page=2">3</a></li>
+                                <li><a title="Go to page 4" href="/topics_page/<?php print $tab_name; ?>/page=3">4</a></li>
+                                <li class="arrow"><a title="Go to next page" href="/ef-my-todo-list?page=1">next ›</a></li>
+                                <li class="arrow last"><a title="Go to last page" href="/ef-my-todo-list?page=3">last »</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </section>
-            <?php endfor; ?>
-            </div>
-            -->
+                </div>            
+            </section>  
+        <?php endforeach; ?>
         </div>
+        
+        
+
+  
     </section>
     <?php if(isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
     <aside class="large-3 columns">   

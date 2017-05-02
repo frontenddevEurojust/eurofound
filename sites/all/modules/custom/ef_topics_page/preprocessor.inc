@@ -53,15 +53,21 @@ function template_preprocess_ef_topics_page(&$variables){
     // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
 
-    
+    $variables = add_administrator_menu($variables, $term);
     
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
-    if( isset($term->field_ef_featured_block_content) )
-    	$variables['featured_block'] = $term->field_ef_featured_block_content[$language->language][0]['value'];
-    if( isset($term->field_ef_related_links_block) )
+
+    if(isset($term->field_ef_featured_block_content))
+    {
+    	$variables['featured_block'] = $term->field_ef_featured_block_content[$language->language][0]['value'];;
+    }
+
+    if(isset($term->field_ef_related_links_block))
+    {
     	$variables['related_links_block'] = $term->field_ef_related_links_block[$language->language][0]['value'];
+    }
     
     
     drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
