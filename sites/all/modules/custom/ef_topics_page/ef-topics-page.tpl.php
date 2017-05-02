@@ -10,7 +10,6 @@ if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
 dpm($variables);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -118,12 +117,13 @@ dpm($variables);
     <aside class="large-3 columns">   
         <?php if(isset($variables['featured_block'])): ?>
         <div class="featured-block">
-            <?php print $featured_block; ?>
+            <?php print render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
         </div>
+
         <?php endif; ?>
         <?php if(isset($variables['related_links_block'])): ?>
         <div class="related-links-block">
-            <?php print $related_links_block; ?>
+            <?php print render(field_view_field('taxonomy_term', $term, 'field_ef_related_links_block', array('label'=>'hidden'))); ?>
         </div>
         <?php endif; ?>
     </aside>

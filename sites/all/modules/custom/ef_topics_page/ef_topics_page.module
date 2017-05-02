@@ -29,6 +29,7 @@ function ef_topics_page_menu(){
     'page callback' => '_update_topics_tab',
     'page arguments' => array(2,3),
     'type' => MENU_CALLBACK, 
+    'access arguments' => array('access_ef_topics_page'),
   );
 
 
@@ -43,6 +44,7 @@ function topics_page($contextual_term = ''){
   return theme('ef_topics_page',
       array(
         'contextual_term' => $contextual_term,
+        'term' => NULL,
         'main_image' => NULL, 
         'summary' => NULL,
         'subscription' => NULL,
@@ -65,6 +67,7 @@ function ef_topics_page_theme(){
       'template' => 'ef-topics-page',
       'variables' => array(
                       'contextual_term' => NULL,
+                      'term' => NULL,
                       'main_image' => NULL,
                       'summary' => NULL,
                       'subscription' => NULL,

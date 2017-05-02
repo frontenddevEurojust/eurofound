@@ -32,7 +32,7 @@ function return_url_alias_data($tid){
 }
 
 
-function add_highlighted_tab($variables, $tid){
+function add_highlighted_tab($variables, $tid, $page){
 
     /*
     SELECT node.title AS node_title, node.nid AS nid, node.language AS node_language, node.type AS node_type, publication_date.published_at AS publication_date_published_at, 'node' AS field_data_field_ef_event_start_date_node_entity_type, 'node' AS field_data_field_ef_publication_date_node_entity_type
@@ -63,7 +63,7 @@ function add_highlighted_tab($variables, $tid){
 
 }
 
-function add_all_tab($variables, $tid){
+function add_all_tab($variables, $tid, $page){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -97,19 +97,9 @@ function add_all_tab($variables, $tid){
     
     return $variables;
 
-  /*
-  SELECT node.title AS node_title, node.nid AS nid, node.language AS node_language, node.type AS node_type, publication_date.published_at AS publication_date_published_at, 'node' AS field_data_field_ef_event_start_date_node_entity_type, 'node' AS field_data_field_ef_publication_date_node_entity_type
-  FROM 
-  {node} node
-  INNER JOIN {taxonomy_index} taxonomy_index ON node.nid = taxonomy_index.nid
-  LEFT JOIN {publication_date} publication_date ON node.nid = publication_date.nid
-  WHERE (( (taxonomy_index.tid = '14172') )AND(( (node.status = '1') AND (node.type IN  ('ef_report', 'ef_event', 'ef_news', 'ef_publication')) )))
-  ORDER BY publication_date_published_at DESC
-  */
-
 }
 
-function add_publications_tab($variables, $tid){
+function add_publications_tab($variables, $tid, $page){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -140,7 +130,7 @@ function add_publications_tab($variables, $tid){
     return $variables;
 }
 
-function add_articles_tab($variables, $tid){
+function add_articles_tab($variables, $tid, $page){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -171,7 +161,7 @@ function add_articles_tab($variables, $tid){
 
 }
 
-function add_news_tab($variables, $tid){
+function add_news_tab($variables, $tid, $page){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -202,7 +192,7 @@ function add_news_tab($variables, $tid){
  
 }
 
-function add_events_tab($variables, $tid){
+function add_events_tab($variables, $tid, $page){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');

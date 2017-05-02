@@ -33,9 +33,13 @@ function template_preprocess_ef_topics_page(&$variables){
     // Retrieve full term for $variables populating
     $term = taxonomy_term_load($tid);
     
+    $page;
+
+    // Needs to be passed for Rendering Media CKEDitors
+    $variables['term'] = $term;
 
     // TABS DATA MISSING
-    $variables = build_content_tabs($variables, $term);
+    $variables = build_content_tabs($variables, $term, $page);
 
     // Metatag data preprocessing
     $string_ef_activities = build_activities_string($term);
@@ -49,7 +53,7 @@ function template_preprocess_ef_topics_page(&$variables){
     
     // Topics preprocessing for image and name
     $variables = add_topics_to_variables($variables, $term);
-    dpm($variables);
+
     // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
 

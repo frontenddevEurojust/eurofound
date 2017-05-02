@@ -2,20 +2,20 @@
 
 
 
-function build_content_tabs($variables, $term){
+function build_content_tabs($variables, $term, $page){
 
 
-	//add_highlighted_tab($variables, $term->tid);
+	//add_highlighted_tab($variables, $term->tid, $page);
 
-	$variables = add_all_tab($variables, $term->tid);
+	$variables = add_all_tab($variables, $term->tid, $page);
 
-	$variables = add_publications_tab($variables, $term->tid);
+	$variables = add_publications_tab($variables, $term->tid, $page);
 
-	$variables = add_articles_tab($variables, $term->tid);
+	$variables = add_articles_tab($variables, $term->tid, $page);
 
-	$variables = add_news_tab($variables, $term->tid);
+	$variables = add_news_tab($variables, $term->tid, $page);
 
-	$variables = add_events_tab($variables, $term->tid);
+	$variables = add_events_tab($variables, $term->tid, $page);
 
 
 	return $variables;
@@ -98,7 +98,6 @@ function add_topics_to_variables($variables, $term){
 	 	
 	 	}
  	}
- 	dpm($variables);
 	
 
     return $variables;
