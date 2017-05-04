@@ -1,15 +1,17 @@
 <?php
 
+require_once 'helpers/db_functions.inc';
+
 /*
 * Implements hook_permission()
 */
 function ef_topics_page_permission(){
-  return array(
-    'access_ef_topics_page' => array(
-      'title' => t('Access to EF Topics page'),
-      'description' => t('Allow access to contextual topics page'),
-    ),
-  );
+    return array(
+        'access_ef_topics_page' => array(
+            'title' => t('Access to EF Topics page'),
+            'description' => t('Allow access to contextual topics page'),
+        ),
+    );
 }
 
 /*
@@ -25,9 +27,9 @@ function ef_topics_page_menu(){
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['topics_page/%/%'] = array(
+  $items['get_topic/ajax/%/%/%'] = array(
     'page callback' => '_update_topics_tab',
-    'page arguments' => array(2,3),
+    'page arguments' => array(2,3,4),
     'type' => MENU_CALLBACK, 
     'access arguments' => array('access_ef_topics_page'),
   );
@@ -62,26 +64,26 @@ function topics_page($contextual_term = ''){
 * Implements hook_theme()
 */
 function ef_topics_page_theme(){
-  return array(
-    'ef_topics_page' => array(
-      'template' => 'ef-topics-page',
-      'variables' => array(
-                      'contextual_term' => NULL,
-                      'term' => NULL,
-                      'main_image' => NULL,
-                      'summary' => NULL,
-                      'subscription' => NULL,
-                      'description' => NULL,
-                      'topics' => NULL,
-                      'tabs' => NULL,
-                      'featured_block' => NULL,
-                      'related_links_block' => NULL,
-                      'ef_activities' => NULL,
-                      'subscription_url' => NULL,
-                    ),
-      'file' => 'preprocessor.inc'
-    ),
-  );
+    return array(
+        'ef_topics_page' => array(
+            'template' => 'ef-topics-page',
+            'variables' => array(
+                'contextual_term' => NULL,
+                'term' => NULL,
+                'main_image' => NULL,
+                'summary' => NULL,
+                'subscription' => NULL,
+                'description' => NULL,
+                'topics' => NULL,
+                'tabs' => NULL,
+                'featured_block' => NULL,
+                'related_links_block' => NULL,
+                'ef_activities' => NULL,
+                'subscription_url' => NULL,
+            ),
+            'file' => 'preprocessor.inc'
+        ),
+    );
 }
 
 
@@ -95,21 +97,112 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
     
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
-      'visible' => array(
-        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
-        );
+        'visible' => array(
+            'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+        )
+    );
 
     $form['field_term_key_topic']['#states'] = array(
-      'visible' => array(
-        'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE))
-        );
+        'visible' => array(
+            'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
+        )
+    );
  
   }
 
 }
 
-function _update_topics_tab($content_type_name, $page){
-  dpm($content_type_name);
-  dpm($page);
+function _update_topics_tab($tid, $content_type_name, $page){
+    
+    dpm('entro a callback de hook menu');
+    $page_number = intval(str_replace("page=", "", $page));
+
+    switch($content_type_name)
+    {
+
+        case 'Highlights':
+
+            $data = add_highlighted_tab($term->tid, $page);
+
+            break;
+
+        case 'All':
+
+            $data = add_all_tab($tid, $page_number);
+
+            break;
+          
+        case 'Publications':
+            
+            $data = add_publications_tab($tid, $page_number);
+
+            break;
+
+        case 'Articles':
+            
+            $data = add_articles_tab($tid, $page_number);
+
+            break;
+
+        case 'News':
+            
+            $data = add_news_tab($tid, $page_number);
+
+            break;
+
+        case 'Events':
+            
+            $data = add_events_tab($tid, $page_number);
+
+            break;
+    }
+
+    if(count($data) > 0)
+    {
+        drupal_json_output(array('status' => 200, 'data' => $data)); 
+    }
+    else
+    {
+        drupal_json_output(array('status' => 500, 'data' => 'There was an error processing your request'));
+    }
+ 
+      
 
 }
+/*
+function build_tab_html($data, $content_type_name){
+    dpm('called');
+    dpm($data);
+    $output .= '<section class="active" id="' . $content_type_name  . '">';
+    $output .= '<h3 class="title" data-section-title><a href="#">' . $content_type_name .'</a></h3>';
+    $output .= '<div class="content" data-section-content>';
+    
+    foreach ($data as $key => $node) {
+        
+        $output .= '<ul class="latest-news-list">';
+        $output .= '<li class=""><a href="url-title">' . $node->title . '</a>';
+        $output .= '<ul class="metadata-items">';
+        
+        if($content_type_name == 'Publications')
+        {
+            $output .= '<li>' . $node->publication_date . '</li>';
+        }
+        elseif($content_type_name == 'Events')
+        {
+            $output .= '<li>' . $node->event_start_date . '</li>';
+        }
+        else
+        {
+            $output .= '<li>' . $node->published_at . '</li>';
+        }
+        
+        $output .= '</ul></li></ul>';
+        $output .= '</div>';                          
+        
+    }
+
+    $output .= '</section>';
+    dpm($output);
+
+}
+*/

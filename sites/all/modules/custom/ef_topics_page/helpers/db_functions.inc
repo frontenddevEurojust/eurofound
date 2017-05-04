@@ -32,7 +32,7 @@ function return_url_alias_data($tid){
 }
 
 
-function add_highlighted_tab($variables, $tid, $page){
+function add_highlighted_tab($tid, $page){
 
     /*
     SELECT node.title AS node_title, node.nid AS nid, node.language AS node_language, node.type AS node_type, publication_date.published_at AS publication_date_published_at, 'node' AS field_data_field_ef_event_start_date_node_entity_type, 'node' AS field_data_field_ef_publication_date_node_entity_type
@@ -63,7 +63,7 @@ function add_highlighted_tab($variables, $tid, $page){
 
 }
 
-function add_all_tab($variables, $tid, $page){
+function add_all_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -83,23 +83,31 @@ function add_all_tab($variables, $tid, $page){
 
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
-    // Limit the result set to 8
-    $query->range(0, 8);
-    
+    // Limit the result set to 8 and define an offset dependant on the $page provided
+     if(isset($page))
+    {
+        $query->range(8 * $page, $limit);
+    }
+    else
+    {
+        $query->range(0, $limit);
+    }
+
     $result = $query->execute();
    
     
     if($result->rowCount() > 0)
     {
-        $variables['tabs']['All'] = _db_result_to_array($result);
+        $output = _db_result_to_array($result);
+        return $output;
     }
   
+    return;
     
-    return $variables;
 
 }
 
-function add_publications_tab($variables, $tid, $page){
+function add_publications_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -115,8 +123,15 @@ function add_publications_tab($variables, $tid, $page){
 
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('d.field_ef_publication_date_value', 'DESC');
-    // Limit the result set to 8
-    $query->range(0, 8);
+    // Limit the result set to 8 and define an offset dependant on the $page provided
+     if(isset($page))
+    {
+        $query->range(8 * $page, $limit);
+    }
+    else
+    {
+        $query->range(0, $limit);
+    }
     
 
     $result = $query->execute();
@@ -124,13 +139,14 @@ function add_publications_tab($variables, $tid, $page){
     
     if($result->rowCount() > 0)
     {  
-        $variables['tabs']['Publications'] = _db_result_to_array($result);
+        $output = _db_result_to_array($result);
+        return $output;
     }    
 
-    return $variables;
+    return;
 }
 
-function add_articles_tab($variables, $tid, $page){
+function add_articles_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -146,22 +162,31 @@ function add_articles_tab($variables, $tid, $page){
 
     // Order by published_at field
     $query->extend('TableSort')->orderBy('d.published_at', 'DESC');
-    // Limit the result set to 8
-    $query->range(0, 8);
+    // Limit the result set to 8 and define an offset dependant on the $page provided
+    if(isset($page))
+    {
+        $query->range(8 * $page, $limit);
+    }
+    else
+    {
+        $query->range(0, $limit);
+    }
+    
 
     $result = $query->execute();
     
     if($result->rowCount() > 0)
     {
-        $variables['tabs']['Articles'] = _db_result_to_array($result);
+        $output = _db_result_to_array($result);
+        return $output;
     }
     
-    return $variables;
+    return;
   
 
 }
 
-function add_news_tab($variables, $tid, $page){
+function add_news_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -177,22 +202,30 @@ function add_news_tab($variables, $tid, $page){
 
     // Order by published_at field
     $query->extend('TableSort')->orderBy('d.published_at', 'DESC');
-    // Limit the result set to 8
-    $query->range(0, 8);
+    // Limit the result set to 8 and define an offset dependant on the $page provided
+     if(isset($page))
+    {
+        $query->range(8 * $page, $limit);
+    }
+    else
+    {
+        $query->range(0, $limit);
+    }
 
     $result = $query->execute();
 
 
     if($result->rowCount() > 0)
     {
-        $variables['tabs']['News'] = _db_result_to_array($result);
+        $output = _db_result_to_array($result);
+        return $output;
     }
     
-    return $variables;
+    return;
  
 }
 
-function add_events_tab($variables, $tid, $page){
+function add_events_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
@@ -210,18 +243,26 @@ function add_events_tab($variables, $tid, $page){
 
     // Order by event_start_date field
     $query->extend('TableSort')->orderBy('d.field_ef_event_start_date_value', 'DESC');
-    // Limit the result set to 8
-    $query->range(0, 8);
+    // Limit the result set to 8 and define an offset dependant on the $page provided
+     if(isset($page))
+    {
+        $query->range(8 * $page, $limit);
+    }
+    else
+    {
+        $query->range(0, $limit);
+    }
 
     $result = $query->execute();
 
 
     if($result->rowCount() > 0)
     {
-        $variables['tabs']['Events'] = _db_result_to_array($result);
+        $output = _db_result_to_array($result);
+        return $output;
     }
     
-    return $variables;
+    return;
 }
 
 function _db_result_to_array($result){

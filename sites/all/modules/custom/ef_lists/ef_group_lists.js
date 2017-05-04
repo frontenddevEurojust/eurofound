@@ -11,12 +11,6 @@
                     $(element.previousElementSibling).removeClass('modified');
                     $(element.previousElementSibling).addClass('saved');
                     $.post('/save/assign_to_user/' + aux[0] + '/' + aux[1] + '/' + uid);
-                    /*
-                    $.post( "test.php", { func: "getNameAndTime" }, function( data ) {
-                      console.log( data.name ); // John
-                      console.log( data.time ); // 2pm
-                    }, "json");
-                    */
                 });   
             });
         }

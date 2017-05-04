@@ -9,23 +9,21 @@ require_once 'helpers/db_functions.inc';
   HOOK refers to template name. Hyphens should be renamed to underscores
 */
 function template_preprocess_ef_topics_page(&$variables){
-  // Images through media field are not rendered properly due to problems with drupal_render(). 
-  // https://api.drupal.org/api/drupal/includes%21common.inc/function/drupal_render/7.x
 
-  // Global $language variable is used for textfield translations
-  global $language;
-  $starttime = microtime(true);
+    // Global $language variable is used for textfield translations
+    global $language;
+    $starttime = microtime(true);
 
-  // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
-    
-  $found = check_topic_exists_by_url(strtolower($variables['contextual_term']));
+    // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
 
-  if(!$found)
-  {
-    drupal_not_found();
-  }
-  else
-  {
+    $found = check_topic_exists_by_url(strtolower($variables['contextual_term']));
+
+    if(!$found)
+    {
+        drupal_not_found();
+    }
+    else
+    {
     
     // Always follows the rule: 'taxonomy/term/id'
     $aux = explode("/",$found[0]->source);
@@ -33,13 +31,14 @@ function template_preprocess_ef_topics_page(&$variables){
     // Retrieve full term for $variables populating
     $term = taxonomy_term_load($tid);
     
-    $page;
-
+    dpm($_GET);
     // Needs to be passed for Rendering Media CKEDitors
     $variables['term'] = $term;
 
     // TABS DATA MISSING
     $variables = build_content_tabs($variables, $term, $page);
+
+
 
     // Metatag data preprocessing
     $string_ef_activities = build_activities_string($term);
@@ -75,17 +74,19 @@ function template_preprocess_ef_topics_page(&$variables){
     
     
     drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
-    if($term->field_ef_term_hide_tabs['und'][0]['value'] == '0'){
-      // Hide higlights tab
-      drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
-    }
+    
+    drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
+    $settings['tid'] = $term->tid;
+    $settings['page'] =  retrieve_total_results_per_tab($term, $limit = 500000);
+    dpm($settings);
+    drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
     drupal_set_title($term->name);
 
 
-  $endtime = microtime(true);
-  $timediff = $endtime - $starttime;
-  dpm($timediff);
+    $endtime = microtime(true);
+    $timediff = $endtime - $starttime;
+    dpm($timediff);
   }  
 }

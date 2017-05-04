@@ -2,24 +2,44 @@
 
 
 
-function build_content_tabs($variables, $term, $page){
+function build_content_tabs($variables, $term, $page = ''){
+	// Hide higlights tab
+	if($term->field_ef_term_hide_tabs['und'][0]['value'] == '0')
+	{      
+      //$variables['tabs']['Highlights'] = add_highlighted_tab($term->tid, $page);
+    }
+    else
+    {
+    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);
+    }
 
 
-	//add_highlighted_tab($variables, $term->tid, $page);
+	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $page);
 
-	$variables = add_all_tab($variables, $term->tid, $page);
+	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $page);
 
-	$variables = add_publications_tab($variables, $term->tid, $page);
+	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
 
-	$variables = add_articles_tab($variables, $term->tid, $page);
-
-	$variables = add_news_tab($variables, $term->tid, $page);
-
-	$variables = add_events_tab($variables, $term->tid, $page);
+	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
 
 
 	return $variables;
 
+}
+
+function retrieve_total_results_per_tab($term, $limit){
+
+    $results['All'] = count(add_all_tab($term->tid, $page, $limit));
+
+    $results['Publications'] = count(add_publications_tab($term->tid, $page, $limit));
+
+    $results['Articles'] = count(add_articles_tab($term->tid, $page, $limit));
+
+    $results['News'] = count(add_news_tab($term->tid, $page, $limit));
+
+    $results['Events'] = count(add_events_tab($term->tid, $page, $limit));
+
+    return $results;
 }
 
 
