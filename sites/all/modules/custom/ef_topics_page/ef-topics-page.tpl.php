@@ -76,7 +76,7 @@ dpm($variables);
                 <?php else: ?>
                 <section id="<?= $tab_name; ?>">
                 <?php endif; ?>
-                    <h3 class="title" data-section-title><a href="#"><?= $tab_name; ?></a></h3>
+                    <h3 class="title" data-section-title><a href="#"><?= $tab_name . ' (' . $total[$tab_name] . ')'; ?></a></h3>
                     <div class="content" data-section-content>
                         <ul class="latest-news-list">
                         <?php foreach ($tab_data as $node_data): ?>

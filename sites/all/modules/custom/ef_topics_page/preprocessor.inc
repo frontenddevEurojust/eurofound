@@ -58,6 +58,8 @@ function template_preprocess_ef_topics_page(&$variables){
 
     $variables = add_administrator_menu($variables, $term);
     
+    $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
+    
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
@@ -78,8 +80,8 @@ function template_preprocess_ef_topics_page(&$variables){
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
-    retrieve_total_results_per_tab($term, $limit = 500000);
-    dpm($settings);
+    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000);
+
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
     drupal_set_title($term->name);
