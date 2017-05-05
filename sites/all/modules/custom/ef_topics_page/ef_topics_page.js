@@ -22,7 +22,7 @@ function get_next_page(element){
 		{
 			$html = build_HTML_output(response);
 			jQuery('section.active .content').replaceWith($html);
-
+			update_pager(element.innerHTML);
 			
 		}
 
@@ -33,40 +33,45 @@ function get_next_page(element){
 function build_HTML_output(response){
 
 	var arrayLength = response.data.length;
-	var output = '<div class="content" data-section-content>';
-	output += '<ul class="latest-news-list">';
+	var tabs = '<div class="content" data-section-content>';
+	tabs += '<ul class="latest-news-list">';
 	
 	for (var i = 0; i < arrayLength; i++) 
 	{
 
-	    output += '<li class=""><a href="/node/' + response.data[i].node_id + '">' + response.data[i].title + '</a>';
-	    output += '<ul class="metadata-items">';
-	    output += '<li>' + response.data[i].ct_name + '</li>';
+	    tabs += '<li class=""><a href="/node/' + response.data[i].node_id + '">' + response.data[i].title + '</a>';
+	    tabs += '<ul class="metadata-items">';
+	    tabs += '<li>' + response.data[i].ct_name + '</li>';
 
 	    if(response.data[i].ct_name == 'EF publications')
 	    {
 	    	
-	    	output += '<li>' + response.data[i].publication_date + '</li>';
+	    	tabs += '<li>' + response.data[i].publication_date + '</li>';
 	    
 	    }
 	    else if(response.data[i].ct_name == 'EF events')
 	    {
 
-	    	output += '<li>' + response.data[i].event_start_date + '</li>';
+	    	tabs += '<li>' + response.data[i].event_start_date + '</li>';
 
 	    }
 	    else
 	    {
-	    	output += '<li>' + response.data[i].published_at + '</li>';
+	    	tabs += '<li>' + response.data[i].published_at + '</li>';
 	    }
-	    output += '</ul></li>';
+	    tabs += '</ul></li>';
 	}
 	
-	output +='</ul></div>';
+	tabs +='</ul></div>';
 
 	//falta el paginador
-	return output;
+	return tabs;
 }
+/*
+functions update_pager(){
+
+}
+*/
 /*
  <div class="content" data-section-content>
                         <?php foreach ($tab_data as $node_data): ?>

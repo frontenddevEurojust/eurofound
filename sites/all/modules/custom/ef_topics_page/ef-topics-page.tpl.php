@@ -69,7 +69,7 @@ dpm($variables);
         <!-- PRINT CONTENT TABS -->
        
         <div class="section-container tabs" data-section="tabs">
-        <?php foreach ($variables['tabs'] as $tab_name => $tab_data): ?>
+        <?php foreach ($tabs as $tab_name => $tab_data): ?>
             <?php if(isset($tab_data)): ?>
                 <?php if($tab_name == 'publications'): ?>
                 <section class="active" id="<?= $tab_name; ?>">
@@ -94,18 +94,10 @@ dpm($variables);
                             </li>
                         <?php endforeach; ?>
                         </ul>
-                        <div class="pagination-centered">
-                            <div class="item-list">
-                                <ul class="pagination pager">
-                                    <li class="current first"><a href="">1</a></li>
-                                    <li><a title="Go to page 2" href="get">2</a></li>
-                                    <li><a title="Go to page 3" href="/get_topic/ajax/<?= $term->tid; ?>/<?= $tab_name; ?>/page=2">3</a></li>
-                                    <li><a title="Go to page 4" href="javascript:" onclick="get_next_page(this);">4</a></li>
-                                    <li class="arrow"><a title="Go to next page" href="javascript:" onclick="get_next_page(this);">next ›</a></li>
-                                    <li class="arrow last"><a title="Go to last page" href="/ef-my-todo-list?page=3">last »</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <!-- MOSTRAR PAGINADOR -->
+                        <?php if( $pager[$tab_name] !== 0): ?>
+                            <?= $pager[$tab_name]; ?>
+                        <?php endif; ?>
                     </div>            
                 </section>
             <?php endif; ?>  

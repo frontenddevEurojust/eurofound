@@ -31,14 +31,14 @@ function template_preprocess_ef_topics_page(&$variables){
     // Retrieve full term for $variables populating
     $term = taxonomy_term_load($tid);
     
-    dpm($_GET);
+
     // Needs to be passed for Rendering Media CKEDitors
     $variables['term'] = $term;
 
     // TABS DATA MISSING
     $variables = build_content_tabs($variables, $term, $page);
 
-
+    $variables = build_content_pagers($variables, $term, $page, $limit = 5000000);
 
     // Metatag data preprocessing
     $string_ef_activities = build_activities_string($term);
@@ -78,7 +78,7 @@ function template_preprocess_ef_topics_page(&$variables){
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
-    $settings['page'] =  retrieve_total_results_per_tab($term, $limit = 500000);
+    retrieve_total_results_per_tab($term, $limit = 500000);
     dpm($settings);
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values

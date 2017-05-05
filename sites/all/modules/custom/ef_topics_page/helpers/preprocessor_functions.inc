@@ -1,6 +1,16 @@
 <?php 
 
 
+function build_content_pagers($variables, $term, $page, $limit = 500000){
+
+	$variables['pager'] = retrieve_total_results_per_tab($term, $limit);	
+
+	dpm($variables);
+
+	$variables = build_pager_html($variables);
+
+	return $variables;
+}
 
 function build_content_tabs($variables, $term, $page = ''){
 	// Hide higlights tab
@@ -176,4 +186,60 @@ function add_administrator_menu($variables, $term){
 	$variables['admin_menu']['Devel'] = '/taxonomy/term/' . $term->tid . '/devel';
 
 	return $variables;
+}
+
+function build_pager_html($variables){
+
+	dpm($variables['pager']);
+	foreach ($variables['pager'] as $type => $total) 
+	{
+		$html = '';
+		$links = (int)floor($total / 8);
+		dpm($links);
+
+		$html .= '<div class="pagination-centered">';
+		$html .= '<div class="item-list">';
+		$html .= '<ul class="pagination pager">';
+                            
+        if($links != 0)
+        {
+
+			for ($i = 0; $i <= $links; $i++)
+			{
+				$number = $i +1;
+
+				// Max number of number links is 5
+				if( $i <= 4)
+				{
+					// Set 'current first' class to the first one
+					if( $i == 0)
+					{
+						$html .= '<li class="current first"><a href="javascript:" >' . $number . '</a></li>';
+					}
+					else
+					{
+						$html .= '<li><a href="javascript:" onclick="get_next_page(this);">' . $number . '</a></li>';
+					}
+					
+				}
+				else
+				{
+					break;
+				}
+				
+			}
+
+			$html .= '</ul></div></div>';
+			$variables['pager'][$type] = $html;
+
+		}
+		else
+		{
+			$variables['pager'][$type] = 0;
+		}
+	}
+	dpm($variables);
+
+	return $variables;
+
 }
