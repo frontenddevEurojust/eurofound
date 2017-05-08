@@ -12,7 +12,7 @@ function template_preprocess_ef_topics_page(&$variables){
 
     // Global $language variable is used for textfield translations
     global $language;
-    //$starttime = microtime(true);
+    
 
     // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
 
@@ -86,9 +86,6 @@ function template_preprocess_ef_topics_page(&$variables){
     // Use drupal_set_title function as hook_menu can't work with contextual values
     drupal_set_title($term->name);
 
-    /*
-    $endtime = microtime(true);
-    $timediff = $endtime - $starttime;
-    */
+   
   }  
 }

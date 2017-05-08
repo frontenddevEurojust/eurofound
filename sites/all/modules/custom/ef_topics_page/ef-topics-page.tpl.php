@@ -9,8 +9,6 @@
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -55,7 +53,7 @@ if(!empty($variables['ef_activities'])){
         <ul class="related-content-topic">
             <?php foreach ($variables['topics'] as $topic): ?>     
                 <?php if(isset($topic['related_topic_image'])): ?>
-                <li><?= $topic['related_topic_image']; ?>
+                <li><a href="/<?= $topic['url']; ?>"><?= $topic['related_topic_image']; ?></a>
                 <?php else: ?>
                 <li><img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                 <?php endif; ?>

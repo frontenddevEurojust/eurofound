@@ -31,15 +31,18 @@ function get_next_page(element){
 
 		if(element.innerHTML.indexOf('Previous') !== -1)
 		{
-			console.log(jQuery('section.active li.current').prev().children()[0].innerHTML);
+		
 			// We select the first next sibling's <a> of the current <li>
 			element = jQuery('section.active li.current').children()[0]; 
 			page_number = element.innerHTML - 2;
+		
 		}
 		else
 		{
+		
 			element = element;
 			page_number = element.innerHTML - 1;
+		
 		}
 				
 	}

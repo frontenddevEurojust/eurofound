@@ -377,23 +377,3 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   }
 }
 
-
-function reduce_db_size()
-{
-
-  $query = "SELECT *
-            FROM node a
-            WHERE a.`type` NOT IN ('ef_report','ef_factsheet','page','ef_survey','ef_dvs','cwb_series','cwb_time_series','cwb_country_info','cwb_level_coordination','timeline_date')
-            AND a.changed < 1480588891";
-
-  $total_nodes = db_query($query)->fetchAll();
- 
-  foreach ($total_nodes as $object)
-  {
-   
-    node_delete($object->nid);
- 
-  }
- 
-
-}

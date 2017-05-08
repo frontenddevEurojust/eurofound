@@ -12,11 +12,16 @@ function build_content_pagers($variables, $term, $page, $limit = 500000){
 
 function build_content_tabs($variables, $term, $page = ''){
 	// Hide higlights tab
-	if($term->field_ef_term_hide_tabs['und'][0]['value'] == '0')
+	/* Not set -> show both
+	*  0 -> hide Highlights
+	*  1 -> hide All
+	*/
+	if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-      //$variables['tabs']['Highlights'] = add_highlighted_tab($term->tid, $page);
+     	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
     }
-    else
+    
+    if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '0')
     {
     	$variables['tabs']['All'] = add_all_tab($term->tid, $page);
     }
@@ -27,9 +32,9 @@ function build_content_tabs($variables, $term, $page = ''){
 	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $page);
 
 	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
-	
+
 	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
-	
+
 
 	return $variables;
 
