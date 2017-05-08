@@ -89,17 +89,23 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 		$cell = $from_cell . (string) $begin_row;
 		$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
 	}	
+	$directory = 'public://ef_term_merge';
 
+	$writable = file_prepare_directory($directory, $options = FILE_CREATE_DIRECTORY);
+	
+	if($writable)
+	{
+		//Set the directory to store the files
+		$dir = file_stream_wrapper_get_instance_by_uri('public://ef_term_merge/')->realpath();
 
-	//Set the directory to store the files
-	$dir = file_stream_wrapper_get_instance_by_uri('public://ef_term_merge/')->realpath();
+		//Name the files
+		$filename = date('j-M-Y--H-i', time()) . '-merge-terms.xlsx';
+		$path = "$dir/$filename";
 
-	//Name the files
-	$filename = date('j-M-Y--H-i', time()) . '-merge-terms.xlsx';
-	$path = "$dir/$filename";
-
-	//Save the file
-	$objWriter->save($path);
+		//Save the file
+		$objWriter->save($path);
+	}
+	
 
 	return $filename;
 }

@@ -182,7 +182,7 @@ a.popup-element-title.popup-title-active span:after,
 .light-style ul.quicktabs-tabs.quicktabs-style-basic a#quicktabs-tab-ef_block_latest_content-1:before,
 .surveys h2.pane-title:before,
 .page-index .view-ef-spotlight-on .view-content .item-list .views-field-nid:after,
-.node-ef-publication .field-name-field-ef-document .file:after,
+.node-ef-publication .field-name-field-ef-document .file a:after, 
 .block-views-ef-countries-jump-block-block label:before,
 .pane-ef-latest-for-country-panel-pane-1 h2.pane-title:before,
 .country-specific-info .view-country:before,
@@ -259,10 +259,6 @@ list-style-type:none;
 }
 .country-specific-info .view-country:before {
 	content:"\e614";
-}
-/*---download----*/
-.node-ef-publication .field-name-field-ef-document .file:after{
-	content: "\e62a";
 }
 /*--spotlight--*/
 .spotlight-on h2.pane-title:before{
@@ -7986,61 +7982,7 @@ html.js #node_ef_event_full_group_venue_details .fieldset-legend{
 .view-ef-spotlight-on .views-field-nid{
 	color: #999
 }
-/* @group PUBLICATIONS----------*/
-#node_ef_publication_full_group_ef_node_details{
-	width: 100%;
-}
-#node_ef_publication_full_group_ef_node_details .field{
-	padding-left: 30%!important;
-	line-height: 1.1em;
-	overflow: hidden;
-	text-align: left;
-}
-#node_ef_publication_full_group_ef_node_details .label-inline{
-	font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
-	float: left;
-	width: 37%;
-	margin-left:-40%;
-}
-#node_ef_publication_full_group_ef_node_details a{
-  margin-right:3px;
-  display: inline-block;
-  padding-bottom: 4px;
-}
-#node_ef_publication_full_group_ef_node_details a:after{
-	content: "; ";
-}
-#node_ef_publication_full_group_ef_node_details a:last-child:after{
-	content: "";
-}
-.node-ef-publication .field-name-publication-preview{
-	margin-bottom:25px;
-}
-.node-ef-publication .field-name-field-ef-document .file{
-	display: block;
-	padding: 18px 30px 18px 15px;
-	background-color: #F99E35;
-	text-align: left;
-	clear: both;
-	position: relative;
-	font-size: 1.2em;
-	margin-bottom:20px;
-}
-/*.node-ef-publication .field-name-field-ef-document .file .file-icon{
-	margin-left: 0px;
-}*/
-.node-ef-publication .field-name-field-ef-document .file img{display: none;}
-.node-ef-publication .field-name-field-ef-document .file:after{
-	color: #fff;
-	position: absolute;
-	top:10px;
-	right: 10px;
-	font-size:1.8em;}
-.node-ef-publication .field-name-field-ef-document .file a{
-	color: #fff;
-	margin: 0px;
-	padding-right: 0px;
-}
+
 .page-network-quarterly-reports-export div#edit-secondary-wrapper {
 	clear: both;
 }
