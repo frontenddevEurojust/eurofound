@@ -6,7 +6,7 @@
         	{
 		    	tid = Drupal.settings.ef_topics_page.tid;
 		    	pages = Drupal.settings.ef_topics_page.pages;
-		    	tab = jQuery('section.active').attr('id');
+		    	
 		    } 
         }
     }
@@ -14,7 +14,35 @@
 
 function get_next_page(element){
 
-	var page_number = element.innerHTML - 1;
+	var page_number;
+	tab = jQuery('section.active').attr('id');
+
+
+	if(element.innerHTML.indexOf('Next') !== -1)
+	{
+		
+		// We select the first next sibling's <a> of the current <li>
+		element = jQuery('section.active li.current').next().children()[0];
+		page_number = element.innerHTML - 1;
+	
+	}
+	else
+	{
+
+		if(element.innerHTML.indexOf('Previous') !== -1)
+		{
+			console.log(jQuery('section.active li.current').prev().children()[0].innerHTML);
+			// We select the first next sibling's <a> of the current <li>
+			element = jQuery('section.active li.current').children()[0]; 
+			page_number = element.innerHTML - 2;
+		}
+		else
+		{
+			element = element;
+			page_number = element.innerHTML - 1;
+		}
+				
+	}
 	
 	var url = "/get_topic/ajax/" + tid + "/" + tab + "/page=" + page_number;
 	
@@ -22,9 +50,10 @@ function get_next_page(element){
 
 		if(response.status == 200)
 		{
+
 			$html = build_HTML_output(response);
 			jQuery('section.active .latest-news-list').replaceWith($html);
-			update_pager(element);
+			update_pager(element, page_number);
 			
 		}
 
@@ -34,9 +63,10 @@ function get_next_page(element){
 
 function build_HTML_output(response){
 
+	
 	var arrayLength = response.data.length;
 	var tabs = '<ul class="latest-news-list">';
-	
+
 	for (var i = 0; i < arrayLength; i++) 
 	{
 
@@ -44,13 +74,13 @@ function build_HTML_output(response){
 	    tabs += '<ul class="metadata-items">';
 	    tabs += '<li>' + response.data[i].ct_name + '</li>';
 
-	    if(response.data[i].ct_name == 'EF publications')
+	    if(response.data[i].ct_name == 'Publication')
 	    {
 	    	
 	    	tabs += '<li>' + response.data[i].publication_date + '</li>';
 	    
 	    }
-	    else if(response.data[i].ct_name == 'EF events')
+	    else if(response.data[i].ct_name == 'Event')
 	    {
 
 	    	tabs += '<li>' + response.data[i].event_start_date + '</li>';
@@ -65,93 +95,52 @@ function build_HTML_output(response){
 	
 	tabs +='</ul>';
 
-	//falta el paginador
 	return tabs;
 }
 
-function update_pager(element){
-	//$().prepend();
-	console.log(element);
-	console.log(tid);
-	console.log(pages);
-	//jQuery('section.active pagination pager').replaceWith($html);
-	console.log(tab);
-	//$i = element.innerHTML;
-	var links = pages[tab] / 8;
-	console.log(links);
-	var difference = links - element.innerHTML;
-	if(difference > 0)
+function update_pager(element, page_number){
+
+	var links =  Math.ceil(pages[tab] / 8);
+	
+	var difference = links - (page_number + 1);
+	
+	if(difference >= 0)
 	{
 		var  html = '<ul class="pagination pager">';
-		for(var i = 0; i < difference; i++)
+		
+		// Insert previous tag if the page selected is not the first		
+		if(page_number != 0)
+		{
+			html += '<li class=""><a href="javascript:" onclick="get_next_page(this)">< Previous</a></li>';
+		}
+		
+		for(var i = 0; i <= difference; i++)
 		{
 			if( i <= 4)
 			{
+				// First element will always be active
 				if( i == 0)
 				{
-					html += '<li class="current first"><a href="">' + element.innerHTML + '</a></li>';
+					html += '<li class="current first"><a href="">' + (parseInt(page_number) + 1) + '</a></li>';
 				}
 				else
 				{
-					html += '<li><a class="" href="javascript:" onclick="get_next_page()">' + (parseInt(element.innerHTML) + i) + '</a></li>';
+					html += '<li><a class="" href="javascript:" onclick="get_next_page(this)">' + (parseInt(page_number) + i + 1) + '</a></li>';
 				}
 			
 			}
 			
 		}
+		// Add next element if there are more pagers available
+		if (difference > 0)
+		{
+			html += '<li class=""><a href="javascript:" onclick="get_next_page(this)">Next ></a></li>';
+		}
+
+		html += '</ul>';
+		
 	}
-	console.log(html);
+
 	jQuery('section.active .pagination.pager').replaceWith(html);
-	//replaceWith(html);
+	
 }
-
-/*
-
-                             <div class="pagination-centered">
-                            <div class="item-list">
-                                <ul class="pagination pager">
-                                    <li class="current first"><a href="">1</a></li>
-                                    <li><a href="get">2</a></li>
-                                    <li><a href="/get_topic/ajax/<?= $term->tid; ?>/<?= $tab_name; ?>/page=2">3</a></li>
-                                    <li><a href="/get_topic/ajax/<?= $term->tid; ?>/<?= $tab_name; ?>/page=3">4</a></li>
-                                    <li class="arrow"><a title="Go to next page" href="javascript:" onclick="get_next_page()">next ›</a></li>
-                                    <li class="arrow last"><a title="Go to last page" href="/ef-my-todo-list?page=3">last »</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        </div>
-
-
-                        if($links != 0)
-        {
-
-			for ($i = 0; $i <= $links; $i++)
-			{
-				$number = $i +1;
-
-				// Max number of number links is 5
-				if( $i <= 4)
-				{
-					// Set 'current first' class to the first one
-					if( $i == 0)
-					{
-						$html .= '<li class="current first"><a href="javascript:" >' . $number . '</a></li>';
-					}
-					else
-					{
-						$html .= '<li><a href="javascript:" onclick="get_next_page(this);">' . $number . '</a></li>';
-					}
-					
-				}
-				else
-				{
-					break;
-				}
-				
-			}
-
-			$html .= '</ul></div></div>';
-			$variables['pager'][$type] = $html;
-
-		} 
-                            */

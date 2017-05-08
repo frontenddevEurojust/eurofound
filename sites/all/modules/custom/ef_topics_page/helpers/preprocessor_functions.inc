@@ -5,8 +5,6 @@ function build_content_pagers($variables, $term, $page, $limit = 500000){
 
 	$variables['pager'] = retrieve_total_results_per_tab($term, $limit);	
 
-	dpm($variables);
-
 	$variables = build_pager_html($variables);
 
 	return $variables;
@@ -29,9 +27,9 @@ function build_content_tabs($variables, $term, $page = ''){
 	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $page);
 
 	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
-
+	
 	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
-
+	
 
 	return $variables;
 
@@ -182,20 +180,18 @@ function build_activities_string($term){
 function add_administrator_menu($variables, $term){
 	
 	$variables['admin_menu']['Edit'] = '/taxonomy/term/' . $term->tid . '/edit';
+	
 	$variables['admin_menu']['EF_term_merge'] = '/admin/config/ef-term-merge';
-	$variables['admin_menu']['Devel'] = '/taxonomy/term/' . $term->tid . '/devel';
 
 	return $variables;
 }
 
 function build_pager_html($variables){
 
-	dpm($variables['pager']);
 	foreach ($variables['pager'] as $type => $total) 
 	{
 		$html = '';
 		$links = (int)floor($total / 8);
-		dpm($links);
 
 		$html .= '<div class="pagination-centered">';
 		$html .= '<div class="item-list">';
@@ -229,6 +225,7 @@ function build_pager_html($variables){
 				
 			}
 
+			$html .= '<li class="arrow"><a href="javascript:" onclick="get_next_page(this);">Next ></a></li>';
 			$html .= '</ul></div></div>';
 			$variables['pager'][$type] = $html;
 
@@ -238,7 +235,6 @@ function build_pager_html($variables){
 			$variables['pager'][$type] = 0;
 		}
 	}
-	dpm($variables);
 
 	return $variables;
 

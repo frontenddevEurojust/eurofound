@@ -114,7 +114,6 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
 function _update_topics_tab($tid, $content_type_name, $page){
     
-    dpm('entro a callback de hook menu');
     $page_number = intval(str_replace("page=", "", $page));
 
     switch($content_type_name)
