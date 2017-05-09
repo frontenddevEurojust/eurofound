@@ -14,7 +14,7 @@ if(!empty($variables['ef_activities'])){
 <html>
 <body>
     <span class="last-updated"><?= $last_updated; ?></span>
-    <?php if($is_admin): ?>
+    <?php if($show_menu): ?>
     <ul class="button-group">
         <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
         <li><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name);?></a></li>
