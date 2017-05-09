@@ -32,11 +32,10 @@ function return_url_alias_data($tid){
 }
 
 
-function add_highlights_tab($tid, $page){
+function add_highlights_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('field_data_field_ef_highlighted', 'x', 'a.tid = x.entity_id');
-    $query->innerJoin('node', 'b', 'x.field_ef_highlighted_target_id = b.nid');
+    $query = db_select('field_data_field_ef_highlighted', 'a');
+    $query->innerJoin('node', 'b', 'a.field_ef_highlighted_target_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
@@ -47,10 +46,12 @@ function add_highlights_tab($tid, $page){
     $query->addField('d', 'field_ef_publication_date_value','publication_date');
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.entity_id', $tid, '=');
+    $query->condition('a.bundle', 'ef_topics', '=');
     $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
     $query->condition('b.status', 1, '=');
 
+   
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
@@ -62,7 +63,7 @@ function add_highlights_tab($tid, $page){
     {
         $query->range(0, $limit);
     }
-
+   
     $result = $query->execute();
    
     
