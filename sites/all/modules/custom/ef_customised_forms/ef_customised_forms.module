@@ -218,7 +218,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
   if($form_id == 'ef_report_node_form' || $form_id == 'ef_national_contribution_node_form' || $form_id == 'ef_comparative_analytical_report_node_form')
   {
-	dpm($form);
+
 	// Moderate Revision log messages
 	if (in_array('Author', $user->roles) || in_array('Author +', $user->roles) || in_array('Quality Manager',$user->roles) || in_array('Quality Manager +', $user->roles)) {
 

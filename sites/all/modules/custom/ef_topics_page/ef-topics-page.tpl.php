@@ -13,6 +13,7 @@ if(!empty($variables['ef_activities'])){
 <!DOCTYPE html>
 <html>
 <body>
+    <span class="last-updated"><?= $last_updated; ?></span>
     <?php if($is_admin): ?>
     <ul class="button-group">
         <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
