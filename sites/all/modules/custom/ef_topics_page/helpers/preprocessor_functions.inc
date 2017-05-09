@@ -18,7 +18,6 @@ function build_content_tabs($variables, $term, $page = ''){
 	*/
 	if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-		dpm('añado tab');
      	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
     }
     
@@ -42,6 +41,8 @@ function build_content_tabs($variables, $term, $page = ''){
 }
 
 function retrieve_total_results_per_tab($term, $limit){
+
+    $results['Highlights'] = count(add_highlights_tab($term->tid, $page, $limit));
 
     $results['All'] = count(add_all_tab($term->tid, $page, $limit));
 
