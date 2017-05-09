@@ -74,13 +74,17 @@ Please list the most significant upcoming developments in your Member State in r
       'description' => t('This reporting is intended to be brief and descriptive (what, when, which actors) and to indicate why the matter is significant for a European audience. Relevant links should be included.'),
       'has_title' => '1',
       'title_label' => t('Title'),
-      'help' => t('This reporting is intended to be brief and descriptive (what, when, which actors) and to indicate why the matter is significant for a European audience. Relevant links should be included.<br/>
-<br/>
-The purpose of this template is to capture reporting on important developments, relevant data, analysis and research (see below) mainly in the areas of industrial relations and working conditions in European Member States.
-<br/>
-It is addressed to national correspondents of the European Observatory of Working Life.<br/>
-
-See more detailed <a href="/page/instructions-for-filling-in-the-network-quarterly-report-form">content instructions</a>.'),
+      'help' => t('This reporting should be about <strong>important developments</strong> and new <strong>major research results</strong> in the area of working conditions and industrial relations. It is not about providing the latest news and headlines.
+<ul>
+<li>Every ‘item’ to be reported should contain about 200-300 words (max 400, exceptionally). It should be possible to use such items as ‘in-brief’ articles. Shorter items are not meaningful. Please include a heading for each item to be reported.</li>
+<li>More contextualisation and assessment is needed.</li>
+<li>Less is more. Be selective and focus on the most important issues.</li>
+<li>Try to stick to the indicated word limit for your country group: Group C: 1500 words: 4-5 items. Group B: 2500 words: 8-10 items. Group A: 4500 words: 10-15 items + 600 words of integrated summary/commentary to be published as a ‘country update’.</li>
+<li>Please indicate, in the text, which items you think should be put as ‘in-brief’ articles or other articles. Only a limited selection (2-3) per country can be published.</li>
+</ul>
+<p><a href="http://www.eurofound.europa.eu/quarterlies-instructions-general-brief">Read more on the above points</a>.</p> 
+<p>We will continue to draw your attention to ongoing areas of interest at European level via the ‘guiding topics’. Please have a look at the current guiding topics/questions on the <a href="http://eurofound.europa.eu/resources-for-the-quarterly-reporting-for-eurwork-and-ic">Resource page for the quarterly reporting on the network page</a>.</p>
+'),
     ),
     'ef_publication' => array(
       'name' => t('Publication'),

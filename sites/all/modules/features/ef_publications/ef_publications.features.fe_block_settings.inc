@@ -28,7 +28,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -53,
+        'weight' => -80,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -57,7 +57,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -52,
+        'weight' => -79,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -79,14 +79,15 @@ function ef_publications_default_fe_block_settings() {
     'i18n_mode' => 0,
     'module' => 'views',
     'node_types' => array(),
-    'pages' => 'observatories/eurwork/articles',
+    'pages' => 'observatories/eurwork/articles
+deliverable-kinds/*',
     'roles' => array(),
     'themes' => array(
       'effoundationtheme' => array(
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -51,
+        'weight' => -77,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -115,36 +116,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -49,
-      ),
-      'zurb_foundation' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'zurb_foundation',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views--exp-ef_case_studies-page'] = array(
-    'cache' => -1,
-    'css_class' => 'exposed-filters',
-    'custom' => 0,
-    'delta' => '-exp-ef_case_studies-page',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'observatories/*/case-studies',
-    'roles' => array(),
-    'themes' => array(
-      'effoundationtheme' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'effoundationtheme',
-        'weight' => -45,
+        'weight' => -73,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -163,7 +135,7 @@ function ef_publications_default_fe_block_settings() {
     'custom' => 0,
     'delta' => '-exp-ef_publications_view-page',
     'i18n_block_language' => array(),
-    'i18n_mode' => 0,
+    'i18n_mode' => 1,
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'publications',
@@ -173,7 +145,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -64,
+        'weight' => -88,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -231,7 +203,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -46,
+        'weight' => -68,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -260,7 +232,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -47,
+        'weight' => -70,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -289,7 +261,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -55,
+        'weight' => -83,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -347,7 +319,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -54,
+        'weight' => -82,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -436,7 +408,7 @@ function ef_publications_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -34,
+        'weight' => -51,
       ),
       'zurb_foundation' => array(
         'region' => '',
@@ -455,36 +427,7 @@ function ef_publications_default_fe_block_settings() {
     'custom' => 0,
     'delta' => 'latest_publications-block',
     'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'effoundationtheme' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'effoundationtheme',
-        'weight' => 0,
-      ),
-      'zurb_foundation' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'zurb_foundation',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
-  $export['views-publication_theme-block'] = array(
-    'cache' => -1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'publication_theme-block',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
+    'i18n_mode' => 1,
     'module' => 'views',
     'node_types' => array(),
     'pages' => '',

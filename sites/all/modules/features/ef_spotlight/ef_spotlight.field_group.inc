@@ -24,8 +24,8 @@ function ef_spotlight_field_group_info() {
     'weight' => '12',
     'children' => array(
       0 => 'field_ef_migration_datetime',
-      1 => 'field_ef_migration_details',
-      2 => 'field_ef_migration_old_url',
+      1 => 'field_ef_migration_old_url',
+      2 => 'field_ef_migration_details',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -50,10 +50,9 @@ function ef_spotlight_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Node About',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
-      0 => 'field_ef_spotlight_theme',
-      1 => 'post_date',
+      0 => 'published_on',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -80,24 +79,27 @@ function ef_spotlight_field_group_info() {
   $field_group->mode = 'default';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Node Tagging',
+    'label' => '',
     'weight' => '0',
     'children' => array(
-      0 => 'field_ef_observatory',
+      0 => 'field_ef_spotlight_theme',
       1 => 'field_ef_theme',
       2 => 'field_ef_topic',
+      3 => 'field_ef_observatory',
+      4 => 'post_date',
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => '',
       'instance_settings' => array(
+        'classes' => 'group-node-tagging field-group-div',
         'description' => '',
-        'show_label' => 1,
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
-        'classes' => 'group-node-tagging field-group-div',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_node_tagging|node|ef_spotlight_entry|default'] = $field_group;

@@ -20,21 +20,27 @@ function ef_spotlight_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'full' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
       'rss' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -48,6 +54,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -84,14 +91,18 @@ function ef_spotlight_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
-        'weight' => 9,
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
         'weight' => 6,
       ),
@@ -131,6 +142,41 @@ function ef_spotlight_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -153,7 +199,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -164,7 +210,9 @@ function ef_spotlight_field_default_field_instances() {
       'rss' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 4,
       ),
@@ -207,19 +255,20 @@ function ef_spotlight_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'image',
+        'label' => 'hidden',
+        'module' => 'lightbox2',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
+          'conditions' => array(),
         ),
-        'type' => 'image',
-        'weight' => 2,
+        'type' => 'lightbox2__lightshow__medium__medium',
+        'weight' => 1,
       ),
       'full' => array(
         'label' => 'hidden',
         'module' => 'lightbox2',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'lightbox2__lightbox__large__large',
         'weight' => 2,
       ),
@@ -227,6 +276,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'conditions' => array(),
           'image_link' => '',
           'image_style' => '',
         ),
@@ -264,7 +314,7 @@ function ef_spotlight_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'image',
       'settings' => array(
         'allowed_schemes' => array(
           0 => 'public',
@@ -274,10 +324,20 @@ function ef_spotlight_field_default_field_instances() {
           0 => 'image',
         ),
         'browser_plugins' => array(),
+        'insert' => 0,
+        'insert_absolute' => FALSE,
+        'insert_class' => '',
+        'insert_default' => array(
+          0 => 'auto',
+        ),
+        'insert_styles' => array(
+          0 => 'auto',
+        ),
+        'insert_width' => '',
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
-      'type' => 'media_generic',
+      'type' => 'image_image',
       'weight' => 6,
     ),
   );
@@ -292,7 +352,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'above',
@@ -358,7 +418,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'above',
@@ -416,7 +476,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'above',
@@ -485,16 +545,20 @@ function ef_spotlight_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
@@ -548,7 +612,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -575,6 +639,7 @@ function ef_spotlight_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_related_content',
     'label' => 'Related Content',
@@ -599,7 +664,7 @@ function ef_spotlight_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 11,
@@ -617,7 +682,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -628,7 +693,9 @@ function ef_spotlight_field_default_field_instances() {
       'rss' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -673,23 +740,29 @@ function ef_spotlight_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 10,
       ),
       'full' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 5,
       ),
       'rss' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
@@ -736,16 +809,20 @@ function ef_spotlight_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'weight' => 8,
       ),
       'full' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
@@ -796,16 +873,20 @@ function ef_spotlight_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'full' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
@@ -887,7 +968,7 @@ function ef_spotlight_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => -5,
+      'weight' => 0,
     ),
   );
 
@@ -901,14 +982,18 @@ function ef_spotlight_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
       'full' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -943,8 +1028,9 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
+          'conditions' => array(),
           'image_link' => '',
-          'image_style' => 'medium',
+          'image_style' => 'quality-life-100-75',
         ),
         'type' => 'image',
         'weight' => 0,
@@ -953,6 +1039,7 @@ function ef_spotlight_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
+          'conditions' => array(),
           'image_link' => '',
           'image_style' => 'medium',
         ),
@@ -980,11 +1067,59 @@ function ef_spotlight_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'insert' => 0,
+        'insert_absolute' => FALSE,
+        'insert_class' => '',
+        'insert_default' => array(
+          0 => 'auto',
+        ),
+        'insert_styles' => array(
+          0 => 'auto',
+        ),
+        'insert_width' => '',
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-ef_spotlight_themes-field_ef_more_on'
+  $field_instances['taxonomy_term-ef_spotlight_themes-field_ef_more_on'] = array(
+    'bundle' => 'ef_spotlight_themes',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_ef_more_on',
+    'label' => 'More on',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
     ),
   );
 
@@ -1021,7 +1156,7 @@ function ef_spotlight_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -3,
+      'weight' => 1,
     ),
   );
 
@@ -1036,6 +1171,7 @@ function ef_spotlight_field_default_field_instances() {
   t('Migration Datetime');
   t('Migration Details');
   t('Migration Old URL');
+  t('More on');
   t('Name');
   t('Observatory');
   t('Related Content');

@@ -15,12 +15,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_absenteeism_presenteeis',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -51,12 +53,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_absenteeism_presenteeis',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important research findings, survey data or administrative data here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -92,7 +96,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -128,7 +134,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -164,7 +172,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -200,7 +210,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -236,7 +248,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -267,12 +281,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_actors_institutions',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'abc',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -308,7 +324,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -339,12 +357,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_career_development',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -380,7 +400,85 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_ef_research_findings',
+    'label' => 'Research findings, survey data',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_ef_changes_at_work-field_ef_important_discussions'
+  $field_instances['field_collection_item-field_ef_changes_at_work-field_ef_important_discussions'] = array(
+    'bundle' => 'field_ef_changes_at_work',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_ef_important_discussions',
+    'label' => 'Important discussions, policies, legislation',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_ef_changes_at_work-field_ef_research_findings'
+  $field_instances['field_collection_item-field_ef_changes_at_work-field_ef_research_findings'] = array(
+    'bundle' => 'field_ef_changes_at_work',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'abc',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -416,7 +514,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
@@ -452,7 +552,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -488,7 +590,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -524,7 +628,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 6,
       ),
@@ -560,7 +666,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -591,12 +699,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_employee_involvement',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -605,7 +715,7 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ef_important_discussions',
     'label' => 'Important discussions, policies, legislation',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 1,
@@ -632,7 +742,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -668,7 +780,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -704,7 +818,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -740,7 +856,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -771,12 +889,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_entitlements_obligs',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'abc',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -807,12 +927,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_forms_of_work_organisat',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -848,7 +970,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -884,7 +1008,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -920,7 +1046,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -951,12 +1079,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_occupational_health',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -992,7 +1122,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1023,12 +1155,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_organisation_of_working',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1064,7 +1198,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1100,7 +1236,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1136,7 +1274,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1172,7 +1312,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -1208,7 +1350,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -1244,7 +1388,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -1252,7 +1398,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ef_quarterly_report_5',
-    'label' => 'Hot topic – parental leave',
+    'label' => 'Hot topics',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1282,6 +1428,7 @@ function ef_publications_field_default_field_instances() {
         'module' => 'field_collection',
         'settings' => array(
           'add' => 'Add',
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -1320,12 +1467,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_participation_at_work',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1361,7 +1510,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1397,7 +1548,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1433,7 +1586,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1441,7 +1596,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ef_quarterly_report_2',
-    'label' => 'Wage setting and wage bargaining',
+    'label' => 'Wage setting and wage bargaining mechanisms',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1469,7 +1624,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -1505,7 +1662,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -1541,7 +1700,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -1577,7 +1738,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
@@ -1608,12 +1771,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_physical_risk_factors',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1649,7 +1814,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1685,7 +1852,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1721,7 +1890,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1757,7 +1928,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -1793,7 +1966,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -1829,7 +2004,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
@@ -1860,12 +2037,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_psychosocial_risk_fact',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1901,7 +2080,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -1932,12 +2113,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_skills_and_training',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1973,7 +2156,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2009,7 +2194,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2045,7 +2232,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2053,7 +2242,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ef_quarterly_report_2',
-    'label' => 'Your proposal for topics/areas to be worth investigated further',
+    'label' => 'Your proposal for topics/areas to be worth ',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2081,7 +2270,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -2117,7 +2308,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2153,7 +2346,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2184,12 +2379,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_violence_and_harassment',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2220,12 +2417,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_violence_and_harassment',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important research findings, survey data or administrative data here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2256,12 +2455,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_work_life_balance',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2297,7 +2498,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2328,12 +2531,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_work_organisation_skill',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2369,7 +2574,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2400,12 +2607,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_work_related_health',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2441,7 +2650,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2472,12 +2683,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_workforce',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Other aspects such as precariousness, flexicurity, bogus self-employment, temporary agency work, fixed-term contracts, part-time contracts, apprenticeships, mini-jobs, unemployment, out of labour force, undeclared work, seasonal work….',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2508,12 +2721,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_workforce',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Characteristics of the workforce such as professional status, age, gender, nationality, their access to employment, their conditions of employment, as well as major discussions or policies on related topics, for example, youth employment, aging, migrant workers, etc.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2544,12 +2759,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_working_time_in_general',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2585,7 +2802,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2616,12 +2835,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'field_ef_workplace_innovation',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important discussions,policies, legislation, etc here:',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -2657,7 +2878,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 1,
       ),
@@ -2693,7 +2916,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 2,
       ),
@@ -2707,6 +2932,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -2730,7 +2956,192 @@ function ef_publications_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 11,
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_affected_establishment_siz'
+  $field_instances['node-ef_case_study-field_affected_establishment_siz'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_affected_establishment_siz',
+    'label' => 'Affected establishment Size',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_anticipation_of_change_act'
+  $field_instances['node-ef_case_study-field_anticipation_of_change_act'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 30,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_anticipation_of_change_act',
+    'label' => 'Anticipation of change activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 21,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_country_case_study_term'
+  $field_instances['node-ef_case_study-field_country_case_study_term'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_country_case_study_term',
+    'label' => 'Country',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_activities'
+  $field_instances['node-ef_case_study-field_ef_activities'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 39,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 34,
     ),
   );
 
@@ -2744,6 +3155,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -2751,7 +3163,7 @@ function ef_publications_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'scs' => array(
         'label' => 'above',
@@ -2791,12 +3203,12 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 30,
+      'weight' => 40,
     ),
   );
 
-  // Exported field_instance: 'node-ef_case_study-field_ef_assign_to'
-  $field_instances['node-ef_case_study-field_ef_assign_to'] = array(
+  // Exported field_instance: 'node-ef_case_study-field_ef_assign_to_author'
+  $field_instances['node-ef_case_study-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_case_study',
     'default_value' => NULL,
     'deleted' => 0,
@@ -2809,10 +3221,11 @@ function ef_publications_field_default_field_instances() {
           'colorbox_node_height' => 600,
           'colorbox_node_link' => FALSE,
           'colorbox_node_width' => 600,
+          'conditions' => array(),
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 22,
+        'weight' => 34,
       ),
       'scs' => array(
         'label' => 'above',
@@ -2829,8 +3242,8 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_assign_to',
-    'label' => 'Assign to',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2840,10 +3253,165 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 29,
+      'weight' => 38,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_assign_to_country_group'
+  $field_instances['node-ef_case_study-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 33,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 37,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_assign_to_user'
+  $field_instances['node-ef_case_study-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 36,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 46,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_author_contract'
+  $field_instances['node-ef_case_study-field_ef_author_contract'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 35,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 39,
     ),
   );
 
@@ -2857,7 +3425,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 9,
       ),
@@ -2890,7 +3460,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 21,
+      'weight' => 30,
     ),
   );
 
@@ -2904,7 +3474,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
@@ -2951,7 +3523,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 7,
       ),
@@ -2986,54 +3560,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 17,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_case_study-field_ef_contract'
-  $field_instances['node-ef_case_study-field_ef_contract'] = array(
-    'bundle' => 'ef_case_study',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'i18n_taxonomy',
-        'settings' => array(),
-        'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 21,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_contract',
-    'label' => 'Contract',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => 1,
-      ),
-      'type' => 'options_select',
-      'weight' => 28,
+      'weight' => 25,
     ),
   );
 
@@ -3047,7 +3574,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 4,
       ),
@@ -3092,7 +3621,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
         'weight' => 4,
       ),
@@ -3126,10 +3657,107 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 12,
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_ee_deadline'
+  $field_instances['node-ef_case_study-field_ef_ee_deadline'] = array(
+    'bundle' => 'ef_case_study',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 38,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 48,
     ),
   );
 
@@ -3179,7 +3807,7 @@ function ef_publications_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 25,
+      'weight' => 37,
     ),
   );
 
@@ -3193,7 +3821,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 12,
       ),
@@ -3228,7 +3858,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 18,
+      'weight' => 26,
     ),
   );
 
@@ -3242,7 +3872,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 6,
       ),
@@ -3275,7 +3907,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 14,
+      'weight' => 18,
     ),
   );
 
@@ -3374,7 +4006,7 @@ function ef_publications_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 22,
+      'weight' => 23,
     ),
   );
 
@@ -3404,6 +4036,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_migration_old_url',
     'label' => 'Migration Old URL',
@@ -3423,7 +4056,7 @@ function ef_publications_field_default_field_instances() {
       'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'optional',
-      'title_maxlength' => 128,
+      'title_maxlength' => 156,
       'title_value' => '',
       'url' => 0,
       'user_register_form' => FALSE,
@@ -3434,7 +4067,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 21,
+      'weight' => 22,
     ),
   );
 
@@ -3448,9 +4081,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'scs' => array(
         'label' => 'above',
@@ -3495,7 +4130,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 5,
       ),
@@ -3528,7 +4165,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 13,
+      'weight' => 16,
     ),
   );
 
@@ -3558,6 +4195,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_related_content',
     'label' => 'Related Content',
@@ -3583,10 +4221,10 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 35,
     ),
   );
 
@@ -3600,6 +4238,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -3607,7 +4246,7 @@ function ef_publications_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'scs' => array(
         'label' => 'above',
@@ -3651,6 +4290,68 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_case_study-field_ef_revision_deadline'
+  $field_instances['node-ef_case_study-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_case_study',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 37,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 47,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_case_study-field_ef_scope'
   $field_instances['node-ef_case_study-field_ef_scope'] = array(
     'bundle' => 'ef_case_study',
@@ -3661,7 +4362,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 13,
       ),
@@ -3694,7 +4397,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 19,
+      'weight' => 28,
     ),
   );
 
@@ -3708,7 +4411,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 8,
       ),
@@ -3741,7 +4446,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 15,
+      'weight' => 23,
     ),
   );
 
@@ -3755,7 +4460,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 10,
       ),
@@ -3788,7 +4495,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 20,
+      'weight' => 29,
     ),
   );
 
@@ -3832,7 +4539,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 22,
+      'weight' => 32,
     ),
   );
 
@@ -3846,7 +4553,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 11,
       ),
@@ -3881,7 +4590,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 16,
+      'weight' => 24,
     ),
   );
 
@@ -3895,9 +4604,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'scs' => array(
         'label' => 'above',
@@ -3942,9 +4653,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'scs' => array(
         'label' => 'above',
@@ -3980,6 +4693,52 @@ function ef_publications_field_default_field_instances() {
       ),
       'type' => 'options_select',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ef_type_of_measure'
+  $field_instances['node-ef_case_study-field_ef_type_of_measure'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_type_of_measure',
+    'label' => 'Type of measure',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => 1,
+      ),
+      'type' => 'options_select',
+      'weight' => 27,
     ),
   );
 
@@ -4025,7 +4784,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 12,
     ),
   );
 
@@ -4071,7 +4830,281 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_involved_actors'
+  $field_instances['node-ef_case_study-field_involved_actors'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_involved_actors',
+    'label' => 'Involved actors',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_keywords'
+  $field_instances['node-ef_case_study-field_keywords'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 32,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_keywords',
+    'label' => 'Keywords',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_management_of_change_activ'
+  $field_instances['node-ef_case_study-field_management_of_change_activ'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_management_of_change_activ',
+    'label' => 'Management of change activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 22,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_ownership'
+  $field_instances['node-ef_case_study-field_ownership'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ownership',
+    'label' => 'Ownership',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_region'
+  $field_instances['node-ef_case_study-field_region'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'NUTS2 regions',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_region',
+    'label' => 'Region',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
       'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_case_study-field_type_of_restructuring'
+  $field_instances['node-ef_case_study-field_type_of_restructuring'] = array(
+    'bundle' => 'ef_case_study',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_type_of_restructuring',
+    'label' => 'Type of restructuring',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 11,
     ),
   );
 
@@ -4134,9 +5167,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4148,6 +5183,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -4171,7 +5207,56 @@ function ef_publications_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 15,
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_activities'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_activities'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 53,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 25,
     ),
   );
 
@@ -4185,7 +5270,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 30,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4225,28 +5310,29 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 17,
+      'weight' => 34,
     ),
   );
 
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_assign_to'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_assign_to'] = array(
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_assign_to_author'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_comparative_analytical_report',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
           'colorbox_node_height' => 600,
-          'colorbox_node_link' => 0,
+          'colorbox_node_link' => FALSE,
           'colorbox_node_width' => 600,
-          'link' => 0,
+          'conditions' => array(),
+          'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 7,
+        'weight' => 48,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4263,8 +5349,8 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_assign_to',
-    'label' => 'Assign to',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4274,10 +5360,116 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 18,
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_assign_to_country_group'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 47,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 31,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_assign_to_user'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 50,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 36,
     ),
   );
 
@@ -4291,7 +5483,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -4324,30 +5518,25 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 12,
+      'weight' => 14,
     ),
   );
 
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_balance_in_reporting'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_balance_in_reporting'] = array(
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_author_contract'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_author_contract'] = array(
     'bundle' => 'ef_comparative_analytical_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
         'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
+          'conditions' => array(),
         ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 1,
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 49,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4364,7 +5553,63 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_balance_in_reporting',
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_balance_in_reporting_ca'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_balance_in_reporting_ca'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.
+',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'conditions' => array(),
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 40,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_balance_in_reporting_ca',
     'label' => 'Balance in reporting',
     'required' => 0,
     'settings' => array(
@@ -4379,9 +5624,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 27,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 29,
     ),
   );
 
@@ -4395,7 +5644,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 32,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4434,21 +5683,23 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-13:+10',
       ),
       'type' => 'date_popup',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_command_of_english'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_command_of_english'] = array(
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_command_of_english_ca'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_command_of_english_ca'] = array(
     'bundle' => 'ef_comparative_analytical_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ',
+    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way. 
+',
     'display' => array(
       'default' => array(
         'label' => 'inline',
         'module' => 'fivestar',
         'settings' => array(
+          'conditions' => array(),
           'expose' => TRUE,
           'style' => 'average',
           'text' => 'average',
@@ -4457,7 +5708,7 @@ function ef_publications_field_default_field_instances() {
           ),
         ),
         'type' => 'fivestar_formatter_default',
-        'weight' => 3,
+        'weight' => 41,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4474,7 +5725,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_command_of_english',
+    'field_name' => 'field_ef_command_of_english_ca',
     'label' => 'Excellent command of English',
     'required' => 0,
     'settings' => array(
@@ -4489,56 +5740,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 28,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_contract'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_contract'] = array(
-    'bundle' => 'ef_comparative_analytical_report',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_contract',
-    'label' => 'Contract',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
       ),
-      'type' => 'options_select',
-      'weight' => 19,
+      'type' => 'stars',
+      'weight' => 30,
     ),
   );
 
@@ -4552,7 +5760,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 29,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4591,7 +5799,7 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-13:+10',
       ),
       'type' => 'date_popup',
-      'weight' => 11,
+      'weight' => 13,
     ),
   );
 
@@ -4605,7 +5813,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
@@ -4626,7 +5836,7 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_deliverable_kind',
     'label' => 'Deliverable kind',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -4644,7 +5854,7 @@ function ef_publications_field_default_field_instances() {
         ),
       ),
       'type' => 'taxonomy_shs',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -4656,10 +5866,12 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 18,
+        'module' => 'ef_file_additional_info',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'ef_file_additional_info',
+        'weight' => 19,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4681,7 +5893,7 @@ function ef_publications_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'entity_translation_sync' => FALSE,
+      'entity_translation_sync' => 0,
       'file_directory' => 'ef_comparative_analytical_report/field_ef_document',
       'file_extensions' => 'txt pdf doc docx xls xlsx ppt pptx',
       'max_filesize' => '',
@@ -4691,10 +5903,45 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 14,
+      'weight' => 16,
     ),
   );
 
@@ -4706,10 +5953,12 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 19,
+        'module' => 'ef_file_additional_info',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'ef_file_additional_info',
+        'weight' => 20,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4733,7 +5982,7 @@ function ef_publications_field_default_field_instances() {
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
       'file_directory' => 'ef_comparative_analytical_report/field_ef_documents',
-      'file_extensions' => 'txt doc docx xls xlsx pdf log',
+      'file_extensions' => 'txt pdf doc docx xls xlsx ppt pptx',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -4741,10 +5990,107 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 19,
+      'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_ee_deadline'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_ee_deadline'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 52,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing Deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 38,
     ),
   );
 
@@ -4759,7 +6105,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 33,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4787,6 +6133,52 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_eurwork_issue'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_eurwork_issue'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 45,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_eurwork_issue',
+    'label' => 'EurWORK landing page topics',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
       'weight' => 6,
     ),
   );
@@ -4801,7 +6193,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 6,
       ),
@@ -4834,7 +6228,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 20,
+      'weight' => 21,
     ),
   );
 
@@ -4848,7 +6242,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
@@ -4881,7 +6277,7 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 13,
+      'weight' => 15,
     ),
   );
 
@@ -4895,7 +6291,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 34,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4949,7 +6345,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 35,
+        'weight' => 36,
       ),
       'scs' => array(
         'label' => 'above',
@@ -4980,7 +6376,7 @@ function ef_publications_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 16,
+      'weight' => 17,
     ),
   );
 
@@ -4995,7 +6391,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 35,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5058,6 +6454,7 @@ function ef_publications_field_default_field_instances() {
           'colorbox_node_height' => 600,
           'colorbox_node_link' => 0,
           'colorbox_node_width' => 600,
+          'conditions' => array(),
           'link' => 1,
         ),
         'type' => 'entityreference_label',
@@ -5109,7 +6506,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
@@ -5142,21 +6541,22 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_product_criteria'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_product_criteria'] = array(
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_quality_of_contents_ca'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_quality_of_contents_ca'] = array(
     'bundle' => 'ef_comparative_analytical_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'To be applied on IC Quartely Reports only',
+    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
         'module' => 'fivestar',
         'settings' => array(
+          'conditions' => array(),
           'expose' => TRUE,
           'style' => 'average',
           'text' => 'average',
@@ -5165,7 +6565,7 @@ function ef_publications_field_default_field_instances() {
           ),
         ),
         'type' => 'fivestar_formatter_default',
-        'weight' => 4,
+        'weight' => 43,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5182,64 +6582,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_product_criteria',
-    'label' => 'Product specific criteria',
-    'required' => 0,
-    'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
-      'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 29,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_quality_of_contents'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_quality_of_contents'] = array(
-    'bundle' => 'ef_comparative_analytical_report',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 0,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_quality_of_contents',
+    'field_name' => 'field_ef_quality_of_contents_ca',
     'label' => 'Quality of contents',
     'required' => 0,
     'settings' => array(
@@ -5254,9 +6597,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 30,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 31,
     ),
   );
 
@@ -5271,7 +6618,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 31,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5302,10 +6649,10 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 26,
     ),
   );
 
@@ -5319,7 +6666,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 37,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5338,7 +6685,7 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_report_delivery_date',
     'label' => 'Scheduled record delivery date',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'default_value' => 'blank',
       'default_value2' => 'same',
@@ -5359,7 +6706,123 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 16,
+      'weight' => 18,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_requested_on'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_requested_on'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 46,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_requested_on',
+    'label' => 'Requested On',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 29,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_revision_deadline'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_comparative_analytical_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 51,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 37,
     ),
   );
 
@@ -5373,7 +6836,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 3,
       ),
@@ -5406,7 +6871,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 12,
     ),
   );
 
@@ -5418,10 +6883,12 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 17,
+        'module' => 'ef_file_additional_info',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'ef_file_additional_info',
+        'weight' => 18,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5453,10 +6920,45 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 18,
+      'weight' => 19,
     ),
   );
 
@@ -5471,7 +6973,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 37,
+        'weight' => 38,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5500,12 +7002,12 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 23,
+      'weight' => 24,
     ),
   );
 
-  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_style_and_presentation'
-  $field_instances['node-ef_comparative_analytical_report-field_ef_style_and_presentation'] = array(
+  // Exported field_instance: 'node-ef_comparative_analytical_report-field_ef_style_presentation_ca'
+  $field_instances['node-ef_comparative_analytical_report-field_ef_style_presentation_ca'] = array(
     'bundle' => 'ef_comparative_analytical_report',
     'default_value' => NULL,
     'deleted' => 0,
@@ -5515,6 +7017,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'fivestar',
         'settings' => array(
+          'conditions' => array(),
           'expose' => TRUE,
           'style' => 'average',
           'text' => 'average',
@@ -5523,7 +7026,7 @@ function ef_publications_field_default_field_instances() {
           ),
         ),
         'type' => 'fivestar_formatter_default',
-        'weight' => 2,
+        'weight' => 44,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5540,7 +7043,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_style_and_presentation',
+    'field_name' => 'field_ef_style_presentation_ca',
     'label' => 'Style and presentation',
     'required' => 0,
     'settings' => array(
@@ -5555,9 +7058,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 31,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 32,
     ),
   );
 
@@ -5571,7 +7078,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
@@ -5604,7 +7113,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -5618,7 +7127,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 5,
       ),
@@ -5655,7 +7166,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -5669,9 +7180,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5702,7 +7215,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 21,
+      'weight' => 22,
     ),
   );
 
@@ -5716,9 +7229,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5749,7 +7264,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 22,
+      'weight' => 23,
     ),
   );
 
@@ -5764,7 +7279,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 38,
+        'weight' => 39,
       ),
       'scs' => array(
         'label' => 'above',
@@ -5802,6 +7317,61 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_activities'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_activities'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 32,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_activity'
   $field_instances['node-ef_ic_quarterly_report-field_ef_activity'] = array(
     'bundle' => 'ef_ic_quarterly_report',
@@ -5816,6 +7386,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -5868,6 +7439,60 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_afp_auto'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_afp_auto'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_afp_auto',
+    'label' => 'AFP auto',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 17,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_approved_for_payment'
   $field_instances['node-ef_ic_quarterly_report-field_ef_approved_for_payment'] = array(
     'bundle' => 'ef_ic_quarterly_report',
@@ -5878,6 +7503,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -5931,30 +7557,22 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 6,
+      'weight' => 25,
     ),
   );
 
-  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_balance_in_reporting'
-  $field_instances['node-ef_ic_quarterly_report-field_ef_balance_in_reporting'] = array(
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_assign_to_author'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_ic_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 19,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
       ),
       'print' => array(
         'label' => 'above',
@@ -5977,7 +7595,215 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_balance_in_reporting',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_assign_to_country_group'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 22,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_assign_to_user'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 58,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_author_contract'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_author_contract'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_balance_in_reporting_ic'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_balance_in_reporting_ic'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_balance_in_reporting_ic',
     'label' => 'Balance in reporting',
     'required' => 0,
     'settings' => array(
@@ -5992,32 +7818,28 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 56,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 13,
     ),
   );
 
-  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_command_of_english'
-  $field_instances['node-ef_ic_quarterly_report-field_ef_command_of_english'] = array(
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_command_of_english_ic'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_command_of_english_ic'] = array(
     'bundle' => 'ef_ic_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ',
+    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 21,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
       ),
       'print' => array(
         'label' => 'above',
@@ -6040,7 +7862,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_command_of_english',
+    'field_name' => 'field_ef_command_of_english_ic',
     'label' => 'Excellent command of English',
     'required' => 0,
     'settings' => array(
@@ -6055,9 +7877,75 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 60,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_deliverable_kind'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_deliverable_kind'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => array(
+      0 => array(
+        'tid' => 21149,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_deliverable_kind',
+    'label' => 'Deliverable kind',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'shs',
+      'settings' => array(
+        'shs' => array(
+          'create_new_levels' => 0,
+          'create_new_terms' => 0,
+          'force_deepest' => 1,
+          'node_count' => 0,
+          'use_chosen' => 'chosen',
+        ),
+      ),
+      'type' => 'taxonomy_shs',
+      'weight' => 15,
     ),
   );
 
@@ -6075,6 +7963,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -6127,6 +8016,116 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_ee_deadline'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_ee_deadline'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 60,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_ordered'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_ordered'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 22,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ordered',
+    'label' => 'Ordered',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_other_feedback'
   $field_instances['node-ef_ic_quarterly_report-field_ef_other_feedback'] = array(
     'bundle' => 'ef_ic_quarterly_report',
@@ -6137,14 +8136,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'print' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 10,
       ),
@@ -6178,30 +8181,22 @@ function ef_publications_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
-  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_product_criteria'
-  $field_instances['node-ef_ic_quarterly_report-field_ef_product_criteria'] = array(
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_processed_for_payment'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_processed_for_payment'] = array(
     'bundle' => 'ef_ic_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'To be applied on IC Quartely Reports only',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 22,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 20,
       ),
       'print' => array(
         'label' => 'above',
@@ -6224,7 +8219,57 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_product_criteria',
+    'field_name' => 'field_ef_processed_for_payment',
+    'label' => 'Processed for payment',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_product_criteria_ic'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_product_criteria_ic'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'To be applied on IC Quarterly Reports only.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_product_criteria_ic',
     'label' => 'Product specific criteria',
     'required' => 0,
     'settings' => array(
@@ -6239,32 +8284,28 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 62,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 17,
     ),
   );
 
-  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_quality_of_contents'
-  $field_instances['node-ef_ic_quarterly_report-field_ef_quality_of_contents'] = array(
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_quality_of_contents_ic'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_quality_of_contents_ic'] = array(
     'bundle' => 'ef_ic_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information',
+    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 18,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
       ),
       'print' => array(
         'label' => 'above',
@@ -6287,7 +8328,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_quality_of_contents',
+    'field_name' => 'field_ef_quality_of_contents_ic',
     'label' => 'Quality of contents',
     'required' => 0,
     'settings' => array(
@@ -6302,9 +8343,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 54,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 14,
     ),
   );
 
@@ -6318,6 +8363,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -6331,6 +8377,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -6396,14 +8443,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 1,
       ),
       'print' => array(
         'label' => 'inline',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 2,
       ),
@@ -6450,14 +8501,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 2,
       ),
       'print' => array(
         'label' => 'inline',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 0,
       ),
@@ -6504,6 +8559,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -6536,7 +8592,7 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_report_delivery_date',
     'label' => 'Scheduled record delivery date',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'default_value' => 'blank',
       'default_value2' => 'same',
@@ -6557,30 +8613,21 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
-  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_style_and_presentation'
-  $field_instances['node-ef_ic_quarterly_report-field_ef_style_and_presentation'] = array(
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_requested_on'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_requested_on'] = array(
     'bundle' => 'ef_ic_quarterly_report',
-    'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The style and presentation must be simple and clear and free of jargon which risks masking the meaning to readers unfamiliar with the subject.',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 20,
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
       ),
       'print' => array(
         'label' => 'above',
@@ -6603,7 +8650,180 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_style_and_presentation',
+    'field_name' => 'field_ef_requested_on',
+    'label' => 'Requested On',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 18,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_responsible'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_responsible'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 21,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_responsible',
+    'label' => 'Responsible',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_revision_deadline'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 30,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 59,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_ic_quarterly_report-field_ef_style_presentation_ic'
+  $field_instances['node-ef_ic_quarterly_report-field_ef_style_presentation_ic'] = array(
+    'bundle' => 'ef_ic_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The style and presentation must be simple and clear and free of jargon which risks masking the meaning to readers unfamiliar with the subject.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_style_presentation_ic',
     'label' => 'Style and presentation',
     'required' => 0,
     'settings' => array(
@@ -6618,9 +8838,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 58,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 15,
     ),
   );
 
@@ -6634,7 +8858,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 15,
       ),
@@ -6648,6 +8874,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -6675,6 +8902,103 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_activities'
+  $field_instances['node-ef_national_contribution-field_ef_activities'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 44,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_afp_auto'
+  $field_instances['node-ef_national_contribution-field_ef_afp_auto'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 36,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_afp_auto',
+    'label' => 'AFP auto',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 24,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_national_contribution-field_ef_approved_for_payment'
   $field_instances['node-ef_national_contribution-field_ef_approved_for_payment'] = array(
     'bundle' => 'ef_national_contribution',
@@ -6685,6 +9009,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -6732,28 +9057,29 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 6,
+      'weight' => 30,
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_assign_to'
-  $field_instances['node-ef_national_contribution-field_ef_assign_to'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_assign_to_author'
+  $field_instances['node-ef_national_contribution-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
           'colorbox_node_height' => 600,
-          'colorbox_node_link' => 0,
+          'colorbox_node_link' => FALSE,
           'colorbox_node_width' => 600,
-          'link' => 0,
+          'conditions' => array(),
+          'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 7,
+        'weight' => 39,
       ),
       'scs' => array(
         'label' => 'above',
@@ -6770,8 +9096,8 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_assign_to',
-    'label' => 'Assign to',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -6781,10 +9107,116 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 18,
+      'weight' => 28,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_assign_to_country_group'
+  $field_instances['node-ef_national_contribution-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 38,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 27,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_assign_to_user'
+  $field_instances['node-ef_national_contribution-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 41,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 32,
     ),
   );
 
@@ -6798,7 +9230,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 5,
       ),
@@ -6835,82 +9269,20 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_balance_in_reporting'
-  $field_instances['node-ef_national_contribution-field_ef_balance_in_reporting'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_author_contract'
+  $field_instances['node-ef_national_contribution-field_ef_author_contract'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 38,
-      ),
-      'scs' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_balance_in_reporting',
-    'label' => 'Balance in reporting',
-    'required' => 0,
-    'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
-      'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 20,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_command_of_english'
-  $field_instances['node-ef_national_contribution-field_ef_command_of_english'] = array(
-    'bundle' => 'ef_national_contribution',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
+        'module' => 'i18n_taxonomy',
         'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
+          'conditions' => array(),
         ),
-        'type' => 'fivestar_formatter_default',
+        'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 40,
       ),
       'scs' => array(
@@ -6928,40 +9300,45 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_command_of_english',
-    'label' => 'Excellent command of English',
-    'required' => 0,
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
     'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
       'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 21,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 29,
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_contract'
-  $field_instances['node-ef_national_contribution-field_ef_contract'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_balance_in_reporting_nc'
+  $field_instances['node-ef_national_contribution-field_ef_balance_in_reporting_nc'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 8,
+        'module' => 'fivestar',
+        'settings' => array(
+          'conditions' => array(),
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 13,
       ),
       'scs' => array(
         'label' => 'above',
@@ -6978,21 +9355,90 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_contract',
-    'label' => 'Contract',
-    'required' => 1,
+    'field_name' => 'field_ef_balance_in_reporting_nc',
+    'label' => 'Balance in reporting',
+    'required' => 0,
     'settings' => array(
+      'allow_clear' => 1,
+      'allow_ownvote' => 1,
+      'allow_revote' => 1,
       'entity_translation_sync' => FALSE,
+      'stars' => 5,
+      'target' => 'none',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
+      'module' => 'fivestar',
       'settings' => array(
-        'apply_chosen' => 1,
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
       ),
-      'type' => 'options_select',
-      'weight' => 19,
+      'type' => 'stars',
+      'weight' => 21,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_command_of_english_nc'
+  $field_instances['node-ef_national_contribution-field_ef_command_of_english_nc'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'conditions' => array(),
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 14,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_command_of_english_nc',
+    'label' => 'Excellent command of English',
+    'required' => 0,
+    'settings' => array(
+      'allow_clear' => 1,
+      'allow_ownvote' => 1,
+      'allow_revote' => 1,
+      'entity_translation_sync' => FALSE,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 22,
     ),
   );
 
@@ -7006,7 +9452,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 3,
       ),
@@ -7023,6 +9471,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_country',
     'label' => 'Country',
@@ -7045,14 +9494,20 @@ function ef_publications_field_default_field_instances() {
   // Exported field_instance: 'node-ef_national_contribution-field_ef_deliverable_kind'
   $field_instances['node-ef_national_contribution-field_ef_deliverable_kind'] = array(
     'bundle' => 'ef_national_contribution',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 21150,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 1,
       ),
@@ -7091,7 +9546,7 @@ function ef_publications_field_default_field_instances() {
         ),
       ),
       'type' => 'taxonomy_shs',
-      'weight' => 8,
+      'weight' => 7,
     ),
   );
 
@@ -7103,10 +9558,12 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 17,
+        'module' => 'ef_file_additional_info',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'ef_file_additional_info',
+        'weight' => 18,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7138,10 +9595,107 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
       'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_ee_deadline'
+  $field_instances['node-ef_national_contribution-field_ef_ee_deadline'] = array(
+    'bundle' => 'ef_national_contribution',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 43,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing Deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 34,
     ),
   );
 
@@ -7155,7 +9709,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 6,
       ),
@@ -7202,7 +9758,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 6,
       ),
@@ -7249,7 +9807,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 28,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7288,7 +9846,7 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 13,
+      'weight' => 7,
     ),
   );
 
@@ -7303,7 +9861,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 30,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7334,7 +9892,7 @@ function ef_publications_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 9,
     ),
   );
 
@@ -7349,7 +9907,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 29,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7394,7 +9952,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 14,
+      'weight' => 8,
     ),
   );
 
@@ -7408,7 +9966,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
@@ -7445,26 +10005,18 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_product_criteria'
-  $field_instances['node-ef_national_contribution-field_ef_product_criteria'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_ordered'
+  $field_instances['node-ef_national_contribution-field_ef_ordered'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'To be applied on IC Quartely Reports only',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 41,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7481,47 +10033,34 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_product_criteria',
-    'label' => 'Product specific criteria',
+    'field_name' => 'field_ef_ordered',
+    'label' => 'Ordered',
     'required' => 0,
     'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
       'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'fivestar',
+      'module' => 'options',
       'settings' => array(),
-      'type' => 'exposed',
+      'type' => 'options_buttons',
       'weight' => 22,
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_quality_of_contents'
-  $field_instances['node-ef_national_contribution-field_ef_quality_of_contents'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_processed_for_payment'
+  $field_instances['node-ef_national_contribution-field_ef_processed_for_payment'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 37,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 33,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7538,7 +10077,60 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_quality_of_contents',
+    'field_name' => 'field_ef_processed_for_payment',
+    'label' => 'Processed for payment',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 21,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_quality_of_contents_nc'
+  $field_instances['node-ef_national_contribution-field_ef_quality_of_contents_nc'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'fivestar',
+        'settings' => array(
+          'conditions' => array(),
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 16,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_quality_of_contents_nc',
     'label' => 'Quality of contents',
     'required' => 0,
     'settings' => array(
@@ -7553,9 +10145,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 23,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 24,
     ),
   );
 
@@ -7570,7 +10166,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 31,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7601,7 +10197,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 17,
@@ -7618,6 +10214,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -7665,7 +10262,169 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 7,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_requested_on'
+  $field_instances['node-ef_national_contribution-field_ef_requested_on'] = array(
+    'bundle' => 'ef_national_contribution',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 37,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_requested_on',
+    'label' => 'Requested On',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 25,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_responsible'
+  $field_instances['node-ef_national_contribution-field_ef_responsible'] = array(
+    'bundle' => 'ef_national_contribution',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 35,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_responsible',
+    'label' => 'Responsible',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_revision_deadline'
+  $field_instances['node-ef_national_contribution-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_national_contribution',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 42,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 33,
     ),
   );
 
@@ -7679,7 +10438,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
@@ -7724,10 +10485,12 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 16,
+        'module' => 'ef_file_additional_info',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'ef_file_additional_info',
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7759,6 +10522,41 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -7766,8 +10564,8 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_national_contribution-field_ef_style_and_presentation'
-  $field_instances['node-ef_national_contribution-field_ef_style_and_presentation'] = array(
+  // Exported field_instance: 'node-ef_national_contribution-field_ef_style_presentation_nc'
+  $field_instances['node-ef_national_contribution-field_ef_style_presentation_nc'] = array(
     'bundle' => 'ef_national_contribution',
     'default_value' => NULL,
     'deleted' => 0,
@@ -7777,6 +10575,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'fivestar',
         'settings' => array(
+          'conditions' => array(),
           'expose' => TRUE,
           'style' => 'average',
           'text' => 'average',
@@ -7785,7 +10584,7 @@ function ef_publications_field_default_field_instances() {
           ),
         ),
         'type' => 'fivestar_formatter_default',
-        'weight' => 39,
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7802,7 +10601,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_style_and_presentation',
+    'field_name' => 'field_ef_style_presentation_nc',
     'label' => 'Style and presentation',
     'required' => 0,
     'settings' => array(
@@ -7817,9 +10616,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 24,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 25,
     ),
   );
 
@@ -7833,7 +10636,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
@@ -7880,7 +10685,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 5,
       ),
@@ -7932,7 +10739,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 32,
       ),
       'scs' => array(
         'label' => 'above',
@@ -7966,7 +10773,7 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -5,
+      'weight' => 0,
     ),
   );
 
@@ -7975,7 +10782,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Different facets of absenteeism /presenteeism, including different types, duration, related costs, measures to tackle it, etc.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -7984,6 +10791,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8000,6 +10808,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8036,13 +10845,65 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
-      'weight' => 22,
+      'weight' => 21,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_activities'
+  $field_instances['node-ef_network_quarterly_report-field_ef_activities'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 38,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 20,
     ),
   );
 
@@ -8051,7 +10912,9 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'For the following principal actors and institutions, please report significant developments concerning membership, density rates (ratio between number of members and corresponding ‘population’, broadly speaking), their structure (mergers, changes in leadership, etc.), their mandate (changes regarding representativeness, for example), elections, and so on.',
+    'description' => 'This section is about the actors and institutions; not about processes they are involved in, but about the actors themselves. It covers: how they organise themselves,  their legitimacy, who they represent, how they are regulated and what impact changes in the regulations have on them. 
+
+For the following principal actors and institutions, please report significant developments concerning membership, density rates (ratio between number of members and corresponding ‘population’, broadly speaking), structure (mergers, cooperation with others, changes in leadership, etc.), mandate (changes regarding representativeness, for example), major elections and so on.Find out more about EurWORK\'s work on <a href=\'http://www.eurofound.europa.eu/actors-and-institutions\'>actors and institutions</a>. ',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -8060,6 +10923,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -8076,6 +10940,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8112,13 +10977,64 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 1,
-        'field_as_label' => array(),
         'last_item_collapsed' => 1,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_afp_auto'
+  $field_instances['node-ef_network_quarterly_report-field_ef_afp_auto'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_afp_auto',
+    'label' => 'AFP auto',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 21,
     ),
   );
 
@@ -8132,7 +11048,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 23,
       ),
       'print' => array(
         'label' => 'above',
@@ -8178,30 +11094,22 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 7,
+      'weight' => 24,
     ),
   );
 
-  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_balance_in_reporting'
-  $field_instances['node-ef_network_quarterly_report-field_ef_balance_in_reporting'] = array(
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_assign_to_author'
+  $field_instances['node-ef_network_quarterly_report-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 24,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
       ),
       'print' => array(
         'label' => 'above',
@@ -8224,7 +11132,271 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_balance_in_reporting',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 22,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_assign_to_country_group'
+  $field_instances['node-ef_network_quarterly_report-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 30,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 21,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_assign_to_user'
+  $field_instances['node-ef_network_quarterly_report-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 33,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 29,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_author_contract'
+  $field_instances['node-ef_network_quarterly_report-field_ef_author_contract'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 32,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_author_textfield'
+  $field_instances['node-ef_network_quarterly_report-field_ef_author_textfield'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_author_textfield',
+    'label' => 'Authors',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_balance_in_reporting_nq'
+  $field_instances['node-ef_network_quarterly_report-field_ef_balance_in_reporting_nq'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 35,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_balance_in_reporting_nq',
     'label' => 'Balance in reporting',
     'required' => 0,
     'settings' => array(
@@ -8239,9 +11411,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 15,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 16,
     ),
   );
 
@@ -8259,6 +11435,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8275,6 +11452,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8321,26 +11499,18 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_command_of_english'
-  $field_instances['node-ef_network_quarterly_report-field_ef_command_of_english'] = array(
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_changes_at_work'
+  $field_instances['node-ef_network_quarterly_report-field_ef_changes_at_work'] = array(
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ',
+    'description' => 'Please provide information in relation to changes in the work place (e.g. restructuring, changes in working time schedules, changes in policies related participation, work organisation, technological changes, labour market changes, etc…) and always linking those changes to health and well-being. ',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 26,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 36,
       ),
       'print' => array(
         'label' => 'above',
@@ -8363,7 +11533,60 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_command_of_english',
+    'field_name' => 'field_ef_changes_at_work',
+    'label' => 'Changes at work and their impact on health and well-being',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'field_collection_fieldset',
+      'settings' => array(
+        'collapsed' => 0,
+        'last_item_collapsed' => 0,
+      ),
+      'type' => 'field_collection_fieldset',
+      'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_command_of_english_nq'
+  $field_instances['node-ef_network_quarterly_report-field_ef_command_of_english_nq'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 37,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_command_of_english_nq',
     'label' => 'Excellent command of English',
     'required' => 0,
     'settings' => array(
@@ -8378,9 +11601,75 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 17,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_deliverable_kind'
+  $field_instances['node-ef_network_quarterly_report-field_ef_deliverable_kind'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => array(
+      0 => array(
+        'tid' => 21147,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_deliverable_kind',
+    'label' => 'Deliverable kind',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'shs',
+      'settings' => array(
+        'shs' => array(
+          'create_new_levels' => 0,
+          'create_new_terms' => 0,
+          'force_deepest' => 1,
+          'node_count' => 0,
+          'use_chosen' => 'chosen',
+        ),
+      ),
+      'type' => 'taxonomy_shs',
+      'weight' => 19,
     ),
   );
 
@@ -8393,9 +11682,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'print' => array(
         'label' => 'above',
@@ -8423,7 +11714,7 @@ function ef_publications_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'entity_translation_sync' => FALSE,
+      'entity_translation_sync' => 0,
       'file_directory' => 'ef_network_quarterly_report/field_ef_document',
       'file_extensions' => 'txt pdf doc docx xls xlsx ppt pptx',
       'max_filesize' => '',
@@ -8433,10 +11724,105 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 5,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_ee_deadline'
+  $field_instances['node-ef_network_quarterly_report-field_ef_ee_deadline'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 35,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing Deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 31,
     ),
   );
 
@@ -8454,6 +11840,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8470,6 +11857,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8521,7 +11909,8 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'The employment status – for example posted workers, seasonal working, full-time and part -time work, self-employment, casual work, fixed-term employment, precariousness, etc.',
+    'description' => 'Please report important changes/debates/research about the employment status (for example posted workers, seasonal working, full-time and part -time work, self-employment, casual work, fixed-term employment, precariousness, etc.).
+More information on the general focus of this section can be found <a href=\'quarterlies-instructions-individual-employment-relations\'>here</a>.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -8530,6 +11919,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -8546,6 +11936,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8571,7 +11962,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_employment_status',
-    'label' => 'Employment Status',
+    'label' => 'Employment Status (terms and conditions)',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -8591,7 +11982,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Entitlements and obligations - for example minimum legal requirements regarding the employment relationship, working time, annual leave, allowances, additional remuneration, maternity leave, parental leave, employment incentives, code of conduct, disciplinary procedures, voice and say, workers’ participation, right to join trade unions, right to engage in strikes, actual representation, etc. Please report any important discussions, policies, legislation, etc. here: ',
+    'description' => 'Please report about major debates/changes regarding individual entitlements and obligations: for example minimum legal requirements regarding the employment relationship, working time, annual leave, allowances, additional remuneration, maternity leave, parental leave, employment incentives, code of conduct, disciplinary procedures, etc.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -8600,6 +11991,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8616,6 +12008,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8670,6 +12063,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8686,6 +12080,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8711,7 +12106,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_forms_of_work_organisat',
-    'label' => 'Forms of work organisation',
+    'label' => 'How work is organised - Forms of work organisation',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -8722,10 +12117,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 24,
@@ -8746,6 +12138,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8762,6 +12155,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8798,10 +12192,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 14,
@@ -8822,6 +12213,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8838,6 +12230,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8863,7 +12256,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_occupational_health',
-    'label' => 'Occupational health and safety and workplace health promotion',
+    'label' => 'Promotion of occupational health and safety, workplace health and sustainability at work',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -8874,13 +12267,60 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
-      'weight' => 24,
+      'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_ordered'
+  $field_instances['node-ef_network_quarterly_report-field_ef_ordered'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_ordered',
+    'label' => 'Ordered',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 18,
     ),
   );
 
@@ -8889,7 +12329,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Including, for instance, flexitime, hours banking, time off in lieu, working time accounts. ',
+    'description' => 'Please report on the changes of regulation in relation to working time and working time flexibility, including, for instance, flexitime, hours banking, time off in lieu, working time accounts. <a href="http://www.eurofound.europa.eu/quarterlies-instructions-the-organisation-of-working-time-and-working-time-flexibility">Read more on the focus of this section</a>.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -8898,6 +12338,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -8914,6 +12355,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -8950,10 +12392,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 12,
@@ -8974,6 +12413,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -8990,6 +12430,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9050,6 +12491,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -9066,6 +12508,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9102,10 +12545,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 27,
@@ -9117,7 +12557,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please report any important debates, policies, legislation, research findings or other outputs in relation to pay. ',
+    'description' => 'Please report any important debates, policies, legislation, research findings or other outputs in relation to pay. Find out more about EurWORK\'s research on <a href=\'http://www.eurofound.europa.eu/pay\'>pay</a>.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -9126,6 +12566,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -9142,6 +12583,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9178,10 +12620,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 1,
-        'field_as_label' => array(),
         'last_item_collapsed' => 1,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 9,
@@ -9202,6 +12641,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -9218,6 +12658,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9264,12 +12705,64 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_processed_for_payment'
+  $field_instances['node-ef_network_quarterly_report-field_ef_processed_for_payment'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_processed_for_payment',
+    'label' => 'Processed for payment',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_processes'
   $field_instances['node-ef_network_quarterly_report-field_ef_processes'] = array(
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Regulating work Labour related legislation ',
+    'description' => 'Collective employment relations between employers’ and workers’ organisations are fundamental to the regulation of employment and industrial relations in all EU Member States and at EU level. Collective employment relations may take place at many levels: establishment, company, local, regional, sectoral, national, EU and international levels. And such relations are exercised in different forms: <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/tripartite-concertation">tripartite concertation</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/social-dialogue">social dialogue</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/collective-bargaining">collective bargaining</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/information-and-consultation">information and consultation</a>; employee <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/participation">participation</a> of various kinds; legislation.</br>
+Find out more about EurWORK\'s work on <a href=\'http://www.eurofound.europa.eu/collective-employment-relations\'>collective employment relations</a>.
+',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -9278,6 +12771,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -9294,6 +12788,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9319,7 +12814,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_processes',
-    'label' => '3. Processes',
+    'label' => '3. Collective employment relations - Processes',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -9330,76 +12825,10 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 1,
-        'field_as_label' => array(),
         'last_item_collapsed' => 1,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 10,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_product_criteria'
-  $field_instances['node-ef_network_quarterly_report-field_ef_product_criteria'] = array(
-    'bundle' => 'ef_network_quarterly_report',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'To be applied on IC Quartely Reports only',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 27,
-      ),
-      'print' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_product_criteria',
-    'label' => 'Product specific criteria',
-    'required' => 0,
-    'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
-      'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 18,
     ),
   );
 
@@ -9408,7 +12837,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Workers exposure to, for example, high demands and work intensity, emotional demands, lack of autonomy, ethical conflicts, poor social relationships/support, job and work insecurity, leadership, ‘dirty work’, aesthetic demands, etc. ',
+    'description' => 'Workers exposure to, for example, high demands and work intensity, emotional demands, lack of autonomy, ethical conflicts, poor social relationships/support, job and work insecurity, leadership, ‘dirty work’, aesthetic demands, etc.Exposure to physical violence, psychological violence, harassment, bullying, intimidation, perpetrators, consequences, etc. violence and harassment.  ',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -9417,6 +12846,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -9433,6 +12863,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9469,36 +12900,25 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 19,
     ),
   );
 
-  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_quality_of_contents'
-  $field_instances['node-ef_network_quarterly_report-field_ef_quality_of_contents'] = array(
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_quality_of_contents_nq'
+  $field_instances['node-ef_network_quarterly_report-field_ef_quality_of_contents_nq'] = array(
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information',
+    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 23,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
       ),
       'print' => array(
         'label' => 'above',
@@ -9521,7 +12941,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_quality_of_contents',
+    'field_name' => 'field_ef_quality_of_contents_nq',
     'label' => 'Quality of contents',
     'required' => 0,
     'settings' => array(
@@ -9536,9 +12956,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 14,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 17,
     ),
   );
 
@@ -9552,6 +12976,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -9565,6 +12990,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -9626,14 +13052,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 1,
       ),
       'print' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 1,
       ),
@@ -9680,14 +13110,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 2,
       ),
       'print' => array(
         'label' => 'above',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 2,
       ),
@@ -9734,7 +13168,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 22,
       ),
       'print' => array(
         'label' => 'above',
@@ -9759,7 +13193,7 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_report_delivery_date',
     'label' => 'Scheduled record delivery date',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'default_value' => 'blank',
       'default_value2' => 'same',
@@ -9780,7 +13214,179 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 6,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_requested_on'
+  $field_instances['node-ef_network_quarterly_report-field_ef_requested_on'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_requested_on',
+    'label' => 'Requested On',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 22,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_responsible'
+  $field_instances['node-ef_network_quarterly_report-field_ef_responsible'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_responsible',
+    'label' => 'Responsible',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_revision_deadline'
+  $field_instances['node-ef_network_quarterly_report-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_network_quarterly_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
+      ),
+      'print' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 30,
     ),
   );
 
@@ -9794,14 +13400,18 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
       'print' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 4,
       ),
@@ -9821,7 +13431,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_short_summary',
-    'label' => 'Short summary',
+    'label' => 'Short summary - may be published as country update',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -9844,7 +13454,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Issues about work-related training opportunities, vocational training, apprenticeship schemes, learning practices, skills needs, skills match, skills obsolescence, knowledge work, and how this is promoted by social partners, governments and companies. ',
+    'description' => 'Please report here, any important discussions, policies, legislation about work-related training opportunities, vocational training, apprenticeship schemes, learning practices, skills needs, skills match, skills obsolescence, knowledge work, and how this is promoted by social partners, governments and companies. ',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -9853,6 +13463,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -9869,6 +13480,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -9905,18 +13517,15 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 14,
     ),
   );
 
-  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_style_and_presentation'
-  $field_instances['node-ef_network_quarterly_report-field_ef_style_and_presentation'] = array(
+  // Exported field_instance: 'node-ef_network_quarterly_report-field_ef_style_presentation_nq'
+  $field_instances['node-ef_network_quarterly_report-field_ef_style_presentation_nq'] = array(
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
@@ -9924,17 +13533,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 25,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 36,
       ),
       'print' => array(
         'label' => 'above',
@@ -9957,7 +13558,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_style_and_presentation',
+    'field_name' => 'field_ef_style_presentation_nq',
     'label' => 'Style and presentation',
     'required' => 0,
     'settings' => array(
@@ -9972,9 +13573,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 16,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 18,
     ),
   );
 
@@ -9992,6 +13597,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => 1,
           'edit' => 'Edit',
@@ -10008,6 +13614,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 0,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10068,6 +13675,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10084,6 +13692,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10129,7 +13738,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Exposure to physical violence, psychological violence, harassment, bullying, intimidation, perpetrators, consequences, etc. ',
+    'description' => '. ',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -10138,6 +13747,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10154,6 +13764,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10190,13 +13801,10 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
-      'weight' => 23,
+      'weight' => 22,
     ),
   );
 
@@ -10214,6 +13822,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10230,6 +13839,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10290,6 +13900,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10306,6 +13917,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10331,7 +13943,7 @@ function ef_publications_field_default_field_instances() {
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_work_organisation_skill',
-    'label' => 'Work organisation, skills and learning',
+    'label' => 'Lifelong learning, further training, learning organisation',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -10342,10 +13954,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 15,
@@ -10357,7 +13966,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Preeminent work-related health and wellbeing outcomes, including, for example, accidents, fatal accidents, occupational and work-related diseases (musculoskeletal disorders, work-related stress, etc.), workers incapacity for work, health limitations, etc…',
+    'description' => 'Preeminent work-related health and wellbeing outcomes, including, for example, accidents, fatal accidents, occupational and work-related diseases (musculoskeletal disorders, work-related stress, etc.), workers incapacity for work, health limitations, etc…Different facets of absenteeism/presenteeism, including different types, duration, related costs, measures to tackle it, regulation of sick-leave.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -10366,6 +13975,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10382,6 +13992,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10418,13 +14029,10 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
-      'weight' => 21,
+      'weight' => 20,
     ),
   );
 
@@ -10433,7 +14041,7 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_network_quarterly_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => '<a href="http://www.eurofound.europa.eu/quarterlies-instructions-working-time-in-general">Read more the focus of this section</a>.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -10442,6 +14050,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10458,6 +14067,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10494,10 +14104,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'field_collection_fieldset',
       'settings' => array(
         'collapsed' => 0,
-        'field_as_label' => array(),
         'last_item_collapsed' => 0,
-        'new_item_open' => FALSE,
-        'replace_label' => FALSE,
       ),
       'type' => 'field_collection_fieldset',
       'weight' => 11,
@@ -10518,6 +14125,7 @@ function ef_publications_field_default_field_instances() {
           'add' => 'Add',
           'collapsed' => FALSE,
           'collapsible' => TRUE,
+          'conditions' => array(),
           'delete' => 'Delete',
           'description' => TRUE,
           'edit' => 'Edit',
@@ -10534,6 +14142,7 @@ function ef_publications_field_default_field_instances() {
           'add' => '',
           'collapsed' => 0,
           'collapsible' => 1,
+          'conditions' => array(),
           'delete' => '',
           'description' => 0,
           'edit' => '',
@@ -10590,7 +14199,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -10604,6 +14215,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -10632,6 +14244,52 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_publication-field_ef_activities'
+  $field_instances['node-ef_publication-field_ef_activities'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_publication-field_ef_catalogue'
   $field_instances['node-ef_publication-field_ef_catalogue'] = array(
     'bundle' => 'ef_publication',
@@ -10642,9 +14300,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'scs' => array(
         'label' => 'above',
@@ -10688,7 +14348,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
         'weight' => 2,
       ),
@@ -10709,10 +14371,10 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_document',
     'label' => 'Document',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'entity_translation_sync' => FALSE,
+      'entity_translation_sync' => 0,
       'file_directory' => 'ef_publication/field_ef_document',
       'file_extensions' => 'pdf',
       'max_filesize' => '',
@@ -10722,6 +14384,41 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -10739,7 +14436,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 6,
       ),
@@ -10785,9 +14484,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'scs' => array(
         'label' => 'above',
@@ -10832,9 +14533,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'scs' => array(
         'label' => 'above',
@@ -10865,57 +14568,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_publication-field_ef_featured_in_theme_page'
-  $field_instances['node-ef_publication-field_ef_featured_in_theme_page'] = array(
-    'bundle' => 'ef_publication',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_featured_in_theme_page',
-    'label' => 'Featured in theme page',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 61,
+      'weight' => 7,
     ),
   );
 
@@ -10929,9 +14582,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'scs' => array(
         'label' => 'above',
@@ -10976,7 +14631,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11030,7 +14685,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 20,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11076,7 +14731,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 18,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11091,6 +14746,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_migration_old_url',
     'label' => 'Migration Old URL',
@@ -11110,7 +14766,7 @@ function ef_publications_field_default_field_instances() {
       'entity_translation_sync' => FALSE,
       'rel_remove' => 'default',
       'title' => 'optional',
-      'title_maxlength' => 128,
+      'title_maxlength' => 255,
       'title_value' => '',
       'url' => 0,
       'user_register_form' => FALSE,
@@ -11136,6 +14792,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'number',
         'settings' => array(
+          'conditions' => array(),
           'decimal_separator' => '.',
           'prefix_suffix' => 0,
           'scale' => 0,
@@ -11188,9 +14845,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 17,
+        'weight' => 18,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11235,9 +14894,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11268,7 +14929,7 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -11277,12 +14938,14 @@ function ef_publications_field_default_field_instances() {
     'bundle' => 'ef_publication',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Start to type the author\'s name and choose from the auto-complete list. Use a comma between authors. To add a new author use this format: "surname, name".',
     'display' => array(
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 4,
       ),
@@ -11331,9 +14994,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11378,9 +15043,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11410,7 +15077,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -11422,16 +15089,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'date',
-        'settings' => array(
-          'format_type' => 'ef_date_format',
-          'fromto' => 'both',
-          'multiple_from' => '',
-          'multiple_number' => '',
-          'multiple_to' => '',
-        ),
-        'type' => 'date_default',
-        'weight' => 8,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11446,6 +15106,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_publication_date',
     'label' => 'Publication Date',
@@ -11469,7 +15130,7 @@ function ef_publications_field_default_field_instances() {
         'text_parts' => array(),
         'year_range' => '-13:+10',
       ),
-      'type' => 'date_popup',
+      'type' => 'date_text',
       'weight' => 11,
     ),
   );
@@ -11484,7 +15145,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 7,
       ),
@@ -11532,7 +15195,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 16,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11547,6 +15210,7 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_related_content',
     'label' => 'Related Content',
@@ -11570,7 +15234,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 10,
@@ -11588,7 +15252,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 23,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11617,7 +15281,57 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 9,
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_ef_subscription_msg'
+  $field_instances['node-ef_publication-field_ef_subscription_msg'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_subscription_msg',
+    'label' => 'Show subscription message',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 2,
     ),
   );
 
@@ -11632,7 +15346,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 21,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11661,7 +15375,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -11674,10 +15388,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 15,
+        'type' => 'hidden',
+        'weight' => 19,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11722,9 +15435,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11774,7 +15489,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 22,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11805,7 +15520,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -11820,7 +15535,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 24,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11851,7 +15566,250 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 11,
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_order_label'
+  $field_instances['node-ef_publication-field_order_label'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'title',
+        'settings' => array(
+          'conditions' => array(),
+          'title_class' => '',
+          'title_link' => '',
+          'title_style' => '',
+        ),
+        'type' => 'title_linked',
+        'weight' => 30,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_order_label',
+    'label' => 'Order label',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_order_url'
+  $field_instances['node-ef_publication-field_order_url'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_order_url',
+    'label' => 'Order URL',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_show_order_button'
+  $field_instances['node-ef_publication-field_show_order_button'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_show_order_button',
+    'label' => 'Show order button',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_term_subscription_text'
+  $field_instances['node-ef_publication-field_term_subscription_text'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_term_subscription_text',
+    'label' => 'Insert subscription text',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_publication-field_term_subscription_url'
+  $field_instances['node-ef_publication-field_term_subscription_url'] = array(
+    'bundle' => 'ef_publication',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_plain',
+        'weight' => 5,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_term_subscription_url',
+    'label' => 'Insert subscription url',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
     ),
   );
 
@@ -11866,7 +15824,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 25,
       ),
       'scs' => array(
         'label' => 'above',
@@ -11900,7 +15858,7 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -5,
+      'weight' => 0,
     ),
   );
 
@@ -11914,7 +15872,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -11928,6 +15888,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
+          'conditions' => array(),
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
@@ -11965,6 +15926,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -12026,7 +15988,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 2,
       ),
@@ -12073,9 +16037,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
-        'weight' => 19,
+        'weight' => 13,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12087,9 +16053,9 @@ function ef_publications_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
-          'trim_length' => 600,
+          'conditions' => array(),
         ),
-        'type' => 'text_summary_or_trimmed',
+        'type' => 'text_plain',
         'weight' => 0,
       ),
     ),
@@ -12116,6 +16082,100 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_report-field_ef_activities'
+  $field_instances['node-ef_report-field_ef_activities'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 49,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_activities',
+    'label' => 'EF Activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_afp_auto'
+  $field_instances['node-ef_report-field_ef_afp_auto'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 44,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_afp_auto',
+    'label' => 'AFP auto',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_report-field_ef_approved_for_payment'
   $field_instances['node-ef_report-field_ef_approved_for_payment'] = array(
     'bundle' => 'ef_report',
@@ -12126,6 +16186,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -12133,7 +16194,7 @@ function ef_publications_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 8,
+        'weight' => 2,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12173,28 +16234,22 @@ function ef_publications_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 24,
+      'weight' => 20,
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_assign_to'
-  $field_instances['node-ef_report-field_ef_assign_to'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_assign_to_author'
+  $field_instances['node-ef_report-field_ef_assign_to_author'] = array(
     'bundle' => 'ef_report',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'colorbox_node_height' => 600,
-          'colorbox_node_link' => 0,
-          'colorbox_node_width' => 600,
-          'link' => 0,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 12,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 46,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12211,8 +16266,8 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_assign_to',
-    'label' => 'Assign to',
+    'field_name' => 'field_ef_assign_to_author',
+    'label' => 'Assign to Author',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -12222,10 +16277,109 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 23,
+      'weight' => 18,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_assign_to_country_group'
+  $field_instances['node-ef_report-field_ef_assign_to_country_group'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_country_group',
+    'label' => 'Country group',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 17,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_assign_to_user'
+  $field_instances['node-ef_report-field_ef_assign_to_user'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 6,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_assign_to_user',
+    'label' => 'Assign to User',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 50,
     ),
   );
 
@@ -12239,63 +16393,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_author',
-    'label' => 'Author',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_report-field_ef_balance_in_reporting'
-  $field_instances['node-ef_report-field_ef_balance_in_reporting'] = array(
-    'bundle' => 'ef_report',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
         'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
+          'conditions' => array(),
         ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 36,
+        'type' => 'text_default',
+        'weight' => 11,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12312,7 +16414,103 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_balance_in_reporting',
+    'field_name' => 'field_ef_author',
+    'label' => 'Author',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_author_contract'
+  $field_instances['node-ef_report-field_ef_author_contract'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 7,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_author_contract',
+    'label' => 'Contract',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_balance_in_reporting_re'
+  $field_instances['node-ef_report-field_ef_balance_in_reporting_re'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 42,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_balance_in_reporting_re',
     'label' => 'Balance in reporting',
     'required' => 0,
     'settings' => array(
@@ -12327,32 +16525,28 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 10,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 11,
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_command_of_english'
-  $field_instances['node-ef_report-field_ef_command_of_english'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_command_of_english_re'
+  $field_instances['node-ef_report-field_ef_command_of_english_re'] = array(
     'bundle' => 'ef_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ',
+    'description' => 'While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 38,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 44,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12369,7 +16563,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_command_of_english',
+    'field_name' => 'field_ef_command_of_english_re',
     'label' => 'Excellent command of English',
     'required' => 0,
     'settings' => array(
@@ -12384,56 +16578,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 12,
-    ),
-  );
-
-  // Exported field_instance: 'node-ef_report-field_ef_contract'
-  $field_instances['node-ef_report-field_ef_contract'] = array(
-    'bundle' => 'ef_report',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 13,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_ef_contract',
-    'label' => 'Contract',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
       ),
-      'type' => 'options_select',
-      'weight' => 22,
+      'type' => 'stars',
+      'weight' => 14,
     ),
   );
 
@@ -12446,9 +16597,8 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'countries',
         'settings' => array(),
-        'type' => 'country_default',
+        'type' => 'hidden',
         'weight' => 4,
       ),
       'scs' => array(
@@ -12480,23 +16630,26 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
   // Exported field_instance: 'node-ef_report-field_ef_deliverable_kind'
   $field_instances['node-ef_report-field_ef_deliverable_kind'] = array(
     'bundle' => 'ef_report',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 20822,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 1,
+        'type' => 'hidden',
+        'weight' => 27,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12547,9 +16700,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
-        'weight' => 21,
+        'weight' => 16,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12581,6 +16736,53 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__home_publications_block' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__menu_publications' => 0,
+          'colorbox__news-aricles' => 0,
+          'colorbox__photo_gallery_100_100' => 0,
+          'colorbox__publications-view-155-220' => 0,
+          'colorbox__quality-life-100-75' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_home_publications_block' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_menu_publications' => 0,
+          'image_news-aricles' => 0,
+          'image_photo_gallery_100_100' => 0,
+          'image_publications-view-155-220' => 0,
+          'image_quality-life-100-75' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -12588,10 +16790,9 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_featured_in_theme_page'
-  $field_instances['node-ef_report-field_ef_featured_in_theme_page'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_ee_deadline'
+  $field_instances['node-ef_report-field_ef_ee_deadline'] = array(
     'bundle' => 'ef_report',
-    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -12599,7 +16800,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 43,
+        'weight' => 48,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12614,21 +16815,128 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_featured_in_theme_page',
-    'label' => 'Featured in theme page',
-    'required' => FALSE,
+    'field_name' => 'field_ef_ee_deadline',
+    'label' => 'External Editing',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 52,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_eurwork_issue'
+  $field_instances['node-ef_report-field_ef_eurwork_issue'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 40,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_eurwork_issue',
+    'label' => 'EurWORK landing page topics',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_featured_in_theme_page'
+  $field_instances['node-ef_report-field_ef_featured_in_theme_page'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 38,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_featured_in_theme_page',
+    'label' => 'Featured in theme page',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
       'module' => 'options',
       'settings' => array(
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 37,
+      'weight' => 8,
     ),
   );
 
@@ -12642,9 +16950,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
-        'weight' => 11,
+        'weight' => 5,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12688,10 +16998,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 7,
+        'type' => 'hidden',
+        'weight' => 8,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12706,10 +17015,11 @@ function ef_publications_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_ef_institution',
     'label' => 'Institution',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,
@@ -12722,7 +17032,7 @@ function ef_publications_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -12733,10 +17043,13 @@ function ef_publications_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 35,
+        'label' => 'hidden',
+        'module' => 'lightbox2',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'lightbox2__lightshow__topical-update-img__topical-update-img',
+        'weight' => 12,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12772,6 +17085,16 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'insert' => 0,
+        'insert_absolute' => FALSE,
+        'insert_class' => '',
+        'insert_default' => array(
+          0 => 'auto',
+        ),
+        'insert_styles' => array(
+          0 => 'auto',
+        ),
+        'insert_width' => '',
         'preview_image_style' => 'thumbnail',
         'progress_indicator' => 'throbber',
       ),
@@ -12951,10 +17274,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 2,
+        'type' => 'hidden',
+        'weight' => 28,
       ),
       'scs' => array(
         'label' => 'above',
@@ -12989,26 +17311,18 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_product_criteria'
-  $field_instances['node-ef_report-field_ef_product_criteria'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_ordered'
+  $field_instances['node-ef_report-field_ef_ordered'] = array(
     'bundle' => 'ef_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'To be applied on IC Quartely Reports only',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 39,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 43,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13025,47 +17339,34 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_product_criteria',
-    'label' => 'Product specific criteria',
+    'field_name' => 'field_ef_ordered',
+    'label' => 'Ordered',
     'required' => 0,
     'settings' => array(
-      'allow_clear' => 1,
-      'allow_ownvote' => 1,
-      'allow_revote' => 1,
       'entity_translation_sync' => FALSE,
-      'stars' => 5,
-      'target' => 'none',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'fivestar',
+      'module' => 'options',
       'settings' => array(),
-      'type' => 'exposed',
+      'type' => 'options_buttons',
       'weight' => 13,
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_quality_of_contents'
-  $field_instances['node-ef_report-field_ef_quality_of_contents'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_processed_for_payment'
+  $field_instances['node-ef_report-field_ef_processed_for_payment'] = array(
     'bundle' => 'ef_report',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information',
+    'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => 1,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => 'default',
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 35,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 41,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13082,7 +17383,51 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_quality_of_contents',
+    'field_name' => 'field_ef_processed_for_payment',
+    'label' => 'Processed for payment',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_quality_of_contents_re'
+  $field_instances['node-ef_report-field_ef_quality_of_contents_re'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 41,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_quality_of_contents_re',
     'label' => 'Quality of contents',
     'required' => 0,
     'settings' => array(
@@ -13097,9 +17442,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 9,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 12,
     ),
   );
 
@@ -13145,7 +17494,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'size' => 60,
+        'size' => 200,
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 9,
@@ -13162,6 +17511,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
+          'conditions' => array(),
           'format_type' => 'long',
           'fromto' => 'both',
           'multiple_from' => '',
@@ -13169,7 +17519,7 @@ function ef_publications_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 7,
+        'weight' => 1,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13188,11 +17538,11 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ef_report_delivery_date',
     'label' => 'Scheduled record delivery date',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'default_value' => 'blank',
+      'default_value' => 'strtotime',
       'default_value2' => 'same',
-      'default_value_code' => '',
+      'default_value_code' => '+3 weeks',
       'default_value_code2' => '',
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -13213,6 +17563,160 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-ef_report-field_ef_requested_on'
+  $field_instances['node-ef_report-field_ef_requested_on'] = array(
+    'bundle' => 'ef_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 45,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_requested_on',
+    'label' => 'Requested On',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'now',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_responsible'
+  $field_instances['node-ef_report-field_ef_responsible'] = array(
+    'bundle' => 'ef_report',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 42,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_responsible',
+    'label' => 'Responsible',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-ef_report-field_ef_revision_deadline'
+  $field_instances['node-ef_report-field_ef_revision_deadline'] = array(
+    'bundle' => 'ef_report',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 47,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_revision_deadline',
+    'label' => 'Revision deadline',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'strtotime',
+      'default_value2' => 'same',
+      'default_value_code' => '+15 days',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'Y-m-d H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_popup',
+      'weight' => 51,
+    ),
+  );
+
   // Exported field_instance: 'node-ef_report-field_ef_sector'
   $field_instances['node-ef_report-field_ef_sector'] = array(
     'bundle' => 'ef_report',
@@ -13222,10 +17726,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'type' => 'hidden',
+        'weight' => 7,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13256,7 +17759,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -13269,9 +17772,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'file_default',
-        'weight' => 20,
+        'weight' => 15,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13303,6 +17808,53 @@ function ef_publications_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'insert' => 1,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__autocompletion_style' => 0,
+          'colorbox__czc' => 0,
+          'colorbox__ef_featured_thumbnail' => 0,
+          'colorbox__ef_photo_gallery_large' => 0,
+          'colorbox__ef_photo_gallery_thumb' => 0,
+          'colorbox__ef_spotlight_theme' => 0,
+          'colorbox__flexslider_full' => 0,
+          'colorbox__flexslider_thumbnail' => 0,
+          'colorbox__home_publications_block' => 0,
+          'colorbox__large' => 0,
+          'colorbox__media_thumbnail' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__menu_publications' => 0,
+          'colorbox__news-aricles' => 0,
+          'colorbox__photo_gallery_100_100' => 0,
+          'colorbox__publications-view-155-220' => 0,
+          'colorbox__quality-life-100-75' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_autocompletion_style' => 0,
+          'image_czc' => 0,
+          'image_ef_featured_thumbnail' => 0,
+          'image_ef_photo_gallery_large' => 0,
+          'image_ef_photo_gallery_thumb' => 0,
+          'image_ef_spotlight_theme' => 0,
+          'image_flexslider_full' => 0,
+          'image_flexslider_thumbnail' => 0,
+          'image_home_publications_block' => 0,
+          'image_large' => 0,
+          'image_media_thumbnail' => 0,
+          'image_medium' => 0,
+          'image_menu_publications' => 0,
+          'image_news-aricles' => 0,
+          'image_photo_gallery_100_100' => 0,
+          'image_publications-view-155-220' => 0,
+          'image_quality-life-100-75' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -13321,7 +17873,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 40,
+        'weight' => 35,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13350,12 +17902,12 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
-  // Exported field_instance: 'node-ef_report-field_ef_style_and_presentation'
-  $field_instances['node-ef_report-field_ef_style_and_presentation'] = array(
+  // Exported field_instance: 'node-ef_report-field_ef_style_presentation_re'
+  $field_instances['node-ef_report-field_ef_style_presentation_re'] = array(
     'bundle' => 'ef_report',
     'default_value' => NULL,
     'deleted' => 0,
@@ -13363,17 +17915,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'fivestar',
-        'settings' => array(
-          'expose' => TRUE,
-          'style' => 'average',
-          'text' => 'average',
-          'widget' => array(
-            'fivestar_widget' => NULL,
-          ),
-        ),
-        'type' => 'fivestar_formatter_default',
-        'weight' => 37,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 43,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13390,7 +17934,7 @@ function ef_publications_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_ef_style_and_presentation',
+    'field_name' => 'field_ef_style_presentation_re',
     'label' => 'Style and presentation',
     'required' => 0,
     'settings' => array(
@@ -13405,9 +17949,13 @@ function ef_publications_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'fivestar',
-      'settings' => array(),
-      'type' => 'exposed',
-      'weight' => 11,
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 13,
     ),
   );
 
@@ -13420,10 +17968,9 @@ function ef_publications_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 9,
+        'type' => 'hidden',
+        'weight' => 3,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13454,7 +18001,7 @@ function ef_publications_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -13468,9 +18015,11 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'inline',
         'module' => 'taxonomy',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 10,
+        'weight' => 4,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13506,7 +18055,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => 1,
       ),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -13521,7 +18070,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 41,
+        'weight' => 36,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13552,7 +18101,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -13567,7 +18116,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 42,
+        'weight' => 37,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13598,7 +18147,7 @@ function ef_publications_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -13613,7 +18162,7 @@ function ef_publications_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 44,
+        'weight' => 39,
       ),
       'scs' => array(
         'label' => 'above',
@@ -13631,6 +18180,462 @@ function ef_publications_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'title_field',
     'label' => 'Title',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_anticipation_of_change_activities-description_field'
+  $field_instances['taxonomy_term-case_study_anticipation_of_change_activities-description_field'] = array(
+    'bundle' => 'case_study_anticipation_of_change_activities',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_anticipation_of_change_activities-name_field'
+  $field_instances['taxonomy_term-case_study_anticipation_of_change_activities-name_field'] = array(
+    'bundle' => 'case_study_anticipation_of_change_activities',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_involved_actors-description_field'
+  $field_instances['taxonomy_term-case_study_involved_actors-description_field'] = array(
+    'bundle' => 'case_study_involved_actors',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_involved_actors-name_field'
+  $field_instances['taxonomy_term-case_study_involved_actors-name_field'] = array(
+    'bundle' => 'case_study_involved_actors',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_keywords-description_field'
+  $field_instances['taxonomy_term-case_study_keywords-description_field'] = array(
+    'bundle' => 'case_study_keywords',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_keywords-name_field'
+  $field_instances['taxonomy_term-case_study_keywords-name_field'] = array(
+    'bundle' => 'case_study_keywords',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_management_of_change_activities-description_field'
+  $field_instances['taxonomy_term-case_study_management_of_change_activities-description_field'] = array(
+    'bundle' => 'case_study_management_of_change_activities',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_management_of_change_activities-name_field'
+  $field_instances['taxonomy_term-case_study_management_of_change_activities-name_field'] = array(
+    'bundle' => 'case_study_management_of_change_activities',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_ownership-description_field'
+  $field_instances['taxonomy_term-case_study_ownership-description_field'] = array(
+    'bundle' => 'case_study_ownership',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_ownership-name_field'
+  $field_instances['taxonomy_term-case_study_ownership-name_field'] = array(
+    'bundle' => 'case_study_ownership',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_size_of_the_affected_establishment-description_field'
+  $field_instances['taxonomy_term-case_study_size_of_the_affected_establishment-description_field'] = array(
+    'bundle' => 'case_study_size_of_the_affected_establishment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-case_study_size_of_the_affected_establishment-name_field'
+  $field_instances['taxonomy_term-case_study_size_of_the_affected_establishment-name_field'] = array(
+    'bundle' => 'case_study_size_of_the_affected_establishment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
     'required' => TRUE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -13928,7 +18933,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -14371,6 +19378,82 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-ef_case_study_type_of_measure-description_field'
+  $field_instances['taxonomy_term-ef_case_study_type_of_measure-description_field'] = array(
+    'bundle' => 'ef_case_study_type_of_measure',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-ef_case_study_type_of_measure-name_field'
+  $field_instances['taxonomy_term-ef_case_study_type_of_measure-name_field'] = array(
+    'bundle' => 'ef_case_study_type_of_measure',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-ef_contracts-description_field'
   $field_instances['taxonomy_term-ef_contracts-description_field'] = array(
     'bundle' => 'ef_contracts',
@@ -14420,7 +19503,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -14460,7 +19545,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'list_default',
         'weight' => 1,
       ),
@@ -14493,7 +19580,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'text_default',
         'weight' => 3,
       ),
@@ -14529,7 +19618,9 @@ function ef_publications_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'countries',
-        'settings' => array(),
+        'settings' => array(
+          'conditions' => array(),
+        ),
         'type' => 'country_default',
         'weight' => 2,
       ),
@@ -14627,6 +19718,44 @@ function ef_publications_field_default_field_instances() {
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => -3,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-ef_deliverable_kinds-field_alphabetic_order'
+  $field_instances['taxonomy_term-ef_deliverable_kinds-field_alphabetic_order'] = array(
+    'bundle' => 'ef_deliverable_kinds',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_alphabetic_order',
+    'label' => 'Alphabetic order',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 31,
     ),
   );
 
@@ -15275,17 +20404,100 @@ function ef_publications_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-eurwork_landing_pages-description_field'
+  $field_instances['taxonomy_term-eurwork_landing_pages-description_field'] = array(
+    'bundle' => 'eurwork_landing_pages',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-eurwork_landing_pages-name_field'
+  $field_instances['taxonomy_term-eurwork_landing_pages-name_field'] = array(
+    'bundle' => 'eurwork_landing_pages',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'name_field',
+    'label' => 'Name',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('- Changes in wage-setting mechanisms (level where the agreements are made, the articulation between the levels, extension mechanisms, opt-out clauses, implications for bargaining coverage, degree of coordination, indexation mechanisms, government intervention…)');
+  t('. ');
   t('2. Actors, institutions and their structures');
-  t('3. Processes');
+  t('3. Collective employment relations - Processes');
   t('5. Other relevant issues');
   t('6. Summary, commentary and outlook');
+  t('<a href="http://www.eurofound.europa.eu/quarterlies-instructions-working-time-in-general">Read more the focus of this section</a>.');
+  t('AFP auto');
   t('Absenteeism - Presenteeism');
+  t('Affected establishment Size');
+  t('Alphabetic order');
+  t('Anticipation of change activities');
   t('Any other related issues');
   t('Approved for payment');
-  t('Assign to');
+  t('Assign to Author');
+  t('Assign to User');
   t('Author');
   t('Authors');
   t('Balance in reporting');
@@ -15296,9 +20508,13 @@ function ef_publications_field_default_field_instances() {
   t('Case study name');
   t('Catalogue');
   t('Category');
+  t('Changes at work and their impact on health and well-being');
   t('Characteristics');
   t('Characteristics of the workforce such as professional status, age, gender, nationality, their access to employment, their conditions of employment, as well as major discussions or policies on related topics, for example, youth employment, aging, migrant workers, etc.');
   t('Collective bargaining and social dialogue');
+  t('Collective employment relations between employers’ and workers’ organisations are fundamental to the regulation of employment and industrial relations in all EU Member States and at EU level. Collective employment relations may take place at many levels: establishment, company, local, regional, sectoral, national, EU and international levels. And such relations are exercised in different forms: <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/tripartite-concertation">tripartite concertation</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/social-dialogue">social dialogue</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/collective-bargaining">collective bargaining</a>; <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/information-and-consultation">information and consultation</a>; employee <a href="http://www.eurofound.europa.eu/observatories/eurwork/industrial-relations-dictionary/participation">participation</a> of various kinds; legislation.</br>
+Find out more about EurWORK\'s work on <a href=\'http://www.eurofound.europa.eu/collective-employment-relations\'>collective employment relations</a>.
+');
   t('Collectively agreed pay (outcomes)');
   t('Commentary');
   t('Conciliation, mediation, arbitration');
@@ -15308,42 +20524,47 @@ function ef_publications_field_default_field_instances() {
   t('Contract number');
   t('Contract type');
   t('Contractor');
+  t('Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.');
+  t('Correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.
+');
   t('Countries');
   t('Country');
+  t('Country group');
   t('DOI');
   t('Deliverable kind');
   t('Depending on the chosen channel of web or email dissemination, list the primary target audience(s) for the output and/or annex details of recipients of the Eurofound output to this quarterly report.');
   t('Description');
-  t('Different facets of absenteeism /presenteeism, including different types, duration, related costs, measures to tackle it, etc.');
   t('Dispute and dispute resolution');
   t('Dissemination');
   t('Dissemination channel');
   t('Document');
   t('Document Type');
   t('Documents');
+  t('EF Activities');
   t('Employee involvement');
   t('Employers’ representative organisations');
-  t('Employment Status');
+  t('Employment Status (terms and conditions)');
   t('Entitlements and obligations');
-  t('Entitlements and obligations - for example minimum legal requirements regarding the employment relationship, working time, annual leave, allowances, additional remuneration, maternity leave, parental leave, employment incentives, code of conduct, disciplinary procedures, voice and say, workers’ participation, right to join trade unions, right to engage in strikes, actual representation, etc. Please report any important discussions, policies, legislation, etc. here: ');
   t('Equal pay');
   t('Equality and equal opportunities');
+  t('EurWORK landing page topics');
   t('Examples of workplace innovation and their effect (e.g. structure of enterprises, management of human resources, innovative decision-making and innovation processes, relationships with client/suppliers, designs and structure of work environment and internal support systems, etc.)');
   t('Excellent command of English');
-  t('Exposure to physical violence, psychological violence, harassment, bullying, intimidation, perpetrators, consequences, etc. ');
+  t('External Editing');
+  t('External Editing Deadline');
   t('Featured in theme page');
   t('Flag');
   t('For example, research covering multiple areas, ‘working conditions’ or ‘quality of work’ in general, workplace innovation, motivation, engagement, values and orientations to work, emerging risks, work of the future, etc.');
-  t('For the following principal actors and institutions, please report significant developments concerning membership, density rates (ratio between number of members and corresponding ‘population’, broadly speaking), their structure (mergers, changes in leadership, etc.), their mandate (changes regarding representativeness, for example), elections, and so on.');
-  t('Forms of work organisation');
   t('From your reporting above, would you suggest to ‘dig deeper’ in any of the above-mentioned areas in the form of a ‘Spotlight report’ or ‘Research in Focus’ article?');
-  t('Hot topic – parental leave');
+  t('Hot topics');
+  t('How work is organised - Forms of work organisation');
   t('ISBN');
   t('Important discussions, policies, legislation');
-  t('Including, for instance, flexitime, hours banking, time off in lieu, working time accounts. ');
   t('Initiative Types');
+  t('Insert subscription text');
+  t('Insert subscription url');
   t('Institution');
-  t('Issues about work-related training opportunities, vocational training, apprenticeship schemes, learning practices, skills needs, skills match, skills obsolescence, knowledge work, and how this is promoted by social partners, governments and companies. ');
+  t('Involved actors');
   t('Issues related to employee involvement at work, including programmes facilitating such involvement. Common forms of direct employee involvement include team briefings, suggestion schemes, job enrichment, job design, autonomous working groups, quality of working life programmes, attitude surveys, etc..');
   t('Issues related to equality and equal opportunities, insofar they are linked to work, and how social partners/governments address these issues. For example, diversity, policies to address equal opportunities, anonymous applications, gender gaps, discrimination, etc.');
   t('Issues related to information and consultation, co-determination, employee representation, formal and informal structures for social dialogue, financial participation, etc.');
@@ -15352,10 +20573,13 @@ function ef_publications_field_default_field_instances() {
   t('Keywords');
   t('Labour related Legislation');
   t('Legal Form');
+  t('Lifelong learning, further training, learning organisation');
   t('Main Image');
+  t('Management of change activities');
   t('Migration Datetime');
   t('Migration Details');
   t('Migration Old URL');
+  t('NUTS2 regions');
   t('Name');
   t('National Contribution');
   t('National Contribution Deadline');
@@ -15364,15 +20588,17 @@ function ef_publications_field_default_field_instances() {
   t('Number of Pages');
   t('Number of outputs sent out');
   t('Observatory');
-  t('Occupational health and safety and workplace health promotion');
+  t('Order URL');
+  t('Order label');
+  t('Ordered');
   t('Organisation Size');
   t('Organisation of working time and working time flexibility');
   t('Other aspects');
-  t('Other aspects such as precariousness, flexicurity, bogus self-employment, temporary agency work, fixed-term contracts, part-time contracts, apprenticeships, mini-jobs, unemployment, out of labour force, undeclared work, seasonal work….');
   t('Other feedback / opportunities for action');
   t('Other forms of representation are, for example: works councils, shop-stewards, etc.');
   t('Other relevant institutions');
   t('Other relevant institutions (including, for instance, principal governmental industrial relations actors, joint platforms or bodies, labour inspectorates, labour courts).');
+  t('Ownership');
   t('Participation at work');
   t('Pay');
   t('Pay in General');
@@ -15380,21 +20606,29 @@ function ef_publications_field_default_field_instances() {
   t('Please include the references used in your reporting here: Example: Eurofound (2012), Fifth European Working Conditions Survey, Publications Office of the European Union, Luxembourg. ');
   t('Please insert any other relevant details of national developments and any opportunities identified where a potential link exists between Eurofound outputs and national activities');
   t('Please provide a brief commentary, assessing the most relevant developments/discussion/research reported from your point of view.');
-  t('Please report any important debates, policies, legislation, research findings or other outputs in relation to pay. ');
+  t('Please provide information in relation to changes in the work place (e.g. restructuring, changes in working time schedules, changes in policies related participation, work organisation, technological changes, labour market changes, etc…) and always linking those changes to health and well-being. ');
+  t('Please report about major debates/changes regarding individual entitlements and obligations: for example minimum legal requirements regarding the employment relationship, working time, annual leave, allowances, additional remuneration, maternity leave, parental leave, employment incentives, code of conduct, disciplinary procedures, etc.');
+  t('Please report any important debates, policies, legislation, research findings or other outputs in relation to pay. Find out more about EurWORK\'s research on <a href=\'http://www.eurofound.europa.eu/pay\'>pay</a>.');
   t('Please report any important discussions,policies, legislation, etc here:');
   t('Please report any important research findings, survey data or administrative data here:');
   t('Please report brief information on important research findings, newly released data or debates between the various actors on the following topics, which are currently not covered in the template:');
+  t('Please report here, any important discussions, policies, legislation about work-related training opportunities, vocational training, apprenticeship schemes, learning practices, skills needs, skills match, skills obsolescence, knowledge work, and how this is promoted by social partners, governments and companies. ');
   t('Please report important changes in any labour related legislation.');
   t('Please report important changes to the industrial relations system, and particularly to the structures and processes of negotiation, with a focus on the collective bargaining processes (which set pay, working time or other features), information and consultation, participation, co-determination (where present), and social dialogue in general. ');
+  t('Please report important changes/debates/research about the employment status (for example posted workers, seasonal working, full-time and part -time work, self-employment, casual work, fixed-term employment, precariousness, etc.).
+More information on the general focus of this section can be found <a href=\'quarterlies-instructions-individual-employment-relations\'>here</a>.');
   t('Please report on any recent changes in the conciliation, mediation, arbitration, and other dispute resolution mechanisms that are in place (for example, alternative dispute resolution mechanisms).');
   t('Please report on conflicts and disagreements, in general, and their effects. This could include: conflicts between government, unions and employers’ organisations, conflicts between organisations within each side of industry or intra-organisational conflicts. Include data, insofar as they are available. ');
   t('Please report on disputes and conflicts between unions and employers. Summarise the official data on strikes or lock-outs when available, and qualitative information on the same issues.');
   t('Please report on prevention of risks, interventions promoting health and wellbeing at the workplace, health and safety representation, but also on mechanisms of reparation, compensation, resources, at individual, organisational, sectoral or national level, etc.');
+  t('Please report on the changes of regulation in relation to working time and working time flexibility, including, for instance, flexitime, hours banking, time off in lieu, working time accounts. <a href="http://www.eurofound.europa.eu/quarterlies-instructions-the-organisation-of-working-time-and-working-time-flexibility">Read more on the focus of this section</a>.');
   t('Policy debate, national initiative or event');
-  t('Preeminent work-related health and wellbeing outcomes, including, for example, accidents, fatal accidents, occupational and work-related diseases (musculoskeletal disorders, work-related stress, etc.), workers incapacity for work, health limitations, etc…');
+  t('Preeminent work-related health and wellbeing outcomes, including, for example, accidents, fatal accidents, occupational and work-related diseases (musculoskeletal disorders, work-related stress, etc.), workers incapacity for work, health limitations, etc…Different facets of absenteeism/presenteeism, including different types, duration, related costs, measures to tackle it, regulation of sick-leave.');
   t('Preferences, circumstances, determinants, working time duration organisation, predictability, asocial working hours, on-call duties, shift-work, flexitime, hours reduction, etc.');
+  t('Processed for payment');
   t('Product specific criteria');
   t('Project');
+  t('Promotion of occupational health and safety, workplace health and sustainability at work');
   t('Psychosocial risk factors');
   t('Publication Date');
   t('Quality of contents');
@@ -15402,14 +20636,19 @@ function ef_publications_field_default_field_instances() {
   t('Questionnaire');
   t('Reference No');
   t('References');
-  t('Regulating work Labour related legislation ');
+  t('Region');
   t('Related Content');
+  t('Requested On');
   t('Research findings, survey data');
+  t('Responsible');
+  t('Revision deadline');
   t('Scheduled record delivery date');
   t('Scope');
   t('Sector');
   t('Sectors');
-  t('Short summary');
+  t('Short summary - may be published as country update');
+  t('Show order button');
+  t('Show subscription message');
   t('Skills and Training');
   t('Social Dialogue');
   t('Social Dialogue Type');
@@ -15417,6 +20656,7 @@ function ef_publications_field_default_field_instances() {
   t('Source');
   t('Source documents');
   t('Spotlight Theme');
+  t('Start to type the author\'s name and choose from the auto-complete list. Use a comma between authors. To add a new author use this format: "surname, name".');
   t('Statutory minimum wages');
   t('Style and presentation');
   t('Survey Family');
@@ -15424,37 +20664,41 @@ function ef_publications_field_default_field_instances() {
   t('Target audience');
   t('Termination of the employment relationship');
   t('Termination of the employment relationship - for example dismissal, layoffs, redeployment, redundancy, retirement, notice periods, severance pay, unfair dismissal, collective dismissal, etc.');
-  t('The employment status – for example posted workers, seasonal working, full-time and part -time work, self-employment, casual work, fixed-term employment, precariousness, etc.');
   t('The style and presentation must be simple and clear and free of jargon which risks masking the meaning to readers unfamiliar with the subject.');
   t('The workforce');
   t('Theme');
-  t('This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information');
+  t('This relates to factual thoroughness, clarity, precision, topicality, provision of relevant analysis and up-to-date information.');
+  t('This section is about the actors and institutions; not about processes they are involved in, but about the actors themselves. It covers: how they organise themselves,  their legitimacy, who they represent, how they are regulated and what impact changes in the regulations have on them. 
+
+For the following principal actors and institutions, please report significant developments concerning membership, density rates (ratio between number of members and corresponding ‘population’, broadly speaking), structure (mergers, cooperation with others, changes in leadership, etc.), mandate (changes regarding representativeness, for example), major elections and so on.Find out more about EurWORK\'s work on <a href=\'http://www.eurofound.europa.eu/actors-and-institutions\'>actors and institutions</a>. ');
   t('This would include a short question, as to whether a current topic being discussed at European level is also an issue in the respective Member states. Hot topics will be identified during the course of the quarter. ');
   t('Timeline');
   t('Title');
-  t('To be applied on IC Quartely Reports only');
+  t('To be applied on IC Quarterly Reports only.');
   t('Topic');
   t('Trade unions and other forms of employee representation');
   t('Transversal topics');
+  t('Type of measure');
+  t('Type of restructuring');
   t('Unit');
   t('Variable pay');
   t('Variety of forms of work organisation (e.g. discretionary learning, lean production, Taylorist, traditional or simple structure), including their impact on quality of work and employment (e.g. on physical risk factors, working time, work intensity, satisfaction with working conditions, etc.).');
   t('Violence and harassment at work');
-  t('Wage setting and wage bargaining');
-  t('While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.  ');
-  t('Work organisation, skills and learning');
+  t('Wage setting and wage bargaining mechanisms');
+  t('While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way.');
+  t('While Eurofound acknowledges that most correspondent’s mother tongue is not English, the material provided needs to be written in a clear and understandable way. 
+');
   t('Work programme area');
   t('Work-life balance in relation to working life');
   t('Work-related health and wellbeing outcomes');
-  t('Workers exposure to, for example, high demands and work intensity, emotional demands, lack of autonomy, ethical conflicts, poor social relationships/support, job and work insecurity, leadership, ‘dirty work’, aesthetic demands, etc. ');
+  t('Workers exposure to, for example, high demands and work intensity, emotional demands, lack of autonomy, ethical conflicts, poor social relationships/support, job and work insecurity, leadership, ‘dirty work’, aesthetic demands, etc.Exposure to physical violence, psychological violence, harassment, bullying, intimidation, perpetrators, consequences, etc. violence and harassment.  ');
   t('Workers’ exposure to, for example, posture-related risks (working in tiring and painful positions, repetitive movements, carrying heavy loads), biological and chemical-related risks, ambient risks (high/low temperatures, noise, breathing smoke/dust/vapours).');
   t('Working time in general: Duration, legislation and collectively agreed changes');
   t('Workplace innovation');
   t('Year');
   t('Years span');
-  t('Your proposal for topics/areas to be worth investigated further');
-  t('correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue');
-  t('correspondents shall ensure a balanced, impartial representation of the possible variety of viewpoints surrounding any given event/issue.');
+  t('Your proposal for topics/areas to be worth ');
+  t('abc');
   t('• For example policies and studies in relation to the principle of equal pay for equal work, reclassification, job re-evaluation, (gender) pay gaps, pay discrimination…');
   t('• Including, for example, social partners and other actors’ debates and negotiations on the level of minimum wages or their increases; introduction of statutory minimum wages, research on their impacts, compliance issues…');
   t('• Major outcomes of negotiation on important collective agreements, covering major parts of the labour force or being pace-setting agreements for other sectors; including on-going processes of negotiation of important agreements.');
