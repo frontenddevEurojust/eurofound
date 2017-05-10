@@ -80,13 +80,57 @@
 
 dpm($variables);
 dpm($content);
+dpm($node);
+
+//$file = file_load($content['field_ef_document'][0]['#file']->fid);
+$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 
 ?>
 
 <?php print print_insert_link();?>
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
+	<div class="row">
+		<div class="ds-node-side-info large-4 columns">
+		<!-- Pintar Main Document -->
+			<img src="<?= $imageurl; ?>"> 
+		</div>
 
+		<div class="ds-node-content large-8 columns">
+			
+			<div class="field field-name-body">
+
+			</div>
+
+			<div id="node_ef_publication_full_group_ef_node_details">
+				<ul>
+				<!-- Authors Document Type Reference No Published on Topic -->
+					<li><span class="label-inline">Authors:&nbsp;</span>
+						<a href="/publication-contributors/eurofound-0" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Eurofound</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+	<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
+	<div class="ds-node-comments">
+		<div class="ef-comment-toggler toggler">
+		    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
+		    <span class="hide-text">Hide comments</span>
+		</div>
+	  	<div id="comments" class="title comment-wrapper">
+			<?php
+
+				$comment = new stdClass;
+				$comment->nid = $node->nid;
+				$form = drupal_get_form('comment_form', $comment);
+				print render($form);
+
+			?>
+		</div>
+	</div>
+	<?php endif; ?>
 
     
 </article>
