@@ -22,27 +22,53 @@ function ef_search_menu() {
     'access arguments' => array('administer site configuration'),
   );
 
-		/*$items['admin/config/search/ef_search/ef_search_settings'] = array(
-			'title' => 'EF Search Configuration',
-			'description' => 'Config information for Eurofound search',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array('ef_search_settings_form'),
-			'access arguments' => array('administer site configuration'),
-		);*/
+	$items['admin/config/search/ef-search-topics'] = array(
+	  'title' => 'EF Topics General Search Configuration',
+		'description' => 'Configuration for the Topics General Search Block',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('ef_search_topics_admin_form'),
+		'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+	);
 
-		$items['admin/content/ef_search_settings'] = array(
-			'title' => 'EF Search Configuration',
-			'description' => 'Config information for Eurofound search',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array('ef_search_settings_form'),
-			'access arguments' => array('administer ef_search terms configuration'),
-		);
+  $items['admin/config/search/ef-search-topics/autocomplete/%'] = array(
+    'page callback' => '_ef_search_keywords_autocomplete',
+    'access callback' => TRUE,
+    'page arguments' => array(5),
+    'type' => MENU_CALLBACK,
+  );
 
-		$items['search_terms_autocomplete'] = array(
+  $items['admin/config/search/ef-search-topics/%/edit'] = array(
+    'title' => 'EF Topics General Search Edit Form',
+    'description' => 'Edit keywords',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_edit_topics_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+  );
+
+  $items['admin/config/search/ef-search-topics/%/delete'] = array(
+    'title' => 'EF Topics General Search Delete Form',
+    'description' => 'Delete topic from Topic Search Feature',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_delete_topics_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+  );
+
+	$items['admin/content/ef_search_settings'] = array(
+		'title' => 'EF Search Configuration',
+		'description' => 'Config information for Eurofound search',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('ef_search_settings_form'),
+		'access arguments' => array('administer ef_search terms configuration'),
+	);
+
+	$items['search_terms_autocomplete'] = array(
     'page callback' => 'search_terms_autocomplete',
 		'type' => MENU_CALLBACK,
     'access callback' => TRUE,
-    );
+   );
 
   return $items;
 }
@@ -90,7 +116,6 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
 
 
     $current_path = current_path();
-    //dpm($current_path);
 
     if($current_path == 'search'){
       $form['search_block_form']['phrase'] = array(
@@ -99,12 +124,10 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
       '#title' => t('phrase'),
 
     );
-      //dpm($form);
       $form['#attached']['js'] = array(
         drupal_get_path('module', 'ef_search') . '/ef_search.js',
       );
     }
-  //if(isset )
 
 
   }
@@ -258,6 +281,15 @@ function ef_search_block_info() {
     'cache' => DRUPAL_NO_CACHE,
     'weight' => 0,
   );
+  $blocks['ef_search_topics_block'] = array(
+    'info' => t('Block to display topics as General Search results'),
+    'status' => 1,
+    'region' => 'content',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'search',
+    'cache' => DRUPAL_NO_CACHE,
+    'weight' => 0,
+  );
   return $blocks;
 }
 
@@ -265,27 +297,138 @@ function ef_search_block_info() {
  * Implements hook_block_view().
  */
 function ef_search_block_view($delta = '') {
+  switch ($delta) {
+    case 'ef_search_clear_filters':
+      $content['header'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h3>' . t('Filter results') . '</h3>',
+      );
+      $query_params = drupal_get_query_parameters();
+      if (!empty($query_params)) {
+        //Click on the link 'Clear filters' will just
+        //link to the same URL but without parameters
+        //reloading the search page
+        $content['link'] = array(
+          '#type' => 'markup',
+          '#markup' => l(t('Clear filter'), current_path()),
+        );
+      }
+      
+      return array(
+        'subject' => '<none>',
+        'content' => drupal_render($content),
+      );
+      
+      break;
+
+    case 'ef_search_topics_block':
+      
+      global $language;
+      
+      $search_term = $_GET['search_block_form'];
+      
+      if (!empty($search_term)) {
+        $search_terms = explode(' ', $search_term);
+        //First query, ef_search_topics table
+        $select = db_select('ef_search_topics', 'st');
+        //FIELDS
+        $select->fields('st', array('tid'));
+        //Searching in all fields
+        $db_or = db_or();
+        foreach ($search_terms as $key => $exploded_term) { 
+          $db_or->condition('st.keywords', '%' . $exploded_term . ',%', 'LIKE');
+        }
+        $select->condition($db_or);
+        //EXECUTE
+        $result = $select->execute();
+        //ITERABLE OBJECT
+        while ($record = $result->fetchAssoc()) {
+          $terms[] = $record;
+        }
+        //Second query, taxonomy term data table for exact match
+        $select2 = db_select('taxonomy_term_data', 'ttd');
+        $select2->distinct();
+        $select2->fields('ttd', array('tid'));
+        $select2->condition('ttd.name', $search_term);
+        $result2 = $select2->execute();
+        while ($record = $result2->fetchAssoc()) {
+          $terms[] = $record;
+        }
+        //Remove duplicates
+        if (!empty($terms)) {
+          $terms = array_map("unserialize", array_unique(array_map("serialize", $terms)));
+        }
+      }
+      if (!empty($terms)) {
+        $block['content'] = '<h3>' . t('Highlighted topics') . '</h3>';
+        foreach ($terms as $key => $tid) {
+          $term = _get_topic_data_multilingual($tid, $language->language);
+          module_load_include('inc', 'pathauto', 'pathauto');
+          $url_clean_term = pathauto_cleanstring($term['name']);
+          $block['content'] .= l($term['name'], '/topic/' . $url_clean_term);
+          $block['content'] .= ', ';
+        }
+        $block['content'] = rtrim($block['content'], ', ' );
+        if (count($terms) == 1) {
+          $block['content'] .= '<p>' .  $term['description'] . '</p>'; 
+        }
+        return $block;
+      }
+
+      return;
+
+      break;
+    
+    default:
+      
+      return;
+
+      break;
+  }
+
   if ($delta != 'ef_search_clear_filters') {
     return;
   }
-  $content['header'] = array(
-    '#type' => 'markup',
-    '#markup' => '<h3>' . t('Filter results') . '</h3>',
-  );
-  $query_params = drupal_get_query_parameters();
-  if (!empty($query_params)) {
-    //Click on the link 'Clear filters' will just
-    //link to the same URL but without parameters
-    //reloading the search page
-    $content['link'] = array(
-      '#type' => 'markup',
-      '#markup' => l(t('Clear filter'), current_path()),
-    );
+  
+}
+
+function _get_topic_data_multilingual($tid, $lang) {
+  $get_topic_name = db_select('field_data_name_field', 'nf');
+  $get_topic_name->fields('nf', array('name_field_value'));
+  $get_topic_name->condition('nf.entity_id', $tid);
+  $get_topic_name->condition('nf.language', $lang);
+  $result = $get_topic_name->execute();
+  while ($record = $result->fetchAssoc()) {
+    $topic['name'] = $record['name_field_value'];
   }
-  return array(
-    'subject' => '<none>',
-    'content' => drupal_render($content),
-  );
+  if (!isset($topic['name'])) {
+    $topic['name'] = _get_topic_data_default($tid, array('name'));
+  }
+
+  $get_topic_desc = db_select('field_data_description_field', 'df');
+  $get_topic_desc->fields('df', array('description_field_value'));
+  $get_topic_desc->condition('df.entity_id', $tid);
+  $get_topic_desc->condition('df.language', $lang);
+  $result = $get_topic_desc->execute();
+  while ($record = $result->fetchAssoc()) {
+    $topic['description'] = $record['description_field_value'];
+  }
+  if (!isset($topic['description'])) {
+    $topic['description'] = _get_topic_data_default($tid, array('description'));
+  }
+
+  return $topic;
+}
+
+function _get_topic_data_default($tid, $field) {
+  $get_topic_data = db_select('taxonomy_term_data', 'ttd');
+  $get_topic_data->fields('ttd', $field);
+  $get_topic_data->condition('ttd.tid', $tid);
+  $result = $get_topic_data->execute();
+  while ($record = $result->fetchAssoc()) {
+    $topic[$field[0]] = $record[$field[0]];
+  }
+  return $topic[$field[0]];
 }
 
 //*************SEARCH AUTOCOMPLETE APPROACH******************************************************************
@@ -664,6 +807,36 @@ function ef_search_remove_term($term)
 
 }
 
+/**
+ * Implements hook_theme().
+ */
+function ef_search_theme() {
+  return array(
+    'ef_search_topics_admin_form' => array(
+      'file' => 'ef_search.admin.inc',
+      'render element' => 'form',
+    ),
+  );
+}
 
+function _ef_search_keywords_autocomplete($string = '*') {
+  $matches = array();
+  
+  $select = db_select('ef_search_topics', 'st');
+  $select->fields('st', array('keywords'));
+  $select->condition('st.keywords', '%' . $string . '%', 'LIKE');
 
+  $result = $select->execute();
 
+  //Separated by terms
+  foreach ($result as $record) {
+    $keywords = explode(',', $record->keywords);
+    foreach ($keywords as $key => $keyword) {
+      if (strpos($keyword, $string) !== FALSE) {
+        $matches[$keyword] = trim($keyword);
+      }
+    }
+  }
+ 
+  drupal_json_output($matches);
+}

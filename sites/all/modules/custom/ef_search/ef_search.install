@@ -4,7 +4,7 @@
  * Hook_schema.
  */
  
- function ef_search_schema() {
+function ef_search_schema() {
 	$schema['ef_search_terms'] = array(
 		'description' => t('Table to store terms search'),
 		'fields' => array(
@@ -34,3 +34,74 @@
 		// Se devuelve el esquema definido.
 	return $schema;
 }
+
+function ef_search_update_7001() {
+	$schema['ef_search_topics'] = array(
+		'description' => t('Table to store topics to display in the General Search'),
+		'fields' => array(
+			'tkrid' => array(
+				'description' => 'Term/Keyword relation id',
+				'type' => 'serial',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'tid' => array(
+				'description' => 'Taxonomy term id',
+				'type' => 'int',
+				'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+			),
+			'term' => array(
+				'description' => 'Term to be displayed',
+				'type' => 'varchar',
+				'length' => 255,
+				'not null' => TRUE,
+				'default' => ' ',
+			),
+			'keywords' => array(
+				'description' => 'Keywords will force the term display',
+				'type' => 'text',
+				'not null' => TRUE,
+			),
+		),
+		'indexes' => array(
+      'tid' => array('tid'),
+    ),
+		'primary key' => array('tkrid'),
+		'foreign keys' => array(
+      'fk_taxonomy_topics_taxonomy' => array(
+        'table' => 'taxonomy_term_data',
+        'columns' => array('tid' => 'tid'),
+      ),
+    ),
+	);
+	
+	db_create_table('ef_search_topics', $schema['ef_search_topics']);
+
+	db_update('taxonomy_term_data')->fields(array('language' => 'en',))->condition('language', 'und')->execute();
+	$select = db_select('field_data_name_field', 'nf');
+  $select->fields('nf', array('entity_id', 'language'));
+  $select->condition('nf.bundle', 'ef_topics');
+  $result = $select->execute();
+  $i = 1;
+	foreach ($result as $key => $record) {
+		if ($pre == $record->entity_id) {
+			$i++;
+			$items[$record->entity_id] = $i;
+		}
+		else {
+			$pre = $record->entity_id;
+			$i = 1;
+			$items[$record->entity_id] = $i;
+		}	
+	}
+	foreach ($items as $tid => $count) {
+		if ($count == 1) {
+			$unique_items[] = $tid; 
+		}
+	}
+	db_update('field_data_name_field')->fields(array('language' => 'en',))->condition('language', 'und')->condition('entity_id', $unique_items, 'IN')->execute();
+	db_update('field_data_description_field')->fields(array('language' => 'en',))->condition('language', 'und')->condition('entity_id', $unique_items, 'IN')->execute();
+}
+
