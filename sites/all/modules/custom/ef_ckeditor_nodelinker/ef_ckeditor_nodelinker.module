@@ -1,0 +1,24 @@
+<?php 
+
+function ef_ckeditor_nodelinker_wysiwyg_plugin($editor, $version) {
+	
+	$plugins = array();
+	
+	switch ($editor) 
+	{
+		case 'ckeditor':
+			
+			$plugins['nodelinker'] = array(
+	            'path' => drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/plugins/nodelinker',
+	            'filename' => 'plugin.js',
+	            'load' => TRUE,
+	            'buttons' => array(
+	                'nodelinker' => t('Node linker'),
+	            ),
+	        );
+		
+		break;
+	}
+
+	return $plugins;
+}
