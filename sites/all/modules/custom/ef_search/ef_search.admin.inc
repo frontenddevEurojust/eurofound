@@ -343,10 +343,13 @@ function theme_ef_search_topics_admin_form($variables) {
 	foreach ($result as $record) {
 		$buttons = drupal_render($form['container'][$record->tid]['edit']);
    	$buttons .= drupal_render($form['container'][$record->tid]['delete']);
+   	module_load_include('inc', 'pathauto', 'pathauto');
+    $term = pathauto_cleanstring($record->term);
+   	$term_link = l($record->term, '/topic/' . $term);
    	$record->keywords = preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $record->keywords);
 		$rows[] = array(
 			array('data' => $record->tid),
-			array('data' => $record->term),
+			array('data' => $term_link),
 			array('data' => $record->keywords),
     	array('data' => $buttons),
 		);
