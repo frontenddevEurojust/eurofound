@@ -91,28 +91,131 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
 	<div class="row">
+		
 		<div class="ds-node-side-info large-4 columns">
-		<!-- Pintar Main Document -->
-			<img src="<?= $imageurl; ?>"> 
+			
+			<div class="field field-name-publication-preview">
+				<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a> 
+			</div>
+			
+			<div class="field field-name-field-ef-document">
+				
+			
+				<span class="file">
+					<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
+				</span>
+				
+			</div>
+			
+			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+			<div class="field-order-label">
+				<?= $content['field_order_label'][0]['#markup']; ?>
+			</div>
+			<?php endif; ?>
+		
+
 		</div>
 
 		<div class="ds-node-content large-8 columns">
 			
 			<div class="field field-name-body">
-
+				<?= $content['body'][0]['#markup']; ?>
 			</div>
 
 			<div id="node_ef_publication_full_group_ef_node_details">
+				
 				<ul>
-				<!-- Authors Document Type Reference No Published on Topic -->
-					<li><span class="label-inline">Authors:&nbsp;</span>
-						<a href="/publication-contributors/eurofound-0" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">Eurofound</a>
+					<?php if(isset($content['group_ef_node_details']['field_ef_publ_contributors'])): ?>
+					<li>
+						<span class="label-inline">Authors: </span><span><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
 					</li>
+					<?php endif; ?>
+					
+					<?php if(isset($content['group_ef_node_details']['field_ef_number_of_pages'])): ?>
+					<li>
+						<span class="label-inline">Number of pages: </span><span><?= $content['group_ef_node_details']['field_ef_number_of_pages'][0]['#markup']; ?></span>
+					</li>
+					<?php endif; ?>
+					
+					<?php if(isset($content['group_ef_node_details']['field_ef_document_type'])): ?>
+					<li>
+						<span class="label-inline">Document type: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_document_type'][0]['#href'] ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
+					</li>
+					<?php endif; ?>
+					
+					<?php if(isset($content['group_ef_node_details']['field_ef_reference_no'])): ?>
+					<li>
+						<span class="label-inline">Reference nº: </span><span><?= $content['group_ef_node_details']['field_ef_reference_no'][0]['#markup']; ?></span>
+						
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_isbn'])): ?>
+					<li>
+						<span class="label-inline">ISBN: </span><span><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
+						
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_catalogue'])): ?>
+					<li>
+						<span class="label-inline">Catalogue: </span><span><?= $content['group_ef_node_details']['field_ef_catalogue'][0]['#markup']; ?></span>
+						
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_isbn'])): ?>
+					<li>
+						<span class="label-inline">DOI: </span><span><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
+						
+					</li>
+					<?php endif; ?>
+					
+					<?php if(isset($content['group_ef_node_details']['published_on'])): ?>
+					<li>
+						<span class="label-inline">Published on: </span><span><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
+						
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>
+					<li>
+						<span class="label-inline">Observatory: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_observatory'][0]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_publ_sector'])): ?>
+					<li>
+						<span class="label-inline">Sector: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#title']; ?></a></span>
+					</li>
+					<?php endif; ?>
+
+					<?php if(isset($content['group_ef_node_details']['field_ef_topic'])): ?>
+					<li>Topics:
+						<ul class="label-inline">
+							<?php foreach ($content['group_ef_node_details']['field_ef_topic']['#items'] as $key => $topic): ?>
+							<li><a href="<?= $content['group_ef_node_details']['field_ef_topic'][$key]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_topic'][$key]['#title']; ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+					</li>
+					<?php endif; ?>
+
 				</ul>
 			</div>
+			
+	
+			<?php if(isset($content['group_ef_node_details']['field_term_subscription_url'])): ?>
+			<div class="field field-name-field-term-subscription-url field-type-text field-label-hidden field-wrapper">
+				
+				<?= $content['group_ef_node_details']['field_term_subscription_url'][0]['#markup']; ?>
 
+			</div>
+			<?php endif; ?>
+	
 		</div>
+		
 	</div>
+
 	<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
 	<div class="ds-node-comments">
 		<div class="ef-comment-toggler toggler">
