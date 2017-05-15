@@ -419,10 +419,6 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 		$contributionsIds[]=$node->nid;
 	}
 
-	foreach ($created_nc_nids as $key => $value) {
- 		entity_get_controller('node')->resetCache(array($value));
- 	}
-	
 	if(isset($form_state['storage']['file1'])){
 		$file1 = $form_state['storage']['file1'];
 		// We are done with the file, remove it from storage.
@@ -509,6 +505,10 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 
 	$node = node_submit($node); // Prepare node for saving
 	node_save($node);
+
+	foreach ($created_nc_nids as $key => $value) {
+ 		entity_get_controller('node')->resetCache(array($value));
+ 	}
 
 	$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 
