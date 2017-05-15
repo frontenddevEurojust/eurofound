@@ -99,8 +99,6 @@ function _ajax_remove_selected($form,&$form_state)
 			$term = taxonomy_term_load($tid);
 			$_SESSION['ef_term_merge']['to-select']['#options'][$tid] = $term->name . ' (tid:' . $tid .')';
 			usort($_SESSION['ef_term_merge']['to-select']['#options'], 'strnatcasecmp');
-		
-			//natsort($_SESSION['ef_term_merge']['to-select']['#options']);
 		}
 
 		$form['container']['selected']['terms-selected-to-merge']['#options'] = $_SESSION['ef_term_merge']['selected']['#options'];
