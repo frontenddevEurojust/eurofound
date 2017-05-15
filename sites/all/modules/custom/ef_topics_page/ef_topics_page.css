@@ -88,9 +88,6 @@
     font-weight: bold;
     margin-right: 6px;
 }
-.related-content-topic .name-topic{
-    color: #666;
-}
 .related-content-topic .name-topic:hover{
     color:#005baa;
 }

@@ -61,9 +61,8 @@ function ef_publications_ct_node_view_alter(&$build)
 	    	$build['field_order_label'][0]['#markup'] = '<p class="orange-formatting"><a class="orange-link" href="' .  $node->field_order_url['und'][0]['value'].'">' . 
 	    		$build['field_order_label'][0]['#markup'] . '</a></p>';
 
-	    	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
-
 	    }
+	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
     }
 }
 /*
