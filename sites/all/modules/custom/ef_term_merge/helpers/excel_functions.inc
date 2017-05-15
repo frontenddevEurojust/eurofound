@@ -64,7 +64,7 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 	$from_cell = 'A';
 	$begin_row = 3;
 	
-	if(count($nodes_data) > 0)
+	if(count($nodes_data))
 	{
 		
 		foreach ($nodes_data as $key => $object) 
@@ -85,10 +85,13 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 	}
 	else
 	{
+		
 		$row[] = "No nodes affected for this term";
 		$cell = $from_cell . (string) $begin_row;
 		$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
-	}	
+	
+	}
+
 	$directory = 'public://ef_term_merge';
 
 	$writable = file_prepare_directory($directory, $options = FILE_CREATE_DIRECTORY);

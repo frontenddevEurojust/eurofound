@@ -10,6 +10,7 @@ include_once('helpers/excel_functions.inc');
 */
 function ef_term_merge_form($form,$form_state){
 	
+	
 	if ( $_SESSION['ef_term_merge']['confirm'] && $form_state['clicked_button']['#value'] != 'Cancel' ) 
 	{
 
