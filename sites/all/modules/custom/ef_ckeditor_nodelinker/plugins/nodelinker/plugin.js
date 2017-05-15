@@ -7,7 +7,7 @@ CKEDITOR.plugins.add( 'nodelinker', {
         //Plugin logic goes here.
         editor.addCommand( 'AddNodeLink', new CKEDITOR.dialogCommand( 'nodeLinkDialog' ));
 
-		editor.ui.addButton( 'NodeLinker', {
+		editor.ui.addButton( 'nodelinker', {
 		    label: 'Add Node link',
 		    command: 'AddNodeLink',
 		    toolbar: 'insert'

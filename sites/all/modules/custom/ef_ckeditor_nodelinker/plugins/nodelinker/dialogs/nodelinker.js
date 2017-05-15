@@ -1,4 +1,4 @@
-CKEDITOR.dialog.add( 'nodeLinkerDialog', function( editor ) {
+CKEDITOR.dialog.add( 'nodeLinkDialog', function( editor ) {
 	return {
 		title: 'Choose the node to be linked',
 		minWidth: 400,
