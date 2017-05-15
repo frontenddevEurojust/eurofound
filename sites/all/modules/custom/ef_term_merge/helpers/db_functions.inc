@@ -172,10 +172,10 @@ function _update_taxonomy_index($tid, $merge_into)
 	if(count($nodes))
 	{
 		
-		$update->condition($column, $nodes ,'NOT IN');
+		$update->condition('nid', $nodes ,'NOT IN');
 
 		$delete = db_delete('taxonomy_index')->condition('tid', $tid, '=')
-		  ->condition($column , $nodes, 'IN')
+		  ->condition('nid' , $nodes, 'IN')
 		  ->execute();	
 	
 	}
