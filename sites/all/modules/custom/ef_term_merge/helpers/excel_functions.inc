@@ -94,7 +94,7 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 
 	$directory = 'public://ef_term_merge';
 
-	$writable = file_prepare_directory($directory, $options = FILE_CREATE_DIRECTORY);
+	$writable = file_prepare_directory($directory, $options = FILE_MODIFY_PERMISSIONS);
 	
 	if($writable)
 	{

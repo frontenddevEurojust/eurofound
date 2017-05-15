@@ -22,23 +22,22 @@ function ef_term_merge_enable(){
 * @return void
 */
 function ef_term_merge_disable(){
-    file_unmanaged_delete_recursive("sites/default/files/ef_term_merge");
+    file_unmanaged_delete_recursive("public://ef_term_merge");
 }
 
 
 function _create_ef_term_merge_directory(){
 
-	$directory = "sites/default/files/ef_term_merge";
+	$directory = "public://ef_term_merge";
+
 	
 	if (!file_prepare_directory($directory, FILE_CREATE_DIRECTORY)) 
 	{
     	throw new Exception("Unable to create directory in sites/default/files.");
   	}
-  	else
-  	{
-  		drupal_mkdir("sites/default/files/ef_term_merge");
-	}
 
+    shell_exec("chown www-data:www-data sites/default/files/ef_term_merge");
+    shell_exec("chmod 770 sites/default/files/ef_term_merge");
 }
 	
 
