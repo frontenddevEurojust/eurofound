@@ -358,37 +358,37 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	    $file2->description = "";
    	}
 
-   	$node->field_ef_documents[LANGUAGE_NONE][0]=(array)$file1;
-		$node->field_ef_source_documents[LANGUAGE_NONE][0]=(array)$file2;
+   	$node->field_ef_documents[LANGUAGE_NONE][0] = (array)$file1;
+		$node->field_ef_source_documents[LANGUAGE_NONE][0] = (array)$file2;
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['obseravory'] as $key => $value) {
-			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['topic'] as $key => $value) {
-			$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['theme'] as $key => $value) {
-			$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['sector'] as $key => $value) {
-			$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		// $node->field_ef_documents['en'][0]=$form_state['values']['file2'];
 		// $node->field_ef_source_documents['en'][0]=$form_state['values']['file1'];
 		if (isset($form_state['values']['deliver'])){
-			$node->field_ef_deliverable_kind['und'][]['tid']=$form_state['values']['deliver'];
+			$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
 		}
 		$node->status = 0;
 		$node->promote = 0;
@@ -402,12 +402,12 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 		$node = nc_contract($node,$group,$form_state['values']['contract']);
 
 
-		$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 		$dsm_title = $node->title;
 		$node = node_submit($node); // Prepare node for saving
 		node_save($node);
 
-		$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 
 		drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
 		drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
@@ -416,7 +416,7 @@ function car_nc_autocreation_form_submit($form, &$form_state){
    	field_attach_update('node', $node);
    	$created_nc_nids[] = $node->nid; 
 
-		$contributionsIds[]=$node->nid;
+		$contributionsIds[] = $node->nid;
 	}
 
 	if(isset($form_state['storage']['file1'])){
@@ -453,35 +453,35 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	$node->status = 0;
 	$node->promote = 0;
 	if (isset($form_state['values']['scheduled_record_delivery_date'])){
-		$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
-		$node->field_ef_car_report_deadline['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
+		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
+		$node->field_ef_car_report_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
 	}
 	if (isset($form_state['values']['national_contribution_deadline'])){
-		$node->field_ef_contribution_deadline['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
+		$node->field_ef_contribution_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
 	}
-	$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
+	$node->body['en'][0] = array('value' => $form_state['values']['body']['value'],'format' => $form_state['values']['body']['format']);
 
 	$term_index = 0 ;
 	foreach ($form_state['values']['obseravory'] as $key => $value) {
-		$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid']=$value;
+		$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
 		$term_index++;
 	}
 
 	$term_index = 0 ;
 	foreach ($form_state['values']['topic'] as $key => $value) {
-		$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid']=$value;
+		$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
 		$term_index++;
 	}
 
 	$term_index = 0 ;
 	foreach ($form_state['values']['theme'] as $key => $value) {
-		$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid']=$value;
+		$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid'] = $value;
 		$term_index++;
 	}
 
 	$term_index = 0 ;
 	foreach ($form_state['values']['sector'] as $key => $value) {
-		$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid']=$value;
+		$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
 		$term_index++;
 	}
 
@@ -489,14 +489,14 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	$node = node_submit($node); // Prepare node for saving
 
 	foreach ($contributionsIds as $contributorId) {
-		$national[]['target_id']= $contributorId;
+		$national[]['target_id'] = $contributorId;
 	}
 	
-	$node->field_ef_national_contribution[LANGUAGE_NONE]= $national;
-	$node->field_ef_deliverable_kind['und'][]['tid']=13718;
+	$node->field_ef_national_contribution[LANGUAGE_NONE] = $national;
+	$node->field_ef_deliverable_kind['und'][]['tid'] = 13718;
 
-	$node->field_ef_documents[LANGUAGE_NONE][0]=(array)$file1;
-	$node->field_ef_source_documents[LANGUAGE_NONE][0]=(array)$file2;
+	$node->field_ef_documents[LANGUAGE_NONE][0] = (array)$file1;
+	$node->field_ef_source_documents[LANGUAGE_NONE][0] = (array)$file2;
 
 	$dsm_title = $node->title;
 
