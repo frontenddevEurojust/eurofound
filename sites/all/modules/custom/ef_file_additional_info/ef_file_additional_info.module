@@ -573,8 +573,7 @@ function _compare_all_revision_files($nprf, $prf, $fr) {
 //CONTROL VALUES FOR DOCUMENTS FIELDS
 function ef_file_additional_info_node_update($node) {
   global $user;
-  dpm('entra');
-  $nid = $entity->nid;
+  $nid = $node->nid;
 
   $current_docs = get_current_docs($nid);
 
@@ -582,20 +581,20 @@ function ef_file_additional_info_node_update($node) {
   $previous_docs = array_reverse($previous_docs, TRUE);
 
   $differents = FALSE;
+  $must_send_email = FALSE;
 
   foreach ($previous_docs as $key => $items) {
     if ($current_docs == $items) {
-      dpm('no problem');
-     if ($current_docs == $items && $differents == TRUE) {
-        dpm('You should check the revisions of this node');
-        ef_file_additional_info_mail_send($nid);
+      if ($current_docs == $items && $differents == TRUE) {
+        $must_send_email = TRUE;
       }
     }
     else {
-      dpm('PROBLEM!');
       $differents = TRUE;
     }
-
+  }
+  if ($must_send_email = TRUE) {
+    ef_file_additional_info_mail_send($nid);
   }
 }
 
@@ -616,8 +615,6 @@ function get_current_docs($nid) {
   foreach ($current_value as $key => $document) {
     $docs[] = $document->field_ef_documents_fid;
   }
-  dpm('WTF');
-  dpm($select);
   return $docs;
 }
 
@@ -638,7 +635,6 @@ function get_previous_docs($nid) {
   foreach ($previous_values as $key => $document) {
     $docs[$document->revision_id][] = $document->field_ef_documents_fid;
   }
-
   return $docs;
 }
 
@@ -651,12 +647,12 @@ function ef_file_additional_info_mail_send($nid) {
   $from = variable_get('site_mail');
 
   $params['subject'] = 'ALERT - Document error on node ' . $nid . ' - '  . date('d F Y', time());
-  $params['message'] = 'Please check the attached documents in node ' . $nid . '. Some of these files could be missing';
+  $params['message'] = 'Please check the attached documents in node ' . $nid . '. Some of these files could be missing.';
 
   $language = language_default();
   $send = TRUE;
 
-  //drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  drupal_mail($module, $key, $to, $language, $params, $from, $send);
   
   return;
 }
