@@ -642,17 +642,19 @@ function ef_file_additional_info_mail_send($nid) {
   $module = 'ef_notifications';
   $key = 'workflow_notification';
 
-  $to_array = array('eurofound@bilbomatica.es', 'web@eurofound.europa.eu'); 
+  $to_array = array('eurofound@bilbomatica.es', 'dza@eurofound.europa.eu'); 
 
   $from = variable_get('site_mail');
 
-  $params['subject'] = 'ALERT - Document error on node ' . $nid . ' - '  . date('d F Y', time());
+  $params['subject'] = 'WGS-12 Telemetry - Node: ' . $nid . ' - '  . date('d F Y', time());
   $params['message'] = 'Please check the attached documents in node ' . $nid . '. Some of these files could be missing.';
 
   $language = language_default();
   $send = TRUE;
 
-  drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  foreach ($to_array as $id_key => $to) {
+    drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  }
   
   return;
 }
