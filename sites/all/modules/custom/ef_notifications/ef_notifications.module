@@ -393,8 +393,6 @@ function ef_notifications_retrieve_vips($node) {
  */
 function ef_notifications_variable_lines($uid, $node, $transition_to) {
   global $base_url;
-  dpm($base_url);
-  dpm($_SERVER);
   if ((!isset($base_url) || $base_url == 'http://default') && $_SERVER['HTTP_HOST'] == 'www.eurofound.europa.eu') {
     $base_url = 'https://www.eurofound.europa.eu';
   }
