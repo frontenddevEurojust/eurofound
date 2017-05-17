@@ -22,27 +22,53 @@ function ef_search_menu() {
     'access arguments' => array('administer site configuration'),
   );
 
-		/*$items['admin/config/search/ef_search/ef_search_settings'] = array(
-			'title' => 'EF Search Configuration',
-			'description' => 'Config information for Eurofound search',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array('ef_search_settings_form'),
-			'access arguments' => array('administer site configuration'),
-		);*/
+  $items['admin/config/search/ef-search-topics'] = array(
+    'title' => 'EF Topics General Search Configuration',
+    'description' => 'Configuration for the Topics General Search Block',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_search_topics_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+  );
 
-		$items['admin/content/ef_search_settings'] = array(
-			'title' => 'EF Search Configuration',
-			'description' => 'Config information for Eurofound search',
-			'page callback' => 'drupal_get_form',
-			'page arguments' => array('ef_search_settings_form'),
-			'access arguments' => array('administer ef_search terms configuration'),
-		);
-
-		$items['search_terms_autocomplete'] = array(
-    'page callback' => 'search_terms_autocomplete',
-		'type' => MENU_CALLBACK,
+  $items['admin/config/search/ef-search-topics/autocomplete/%'] = array(
+    'page callback' => '_ef_search_keywords_autocomplete',
     'access callback' => TRUE,
-    );
+    'page arguments' => array(5),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/search/ef-search-topics/%/edit'] = array(
+    'title' => 'EF Topics General Search Edit Form',
+    'description' => 'Edit keywords',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_edit_topics_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+  );
+
+  $items['admin/config/search/ef-search-topics/%/delete'] = array(
+    'title' => 'EF Topics General Search Delete Form',
+    'description' => 'Delete topic from Topic Search Feature',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_delete_topics_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_search.admin.inc',
+  );
+
+  $items['admin/content/ef_search_settings'] = array(
+    'title' => 'EF Search Configuration',
+    'description' => 'Config information for Eurofound search',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_search_settings_form'),
+    'access arguments' => array('administer ef_search terms configuration'),
+  );
+
+  $items['search_terms_autocomplete'] = array(
+    'page callback' => 'search_terms_autocomplete',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+   );
 
   return $items;
 }
@@ -64,14 +90,14 @@ function ef_search_permission() {
  * Implements hook_form_alter
  */
 function ef_search_form_alter(&$form, &$form_state, $form_id) {
-	global $user;
+  global $user;
 
 
-	if ($form_id == 'ef_search_settings_form') {
-		$form['#submit'][] = 'imput_terms_submit';
-		$form['#validate'][] = 'imput_terms_form_validate';
+  if ($form_id == 'ef_search_settings_form') {
+    $form['#submit'][] = 'imput_terms_submit';
+    $form['#validate'][] = 'imput_terms_form_validate';
 
-	}
+  }
 
 
   if ($form_id == 'search_block_form') {
@@ -90,7 +116,6 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
 
 
     $current_path = current_path();
-    //dpm($current_path);
 
     if($current_path == 'search'){
       $form['search_block_form']['phrase'] = array(
@@ -99,12 +124,10 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
       '#title' => t('phrase'),
 
     );
-      //dpm($form);
       $form['#attached']['js'] = array(
         drupal_get_path('module', 'ef_search') . '/ef_search.js',
       );
     }
-  //if(isset )
 
 
   }
@@ -151,45 +174,45 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
 
 
  /*function validate_terms_nodes($element,$form, &$form_state){
-	if(empty($element['#value'])){
-		  form_set_error($element, t('The Nodes field is mandatory.'));
-	}
+  if(empty($element['#value'])){
+      form_set_error($element, t('The Nodes field is mandatory.'));
+  }
  }*/
 
  function remove_term($form, &$form_state){
 
-	$sql = "select node from ef_search_terms where term='".$form_state['values']['ef_search_terms_autocomplete']."'";
-	$result = db_query($sql)->fetchAll();
+  $sql = "select node from ef_search_terms where term='".$form_state['values']['ef_search_terms_autocomplete']."'";
+  $result = db_query($sql)->fetchAll();
 
-	if(empty($result))
-	{
-		form_error($form, t('This keyword does not exist'));
-		return;
-	}
+  if(empty($result))
+  {
+    form_error($form, t('This keyword does not exist'));
+    return;
+  }
 
 
-	if(!empty($form_state['input']['ef_search_terms_autocomplete']))
-	{
+  if(!empty($form_state['input']['ef_search_terms_autocomplete']))
+  {
 
-		ef_search_remove_term($form_state['input']['ef_search_terms_autocomplete']);
-		drupal_set_message('The keyword have been removed.');
-		return $form;
-	}
+    ef_search_remove_term($form_state['input']['ef_search_terms_autocomplete']);
+    drupal_set_message('The keyword have been removed.');
+    return $form;
+  }
 
-	return $form;
+  return $form;
  }
 
 
  function clear_term($form, &$form_state){
 
-	return $form;
+  return $form;
  }
 
 
  function imput_terms_form_validate($form, &$form_state) {
 
-	/*
-	if (empty($form_state['values']['ef_search_term_nodes'])) {
+  /*
+  if (empty($form_state['values']['ef_search_term_nodes'])) {
     form_set_error('ef_search_term_nodes ', t('You have to add any nodes.'));
   }*/
 
@@ -201,41 +224,41 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
  function imput_terms_submit($form, &$form_state){
 
 
-	$term = $form_state['values']['ef_search_terms_autocomplete'];
-	$term_nodes = $form_state['values']['ef_search_term_nodes'];
+  $term = $form_state['values']['ef_search_terms_autocomplete'];
+  $term_nodes = $form_state['values']['ef_search_term_nodes'];
 
 
-	if(!empty($term))
-	{
-		$records = ef_search_load_term($term);
+  if(!empty($term))
+  {
+    $records = ef_search_load_term($term);
 
-		if(empty($records))
-		{
+    if(empty($records))
+    {
 
-			ef_search_save_new_term($term,$term_nodes);
+      ef_search_save_new_term($term,$term_nodes);
 
 
 
-		}
-		else
-		{
+    }
+    else
+    {
 
-			ef_search_update_term($term,$term_nodes);
-			drupal_set_message('The keyword have been updated.');
-		}
+      ef_search_update_term($term,$term_nodes);
+      drupal_set_message('The keyword have been updated.');
+    }
 
-		return 0;
-	}
+    return 0;
+  }
 
-	$term = $form_state['values']['ef_search_term_nodes_combo'];
-	$term_nodes = $form_state['values']['ef_search_term_nodes'];
+  $term = $form_state['values']['ef_search_term_nodes_combo'];
+  $term_nodes = $form_state['values']['ef_search_term_nodes'];
 
-	if(!empty($term))
-	{
-		ef_search_update_term($term,$term_nodes);
-		drupal_set_message('The keyword have been updated.');
-		//return 0;
-	}
+  if(!empty($term))
+  {
+    ef_search_update_term($term,$term_nodes);
+    drupal_set_message('The keyword have been updated.');
+    //return 0;
+  }
 
 
  }
@@ -258,6 +281,15 @@ function ef_search_block_info() {
     'cache' => DRUPAL_NO_CACHE,
     'weight' => 0,
   );
+  $blocks['ef_search_topics_block'] = array(
+    'info' => t('Block to display topics as General Search results'),
+    'status' => 1,
+    'region' => 'content',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'search',
+    'cache' => DRUPAL_NO_CACHE,
+    'weight' => 0,
+  );
   return $blocks;
 }
 
@@ -265,27 +297,146 @@ function ef_search_block_info() {
  * Implements hook_block_view().
  */
 function ef_search_block_view($delta = '') {
+  switch ($delta) {
+    case 'ef_search_clear_filters':
+      $content['header'] = array(
+        '#type' => 'markup',
+        '#markup' => '<h3>' . t('Filter results') . '</h3>',
+      );
+      $query_params = drupal_get_query_parameters();
+      if (!empty($query_params)) {
+        //Click on the link 'Clear filters' will just
+        //link to the same URL but without parameters
+        //reloading the search page
+        $content['link'] = array(
+          '#type' => 'markup',
+          '#markup' => l(t('Clear filter'), current_path()),
+        );
+      }
+      
+      return array(
+        'subject' => '<none>',
+        'content' => drupal_render($content),
+      );
+      
+      break;
+
+    case 'ef_search_topics_block':
+      
+      global $language;
+      
+      $search_term = $_GET['search_block_form'];
+      
+      if (!empty($search_term)) {
+        $search_terms = explode(' ', $search_term);
+        //First query, ef_search_topics table
+        $select = db_select('ef_search_topics', 'st');
+        //FIELDS
+        $select->fields('st', array('tid'));
+        //Searching in all fields
+        $db_or = db_or();
+        foreach ($search_terms as $key => $exploded_term) { 
+          $db_or->condition('st.keywords', '%' . $exploded_term . ',%', 'LIKE');
+        }
+        $select->condition($db_or);
+        //EXECUTE
+        $result = $select->execute();
+        //ITERABLE OBJECT
+        while ($record = $result->fetchAssoc()) {
+          $terms[] = $record;
+        }
+        //Second query, taxonomy term data table for exact match
+        $select2 = db_select('taxonomy_term_data', 'ttd');
+        $select2->distinct();
+        $select2->fields('ttd', array('tid'));
+        $select2->condition('ttd.name', $search_term);
+        $result2 = $select2->execute();
+        while ($record = $result2->fetchAssoc()) {
+          $terms[] = $record;
+        }
+        //Remove duplicates
+        if (!empty($terms)) {
+          $terms = array_map("unserialize", array_unique(array_map("serialize", $terms)));
+        }
+      }
+      if (!empty($terms)) {
+        $block['content'] = '<h3>' . t('Highlighted topics') . '</h3>';
+        foreach ($terms as $key => $tid) {
+          $term = _get_topic_data_multilingual($tid, $language->language);
+          module_load_include('inc', 'pathauto', 'pathauto');
+          $url_clean_term = pathauto_cleanstring($term['name']);
+          $block['content'] .= l($term['name'], '/topic/' . $url_clean_term);
+          $block['content'] .= ', ';
+        }
+        $block['content'] = rtrim($block['content'], ', ' );
+        if (count($terms) == 1) {
+          $image = taxonomy_term_load($tid['tid']);
+          $image_load = $image->field_ef_main_image['und'][0]['filename'];
+          //$block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
+          $block['content'] .= '<p>' .  $term['description'] . '</p>';
+        }
+        return $block;
+      }
+
+      return;
+
+      break;
+    
+    default:
+      
+      return;
+
+      break;
+  }
+
   if ($delta != 'ef_search_clear_filters') {
     return;
   }
-  $content['header'] = array(
-    '#type' => 'markup',
-    '#markup' => '<h3>' . t('Filter results') . '</h3>',
-  );
-  $query_params = drupal_get_query_parameters();
-  if (!empty($query_params)) {
-    //Click on the link 'Clear filters' will just
-    //link to the same URL but without parameters
-    //reloading the search page
-    $content['link'] = array(
-      '#type' => 'markup',
-      '#markup' => l(t('Clear filter'), current_path()),
-    );
+  
+}
+
+function _get_topic_data_multilingual($tid, $lang) {
+  $get_topic_name = db_select('field_data_name_field', 'nf');
+  $get_topic_name->fields('nf', array('name_field_value'));
+  $get_topic_name->condition('nf.entity_id', $tid);
+  $get_topic_name->condition('nf.language', $lang);
+  $result = $get_topic_name->execute();
+  while ($record = $result->fetchAssoc()) {
+    $topic['name'] = $record['name_field_value'];
   }
-  return array(
-    'subject' => '<none>',
-    'content' => drupal_render($content),
-  );
+  if (!isset($topic['name'])) {
+    $topic['name'] = _get_topic_data_default($tid, array('name'));
+  }
+
+  $get_topic_desc = db_select('field_data_field_term_summary', 'ts');
+  $get_topic_desc->fields('ts', array('field_term_summary_value'));
+  $get_topic_desc->condition('ts.entity_id', $tid);
+  $get_topic_desc->condition('ts.language', $lang);
+  $result = $get_topic_desc->execute();
+  while ($record = $result->fetchAssoc()) {
+    $summary = implode(' ', array_slice(explode(' ', $record['field_term_summary_value']), 0, 50));
+    $summary .= '...';
+    $topic['description'] = $summary;
+  }
+  if (!isset($topic['description'])) {
+    $summary = _get_topic_data_default($tid, array('description'));
+    $summary = implode(' ', array_slice(explode(' ', $summary), 0, 50));
+    $summary .= '...';
+    $topic['description'] = $summary;
+  }
+
+  return $topic;
+}
+
+function _get_topic_data_default($tid, $field) {
+  $get_topic_data = db_select('taxonomy_term_data', 'ttd');
+  $get_topic_data->fields('ttd', $field);
+  $get_topic_data->condition('ttd.tid', $tid);
+  $result = $get_topic_data->execute();
+  while ($record = $result->fetchAssoc()) {
+    $topic[$field[0]] = $record[$field[0]];
+  }
+  return $topic[$field[0]];
 }
 
 //*************SEARCH AUTOCOMPLETE APPROACH******************************************************************
@@ -398,34 +549,34 @@ function ef_search_autocomplete_add_group($group, $lang, $showing_items, $search
 
 function ef_search_search_api_solr_query_alter(array &$call_args, SearchApiQueryInterface $query) {
 
-	global $user;
-	$call_args['params']['bf'][] = 'recip(ms(NOW,ds_published_at),3.16e-11,125,1)';
+  global $user;
+  $call_args['params']['bf'][] = 'recip(ms(NOW,ds_published_at),3.16e-11,125,1)';
 
   $sql = "select term,node from ef_search_terms";
-	$result = db_query($sql)->fetchAll();
+  $result = db_query($sql)->fetchAll();
 
-	if (!empty($call_args['query'])) {
-		$term = str_replace('"','',$call_args['query']);
-		$results = ef_search_load_term($term);
+  if (!empty($call_args['query'])) {
+    $term = str_replace('"','',$call_args['query']);
+    $results = ef_search_load_term($term);
 
 
-		if (!empty($results->node)) {
+    if (!empty($results->node)) {
 
-			print "<div class='terms_node' style='display:none'>";
-			print ($results->node);
-			print "</div>";
-		}
-	}
+      print "<div class='terms_node' style='display:none'>";
+      print ($results->node);
+      print "</div>";
+    }
+  }
 
-	foreach ($result as $key => $value) {
-		if ($call_args['query'] == '"' . $value->term . '"') {
-			$call_args['params']['qf'][] = 'item_id^10000.0';
-			$term_nodes = explode(',',$value->node);
-			for ($i=0;$i<count($term_nodes);$i++) {
-				$call_args['query'] .= ' OR item_id:"en_' . $term_nodes[$i] . '"';
-			}
-		}
-	}
+  foreach ($result as $key => $value) {
+    if ($call_args['query'] == '"' . $value->term . '"') {
+      $call_args['params']['qf'][] = 'item_id^10000.0';
+      $term_nodes = explode(',',$value->node);
+      for ($i=0;$i<count($term_nodes);$i++) {
+        $call_args['query'] .= ' OR item_id:"en_' . $term_nodes[$i] . '"';
+      }
+    }
+  }
 }
 
 
@@ -495,97 +646,97 @@ function ef_search_query_alter(QueryAlterableInterface $query) {
 
 function ef_search_save_new_term($term, $term_nodes) {
 
-	$str = preg_match('/[^\d,]/',$term_nodes);
+  $str = preg_match('/[^\d,]/',$term_nodes);
 
-		if($str == 0)
-		{
-			$str = substr($term_nodes, -1);
+    if($str == 0)
+    {
+      $str = substr($term_nodes, -1);
 
-			if($str == ","){
-				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				return;
-			}
-			$str = substr($term_nodes, 0,1);
+      if($str == ","){
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        return;
+      }
+      $str = substr($term_nodes, 0,1);
 
-			if($str == ","){
-				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				return;
-			}
+      if($str == ","){
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        return;
+      }
 
-		 	/*if (isset($term) && !empty($term_nodes)) {
-					$term_nodes = str_replace(' ','',$term_nodes);
-					$query = db_insert('ef_search_terms');
-					$query->fields(
-						array(
-							'term' => $term,
-							'node' => $term_nodes
-						 )
-					);
+      /*if (isset($term) && !empty($term_nodes)) {
+          $term_nodes = str_replace(' ','',$term_nodes);
+          $query = db_insert('ef_search_terms');
+          $query->fields(
+            array(
+              'term' => $term,
+              'node' => $term_nodes
+             )
+          );
 
-					$query->execute();
+          $query->execute();
 
-					drupal_set_message('The keyword have been saved.');
-				}
-				else
-				{
-					form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				}
-			*/
+          drupal_set_message('The keyword have been saved.');
+        }
+        else
+        {
+          form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        }
+      */
 
-			if (isset($term) && !empty($term_nodes)) {
-					$term_nodes = str_replace(' ','',$term_nodes);
-					$query = db_insert('ef_search_terms');
-					//guardar la cadena de texto tal cual se inserta
-					$query->fields(
-						array(
-							'term' => $term,
-							'node' => $term_nodes
-						 )
-					);
-					$query->execute();
-					//convertir a mayusculas
-					$term = strtoupper($term);
-					$query = db_insert('ef_search_terms');
-					$query->fields(
-						array(
-							'term' => $term,
-							'node' => $term_nodes
-						 )
-					);
-					$query->execute();
-					//convertir a minisculas
-					$term = strtolower($term);
-					$query = db_insert('ef_search_terms');
-					$query->fields(
-						array(
-							'term' => $term,
-							'node' => $term_nodes
-						 )
-					);
-					$query->execute();
-					//convertir la primera letra a mayusculas
-					$term = ucfirst($term);
-					$query = db_insert('ef_search_terms');
-					$query->fields(
-						array(
-							'term' => $term,
-							'node' => $term_nodes
-						 )
-					);
-					$query->execute();
+      if (isset($term) && !empty($term_nodes)) {
+          $term_nodes = str_replace(' ','',$term_nodes);
+          $query = db_insert('ef_search_terms');
+          //guardar la cadena de texto tal cual se inserta
+          $query->fields(
+            array(
+              'term' => $term,
+              'node' => $term_nodes
+             )
+          );
+          $query->execute();
+          //convertir a mayusculas
+          $term = strtoupper($term);
+          $query = db_insert('ef_search_terms');
+          $query->fields(
+            array(
+              'term' => $term,
+              'node' => $term_nodes
+             )
+          );
+          $query->execute();
+          //convertir a minisculas
+          $term = strtolower($term);
+          $query = db_insert('ef_search_terms');
+          $query->fields(
+            array(
+              'term' => $term,
+              'node' => $term_nodes
+             )
+          );
+          $query->execute();
+          //convertir la primera letra a mayusculas
+          $term = ucfirst($term);
+          $query = db_insert('ef_search_terms');
+          $query->fields(
+            array(
+              'term' => $term,
+              'node' => $term_nodes
+             )
+          );
+          $query->execute();
 
-					drupal_set_message('The keyword have been saved.');
-				}
-				else
-				{
-					form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				}
+          drupal_set_message('The keyword have been saved.');
+        }
+        else
+        {
+          form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        }
 
-		}
-		else
-		{
-			  form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-		}
+    }
+    else
+    {
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+    }
 
 }
 
@@ -594,76 +745,106 @@ function ef_search_update_term($term, $term_nodes) {
   if (isset($term) && isset($term_nodes)) {
     $term_nodes = str_replace(' ','',$term_nodes);
 
-		$str = preg_match('/[^\d,]/',$term_nodes);
+    $str = preg_match('/[^\d,]/',$term_nodes);
 
-		if($str == 0)
-		{
+    if($str == 0)
+    {
 
-			$str = substr($term_nodes, -1);
+      $str = substr($term_nodes, -1);
 
-			if($str == ","){
-				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				return;
-			}
-			$str = substr($term_nodes, 0,1);
+      if($str == ","){
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        return;
+      }
+      $str = substr($term_nodes, 0,1);
 
-			if($str == ","){
-				form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-				return;
-			}
+      if($str == ","){
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+        return;
+      }
 
-		 $values = "update ef_search_terms set node='".$term_nodes."' where term='".$term."'";
-	   $query = db_query($values);
-		}
-		else
-		{
-			  form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-		}
+     $values = "update ef_search_terms set node='".$term_nodes."' where term='".$term."'";
+     $query = db_query($values);
+    }
+    else
+    {
+        form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+    }
 
   }
-	else
-	{
-		 form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
-	}
+  else
+  {
+     form_set_error('ef_search_term_nodes', t('Invalid format: Nodes should be numbers, separated by commas.'));
+  }
 }
 
 
 function ef_search_load_term($term)
 {
-	 if(isset($term))
-	 {
+   if(isset($term))
+   {
        $values = "select * from ef_search_terms where term = '".$term."'";
-	   $query = db_query($values);
-	   $records = $query->fetchObject();
-	 }
-	return $records;
+     $query = db_query($values);
+     $records = $query->fetchObject();
+   }
+  return $records;
 
 }
 
 function ef_search_load_all_terms()
 {
   $sql = "select term_id,term from ef_search_terms";
-	$result = db_query($sql)->fetchAll();
-	$options = array();
+  $result = db_query($sql)->fetchAll();
+  $options = array();
 
-	foreach ($result as $value) {
-    	$options[$value->term] = $value->term;
-	}
-  	return $options;
+  foreach ($result as $value) {
+      $options[$value->term] = $value->term;
+  }
+    return $options;
 }
 
 function ef_search_remove_term($term)
 {
-	 if(isset($term))
-	 {
-		 $values = "DELETE FROM ef_search_terms WHERE term= '".$term."'";
+   if(isset($term))
+   {
+     $values = "DELETE FROM ef_search_terms WHERE term= '".$term."'";
      $query = db_query($values);
-	   //$records = $query->fetchObject();
-	 }
-	return;
+     //$records = $query->fetchObject();
+   }
+  return;
 
 }
 
+/**
+ * Implements hook_theme().
+ */
+function ef_search_theme() {
+  return array(
+    'ef_search_topics_admin_form' => array(
+      'file' => 'ef_search.admin.inc',
+      'render element' => 'form',
+    ),
+  );
+}
 
+function _ef_search_keywords_autocomplete($string = '*') {
+  $matches = array();
+  
+  $select = db_select('ef_search_topics', 'st');
+  $select->fields('st', array('keywords'));
+  $select->condition('st.keywords', '%' . $string . '%', 'LIKE');
 
+  $result = $select->execute();
 
+  //Separated by terms
+  foreach ($result as $record) {
+    $keywords = explode(',', $record->keywords);
+    foreach ($keywords as $key => $keyword) {
+      if (strpos($keyword, $string) !== FALSE) {
+        $matches[$keyword] = trim($keyword);
+      }
+    }
+  }
+ 
+  drupal_json_output($matches);
+}
