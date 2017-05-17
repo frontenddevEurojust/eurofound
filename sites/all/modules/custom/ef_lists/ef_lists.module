@@ -55,7 +55,7 @@ function ef_lists_menu()
 		'access arguments' => array('access_ef_lists'),
 	);
 
-return $items;
+	return $items;
 }
 
 /*
