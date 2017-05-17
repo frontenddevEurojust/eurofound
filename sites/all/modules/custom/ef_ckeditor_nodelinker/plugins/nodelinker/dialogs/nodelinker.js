@@ -37,7 +37,7 @@
 
 	CKEDITOR.dialog.add( 'nodelinkDialog', function( editor ) {
 		return {
-			title: 'Choose the node to be linked',
+			title: 'Node linker',
 			minWidth: 400,
 			minHeight: 200,
 			contents: [
@@ -48,7 +48,7 @@
 						{
 							type: 'text',
 							id: 'txtchng',
-							label: 'Text update',
+							label: 'Insert text to search by',
 							setup: function( element ) {
 								this.setValue( element.getText() );
 							},
@@ -62,40 +62,55 @@
 
 			onShow: function() {
 
-				var nodes = [];
-				
-				$.get("/ajax/retrieve-nodes/", function( response ) {
-					nodes = response.nodes;	
-				});
-
-				$("input.cke_dialog_ui_input_text").autocomplete({
-						    
-				    source: function(request, response) {
-				        
-				        var term = request.term.replace(/-/g, '');
-
-				        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
-
-				       	
-				       	var results = $.map(nodes, function(node) {
-
-				            if (matcher.test(node.label.replace(/-/g, ''))) {
-				                return node;
-				            }
-				       
-				        });
-
-				        response(results.slice(0,20));
-				    
-				    },
-				    
-				    appendTo: ".cke_dialog_contents_body",
-				    minLength: 4,
-
-				});
-
 				text = editor.getSelection().getSelectedText();
 
+				// check if anything has been selected
+				if(text)
+				{
+
+					var nodes = [];
+					
+					$.get("/ajax/retrieve-nodes/", function( response ) {
+						nodes = response.nodes;	
+					});
+
+					$("input.cke_dialog_ui_input_text").autocomplete({
+							    
+					    source: function(request, response) {
+					        
+					        var term = request.term.replace(/-/g, '');
+
+					        var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
+
+					       	
+					       	var results = $.map(nodes, function(node) {
+
+					            if (matcher.test(node.label.replace(/-/g, ''))) {
+					                return node;
+					            }
+					       
+					        });
+
+					        response(results.slice(0,20));
+					    
+					    },
+					    // Remove ui-helper (gives information about results)
+					    messages: {
+
+					        noResults: '',
+					        results: function() {}
+						
+						},
+					    appendTo: ".cke_dialog_contents_body",
+					    minLength: 4,
+
+					});
+				}
+				else
+				{
+					$('.cke_dialog_ui_vbox_child').append('<div><span class="error-message">Something needs to be selected.</span></div>');
+				}
+			
 			},
 
 			onOk: function() {
