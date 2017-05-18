@@ -42,42 +42,42 @@ function ef_publications_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_case_study';
-  $strongarm->value = 0;
+  $strongarm->value = '2';
   $export['comment_anonymous_ef_case_study'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_comparative_analytical_report';
-  $strongarm->value = 0;
+  $strongarm->value = '2';
   $export['comment_anonymous_ef_comparative_analytical_report'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_ic_quarterly_report';
-  $strongarm->value = 0;
+  $strongarm->value = '0';
   $export['comment_anonymous_ef_ic_quarterly_report'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_national_contribution';
-  $strongarm->value = 0;
+  $strongarm->value = '2';
   $export['comment_anonymous_ef_national_contribution'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_network_quarterly_report';
-  $strongarm->value = 0;
+  $strongarm->value = '0';
   $export['comment_anonymous_ef_network_quarterly_report'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_publication';
-  $strongarm->value = 0;
+  $strongarm->value = '2';
   $export['comment_anonymous_ef_publication'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -91,7 +91,7 @@ function ef_publications_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_ef_report';
-  $strongarm->value = 0;
+  $strongarm->value = '2';
   $export['comment_anonymous_ef_report'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -517,6 +517,12 @@ function ef_publications_strongarm() {
         'workflow' => array(
           'weight' => '22',
         ),
+        'xmlsitemap' => array(
+          'weight' => '31',
+        ),
+        'metatags' => array(
+          'weight' => '39',
+        ),
       ),
       'display' => array(
         'language' => array(
@@ -597,16 +603,22 @@ function ef_publications_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'language' => array(
-          'weight' => '2',
+          'weight' => '3',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '3',
+          'weight' => '4',
         ),
         'workflow' => array(
           'weight' => '102',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '28',
+        ),
+        'metatags' => array(
+          'weight' => '32',
         ),
       ),
       'display' => array(
@@ -690,6 +702,12 @@ function ef_publications_strongarm() {
         'path' => array(
           'weight' => '1',
         ),
+        'xmlsitemap' => array(
+          'weight' => '11',
+        ),
+        'metatags' => array(
+          'weight' => '21',
+        ),
       ),
       'display' => array(),
     ),
@@ -761,6 +779,12 @@ function ef_publications_strongarm() {
         ),
         'workflow' => array(
           'weight' => '102',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '20',
+        ),
+        'metatags' => array(
+          'weight' => '28',
         ),
       ),
       'display' => array(
@@ -844,6 +868,12 @@ function ef_publications_strongarm() {
         'path' => array(
           'weight' => '1',
         ),
+        'xmlsitemap' => array(
+          'weight' => '15',
+        ),
+        'metatags' => array(
+          'weight' => '25',
+        ),
       ),
       'display' => array(),
     ),
@@ -915,6 +945,12 @@ function ef_publications_strongarm() {
         ),
         'workflow' => array(
           'weight' => '102',
+        ),
+        'metatags' => array(
+          'weight' => '10',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '9',
         ),
       ),
       'display' => array(
@@ -1065,6 +1101,12 @@ function ef_publications_strongarm() {
         'workflow' => array(
           'weight' => '102',
         ),
+        'xmlsitemap' => array(
+          'weight' => '10',
+        ),
+        'metatags' => array(
+          'weight' => '40',
+        ),
       ),
       'display' => array(
         'language' => array(
@@ -1191,37 +1233,9 @@ function ef_publications_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'i18n_sync_node_type_ef_case_study';
-  $strongarm->value = array();
-  $export['i18n_sync_node_type_ef_case_study'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'i18n_sync_node_type_ef_comparative_analytical_report';
-  $strongarm->value = array();
-  $export['i18n_sync_node_type_ef_comparative_analytical_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'i18n_sync_node_type_ef_national_contribution';
-  $strongarm->value = array();
-  $export['i18n_sync_node_type_ef_national_contribution'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_sync_node_type_ef_publication';
   $strongarm->value = array();
   $export['i18n_sync_node_type_ef_publication'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'i18n_sync_node_type_ef_report';
-  $strongarm->value = array();
-  $export['i18n_sync_node_type_ef_report'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1536,8 +1550,7 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_options_ef_comparative_analytical_report';
   $strongarm->value = array(
     0 => 'moderation',
-    1 => 'revision_moderation',
-    2 => 'revision',
+    1 => 'revision',
   );
   $export['node_options_ef_comparative_analytical_report'] = $strongarm;
 
@@ -1547,8 +1560,7 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_options_ef_ic_quarterly_report';
   $strongarm->value = array(
     0 => 'moderation',
-    1 => 'revision_moderation',
-    2 => 'revision',
+    1 => 'revision',
   );
   $export['node_options_ef_ic_quarterly_report'] = $strongarm;
 
@@ -1558,8 +1570,7 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_options_ef_national_contribution';
   $strongarm->value = array(
     0 => 'moderation',
-    1 => 'revision_moderation',
-    2 => 'revision',
+    1 => 'revision',
   );
   $export['node_options_ef_national_contribution'] = $strongarm;
 
@@ -1569,8 +1580,7 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_options_ef_network_quarterly_report';
   $strongarm->value = array(
     0 => 'moderation',
-    1 => 'revision_moderation',
-    2 => 'revision',
+    1 => 'revision',
   );
   $export['node_options_ef_network_quarterly_report'] = $strongarm;
 
@@ -1579,7 +1589,8 @@ function ef_publications_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_ef_publication';
   $strongarm->value = array(
-    0 => 'revision',
+    0 => 'moderation',
+    1 => 'revision',
   );
   $export['node_options_ef_publication'] = $strongarm;
 
@@ -1600,8 +1611,7 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_options_ef_report';
   $strongarm->value = array(
     0 => 'moderation',
-    1 => 'revision_moderation',
-    2 => 'revision',
+    1 => 'revision',
   );
   $export['node_options_ef_report'] = $strongarm;
 
@@ -1716,6 +1726,986 @@ function ef_publications_strongarm() {
   $strongarm->name = 'node_submitted_ef_report';
   $strongarm->value = 1;
   $export['node_submitted_ef_report'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_bg_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_bg_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_cs_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_cs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_da_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_da_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_de_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_de_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_es_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_es_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_et_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_et_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_fi_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_fi_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_fr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_fr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_ga_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_ga_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_hr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_hr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_hu_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_hu_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_is_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_is_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_it_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_it_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_lt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_lt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_lv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_lv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_mk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_mk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_mt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_mt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_nl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_nl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_pl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_pl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_pt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_pt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_ro_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_ro_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_sk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_sk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_sl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_sl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_sr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_sr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_sv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_sv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_case_study_tr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_case_study_tr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_bg_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_bg_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_cs_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_cs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_da_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_da_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_de_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_de_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_es_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_es_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_et_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_et_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_fi_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_fi_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_fr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_fr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_ga_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_ga_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_hr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_hr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_hu_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_hu_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_is_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_is_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_it_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_it_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_lt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_lt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_lv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_lv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_mk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_mk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_mt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_mt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_nl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_nl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_pl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_pl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_pt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_pt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_ro_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_ro_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_sk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_sk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_sl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_sl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_sr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_sr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_sv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_sv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_comparative_analytical_report_tr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_comparative_analytical_report_tr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_bg_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_bg_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_cs_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_cs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_da_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_da_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_de_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_de_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_es_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_es_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_et_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_et_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_fi_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_fi_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_fr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_fr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_ga_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_ga_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_hr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_hr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_hu_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_hu_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_is_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_is_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_it_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_it_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_lt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_lt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_lv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_lv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_mk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_mk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_mt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_mt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_nl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_nl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_pl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_pl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_pt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_pt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_ro_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_ro_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_sk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_sk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_sl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_sl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_sr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_sr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_sv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_sv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_national_contribution_tr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_national_contribution_tr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_bg_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_bg_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_cs_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_cs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_da_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_da_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_de_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_de_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_es_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_es_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_et_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_et_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_fi_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_fi_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_fr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_fr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_ga_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_ga_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_hr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_hr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_hu_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_hu_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_is_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_is_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_it_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_it_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_lt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_lt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_lv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_lv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_mk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_mk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_mt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_mt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_nl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_nl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_pl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_pl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_pt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_pt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_ro_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_ro_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_sk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_sk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_sl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_sl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_sr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_sr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_sv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_sv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_publication_tr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_publication_tr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_quarterly_report_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_quarterly_report_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_bg_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_bg_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_cs_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_cs_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_da_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_da_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_de_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_de_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_es_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_es_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_et_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_et_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_fi_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_fi_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_fr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_fr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_ga_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_ga_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_hr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_hr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_hu_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_hu_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_is_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_is_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_it_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_it_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_lt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_lt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_lv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_lv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_mk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_mk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_mt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_mt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_nl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_nl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_pl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_pl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_pt_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_pt_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_ro_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_ro_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_sk_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_sk_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_sl_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_sl_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_sr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_sr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_sv_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_sv_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_ef_report_tr_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_ef_report_tr_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_anticipation_of_change_activities_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_anticipation_of_change_activities_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_involved_actors_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_involved_actors_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_keywords_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_keywords_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_management_of_change_activities_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_management_of_change_activities_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_ownership_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_ownership_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_case_study_size_of_the_affected_establishment_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_case_study_size_of_the_affected_establishment_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_country_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_country_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_ef_case_study_type_of_measure_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_ef_case_study_type_of_measure_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_eurwork_landing_pages_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_eurwork_landing_pages_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

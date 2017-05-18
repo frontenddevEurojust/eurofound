@@ -1,0 +1,4 @@
+name = EF CKEditor node linker plugin
+description = EF CKEditor node linker plugin
+core = 7.x
+package = EF modules

@@ -35,7 +35,7 @@ function template_preprocess_ef_topics_page(&$variables){
     // Needs to be passed for Rendering Media CKEDitors
     $variables['term'] = $term;
 
-    // TABS DATA MISSING
+    // TABS DATA 
     $variables = build_content_tabs($variables, $term, $page);
 
     $variables = build_content_pagers($variables, $term, $page, $limit = 5000000);
@@ -63,6 +63,9 @@ function template_preprocess_ef_topics_page(&$variables){
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
+    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
+    $variables['show_menu'] = check_current_user();
+
 
     if(isset($term->field_ef_featured_block_content))
     {
@@ -84,7 +87,7 @@ function template_preprocess_ef_topics_page(&$variables){
 
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
-    drupal_set_title($term->name);
+    drupal_set_title($term->field_term_title['und'][0]['value']);
 
    
   }  

@@ -451,7 +451,7 @@ function ef_basics_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'jump_menu';
   $handler->display->display_options['style_options']['hide'] = TRUE;
-  $handler->display->display_options['style_options']['path'] = 'tid';
+  $handler->display->display_options['style_options']['path'] = 'nothing';
   $handler->display->display_options['style_options']['label'] = 'Find info by topic:';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
@@ -462,10 +462,6 @@ function ef_basics_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['header'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Taxonomy term: Content using Topic */
-  $handler->display->display_options['relationships']['reverse_field_ef_topic_node']['id'] = 'reverse_field_ef_topic_node';
-  $handler->display->display_options['relationships']['reverse_field_ef_topic_node']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['relationships']['reverse_field_ef_topic_node']['field'] = 'reverse_field_ef_topic_node';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Taxonomy term: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -492,38 +488,15 @@ function ef_basics_views_default_views() {
   $handler->display->display_options['fields']['tid']['alter']['path_case'] = 'lower';
   $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['tid']['separator'] = '';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'taxonomy/term/[tid]';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Theme (field_ef_theme) */
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['id'] = 'field_ef_theme_tid';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['table'] = 'field_data_field_ef_theme';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['field'] = 'field_ef_theme_tid';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['default_argument_type'] = 'php';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['default_argument_options']['code'] = 'if(arg(0) == \'taxonomy\' && arg(1) == \'term\') {
-  $tid = (int)arg(2);
-  $term_topic = taxonomy_term_load($tid);
-  if(is_object($term_topic)) {    
-    $term_theme_tid=$term_topic->field_ef_theme[\'und\'][0][\'tid\'];
-    $term_theme = taxonomy_term_load($term_theme_tid);
-    $term_theme_name = $term_theme->name;
-    $term_theme_name = str_replace(\' \', \'-\', $term_theme_name);
-    return $term_theme_name;
-  }
-}
-elseif(arg(0)==\'ef-themes\') {
-        	$term_topic=arg(1);
-        	return $term_topic;
-}';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['validate_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['arguments']['field_ef_theme_tid']['validate_options']['transform'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Taxonomy vocabulary: Machine name */
@@ -533,12 +506,6 @@ elseif(arg(0)==\'ef-themes\') {
   $handler->display->display_options['filters']['machine_name']['value'] = array(
     'ef_topics' => 'ef_topics',
   );
-  /* Filter criterion: Content: Nid */
-  $handler->display->display_options['filters']['nid']['id'] = 'nid';
-  $handler->display->display_options['filters']['nid']['table'] = 'node';
-  $handler->display->display_options['filters']['nid']['field'] = 'nid';
-  $handler->display->display_options['filters']['nid']['relationship'] = 'reverse_field_ef_topic_node';
-  $handler->display->display_options['filters']['nid']['operator'] = 'not empty';
   $export['browse_by_topics'] = $view;
 
   $view = new view();
@@ -903,6 +870,25 @@ elseif(arg(0)==\'ef-themes\') {
   $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
+  /* Field: Field: Main Image */
+  $handler->display->display_options['fields']['field_ef_main_image']['id'] = 'field_ef_main_image';
+  $handler->display->display_options['fields']['field_ef_main_image']['table'] = 'field_data_field_ef_main_image';
+  $handler->display->display_options['fields']['field_ef_main_image']['field'] = 'field_ef_main_image';
+  $handler->display->display_options['fields']['field_ef_main_image']['label'] = '';
+  $handler->display->display_options['fields']['field_ef_main_image']['element_type'] = 'p';
+  $handler->display->display_options['fields']['field_ef_main_image']['element_class'] = 'img-country-update';
+  $handler->display->display_options['fields']['field_ef_main_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_ef_main_image']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_ef_main_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_ef_main_image']['settings'] = array(
+    'image_style' => 'topical-update-img-list',
+    'image_link' => 'content',
+    'conditions' => array(
+      0 => array(
+        'condition' => '',
+      ),
+    ),
+  );
   /* Field: Abstract php */
   $handler->display->display_options['fields']['php_3']['id'] = 'php_3';
   $handler->display->display_options['fields']['php_3']['table'] = 'views';
@@ -1108,8 +1094,8 @@ $observatory_url = strtolower($observatory);
     'default' => 0,
   );
 
-  /* Display: Country updates */
-  $handler = $view->new_display('page', 'Country updates', 'page_1');
+  /* Display: Country updates deprecated */
+  $handler = $view->new_display('page', 'Country updates deprecated', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Country updates';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3424,262 +3410,6 @@ $observatory_url = strtolower($observatory);
   $export['ef_eurwork_landing_page_view_nodequeue'] = $view;
 
   $view = new view();
-  $view->name = 'ef_featured_nodes_in_themes_landing_page';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'node';
-  $view->human_name = 'Featured Nodes In Themes Landing Page';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Featured Content';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['distinct'] = TRUE;
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '3';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'quicktabs';
-  $handler->display->display_options['style_options']['tab_style'] = 'Basic';
-  $handler->display->display_options['style_options']['tab_title_field'] = 'title_1';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'field_ef_theme' => 'field_ef_theme',
-    'field_ef_observatory' => 'field_ef_observatory',
-  );
-  $handler->display->display_options['row_options']['separator'] = '|';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
-  /* Relationship: Content: Theme (field_ef_theme) */
-  $handler->display->display_options['relationships']['field_ef_theme_tid']['id'] = 'field_ef_theme_tid';
-  $handler->display->display_options['relationships']['field_ef_theme_tid']['table'] = 'field_data_field_ef_theme';
-  $handler->display->display_options['relationships']['field_ef_theme_tid']['field'] = 'field_ef_theme_tid';
-  $handler->display->display_options['relationships']['field_ef_theme_tid']['required'] = TRUE;
-  /* Field: Content: Document */
-  $handler->display->display_options['fields']['field_ef_document']['id'] = 'field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['table'] = 'field_data_field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['field'] = 'field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_document']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_document']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_ef_document']['type'] = 'pdfpreview';
-  $handler->display->display_options['fields']['field_ef_document']['settings'] = array(
-    'image_style' => 'ef_featured_thumbnail',
-    'image_link' => '',
-    'show_description' => 0,
-    'tag' => 'span',
-  );
-  /* Field: Field: Main Image */
-  $handler->display->display_options['fields']['field_ef_main_image']['id'] = 'field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['table'] = 'field_data_field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['field'] = 'field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_main_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_main_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_ef_main_image']['settings'] = array(
-    'image_style' => 'ef_featured_thumbnail',
-    'image_link' => '',
-  );
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_wrapper_class'] = 'margin-after';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
-  $handler->display->display_options['fields']['title_1']['table'] = 'node';
-  $handler->display->display_options['fields']['title_1']['field'] = 'title';
-  $handler->display->display_options['fields']['title_1']['label'] = '';
-  $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['title_1']['alter']['max_length'] = '50';
-  $handler->display->display_options['fields']['title_1']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Theme */
-  $handler->display->display_options['fields']['field_ef_theme']['id'] = 'field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['table'] = 'field_data_field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['field'] = 'field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_theme']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_theme']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_theme']['element_wrapper_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['field_ef_theme']['delta_offset'] = '0';
-  /* Field: Field: Observatory */
-  $handler->display->display_options['fields']['field_ef_observatory']['id'] = 'field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['table'] = 'field_data_field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['field'] = 'field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_observatory']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_observatory']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_observatory']['element_wrapper_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['field_ef_observatory']['delta_offset'] = '0';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_ef_theme] | [field_ef_observatory]';
-  $handler->display->display_options['fields']['nothing']['element_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Contextual filter: Content: Has taxonomy term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = TRUE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Featured in theme page (field_ef_featured_in_theme_page) */
-  $handler->display->display_options['filters']['field_ef_featured_in_theme_page_value']['id'] = 'field_ef_featured_in_theme_page_value';
-  $handler->display->display_options['filters']['field_ef_featured_in_theme_page_value']['table'] = 'field_data_field_ef_featured_in_theme_page';
-  $handler->display->display_options['filters']['field_ef_featured_in_theme_page_value']['field'] = 'field_ef_featured_in_theme_page_value';
-  $handler->display->display_options['filters']['field_ef_featured_in_theme_page_value']['value'] = array(
-    1 => '1',
-  );
-
-  /* Display: Featured nodes in theme pane */
-  $handler = $view->new_display('panel_pane', 'Featured nodes in theme pane', 'panel_pane_1');
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Document */
-  $handler->display->display_options['fields']['field_ef_document']['id'] = 'field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['table'] = 'field_data_field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['field'] = 'field_ef_document';
-  $handler->display->display_options['fields']['field_ef_document']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_document']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_document']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_ef_document']['type'] = 'pdfpreview';
-  $handler->display->display_options['fields']['field_ef_document']['settings'] = array(
-    'image_style' => 'ef_featured_thumbnail',
-    'image_link' => '',
-    'show_description' => 0,
-    'tag' => 'span',
-  );
-  /* Field: Field: Main Image */
-  $handler->display->display_options['fields']['field_ef_main_image']['id'] = 'field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['table'] = 'field_data_field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['field'] = 'field_ef_main_image';
-  $handler->display->display_options['fields']['field_ef_main_image']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_main_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_main_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_ef_main_image']['settings'] = array(
-    'image_style' => 'ef_featured_thumbnail',
-    'image_link' => '',
-  );
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_wrapper_class'] = 'margin-after';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
-  $handler->display->display_options['fields']['title_1']['table'] = 'node';
-  $handler->display->display_options['fields']['title_1']['field'] = 'title';
-  $handler->display->display_options['fields']['title_1']['label'] = '';
-  $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['title_1']['alter']['max_length'] = '50';
-  $handler->display->display_options['fields']['title_1']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title_1']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Theme */
-  $handler->display->display_options['fields']['field_ef_theme']['id'] = 'field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['table'] = 'field_data_field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['field'] = 'field_ef_theme';
-  $handler->display->display_options['fields']['field_ef_theme']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_theme']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_theme']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_theme']['element_wrapper_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['field_ef_theme']['delta_offset'] = '0';
-  /* Field: Content: Topic */
-  $handler->display->display_options['fields']['field_ef_topic']['id'] = 'field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['table'] = 'field_data_field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['field'] = 'field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_topic']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_topic']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_topic']['settings'] = array(
-    'conditions' => array(
-      0 => array(
-        'condition' => '',
-      ),
-    ),
-  );
-  $handler->display->display_options['fields']['field_ef_topic']['delta_offset'] = '0';
-  /* Field: Field: Observatory */
-  $handler->display->display_options['fields']['field_ef_observatory']['id'] = 'field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['table'] = 'field_data_field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['field'] = 'field_ef_observatory';
-  $handler->display->display_options['fields']['field_ef_observatory']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_observatory']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_observatory']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_observatory']['element_wrapper_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['field_ef_observatory']['delta_offset'] = '0';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_ef_topic] | [field_ef_observatory]';
-  $handler->display->display_options['fields']['nothing']['element_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Updated date */
-  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['table'] = 'node';
-  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
-  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
-  $handler->display->display_options['argument_input'] = array(
-    'tid' => array(
-      'type' => 'panel',
-      'context' => 'entity:comment.author',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Has taxonomy term ID',
-    ),
-  );
-  $export['ef_featured_nodes_in_themes_landing_page'] = $view;
-
-  $view = new view();
   $view->name = 'ef_home_page_media_nodequeue';
   $view->description = 'Display a list of all nodes in queue \'Home Page Media\'';
   $view->tag = 'nodequeue';
@@ -3949,6 +3679,9 @@ $observatory_url = strtolower($observatory);
   $handler->display->display_options['fields']['field_ef_main_image']['field'] = 'field_ef_main_image';
   $handler->display->display_options['fields']['field_ef_main_image']['label'] = '';
   $handler->display->display_options['fields']['field_ef_main_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_ef_main_image']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['field_ef_main_image']['element_wrapper_class'] = 'non-publication-nodequeue';
+  $handler->display->display_options['fields']['field_ef_main_image']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_ef_main_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_ef_main_image']['settings'] = array(
     'image_style' => 'ef_featured_thumbnail',
@@ -3965,10 +3698,12 @@ $observatory_url = strtolower($observatory);
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['link_class'] = 'highlighted-element-featured';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_wrapper_class'] = 'margin-after';
+  $handler->display->display_options['fields']['title']['element_wrapper_class'] = 'margin-after ';
   $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
   $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
@@ -3980,6 +3715,7 @@ $observatory_url = strtolower($observatory);
   $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['title_1']['alter']['max_length'] = '30';
   $handler->display->display_options['fields']['title_1']['alter']['trim'] = TRUE;
+  $handler->display->display_options['fields']['title_1']['alter']['html'] = TRUE;
   $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
   $handler->display->display_options['fields']['title_1']['node_in_colorbox_width'] = '600';
@@ -4013,7 +3749,7 @@ switch($node->type){
     	    break;
 }
 ?>
-<?php if($node->type != \'ef_publication\'): ?>
+<?php if($node->type != \'ef_publication\' && $node->type != \'ef_news\'): ?>
    <a href=\'node/<?php print $node->nid;?>\'><img src="<?php print $source ?>" width="438" height="319"></a>
 <?php endif; ?>';
   $handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
@@ -5023,368 +4759,6 @@ switch($node->type){
   $export['ef_latest_for_country'] = $view;
 
   $view = new view();
-  $view->name = 'ef_latest_related_content_on_theme';
-  $view->description = '';
-  $view->tag = 'latest content themes';
-  $view->base_table = 'node';
-  $view->human_name = 'Latest content on theme(s)';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Latest content on theme(s)';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'created' => 'created',
-    'type' => 'type',
-  );
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  /* Sort criterion: Node: Published at */
-  $handler->display->display_options['sorts']['published_at']['id'] = 'published_at';
-  $handler->display->display_options['sorts']['published_at']['table'] = 'publication_date';
-  $handler->display->display_options['sorts']['published_at']['field'] = 'published_at';
-  $handler->display->display_options['sorts']['published_at']['order'] = 'DESC';
-  /* Contextual filter: Exclude node with id */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['ui_name'] = 'Exclude node with id';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['nid']['not'] = TRUE;
-  /* Contextual filter: Content: Has taxonomy term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['term_page'] = FALSE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['node'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['anyall'] = '+';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['limit'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['break_phrase'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['reduce_duplicates'] = TRUE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'page' => 'page',
-    'ef_comparative_analytical_report' => 'ef_comparative_analytical_report',
-    'ef_report' => 'ef_report',
-    'ef_event' => 'ef_event',
-    'ef_factsheet' => 'ef_factsheet',
-    'ef_national_contribution' => 'ef_national_contribution',
-    'ef_news' => 'ef_news',
-    'ef_photo_gallery' => 'ef_photo_gallery',
-    'ef_project' => 'ef_project',
-    'ef_publication' => 'ef_publication',
-    'ef_spotlight_entry' => 'ef_spotlight_entry',
-    'ef_video' => 'ef_video',
-  );
-
-  /* Display: Latest content on theme(s) (Block) */
-  $handler = $view->new_display('block', 'Latest content on theme(s) (Block)', 'latest_content_on_theme');
-  $handler->display->display_options['display_description'] = 'Latest content based on current node\'s theme(s). Displays 5 items.';
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Entity translation: Title: translated */
-  $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
-  $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
-  $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
-  $handler->display->display_options['fields']['title_field_et']['label'] = '';
-  $handler->display->display_options['fields']['title_field_et']['element_label_class'] = 'views-field-title';
-  $handler->display->display_options['fields']['title_field_et']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title_field_et']['element_wrapper_class'] = 'views-field-title';
-  $handler->display->display_options['fields']['title_field_et']['type'] = 'title_linked';
-  $handler->display->display_options['fields']['title_field_et']['settings'] = array(
-    'title_style' => 'div',
-    'title_link' => 'content',
-    'title_class' => 'views-field-title',
-  );
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['title']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Exclude node with id */
-  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['table'] = 'node';
-  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['ui_name'] = 'Exclude node with id';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['nid']['not'] = TRUE;
-  /* Contextual filter: Content: Has taxonomy term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['title'] = 'Latest content on \'%2\'';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['term_page'] = FALSE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['node'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['anyall'] = '+';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['limit'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['break_phrase'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['reduce_duplicates'] = TRUE;
-
-  /* Display: Content pane */
-  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Latest';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['inline'] = array(
-    'type' => 'type',
-    'field_ef_topic' => 'field_ef_topic',
-  );
-  $handler->display->display_options['row_options']['separator'] = '|';
-  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Nid */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'node';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['label'] = '';
-  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nid']['node_in_colorbox_width'] = '600';
-  $handler->display->display_options['fields']['nid']['node_in_colorbox_height'] = '600';
-  $handler->display->display_options['fields']['nid']['node_in_colorbox_rel'] = '';
-  /* Field: Content: Updated date */
-  $handler->display->display_options['fields']['changed']['id'] = 'changed';
-  $handler->display->display_options['fields']['changed']['table'] = 'node';
-  $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = '';
-  $handler->display->display_options['fields']['changed']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['changed']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['changed']['date_format'] = 'ef_date_format';
-  /* Field: Content: Publication Date */
-  $handler->display->display_options['fields']['field_ef_publication_date']['id'] = 'field_ef_publication_date';
-  $handler->display->display_options['fields']['field_ef_publication_date']['table'] = 'field_data_field_ef_publication_date';
-  $handler->display->display_options['fields']['field_ef_publication_date']['field'] = 'field_ef_publication_date';
-  $handler->display->display_options['fields']['field_ef_publication_date']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_publication_date']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_publication_date']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_publication_date']['settings'] = array(
-    'format_type' => 'ef_date_format',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
-  );
-  /* Field: Node: Published at */
-  $handler->display->display_options['fields']['published_at']['id'] = 'published_at';
-  $handler->display->display_options['fields']['published_at']['table'] = 'publication_date';
-  $handler->display->display_options['fields']['published_at']['field'] = 'published_at';
-  $handler->display->display_options['fields']['published_at']['label'] = '';
-  $handler->display->display_options['fields']['published_at']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['published_at']['date_format'] = 'ef_date_format';
-  /* Field: Global: PHP */
-  $handler->display->display_options['fields']['php']['id'] = 'php';
-  $handler->display->display_options['fields']['php']['table'] = 'views';
-  $handler->display->display_options['fields']['php']['field'] = 'php';
-  $handler->display->display_options['fields']['php']['label'] = '';
-  $handler->display->display_options['fields']['php']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['php']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['php']['use_php_setup'] = 0;
-  $handler->display->display_options['fields']['php']['php_value'] = '$query = db_select(\'workbench_moderation_node_history\', \'h\');
-  $query->fields(\'h\', array(\'stamp\'));
-  $query->condition(\'h.nid\', $row->nid, \'=\');
-  $query->condition(\'h.state\', \'published\', \'=\');
-  $query->orderBy(\'h.stamp\', \'DESC\');
-  $last_revision = $query->execute()->fetchObject();
-  if (!empty($last_revision)) {
-    return $last_revision->stamp;
-  }  elseif (!empty($row->field_ef_publication_date)) {
-     return $row->field_ef_publication_date;
-   } else {
-  return $row->changed;
-}';
-  $handler->display->display_options['fields']['php']['php_output'] = '<?php 
-print $row->php == 0 ? \'\' : format_date($row->php, \'ef_date_format\');
-?>';
-  $handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
-  $handler->display->display_options['fields']['php']['php_click_sortable'] = '';
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['type']['element_wrapper_class'] = 'ef-field-metadata';
-  /* Field: Content: Topic */
-  $handler->display->display_options['fields']['field_ef_topic']['id'] = 'field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['table'] = 'field_data_field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['field'] = 'field_ef_topic';
-  $handler->display->display_options['fields']['field_ef_topic']['label'] = '';
-  $handler->display->display_options['fields']['field_ef_topic']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_ef_topic']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_ef_topic']['element_wrapper_class'] = 'ef-field-metadata';
-  $handler->display->display_options['fields']['field_ef_topic']['settings'] = array(
-    'conditions' => array(
-      0 => array(
-        'condition' => '',
-      ),
-    ),
-  );
-  $handler->display->display_options['fields']['field_ef_topic']['delta_offset'] = '0';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Node: Published at */
-  $handler->display->display_options['sorts']['published_at']['id'] = 'published_at';
-  $handler->display->display_options['sorts']['published_at']['table'] = 'publication_date';
-  $handler->display->display_options['sorts']['published_at']['field'] = 'published_at';
-  $handler->display->display_options['sorts']['published_at']['order'] = 'DESC';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Has taxonomy term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['tid']['breadcrumb_enable'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['breadcrumb'] = '%1';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['term_page'] = FALSE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['node'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['anyall'] = '+';
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['limit'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['default_argument_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['break_phrase'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['reduce_duplicates'] = TRUE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'page' => 'page',
-    'ef_case_study' => 'ef_case_study',
-    'ef_comparative_analytical_report' => 'ef_comparative_analytical_report',
-    'ef_report' => 'ef_report',
-    'ef_event' => 'ef_event',
-    'ef_factsheet' => 'ef_factsheet',
-    'ef_ic_quarterly_report' => 'ef_ic_quarterly_report',
-    'ef_ir_dictionary' => 'ef_ir_dictionary',
-    'ef_input_to_erm' => 'ef_input_to_erm',
-    'ef_national_contribution' => 'ef_national_contribution',
-    'ef_news' => 'ef_news',
-    'ef_photo_gallery' => 'ef_photo_gallery',
-    'ef_project' => 'ef_project',
-    'ef_publication' => 'ef_publication',
-    'ef_quarterly_report' => 'ef_quarterly_report',
-    'ef_regulation' => 'ef_regulation',
-    'ef_restructuring_in_smes' => 'ef_restructuring_in_smes',
-    'ef_spotlight_entry' => 'ef_spotlight_entry',
-    'ef_support_instrument' => 'ef_support_instrument',
-    'ef_video' => 'ef_video',
-  );
-  $handler->display->display_options['argument_input'] = array(
-    'tid' => array(
-      'type' => 'panel',
-      'context' => 'entity:comment.author',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Has taxonomy term ID',
-    ),
-  );
-  $export['ef_latest_related_content_on_theme'] = $view;
-
-  $view = new view();
   $view->name = 'ef_publication_contributors';
   $view->description = 'A view to emulate Drupal core\'s handling of taxonomy/term.';
   $view->tag = 'default';
@@ -5771,87 +5145,6 @@ print $row->php == 0 ? \'\' : format_date($row->php, \'ef_date_format\');
     'default' => 0,
   );
   $export['ef_sectors'] = $view;
-
-  $view = new view();
-  $view->name = 'ef_theme_view';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'taxonomy_term_data';
-  $view->human_name = 'Theme View';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Theme View';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['style_plugin'] = 'list';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Taxonomy term: Description */
-  $handler->display->display_options['fields']['description_field']['id'] = 'description_field';
-  $handler->display->display_options['fields']['description_field']['table'] = 'field_data_description_field';
-  $handler->display->display_options['fields']['description_field']['field'] = 'description_field';
-  $handler->display->display_options['fields']['description_field']['label'] = '';
-  $handler->display->display_options['fields']['description_field']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['description_field']['link_to_entity'] = 0;
-  /* Contextual filter: Taxonomy term: Term ID */
-  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
-  $handler->display->display_options['arguments']['tid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['tid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['title'] = '%1';
-  $handler->display->display_options['arguments']['tid']['breadcrumb_enable'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['breadcrumb'] = '%1';
-  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['tid']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['validate']['type'] = 'taxonomy_term';
-  $handler->display->display_options['arguments']['tid']['validate_options']['vocabularies'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-  $handler->display->display_options['arguments']['tid']['validate_options']['type'] = 'convert';
-  $handler->display->display_options['arguments']['tid']['validate_options']['transform'] = TRUE;
-  $handler->display->display_options['arguments']['tid']['validate']['fail'] = 'empty';
-  /* Filter criterion: Taxonomy vocabulary: Machine name */
-  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
-  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
-  $handler->display->display_options['filters']['machine_name']['value'] = array(
-    'ef_themes' => 'ef_themes',
-  );
-
-  /* Display: Theme pane */
-  $handler = $view->new_display('panel_pane', 'Theme pane', 'panel_pane_1');
-  $handler->display->display_options['argument_input'] = array(
-    'tid' => array(
-      'type' => 'panel',
-      'context' => 'entity:comment.author',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Taxonomy term: Term ID',
-    ),
-  );
-  $export['ef_theme_view'] = $view;
 
   $view = new view();
   $view->name = 'ef_themes_jump_block';
@@ -6894,27 +6187,21 @@ print $row->php == 0 ? \'\' : format_date($row->php, \'ef_date_format\');
   $handler->display->display_options['relationships']['field_ef_related_content_target_id']['field'] = 'field_ef_related_content_target_id';
   $handler->display->display_options['relationships']['field_ef_related_content_target_id']['relationship'] = 'nid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Title */
-  $handler->display->display_options['fields']['php_3']['id'] = 'php_3';
-  $handler->display->display_options['fields']['php_3']['table'] = 'views';
-  $handler->display->display_options['fields']['php_3']['field'] = 'php';
-  $handler->display->display_options['fields']['php_3']['ui_name'] = 'Title';
-  $handler->display->display_options['fields']['php_3']['label'] = '';
-  $handler->display->display_options['fields']['php_3']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['php_3']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['php_3']['use_php_setup'] = 0;
-  $handler->display->display_options['fields']['php_3']['php_output'] = '<?php
-  $node = node_load($row->field_ef_observatory);
-  $delta = $row->delta;
-  $related = node_load($node->field_ef_related_content[\'und\'][$delta][\'target_id\']);
-  
-  $title = $related->title;
-  $nid =  $related->nid;
-
-?>
-<a href="<?php print $base_url . \'/node/\' . $nid; ?>"><?php print $title; ?></a>';
-  $handler->display->display_options['fields']['php_3']['use_php_click_sortable'] = '0';
-  $handler->display->display_options['fields']['php_3']['php_click_sortable'] = '';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
+  $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
+  $handler->display->display_options['fields']['title_field']['relationship'] = 'field_ef_related_content_target_id';
+  $handler->display->display_options['fields']['title_field']['label'] = '';
+  $handler->display->display_options['fields']['title_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title_field']['settings'] = array(
+    'conditions' => array(
+      0 => array(
+        'condition' => '',
+      ),
+    ),
+  );
+  $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
   /* Field: Content: Related Content (field_ef_related_content:delta) */
   $handler->display->display_options['fields']['delta']['id'] = 'delta';
   $handler->display->display_options['fields']['delta']['table'] = 'field_data_field_ef_related_content';
@@ -7117,7 +6404,7 @@ $observatory_url = strtolower($observatory);
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'List info';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[php_3]
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '
 <ul class="metadata-items inline-list">
   [php_4]
   [php]

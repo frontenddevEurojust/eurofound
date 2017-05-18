@@ -18,7 +18,6 @@ function build_content_tabs($variables, $term, $page = ''){
 	*/
 	if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-		dpm('añado tab');
      	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
     }
     
@@ -42,6 +41,8 @@ function build_content_tabs($variables, $term, $page = ''){
 }
 
 function retrieve_total_results_per_tab($term, $limit){
+
+    $results['Highlights'] = count(add_highlights_tab($term->tid, $page, $limit));
 
     $results['All'] = count(add_all_tab($term->tid, $page, $limit));
 
@@ -185,9 +186,11 @@ function build_activities_string($term){
 
 function add_administrator_menu($variables, $term){
 	
+	$variables['admin_menu']['View'] = '/taxonomy/term/' . $term->tid; 
+
 	$variables['admin_menu']['Edit'] = '/taxonomy/term/' . $term->tid . '/edit';
 	
-	$variables['admin_menu']['EF_term_merge'] = '/admin/config/ef-term-merge';
+	$variables['admin_menu']['Term_merge'] = '/admin/config/ef-term-merge';
 
 	return $variables;
 }
@@ -244,4 +247,14 @@ function build_pager_html($variables){
 
 	return $variables;
 
+}
+
+function check_current_user(){
+
+	global $user;
+
+	if(in_array('administrator', $user->roles) || in_array('Metadata Manager', $user->roles))
+	{
+		return TRUE;
+	}
 }

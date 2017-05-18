@@ -12,35 +12,6 @@ function ef_spotlight_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['views-4862fb4888f7c19bb40995ce59f9c373'] = array(
-    'cache' => -1,
-    'css_class' => 'boxed-block',
-    'custom' => 0,
-    'delta' => '4862fb4888f7c19bb40995ce59f9c373',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'spotlight-on/*/*/*',
-    'roles' => array(),
-    'themes' => array(
-      'effoundationtheme' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'effoundationtheme',
-        'weight' => -37,
-      ),
-      'zurb_foundation' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'zurb_foundation',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
   $export['views-ef_spotlight_themes-block'] = array(
     'cache' => -1,
     'css_class' => 'boxed-block',
@@ -60,7 +31,7 @@ ef-spotlight-entry/*',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'effoundationtheme',
-        'weight' => -38,
+        'weight' => -67,
       ),
       'zurb_foundation' => array(
         'region' => 'sidebar_first',
