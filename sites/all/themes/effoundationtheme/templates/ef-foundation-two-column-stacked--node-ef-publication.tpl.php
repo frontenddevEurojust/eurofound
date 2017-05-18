@@ -78,10 +78,6 @@
 
 <?php
 
-dpm($variables);
-dpm($content);
-dpm($node);
-
 //$file = file_load($content['field_ef_document'][0]['#file']->fid);
 $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 
@@ -124,7 +120,7 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 
 			<div id="node_ef_publication_full_group_ef_node_details">
 				
-				<ul>
+				<ul class="metadata-publications">
 					<?php if(isset($content['group_ef_node_details']['field_ef_publ_contributors'])): ?>
 					<li>
 						<span class="label-inline">Authors: </span><span><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
@@ -191,8 +187,8 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_topic'])): ?>
-					<li>Topics:
-						<ul class="label-inline">
+					<li><span class="label-inline">Topics:</span>
+						<ul class="topic-list">
 							<?php foreach ($content['group_ef_node_details']['field_ef_topic']['#items'] as $key => $topic): ?>
 							<li><a href="<?= $content['group_ef_node_details']['field_ef_topic'][$key]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_topic'][$key]['#title']; ?></a></li>
 							<?php endforeach; ?>
