@@ -322,7 +322,7 @@ function ef_search_block_view($delta = '') {
       break;
 
     case 'ef_search_topics_block':
-      
+      /*
       global $language;
       
       $search_term = $_GET['search_block_form'];
@@ -377,7 +377,7 @@ function ef_search_block_view($delta = '') {
         }
         return $block;
       }
-
+      */
       return;
 
       break;

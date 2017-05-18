@@ -13,9 +13,9 @@ function ef_file_additional_info_menu() {
     'description' => 'Show file information for each revision',
     'page callback' => 'ef_file_additional_info_view_revisions',
     'page arguments' => array(1),
-	'access callback' => '_ef_file_additional_info_access',
+    'access callback' => '_ef_file_additional_info_access',
     'access arguments' => array(1),
-	'file' => 'ef_file_additional_info.node.inc',
+    'file' => 'ef_file_additional_info.node.inc',
     'type' => MENU_LOCAL_TASK,
   );  
 
@@ -477,3 +477,184 @@ function theme_ef_file_additional_info_widget_single($variables) {
 /**
  * @} End of "defgroup ef_file_additional_info_widget_enhancements".
  */
+
+
+//THIS CODE IS TO RETRIEVE ALL THE VALUES FOR ALL REVISIONS OF ALL THE
+//RELEVANT PIECES OF CONTENT.
+function _find_reverted_file_revisions() {
+  $published_revision_files = _get_published_revision_files();
+  $nid_first_published_revision = _get_nid_first_published_revision($published_revision_files);
+  $non_published_revision_files = _get_non_published_revisions_files($nid_first_published_revision);
+  $comparison_result = _compare_all_revision_files($non_published_revision_files, $published_revision_files,$nid_first_published_revision);
+}
+
+function _get_published_revision_files() {
+  $select = db_select('field_revision_field_ef_documents', 'd');
+  $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
+  $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
+  $select->fields('nh', array('state'));
+  $select->condition('nh.state', 'published');
+  $select->orderBy('entity_id');
+  $select->orderBy('revision_id');
+  $select->orderBy('delta');
+
+  $files_when_published = $select->execute()->fetchAll();
+
+  $cur_proc_nid_vid = '0-0';
+
+  foreach ($files_when_published as $key => $obj) {
+    if ($cur_proc_nid_vid == $obj->entity_id . '-' . $obj->revision_id){
+      $sorted_files_when_published[$obj->entity_id][$obj->revision_id]['files'][] = $obj->field_ef_documents_fid;
+    }
+    else {
+      $cur_proc_nid_vid = $obj->entity_id . '-' . $obj->revision_id;
+      $sorted_files_when_published[$obj->entity_id][$obj->revision_id]['files'][] = $obj->field_ef_documents_fid;
+    }
+  }
+
+  return $sorted_files_when_published;
+}
+
+function _get_nid_first_published_revision($prf) {
+  foreach ($prf as $nid => $field_revision_values) {
+    foreach ($field_revision_values as $vid => $files) {
+      isset($nid_first_published_revision[$nid]) ? 0 : $nid_first_published_revision[$nid] = $vid;
+    }
+  }
+  return $nid_first_published_revision;
+}
+
+function _get_non_published_revisions_files($vfpr) {
+  foreach ($vfpr as $nid => $vid) {
+    $select = db_select('field_revision_field_ef_documents', 'd');
+    $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
+    $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
+    $select->fields('nh', array('state'));
+    $select->condition('d.entity_id', $nid);
+    $select->condition('d.revision_id', $vid, '>');
+    $select->condition('nh.state', 'published', '!=');
+    $select->orderBy('entity_id');
+    $select->orderBy('revision_id');
+    $select->orderBy('delta');
+    $files_when_not_published[$nid]= $select->execute()->fetchAll();
+  }
+
+  $cur_proc_nid_vid = '0-0';
+
+  foreach ($files_when_not_published as $nid => $objarr) {
+    foreach ($objarr as $key => $obj) {
+      if ($cur_proc_nid_vid == $obj->entity_id . '-' . $obj->revision_id){
+        $sorted_files_when_not_published[$obj->entity_id][$obj->revision_id]['files'][] = $obj->field_ef_documents_fid;
+      }
+      else {
+        $cur_proc_nid_vid = $obj->entity_id . '-' . $obj->revision_id;
+        $sorted_files_when_not_published[$obj->entity_id][$obj->revision_id]['files'][] = $obj->field_ef_documents_fid;
+      }
+    }
+  }
+  return $sorted_files_when_not_published;
+}
+
+function _compare_all_revision_files($nprf, $prf, $fr) {
+  foreach ($prf as $nid => $revisions_data) {
+    if (isset($nprf[$nid])) {
+      foreach ($revisions_data as $vid => $files) {
+        $lines[$nid][$vid] = $nid . ' - ' . $vid . ' : ' . implode(',', $files['files']) . '                              PUBLISHED';
+      }
+      foreach ($nprf[$nid] as $vid => $files) {
+        $lines[$nid][$vid] = $nid . ' - ' . $vid . ' : ' . implode(',', $files['files']);
+      }
+      ksort($lines[$nid]);
+    }
+  }
+  dd($lines);
+}
+
+//CONTROL VALUES FOR DOCUMENTS FIELDS
+function ef_file_additional_info_node_update($node) {
+  global $user;
+  $nid = $node->nid;
+
+  $current_docs = get_current_docs($nid);
+
+  $previous_docs = get_previous_docs($nid);
+  $previous_docs = array_reverse($previous_docs, TRUE);
+
+  $differents = FALSE;
+  $must_send_email = FALSE;
+
+  foreach ($previous_docs as $key => $items) {
+    if ($current_docs == $items) {
+      if ($current_docs == $items && $differents == TRUE) {
+        $must_send_email = TRUE;
+      }
+    }
+    else {
+      $differents = TRUE;
+    }
+  }
+  if ($must_send_email = TRUE) {
+    ef_file_additional_info_mail_send($nid);
+  }
+}
+
+function get_current_docs($nid) {
+  $select = db_select('field_revision_field_ef_documents', 'd');
+  $select->distinct();
+  $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
+  $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
+  $select->fields('nh', array('state'));
+  $select->condition('d.entity_id', $nid);
+  $select->condition('nh.current', 1);
+  $select->orderBy('entity_id');
+  $select->orderBy('revision_id');
+  $select->orderBy('delta');
+
+  $current_value = $select->execute()->fetchAll();
+
+  foreach ($current_value as $key => $document) {
+    $docs[] = $document->field_ef_documents_fid;
+  }
+  return $docs;
+}
+
+function get_previous_docs($nid) {
+  $select = db_select('field_revision_field_ef_documents', 'd');
+  $select->distinct();
+  $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
+  $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
+  $select->fields('nh', array('state'));
+  $select->condition('d.entity_id', $nid);
+  $select->condition('nh.current', 0);
+  $select->orderBy('entity_id');
+  $select->orderBy('revision_id');
+  $select->orderBy('delta');
+
+  $previous_values = $select->execute()->fetchAll();
+
+  foreach ($previous_values as $key => $document) {
+    $docs[$document->revision_id][] = $document->field_ef_documents_fid;
+  }
+  return $docs;
+}
+
+function ef_file_additional_info_mail_send($nid) {
+  $module = 'ef_notifications';
+  $key = 'workflow_notification';
+
+  $to_array = array('eurofound@bilbomatica.es', 'dza@eurofound.europa.eu'); 
+
+  $from = variable_get('site_mail');
+
+  $params['subject'] = 'WGS-12 Telemetry - Node: ' . $nid . ' - '  . date('d F Y', time());
+  $params['message'] = 'Please check the attached documents in node ' . $nid . '. Some of these files could be missing.';
+
+  $language = language_default();
+  $send = TRUE;
+
+  foreach ($to_array as $id_key => $to) {
+    drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  }
+  
+  return;
+}
