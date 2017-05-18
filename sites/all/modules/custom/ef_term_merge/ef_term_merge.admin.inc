@@ -10,6 +10,7 @@ include_once('helpers/excel_functions.inc');
 */
 function ef_term_merge_form($form,$form_state){
 	
+	
 	if ( $_SESSION['ef_term_merge']['confirm'] && $form_state['clicked_button']['#value'] != 'Cancel' ) 
 	{
 
@@ -48,7 +49,7 @@ function ef_term_merge_form($form,$form_state){
 
   			($_SESSION['ef_term_merge']['download']);
   			$form['download_link'] = array(
-  				'#markup' => '<a href="/sites/default/files/ef_term_merge/' . $_SESSION['ef_term_merge']['download'] . '">Download report</a>',
+  				'#markup' => '<a href="/sites/default/files/ef_term_merge/' . $_SESSION['ef_term_merge']['download'] . '">Download report ' . $_SESSION['ef_term_merge']['download'] . '</a>',
   			);
 
   		}
