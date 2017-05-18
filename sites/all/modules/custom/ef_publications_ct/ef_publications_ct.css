@@ -41,13 +41,9 @@
 }
 #node_ef_publication_full_group_ef_node_details .label-inline{
 	font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
-	float: left;
-	width: 37%;
-	margin-left:-40%;
 }
 #node_ef_publication_full_group_ef_node_details a{
   margin-right:3px;
-  display: inline-block;
   padding-bottom: 4px;
 }
 #node_ef_publication_full_group_ef_node_details a:after{
@@ -77,6 +73,10 @@
 	position: absolute;
 	top:10px;
 	right: 10px;
-	font-size:1.8em;}
+	font-size:1.8em;
+}
+.ef-main .node .field .field-name-publication-preview img{
+	float: none
+}
 
 
