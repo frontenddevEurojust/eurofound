@@ -137,3 +137,17 @@ ul.metadata-publications > li > ul li {
     background: #FFF;
     color: #666;
 }
+.ef-main .node .field-name-field-ef-main-image img{
+	float: none !important;
+	margin: 0px 25px 20px 0px !important;
+}
+.forthcoming-label{
+	display: block;
+    margin: inherit;
+    background: #f7931e;
+    width: 11%;
+    border: orange;
+    padding: 6px 9px 6px 4px;
+    text-align: center;
+    color: white;
+}

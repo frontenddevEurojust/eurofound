@@ -78,8 +78,15 @@
 
 <?php
 
-//$file = file_load($content['field_ef_document'][0]['#file']->fid);
 $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
+
+$state = $node->workbench_moderation['current']->state;
+
+if( $state == 'forthcoming')
+{
+	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
+	$publication_date = date_format($publication_date,"F Y");
+}
 
 ?>
 
@@ -89,7 +96,7 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 	<div class="row">
 		
 		<div class="ds-node-side-info large-4 columns">
-			
+			<?php if($state != 'forthcoming'): ?>
 			<div class="field field-name-publication-preview">
 				<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a> 
 			</div>
@@ -102,13 +109,20 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 				</span>
 				
 			</div>
-			
-			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-			<div class="field-order-label">
-				<?= $content['field_order_label'][0]['#markup']; ?>
+			<?php else: ?>
+			<div class="field field-name-publication-preview">
+				<?php print render($content['field_ef_main_image']); ?>
 			</div>
+
 			<?php endif; ?>
-		
+			
+			<?php if($state != 'forthcoming'): ?>
+				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+				<div class="field-order-label">
+					<?= $content['field_order_label'][0]['#markup']; ?>
+				</div>
+				<?php endif; ?>
+			<?php endif; ?>
 
 		</div>
 
@@ -123,7 +137,16 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 				<ul class="metadata-publications">
 					<?php if(isset($content['group_ef_node_details']['field_ef_publ_contributors'])): ?>
 					<li>
+						<?php if(count($content['group_ef_node_details']['field_ef_publ_contributors']) > 1): ?>
+						<span class="label-inline">Authors: </span>
+						<ul class="topic-list">
+							<?php foreach ($content['group_ef_node_details']['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+							<li><a href="<?= url($content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#title']; ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+						<?php else: ?>
 						<span class="label-inline">Authors: </span><span><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
+						<?php endif; ?>
 					</li>
 					<?php endif; ?>
 					
@@ -135,7 +158,7 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 					
 					<?php if(isset($content['group_ef_node_details']['field_ef_document_type'])): ?>
 					<li>
-						<span class="label-inline">Document type: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_document_type'][0]['#href'] ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
+						<span class="label-inline">Document type: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_document_type'][0]['#href']) ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 					
@@ -166,23 +189,29 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 						
 					</li>
 					<?php endif; ?>
-					
-					<?php if(isset($content['group_ef_node_details']['published_on'])): ?>
-					<li>
-						<span class="label-inline">Published on: </span><span><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
-						
-					</li>
+					<?php if($state == 'forthcoming'): ?>
+						<?php if(isset($publication_date)): ?>
+						<li>
+							<span class="label-inline">Planned publication date: </span><span><?= $publication_date; ?></span>							
+						</li>
+						<?php endif; ?>
+					<?php else: ?>
+						<?php if(isset($content['group_ef_node_details']['published_on'])): ?>
+						<li>
+							<span class="label-inline">Published on: </span><span><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
+						</li>
+						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>
 					<li>
-						<span class="label-inline">Observatory: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_observatory'][0]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
+						<span class="label-inline">Observatory: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_observatory'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_publ_sector'])): ?>
 					<li>
-						<span class="label-inline">Sector: </span><span><a href="<?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#title']; ?></a></span>
+						<span class="label-inline">Sector: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_publ_sector'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
@@ -190,7 +219,7 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 					<li><span class="label-inline">Topics:</span>
 						<ul class="topic-list">
 							<?php foreach ($content['group_ef_node_details']['field_ef_topic']['#items'] as $key => $topic): ?>
-							<li><a href="<?= $content['group_ef_node_details']['field_ef_topic'][$key]['#href']; ?>"><?= $content['group_ef_node_details']['field_ef_topic'][$key]['#title']; ?></a></li>
+							<li><a href="<?= url($content['group_ef_node_details']['field_ef_topic'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_topic'][$key]['#title']; ?></a></li>
 							<?php endforeach; ?>
 						</ul>
 					</li>
@@ -212,25 +241,26 @@ $imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_
 		
 	</div>
 
-	<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
-	<div class="ds-node-comments">
-		<div class="ef-comment-toggler toggler">
-		    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
-		    <span class="hide-text">Hide comments</span>
-		</div>
-	  	<div id="comments" class="title comment-wrapper">
-			<?php
+	<?php if($state != 'forthcoming'): ?>
+		<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
+		<div class="ds-node-comments">
+			<div class="ef-comment-toggler toggler">
+			    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
+			    <span class="hide-text">Hide comments</span>
+			</div>
+		  	<div id="comments" class="title comment-wrapper">
+				<?php
 
-				$comment = new stdClass;
-				$comment->nid = $node->nid;
-				$form = drupal_get_form('comment_form', $comment);
-				print render($form);
+					$comment = new stdClass;
+					$comment->nid = $node->nid;
+					$form = drupal_get_form('comment_form', $comment);
+					print render($form);
 
-			?>
+				?>
+			</div>
 		</div>
-	</div>
+		<?php endif; ?>
 	<?php endif; ?>
-
     
 </article>
 

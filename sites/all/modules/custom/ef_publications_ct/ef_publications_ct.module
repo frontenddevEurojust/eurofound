@@ -63,6 +63,12 @@ function ef_publications_ct_node_view_alter(&$build)
 
 	    }
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
+
+	    if($node->workbench_moderation['current']->state == 'forthcoming')
+	    {
+	    	drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_view_mode.js');
+	    }
+	    
     }
 }
 /*
@@ -102,7 +108,7 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 
 
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
-	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.js');
+	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_edit_mode.js');
 	
 	}
 
