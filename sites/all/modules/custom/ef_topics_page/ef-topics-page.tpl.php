@@ -17,10 +17,10 @@ if(!empty($variables['ef_activities'])){
     <?php if($show_menu): ?>
     <ul class="button-group">
         <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
-            <?php if($item_name == 'View') ?>
-            <li class="current"><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name);?></a></li>
+            <?php if($item_name == 'View'): ?>
+            <li class="current"><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name); ?></a></li>
             <?php else: ?>
-            <li><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name);?></a></li>
+            <li><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name); ?></a></li>
             <?php endif; ?>
         <?php endforeach; ?>
     </ul>

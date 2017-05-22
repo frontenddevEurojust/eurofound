@@ -192,6 +192,8 @@ function add_administrator_menu($variables, $term){
 	
 	$variables['admin_menu']['Term_merge'] = '/admin/config/ef-term-merge';
 
+	$variables['admin_menu']['Translate'] = 'taxonomy/term/' . $term->tid . '/translate';
+
 	return $variables;
 }
 
