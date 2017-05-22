@@ -178,16 +178,28 @@ function _update_topics_tab($tid, $content_type_name, $page){
 */
 function ef_topics_page_node_presave($node){
     
-    //->field_term_last_updated['und'][0]['value']
+    // Force save for a taxonomic term when it's added so that last_updated field is updated
+
     $topics_types = array('ef_publication','ef_report','ef_news','ef_event');
 
     if(in_array($node->type, $topics_types))
     {
 
-        $input_array = $node->field_ef_topic['und'];
+        $input_array = [];
+        $original_array = [];
 
-        $original_array = $node->original->field_ef_topic['und'];
-
+        if( isset($node->field_ef_topic['und']) )
+        {
+            $input_array = $node->field_ef_topic['und']; 
+        }
+        
+        if( isset($node->original->field_ef_topic['und']) )
+        {
+            $original_array = $node->original->field_ef_topic['und'];
+        }
+        
+        
+        
         $difference = array_diff_assoc($input_array, $original_array);
         
         if(count($difference))
