@@ -78,15 +78,17 @@
 
 <?php
 
+
 $state = $node->workbench_moderation['current']->state;
+
+
+if (isset($content['field_ef_document'][0]['#file']))
+{
+	$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
+}
 
 if ($state == 'forthcoming')
 {
-	if (isset($content['field_ef_document'][0]['#file']))
-	{
-		$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
-	}
-	
 
 	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
 	$publication_date = date_format($publication_date,"F Y");
