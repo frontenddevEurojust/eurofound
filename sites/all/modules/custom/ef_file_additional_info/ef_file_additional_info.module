@@ -639,6 +639,8 @@ function get_previous_docs($nid) {
 }
 
 function ef_file_additional_info_mail_send($nid) {
+  global $base_url;
+
   $module = 'ef_notifications';
   $key = 'workflow_notification';
 
@@ -647,7 +649,7 @@ function ef_file_additional_info_mail_send($nid) {
   $from = variable_get('site_mail');
 
   $params['subject'] = 'WGS-12 Telemetry - Node: ' . $nid . ' - '  . date('d F Y', time());
-  $params['message'] = 'Please check the attached documents in node ' . $nid . '. Some of these files could be missing.';
+  $params['message'] = 'Please check the attached documents in ' . $base_url . '/' . url('node/' . $nid) . '. Some of these files could be missing.';
 
   $language = language_default();
   $send = TRUE;
