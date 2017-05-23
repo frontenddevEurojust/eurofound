@@ -644,12 +644,12 @@ function ef_file_additional_info_mail_send($nid) {
   $module = 'ef_notifications';
   $key = 'workflow_notification';
 
-  $to_array = array('eurofound@bilbomatica.es', 'dza@eurofound.europa.eu'); 
+  $to_array = array('eurofound@bilbomatica.es', 'dimitrios.zavaliadis@eurofound.europa.eu'); 
 
   $from = variable_get('site_mail');
 
   $params['subject'] = 'WGS-12 Telemetry - Node: ' . $nid . ' - '  . date('d F Y', time());
-  $params['message'] = 'Please check the attached documents in ' . $base_url . '/' . url('node/' . $nid) . '. Some of these files could be missing.';
+  $params['message'] = 'Please check the attached documents in ' . $base_url . drupal_get_path_alias('node/' . $nid) . '. Some of these files could be missing.';
 
   $language = language_default();
   $send = TRUE;
