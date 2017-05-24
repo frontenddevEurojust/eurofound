@@ -147,3 +147,29 @@ function update_pager(element, page_number){
 	jQuery('section.active .pagination.pager').replaceWith(html);
 	
 }
+
+(function($) {
+	$(document).ready(function() {
+
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+		{
+
+			var deviceMobile = true;
+
+		}
+		else
+		{
+
+			var deviceMobile = false;
+
+		}
+
+		if (deviceMobile == true)
+		{
+		  $('h3.title').on('click', function () {
+				$(this).parent().toggleClass( "active2" );		 
+		  });
+		}
+
+	});
+})(jQuery);
