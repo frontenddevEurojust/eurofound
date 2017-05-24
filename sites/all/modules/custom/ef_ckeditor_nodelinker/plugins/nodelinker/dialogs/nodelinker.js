@@ -62,10 +62,13 @@
 
 			onShow: function() {
 
-				text = editor.getSelection().getSelectedText();
+				// Remove the error message if it was previously added
+				$('.error-message').remove();
 
+				text = editor.getSelection().getSelectedText();
+				
 				// check if anything has been selected
-				if(text)
+				if(text != '')
 				{
 
 					var nodes = [];
