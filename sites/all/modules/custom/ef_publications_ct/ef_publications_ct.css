@@ -142,12 +142,16 @@ ul.metadata-publications > li > ul li {
 	margin: 0px 25px 20px 0px !important;
 }
 .forthcoming-label{
-	display: block;
     margin: inherit;
     background: #f7931e;
-    width: 11%;
-    border: orange;
-    padding: 6px 9px 6px 4px;
+    padding: 1px 6px;
     text-align: center;
-    color: white;
+    color: #FFF;
+    font-size: 12px;
+    letter-spacing: 0;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: super;
+    text-transform: uppercase;
+    font-family: 'OpenSans-Semibold-webfont';
 }
