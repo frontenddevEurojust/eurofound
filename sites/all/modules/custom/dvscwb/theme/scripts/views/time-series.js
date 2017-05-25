@@ -121,8 +121,27 @@ jQuery(document).ready(function($) {
   
 			if($edit_variables_wrapper.find("input[name='variables[]']:checked").size() == 0){
 				//ensure at least one variable, the first, is always selected
-				var $firstVariable =$("input[name='variables[]']").first();
+				var $firstVariable = $("input[name='variables[]']").first();
 				$firstVariable.prop('checked', true);
+
+				$('select#edit-sector').find('option:selected').removeAttr('selected');
+				
+				$('select#edit-sector option').each(function(index, element){
+					if ($(element).attr('value') == '13845'){
+						$(element).attr('selected', 'selected');
+						$('select#edit-sector').trigger("chosen:updated");
+					}
+				});
+
+				$('select#edit-scope').find('option:selected').removeAttr('selected');
+
+				$('select#edit-scope option').each(function(index, element){
+					if ($(element).attr('value') == '13860'){
+						$(element).attr('selected', 'selected');
+						$('select#edit-scope').trigger("chosen:updated");
+					}
+				});
+				// LLAMADA A MORDOR
 				jQuery("#views-exposed-form-cwb-time-series-page").submit();
 			}else{
 				$edit_variables_wrapper
