@@ -41,13 +41,9 @@
 }
 #node_ef_publication_full_group_ef_node_details .label-inline{
 	font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
-	float: left;
-	width: 37%;
-	margin-left:-40%;
 }
 #node_ef_publication_full_group_ef_node_details a{
   margin-right:3px;
-  display: inline-block;
   padding-bottom: 4px;
 }
 #node_ef_publication_full_group_ef_node_details a:after{
@@ -58,6 +54,9 @@
 }
 .node-ef-publication .field-name-publication-preview{
 	margin-bottom:25px;
+}
+.node-ef-publication .field-name-publication-preview img{
+	margin-top:0px !important;
 }
 .node-ef-publication .field-name-field-ef-document .file{
 	display: block;
@@ -77,6 +76,78 @@
 	position: absolute;
 	top:10px;
 	right: 10px;
-	font-size:1.8em;}
+	font-size:1.8em;
+}
+.ef-main .node .field .field-name-publication-preview img{
+	float: none
+}
+
+ul.metadata-publications{
+	font-size: 0.9em;
+}
+ul.metadata-publications > li{
+    padding: 12px 0px!important;
+    border-bottom: 1px dotted #ccc;
+    width: 100%;
+    text-indent: 0 !important;
+}
+ul.metadata-publications li:before {
+    content: "" !important;
+}
+ul.metadata-publications > li > span.label-inline {
+    width:20%;
+    font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    text-indent: 0;
+}
+ul.metadata-publications > li > ul {
+    width: 78%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    text-indent: 0;
+}
+ul.metadata-publications > li > ul li {
+    display: inline-block;
+    text-indent: 0;
+    padding: 0;
+}
 
 
+.field-name-field-term-subscription-url .topic-subscription {
+    border:none;
+    margin-bottom: 2.5em;
+    margin-top: 1em;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+.field-name-field-term-subscription-url .topic-subscription:hover {
+    border: none;
+}
+.field-name-field-term-subscription-url .topic-subscription a {
+    color: #F7931E;
+    font-weight: bold;
+    display: block;
+    padding: 0px 10px 12px 12px;
+}
+.field-name-field-term-subscription-url .topic-subscription a:hover {
+    background: #FFF;
+    color: #666;
+}
+.ef-main .node .field-name-field-ef-main-image img{
+	float: none !important;
+	margin: 0px 25px 20px 0px !important;
+}
+.forthcoming-label{
+	display: block;
+    margin: inherit;
+    background: #f7931e;
+    width: 11%;
+    border: orange;
+    padding: 6px 9px 6px 4px;
+    text-align: center;
+    color: white;
+}

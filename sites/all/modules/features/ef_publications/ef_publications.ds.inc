@@ -17,6 +17,22 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'ef_case_study';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'published_on' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'publication_date_ef_date_format',
+      'formatter_settings' => array(
+        'ft' => array(),
+        'conditions' => array(
+          0 => array(
+            'condition' => 'rules_event',
+            'configuration' => array(
+              'rule' => 'rules_hide_publication_date',
+            ),
+          ),
+        ),
+      ),
+    ),
     'links' => array(
       'weight' => '0',
       'label' => 'hidden',
@@ -26,16 +42,6 @@ function ef_publications_ds_field_settings_info() {
       'weight' => '5',
       'label' => 'hidden',
       'format' => 'default',
-    ),
-    'post_date' => array(
-      'weight' => '1',
-      'label' => 'hidden',
-      'format' => 'ds_post_date_ef_date_format',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
     ),
     'body' => array(
       'formatter_settings' => array(
@@ -152,6 +158,24 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'ef_comparative_analytical_report';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'published_on' => array(
+      'weight' => '12',
+      'label' => 'inline',
+      'format' => 'publication_date_ef_date_format',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+        'conditions' => array(
+          0 => array(
+            'condition' => 'rules_event',
+            'configuration' => array(
+              'rule' => 'rules_hide_publication_date',
+            ),
+          ),
+        ),
+      ),
+    ),
     'links' => array(
       'weight' => '0',
       'label' => 'hidden',
@@ -165,16 +189,7 @@ function ef_publications_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
-      ),
-    ),
-    'ds_publication_date' => array(
-      'weight' => '11',
-      'label' => 'inline',
-      'format' => 'ds_publication_date_ef_date_format',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
+        'conditions' => array(),
       ),
     ),
     'ds_submission_date' => array(
@@ -185,6 +200,7 @@ function ef_publications_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
+        'conditions' => array(),
       ),
     ),
     'field_ef_author' => array(
@@ -286,6 +302,11 @@ function ef_publications_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'qrr' => array(
+      'weight' => '8',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'field_ef_approved_for_payment' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -310,6 +331,24 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'ef_national_contribution';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'published_on' => array(
+      'weight' => '11',
+      'label' => 'inline',
+      'format' => 'publication_date_ef_date_format',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+        'conditions' => array(
+          0 => array(
+            'condition' => 'rules_event',
+            'configuration' => array(
+              'rule' => 'rules_hide_publication_date',
+            ),
+          ),
+        ),
+      ),
+    ),
     'links' => array(
       'weight' => '0',
       'label' => 'hidden',
@@ -323,16 +362,7 @@ function ef_publications_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
-      ),
-    ),
-    'ds_publication_date' => array(
-      'weight' => '11',
-      'label' => 'inline',
-      'format' => 'ds_publication_date_ef_date_format',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
+        'conditions' => array(),
       ),
     ),
     'ds_submission_date' => array(
@@ -343,6 +373,7 @@ function ef_publications_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
+        'conditions' => array(),
       ),
     ),
     'field_ef_observatory' => array(
@@ -505,6 +536,24 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'ef_publication';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'published_on' => array(
+      'weight' => '9',
+      'label' => 'inline',
+      'format' => 'publication_date_ef_date_format',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+        'conditions' => array(
+          0 => array(
+            'condition' => 'rules_event',
+            'configuration' => array(
+              'rule' => 'rules_hide_publication_date',
+            ),
+          ),
+        ),
+      ),
+    ),
     'publication_preview' => array(
       'weight' => '1',
       'label' => 'hidden',
@@ -517,6 +566,7 @@ function ef_publications_ds_field_settings_info() {
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
+        'conditions' => array(),
       ),
     ),
     'links' => array(
@@ -525,7 +575,7 @@ function ef_publications_ds_field_settings_info() {
       'format' => 'default',
     ),
     'comments' => array(
-      'weight' => '5',
+      'weight' => '6',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -564,13 +614,6 @@ function ef_publications_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_ef_publication_date' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
     'field_ef_project' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -600,13 +643,6 @@ function ef_publications_ds_field_settings_info() {
       ),
     ),
     'field_ef_number_of_pages' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_theme' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
@@ -651,63 +687,62 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'ef_report';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'published_on' => array(
+      'weight' => '10',
+      'label' => 'inline',
+      'format' => 'publication_date_ef_date_format',
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+        'conditions' => array(
+          0 => array(
+            'condition' => 'rules_event',
+            'configuration' => array(
+              'rule' => 'rules_hide_publication_date',
+            ),
+          ),
+        ),
+      ),
+    ),
+    'qrr' => array(
+      'weight' => '14',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'links' => array(
       'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'comments' => array(
+      'weight' => '17',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'ds_publish_on' => array(
-      'weight' => '14',
+      'weight' => '8',
       'label' => 'inline',
       'format' => 'ds_publish_on_ef_date_format',
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
-      ),
-    ),
-    'ds_publication_date' => array(
-      'weight' => '16',
-      'label' => 'inline',
-      'format' => 'ds_publication_date_ef_date_format',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
+        'conditions' => array(),
       ),
     ),
     'ds_submission_date' => array(
-      'weight' => '15',
+      'weight' => '9',
       'label' => 'inline',
       'format' => 'ds_submission_date_ef_date_format',
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
+        'conditions' => array(),
       ),
     ),
     'field_ef_author' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_institution' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_observatory' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_theme' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
@@ -721,34 +756,6 @@ function ef_publications_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_ef_country' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_contract' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_sector' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_assign_to' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
     'field_ef_flag' => array(
       'formatter_settings' => array(
         'ft' => array(
@@ -756,7 +763,7 @@ function ef_publications_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_ef_deliverable_kind' => array(
+    'field_ef_author_contract' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
@@ -774,23 +781,17 @@ function ef_publications_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'post_date' => array(
-      'weight' => '8',
+      'weight' => '6',
       'label' => 'hidden',
       'format' => 'ds_post_date_ef_date_format',
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
         ),
+        'conditions' => array(),
       ),
     ),
     'field_ef_spotlight_theme' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_minimal',
-        ),
-      ),
-    ),
-    'field_ef_observatory' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
@@ -805,6 +806,13 @@ function ef_publications_ds_field_settings_info() {
       ),
     ),
     'field_ef_topic' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_minimal',
+        ),
+      ),
+    ),
+    'field_ef_observatory' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
@@ -998,20 +1006,20 @@ function ef_publications_ds_layout_settings_info() {
       ),
       'node_metadata' => array(
         1 => 'group_node_tagging',
-        2 => 'post_date',
+        3 => 'published_on',
         5 => 'field_ef_theme',
-        7 => 'field_ef_topic',
-        10 => 'field_ef_observatory',
-        11 => 'field_ef_report_delivery_date',
-        14 => 'field_ef_approved_for_payment',
+        9 => 'field_ef_topic',
+        11 => 'field_ef_observatory',
+        14 => 'field_ef_report_delivery_date',
+        15 => 'field_ef_approved_for_payment',
       ),
       'node_content' => array(
-        3 => 'group_node_about',
+        2 => 'group_node_about',
         4 => 'body',
         6 => 'field_ef_case_study_name',
-        9 => 'field_ef_country',
+        8 => 'field_ef_country',
         12 => 'field_ef_organisation_size',
-        15 => 'field_ef_legal_form',
+        13 => 'field_ef_legal_form',
         16 => 'field_ef_case_study_sectors',
         17 => 'field_ef_social_dialogue',
         18 => 'field_ef_case_study_category',
@@ -1021,29 +1029,29 @@ function ef_publications_ds_layout_settings_info() {
         22 => 'field_ef_scope',
       ),
       'node_downloads' => array(
-        8 => 'field_ef_documents',
+        7 => 'field_ef_documents',
       ),
       'node_comments' => array(
-        13 => 'comments',
+        10 => 'comments',
       ),
     ),
     'fields' => array(
       'links' => 'node_sub_header',
       'group_node_tagging' => 'node_metadata',
-      'post_date' => 'node_metadata',
       'group_node_about' => 'node_content',
+      'published_on' => 'node_metadata',
       'body' => 'node_content',
       'field_ef_theme' => 'node_metadata',
       'field_ef_case_study_name' => 'node_content',
-      'field_ef_topic' => 'node_metadata',
       'field_ef_documents' => 'node_downloads',
       'field_ef_country' => 'node_content',
-      'field_ef_observatory' => 'node_metadata',
-      'field_ef_report_delivery_date' => 'node_metadata',
-      'field_ef_organisation_size' => 'node_content',
+      'field_ef_topic' => 'node_metadata',
       'comments' => 'node_comments',
-      'field_ef_approved_for_payment' => 'node_metadata',
+      'field_ef_observatory' => 'node_metadata',
+      'field_ef_organisation_size' => 'node_content',
       'field_ef_legal_form' => 'node_content',
+      'field_ef_report_delivery_date' => 'node_metadata',
+      'field_ef_approved_for_payment' => 'node_metadata',
       'field_ef_case_study_sectors' => 'node_content',
       'field_ef_social_dialogue' => 'node_content',
       'field_ef_case_study_category' => 'node_content',
@@ -1082,69 +1090,69 @@ function ef_publications_ds_layout_settings_info() {
       'node_languages' => array(
         0 => 'links',
       ),
-      'node_content' => array(
-        1 => 'field_ef_quality_of_contents',
-        3 => 'field_ef_balance_in_reporting',
-        5 => 'field_ef_style_and_presentation',
-        6 => 'field_ef_sector',
-        7 => 'field_ef_command_of_english',
-        9 => 'field_ef_author',
-        10 => 'field_ef_product_criteria',
-        13 => 'field_ef_institution',
-        22 => 'group_ef_quality_assessment',
-        23 => 'group_node_about',
-        24 => 'body',
-      ),
       'node_metadata' => array(
-        2 => 'field_ef_national_contribution',
-        4 => 'field_ef_deliverable_kind',
-        8 => 'field_ef_observatory',
-        11 => 'field_ef_theme',
-        12 => 'field_ef_topic',
-        14 => 'field_ef_flag',
-        15 => 'field_ef_assign_to',
-        16 => 'field_ef_contract',
-        17 => 'ds_publish_on',
-        18 => 'ds_submission_date',
-        19 => 'ds_publication_date',
-        20 => 'field_ef_unit',
-        21 => 'field_ef_work_programme_area',
+        1 => 'field_ef_national_contribution',
+        2 => 'field_ef_deliverable_kind',
+        4 => 'field_ef_observatory',
+        5 => 'field_ef_theme',
+        8 => 'field_ef_topic',
+        9 => 'field_ef_flag',
+        10 => 'field_ef_assign_to',
+        11 => 'field_ef_contract',
+        12 => 'ds_publish_on',
+        13 => 'ds_submission_date',
+        14 => 'published_on',
+        15 => 'field_ef_unit',
+        16 => 'field_ef_work_programme_area',
+      ),
+      'node_content' => array(
+        3 => 'field_ef_sector',
+        6 => 'field_ef_author',
+        7 => 'field_ef_institution',
+        17 => 'group_ef_quality_assessment',
+        18 => 'group_node_about',
+        19 => 'body',
+        24 => 'field_ef_balance_in_reporting_ca',
+        25 => 'field_ef_command_of_english_ca',
+        26 => 'field_ef_quality_of_contents_ca',
+        27 => 'field_ef_style_presentation_ca',
       ),
       'node_downloads' => array(
-        25 => 'field_ef_source_documents',
-        26 => 'field_ef_document',
-        27 => 'field_ef_documents',
+        20 => 'group_documents',
+        21 => 'field_ef_source_documents',
+        22 => 'field_ef_document',
+        23 => 'field_ef_documents',
       ),
     ),
     'fields' => array(
       'links' => 'node_languages',
-      'field_ef_quality_of_contents' => 'node_content',
       'field_ef_national_contribution' => 'node_metadata',
-      'field_ef_balance_in_reporting' => 'node_content',
       'field_ef_deliverable_kind' => 'node_metadata',
-      'field_ef_style_and_presentation' => 'node_content',
       'field_ef_sector' => 'node_content',
-      'field_ef_command_of_english' => 'node_content',
       'field_ef_observatory' => 'node_metadata',
-      'field_ef_author' => 'node_content',
-      'field_ef_product_criteria' => 'node_content',
       'field_ef_theme' => 'node_metadata',
-      'field_ef_topic' => 'node_metadata',
+      'field_ef_author' => 'node_content',
       'field_ef_institution' => 'node_content',
+      'field_ef_topic' => 'node_metadata',
       'field_ef_flag' => 'node_metadata',
       'field_ef_assign_to' => 'node_metadata',
       'field_ef_contract' => 'node_metadata',
       'ds_publish_on' => 'node_metadata',
       'ds_submission_date' => 'node_metadata',
-      'ds_publication_date' => 'node_metadata',
+      'published_on' => 'node_metadata',
       'field_ef_unit' => 'node_metadata',
       'field_ef_work_programme_area' => 'node_metadata',
       'group_ef_quality_assessment' => 'node_content',
       'group_node_about' => 'node_content',
       'body' => 'node_content',
+      'group_documents' => 'node_downloads',
       'field_ef_source_documents' => 'node_downloads',
       'field_ef_document' => 'node_downloads',
       'field_ef_documents' => 'node_downloads',
+      'field_ef_balance_in_reporting_ca' => 'node_content',
+      'field_ef_command_of_english_ca' => 'node_content',
+      'field_ef_quality_of_contents_ca' => 'node_content',
+      'field_ef_style_presentation_ca' => 'node_content',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -1182,16 +1190,11 @@ function ef_publications_ds_layout_settings_info() {
       ),
       'node_content' => array(
         5 => 'field_ef_dissemination',
-        6 => 'group_ef_quality_assessment',
-        7 => 'group_ef_activity',
-        8 => 'group_ef_dissemination',
-        9 => 'field_ef_other_feedback',
+        6 => 'group_ef_activity',
+        7 => 'group_ef_dissemination',
+        8 => 'field_ef_other_feedback',
+        9 => 'qrr',
         10 => 'field_ef_activity',
-        12 => 'field_ef_quality_of_contents',
-        13 => 'field_ef_balance_in_reporting',
-        14 => 'field_ef_style_and_presentation',
-        15 => 'field_ef_command_of_english',
-        16 => 'field_ef_product_criteria',
       ),
       'node_downloads' => array(
         11 => 'links',
@@ -1204,23 +1207,14 @@ function ef_publications_ds_layout_settings_info() {
       'field_ef_report_delivery_date' => 'node_metadata',
       'field_ef_approved_for_payment' => 'node_metadata',
       'field_ef_dissemination' => 'node_content',
-      'group_ef_quality_assessment' => 'node_content',
       'group_ef_activity' => 'node_content',
       'group_ef_dissemination' => 'node_content',
       'field_ef_other_feedback' => 'node_content',
+      'qrr' => 'node_content',
       'field_ef_activity' => 'node_content',
       'links' => 'node_downloads',
-      'field_ef_quality_of_contents' => 'node_content',
-      'field_ef_balance_in_reporting' => 'node_content',
-      'field_ef_style_and_presentation' => 'node_content',
-      'field_ef_command_of_english' => 'node_content',
-      'field_ef_product_criteria' => 'node_content',
     ),
-    'classes' => array(
-      'layout_class' => array(
-        '' => '',
-      ),
-    ),
+    'classes' => array(),
     'wrappers' => array(
       'node_sub_header' => 'div',
       'node_languages' => 'div',
@@ -1253,64 +1247,64 @@ function ef_publications_ds_layout_settings_info() {
       'node_metadata' => array(
         1 => 'field_ef_deliverable_kind',
         2 => 'field_ef_observatory',
-        4 => 'field_ef_approved_for_payment',
+        3 => 'field_ef_approved_for_payment',
         6 => 'field_ef_theme',
-        8 => 'field_ef_topic',
+        7 => 'field_ef_topic',
         10 => 'field_ef_flag',
         11 => 'field_ef_assign_to',
         12 => 'field_ef_contract',
         13 => 'ds_publish_on',
         14 => 'ds_submission_date',
-        15 => 'ds_publication_date',
+        15 => 'published_on',
         16 => 'field_ef_report_delivery_date',
       ),
       'node_content' => array(
-        3 => 'field_ef_country',
+        4 => 'field_ef_country',
         5 => 'field_ef_sector',
-        7 => 'field_ef_author',
+        8 => 'field_ef_author',
         9 => 'field_ef_institution',
         17 => 'group_ef_quality_assessment',
-        18 => 'group_node_about',
-        19 => 'body',
-        22 => 'field_ef_quality_of_contents',
-        23 => 'field_ef_balance_in_reporting',
-        24 => 'field_ef_style_and_presentation',
-        25 => 'field_ef_command_of_english',
-        26 => 'field_ef_product_criteria',
+        18 => 'field_ef_balance_in_reporting_nc',
+        19 => 'group_node_about',
+        20 => 'field_ef_command_of_english_nc',
+        21 => 'body',
+        23 => 'field_ef_quality_of_contents_nc',
+        25 => 'field_ef_style_presentation_nc',
       ),
       'node_downloads' => array(
-        20 => 'field_ef_source_documents',
-        21 => 'field_ef_documents',
+        22 => 'group_documents',
+        24 => 'field_ef_source_documents',
+        26 => 'field_ef_documents',
       ),
     ),
     'fields' => array(
       'links' => 'node_languages',
       'field_ef_deliverable_kind' => 'node_metadata',
       'field_ef_observatory' => 'node_metadata',
-      'field_ef_country' => 'node_content',
       'field_ef_approved_for_payment' => 'node_metadata',
+      'field_ef_country' => 'node_content',
       'field_ef_sector' => 'node_content',
       'field_ef_theme' => 'node_metadata',
-      'field_ef_author' => 'node_content',
       'field_ef_topic' => 'node_metadata',
+      'field_ef_author' => 'node_content',
       'field_ef_institution' => 'node_content',
       'field_ef_flag' => 'node_metadata',
       'field_ef_assign_to' => 'node_metadata',
       'field_ef_contract' => 'node_metadata',
       'ds_publish_on' => 'node_metadata',
       'ds_submission_date' => 'node_metadata',
-      'ds_publication_date' => 'node_metadata',
+      'published_on' => 'node_metadata',
       'field_ef_report_delivery_date' => 'node_metadata',
       'group_ef_quality_assessment' => 'node_content',
+      'field_ef_balance_in_reporting_nc' => 'node_content',
       'group_node_about' => 'node_content',
+      'field_ef_command_of_english_nc' => 'node_content',
       'body' => 'node_content',
+      'group_documents' => 'node_downloads',
+      'field_ef_quality_of_contents_nc' => 'node_content',
       'field_ef_source_documents' => 'node_downloads',
+      'field_ef_style_presentation_nc' => 'node_content',
       'field_ef_documents' => 'node_downloads',
-      'field_ef_quality_of_contents' => 'node_content',
-      'field_ef_balance_in_reporting' => 'node_content',
-      'field_ef_style_and_presentation' => 'node_content',
-      'field_ef_command_of_english' => 'node_content',
-      'field_ef_product_criteria' => 'node_content',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -1343,101 +1337,91 @@ function ef_publications_ds_layout_settings_info() {
         0 => 'field_ef_quartely_report_year',
         1 => 'field_ef_quarter',
         2 => 'field_ef_quarter_report_country',
+        3 => 'field_ef_author_textfield',
       ),
       'node_content' => array(
-        3 => 'field_ef_document',
-        4 => 'field_ef_short_summary',
-        5 => 'group_ef_quality_assessment',
+        4 => 'field_ef_document',
+        5 => 'field_ef_short_summary',
         6 => 'field_ef_actors_institutions',
         7 => 'group_ef_qr_introduction',
         8 => 'group_ef_qr_actors',
-        9 => 'group_ef_qr_processes',
-        10 => 'field_ef_skills_and_training',
-        11 => 'field_ef_employment_status',
-        12 => 'field_ef_physical_risk_factors',
+        9 => 'field_ef_physical_risk_factors',
+        10 => 'field_ef_employment_status',
+        11 => 'group_ef_qr_processes',
+        12 => 'field_ef_skills_and_training',
         13 => 'field_ef_processes',
-        14 => 'field_ef_work_organisation_skill',
+        14 => 'group_ef_qr_outcomes',
         15 => 'field_ef_psychosocial_risk_fact',
-        16 => 'field_ef_entitlements_obligs',
-        17 => 'group_ef_qr_outcomes',
+        16 => 'field_ef_work_organisation_skill',
+        17 => 'field_ef_entitlements_obligs',
         18 => 'group_ef_qr_relevant_issues',
-        19 => 'field_ef_work_related_health',
-        20 => 'field_ef_termination_of_employm',
-        21 => 'field_ef_career_development',
+        19 => 'field_ef_career_development',
+        20 => 'field_ef_work_related_health',
+        21 => 'field_ef_termination_of_employm',
         22 => 'group_ef_qr_summary_commentary',
-        23 => 'field_ef_other_relevant_issues',
-        24 => 'field_ef_absenteeism_presenteeis',
+        23 => 'field_ef_absenteeism_presenteeis',
+        24 => 'field_ef_other_relevant_issues',
+        25 => 'field_ef_working_time_in_general',
         26 => 'field_ef_summary_commentary',
-        27 => 'field_ef_violence_and_harassment',
-        28 => 'field_ef_working_time_in_general',
-        29 => 'field_ef_occupational_health',
-        30 => 'field_ef_organisation_of_working',
+        28 => 'field_ef_violence_and_harassment',
+        29 => 'field_ef_organisation_of_working',
+        30 => 'field_ef_occupational_health',
         31 => 'field_ef_work_life_balance',
         32 => 'field_ef_non_standard_working',
         33 => 'field_ef_forms_of_work_organisat',
         34 => 'field_ef_workplace_innovation',
         35 => 'field_ef_employee_involvement',
         36 => 'field_ef_participation_at_work',
-        37 => 'field_ef_quality_of_contents',
-        38 => 'field_ef_balance_in_reporting',
-        39 => 'field_ef_style_and_presentation',
-        40 => 'field_ef_command_of_english',
-        41 => 'field_ef_product_criteria',
-        42 => 'group_ef_qr_employ_conditions',
-        43 => 'group_ef_qr_pay',
-        44 => 'field_ef_pay',
-        45 => 'group_ef_qr_working_time',
-        46 => 'group_ef_qr_skills',
-        47 => 'group_ef_qr_health',
-        48 => 'group_ef_qr_work_organisation',
+        37 => 'group_ef_qr_employ_conditions',
+        38 => 'group_ef_qr_pay',
+        39 => 'field_ef_pay',
+        40 => 'group_ef_qr_working_time',
+        41 => 'group_ef_qr_skills',
+        42 => 'group_ef_qr_health',
+        43 => 'group_ef_qr_work_organisation',
       ),
       'node_downloads' => array(
-        25 => 'links',
+        27 => 'links',
       ),
     ),
     'fields' => array(
       'field_ef_quartely_report_year' => 'node_metadata',
       'field_ef_quarter' => 'node_metadata',
       'field_ef_quarter_report_country' => 'node_metadata',
+      'field_ef_author_textfield' => 'node_metadata',
       'field_ef_document' => 'node_content',
       'field_ef_short_summary' => 'node_content',
-      'group_ef_quality_assessment' => 'node_content',
       'field_ef_actors_institutions' => 'node_content',
       'group_ef_qr_introduction' => 'node_content',
       'group_ef_qr_actors' => 'node_content',
+      'field_ef_physical_risk_factors' => 'node_content',
+      'field_ef_employment_status' => 'node_content',
       'group_ef_qr_processes' => 'node_content',
       'field_ef_skills_and_training' => 'node_content',
-      'field_ef_employment_status' => 'node_content',
-      'field_ef_physical_risk_factors' => 'node_content',
       'field_ef_processes' => 'node_content',
-      'field_ef_work_organisation_skill' => 'node_content',
-      'field_ef_psychosocial_risk_fact' => 'node_content',
-      'field_ef_entitlements_obligs' => 'node_content',
       'group_ef_qr_outcomes' => 'node_content',
+      'field_ef_psychosocial_risk_fact' => 'node_content',
+      'field_ef_work_organisation_skill' => 'node_content',
+      'field_ef_entitlements_obligs' => 'node_content',
       'group_ef_qr_relevant_issues' => 'node_content',
+      'field_ef_career_development' => 'node_content',
       'field_ef_work_related_health' => 'node_content',
       'field_ef_termination_of_employm' => 'node_content',
-      'field_ef_career_development' => 'node_content',
       'group_ef_qr_summary_commentary' => 'node_content',
-      'field_ef_other_relevant_issues' => 'node_content',
       'field_ef_absenteeism_presenteeis' => 'node_content',
-      'links' => 'node_downloads',
-      'field_ef_summary_commentary' => 'node_content',
-      'field_ef_violence_and_harassment' => 'node_content',
+      'field_ef_other_relevant_issues' => 'node_content',
       'field_ef_working_time_in_general' => 'node_content',
-      'field_ef_occupational_health' => 'node_content',
+      'field_ef_summary_commentary' => 'node_content',
+      'links' => 'node_downloads',
+      'field_ef_violence_and_harassment' => 'node_content',
       'field_ef_organisation_of_working' => 'node_content',
+      'field_ef_occupational_health' => 'node_content',
       'field_ef_work_life_balance' => 'node_content',
       'field_ef_non_standard_working' => 'node_content',
       'field_ef_forms_of_work_organisat' => 'node_content',
       'field_ef_workplace_innovation' => 'node_content',
       'field_ef_employee_involvement' => 'node_content',
       'field_ef_participation_at_work' => 'node_content',
-      'field_ef_quality_of_contents' => 'node_content',
-      'field_ef_balance_in_reporting' => 'node_content',
-      'field_ef_style_and_presentation' => 'node_content',
-      'field_ef_command_of_english' => 'node_content',
-      'field_ef_product_criteria' => 'node_content',
       'group_ef_qr_employ_conditions' => 'node_content',
       'group_ef_qr_pay' => 'node_content',
       'field_ef_pay' => 'node_content',
@@ -1446,11 +1430,7 @@ function ef_publications_ds_layout_settings_info() {
       'group_ef_qr_health' => 'node_content',
       'group_ef_qr_work_organisation' => 'node_content',
     ),
-    'classes' => array(
-      'layout_class' => array(
-        '' => '',
-      ),
-    ),
+    'classes' => array(),
     'wrappers' => array(
       'node_sub_header' => 'div',
       'node_languages' => 'div',
@@ -1529,28 +1509,29 @@ function ef_publications_ds_layout_settings_info() {
       'node_side_info' => array(
         1 => 'publication_preview',
         2 => 'field_ef_document',
+        21 => 'field_order_label',
       ),
       'node_content' => array(
         3 => 'body',
-        4 => 'field_ef_publ_contributors',
-        5 => 'group_ef_node_details',
+        4 => 'group_ef_node_details',
+        5 => 'field_ef_publ_contributors',
+        6 => 'field_term_subscription_url',
         7 => 'field_ef_number_of_pages',
-        8 => 'field_ef_document_type',
-        9 => 'field_ef_reference_no',
-        10 => 'field_ef_publication_date',
-        11 => 'field_ef_publ_keywords',
-        12 => 'field_ef_isbn',
-        13 => 'field_ef_project',
-        14 => 'field_ef_publ_sector',
-        15 => 'field_ef_catalogue',
-        16 => 'field_ef_doi',
-        17 => 'field_ef_theme',
+        9 => 'field_ef_document_type',
+        10 => 'field_ef_reference_no',
+        11 => 'published_on',
+        12 => 'field_ef_publ_keywords',
+        13 => 'field_ef_isbn',
+        14 => 'field_ef_project',
+        15 => 'field_ef_publ_sector',
+        16 => 'field_ef_catalogue',
+        17 => 'field_ef_doi',
         18 => 'field_ef_topic',
         19 => 'field_ef_observatory',
         20 => 'field_ef_eu_related_countries',
       ),
       'node_comments' => array(
-        6 => 'comments',
+        8 => 'comments',
       ),
     ),
     'fields' => array(
@@ -1558,23 +1539,24 @@ function ef_publications_ds_layout_settings_info() {
       'publication_preview' => 'node_side_info',
       'field_ef_document' => 'node_side_info',
       'body' => 'node_content',
-      'field_ef_publ_contributors' => 'node_content',
       'group_ef_node_details' => 'node_content',
-      'comments' => 'node_comments',
+      'field_ef_publ_contributors' => 'node_content',
+      'field_term_subscription_url' => 'node_content',
       'field_ef_number_of_pages' => 'node_content',
+      'comments' => 'node_comments',
       'field_ef_document_type' => 'node_content',
       'field_ef_reference_no' => 'node_content',
-      'field_ef_publication_date' => 'node_content',
+      'published_on' => 'node_content',
       'field_ef_publ_keywords' => 'node_content',
       'field_ef_isbn' => 'node_content',
       'field_ef_project' => 'node_content',
       'field_ef_publ_sector' => 'node_content',
       'field_ef_catalogue' => 'node_content',
       'field_ef_doi' => 'node_content',
-      'field_ef_theme' => 'node_content',
       'field_ef_topic' => 'node_content',
       'field_ef_observatory' => 'node_content',
       'field_ef_eu_related_countries' => 'node_content',
+      'field_order_label' => 'node_side_info',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -1607,66 +1589,48 @@ function ef_publications_ds_layout_settings_info() {
         0 => 'links',
       ),
       'node_metadata' => array(
-        1 => 'field_ef_deliverable_kind',
-        2 => 'field_ef_observatory',
-        6 => 'field_ef_report_delivery_date',
-        8 => 'field_ef_approved_for_payment',
-        9 => 'field_ef_theme',
-        10 => 'field_ef_topic',
-        11 => 'field_ef_flag',
-        12 => 'field_ef_assign_to',
-        13 => 'field_ef_contract',
-        14 => 'ds_publish_on',
-        15 => 'ds_submission_date',
-        16 => 'ds_publication_date',
+        1 => 'field_ef_report_delivery_date',
+        2 => 'field_ef_approved_for_payment',
+        3 => 'field_ef_topic',
+        4 => 'field_ef_flag',
+        5 => 'field_ef_assign_to_user',
+        6 => 'field_ef_author_contract',
+        7 => 'ds_publish_on',
+        8 => 'ds_submission_date',
+        9 => 'published_on',
+        10 => 'field_ef_author',
       ),
       'node_content' => array(
-        3 => 'field_ef_country',
-        4 => 'field_ef_author',
-        5 => 'field_ef_sector',
-        7 => 'field_ef_institution',
-        17 => 'group_ef_quality_assessment',
-        18 => 'group_node_about',
-        19 => 'body',
-        22 => 'field_ef_quality_of_contents',
-        23 => 'field_ef_balance_in_reporting',
-        24 => 'field_ef_style_and_presentation',
-        25 => 'field_ef_command_of_english',
-        26 => 'field_ef_product_criteria',
+        11 => 'field_ef_main_image',
+        12 => 'body',
+        13 => 'qrr',
       ),
       'node_downloads' => array(
-        20 => 'field_ef_source_documents',
-        21 => 'field_ef_documents',
+        14 => 'field_ef_source_documents',
+        15 => 'field_ef_documents',
+      ),
+      'node_comments' => array(
+        16 => 'comments',
       ),
     ),
     'fields' => array(
       'links' => 'node_languages',
-      'field_ef_deliverable_kind' => 'node_metadata',
-      'field_ef_observatory' => 'node_metadata',
-      'field_ef_country' => 'node_content',
-      'field_ef_author' => 'node_content',
-      'field_ef_sector' => 'node_content',
       'field_ef_report_delivery_date' => 'node_metadata',
-      'field_ef_institution' => 'node_content',
       'field_ef_approved_for_payment' => 'node_metadata',
-      'field_ef_theme' => 'node_metadata',
       'field_ef_topic' => 'node_metadata',
       'field_ef_flag' => 'node_metadata',
-      'field_ef_assign_to' => 'node_metadata',
-      'field_ef_contract' => 'node_metadata',
+      'field_ef_assign_to_user' => 'node_metadata',
+      'field_ef_author_contract' => 'node_metadata',
       'ds_publish_on' => 'node_metadata',
       'ds_submission_date' => 'node_metadata',
-      'ds_publication_date' => 'node_metadata',
-      'group_ef_quality_assessment' => 'node_content',
-      'group_node_about' => 'node_content',
+      'published_on' => 'node_metadata',
+      'field_ef_author' => 'node_metadata',
+      'field_ef_main_image' => 'node_content',
       'body' => 'node_content',
+      'qrr' => 'node_content',
       'field_ef_source_documents' => 'node_downloads',
       'field_ef_documents' => 'node_downloads',
-      'field_ef_quality_of_contents' => 'node_content',
-      'field_ef_balance_in_reporting' => 'node_content',
-      'field_ef_style_and_presentation' => 'node_content',
-      'field_ef_command_of_english' => 'node_content',
-      'field_ef_product_criteria' => 'node_content',
+      'comments' => 'node_comments',
     ),
     'classes' => array(),
     'wrappers' => array(
@@ -1697,38 +1661,32 @@ function ef_publications_ds_layout_settings_info() {
     'regions' => array(
       'node_metadata' => array(
         0 => 'group_node_tagging',
-        2 => 'field_ef_theme',
-        4 => 'field_ef_topic',
-        5 => 'field_ef_observatory',
+        4 => 'post_date',
+        5 => 'field_ef_topic',
+        6 => 'field_ef_theme',
+        7 => 'field_ef_observatory',
+        8 => 'field_ef_spotlight_theme',
       ),
       'node_content' => array(
         1 => 'field_ef_main_image',
-        3 => 'group_node_about',
-        6 => 'body',
-        8 => 'post_date',
-        9 => 'field_ef_spotlight_theme',
+        2 => 'body',
       ),
       'node_downloads' => array(
-        7 => 'field_ef_documents',
+        3 => 'field_ef_documents',
       ),
     ),
     'fields' => array(
       'group_node_tagging' => 'node_metadata',
       'field_ef_main_image' => 'node_content',
-      'field_ef_theme' => 'node_metadata',
-      'group_node_about' => 'node_content',
-      'field_ef_topic' => 'node_metadata',
-      'field_ef_observatory' => 'node_metadata',
       'body' => 'node_content',
       'field_ef_documents' => 'node_downloads',
-      'post_date' => 'node_content',
-      'field_ef_spotlight_theme' => 'node_content',
+      'post_date' => 'node_metadata',
+      'field_ef_topic' => 'node_metadata',
+      'field_ef_theme' => 'node_metadata',
+      'field_ef_observatory' => 'node_metadata',
+      'field_ef_spotlight_theme' => 'node_metadata',
     ),
-    'classes' => array(
-      'layout_class' => array(
-        '' => '',
-      ),
-    ),
+    'classes' => array(),
     'wrappers' => array(
       'node_sub_header' => 'div',
       'node_languages' => 'div',

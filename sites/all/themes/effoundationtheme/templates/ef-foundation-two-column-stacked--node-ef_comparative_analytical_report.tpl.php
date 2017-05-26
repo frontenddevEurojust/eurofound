@@ -161,13 +161,6 @@
 
         $observatory = $node->field_ef_observatory['und'][0]['taxonomy_term']->name;
 
-   /*     foreach ($node->field_ef_theme['und'] as $key => $value)
-          {
-
-              $themes[$key] =$value['taxonomy_term']->name;
-
-          } */
-
 
         foreach ($node->field_ef_topic['und'] as $key => $value)
           {
@@ -182,15 +175,7 @@
 
               echo "<ul class='th-list inline-list' style='margin-left: 0px; margin-right: 10px;'>";
               echo "<li class='obserli'>Observatory: ".$observatory."</li>";
-      /*        echo "<li class='firstl'>Themes: </li>";
-
-              foreach ($themes as $key => $value) {
-
-                echo "<li class='nc-lis'>" ;
-                echo $value;
-                echo "</li>";
-
-              }   */
+ 
 
                echo "<li class='firstl'>Topic: </li>";
 

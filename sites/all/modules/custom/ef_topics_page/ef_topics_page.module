@@ -94,7 +94,7 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
   if($form['#id'] == 'taxonomy-form-term')
   {
-    
+
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
         'visible' => array(
@@ -107,6 +107,9 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
             'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
         )
     );
+
+    // Hide last updated field as it is populated automatically
+    $form['field_term_last_updated']['#type'] = 'hidden';
  
   }
 
@@ -165,6 +168,69 @@ function _update_topics_tab($tid, $content_type_name, $page){
         drupal_json_output(array('status' => 500, 'data' => 'There was an error processing your request'));
     }
  
-      
+}
+/*
+ * Implements hook_node_presave($node)
+ *
+ * Act on a node being inserted or updated.  
+ *
+ * @param  $node. 
+*/
+function ef_topics_page_node_presave($node){
+    
+    // Force save for a taxonomic term when it's added so that last_updated field is updated
 
+    $topics_types = array('ef_publication','ef_report','ef_news','ef_event');
+
+    if(in_array($node->type, $topics_types))
+    {
+
+        $input_array = [];
+        $original_array = [];
+
+        if( isset($node->field_ef_topic['und']) )
+        {
+            $input_array = $node->field_ef_topic['und']; 
+        }
+        
+        if( isset($node->original->field_ef_topic['und']) )
+        {
+            $original_array = $node->original->field_ef_topic['und'];
+        }
+        
+        
+        
+        $difference = array_diff_assoc($input_array, $original_array);
+        
+        if(count($difference))
+        {
+            
+            foreach ($difference as $key => $element) 
+            {
+                taxonomy_term_save(taxonomy_term_load($element['tid']));
+            }
+        
+        }
+        
+    }
+    
+}
+
+
+/*
+ * Implements hook_taxonomy_term_presave($term)
+ *
+ * Act on taxonomy terms before they are saved.
+ *
+ * @param $term
+*/
+function ef_topics_page_taxonomy_term_presave($term){
+
+    if($term->vocabulary_machine_name == 'ef_topics')
+    {
+
+        $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
+    
+    }
+    
 }

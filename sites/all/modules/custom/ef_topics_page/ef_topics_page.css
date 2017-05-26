@@ -3,29 +3,40 @@
 .page-topic .ef-main{
   overflow: auto;
 }
-
-.section-topic .quicktabs-style-basic .quicktabs-tabs li{
-  width: auto;
+.last-updated{
+  float: right;
 }
+/** edit tabs **/
+.button-group{
+
+}
+.button-group li{
+
+}
+.button-group li a{
+
+}
+.button-group li.current{
+
+}
+.button-group li.current a{
+
+}
+
 
 .section-topic .bloque{
   clear: both;
 }
-.page-topic section.block-quicktabs{
-  clear: both;
-  margin-top: 4em;
-}
-
 .topic-subscription {
-  border: 2px solid #F7931E;
   margin-bottom: 2.5em;
   margin-top: 1em;
   clear: both;
   float: left;
   width: 100%;
+  text-align: center;
 }
 .topic-subscription:hover {
-  border: 2px dotted #666;
+
 }
 .topic-subscription a{
   color: #F7931E;
@@ -34,12 +45,9 @@
   padding: 0px 10px 12px 12px;
 }
 .topic-subscription a:hover{
-    background: #f9f9f9;
     color: #666;
 }
-.topic-subscription a:hover .fa:before {
-   color: #666;
-}
+
 .topic-subscription a .fa:before {
   content: "\f003";
   font-size: 2.2rem;
@@ -99,39 +107,81 @@
   height: 140px;
   margin-bottom: 14px;
 }
-.page-topic .light-style ul.quicktabs-tabs.quicktabs-style-basic {
-    height: 45px;
-    background: transparent url(images/tabs-border.png) repeat-x left bottom;
-}
-.page-topic .quicktabs-tabs.quicktabs-style-basic li a{
-  color:#005baa !important;
-  font-family: 'OpenSans-Semibold-webfont'!important;
 
+
+
+/** tabs **/
+.page-topic .section-container.tabs>.section>.content, 
+.page-topic .section-container.tabs>section>.content {
+    padding: .9375em;
+    background-color: #fff;
+    border: none;
+    border-top: solid 1px #ccc;
 }
-.page-topic ul.quicktabs-tabs.quicktabs-style-basic li{
-  border: 1px solid #E9EBEC  !important;
-  border-bottom: 0 !important;
-  width: auto !important;
+.page-topic .section-container.tabs>.section>.title, 
+.page-topic .section-container.tabs>section>.title {
+    cursor: pointer;
+    background-color: #F9F9F9!important;
+    height: 45px;
+    padding: 0px 0px;
+    margin-right: 10px;
+    border-radius: 4px 4px 0 0;
+    display: inline-block;
+    border: none!important;
+    -moz-box-shadow: inset 0px -1px 2px #B9BEC3;
+    -webkit-box-shadow: inset 0px -1px 2px #B9BEC3;
+    box-shadow: inset 0px -1px 2px #B9BEC3;
 }
-.page-topic ul.quicktabs-tabs.quicktabs-style-basic li.active {
+.page-topic .section-container.tabs>.section>.title a, 
+.page-topic .section-container.tabs>section>.title a {
+    padding: 13px 20px!important;
+    width: auto;
+    text-align: center;
+    white-space: nowrap!important;
+    margin: auto!important;
+    font-size: 18px!important;
+    background-color: transparent!important;
+    font-family: 'OpenSans-Semibold-webfont'!important;
+    color: #005baa !important;
+}
+.page-topic .section-container.tabs>.section>.title a:hover, 
+.page-topic .section-container.tabs>section>.title a:hover {
+    color: #F7931E !important;
+}
+.page-topic .section-container.tabs>.section.active>.title, 
+.page-topic .section-container.tabs>section.active>.title {
+    border-bottom: 0;
+    background-color: #FFF !important;
     -moz-box-shadow: 1px -4px 6px #B9BEC3 !important;
     -webkit-box-shadow: 1px -4px 6px #B9BEC3 !important;
     box-shadow: 1px -4px 6px #B9BEC3 !important;
 }
-.page-topic .light-style .quicktabs_main.quicktabs-style-basic{
-  border: none !important;
-  -moz-box-shadow: 0 0 0px #8b8b8b !important;
-  -webkit-box-shadow: 0 0 0px #8b8b8b !important;
-  box-shadow: 0 0 0px #8b8b8b !important;
-  padding-left: 0 !important;
+.page-topic .section-container.tabs>.section.active>.title a, 
+.page-topic .section-container.tabs>section.active>.title a {
+    color: #7D9CCC!important;
+}
+.page-topic .section-container.tabs .total-items{
+  font-size: 12px !important;
+}
+.page-topic .latest-news-list{
+  list-style-type: none;
+  margin: 10px;
+}
+.page-topic .latest-news-list li a{
+  font-family: 'Opensans-bold-webfont';
 }
 
-.page-topic .quicktabs_main ul.latest-news-list li{
-  list-style-type: none;
+.page-topic  .pagination-centered .item-list {
+  float: none;
+  margin: auto;
 }
-.page-topic .quicktabs_main ul.latest-news-list li a{
-  font-family:'Opensans-bold-webfont';
+
+.page-topic .section-container.tabs>section.active2 .content{
+  display: none !important;
 }
+    
+
+/** aside **/
 .featured-block, .related-links-block{
     margin-top: 40px;
 }
@@ -163,6 +213,8 @@
   margin-right: 9px;
   color: #F7931E;
 }
+
+
 /** loading **/
 .page-topic .ajax-progress {
     display: block;
@@ -171,37 +223,23 @@
 }
 
 
-@media only screen and (min-width: 740px) and (max-width: 1024px){
-  .page-topic ul.quicktabs-tabs.quicktabs-style-basic li{
-    width: auto !important;
-    margin: 0;
-  }
-  .page-topic section.block-quicktabs{
-      position: relative;
-      width: 140%;
-  }
-  .page-topic .light-style .quicktabs_main.quicktabs-style-basic{
-    border: none !important;
-    padding: 0 !important;
-  }
-  .topic-subscription a {
-      padding-left: 60px;
-  }
-  .topic-subscription a .fa {
-      margin-left: -46px;
-  }
-  .featured-block, .related-links-block{
-    text-align: left;
-  }
+/** responsive **/
 
+@media only screen and (max-width: 767px){
+.page-topic .section-container.tabs>.section, 
+.page-topic .section-container.tabs>section, 
+.page-topic .section-container.tabs>.section.active, 
+.page-topic .section-container.tabs>section.active{
+  padding-top: 0 !important;  
 }
-@media only screen and (max-width: 739px){
-  .topic-subscription a {
-      padding-left: 60px;
-  }
-  .topic-subscription a .fa {
-      margin-left: -46px;
-  }
+.page-topic .section-container.tabs>.section>.title, 
+.page-topic .section-container.tabs>section>.title{
+    position: relative;
+    top: 0;
+    left: 0 !important;
+    width: 100%;  
+}
+
   .related-content-topic{
     display: block;
   }
@@ -213,19 +251,6 @@
       display: block;
       float: none;
       text-align: center;
-  }
-  .page-topic section.block-quicktabs {
-    position: relative;
-    width: 107%;
-  }
-  .page-topic .light-style ul.quicktabs-tabs.quicktabs-style-basic {
-      height: auto;
-      background: transparent url(images/tabs-border.png) repeat-x left bottom;
-  }
-  .page-topic ul.quicktabs-tabs.quicktabs-style-basic li{
-    width: 100%!important;
-    margin: 0 !important;
-    text-align: left;
   }
 
 }

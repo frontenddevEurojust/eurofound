@@ -15,7 +15,7 @@ function ef_spotlight_taxonomy_default_vocabularies() {
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
-      'weight' => 0,
+      'weight' => 10,
       'language' => 'und',
       'i18n_mode' => 1,
       'rdf_mapping' => array(
