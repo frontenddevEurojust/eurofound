@@ -82,6 +82,24 @@ jQuery(document).ready(function($) {
 
 	function variablesInitialization(){
 
+			$('select#edit-sector').find('option:selected').removeAttr('selected');
+			
+			$('select#edit-sector option').each(function(index, element){
+				if ($(element).attr('value') == '13845'){
+					$(element).attr('selected', 'selected');
+					$('select#edit-sector').trigger("chosen:updated");
+				}
+			});
+
+			$('select#edit-scope').find('option:selected').removeAttr('selected');
+
+			$('select#edit-scope option').each(function(index, element){
+				if ($(element).attr('value') == '13860'){
+					$(element).attr('selected', 'selected');
+					$('select#edit-scope').trigger("chosen:updated");
+				}
+			});
+
 			if(hasBeenInitiated){
 				return false;
 			}
@@ -124,23 +142,6 @@ jQuery(document).ready(function($) {
 				var $firstVariable = $("input[name='variables[]']").first();
 				$firstVariable.prop('checked', true);
 
-				$('select#edit-sector').find('option:selected').removeAttr('selected');
-				
-				$('select#edit-sector option').each(function(index, element){
-					if ($(element).attr('value') == '13845'){
-						$(element).attr('selected', 'selected');
-						$('select#edit-sector').trigger("chosen:updated");
-					}
-				});
-
-				$('select#edit-scope').find('option:selected').removeAttr('selected');
-
-				$('select#edit-scope option').each(function(index, element){
-					if ($(element).attr('value') == '13860'){
-						$(element).attr('selected', 'selected');
-						$('select#edit-scope').trigger("chosen:updated");
-					}
-				});
 				// LLAMADA A MORDOR
 				jQuery("#views-exposed-form-cwb-time-series-page").submit();
 			}else{
