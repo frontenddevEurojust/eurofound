@@ -372,7 +372,7 @@ function ef_search_block_view($delta = '') {
         if (count($terms) == 1) {
           $image = taxonomy_term_load($tid['tid']);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];
-          //$block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
+          $block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
           $block['content'] .= '<p>' .  $term['description'] . '</p>';
         }
         return $block;
@@ -847,4 +847,19 @@ function _ef_search_keywords_autocomplete($string = '*') {
   }
  
   drupal_json_output($matches);
+}
+
+/**
+ * Implements hook_pathauto_alias_alter()
+ */
+function ef_search_pathauto_alias_alter(&$alias, array &$context) {
+  //Pathauto gets the translated name to generate a URL alias containing the translated term
+  //and this is not the expected behavior. Here we force to generate the alias with
+  //the non-translated term.
+  if ($context['module'] == 'taxonomy_term' && $context['pattern'] == '[term:vocabulary]/[term:name]') {
+    $term = $context['data']['term']->name_field['en'][0]['value'];
+    $vocabulary_obj = taxonomy_vocabulary_machine_name_load($context['type']);
+    $vocabulary = $vocabulary_obj->name;
+    $alias = pathauto_cleanstring($vocabulary) . '/' . pathauto_cleanstring($term);
+  }
 }

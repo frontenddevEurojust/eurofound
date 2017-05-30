@@ -1,7 +1,8 @@
 
 /**** PAGE TOPICS ***/
 .page-topic .ef-main{
-  overflow: auto;
+  width: 100%;
+  float: left;
 }
 .last-updated{
   float: right;
@@ -63,7 +64,7 @@
 }
 .topic-abstract p:first-child {
     padding: 12px;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-radius: 8px;
     width: auto;
     display: inline-block;
@@ -224,7 +225,16 @@
 
 
 /** responsive **/
-
+@media only screen  and (min-width: 768px) and (max-width: 1024px){
+  .page-topic .section-container.tabs>.section>.title, 
+  .page-topic .section-container.tabs>section>.title {
+ 
+  }
+  .page-topic .section-container.tabs>.section>.title a, 
+  .page-topic .section-container.tabs>section>.title a{
+    padding: 13px 10px !important;  
+  }
+}
 @media only screen and (max-width: 767px){
 .page-topic .section-container.tabs>.section, 
 .page-topic .section-container.tabs>section, 
@@ -237,7 +247,7 @@
     position: relative;
     top: 0;
     left: 0 !important;
-    width: 100%;  
+    width: 100% !important;  
 }
 
   .related-content-topic{
@@ -247,6 +257,7 @@
     list-style-type: none;
     margin-bottom: 3em;
   }
+
   .topic-abstract p:first-child {
       display: block;
       float: none;
@@ -256,3 +267,31 @@
 }
 
 /*** END PAGE TOPICS ***/
+
+
+@media only print {
+  .page-topic .section-container.tabs>.section.active, 
+  .page-topic .section-container.tabs>section.active{
+      padding-top: 10px !important;
+  } 
+  .page-topic .section-container.tabs>.section>.title , 
+  .page-topic .section-container.tabs>section>.title  {
+      display: none;
+  }
+  .page-topic .section-container.tabs>.section.active>.title, 
+  .page-topic .section-container.tabs>section.active>.title {
+      display: block;
+      left: 0 !important;
+      margin: 0 !important;
+  } 
+  .page-topic .section-container.tabs>.section.active>.title a, 
+  .page-topic .section-container.tabs>section.active>.title a {
+      color: #000!important;
+      padding: 0 !important;
+  }
+
+
+  .page-topic .featured-block, .related-links-block {
+      width: 15cm;
+  }
+}
