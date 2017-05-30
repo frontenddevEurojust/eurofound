@@ -89,7 +89,6 @@ if (isset($content['field_ef_document'][0]['#file']))
 
 if ($state == 'forthcoming')
 {
-
 	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
 	$publication_date = date_format($publication_date,"F Y");
 }

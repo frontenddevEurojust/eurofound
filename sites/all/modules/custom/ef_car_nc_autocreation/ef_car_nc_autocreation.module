@@ -76,106 +76,106 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	unset($countriesList['TR']);
 
 
-    $form['title'] = array(
+  $form['title'] = array(
 	 '#title' => t('Title'),
 	 '#type' => 'textfield',
 	 '#required' => TRUE,
-    );
+  );
 
-    $form['scheduled_record_delivery_date'] = array(
-	 '#type' => 'date_popup',
-	 '#title' => t('Scheduled Record Delivery Date'),
-	 '#date_format' => 'd F Y',
-	 '#default_value' => date('YYYY/mm/dd'),
-	 '#date_label_position' => 'within',
-	 '#datepicker_options' => array(
+  $form['scheduled_record_delivery_date'] = array(
+		'#type' => 'date_popup',
+		'#title' => t('Scheduled Record Delivery Date'),
+		'#date_format' => 'd F Y',
+		'#default_value' => date('YYYY/mm/dd'),
+		'#date_label_position' => 'within',
+		'#datepicker_options' => array(
     	'minDate' => 0, //Disable the days previous to the current date
-  	 ),
-	 '#required' => TRUE,
+  	),
+		'#required' => TRUE,
 	);
 
 	$form['national_contribution_deadline'] = array(
-	 '#type' => 'date_popup',
-	 '#title' => t('National Contribution Deadline'),
-	 '#date_format' => 'd F Y',
-	 '#default_value' => date('YYYY/mm/dd'),
-	 '#date_label_position' => 'within',
-	 '#datepicker_options' => array(
+		'#type' => 'date_popup',
+		'#title' => t('National Contribution Deadline'),
+		'#date_format' => 'd F Y',
+		'#default_value' => date('YYYY/mm/dd'),
+		'#date_label_position' => 'within',
+		'#datepicker_options' => array(
     	'minDate' => 0, //Disable the days previous to the current date
-  	 ),
-	 '#required' => TRUE,
+  	),
+		'#required' => TRUE,
 	);
 
 
-    $form['obseravory']=array(
-	 '#type' => 'select',
-	 '#title' => t('Observatories'),
-	 '#options' => $obse_list,
-	 '#required' => FALSE,
-	 '#multiple' => TRUE,
-	 '#attributes' => array(
-		'class' => array('car-nc-creation'),
-	  	),
-	  );
+  $form['obseravory']=array(
+		'#type' => 'select',
+		'#title' => t('Observatories'),
+		'#options' => $obse_list,
+		'#required' => FALSE,
+		'#multiple' => TRUE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+	  ),
+	);
 
-      $form['theme']=array(
-	 '#type' => 'select',
-	 '#title' => t('Themes'),
-	 '#options' => $theme_list,
-	 '#required' => FALSE,
-	 '#multiple' => TRUE,
-	 '#attributes' => array(
-		'class' => array('car-nc-creation'),
-	  	),
-	  );
-      $form['topic']=array(
-	 '#type' => 'select',
-	 '#title' => t('Topics'),
-	 '#options' => $topic_list,
-	 '#required' => FALSE,
-	 '#multiple' => TRUE,
-	 '#attributes' => array(
-		'class' => array('car-nc-creation'),
-	  	),
-	  );
+  $form['theme']=array(
+		'#type' => 'select',
+		'#title' => t('Themes'),
+		'#options' => $theme_list,
+		'#required' => FALSE,
+		'#multiple' => TRUE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+	  ),
+	);
+  
+  $form['topic']=array(
+		'#type' => 'select',
+		'#title' => t('Topics'),
+		'#options' => $topic_list,
+		'#required' => FALSE,
+		'#multiple' => TRUE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+	  ),
+	);
 
-      $form['sector']=array(
-	 '#type' => 'select',
-	 '#title' => t('Sectors'),
-	 '#options' => $sector_list,
-	 '#required' => FALSE,
-	 '#multiple' => TRUE,
-	 '#attributes' => array(
-		'class' => array('car-nc-creation'),
-	  	),
-	  );
+  $form['sector']=array(
+		'#type' => 'select',
+		'#title' => t('Sectors'),
+		'#options' => $sector_list,
+		'#required' => FALSE,
+		'#multiple' => TRUE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+	  ),
+	);
 
-	  $form['deliver']=array(
-	 '#type' => 'select',
-	 '#title' => t('National Contribution Deliverable Kind'),
-	 '#options' => $deliver_list,
-	 '#required' => FALSE,
-	 '#multiple' => FALSE,
-	 '#attributes' => array(
-		'class' => array('car-nc-creation'),
-	  	),
-	  );
+	$form['deliver']=array(
+		'#type' => 'select',
+		'#title' => t('National Contribution Deliverable Kind'),
+		'#options' => $deliver_list,
+		'#required' => FALSE,
+		'#multiple' => FALSE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+		),
+	);
 
 	$form['body'] = array(
-	 '#title' => t('Body'),
-	 '#type' => 'text_format',
-      '#base_type' => 'textarea',
-	 );
+		'#title' => t('Body'),
+		'#type' => 'text_format',
+    '#base_type' => 'textarea',
+	);
 
 
 	/* --- Changed by Bilbomatica --- */
 	$form['country'] = array(
-	 '#type' => 'checkboxes',
-	 '#title' => t('NCs/Countries'),
-	 '#options' => $countriesList,
-	 '#required' => TRUE,
-	 '#multiple' => TRUE,
-
+		'#type' => 'checkboxes',
+		'#title' => t('NCs/Countries'),
+		'#options' => $countriesList,
+		'#required' => TRUE,
+		'#multiple' => TRUE,
 	);
 
 	$form['addAllButton'] = array(
@@ -194,352 +194,339 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		'#options' => array(
 			'None' => 'None',
 			'PROVISION OF ON REQUEST REPORTING SERVICES' => 'Provision of on request reporting services',
-			'PROVISION OF SCHEDULED REPORTING SERVICES' => 'Provision of scheduled reporting services'),
-		);
-
+			'PROVISION OF SCHEDULED REPORTING SERVICES' => 'Provision of scheduled reporting services'
+		),
+	);
 
 	/* --- end --- */
-
 	$form['file2'] = array(
-	    '#type' => 'file',
-	    '#title' => t('Source Document'),
-	    '#upload_location' => 'public://ef_comparative_analytical_report/field_ef_source_documents/',
+	  '#type' => 'file',
+		'#title' => t('Source Document'),
+	  '#upload_location' => 'public://ef_comparative_analytical_report/field_ef_source_documents/',
 	);
 
 
 	$form['file1'] = array(
-	    '#type' => 'file',
-	    '#title' => t('Documents'),
-	    '#upload_location' => 'public://ef_comparative_analytical_report/field_ef_document/',
+	  '#type' => 'file',
+	  '#title' => t('Documents'),
+	  '#upload_location' => 'public://ef_comparative_analytical_report/field_ef_document/',
 	);
 
 
 	$form['submit'] = array(
 		'#type' => 'submit',
 		'#value' => 'Submit',
-
 	);
 
 	/* --- Attached files (bilbomatica) --- */
 	$form['#attached']['js'] = array(
-    	drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.js',
-  	);
+    drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.js',
+  );
 	$form['#attached']['css'] = array(
-    	drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.css',
-  	);
+  	drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.css',
+  );
   	/* --- end --- */
 	return $form;
-
 }
 
 
 function car_nc_autocreation_form_validate($form, &$form_state) {
-		//   txt, pdf, doc, docx, xls, xlsx, ppt, pptx
-		//   10 MB.
-		// File validation
-		$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
-		if($form_state['values']['file1']!=''){
-			$file_name = $form_state['values']['file1']['name'];
-			$file_size = $form_state['values']['file1']['size'];
-			$file_type = explode(".",$file_name);
-			$file_type_extension = array_pop($file_type);
+	//   txt, pdf, doc, docx, xls, xlsx, ppt, pptx
+	//   10 MB.
+	// File validation
+	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
+	
+	if($form_state['values']['file1']!=''){
+		$file_name = $form_state['values']['file1']['name'];
+		$file_size = $form_state['values']['file1']['size'];
+		$file_type = explode(".",$file_name);
+		$file_type_extension = array_pop($file_type);
 
-			if(!in_array($file_type_extension, $allowed_types)){
-
-	    	   form_set_error('file1', 'Please provide a file with one of these extensions pdf , txt , doc , docx , xlx , xlsx , log.');
-	 		   $form_state['rebuild'] = TRUE;
-			 }
-			if($file_size>10000000){
-			   form_set_error('file1', 'File must be below 10MB.');
-			   $form_state['rebuild'] = TRUE;
-			}
-			$file = file_save_upload('file1',array('file_validate_extensions' => array('pdf txt doc docx xls xlsx ppt pptx')));
-			// If the file passed validation:
-			if ($file){
-	            // Move the file into the Drupal file system.
-	            if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_document', FILE_EXISTS_RENAME)) {
-	            // Save the file for use in the submit handler.
-	            $form_state['storage']['file1'] = $file;
-				}
-			    else
-				{
-				   form_set_error('file1', t("Failed to write the uploaded file to the site's file folder."));
-			    }
-		    }
-	    	else{
-	        	form_set_error('file1', t('No file was uploaded.'));
-	    	}
+		if(!in_array($file_type_extension, $allowed_types)){
+			form_set_error('file1', 'Please provide a file with one of these extensions pdf , txt , doc , docx , xlx , xlsx , log.');
+	 		$form_state['rebuild'] = TRUE;
 		}
-		if($form_state['values']['file2']!=''){
-			$file_name = $form_state['values']['file2']['name'];
-			$file_size = $form_state['values']['file2']['size'];
-			$file_type = explode(".",$file_name);
-			$file_type_extension = array_pop($file_type);
-			if(!in_array($file_type_extension, $allowed_types)){
-			   form_set_error('file2', 'Please provide a file with one of these extensions pdf , txt , doc , docx , xlx , xlsx , ppt , pptx.');
-	    	   $form_state['rebuild'] = TRUE;
-			}
-			if($file_size>10000000){
-			   form_set_error('file2', 'File must be below 10MB.');
-			   $form_state['rebuild'] = TRUE;
-			}
-			//I upload the file with file_save upload
-			$file = file_save_upload('file2', array('file_validate_extensions' => array('pdf txt doc docx xls xlsx ppt pptx')));
-			if ($file){
-	            // Move the file into the Drupal file system.
-	            if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_source_documents', FILE_EXISTS_RENAME)) {
-	            // Save the file for use in the submit handler.
-	            $form_state['storage']['file2'] = $file;
-				}
-			    else
-				{
-				   form_set_error('file2', t("Failed to write the uploaded file to the site's file folder."));
-			    }
-		    }
-	    	else{
-	        	form_set_error('file2', t('No file was uploaded.'));
-	    	}
-
-
+		
+		if($file_size>10000000){
+			form_set_error('file1', 'File must be below 10MB.');
+			$form_state['rebuild'] = TRUE;
 		}
-		if($form_state['values']['contract'] == 'None'){
-			form_set_error('contract', t('You need to choose the type of contract before submitting.'));
+		
+		$file = file_save_upload('file1',array('file_validate_extensions' => array('pdf txt doc docx xls xlsx ppt pptx')));
+		// If the file passed validation:
+		if ($file){
+	  	// Move the file into the Drupal file system.
+	    if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_document', FILE_EXISTS_RENAME)) {
+	  	// Save the file for use in the submit handler.
+	      $form_state['storage']['file1'] = $file;
+			}
+			else {
+				form_set_error('file1', t("Failed to write the uploaded file to the site's file folder."));
+			}
 		}
+	  else{
+	   	form_set_error('file1', t('No file was uploaded.'));
+	  }
+	}
+	
+	if($form_state['values']['file2']!=''){
+		$file_name = $form_state['values']['file2']['name'];
+		$file_size = $form_state['values']['file2']['size'];
+		$file_type = explode(".",$file_name);
+		$file_type_extension = array_pop($file_type);
+	
+		if(!in_array($file_type_extension, $allowed_types)){
+			form_set_error('file2', 'Please provide a file with one of these extensions pdf , txt , doc , docx , xlx , xlsx , ppt , pptx.');
+	     $form_state['rebuild'] = TRUE;
+		}
+		
+		if($file_size>10000000){
+			form_set_error('file2', 'File must be below 10MB.');
+			$form_state['rebuild'] = TRUE;
+		}
+		
+		//I upload the file with file_save upload
+		$file = file_save_upload('file2', array('file_validate_extensions' => array('pdf txt doc docx xls xlsx ppt pptx')));
+		if ($file){
+	  	// Move the file into the Drupal file system.
+	    if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_source_documents', FILE_EXISTS_RENAME)) {
+	    // Save the file for use in the submit handler.
+	    $form_state['storage']['file2'] = $file;
+			}
+		  else {
+				form_set_error('file2', t("Failed to write the uploaded file to the site's file folder."));
+			}
+		}
+	  else {
+	  	form_set_error('file2', t('No file was uploaded.'));
+	  }
+	}
 
-
-
+	if($form_state['values']['contract'] == 'None'){
+		form_set_error('contract', t('You need to choose the type of contract before submitting.'));
+	}
 }
 
 function car_nc_autocreation_form_submit($form, &$form_state){
-		global $user;
+	global $user;
 
-		/* --- check selected countries --- */
-		$selectedCountries = array();
-		foreach ($form_state['values']['country'] as $key => $value) {
-			if($value != '0'){
-				$selectedCountries[] = $key;
-			}
+	/* --- check selected countries --- */
+	$selectedCountries = array();
+	foreach ($form_state['values']['country'] as $key => $value) {
+		if($value != '0'){
+			$selectedCountries[] = $key;
 		}
-		/* --- end --- */
+	}
+	/* --- end --- */
 
-		$contributionsIds=array();
-		foreach($selectedCountries as $country){
+	$contributionsIds=array();
 
-
-			$countryName = db_query('select name FROM {countries_country} WHERE iso2 = :code', array(':code' => $country))->fetchField();
-			$node = new stdClass();
-			$node->language = "en";
-			$node->title = $countryName.": ".$form_state['values']['title'];
-			$node->type = 'ef_national_contribution';
-			$node->language = "en";
-			node_object_prepare($node);
-			$node->uid = $user->uid;
-			$node->field_ef_country['und'][]['iso2']=$country;
-		 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
-			$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
-
-
-
-			if(isset($form_state['storage']['file1'])){
-			    $file1 = $form_state['storage']['file1'];
-			    // We are done with the file, remove it from storage.
-			    unset($form_state['storage']['file1']);
-			    // Make the storage of the file permanent.
-			    $file1->status = FILE_STATUS_PERMANENT;
-			    // Save file status.
-			    file_save($file1);
-			    $file1->display = 1;
-			    $file1->description = "";
-
-			}
-			if(isset($form_state['storage']['file2'])){
-
-			    $file2 = $form_state['storage']['file2'];
-			    // We are done with the file, remove it from storage.
-			    unset($form_state['storage']['file2']);
-			    // Make the storage of the file permanent.
-			    $file2->status = FILE_STATUS_PERMANENT;
-			    // Save file status.
-			    file_save($file2);
-			    $file2->display = 1;
-			    $file2->description = "";
-
-	    	}
-
-	    	$node->field_ef_documents[LANGUAGE_NONE][0]=(array)$file1;
-			$node->field_ef_source_documents[LANGUAGE_NONE][0]=(array)$file2;
-
-			$term_index = 0 ;
-			foreach ($form_state['values']['obseravory'] as $key => $value) {
-				$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid']=$value;
-				$term_index++;
-			}
-
-		   	$term_index = 0 ;
-			foreach ($form_state['values']['topic'] as $key => $value) {
-				$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid']=$value;
-				$term_index++;
-			}
-
-			$term_index = 0 ;
-			foreach ($form_state['values']['theme'] as $key => $value) {
-				$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid']=$value;
-				$term_index++;
-			}
-
-			$term_index = 0 ;
-			foreach ($form_state['values']['sector'] as $key => $value) {
-				$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid']=$value;
-				$term_index++;
-			}
-
-			// $node->field_ef_documents['en'][0]=$form_state['values']['file2'];
-			// $node->field_ef_source_documents['en'][0]=$form_state['values']['file1'];
-			if (isset($form_state['values']['deliver'])){
-				$node->field_ef_deliverable_kind['und'][]['tid']=$form_state['values']['deliver'];
-			}
-			$node->status = 0;
-			$node->promote = 0;
-
-			$select = "SELECT b.name
-								 FROM countries_country b
-								 WHERE b.iso2 = :country";
-			$country_name = db_query($select,array(':country' => $country))->fetchAll();
-
-			$group = group_load_by_name($country_name[0]->name);
-			$node = nc_contract($node,$group,$form_state['values']['contract']);
-
-
-			$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
-			$dsm_title = $node->title;
-			$node = node_submit($node); // Prepare node for saving
-			node_save($node);
-
-			$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
-
-			drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
-			drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
-
-			workbench_moderation_moderate($node, "requested");
-    	field_attach_update('node', $node);
-    	entity_get_controller('node')->resetCache(array($node->nid));
-
-			$contributionsIds[]=$node->nid;
-
-
-		}
-
-		if(isset($form_state['storage']['file1'])){
-		        $file1 = $form_state['storage']['file1'];
-		        // We are done with the file, remove it from storage.
-		        unset($form_state['storage']['file1']);
-		        // Make the storage of the file permanent.
-		        $file1->status = FILE_STATUS_PERMANENT;
-		        // Save file status.
-		        file_save($file1);
-		        $file1->display = 1;
-		        $file1->description = "";
-
-		}
-		if(isset($form_state['storage']['file2'])){
-
-	        $file2 = $form_state['storage']['file2'];
-	        // We are done with the file, remove it from storage.
-	        unset($form_state['storage']['file2']);
-	        // Make the storage of the file permanent.
-	        $file2->status = FILE_STATUS_PERMANENT;
-	        // Save file status.
-	        file_save($file2);
-	        $file2->display = 1;
-	        $file2->description = "";
-
-    	}
-
-
-
+	foreach($selectedCountries as $country){
+		$countryName = db_query('select name FROM {countries_country} WHERE iso2 = :code', array(':code' => $country))->fetchField();
 		$node = new stdClass();
-
 		$node->language = "en";
-		$node->title = $form_state['values']['title'];
-		$node->type = 'ef_comparative_analytical_report';
+		$node->title = $countryName.": ".$form_state['values']['title'];
+		$node->type = 'ef_national_contribution';
+		$node->language = "en";
 		node_object_prepare($node);
 		$node->uid = $user->uid;
-		$node->status = 0;
-		$node->promote = 0;
-		if (isset($form_state['values']['scheduled_record_delivery_date'])){
-			$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
-			$node->field_ef_car_report_deadline['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
-		}
-		if (isset($form_state['values']['national_contribution_deadline'])){
-			$node->field_ef_contribution_deadline['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
-		}
+		$node->field_ef_country['und'][]['iso2']=$country;
+	 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
 		$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
+
+		if(isset($form_state['storage']['file1'])){
+	    $file1 = $form_state['storage']['file1'];
+	    // We are done with the file, remove it from storage.
+	    unset($form_state['storage']['file1']);
+	    // Make the storage of the file permanent.
+	    $file1->status = FILE_STATUS_PERMANENT;
+	    // Save file status.
+	    file_save($file1);
+	    $file1->display = 1;
+	    $file1->description = "";
+		}
+
+		if(isset($form_state['storage']['file2'])){
+	    $file2 = $form_state['storage']['file2'];
+	    // We are done with the file, remove it from storage.
+	    unset($form_state['storage']['file2']);
+	    // Make the storage of the file permanent.
+	    $file2->status = FILE_STATUS_PERMANENT;
+	    // Save file status.
+	    file_save($file2);
+	    $file2->display = 1;
+	    $file2->description = "";
+   	}
+
+   	$node->field_ef_documents[LANGUAGE_NONE][0] = (array)$file1;
+		$node->field_ef_source_documents[LANGUAGE_NONE][0] = (array)$file2;
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['obseravory'] as $key => $value) {
-			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['topic'] as $key => $value) {
-			$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['theme'] as $key => $value) {
-			$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
 		$term_index = 0 ;
 		foreach ($form_state['values']['sector'] as $key => $value) {
-			$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid']=$value;
+			$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
 			$term_index++;
 		}
 
-
-		$node = node_submit($node); // Prepare node for saving
-
-		foreach($contributionsIds as $contributorId){
-		$national[]['target_id']= $contributorId;
+		// $node->field_ef_documents['en'][0]=$form_state['values']['file2'];
+		// $node->field_ef_source_documents['en'][0]=$form_state['values']['file1'];
+		if (isset($form_state['values']['deliver'])){
+			$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
 		}
-		$node->field_ef_national_contribution[LANGUAGE_NONE]= $national;
-		$node->field_ef_deliverable_kind['und'][]['tid']=13718;
+		$node->status = 0;
+		$node->promote = 0;
 
-		$node->field_ef_documents[LANGUAGE_NONE][0]=(array)$file1;
-		$node->field_ef_source_documents[LANGUAGE_NONE][0]=(array)$file2;
+		$select = "SELECT b.name
+							 FROM countries_country b
+							 WHERE b.iso2 = :country";
+		$country_name = db_query($select,array(':country' => $country))->fetchAll();
 
+		$group = group_load_by_name($country_name[0]->name);
+		$node = nc_contract($node,$group,$form_state['values']['contract']);
+
+
+		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 		$dsm_title = $node->title;
-
-		$group = group_load_by_name("Eurofound");
-		$node = car_contract($node,$group);
-
-
 		$node = node_submit($node); // Prepare node for saving
 		node_save($node);
 
-		$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 
 		drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
-		drupal_set_message(l("View CAR: " . $dsm_title, $nodeUrl));
-		drupal_set_message( 'Change the group and contract for the overview report. Contact the web team for support.');
+		drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
+
+		workbench_moderation_moderate($node, "requested");
+   	field_attach_update('node', $node);
+   	$created_nc_nids[] = $node->nid; 
+
+		$contributionsIds[] = $node->nid;
+	}
+
+	if(isset($form_state['storage']['file1'])){
+		$file1 = $form_state['storage']['file1'];
+		// We are done with the file, remove it from storage.
+		unset($form_state['storage']['file1']);
+		// Make the storage of the file permanent.
+		$file1->status = FILE_STATUS_PERMANENT;
+		// Save file status.
+		file_save($file1);
+		$file1->display = 1;
+		$file1->description = "";
+	}
+
+	if(isset($form_state['storage']['file2'])){
+  	$file2 = $form_state['storage']['file2'];
+		// We are done with the file, remove it from storage.
+		unset($form_state['storage']['file2']);
+		// Make the storage of the file permanent.
+		$file2->status = FILE_STATUS_PERMANENT;
+		// Save file status.
+		file_save($file2);
+		$file2->display = 1;
+		$file2->description = "";
+ 	}
+
+	$node = new stdClass();
+
+	$node->language = "en";
+	$node->title = $form_state['values']['title'];
+	$node->type = 'ef_comparative_analytical_report';
+	node_object_prepare($node);
+	$node->uid = $user->uid;
+	$node->status = 0;
+	$node->promote = 0;
+	if (isset($form_state['values']['scheduled_record_delivery_date'])){
+		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
+		$node->field_ef_car_report_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
+	}
+	if (isset($form_state['values']['national_contribution_deadline'])){
+		$node->field_ef_contribution_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
+	}
+	$node->body['en'][0] = array('value' => $form_state['values']['body']['value'],'format' => $form_state['values']['body']['format']);
+
+	$term_index = 0 ;
+	foreach ($form_state['values']['obseravory'] as $key => $value) {
+		$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
+		$term_index++;
+	}
+
+	$term_index = 0 ;
+	foreach ($form_state['values']['topic'] as $key => $value) {
+		$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
+		$term_index++;
+	}
+
+	$term_index = 0 ;
+	foreach ($form_state['values']['theme'] as $key => $value) {
+		$node->field_ef_theme[LANGUAGE_NONE][$term_index]['tid'] = $value;
+		$term_index++;
+	}
+
+	$term_index = 0 ;
+	foreach ($form_state['values']['sector'] as $key => $value) {
+		$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
+		$term_index++;
+	}
+
+
+	$node = node_submit($node); // Prepare node for saving
+
+	foreach ($contributionsIds as $contributorId) {
+		$national[]['target_id'] = $contributorId;
+	}
+	
+	$node->field_ef_national_contribution[LANGUAGE_NONE] = $national;
+	$node->field_ef_deliverable_kind['und'][]['tid'] = 13718;
+
+	$node->field_ef_documents[LANGUAGE_NONE][0] = (array)$file1;
+	$node->field_ef_source_documents[LANGUAGE_NONE][0] = (array)$file2;
+
+	$dsm_title = $node->title;
+
+	$group = group_load_by_name("Eurofound");
+	$node = car_contract($node,$group);
+
+	$node = node_submit($node); // Prepare node for saving
+	node_save($node);
+
+	foreach ($created_nc_nids as $key => $value) {
+ 		entity_get_controller('node')->resetCache(array($value));
+ 	}
+
+	$nodeUrl=url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+
+	drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
+	drupal_set_message(l("View CAR: " . $dsm_title, $nodeUrl));
+	drupal_set_message( 'Change the group and contract for the overview report. Contact the web team for support.');
 }
 
 function nc_contract($node, $groups,$contract){
-
   foreach ($groups as $key => $group) {
-
     $gid = $group->gid;
-
     $author_uid = get_group_leader_uid($gid);
     $author_user = user_load($author_uid);
     $author_member = group_membership_load($gid, $author_uid);
     $author_contracts = get_contract_by_user($author_user);
-
     $contract_tid = 0;
     $country_group_name = strtoupper($group->title);
+
     foreach ($author_contracts as $key => $value) {
       $contract_up = strtoupper($value);
       if (strrpos($contract_up, $country_group_name)) {
@@ -558,6 +545,7 @@ function nc_contract($node, $groups,$contract){
 
   return $node;
 }
+
 function car_contract($node,$groups){
 	//Assign to Eurofound by default
   //static references are used due to unexpected behavior. function executed randomly 3 times with different outputs in each of them
