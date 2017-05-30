@@ -35,6 +35,8 @@
         }
     });
 
+	CKEDITOR.config.dialog_noConfirmCancel = true;
+	
 	CKEDITOR.dialog.add( 'nodelinkDialog', function( editor ) {
 		return {
 			title: 'Node linker',
@@ -59,13 +61,16 @@
 					]
 				}
 			],
-
+			
 			onShow: function() {
 
-				text = editor.getSelection().getSelectedText();
+				// Remove the error message if it was previously added
+				$('.error-message').remove();
 
+				text = editor.getSelection().getSelectedText();
+				
 				// check if anything has been selected
-				if(text)
+				if(text != '')
 				{
 
 					var nodes = [];
@@ -114,14 +119,18 @@
 			},
 
 			onOk: function() {
-				
-				start = editor.getSelection().getStartElement();
-				start.remove();
-				
-				var new_element = '<a href="/' + $('input.cke_dialog_ui_input_text').val() + '">' + text + '</a>';
 
-				editor.insertHtml(new_element);  
-                  
+				var range = editor.getSelection().getRanges()[ 0 ];
+				range.deleteContents();
+				
+				range.select();
+
+				var span = new CKEDITOR.dom.element('a');
+				span.setText(text);
+				span.setAttribute('href', $('input.cke_dialog_ui_input_text').val());
+				
+				
+				range.insertNode(span);
 			}
 			
 		};

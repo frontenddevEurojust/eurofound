@@ -23,6 +23,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     if(isset($page['content']['system_main']['nodes'])){
 
       $array_nodes = $page['content']['system_main']['nodes'];
+      
       $node = current($array_nodes);
 
       $content_type = $node['#bundle'];
@@ -123,13 +124,26 @@ function ef_nc_breadcrumbs_page_build(&$page) {
           break;
 
         case 'ef_publication':
-
+          
           reset($array_nodes);
           $nid = key($array_nodes);
-          $node = node_load($nid);
 
-          $published_at = $node->published_at;
-          $node_year = date('Y',$published_at);
+          $query = "SELECT a.vid FROM workbench_moderation_node_history a WHERE a.current = 1 AND a.nid =" . $nid;
+
+          $vid = db_query($query)->fetchAll()[0]->vid;
+
+          $node = node_load($nid, $vid);
+          
+          if($node->workbench_moderation['current']->state != 'forthcoming')
+          {
+              $node_year = date('Y',$node->published_at);
+          }
+          else
+          {
+              $date = date_create($node->field_ef_publication_date['en'][0]['value']);
+              $node_year = date_format($date, 'Y');
+          }
+
           $date_view_value = date('Y') - $node_year;
 
           $trail[1] = "<a href='/publications'>Publications</a>";

@@ -20,7 +20,7 @@ function ef_publications_ct_node_view_alter(&$build)
 	$node = $build['#node'];
 
     if($node->type == "ef_publication"){
-
+    	
     	if($node->field_ef_subscription_msg['und'][0]['value'])
     	{
     
@@ -66,6 +66,8 @@ function ef_publications_ct_node_view_alter(&$build)
 
 	    if($node->workbench_moderation['current']->state == 'forthcoming')
 	    {
+	    	drupal_set_title($node->title . '<span class="forthcoming-label">Forthcoming</span>', $output = PASS_THROUGH);
+
 	    	drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_view_mode.js');
 	    }
 	    

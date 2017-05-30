@@ -1,9 +1,9 @@
-(function ($) {
-  $(document).ready(function(){
-  	
-  	console.log('asdfsafsa');
 
-  	$('<span class="forthcoming-label">Forthcoming</span>').insertBefore('#page-title');
+(function($) {
+    $(document).ready(function(){
+		
+		var title = $('.breadcrumbs .current').text().replace('Forthcoming','');
+		$('.breadcrumbs .current a').text(title);
 
-  });
-})(jQuery);
+	});
+})(jQuery)

@@ -27,7 +27,7 @@ function _affected_field_data($field_name, $find_value, $replace_value)
 
 	$nodes = $query->execute();
 	
-	if( count($nodes > 0)) 
+	if(count($nodes > 0)) 
 	{
 		_update_taxonomic_field_table('data', $field_name, $replace_value, $find_value);
 		_update_taxonomic_field_table('revision', $field_name, $replace_value, $find_value);
@@ -36,6 +36,7 @@ function _affected_field_data($field_name, $find_value, $replace_value)
 	$result = _return_formatted_array($nodes,'node_id');
 
 	return $result;
+
 }
 /*
 * Update the table for a taxonomic field. Conditions are optional 
@@ -48,12 +49,14 @@ function _affected_field_data($field_name, $find_value, $replace_value)
 
 function _update_taxonomic_field_table($table, $field_name, $replace_value, $find_value)
 {
+
 	$update = db_update('field_' . $table .'_' . $field_name)->fields(array($field_name . '_tid'  => $replace_value));
 
 	if($find_value)
 		$update->condition($field_name . '_tid', $find_value , '=');
 
 	$update->execute();
+
 }
 /*
 * @description: Return field cardinality based on field machine name.
@@ -65,6 +68,7 @@ function _retrieve_field_cardinality($field_name)
 	$field_info_query = db_select('field_config', 'a')->fields('a',array('cardinality'))->condition('a.field_name', $field_name, '=')->execute();
 
 	return $field_info_query->fetchObject()->cardinality;
+
 }
 
 
@@ -99,7 +103,8 @@ function return_nodes_data($nodes)
 {
 	$result = array();
 
-	if(count($nodes) > 0){
+	if(count($nodes))
+	{
 		
 		$node_string = implode(",", $nodes);
 
@@ -127,7 +132,7 @@ function delete_and_update($table, $field_name, $merge_into, $tid_select, $x_wit
 {
 	$update = db_update('field_' . $table .'_' . $field_name)->fields(array($field_name . '_tid'  => $merge_into))->condition($field_name . '_tid', $tid_select , '=');
 
-	if(count($x_with_merge_into) > 0)
+	if(count($x_with_merge_into))
 	{
 		$update->condition($column, $x_with_merge_into ,'NOT IN');
 
@@ -138,4 +143,50 @@ function delete_and_update($table, $field_name, $merge_into, $tid_select, $x_wit
 	}
 
 	$update->execute();
+}
+
+/*
+*
+*	Updates 'taxonomy_index' table with provided values
+*	
+*	@param string $field_name
+*	@param integer $tid
+*	@param integer $merge_into
+*	@return array;
+*/
+
+function _update_taxonomy_index($tid, $merge_into)
+{
+
+	$query = db_select('taxonomy_index','a')->fields('a', array('nid'))->condition('a.tid', $merge_into,'=');
+	$query = $query->execute();
+	
+	$nodes = _return_formatted_array($query,'nid');
+
+	
+	$update = db_update('taxonomy_index')
+				->fields(array('tid'  => $merge_into))
+				->condition('tid', $tid, '=');
+	
+	
+	if(count($nodes))
+	{
+		
+		$update->condition('nid', $nodes ,'NOT IN');
+
+		$delete = db_delete('taxonomy_index')->condition('tid', $tid, '=')
+		  ->condition('nid' , $nodes, 'IN')
+		  ->execute();	
+	
+	}
+
+				
+	$update->execute();
+
+
+	
+
+	return $nodes;
+	
+			
 }

@@ -36,13 +36,16 @@ function _clear_node_list_cache($array)
 * @params: $db_result: executed database statement to iterate over
 *          $field: field to be retrieved from results
 */
-function _return_formatted_array($db_result,$field) 
+function _return_formatted_array($db_result, $field) 
 {
 
 	$array = array();
-	foreach ($db_result as $key => $value) {
-		$array[] = $value->{$field};
+
+	foreach ($db_result as $key => $value) 
+	{
+			$array[] = $value->{$field};
 	}
+	
 
 	return $array;
 }
@@ -103,6 +106,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 	{
 
 		$term_from = taxonomy_term_load($tid);
+		
 		$term_to = taxonomy_term_load($merge_into);
 
 		$objPHPExcel = select_sheet($objPHPExcel, $index);
@@ -138,6 +142,11 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 				$nodes_affected = array_merge($nodes_affected, $nodes_altered);
 
 			}
+
+			$taxonomy_index_nodes = _update_taxonomy_index($tid, $merge_into);
+
+			$nodes_affected = array_merge($nodes_affected, $taxonomy_index_nodes);
+
 			// Only unique values should be logged
 			$nodes_updated = array_unique($nodes_affected, SORT_REGULAR);
 
@@ -149,7 +158,6 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 		}
 
 		// Clear taxonomic tables
-		_delete_term_in_base_taxonomic_table('taxonomy_index', $tid);
 		_delete_term_in_base_taxonomic_table('taxonomy_term_data', $tid);
 		_delete_term_in_base_taxonomic_table('taxonomy_term_hierarchy', $tid);
 

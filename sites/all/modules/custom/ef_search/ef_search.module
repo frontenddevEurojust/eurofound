@@ -322,7 +322,6 @@ function ef_search_block_view($delta = '') {
       break;
 
     case 'ef_search_topics_block':
-      
       global $language;
       
       $search_term = $_GET['search_block_form'];
@@ -385,7 +384,7 @@ function ef_search_block_view($delta = '') {
         }
         return $block;
       }
-
+      
       return;
 
       break;
@@ -857,4 +856,19 @@ function _ef_search_keywords_autocomplete($string = '*') {
   }
  
   drupal_json_output($matches);
+}
+
+/**
+ * Implements hook_pathauto_alias_alter()
+ */
+function ef_search_pathauto_alias_alter(&$alias, array &$context) {
+  //Pathauto gets the translated name to generate a URL alias containing the translated term
+  //and this is not the expected behavior. Here we force to generate the alias with
+  //the non-translated term.
+  if ($context['module'] == 'taxonomy_term' && $context['pattern'] == '[term:vocabulary]/[term:name]') {
+    $term = $context['data']['term']->name_field['en'][0]['value'];
+    $vocabulary_obj = taxonomy_vocabulary_machine_name_load($context['type']);
+    $vocabulary = $vocabulary_obj->name;
+    $alias = pathauto_cleanstring($vocabulary) . '/' . pathauto_cleanstring($term);
+  }
 }
