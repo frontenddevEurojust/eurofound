@@ -378,9 +378,9 @@ function ef_search_block_view($delta = '') {
           $image = taxonomy_term_load($tid);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];
           if (!empty($image_load)) {
-            $block['content'] .= '<p class="img-searched-topic"><img src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt=""></p>';
+            $block['content'] .= '<div class="searched-topic-box"><p class="img-searched-topic"><img src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt=""></p>';
           }
-          $block['content'] .= '<div class="description-searched-topic">' .  $term['description'] . '</div>';
+          $block['content'] .= '<div class="description-searched-topic">' .  $term['description'] . '</div></div>';
         }
         return $block;
       }
