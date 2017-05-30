@@ -22,16 +22,16 @@ function ef_ckeditor_nodelinker_wysiwyg_plugin($editor, $version) {
 
 	return $plugins;
 }
-/*
-function ef_ckeditor_nodelinker_form_alter(&$form, &$form_state, $form_id){
 
-	if($form['#node_edit_form'] == TRUE)
+function ef_ckeditor_nodelinker_form_alter(&$form, &$form_state, $form_id){
+	
+	if($form['#node_edit_form'] == TRUE || $form['form_id']['#id'] == 'edit-taxonomy-form-term')
 	{
-		drupal_add_js(drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/ef_ckeditor_nodelinker.js');
+		drupal_add_css(drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/ef_ckeditor_nodelinker.css');
 	}
 
 }
-*/
+
 function ef_ckeditor_nodelinker_menu(){
 
 	$items['ajax/retrieve-nodes'] = array(

@@ -601,6 +601,39 @@ word-break: break-all;
   text-align: right !important;
 }
 
+/* topic landing page **/
+.view-ef-key-topics-home {
+  overflow: visible;
+  width: 100%;
+  float: none !important;
+  clear: both;
+  height: 12cm !important;
+  overflow: auto !important;
+}
+.pane-ef-key-topics-home .key-topics-list, 
+.view-ef-key-topics-home .key-topics-list {
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  width: 5.1cm;
+  height: 180px;
+}
+.view-ef-key-topics-home .key-topics-list p a:nth-child(1) img {
+  position: static;
+  position: initial;
+}
+.pane-ef-key-topics-home .key-topics-list p a.key-topic-name, 
+.view-ef-key-topics-home .key-topics-list p a.key-topic-name {
+  width: auto;
+  height: auto;
+  background: none;
+  position: initial;
+}
+.landing-topics-item {
+  page-break-inside:avoid; !important;
+}
+
+
 </style>
   </head>
   <body>
