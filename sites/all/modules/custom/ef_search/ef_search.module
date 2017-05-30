@@ -360,20 +360,28 @@ function ef_search_block_view($delta = '') {
         }
       }
       if (!empty($terms)) {
-        $block['content'] = '<h3>' . t('Highlighted topics') . '</h3>';
-        foreach ($terms as $key => $tid) {
-          $term = _get_topic_data_multilingual($tid, $language->language);
-          module_load_include('inc', 'pathauto', 'pathauto');
-          $url_clean_term = pathauto_cleanstring($term['name']);
-          $block['content'] .= l($term['name'], '/topic/' . $url_clean_term);
-          $block['content'] .= ', ';
+        $block['content'] = '<h1>' . t('Highlighted topics') . '</h1>';
+        if (count($terms) > 1) {
+          $block['content'] .= '<ul class="metadata-items related-searched-topic">';
+          foreach ($terms as $key => $tid) {
+            $term = _get_topic_data_multilingual($tid, $language->language);
+            module_load_include('inc', 'pathauto', 'pathauto');
+            $url_clean_term = pathauto_cleanstring($term['name']);
+            $block['content'] .= '<li><a href="/topic/' . $url_clean_term . '" title="Go to this topic page">' . $term['name'] . '</a></li>';
+          }
+          $block['content'] .= '</ul>';
         }
         $block['content'] = rtrim($block['content'], ', ' );
         if (count($terms) == 1) {
-          $image = taxonomy_term_load($tid['tid']);
+          $tid = $terms[0]['tid'];
+          $term = _get_topic_data_multilingual($tid, $language->language);
+          $block['content'] .= '<h2 class="searched-topic">' . $term['name'] . '</h2>';
+          $image = taxonomy_term_load($tid);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];
-          //$block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
-          $block['content'] .= '<p>' .  $term['description'] . '</p>';
+          if (!empty($image_load)) {
+            $block['content'] .= '<p class="img-searched-topic"><img src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt=""></p>';
+          }
+          $block['content'] .= '<div class="description-searched-topic">' .  $term['description'] . '</div>';
         }
         return $block;
       }
@@ -414,14 +422,16 @@ function _get_topic_data_multilingual($tid, $lang) {
   $get_topic_desc->condition('ts.language', $lang);
   $result = $get_topic_desc->execute();
   while ($record = $result->fetchAssoc()) {
-    $summary = implode(' ', array_slice(explode(' ', $record['field_term_summary_value']), 0, 50));
+    $summary = implode(' ', array_slice(explode(' ', $record['field_term_summary_value']), 0, 49));
     $summary .= '...';
     $topic['description'] = $summary;
   }
   if (!isset($topic['description'])) {
     $summary = _get_topic_data_default($tid, array('description'));
-    $summary = implode(' ', array_slice(explode(' ', $summary), 0, 50));
-    $summary .= '...';
+    $summary = implode(' ', array_slice(explode(' ', $summary), 0, 49));
+    if (!empty($summary)) {
+      $summary .= '...';
+    }
     $topic['description'] = $summary;
   }
 
