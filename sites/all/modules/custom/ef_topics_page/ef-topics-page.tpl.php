@@ -18,9 +18,9 @@ if(!empty($variables['ef_activities'])){
     <ul class="button-group">
         <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
             <?php if($item_name == 'View'): ?>
-            <li class="current"><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name); ?></a></li>
+            <li class="active"><a href="<?= $url; ?>" class="active small button secondary" ><?= str_replace("_"," ",$item_name); ?></a></li>
             <?php else: ?>
-            <li><a href="<?= $url; ?>"><?= str_replace("_"," ",$item_name); ?></a></li>
+            <li><a href="<?= $url; ?>" class="small button secondary" ><?= str_replace("_"," ",$item_name); ?></a></li>
             <?php endif; ?>
         <?php endforeach; ?>
     </ul>
@@ -79,7 +79,7 @@ if(!empty($variables['ef_activities'])){
                 <?php else: ?>
                 <section id="<?= $tab_name; ?>">
                 <?php endif; ?>
-                    <h3 class="title" data-section-title><a href="#"><?= $tab_name . ' (' . $total[$tab_name] . ')'; ?></a></h3>
+                    <h3 class="title" data-section-title><a href="#"><?= $tab_name . ' <span class="total-items">(' . $total[$tab_name] . ')</span>'; ?></a></h3>
                     <div class="content" data-section-content>
                         <ul class="latest-news-list">
                         <?php foreach ($tab_data as $node_data): ?>
