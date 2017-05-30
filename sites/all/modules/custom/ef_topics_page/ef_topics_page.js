@@ -147,7 +147,7 @@ function update_pager(element, page_number){
 	jQuery('section.active .pagination.pager').replaceWith(html);
 	
 }
-
+/*
 (function($) {
 	$(document).ready(function() {
 
@@ -173,3 +173,4 @@ function update_pager(element, page_number){
 
 	});
 })(jQuery);
+*/

@@ -91,7 +91,7 @@ function ef_topics_page_theme(){
  * Implements HOOK_form_alter(&$form, &$form_state, $form_id)
  */
 function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
-
+    
   if($form['#id'] == 'taxonomy-form-term')
   {
 
