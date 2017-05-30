@@ -372,7 +372,7 @@ function ef_search_block_view($delta = '') {
         if (count($terms) == 1) {
           $image = taxonomy_term_load($tid['tid']);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];
-          //$block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
+          $block['content'] .= '<img typeof="foaf:Image" src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt="" width="250" height="140">';
           $block['content'] .= '<p>' .  $term['description'] . '</p>';
         }
         return $block;
