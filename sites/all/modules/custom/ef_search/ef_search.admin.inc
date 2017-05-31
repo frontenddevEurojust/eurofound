@@ -566,7 +566,7 @@ function ef_delete_topics_admin_form_submit($form, &$form_state) {
 function _clean_keywords($string) {
 	$keywords_array = explode(',', $string);
 	foreach($keywords_array as $key => $keyword) {
-		$keyword = check_plain(strtolower($keyword));
+		$keyword = decode_entities(check_plain(strtolower($keyword)));
 		$items[] = trim($keyword);
 	}
 	$items = array_unique($items);
