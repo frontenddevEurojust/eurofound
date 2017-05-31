@@ -44,9 +44,6 @@ function ef_search_admin_form($form, &$form_state) {
 function ef_search_settings_form($form, &$form_state) {
 	global $user;  
 
-	//if($user->name == 'abegona' || $user->name == 'ilorenzo' || $user->name == 'sgarcia' || $user->name == 'ef_proof_user') 
-	//{
-		
 		$form['ef_search_settings'] = array(
 			'#title' => 'Search keywords',
 			'#type' => 'fieldset',
@@ -308,6 +305,10 @@ function theme_ef_search_topics_admin_form($variables) {
 
 	$form = $variables['form'];
 
+	$tid = $_SESSION['search_topic_conf']['topic_search_selected'];
+	$keyword = $_SESSION['search_topic_conf']['keyword'];
+
+
 	//Define a header for the table
 	$header_sort = array(
     array('data' => 'Topic ID', 'field' => 'tid', 'sort' => 'ASC'),
@@ -439,7 +440,7 @@ function ef_edit_topics_admin_form($form, &$form_state) {
   	'#markup' => '<h3> Edit keywords for: ' . $topic_added[0]['term'] . '</h3>',
   );
 
-	$keywords = preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $topic_added[0]['keywords']);
+	$keywords = decode_entities(preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $topic_added[0]['keywords']));
 
   $form['keywords'] = array(
     '#title' => 'Add new Keywords',
@@ -472,6 +473,7 @@ function ef_edit_topics_admin_form_submit($form, &$form_state) {
 		case 'Save':
 			$tid = $_SESSION['search_topic_conf']['edit_tid'];
 			$keywords = $form_state['input']['keywords'];
+			$keywords = decode_entities($keywords);
 			//Save the keywords to the DB
 			_ef_search_save_topic($tid, $keywords);
 			//Unset, no longer necessary
