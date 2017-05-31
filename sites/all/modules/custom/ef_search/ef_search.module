@@ -363,7 +363,6 @@ function ef_search_block_view($delta = '') {
       }
       if (!empty($terms)) {
         $block['content'] = array(
-          '#markup' => '',
           '#attached' => array(
             'css' => array(
               drupal_get_path('module', 'ef_search') . '/ef_search.css',
@@ -380,7 +379,7 @@ function ef_search_block_view($delta = '') {
           }
           $block['content']['#markup'] .= '</ul>';
         }
-        $block['content']['#markup'] .= rtrim($block['content']['#markup'], ', ' );
+        $block['content']['#markup'] = rtrim($block['content']['#markup'], ', ' );
         if (count($terms) == 1) {
           $tid = $terms[0]['tid'];
           $term = _get_topic_data_multilingual($tid, $language->language);
