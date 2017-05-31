@@ -323,6 +323,9 @@ function ef_search_block_view($delta = '') {
 
     case 'ef_search_topics_block':
       global $language;
+
+      //Add CSS file
+      drupal_add_css(drupal_get_path('module', 'ef_search') . '/ef_search.css');
       
       $search_term = $_GET['search_block_form'];
       
@@ -359,28 +362,41 @@ function ef_search_block_view($delta = '') {
         }
       }
       if (!empty($terms)) {
-        $block['content'] = '<h1>' . t('Highlighted topics') . '</h1>';
+        $block['content'] = array(
+          '#markup' => '',
+          '#attached' => array(
+            'css' => array(
+              drupal_get_path('module', 'ef_search') . '/ef_search.css',
+            ),
+          ),
+        );
         if (count($terms) > 1) {
-          $block['content'] .= '<ul class="metadata-items related-searched-topic">';
+          $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><ul class="metadata-items related-searched-topic">';
           foreach ($terms as $key => $tid) {
             $term = _get_topic_data_multilingual($tid, $language->language);
             module_load_include('inc', 'pathauto', 'pathauto');
             $url_clean_term = pathauto_cleanstring($term['name']);
-            $block['content'] .= '<li><a href="/topic/' . $url_clean_term . '" title="Go to this topic page">' . $term['name'] . '</a></li>';
+            $block['content']['#markup'] .= '<li><a href="/topic/' . $url_clean_term . '" title="Go to this topic page">' . $term['name'] . '</a></li>';
           }
-          $block['content'] .= '</ul>';
+          $block['content']['#markup'] .= '</ul>';
         }
-        $block['content'] = rtrim($block['content'], ', ' );
+        $block['content']['#markup'] .= rtrim($block['content']['#markup'], ', ' );
         if (count($terms) == 1) {
           $tid = $terms[0]['tid'];
           $term = _get_topic_data_multilingual($tid, $language->language);
-          $block['content'] .= '<h2 class="searched-topic">' . $term['name'] . '</h2>';
+          module_load_include('inc', 'pathauto', 'pathauto');
+          $url_clean_term = pathauto_cleanstring($term['name']);
+          $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><h2 class="searched-topic"><a href="/topic/' . $url_clean_term . '">' . $term['name'] . '</a></h2>';
+          $block['content']['#markup'] .= '<div class="searched-topic-box">';
           $image = taxonomy_term_load($tid);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];
           if (!empty($image_load)) {
-            $block['content'] .= '<div class="searched-topic-box"><p class="img-searched-topic"><img src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt=""></p>';
+            $block['content']['#markup'] .= '<p class="img-searched-topic"><img src="/sites/default/files/styles/topic-page-image/public/' . $image_load . '" alt=""></p>';
           }
-          $block['content'] .= '<div class="description-searched-topic">' .  $term['description'] . '</div></div>';
+          if (!empty($term['description'])) {
+            $block['content']['#markup'] .= '<div class="description-searched-topic">' .  $term['description'] . '</div>';
+          }
+          $block['content']['#markup'] .= '</div>';
         }
         return $block;
       }

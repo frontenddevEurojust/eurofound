@@ -197,6 +197,8 @@ function search_terms_autocomplete($search_string = ''){
  * all-in-one for search and add topic features
  */
 function ef_search_topics_admin_form($form, &$form_state) {
+	//Add som CSS
+	drupal_add_css(drupal_get_path('module', 'ef_search') . '/ef_search_admin.css');
 	//Get stored topics
 	$topics = _ef_search_get_searched_topics();
 	//Add the Any item for the select element
