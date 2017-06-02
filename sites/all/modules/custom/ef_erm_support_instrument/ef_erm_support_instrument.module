@@ -476,6 +476,17 @@ function ef_erm_support_instrument_action_info() {
     'pass rows' => TRUE,
   );
 
+  //ISSUE 3632: bulk assign action in CMS for ERM support instruments
+  //Define the operation to be available as a VBO
+  $actions['ef_assign_to_user_by_country'] = array(
+    'type' => 'node', // Here come's the name of your custom entity type
+    'label' => t('Modify assigned user'),
+    'configurable' => FALSE,
+    'triggers' => array('node_view'),
+    'vbo_configurable' => FALSE,
+    'pass rows' => TRUE,
+  );
+
   return $actions;
 }
 
@@ -620,4 +631,26 @@ function revision_deadline_submit($form,&$form_state){
   if(!empty($form_state['values']['revision_deadline'])){
     $_SESSION['revision_deadline_update'] = $form_state['values']['revision_deadline'];
   }
+}
+
+//ISSUE 3632: Callback function to apply the logic of the operation
+//out of VBO.
+function _ef_erm_support_instruments_assignment_by_country(&$form, &$form_state) {
+  //For each selected node
+  foreach ($_SESSION['ef_vbo_nodes'] as $key => $value) {
+    //Load node
+    $node = node_load($value);
+    //Retrieve current vid
+    $current = $node->workbench_moderation['current']->vid;
+    //Load current revision
+    $node = node_load($value, $current);
+    node_object_prepare($node);
+    //Assignment change
+    $node->field_ef_assign_to_user['und'][0]['target_id'] = $form_state['values']['ef_select_assign_to_user'];
+    $node = node_submit($node);
+    //Save modified node
+    node_save($node);
+  }
+  //Remove the var containing modified nids
+  unset($_SESSION['ef_vbo_nodes']);
 }
