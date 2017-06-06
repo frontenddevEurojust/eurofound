@@ -1,0 +1,4 @@
+name = EF Back Button
+description = Customize "back to the search results" to keep searching filters
+core = 7.x
+package=EF modules

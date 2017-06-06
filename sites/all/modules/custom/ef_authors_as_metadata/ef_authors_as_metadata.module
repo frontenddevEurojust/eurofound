@@ -1,0 +1,37 @@
+<?php
+
+/*
+ * Implements HOOK_views_query_alter(&$view,&$query) 
+ */
+function ef_authors_as_metadata_views_query_alter(&$view, &$query){
+
+	if ($view->name == 'authors_as_metadata')
+	{
+		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
+		{
+		
+			$filter = [
+				'field' => 'taxonomy_index.tid',
+				'value' => $view->exposed_raw_input['tid'],
+				'operator' => '=',
+			];
+
+			$view->query->where[1]['conditions'][] = $filter;
+			
+		}
+	}
+
+}
+
+/*
+ * Implements HOOK_form_alter(&$view,&$query) 
+ */
+function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
+
+	if($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1')
+	{
+		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.css');
+	}
+	
+	
+}
