@@ -337,8 +337,8 @@ function ef_search_block_view($delta = '') {
         $select->fields('st', array('tid'));
         //Searching in all fields
         $db_or = db_or();
-        foreach ($search_terms as $key => $exploded_term) { 
-          $db_or->condition('st.keywords', '%' . $exploded_term . ',%', 'LIKE');
+        foreach ($search_terms as $key => $exploded_term) {
+          $db_or->condition('st.keywords', $exploded_term . ',%', 'LIKE');
         }
         $select->condition($db_or);
         //EXECUTE
@@ -372,10 +372,20 @@ function ef_search_block_view($delta = '') {
         if (count($terms) > 1) {
           $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><ul class="metadata-items related-searched-topic">';
           foreach ($terms as $key => $tid) {
+            $term_obj = taxonomy_term_load($tid['tid']);
+            $term_name = $term_obj->name;
+            $unsorted[$term_name] = $tid; 
+          }
+          ksort($unsorted);
+          foreach ($unsorted as $key => $value) {
+            $sorted[] = $value;
+          }
+          $terms = $sorted;
+          foreach ($terms as $key => $tid) {
             $term = _get_topic_data_multilingual($tid, $language->language);
             module_load_include('inc', 'pathauto', 'pathauto');
             $url_clean_term = pathauto_cleanstring($term['name']);
-            $block['content']['#markup'] .= '<li><a href="/topic/' . $url_clean_term . '" title="Go to this topic page">' . $term['name'] . '</a></li>';
+            $block['content']['#markup'] .= '<li><a href="/topic/' . $url_clean_term . '" target="_blank" title="Go to this topic page">' . $term['name'] . '</a></li>';
           }
           $block['content']['#markup'] .= '</ul>';
         }
@@ -385,7 +395,7 @@ function ef_search_block_view($delta = '') {
           $term = _get_topic_data_multilingual($tid, $language->language);
           module_load_include('inc', 'pathauto', 'pathauto');
           $url_clean_term = pathauto_cleanstring($term['name']);
-          $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><h2 class="searched-topic"><a href="/topic/' . $url_clean_term . '">' . $term['name'] . '</a></h2>';
+          $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><h2 class="searched-topic"><a href="/topic/' . $url_clean_term . '" target="_blank">' . $term['name'] . '</a></h2>';
           $block['content']['#markup'] .= '<div class="searched-topic-box">';
           $image = taxonomy_term_load($tid);
           $image_load = $image->field_ef_main_image['und'][0]['filename'];

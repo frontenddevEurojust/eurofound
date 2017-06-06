@@ -311,8 +311,8 @@ function theme_ef_search_topics_admin_form($variables) {
 
 	//Define a header for the table
 	$header_sort = array(
-    array('data' => 'Topic ID', 'field' => 'tid', 'sort' => 'ASC'),
-    array('data' => 'Topic', 'field' => 'term', 'sort' => 'ASC'),
+    array('data' => 'Term ID', 'field' => 'tid', 'sort' => 'ASC'),
+    array('data' => 'Term', 'field' => 'term', 'sort' => 'ASC'),
     array('data' => 'Keywords'),
     array('data' => 'Operations'),
   );
@@ -488,7 +488,7 @@ function ef_edit_topics_admin_form_submit($form, &$form_state) {
 			//Unset, no longer necessary
 			unset($_SESSION['search_topic_conf']['edit_tid']);
 			//Message
-			drupal_set_message('No changes have been performed');
+			drupal_set_message('No changes have been done');
 			//Redirecntion to the admin interface and done.
 			$form_state['redirect'] = 'admin/config/search/ef-search-topics/';
 			break;
@@ -569,7 +569,11 @@ function _clean_keywords($string) {
 		$keyword = decode_entities(check_plain(strtolower($keyword)));
 		$items[] = trim($keyword);
 	}
+	$items_to_be_save = $items;
 	$items = array_unique($items);
+	if ($items != $items_to_be_save) {
+		drupal_set_message('Repeated items have been removed');
+	}
 	$keywords_string = implode(',', $items);
 	if (substr($keywords_string, -1) != ',') {
 		$keywords_string .= ',';
