@@ -121,13 +121,13 @@ if ($state == 'forthcoming')
 
 			<?php endif; ?>
 			
-			<?php if($state != 'forthcoming'): ?>
-				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-				<div class="field-order-label">
-					<?= $content['field_order_label'][0]['#markup']; ?>
-				</div>
-				<?php endif; ?>
+			
+			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+			<div class="field-order-label">
+				<?= $content['field_order_label'][0]['#markup']; ?>
+			</div>
 			<?php endif; ?>
+		
 
 		</div>
 
