@@ -370,6 +370,7 @@ function ef_search_block_view($delta = '') {
             ),
           ),
         );
+        dpm(count($terms));
         if (count($terms) > 1) {
           $block['content']['#markup'] .= '<h1>' . t('Highlighted topics') . '</h1><ul class="metadata-items related-searched-topic">';
           foreach ($terms as $key => $tid) {
