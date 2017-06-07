@@ -312,7 +312,7 @@ function theme_ef_search_topics_admin_form($variables) {
 	//Define a header for the table
 	$header_sort = array(
     array('data' => 'Term ID', 'field' => 'tid', 'sort' => 'ASC'),
-    array('data' => 'Term', 'field' => 'term', 'sort' => 'ASC'),
+    array('data' => 'Term name', 'field' => 'term', 'sort' => 'ASC'),
     array('data' => 'Keywords'),
     array('data' => 'Operations'),
   );
@@ -348,7 +348,7 @@ function theme_ef_search_topics_admin_form($variables) {
    	$buttons .= drupal_render($form['container'][$record->tid]['delete']);
    	module_load_include('inc', 'pathauto', 'pathauto');
     $term = pathauto_cleanstring($record->term);
-   	$term_link = l($record->term, '/topic/' . $term);
+   	$term_link = l($record->term, '/topic/' . $term, array('attributes' => array('target'=>'_blank')));
    	$record->keywords = preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $record->keywords);
 		$rows[] = array(
 			array('data' => $record->tid),
@@ -478,8 +478,6 @@ function ef_edit_topics_admin_form_submit($form, &$form_state) {
 			_ef_search_save_topic($tid, $keywords);
 			//Unset, no longer necessary
 			unset($_SESSION['search_topic_conf']['edit_tid']);
-			//Message
-			drupal_set_message('Changes have been saved');
 			//Redirecntion to the admin interface and done.
 			$form_state['redirect'] = 'admin/config/search/ef-search-topics/';
 			break;
@@ -575,9 +573,6 @@ function _clean_keywords($string) {
 		drupal_set_message('Repeated items have been removed');
 	}
 	$keywords_string = implode(',', $items);
-	if (substr($keywords_string, -1) != ',') {
-		$keywords_string .= ',';
-	}
 
 	return $keywords_string;
 }
@@ -587,12 +582,18 @@ function _clean_keywords($string) {
  */
 function _ef_search_save_topic($tid, $keywords) {
 	$keywords = _clean_keywords($keywords);
-	db_update('ef_search_topics')
-  	->fields(array(
-    	'keywords' => $keywords,
-  	))
-  	->condition('tid', $tid, '=')
-  	->execute();
+	if ($keywords != '|') {
+		db_update('ef_search_topics')
+  		->fields(array(
+    		'keywords' => $keywords,
+  		))
+  		->condition('tid', $tid, '=')
+  		->execute();
+  	drupal_set_message('Changes have been saved.');
+  }
+  else {
+  	drupal_set_message('Cannot save term without related keywords');
+  }
 }
 
 /**
@@ -611,14 +612,19 @@ function _ef_search_add_topic($tid, $keywords) {
 	$term = _ef_search_get_topics($tid);
 	$term = implode('', $term);
 	$keywords = _clean_keywords($keywords);
-
-	db_insert('ef_search_topics')
-    ->fields(array(
-  	  'tid' => $tid,
-      'term' => $term,
-      'keywords' => $keywords,
-    ))
-    ->execute();
+	if ($keywords != '|') {
+		db_insert('ef_search_topics')
+    	->fields(array(
+  	  	'tid' => $tid,
+      	'term' => $term,
+      	'keywords' => $keywords,
+    	))
+    	->execute();
+    drupal_set_message('Changes have been saved.');
+  }
+  else {
+  	drupal_set_message('Cannot save term without related keywords');
+  }
 }
 
 /**
