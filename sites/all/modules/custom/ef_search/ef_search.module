@@ -339,6 +339,7 @@ function ef_search_block_view($delta = '') {
         $db_or = db_or();
         foreach ($search_terms as $key => $exploded_term) {
           $db_or->condition('st.keywords', $exploded_term . ',%', 'LIKE');
+          $db_or->condition('st.keywords', '%,' . $exploded_term . ',%', 'LIKE');
         }
         $select->condition($db_or);
         //EXECUTE
