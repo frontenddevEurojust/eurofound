@@ -35,6 +35,9 @@ function ef_search_schema() {
 	return $schema;
 }
 
+/**
+ * Fix translatable topics issue
+ */
 function ef_search_update_7001() {
 	$schema['ef_search_topics'] = array(
 		'description' => t('Table to store topics to display in the General Search'),
@@ -105,3 +108,15 @@ function ef_search_update_7001() {
 	db_update('field_data_description_field')->fields(array('language' => 'en',))->condition('language', 'und')->condition('entity_id', $unique_items, 'IN')->execute();
 }
 
+/**
+ * Fix translatable topics issue. Some terms still not translatable
+ */
+function ef_search_update_7002() {
+  $select = db_select('field_data_name_field', 'nf');
+  $select->fields('nf', array('entity_id'));
+  $select->condition('nf.bundle', 'ef_topics');
+  $result = $select->execute();
+  foreach ($result as $key => $record) {
+    db_update('entity_translation')->fields(array('language' => 'en',))->condition('entity_type', 'taxonomy_term')->condition('language', 'und')->condition('entity_id', $record->entity_id)->execute();
+  }
+}

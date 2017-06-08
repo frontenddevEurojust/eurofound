@@ -44,9 +44,6 @@ function ef_search_admin_form($form, &$form_state) {
 function ef_search_settings_form($form, &$form_state) {
 	global $user;  
 
-	//if($user->name == 'abegona' || $user->name == 'ilorenzo' || $user->name == 'sgarcia' || $user->name == 'ef_proof_user') 
-	//{
-		
 		$form['ef_search_settings'] = array(
 			'#title' => 'Search keywords',
 			'#type' => 'fieldset',
@@ -197,6 +194,8 @@ function search_terms_autocomplete($search_string = ''){
  * all-in-one for search and add topic features
  */
 function ef_search_topics_admin_form($form, &$form_state) {
+	//Add som CSS
+	drupal_add_css(drupal_get_path('module', 'ef_search') . '/ef_search_admin.css');
 	//Get stored topics
 	$topics = _ef_search_get_searched_topics();
 	//Add the Any item for the select element
@@ -306,10 +305,14 @@ function theme_ef_search_topics_admin_form($variables) {
 
 	$form = $variables['form'];
 
+	$tid = $_SESSION['search_topic_conf']['topic_search_selected'];
+	$keyword = $_SESSION['search_topic_conf']['keyword'];
+
+
 	//Define a header for the table
 	$header_sort = array(
-    array('data' => 'Topic ID', 'field' => 'tid', 'sort' => 'ASC'),
-    array('data' => 'Topic', 'field' => 'term', 'sort' => 'ASC'),
+    array('data' => 'Term ID', 'field' => 'tid', 'sort' => 'ASC'),
+    array('data' => 'Term name', 'field' => 'term', 'sort' => 'ASC'),
     array('data' => 'Keywords'),
     array('data' => 'Operations'),
   );
@@ -345,7 +348,7 @@ function theme_ef_search_topics_admin_form($variables) {
    	$buttons .= drupal_render($form['container'][$record->tid]['delete']);
    	module_load_include('inc', 'pathauto', 'pathauto');
     $term = pathauto_cleanstring($record->term);
-   	$term_link = l($record->term, '/topic/' . $term);
+   	$term_link = l($record->term, '/topic/' . $term, array('attributes' => array('target'=>'_blank')));
    	$record->keywords = preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $record->keywords);
 		$rows[] = array(
 			array('data' => $record->tid),
@@ -437,7 +440,7 @@ function ef_edit_topics_admin_form($form, &$form_state) {
   	'#markup' => '<h3> Edit keywords for: ' . $topic_added[0]['term'] . '</h3>',
   );
 
-	$keywords = preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $topic_added[0]['keywords']);
+	$keywords = decode_entities(preg_replace('/(?<!\d),|,(?!\d{3})/', ', ', $topic_added[0]['keywords']));
 
   $form['keywords'] = array(
     '#title' => 'Add new Keywords',
@@ -470,12 +473,11 @@ function ef_edit_topics_admin_form_submit($form, &$form_state) {
 		case 'Save':
 			$tid = $_SESSION['search_topic_conf']['edit_tid'];
 			$keywords = $form_state['input']['keywords'];
+			$keywords = decode_entities($keywords);
 			//Save the keywords to the DB
 			_ef_search_save_topic($tid, $keywords);
 			//Unset, no longer necessary
 			unset($_SESSION['search_topic_conf']['edit_tid']);
-			//Message
-			drupal_set_message('Changes have been saved');
 			//Redirecntion to the admin interface and done.
 			$form_state['redirect'] = 'admin/config/search/ef-search-topics/';
 			break;
@@ -484,7 +486,7 @@ function ef_edit_topics_admin_form_submit($form, &$form_state) {
 			//Unset, no longer necessary
 			unset($_SESSION['search_topic_conf']['edit_tid']);
 			//Message
-			drupal_set_message('No changes have been performed');
+			drupal_set_message('No changes have been done');
 			//Redirecntion to the admin interface and done.
 			$form_state['redirect'] = 'admin/config/search/ef-search-topics/';
 			break;
@@ -562,14 +564,15 @@ function ef_delete_topics_admin_form_submit($form, &$form_state) {
 function _clean_keywords($string) {
 	$keywords_array = explode(',', $string);
 	foreach($keywords_array as $key => $keyword) {
-		$keyword = check_plain(strtolower($keyword));
+		$keyword = decode_entities(check_plain(strtolower($keyword)));
 		$items[] = trim($keyword);
 	}
+	$items_to_be_save = $items;
 	$items = array_unique($items);
-	$keywords_string = implode(',', $items);
-	if (substr($keywords_string, -1) != ',') {
-		$keywords_string .= ',';
+	if ($items != $items_to_be_save) {
+		drupal_set_message('Repeated items have been removed');
 	}
+	$keywords_string = implode(',', $items);
 
 	return $keywords_string;
 }
@@ -579,12 +582,18 @@ function _clean_keywords($string) {
  */
 function _ef_search_save_topic($tid, $keywords) {
 	$keywords = _clean_keywords($keywords);
-	db_update('ef_search_topics')
-  	->fields(array(
-    	'keywords' => $keywords,
-  	))
-  	->condition('tid', $tid, '=')
-  	->execute();
+	if (!empty($keywords)) {
+		db_update('ef_search_topics')
+  		->fields(array(
+    		'keywords' => $keywords,
+  		))
+  		->condition('tid', $tid, '=')
+  		->execute();
+  	drupal_set_message('Changes have been saved.');
+  }
+  else {
+  	drupal_set_message('Cannot save term without related keywords');
+  }
 }
 
 /**
@@ -603,14 +612,19 @@ function _ef_search_add_topic($tid, $keywords) {
 	$term = _ef_search_get_topics($tid);
 	$term = implode('', $term);
 	$keywords = _clean_keywords($keywords);
-
-	db_insert('ef_search_topics')
-    ->fields(array(
-  	  'tid' => $tid,
-      'term' => $term,
-      'keywords' => $keywords,
-    ))
-    ->execute();
+	if (!empty($keywords)) {
+		db_insert('ef_search_topics')
+    	->fields(array(
+  	  	'tid' => $tid,
+      	'term' => $term,
+      	'keywords' => $keywords,
+    	))
+    	->execute();
+    drupal_set_message('Changes have been saved.');
+  }
+  else {
+  	drupal_set_message('Cannot save term without related keywords');
+  }
 }
 
 /**
