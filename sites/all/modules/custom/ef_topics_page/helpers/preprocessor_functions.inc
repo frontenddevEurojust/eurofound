@@ -16,14 +16,13 @@ function build_content_tabs($variables, $term, $page = ''){
 	*  0 -> hide Highlights
 	*  1 -> hide All
 	*/
-	if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
+	if(isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-     	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
+		$variables['tabs']['All'] = add_all_tab($term->tid, $page);	
     }
-    
-    if(!isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '0')
+    if(isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '0')
     {
-    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);
+    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
     }
 
 
