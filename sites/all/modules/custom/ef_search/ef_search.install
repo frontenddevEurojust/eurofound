@@ -35,6 +35,9 @@ function ef_search_schema() {
 	return $schema;
 }
 
+/**
+ * Fix translatable topics issue
+ */
 function ef_search_update_7001() {
 	$schema['ef_search_topics'] = array(
 		'description' => t('Table to store topics to display in the General Search'),
@@ -106,7 +109,7 @@ function ef_search_update_7001() {
 }
 
 /**
- * Implements hook_update_N
+ * Fix translatable topics issue. Some terms still not translatable
  */
 function ef_search_update_7002() {
   $select = db_select('field_data_name_field', 'nf');

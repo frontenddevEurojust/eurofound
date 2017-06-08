@@ -582,7 +582,7 @@ function _clean_keywords($string) {
  */
 function _ef_search_save_topic($tid, $keywords) {
 	$keywords = _clean_keywords($keywords);
-	if ($keywords != '|') {
+	if (!empty($keywords)) {
 		db_update('ef_search_topics')
   		->fields(array(
     		'keywords' => $keywords,
@@ -612,7 +612,7 @@ function _ef_search_add_topic($tid, $keywords) {
 	$term = _ef_search_get_topics($tid);
 	$term = implode('', $term);
 	$keywords = _clean_keywords($keywords);
-	if ($keywords != '|') {
+	if (!empty($keywords)) {
 		db_insert('ef_search_topics')
     	->fields(array(
   	  	'tid' => $tid,
