@@ -83,7 +83,7 @@ if(!empty($variables['ef_activities'])){
                     <div class="content" data-section-content>
                         <ul class="latest-news-list">
                         <?php foreach ($tab_data as $node_data): ?>
-                            <li class=""><a href="<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
+                            <li class=""><a href="/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
                                 <ul class="metadata-items">
                                     <li><?= $node_data->ct_name; ?></li>
                                     <?php if($tab_name == 'Publications'): ?>
