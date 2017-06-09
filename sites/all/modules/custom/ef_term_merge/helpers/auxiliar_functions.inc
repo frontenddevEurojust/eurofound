@@ -160,6 +160,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 		// Clear taxonomic tables
 		_delete_term_in_base_taxonomic_table('taxonomy_term_data', $tid);
 		_delete_term_in_base_taxonomic_table('taxonomy_term_hierarchy', $tid);
+		_delete_term_in_url_alias($tid);
 
 		_clear_node_list_cache($nodes_updated);
 	}

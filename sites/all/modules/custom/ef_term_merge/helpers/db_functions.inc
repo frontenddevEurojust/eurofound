@@ -96,6 +96,7 @@ function table_affected_nodes($table, $field_name, $tid_value, $column, $distinc
 		return $result;
 
 }
+
 /*
 * Return data for a set of $nodes (array). Used later for populating the excel file 
 */
@@ -184,9 +185,11 @@ function _update_taxonomy_index($tid, $merge_into)
 	$update->execute();
 
 
-	
-
 	return $nodes;
-	
 			
+}
+
+function _delete_term_in_url_alias($tid)
+{
+	$delete = db_delete('url_alias')->condition('source', 'taxonomy/term/' . $tid, '=')->execute();	
 }
