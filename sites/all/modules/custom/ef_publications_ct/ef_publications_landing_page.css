@@ -88,3 +88,7 @@ ul.metadata-list-type li:empty {
 
 
 /** END PUBLICATIONS VIEW LANDING PAGE* ***/
+
+.ajax-progress{
+  display: none;
+}
