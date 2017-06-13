@@ -46,10 +46,10 @@
   margin-right:3px;
   padding-bottom: 4px;
 }
-#node_ef_publication_full_group_ef_node_details a:after{
+#node_ef_publication_full_group_ef_node_details .topic-list li a:after{
 	content: "; ";
 }
-#node_ef_publication_full_group_ef_node_details a:last-child:after{
+#node_ef_publication_full_group_ef_node_details .topic-list li:last-child a:after{
 	content: "";
 }
 .node-ef-publication .field-name-publication-preview{
