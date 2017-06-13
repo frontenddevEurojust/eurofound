@@ -49,6 +49,9 @@
 #node_ef_publication_full_group_ef_node_details .topic-list li a:after{
 	content: "; ";
 }
+#node_ef_publication_full_group_ef_node_details li:last-child .topic-list li a:after{
+	content: ", ";
+}
 #node_ef_publication_full_group_ef_node_details .topic-list li:last-child a:after{
 	content: "";
 }

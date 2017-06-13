@@ -1,0 +1,209 @@
+[33mcommit 126eff0b694b1384c7adfb1279ffc771b813747a[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Tue Jun 13 12:54:55 2017 +0200
+
+    WGS-81
+
+[33mcommit 476ce98a55d44432da435c7645c90c8b2d4cc175[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Mon Jun 12 14:21:21 2017 +0200
+
+    ajax loading position absolute
+
+[33mcommit 26802704cb29737277b943f35efadf12c7e420b2[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Mon Jun 12 11:10:01 2017 +0200
+
+    ajax-progress icon in publication view
+
+[33mcommit c025e11e46161469adefd1597b6d228bcda948b5[m
+Merge: d9e1c4f 27fb8eb
+Author: ef <eurofound@bilbomatica.es>
+Date:   Fri Jun 9 13:45:36 2017 +0200
+
+    Merge branch 'authors_as_metadata-WEM-539' into develop
+
+[33mcommit d9e1c4f2b41a249bdfc1cf380b1e67deb13c39f7[m
+Merge: 20f0d1d 9f2f55a
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Fri Jun 9 13:42:51 2017 +0200
+
+    Merge branch 'CWB_view' into develop
+
+[33mcommit 20f0d1dd3c47338ffe35e4616de1e457eff5dbfe[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Fri Jun 9 11:48:10 2017 +0200
+
+    Add control for image so that the content resizes properly when it's not there
+
+[33mcommit f01157ba32023d14845a358e5889e92c2b10aca0[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Fri Jun 9 10:03:32 2017 +0200
+
+    Add url_alias table management
+
+[33mcommit 9e3296d21be6084b41ecf837420439e11762e24e[m
+Merge: beed91d edb26db
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Thu Jun 8 15:22:53 2017 +0200
+
+    Merge branch 'Topics-fixes' into develop
+
+[33mcommit edb26dbbf6aaad8c5d3c3e2c3948dd7a76240a0e[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Thu Jun 8 15:22:38 2017 +0200
+
+    Change tabs' node's title url and show Highlight and All tabs when N/A is selected WEM-628
+
+[33mcommit beed91d11d108e21a918d69b69952b4293ea63b9[m
+Merge: 7417c6e 86074d2
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Thu Jun 8 11:52:45 2017 +0200
+
+    Merge Maren topics changes
+
+[33mcommit 7417c6e6050fdf45696e2b1ba157a9d6de6116e8[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Thu Jun 8 11:50:28 2017 +0200
+
+    Fix Hide tabs control
+
+[33mcommit 86074d23a5a2de121e066c663136ed8a4ccd0f7c[m
+Author: maren <maren>
+Date:   Thu Jun 8 10:24:19 2017 +0200
+
+    Fixed empty term saves, fixed update messages during install
+
+[33mcommit fbc48d772d8098a73dfa1ca1eff6b9c781ff59be[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Wed Jun 7 15:09:34 2017 +0200
+
+    Fix node's title url for tabs WEM-628
+
+[33mcommit 4c4798d3fc90492ac99da0cd4a69d739e5ad8340[m
+Author: maren <maren>
+Date:   Wed Jun 7 13:25:27 2017 +0200
+
+    Fixed search queries, support for quoted search terms, prevent terms to be saved without keywors, fixed links from administration table
+
+[33mcommit 6e2356633a369599756c8457bed8d926863c0f1e[m
+Author: maren <maren>
+Date:   Wed Jun 7 11:31:53 2017 +0200
+
+    Added some comments to the HTML output generation
+
+[33mcommit f60adc458883e6cfc50593c86578ba6461096783[m
+Author: maren <maren>
+Date:   Wed Jun 7 08:24:57 2017 +0200
+
+    Fixed keywords query to search topic
+
+[33mcommit 27fb8ebd267aec10ee064278b4650990ef0c1ba2[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Tue Jun 6 15:35:14 2017 +0200
+
+    author as metadata styles
+
+[33mcommit f3afdc5e5d20ae5cb8478dfac494f98f98f788fe[m
+Author: maren <maren>
+Date:   Tue Jun 6 15:12:55 2017 +0200
+
+    Fixed several issues after testing
+
+[33mcommit 032342506879f1547c2951475d38f3b1b1b9f41f[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Tue Jun 6 10:13:36 2017 +0200
+
+    Make order button visible for non forthcoming states
+
+[33mcommit c1da8450bb5635055cf619de794c450f540c1eda[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Tue Jun 6 10:10:30 2017 +0200
+
+    Add authors as metadata module WEM-539
+
+[33mcommit f8e0b0cdbf6ae24dc3ee972e9508f39d557d59f4[m
+Author: maren <maren>
+Date:   Fri Jun 2 14:00:16 2017 +0200
+
+    Completed Views Bulk Operation Task
+
+[33mcommit 7ae2f1b1c6b15ab029f29d4e5e42acb529a6dda1[m
+Author: maren <maren>
+Date:   Fri Jun 2 12:38:08 2017 +0200
+
+    Added a views bulk operation to change assigned user by country
+
+[33mcommit ad188821ca5b3279c188b3f1539d97ba65ed46ed[m
+Author: maren <maren>
+Date:   Fri Jun 2 09:30:36 2017 +0200
+
+    Added more covered cases to the translatable topic issue
+
+[33mcommit 16c57f3b968aa538f64436779f32253b8bffcec2[m
+Merge: d1c0e28 c99aae5
+Author: maren <maren>
+Date:   Wed May 31 11:59:40 2017 +0200
+
+    Merge remote-tracking branch 'dev/develop' into restored
+
+[33mcommit c99aae5be1acec6f09ec1747e65fe5471952d436[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Wed May 31 11:56:04 2017 +0200
+
+    Added support to save HTML entities
+
+[33mcommit a3d92d456f06a41ce7979f44c57784ecd889595b[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Wed May 31 11:38:39 2017 +0200
+
+    admin area style and public search styles
+
+[33mcommit cf7d92f0aa78f2948ed9e7ab4b138b3e24211e88[m
+Author: Markel <marauzo@bilbomatica.es>
+Date:   Wed May 31 10:58:05 2017 +0200
+
+    Add myscripts folder to .gitignore
+
+[33mcommit d1c0e28df59fa8abeb5823b57384dd42da312752[m
+Author: maren <maren>
+Date:   Wed May 31 10:57:35 2017 +0200
+
+    Prevented duplicated block
+
+[33mcommit 6744853a041a65e985a1af958dc42a32ea19584a[m
+Author: maren <maren>
+Date:   Wed May 31 10:38:07 2017 +0200
+
+    Add function to decode entities, resolced bug in admin search feature
+
+[33mcommit c9fc02e206d136e4fefe31dcfe61a2389bd53023[m
+Author: maren <maren>
+Date:   Wed May 31 09:50:24 2017 +0200
+
+    Added CSS files, changed HTML output
+
+[33mcommit 48cdfd0d8a16f2da875bf9c80b43cd2ff20ea85d[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Tue May 30 16:34:38 2017 +0200
+
+    search topics styles and HTML changes
+
+[33mcommit 82cab9b34425c9699bb86f04d2e8c69387a148eb[m
+Merge: a7d4f44 24099d4
+Author: maren <maren>
+Date:   Tue May 30 14:16:22 2017 +0200
+
+    Resolve highlighted block conflict
+
+[33mcommit a7d4f443cf7fcbe0923cb30dabef9ad18fff302a[m
+Author: maren <maren>
+Date:   Tue May 30 13:56:33 2017 +0200
+
+    Change HTML output for the topic block in search page
+
+[33mcommit 24099d45fd03480c8f506f73f2299a6054e5325f[m
+Author: ef <eurofound@bilbomatica.es>
+Date:   Tue May 30 12:56:28 2017 +0200
+
+    Change CSS for subscription button in the publications page
