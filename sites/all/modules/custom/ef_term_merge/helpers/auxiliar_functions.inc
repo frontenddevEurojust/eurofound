@@ -117,18 +117,19 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 			// Check field cardinality as we need to distinguish the approach used depending whether it's multivalue or not
 			if(_retrieve_field_cardinality($field_name) != 1) 
 			{
+
 				// Multivalue. Node's with $merge_into term get removed $tid value. If there is no $merge_into, $tid is replaced by $merge_into.
 				// Nodes to be passed for cache clearing process
 				$revision_affected_nodes = table_affected_nodes('revision', $field_name, $tid,'entity_id', TRUE);
 
 				// Check field_data_field table
 				$nodes_with_merge_into = table_affected_nodes('data', $field_name, $merge_into,'entity_id', FALSE);
-				delete_and_update('data', $field_name, $merge_into, $tid, $nodes_with_merge_into,'entity_id');
+				//delete_and_update('data', $field_name, $merge_into, $tid, $nodes_with_merge_into,'entity_id');
 
 				// Check field_revision_field table
 				$revisions_with_merge_into = table_affected_nodes('revision', $field_name, $merge_into,'revision_id', FALSE);
 				
-				delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
+				//delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
 
 
 				$nodes_affected = array_merge($nodes_affected, $revision_affected_nodes);
