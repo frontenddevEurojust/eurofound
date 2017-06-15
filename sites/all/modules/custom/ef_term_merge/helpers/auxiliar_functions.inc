@@ -124,12 +124,12 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 
 				// Check field_data_field table
 				$nodes_with_merge_into = table_affected_nodes('data', $field_name, $merge_into,'entity_id', FALSE);
-				//delete_and_update('data', $field_name, $merge_into, $tid, $nodes_with_merge_into,'entity_id');
+				delete_and_update('data', $field_name, $merge_into, $tid, $nodes_with_merge_into,'entity_id');
 
 				// Check field_revision_field table
 				$revisions_with_merge_into = table_affected_nodes('revision', $field_name, $merge_into,'revision_id', FALSE);
 				
-				//delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
+				delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
 
 
 				$nodes_affected = array_merge($nodes_affected, $revision_affected_nodes);
