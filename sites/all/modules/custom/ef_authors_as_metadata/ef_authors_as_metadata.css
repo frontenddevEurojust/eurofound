@@ -1,0 +1,113 @@
+.page-author .ef-main{
+	overflow: auto;
+}
+.view-header {
+    background: #f9f9f9;
+		padding: 1rem;
+		margin: 0 0 2rem 0;
+    overflow: auto;
+    border-bottom: 3px solid #DDDDDD;
+}
+.view-authors-as-metadata h1.user-name{
+  float: right;
+  width: 85%;
+}
+.view-authors-as-metadata .image{
+  float: left;
+  width: 15%;
+  margin: 0 !important;
+}
+.view-authors-as-metadata .image a{
+  border-radius: 110px;
+  border: 1px solid #CCC;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.view-authors-as-metadata .image a img{
+	height: 100% !important;
+	width: auto !important;
+
+}
+.view-authors-as-metadata .view-content{
+	clear: both;
+}
+
+
+.view-authors-as-metadata ul.user-details {
+	list-style-type: none;
+}
+.view-authors-as-metadata ul.user-details li span.email-author-label, 
+.view-authors-as-metadata ul.user-details li span.organisation-author-label{
+	font-family: 'OpenSans-semibold-webfont';
+	width: 100px;
+	display: inline-block;
+}
+.view-authors-as-metadata ul.user-details li span.email-author-text, 
+.view-authors-as-metadata ul.user-details li span.organisation-author-text{
+	color: #666;
+	font-family: 'OpenSans-light-webfont';
+	display: inline-block;
+}
+
+.view-authors-as-metadata .authors-as-metadata{
+  width: 46%;
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  margin-left: 4%;
+  margin-bottom: 2rem;
+  min-height: 330px;
+}
+.view-authors-as-metadata .authors-as-metadata:nth-child(odd){
+  margin-left: 0%;
+  float: left;
+}
+
+.view-authors-as-metadata .authors-as-metadata h2{
+	font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
+	letter-spacing: -0.01em;
+	line-height: 1.3em;
+	font-size: 1rem;
+	margin: 0;
+}
+
+.view-authors-as-metadata .authors-as-metadata .item-list{
+	overflow: auto;
+	margin-bottom: 1rem;
+}
+.view-authors-as-metadata .authors-as-metadata .item-list li{
+	padding: 0 !important;
+	display: inline-block;
+	font-size: 12px;
+	margin-right: 6px !important;
+	float: left;
+}
+.view-authors-as-metadata .authors-as-metadata .item-list li:after{
+	content: ', ';
+}
+.data-and-read span{
+	display: inline-block;
+	width: 50%;
+}
+.data-and-read span.published-at{
+	font-family: 'OpenSans-Italic-webfont';
+}
+.data-and-read span.total-reads{
+	text-align: right;
+}
+.data-and-read span.total-reads:before{
+	content: "\f097";
+	font-family: 'Fontawesome';
+	margin-right: 5px;
+}
+
+p.image-content {
+	float: left;
+	margin-right: 1.5rem;
+	margin-top: 6px;
+}
+.content-author-as-metadata p{
+	font-style: normal !important;
+}
