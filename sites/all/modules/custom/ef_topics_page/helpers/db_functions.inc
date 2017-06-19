@@ -9,7 +9,7 @@ function check_topic_exists_by_url($term){
 
     $result = db_query($url_alias_query)->fetchAll();
 
-    if (count($result) > 0)
+    if (count($result))
     {
     	return $result;
     }
@@ -55,7 +55,7 @@ function add_highlights_tab($tid, $page, $limit = 8){
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+     if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -63,11 +63,11 @@ function add_highlights_tab($tid, $page, $limit = 8){
     {
         $query->range(0, $limit);
     }
-   
+    
     $result = $query->execute();
    
     
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;

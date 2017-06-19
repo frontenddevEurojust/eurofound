@@ -56,6 +56,7 @@ function topics_page($contextual_term = ''){
         'featured_block' => NULL, 
         'related_links_block' => NULL,
         'ef_activities' => NULL,
+        'print_tabs' => NULL,
       )
     );
 }
@@ -80,6 +81,7 @@ function ef_topics_page_theme(){
                 'related_links_block' => NULL,
                 'ef_activities' => NULL,
                 'subscription_url' => NULL,
+                'print_tabs' => NULL,
             ),
             'file' => 'preprocessor.inc'
         ),
@@ -118,13 +120,13 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 function _update_topics_tab($tid, $content_type_name, $page){
     
     $page_number = intval(str_replace("page=", "", $page));
-
+    
     switch($content_type_name)
     {
 
         case 'Highlights':
 
-            $data = add_highlighted_tab($term->tid, $page);
+            $data = add_highlights_tab($tid, $page_number);
 
             break;
 
@@ -159,7 +161,7 @@ function _update_topics_tab($tid, $content_type_name, $page){
             break;
     }
 
-    if(count($data) > 0)
+    if (count($data))
     {
         drupal_json_output(array('status' => 200, 'data' => $data)); 
     }

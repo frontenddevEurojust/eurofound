@@ -63,8 +63,9 @@ function template_preprocess_ef_topics_page(&$variables){
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
-    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
     $variables['show_menu'] = check_current_user();
+    if ($term->field_term_last_updated)
+    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
 
 
     if(isset($term->field_ef_featured_block_content))

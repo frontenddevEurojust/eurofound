@@ -38,7 +38,17 @@ function build_content_tabs($variables, $term, $page = ''){
 	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
 
 	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
-
+	
+	foreach ($variables['tabs'] as $content_type => $value) 
+	{
+		
+		if ($value != NULL)
+		{
+			$variables['print_tabs'] = TRUE; 
+			break;
+		}
+	}
+	
 
 	return $variables;
 
