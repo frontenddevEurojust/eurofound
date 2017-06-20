@@ -89,10 +89,10 @@ function add_main_image_to_variables($variables, $term){
     return $variables;
 }
 
-function add_subscription_to_variables($variables, $term, $language){
+function add_subscription_to_variables($variables, $term){
 
-	if( $term->field_ef_subscription_msg[$language][0]['value'] != 0 )
-      $variables['subscription'] = $term->field_ef_subscription_msg[$language][0]['value'];
+	if( $term->field_ef_subscription_msg['und'][0]['value'] != 0 )
+      $variables['subscription'] = $term->field_ef_subscription_msg['und'][0]['value'];
 
     if( isset($term->field_term_subscription_url['und'][0]['value']) )
     {

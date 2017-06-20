@@ -48,7 +48,7 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables = add_main_image_to_variables($variables, $term);
 
     // Subscription fields preprocessing 
-    $variables = add_subscription_to_variables($variables, $term, $language->language);
+    $variables = add_subscription_to_variables($variables, $term);
     
     // Topics preprocessing for image and name
     $variables = add_topics_to_variables($variables, $term, $language->language);
