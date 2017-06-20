@@ -55,7 +55,7 @@ if(!empty($variables['ef_activities'])){
             
             <?php if (isset($variables['subscription'])): ?>
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-            Subscribe now and receive updates on Eurofound's work in the area of <?= $contextual_term; ?></a></p>
+            <?= t("Subscribe now and receive updates on Eurofound's work in the area of @contextterm", array("@contextterm" => $contextual_term)); ?></a></p>
             <?php endif; ?>
             <?php if(isset($variables['description'])): ?>  
             <div class="topic-description">
@@ -71,7 +71,7 @@ if(!empty($variables['ef_activities'])){
                     <?php else: ?>
                     <li><img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                     <?php endif; ?>
-                        <p><span class="item-topic">Topic: </span><a class="name-topic" href="/<?= $topic['url']; ?>"><?= $topic['related_topic_name']; ?></a></p>   
+                        <p><span class="item-topic"><?php print t("Topic:") ?></span><a class="name-topic" href="/<?= $topic['url']; ?>"><?= $topic['related_topic_name']; ?></a></p>   
                     </li>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -89,7 +89,7 @@ if(!empty($variables['ef_activities'])){
                     <?php else: ?>
                     <section id="<?= $tab_name; ?>">
                     <?php endif; ?>
-                        <h3 class="title" data-section-title><a href="#"><?= $tab_name . ' <span class="total-items">(' . $total[$tab_name] . ')</span>'; ?></a></h3>
+                        <h3 class="title" data-section-title><a href="#"><?php print t($tab_name) . ' <span class="total-items">(' . $total[$tab_name] . ')</span>'; ?></a></h3>
                         <div class="content" data-section-content>
                             <ul class="latest-news-list">
                             <?php foreach ($tab_data as $node_data): ?>

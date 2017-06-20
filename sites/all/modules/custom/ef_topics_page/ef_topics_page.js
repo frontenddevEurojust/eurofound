@@ -18,7 +18,6 @@ function get_next_page(element){
 
 	tab = jQuery('section.active').attr('id');
 
-
 	if(element.innerHTML.indexOf('Next') !== -1)
 	{
 		
