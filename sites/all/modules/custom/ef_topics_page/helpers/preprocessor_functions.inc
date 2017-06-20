@@ -1,16 +1,16 @@
 <?php 
 
 
-function build_content_pagers($variables, $term, $page, $limit = 500000){
+function build_content_pagers($variables, $term, $language, $page, $limit = 500000){
 
-	$variables['pager'] = retrieve_total_results_per_tab($term, $limit);	
-
+	$variables['pager'] = retrieve_total_results_per_tab($term, $limit, $language);	
+	
 	$variables = build_pager_html($variables);
 
 	return $variables;
 }
 
-function build_content_tabs($variables, $term, $page = ''){
+function build_content_tabs($variables, $term, $language, $page = ''){
 	// Hide higlights tab
 	/* Not set -> show both
 	*  0 -> hide Highlights
@@ -18,46 +18,56 @@ function build_content_tabs($variables, $term, $page = ''){
 	*/
 	if (isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-		$variables['tabs']['All'] = add_all_tab($term->tid, $page);	
+		$variables['tabs']['All'] = add_all_tab($term->tid, $language, $page);	
     }
     if (isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '0')
     {
-    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
+    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $language, $page);
     }
     if (!isset($term->field_ef_term_hide_tabs['und'][0]['value']))
     {
-    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);	
-    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
+    	$variables['tabs']['All'] = add_all_tab($term->tid, $language, $page);	
+    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $language, $page);
     }
 
 
-	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $page);
+	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $language, $page);
 
-	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $page);
+	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $language, $page);
 
-	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
+	$variables['tabs']['News'] = add_news_tab($term->tid, $language, $page);
 
-	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
-
+	$variables['tabs']['Events'] = add_events_tab($term->tid, $language, $page);
+	
+	foreach ($variables['tabs'] as $content_type => $value) 
+	{
+		
+		if ($value != NULL)
+		{
+			$variables['print_tabs'] = TRUE; 
+			break;
+		}
+	}
+	
 
 	return $variables;
 
 }
 
-function retrieve_total_results_per_tab($term, $limit){
+function retrieve_total_results_per_tab($term, $limit, $language){
 
-    $results['Highlights'] = count(add_highlights_tab($term->tid, $page, $limit));
+    $results['Highlights'] = count(add_highlights_tab($term->tid, $language, $page, $limit));
 
-    $results['All'] = count(add_all_tab($term->tid, $page, $limit));
+    $results['All'] = count(add_all_tab($term->tid, $language, $page, $limit));
 
-    $results['Publications'] = count(add_publications_tab($term->tid, $page, $limit));
+    $results['Publications'] = count(add_publications_tab($term->tid, $language, $page, $limit));
 
-    $results['Articles'] = count(add_articles_tab($term->tid, $page, $limit));
+    $results['Articles'] = count(add_articles_tab($term->tid, $language, $page, $limit));
 
-    $results['News'] = count(add_news_tab($term->tid, $page, $limit));
+    $results['News'] = count(add_news_tab($term->tid, $language, $page, $limit));
 
-    $results['Events'] = count(add_events_tab($term->tid, $page, $limit));
-
+    $results['Events'] = count(add_events_tab($term->tid, $language, $page, $limit));
+    
     return $results;
 }
 
@@ -106,16 +116,16 @@ function add_subscription_to_variables($variables, $term){
 
 
 
-function add_topics_to_variables($variables, $term){
+function add_topics_to_variables($variables, $term, $language){
 
     // Maximum number of related topics is set to 3 in field configuration
  	for ($i = 0; $i < 3; $i++)
  	{
- 		if( isset($term->field_ef_related_topics['und'][$i]['target_id']) )
+ 		if ( isset($term->field_ef_related_topics['und'][$i]['target_id']) )
  		{
     	
 	    	$topic = taxonomy_term_load($term->field_ef_related_topics['und'][$i]['target_id']);
-
+	    	
 			if(isset($topic->field_ef_main_image['und'][0]['uri']))
 			{
 		    
@@ -131,9 +141,18 @@ function add_topics_to_variables($variables, $term){
 			// Need to check what's the alias of the received tid as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
 			$data = return_url_alias_data($topic->tid); 
 		  
-			// Always follows the rule: 'taxonomy/term/id' 
-			$variables['topics']['topic_' . $i]['url'] = $data[0]->alias;
-			$variables['topics']['topic_' . $i]['related_topic_name'] = $topic->name;
+			// Always follows the rule: 'taxonomy/term/id'
+			if ($language != 'en')
+			{
+				$variables['topics']['topic_' . $i]['url'] = $language . '/' . $data[0]->alias;
+			}
+			else
+			{
+				$variables['topics']['topic_' . $i]['url'] = $data[0]->alias;
+			} 
+			
+
+			$variables['topics']['topic_' . $i]['related_topic_name'] = $topic->field_term_title[$language][0]['value'];
 	 	
 	 	}
  	}

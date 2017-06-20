@@ -9,7 +9,7 @@ function check_topic_exists_by_url($term){
 
     $result = db_query($url_alias_query)->fetchAll();
 
-    if (count($result) > 0)
+    if (count($result))
     {
     	return $result;
     }
@@ -32,30 +32,33 @@ function return_url_alias_data($tid){
 }
 
 
-function add_highlights_tab($tid, $page, $limit = 8){
+function add_highlights_tab($tid, $language, $page, $limit = 8){
 
     $query = db_select('field_data_field_ef_highlighted', 'a');
     $query->innerJoin('node', 'b', 'a.field_ef_highlighted_target_id = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
-    $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
+    $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id AND o.language = d.language');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
     $query->leftJoin('field_data_field_ef_event_start_date', 'g', 'b.nid = g.entity_id');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_publication_date_value','publication_date');
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.entity_id', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('a.bundle', 'ef_topics', '=');
     $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
     $query->condition('b.status', 1, '=');
+    
 
-   
+
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+     if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -63,11 +66,11 @@ function add_highlights_tab($tid, $page, $limit = 8){
     {
         $query->range(0, $limit);
     }
-   
+    
     $result = $query->execute();
    
     
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;
@@ -78,28 +81,30 @@ function add_highlights_tab($tid, $page, $limit = 8){
 
 }
 
-function add_all_tab($tid, $page, $limit = 8){
-
+function add_all_tab($tid, $language, $page, $limit = 8){
+    
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
-    $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
+    $query->leftJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id AND o.language = d.language');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
     $query->leftJoin('field_data_field_ef_event_start_date', 'g', 'b.nid = g.entity_id');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_publication_date_value','publication_date');
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.tid', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
     $query->condition('b.status', 1, '=');
 
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+     if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -111,7 +116,7 @@ function add_all_tab($tid, $page, $limit = 8){
     $result = $query->execute();
    
     
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;
@@ -122,24 +127,27 @@ function add_all_tab($tid, $page, $limit = 8){
 
 }
 
-function add_publications_tab($tid, $page, $limit = 8){
-
+function add_publications_tab($tid, $language, $page, $limit = 8){
+    
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
-    $query->innerJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id');
+    $query->innerJoin('field_data_field_ef_publication_date', 'd', 'b.nid = d.entity_id AND o.language = d.language');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_publication_date_value','publication_date');
     $query->condition('a.tid', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('b.type', 'ef_publication', '=');
     $query->condition('b.status', 1, '=');
-
+    
+    
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('d.field_ef_publication_date_value', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+     if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -152,7 +160,7 @@ function add_publications_tab($tid, $page, $limit = 8){
     $result = $query->execute();
    
     
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {  
         $output = _db_result_to_array($result);
         return $output;
@@ -161,24 +169,27 @@ function add_publications_tab($tid, $page, $limit = 8){
     return;
 }
 
-function add_articles_tab($tid, $page, $limit = 8){
+function add_articles_tab($tid, $language, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
     $query->condition('a.tid', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('b.`type`', 'ef_report', '=');
     $query->condition('b.status', 1, '=');
+   
 
     // Order by published_at field
     $query->extend('TableSort')->orderBy('d.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-    if(isset($page))
+    if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -190,7 +201,7 @@ function add_articles_tab($tid, $page, $limit = 8){
 
     $result = $query->execute();
     
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;
@@ -201,24 +212,27 @@ function add_articles_tab($tid, $page, $limit = 8){
 
 }
 
-function add_news_tab($tid, $page, $limit = 8){
+function add_news_tab($tid, $language, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
     $query->condition('a.tid', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('b.type', 'ef_news', '=');
     $query->condition('b.status', 1, '=');
+    
 
     // Order by published_at field
     $query->extend('TableSort')->orderBy('d.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+    if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -230,7 +244,7 @@ function add_news_tab($tid, $page, $limit = 8){
     $result = $query->execute();
 
 
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;
@@ -240,26 +254,29 @@ function add_news_tab($tid, $page, $limit = 8){
  
 }
 
-function add_events_tab($tid, $page, $limit = 8){
+function add_events_tab($tid, $language, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query->innerJoin('field_data_title_field', 'o', 'b.nid = o.entity_id');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('field_data_field_ef_event_start_date', 'd', 'b.nid = d.entity_id');
     $query->addField('b', 'nid', 'node_id');
-    $query->addField('b', 'title', 'title');
+    $query->addField('o', 'title_field_value', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'field_ef_event_start_date_value','event_start_date');
     // DOES NOT WORK so tranformation is done via PHP
     //$query->addExpression('DATE_FORMAT(field_ef_event_start_date_value,"%d %M %Y")','event_start_date');
     $query->condition('a.tid', $tid, '=');
+    $query->condition('o.language', $language, '=');
     $query->condition('b.`type`', 'ef_event', '=');
     $query->condition('b.status', 1, '=');
+    
 
     // Order by event_start_date field
     $query->extend('TableSort')->orderBy('d.field_ef_event_start_date_value', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
-     if(isset($page))
+    if (isset($page))
     {
         $query->range(8 * $page, $limit);
     }
@@ -271,7 +288,7 @@ function add_events_tab($tid, $page, $limit = 8){
     $result = $query->execute();
 
 
-    if($result->rowCount() > 0)
+    if ($result->rowCount())
     {
         $output = _db_result_to_array($result);
         return $output;

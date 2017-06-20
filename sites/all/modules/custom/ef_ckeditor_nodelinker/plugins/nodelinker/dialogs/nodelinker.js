@@ -127,7 +127,7 @@
 
 				var span = new CKEDITOR.dom.element('a');
 				span.setText(text);
-				span.setAttribute('href', $('input.cke_dialog_ui_input_text').val());
+				span.setAttribute('href', '/' + $('input.cke_dialog_ui_input_text').val());
 				
 				
 				range.insertNode(span);
