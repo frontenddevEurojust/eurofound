@@ -36,9 +36,9 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables['term'] = $term;
 
     // TABS DATA 
-    $variables = build_content_tabs($variables, $term, $page);
+    $variables = build_content_tabs($variables, $term,$language->language, $page);
 
-    $variables = build_content_pagers($variables, $term, $page, $limit = 5000000);
+    $variables = build_content_pagers($variables, $term, $language->language, $page, $limit = 5000000);
 
     // Metatag data preprocessing
     $string_ef_activities = build_activities_string($term);
@@ -51,20 +51,21 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables = add_subscription_to_variables($variables, $term);
     
     // Topics preprocessing for image and name
-    $variables = add_topics_to_variables($variables, $term);
+    $variables = add_topics_to_variables($variables, $term, $language->language);
 
     // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
 
     $variables = add_administrator_menu($variables, $term);
     
-    $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
+    $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000, $language->language);
     
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
-    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
     $variables['show_menu'] = check_current_user();
+    if ($term->field_term_last_updated)
+    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
 
 
     if(isset($term->field_ef_featured_block_content))
@@ -83,11 +84,11 @@ function template_preprocess_ef_topics_page(&$variables){
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
-    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000);
-
+    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000, $language->language);
+   
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
-    drupal_set_title($term->field_term_title['und'][0]['value']);
+    drupal_set_title($term->field_term_title[$language->language][0]['value']);
 
    
   }  
