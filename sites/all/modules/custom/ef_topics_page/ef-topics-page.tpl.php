@@ -6,6 +6,8 @@
  * @see template_preprocess_ef_topics_page()
  *
  */
+global $language;
+
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
@@ -30,7 +32,7 @@ if(!empty($variables['ef_activities'])){
     </ul>
     <?php endif; ?>
     
-    <?php if (isset($variables['term']->field_term_title['und'][0]['value'])): ?>
+    <?php if (isset($variables['term']->field_term_title[$language->language][0]['value'])): ?>
         <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
         <section class="large-9 columns">
         <?php else: ?>
