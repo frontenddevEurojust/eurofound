@@ -40,7 +40,7 @@ function _return_formatted_array($db_result, $field)
 {
 
 	$array = array();
-
+	
 	foreach ($db_result as $key => $value) 
 	{
 			$array[] = $value->{$field};
