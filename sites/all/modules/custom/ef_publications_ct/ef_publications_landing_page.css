@@ -91,7 +91,7 @@ ul.metadata-list-type li:empty {
 .pagination-centered ul.pagination li{
   position: relative;
 }
-.ajax-progress{
+.pagination-centered ul.pagination li .ajax-progress{
   position: absolute;
   top: 1px;
   left: 1px;

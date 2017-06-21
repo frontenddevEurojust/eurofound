@@ -13127,3 +13127,12 @@ ul.list-metadata li > ul li:first-child:before{
     margin-right: 5px;
 }
 
+/** END PUBLICATIONS VIEW LANDING PAGE* ***/
+.pagination-centered ul.pagination li{
+  position: relative;
+}
+.pagination-centered ul.pagination li .ajax-progress{
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
