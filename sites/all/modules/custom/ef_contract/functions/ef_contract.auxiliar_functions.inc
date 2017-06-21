@@ -275,6 +275,8 @@ function get_authors_by_gid($role, $gid){
 
 	$sql->condition('r.name', $role, '=');
 	$sql->condition('g.gid', $gid, '=');
+	$sql->condition('u.status', 1, '=');
+
 
 	$sql->orderBy('ln.field_ef_last_name_value', 'ASC');
 
@@ -311,6 +313,7 @@ function get_another_users($role){
 	$sql->fields('r', array('rid', 'name'));
 
 	$sql->condition('r.name', $role, '=');
+	$sql->condition('u.status', 1, '=');
 
 	$sql->orderBy('ln.field_ef_last_name_value', 'ASC');
 
