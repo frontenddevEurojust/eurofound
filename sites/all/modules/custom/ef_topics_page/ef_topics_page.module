@@ -237,3 +237,27 @@ function ef_topics_page_taxonomy_term_presave($term){
     }
     
 }
+
+
+function update_fill_topics_titles(){
+
+    // topics vid = 21
+    $tax = taxonomy_get_tree('21');
+    
+    foreach ($tax as $key => $entity) 
+
+    {
+        
+        $topic = taxonomy_term_load($entity->tid);
+
+        $topic->field_term_title['en'][0]['value'] = $topic->name;
+
+        $topic->field_term_title['en'][0]['safe_value'] = $topic->name;
+
+        taxonomy_term_save($topic);
+    
+    }
+    
+    
+
+}
