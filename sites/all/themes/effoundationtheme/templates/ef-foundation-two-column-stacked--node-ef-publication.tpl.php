@@ -92,7 +92,6 @@ if ($state == 'forthcoming')
 	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
 	$publication_date = date_format($publication_date,"F Y");
 }
-dpm($content);
 ?>
 
 <?php print print_insert_link();?>
@@ -215,7 +214,6 @@ dpm($content);
 					<?php if(isset($content['group_ef_node_details']['field_ef_doi'])): ?>
 					<li>
 						<span class="label-inline">DOI: </span><span><?= $content['group_ef_node_details']['field_ef_doi']; ?></span>
-						
 					</li>
 					<?php endif; ?>
 					<?php if($state == 'forthcoming'): ?>
