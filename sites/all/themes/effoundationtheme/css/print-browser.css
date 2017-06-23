@@ -803,7 +803,7 @@ ul.list-metadata li > ul {
   margin-bottom:25px;
 }
 .node-ef-publication .field-name-publication-preview img{
-  margin-top:0px !important;
+  margin-top: 15px !important;
 }
 .node-ef-publication .field-name-field-ef-document .file{
   display: block;
@@ -827,6 +827,9 @@ ul.list-metadata li > ul {
 }
 .ef-main .node .field .field-name-publication-preview img{
   float: none
+}
+.orange-formatting, .topic-subscription{
+  display: none;
 }
 ul.metadata-publications{
   font-size: 0.9em;
