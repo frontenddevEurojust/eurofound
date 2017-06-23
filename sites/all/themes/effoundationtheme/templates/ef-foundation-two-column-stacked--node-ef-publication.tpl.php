@@ -213,7 +213,7 @@ if ($state == 'forthcoming')
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_doi'])): ?>
 					<li>
-						<span class="label-inline">DOI: </span><span><?= $content['group_ef_node_details']['field_ef_doi']; ?></span>
+						<span class="label-inline">DOI: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_doi'][0]['#markup']; ?></span>
 					</li>
 					<?php endif; ?>
 					<?php if($state == 'forthcoming'): ?>
