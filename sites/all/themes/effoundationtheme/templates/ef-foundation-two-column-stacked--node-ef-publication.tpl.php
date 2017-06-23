@@ -212,9 +212,9 @@ if ($state == 'forthcoming')
 					</li>
 					<?php endif; ?>
 
-					<?php if(isset($content['group_ef_node_details']['field_ef_isbn'])): ?>
+					<?php if(isset($content['group_ef_node_details']['field_ef_doi'])): ?>
 					<li>
-						<span class="label-inline">DOI: </span><span><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
+						<span class="label-inline">DOI: </span><span><?= $content['group_ef_node_details']['field_ef_doi'][0]['#markup']; ?></span>
 						
 					</li>
 					<?php endif; ?>
