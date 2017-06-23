@@ -173,40 +173,40 @@ if ($state == 'forthcoming')
 							<?php endforeach; ?>
 						</ul>
 						<?php else: ?>
-						<span class="label-inline">Authors: </span><span><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
+						<span class="label-inline">Authors: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
 						<?php endif; ?>
 					</li>
 					<?php endif; ?>
 					
 					<?php if(isset($content['group_ef_node_details']['field_ef_number_of_pages'])): ?>
 					<li>
-						<span class="label-inline">Number of pages: </span><span><?= $content['group_ef_node_details']['field_ef_number_of_pages'][0]['#markup']; ?></span>
+						<span class="label-inline">Number of pages: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_number_of_pages'][0]['#markup']; ?></span>
 					</li>
 					<?php endif; ?>
 					
 					<?php if(isset($content['group_ef_node_details']['field_ef_document_type'])): ?>
 					<li>
-						<span class="label-inline">Document type: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_document_type'][0]['#href']) ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
+						<span class="label-inline">Document type: </span><span class="label-content"><a href="<?= url($content['group_ef_node_details']['field_ef_document_type'][0]['#href']) ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 					
 					<?php if(isset($content['group_ef_node_details']['field_ef_reference_no'])): ?>
 					<li>
-						<span class="label-inline">Reference nº: </span><span><?= $content['group_ef_node_details']['field_ef_reference_no'][0]['#markup']; ?></span>
+						<span class="label-inline">Reference nº: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_reference_no'][0]['#markup']; ?></span>
 						
 					</li>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_isbn'])): ?>
 					<li>
-						<span class="label-inline">ISBN: </span><span><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
+						<span class="label-inline">ISBN: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
 						
 					</li>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_catalogue'])): ?>
 					<li>
-						<span class="label-inline">Catalogue: </span><span><?= $content['group_ef_node_details']['field_ef_catalogue'][0]['#markup']; ?></span>
+						<span class="label-inline">Catalogue: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_catalogue'][0]['#markup']; ?></span>
 						
 					</li>
 					<?php endif; ?>
@@ -219,26 +219,26 @@ if ($state == 'forthcoming')
 					<?php if($state == 'forthcoming'): ?>
 						<?php if(isset($publication_date)): ?>
 						<li>
-							<span class="label-inline">Planned publication date: </span><span><?= $publication_date; ?></span>							
+							<span class="label-inline">Planned publication date: </span><span class="label-content"><?= $publication_date; ?></span>							
 						</li>
 						<?php endif; ?>
 					<?php else: ?>
 						<?php if(isset($content['group_ef_node_details']['published_on'])): ?>
 						<li>
-							<span class="label-inline">Published on: </span><span><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
+							<span class="label-inline">Published on: </span><span class="label-content"><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
 						</li>
 						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>
 					<li>
-						<span class="label-inline">Observatory: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_observatory'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
+						<span class="label-inline">Observatory: </span><span class="label-content"><a href="<?= url($content['group_ef_node_details']['field_ef_observatory'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_publ_sector'])): ?>
 					<li>
-						<span class="label-inline">Sector: </span><span><a href="<?= url($content['group_ef_node_details']['field_ef_publ_sector'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#title']; ?></a></span>
+						<span class="label-inline">Sector: </span><span class="label-content"><a href="<?= url($content['group_ef_node_details']['field_ef_publ_sector'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_sector'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
