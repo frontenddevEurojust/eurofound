@@ -124,9 +124,6 @@ ul.metadata-publications > li > ul li {
     float: left;
     width: 100%;
 }
-.field-name-field-term-subscription-url .topic-subscription:hover {
-    border: none;
-}
 .field-name-field-term-subscription-url .topic-subscription a {
     border: 2px solid #F99E35;
     color: #F7931E;
@@ -139,6 +136,13 @@ ul.metadata-publications > li > ul li {
     border: 2px solid #CCC;
     background: #FFF;
     color: #666;
+}
+.field-name-field-term-subscription-url .topic-subscription a .fa:before {
+    content: "\f003";
+    font-size: 1.4rem;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
 }
 .ef-main .node .field-name-field-ef-main-image img{
 	float: none !important;
