@@ -57,7 +57,7 @@ if(!empty($variables['ef_activities'])){
             
             <?php if (isset($variables['subscription'])): ?>
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-            <?= t("Subscribe now and receive updates on Eurofound's work in the area of @contextterm", array("@contextterm" => $contextual_term)); ?></a></p>
+            <?= t("Subscribe now and receive updates on Eurofound's work in the area of @title", array("@title" => $title)); ?></a></p>
             <?php endif; ?>
             <?php if(isset($variables['description'])): ?>  
             <div class="topic-description">

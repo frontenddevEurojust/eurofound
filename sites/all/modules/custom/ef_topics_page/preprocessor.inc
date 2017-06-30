@@ -64,6 +64,7 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
     $variables['description'] = $term->description;
     $variables['show_menu'] = check_current_user();
+    $variables['title'] = $term->field_term_title[$language->language][0]['value'];
     if ($term->field_term_last_updated)
     $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
 
@@ -88,7 +89,7 @@ function template_preprocess_ef_topics_page(&$variables){
    
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
-    drupal_set_title($term->field_term_title[$language->language][0]['value']);
+    drupal_set_title($variables['title']);
 
    
   }  
