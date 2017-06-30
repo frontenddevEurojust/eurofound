@@ -56,6 +56,7 @@ function topics_page($contextual_term = ''){
             'related_links_block' => NULL,
             'ef_activities' => NULL,
             'print_tabs' => NULL,
+            'title' => NULL,
         ]
     );
 }
@@ -81,6 +82,7 @@ function ef_topics_page_theme(){
                 'ef_activities' => NULL,
                 'subscription_url' => NULL,
                 'print_tabs' => NULL,
+                'title' => NULL,
             ],
             'file' => 'preprocessor.inc'
         ],
