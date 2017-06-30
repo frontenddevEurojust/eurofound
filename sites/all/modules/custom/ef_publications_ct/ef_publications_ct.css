@@ -151,9 +151,9 @@ ul.metadata-publications > li > ul li {
 }
 .field-name-field-term-subscription-url .topic-subscription a .fa:before {
     content: "\f003";
-    font-size: 2.4rem;
+    font-size: 1.4rem;
     position: relative;
-    top: 6px;
+    top: 1px;
     margin-right: 5px;
 }
 .ef-main .node .field-name-field-ef-main-image img{
