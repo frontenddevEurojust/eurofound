@@ -12,8 +12,6 @@ function template_preprocess_ef_topics_page(&$variables){
 
     // Global $language variable is used for textfield translations
     global $language;
-    
-
     // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
 
     $found = check_topic_exists_by_url(strtolower($variables['contextual_term']));
@@ -61,8 +59,8 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000, $language->language);
     
     // Additional variables sent to ef_topics_page.tpl.php
-    $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
-    $variables['description'] = $term->description;
+    $variables['summary'] = check_markup($term->field_term_summary[$language->language][0]['value'], 'filtered_html');
+    $variables['description'] = check_markup($term->description, 'filtered_html');
     $variables['show_menu'] = check_current_user();
     $variables['title'] = $term->field_term_title[$language->language][0]['value'];
     if ($term->field_term_last_updated)
@@ -71,12 +69,12 @@ function template_preprocess_ef_topics_page(&$variables){
 
     if(isset($term->field_ef_featured_block_content))
     {
-    	$variables['featured_block'] = $term->field_ef_featured_block_content[$language->language][0]['value'];;
+    	$variables['featured_block'] = check_markup($term->field_ef_featured_block_content[$language->language][0]['value'], 'filtered_html');
     }
 
     if(isset($term->field_ef_related_links_block))
     {
-    	$variables['related_links_block'] = $term->field_ef_related_links_block[$language->language][0]['value'];
+    	$variables['related_links_block'] = check_markup($term->field_ef_related_links_block[$language->language][0]['value'], 'filtered_html');
     }
     
     
@@ -90,7 +88,5 @@ function template_preprocess_ef_topics_page(&$variables){
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
     // Use drupal_set_title function as hook_menu can't work with contextual values
     drupal_set_title($variables['title']);
-
-   
-  }  
+  } 
 }

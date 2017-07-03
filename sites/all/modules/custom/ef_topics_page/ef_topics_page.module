@@ -263,3 +263,12 @@ function update_fill_topics_titles(){
     
 
 }
+
+/**
+* Implements hook_entity_update()
+*/
+function ef_topics_page_entity_update($entity, $type) {
+  if ($type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'ef_topics') {
+    entity_get_controller('taxonomy_term')->resetCache(array($entity->tid));
+  }
+}
