@@ -133,27 +133,25 @@ ul.metadata-publications > li > ul li {
     float: left;
     width: 100%;
 }
-.field-name-field-term-subscription-url .topic-subscription:hover {
-   
-}
+
 .field-name-field-term-subscription-url .topic-subscription a {
-	    border: 2px solid #F99E35;
+    border: 2px solid #F99E35;
     color: #F7931E;
     font-weight: bold;
     display: block;
-    padding: 0px 10px 12px 12px;
+    padding: 6px 10px 6px 12px;
     text-align: center;
 }
 .field-name-field-term-subscription-url .topic-subscription a:hover {
-	 border: 2px solid #CCC;
+    border: 2px solid #CCC;
     background: #FFF;
     color: #666;
 }
 .field-name-field-term-subscription-url .topic-subscription a .fa:before {
     content: "\f003";
-    font-size: 2.4rem;
+    font-size: 1.4rem;
     position: relative;
-    top: 6px;
+    top: 1px;
     margin-right: 5px;
 }
 .ef-main .node .field-name-field-ef-main-image img{
