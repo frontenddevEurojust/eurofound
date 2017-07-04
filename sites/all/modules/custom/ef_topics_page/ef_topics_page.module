@@ -265,10 +265,12 @@ function update_fill_topics_titles(){
 }
 
 /**
-* Implements hook_entity_update()
-*/
+ * Implements hook_entity_update()
+ */
 function ef_topics_page_entity_update($entity, $type) {
   if ($type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'ef_topics') {
+    cache_clear_all($entity->tid, 'cache_entity_taxonomy_term');
+    cache_clear_all($entity->path['alias'], 'cache_path');
     entity_get_controller('taxonomy_term')->resetCache(array($entity->tid));
   }
 }
