@@ -1566,6 +1566,7 @@ function webform_results_batch_results($node, $format, $options, &$context) {
  * Batch API completion callback; Display completion message and cleanup.
  */
 function webform_results_batch_finished($success, $results, $operations) {
+  dpm($success);
   if ($success) {
     $node = node_load($results['node']->nid);
     $file_link = retrieve_created_file($node);
@@ -2030,15 +2031,17 @@ function webform_download_latest_start_sid($nid, $latest_count, $completion_type
 
 function retrieve_created_file($node) {
   global $base_url;
-  $webform_dir = 'public://webform-download/';
-  $is_dir = file_prepare_directory($webform_dir);
-  dpm($isdir);
+
+  $downloaded_file_name = $node->title . '.xlsx';
+
   $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
-  if (isset($files)) {
-    foreach ($files as $file) {
-      file_delete($file);
+
+  foreach ($files as $file) {
+    if ($file->name == $node->title) {
+      unlink('sites/default/files/webform-download/' . $file->filename);
     }
   }
+
   $files = file_scan_directory('temporary://',  '/^webform*/');
   if (!empty($files)) {
     foreach ($files as $file => $file_data) { 
