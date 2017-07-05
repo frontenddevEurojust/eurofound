@@ -1393,7 +1393,7 @@ function webform_results_download_callback($node) {
     webform_results_download($node, $export_info);
   }
   else {
-    return t('No export file ready for download. The file may have already been downloaded by your browser. Visit the <a href="!href">download export form</a> to create a new export.', array('!href' => url('node/' . $node->nid . '/webform-results/download')));
+      return t('No export file ready for download. The file may have already been downloaded by your browser. Visit the <a href="!href">download export form</a> to create a new export.', array('!href' => url('node/' . $node->nid . '/webform-results/download')));
   }
 }
 
@@ -1566,32 +1566,19 @@ function webform_results_batch_results($node, $format, $options, &$context) {
  * Batch API completion callback; Display completion message and cleanup.
  */
 function webform_results_batch_finished($success, $results, $operations) {
-  /*
-  $iexplorer = FALSE;
-  preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
-  if(count($matches) < 2){
-    preg_match('/Trident\/\d{1,2}.\d{1,2}; rv:([0-9]*)/', $_SERVER['HTTP_USER_AGENT'], $matches);
-  }
-  if (count($matches) > 1) {
-    //Then we're using IE
-    $iev = $matches[1];
-    if ($iev <= 8 || $iev == 9 || $iev == 10 || $iev == 11) {
-      $iexplorer = TRUE ;
+  if ($success) {
+    $node = node_load($results['node']->nid);
+    $file_link = retrieve_created_file($node);
+    if (!empty($file_link)) {
+      drupal_set_message(t('Export creation complete. Your download should begin now. If it does not start, <a href="!href">download the file here</a>.', array('!href' => $file_link)));
     }
   }
-  if (!$iexplorer) {
-  */
-    if ($success) {
-      $download_url = url('node/' . $results['node']->nid . '/webform-results/download-file');
-      drupal_set_message(t('Export creation complete. Your download should begin now. If it does not start, <a href="!href">download the file here</a>. This file may only be downloaded once.', array('!href' => $download_url)));
+  else {
+    drupal_set_message(t('An error occurred while generating the export file.'));
+    if (isset($results['file_name']) && is_file($results['file_name'])) {
+      @unlink($results['file_name']);
     }
-    else {
-      drupal_set_message(t('An error occurred while generating the export file.'));
-      if (isset($results['file_name']) && is_file($results['file_name'])) {
-        @unlink($results['file_name']);
-      }
-    }
-  //}
+  }
 }
 
 /**
@@ -2039,4 +2026,34 @@ function webform_download_latest_start_sid($nid, $latest_count, $completion_type
 
   $latest_sids = $query->execute()->fetchCol();
   return $latest_sids ? min($latest_sids) : 1;
+}
+
+function retrieve_created_file($node) {
+  global $base_url;
+  $webform_dir = 'public://webform-download/';
+  $is_dir = file_prepare_directory($webform_dir);
+  dpm($isdir);
+  $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
+  if (isset($files)) {
+    foreach ($files as $file) {
+      file_delete($file);
+    }
+  }
+  $files = file_scan_directory('temporary://',  '/^webform*/');
+  if (!empty($files)) {
+    foreach ($files as $file => $file_data) { 
+      rename('sites/default/temp/' . $file_data->filename, 'sites/default/files/webform-download/' . $node->title . '.xlsx');
+    }
+  }
+  unset($file_data);
+  $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
+  if (isset($files)) {
+    foreach ($files as $file => $data) {
+      $file_data = $data;
+    }
+  }
+  if (isset($file_data->uri)) {
+    $link = $base_url . '/sites/default/files/webform-download/' . $file_data->filename;
+  }
+  return $link;
 }
