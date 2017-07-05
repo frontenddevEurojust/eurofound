@@ -1566,7 +1566,6 @@ function webform_results_batch_results($node, $format, $options, &$context) {
  * Batch API completion callback; Display completion message and cleanup.
  */
 function webform_results_batch_finished($success, $results, $operations) {
-  dpm($success);
   if ($success) {
     $node = node_load($results['node']->nid);
     $file_link = retrieve_created_file($node);
