@@ -6,14 +6,21 @@
 function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 
 	if ($view->name == 'authors_as_metadata')
+	
 	{
+		
 		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
+		
 		{
 		
 			$filter = [
+				
 				'field' => 'taxonomy_index.tid',
+				
 				'value' => $view->exposed_raw_input['tid'],
+				
 				'operator' => '=',
+			
 			];
 
 			$view->query->where[1]['conditions'][] = $filter;
@@ -28,10 +35,253 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
  */
 function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 	
-	if($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1')
+	
+	if ($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1')
+	
 	{
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.css');
 	}
 	
+
+
+	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
+
+	{
+
+		$form['field_ef_publ_contributors']['und']['#description'] = 'Use the other field to add new Authors';
+
+		$form['add_new_contributor'] = [
+			
+			'#type' => 'textfield',
+			  
+			'#title' => t('Add new authors'),
+			
+			'#description' => t('Use a colon to separate Author values'),
+			
+			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+
+			'#prefix' => '<div id="add-new-publ-contributor">',
+			
+			'#suffix' => '</div>',
+		];
+
+		$form['save'] = [
+
+			'#type' => 'button', 
+
+			'#value' => t('Add'), 
+
+			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 2,
+
+			'#ajax' => [
+
+				'callback' => 'submit_new_contributors',
+
+				'wrapper' => 'add-new-contributor',
+
+      			'method' => 'replace',
+
+      			'effect' => 'fade',
+
+			],
+
+			'#submit' => ['submit_new_contributors'],
+		];
+
+	}	
+
+}
+
+function submit_new_contributors($form, &$form_state){
+
+	$newAuthors = explode(';', $form_state['values']['add_new_contributor']);
 	
+	try
+	{
+
+		save_new_contributors($newAuthors, $form['nid']['#value']);
+			
+		load_js_for_tags_rendering($newAuthors, $form['nid']['#value']);
+		
+		
+		// Empty add new contributor textfield so that it's reloaded correctly
+		$form['add_new_contributor']['#value'] = '';
+		
+		return [
+		    
+		    '#type' => 'ajax',
+		    
+		    '#commands' => [
+
+				ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor']) ),
+			
+			],
+  		];
+  		
+	
+	}
+	
+	catch (Exception $e)
+	{
+
+		_clear_authors_as_metadata_variables($form['nid']['#value']);
+		
+		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js');
+	
+	}
+	
+	
+}
+
+function save_new_contributors(array $authors, $nid){
+
+	foreach ($authors as $value)
+
+	{
+		// Simple validation for avoiding duplicates
+		$exists = check_term_exists($value);
+		
+		if ($exists)
+
+		{
+			throw new Exception('The specified author already exists.');
+		}
+
+		$term = build_basic_term($value);          
+		
+		$response = taxonomy_term_save($term);
+
+
+		if (!$response)
+		
+		{
+			throw new Exception('Error saving a new term.');
+		}
+	
+		
+		$_SESSION['authors_as_metadata'][$nid][] = $term->tid;
+	
+	}
+
+	return $tids;
+
+}
+
+function _clear_authors_as_metadata_variables($nid = null){
+	
+	if($nid)
+
+	{
+		unset($_SESSION['authors_as_metadata'][$nid]);
+
+		return;
+	}
+
+	unset($_SESSION['authors_as_metadata']);
+
+}
+
+function check_term_exists($author){
+
+	$query = "SELECT * FROM taxonomy_term_data a WHERE a.vid = 12 AND a.name = :name";
+
+	$result = db_query($query, [':name' => $author])->fetchObject();
+	
+	if (isset($result) && $result != 0)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+
+}
+
+function ef_authors_as_metadata_node_presave($node){
+
+	$types = ['ef_report', 'ef_publication'];
+
+	if (in_array($node->type, $types))
+
+	{
+		if($_SESSION['authors_as_metadata'])
+		
+		{
+			foreach($_SESSION['authors_as_metadata'][$node->nid] as $tid)
+
+			{	
+				$node->field_ef_publ_contributors['und'][] = ['tid' => $tid];
+			}
+
+			_clear_authors_as_metadata_variables($node->nid);
+		}
+	}
+	
+
+}
+/*
+* Implements hook_menu()
+*/
+function ef_authors_as_metadata_menu(){
+	
+	//Define URI to remove an author
+	$items['authors-as-metadata/delete-author/%/%'] = [
+		
+		'page callback' => '_delete_author',
+		
+		'page arguments' => array(2,3),
+		
+		'type' => MENU_CALLBACK,
+	];
+}
+
+
+
+function _delete_author($nid, $termName){
+
+	$term = taxonomy_get_term_by_name($termName, $vocabulary = 'ef_publication_contributors');
+
+	$output = taxonomy_term_delete($term->tid);
+
+	// Actualizar variable de session
+
+	_clear_authors_as_metadata_variables($nid);
+
+	dpm($output);
+	//drupal_json_output(array('status' => 0, 'data' => ''));
+
+}
+
+function load_js_for_tags_rendering($Authors, $nid){
+
+	$settings['new_authors'] = $Authors;
+	
+	$settings['iterations'] = count($Authors);
+
+	$settings['nid'] = $nid;
+
+	drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js');
+	
+	// Make authors available to javascript so that tags can be rendered
+	drupal_add_js(array('ef_authors_as_metadata' => $settings), 'setting');
+		
+}
+
+function build_basic_term($value, $vid = null){
+
+	if (!isset($vid))
+
+	{
+		// Publication Contributor taxonomy
+		$vid = 12;
+	}
+
+
+	$term = new stdClass();
+		
+	$term->name = $value;  
+		
+	$term->vid = $vid; 
+
+	return $term;
+
 }
