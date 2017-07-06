@@ -16,9 +16,8 @@
 
 	    		{
 
-	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + newAuthors[i] + '<i class="fa fa-close author-tag-close" aria-hidden="true"></i></a></span>';
-	    			
-                    $('#add-new-publ-contributor').after(element);
+	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + newAuthors[i] + '</a></span>';
+	    			$('#add-new-publ-contributor').after(element);
 
 	    		}
     		
