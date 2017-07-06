@@ -2044,7 +2044,7 @@ function retrieve_created_file($node) {
   $files = file_scan_directory('temporary://',  '/^webform*/');
   if (!empty($files)) {
     foreach ($files as $file => $file_data) {
-      $clean_name = clean_filename($node->title);
+      $clean_name = _webform_safe_name($node->title);
       rename('sites/default/temp/' . $file_data->filename, 'sites/default/files/webform-download/' . $clean_name . '.xlsx');
     }
   }
@@ -2052,7 +2052,7 @@ function retrieve_created_file($node) {
   $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
   if (isset($files)) {
     foreach ($files as $file => $data) {
-      if  ($data->name ==  clean_filename($node->title)) {
+      if  ($data->name ==  _webform_safe_name($node->title)) {
         $file_data = $data;
       }
     }
@@ -2062,11 +2062,4 @@ function retrieve_created_file($node) {
   }
 
   return $link;
-}
-
-function clean_filename($filename) {
-  $filename = str_replace('"', '', $filename);
-  $filename = str_replace("'", '', $filename);
-
-  return $filename;
 }
