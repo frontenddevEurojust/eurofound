@@ -3,22 +3,21 @@
         'attach': function(context) {
 
         $('#add-new-publ-contributor', context).once('ef_authors_as_metadata', function () {
+    		
     		var newAuthors = Drupal.settings.ef_authors_as_metadata.new_authors;
     		var iterations = Drupal.settings.ef_authors_as_metadata.iterations;
     		var nid = Drupal.settings.ef_authors_as_metadata.nid;
 
     		
-    		if (newAuthors)
+    		if (newAuthors != '')
 
     		{
 	    		for (var i = 0; i < iterations; i++) 
 
 	    		{
-	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="removeTag(this,' + nid + ')">' + newAuthors[i] + '</a></span>';
+
+	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + newAuthors[i] + '</a></span>';
 	    			$('#add-new-publ-contributor').after(element);
-
-	    			// url 
-
 
 	    		}
     		
@@ -27,16 +26,19 @@
     		
     	}
     };
-})(jQuery)
 
+})(jQuery)
 
 function removeTag(element, nid){
 
-	console.log(element.innerHTML);
-	console.log(nid);
+	jQuery.get( '/authors-as-metadata/delete-author/' + nid + '/' + encodeURI(element.innerHTML), function( response ) {
 
-	// authors-as-metadata/delete-author/' + nid + '/' + newAuthors[i]
+		if(response.status == 200)
 
-	//$.post('/save/assign_to_user/' + aux[0] + '/' + aux[1] + '/' + uid);
-	//$.jquery();
+		{
+			jQuery('#' + nid + '-' + element.innerHTML).remove();
+		}
+
+	});
+
 }

@@ -39,7 +39,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 	if ($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1')
 	
 	{
-		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.css');
+		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_page.css');
 	}
 	
 
@@ -87,6 +87,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 			'#submit' => ['submit_new_contributors'],
 		];
+		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
 
 	}	
 
@@ -97,6 +98,7 @@ function submit_new_contributors($form, &$form_state){
 	$newAuthors = explode(';', $form_state['values']['add_new_contributor']);
 	
 	try
+	
 	{
 
 		save_new_contributors($newAuthors, $form['nid']['#value']);
@@ -122,6 +124,7 @@ function submit_new_contributors($form, &$form_state){
 	}
 	
 	catch (Exception $e)
+
 	{
 
 		_clear_authors_as_metadata_variables($form['nid']['#value']);
@@ -159,20 +162,28 @@ function save_new_contributors(array $authors, $nid){
 		}
 	
 		
-		$_SESSION['authors_as_metadata'][$nid][] = $term->tid;
-	
+		$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
+		
 	}
 
 	return $tids;
 
 }
 
-function _clear_authors_as_metadata_variables($nid = null){
+function _clear_authors_as_metadata_variables($nid = null, $tid = null){
 	
-	if($nid)
+	if($nid && $tid == null)
 
 	{
 		unset($_SESSION['authors_as_metadata'][$nid]);
+
+		return;
+	}
+
+	if($nid && $tid)
+
+	{
+		unset($_SESSION['authors_as_metadata'][$nid][$tid]);
 
 		return;
 	}
@@ -199,11 +210,11 @@ function check_term_exists($author){
 function ef_authors_as_metadata_node_presave($node){
 
 	$types = ['ef_report', 'ef_publication'];
-
+	
 	if (in_array($node->type, $types))
 
 	{
-		if($_SESSION['authors_as_metadata'])
+		if(isset($_SESSION['authors_as_metadata']))
 		
 		{
 			foreach($_SESSION['authors_as_metadata'][$node->nid] as $tid)
@@ -211,13 +222,26 @@ function ef_authors_as_metadata_node_presave($node){
 			{	
 				$node->field_ef_publ_contributors['und'][] = ['tid' => $tid];
 			}
-
+			
 			_clear_authors_as_metadata_variables($node->nid);
 		}
 	}
 	
 
 }
+
+/*
+* Implements hook_permission()
+*/
+function ef_authors_as_metadata_permission(){
+    return array(
+        'access_ef_authors_as_metadata' => array(
+            'title' => t('Authors as metadata'),
+            'description' => t('Enable access to authors as metadata features'),
+        ),
+    );
+}
+
 /*
 * Implements hook_menu()
 */
@@ -231,23 +255,33 @@ function ef_authors_as_metadata_menu(){
 		'page arguments' => array(2,3),
 		
 		'type' => MENU_CALLBACK,
+
+		'access arguments' => array('access_ef_topics_page'),
 	];
+
+	return $items;
 }
 
 
 
 function _delete_author($nid, $termName){
 
-	$term = taxonomy_get_term_by_name($termName, $vocabulary = 'ef_publication_contributors');
+	$term = taxonomy_get_term_by_name(urldecode($termName), $vocabulary = 'ef_publication_contributors');
 
-	$output = taxonomy_term_delete($term->tid);
+	$output = taxonomy_term_delete($term[key($term)]->tid);
 
-	// Actualizar variable de session
+	_clear_authors_as_metadata_variables($nid, $term[key($term)]->tid);
 
-	_clear_authors_as_metadata_variables($nid);
+	
+	dpm('delete executed');
 
-	dpm($output);
-	//drupal_json_output(array('status' => 0, 'data' => ''));
+	if($output == 0)
+	
+	{
+		drupal_json_output(array('status' => 500, 'data' => 'The term could not be deleted.'));
+	}
+
+	drupal_json_output(array('status' => 200, 'data' => 'Term deleted successfully'));
 
 }
 
@@ -285,3 +319,4 @@ function build_basic_term($value, $vid = null){
 	return $term;
 
 }
+
