@@ -2052,7 +2052,7 @@ function retrieve_created_file($node) {
   $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
   if (isset($files)) {
     foreach ($files as $file => $data) {
-      if  ($data->name ==  _webform_safe_name($node->title)) {
+      if  ($data->name == _webform_safe_name($node->title)) {
         $file_data = $data;
       }
     }
