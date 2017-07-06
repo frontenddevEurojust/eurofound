@@ -3,18 +3,72 @@
 	float: left;
 	padding: 15px;
 	background: #8bc1c7;
-	margin-bottom: 3rem;
-	margin-top: 3rem;
-	min-height: 15rem;
+	margin: 3rem 0;
+	min-height: 17rem;
 }
+.field-name-field-ef-publ-contributors .form-item{
+	margin:0;
+}
+.field-name-field-ef-publ-contributors .form-item label {
+  font-size: 1.3em !important;
+  padding: 0em 0 1em;
+}
+.field-name-field-ef-publ-contributors .chosen-container-multi .chosen-choices{
+	padding: 6px;
+	border: 1px dotted #A0A0A0;
+	border-radius: 4px;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+	height: auto;
+	width: 100%!important;
+}
+
+
+
+
+/*********************************************************/
+
 #edit-add-new-contributor-wrapper{
 	width: 49%;
 	float: right;
 	padding: 15px;
 	background: #aecaa5;
-	margin-bottom: 3rem;
-	margin-top: 3rem;
-	min-height: 15rem;
+	margin: 3rem 0;
+	min-height: 17rem;
+}
+#edit-add-new-contributor-wrapper .form-item{
+	margin:0;
+}
+#edit-add-new-contributor-wrapper .form-item label {
+  font-size: 1.3em !important;
+  padding: 0em 0 1em;
+}
+#edit-add-new-contributor-wrapper .author-tag{
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 12px;
+}
+#edit-add-new-contributor-wrapper .author-tag-close{
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	font-size: 12px;
+}
+#edit-add-new-contributor-wrapper .author-tag a{
+	display: block;
+	margin: 0px;
+	padding: 5px 22px 5px 10px;
+	background: #222;
+	color: #FFF !important;
+	border-radius: 4px;
+	text-align: left;
+}
+#edit-add-new-contributor-wrapper button, 
+#edit-add-new-contributor-wrapper .button {
+  display: block;
+  margin: 2rem 0;
 }
 .vertical-tabs {
 	clear: both;
