@@ -2036,7 +2036,7 @@ function retrieve_created_file($node) {
   $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
 
   foreach ($files as $file) {
-    if ($file->name == $node->title) {
+    if ($file->name == _webform_safe_name($node->title)) {
       unlink('sites/default/files/webform-download/' . $file->filename);
     }
   }
@@ -2048,7 +2048,9 @@ function retrieve_created_file($node) {
       rename('sites/default/temp/' . $file_data->filename, 'sites/default/files/webform-download/' . $clean_name . '.xlsx');
     }
   }
+
   unset($file_data);
+
   $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
   if (isset($files)) {
     foreach ($files as $file => $data) {
@@ -2057,6 +2059,7 @@ function retrieve_created_file($node) {
       }
     }
   }
+  
   if (isset($file_data->uri)) {
     $link = $base_url . '/sites/default/files/webform-download/' . $file_data->filename;
   }
