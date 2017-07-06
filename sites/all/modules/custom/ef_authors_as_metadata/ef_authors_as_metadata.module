@@ -63,7 +63,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			  
 			'#title' => t('Add new authors'),
 			
-			'#description' => t('Use a colon to separate Author values'),
+			'#description' => t('Use a colon to separate multiple values'),
 			
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
@@ -101,6 +101,8 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
 		
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
+
+		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.js');
 
 	}	
 

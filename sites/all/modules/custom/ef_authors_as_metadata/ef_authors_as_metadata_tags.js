@@ -17,12 +17,17 @@
 	    		{
 
 	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + newAuthors[i] + '<i class="fa fa-close author-tag-close" aria-hidden="true"></i></a></span>';
-	    			$('#add-new-publ-contributor').after(element);
+	    			
+                    $('#add-new-publ-contributor').after(element);
 
 	    		}
     		
     		}
     	});
+
+        $('.form-item-add-new-contributor input', context).once('ef_authors_as_metadata', function (){
+            $('.form-item-add-new-contributor input').append('<span>Success.The author has been saved in the Publication Contributor taxonomy.</span>');
+        });
     		
     	}
     };
