@@ -50,17 +50,12 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 		$form['field_ef_publ_contributors']['und']['#description'] = 'Use the other field to add new Authors';
 
-		$form['add_new_contributor_wrapper'] = 
-		['#type' => 'container',
-      '#attributes' => [
-        'class' => [
-          'field-type-' . drupal_html_class($field['type']),
-          'field-name-' . drupal_html_class($field_name),
-          'field-widget-' . drupal_html_class($instance['widget']['type']),
-        ],
-      ],
-      '#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
-    ];
+		$form['add_new_contributor_wrapper'] = [
+
+			'#type' => 'container',
+
+      		'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+    	];
 
 		$form['add_new_contributor_wrapper']['add_new_contributor'] = [
 			
@@ -99,6 +94,12 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 			'#submit' => ['submit_new_contributors'],
 		];
+
+		// Add the new form item to the group authors fieldset
+		$form['#groups']['group_authors']->children[] = 'add_new_contributor_wrapper';
+		
+		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
+		
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
 
 	}	
