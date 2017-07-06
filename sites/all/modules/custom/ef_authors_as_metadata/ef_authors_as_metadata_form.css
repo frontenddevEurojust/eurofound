@@ -1,0 +1,21 @@
+.field-name-field-ef-publ-contributors{
+	width: 49%;
+	float: left;
+	padding: 15px;
+	background: #8bc1c7;
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+	min-height: 15rem;
+}
+#edit-add-new-contributor-wrapper{
+	width: 49%;
+	float: right;
+	padding: 15px;
+	background: #aecaa5;
+	margin-bottom: 3rem;
+	margin-top: 3rem;
+	min-height: 15rem;
+}
+.vertical-tabs {
+	clear: both;
+}

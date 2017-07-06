@@ -50,7 +50,19 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 		$form['field_ef_publ_contributors']['und']['#description'] = 'Use the other field to add new Authors';
 
-		$form['add_new_contributor'] = [
+		$form['add_new_contributor_wrapper'] = 
+		['#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'field-type-' . drupal_html_class($field['type']),
+          'field-name-' . drupal_html_class($field_name),
+          'field-widget-' . drupal_html_class($instance['widget']['type']),
+        ],
+      ],
+      '#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+    ];
+
+		$form['add_new_contributor_wrapper']['add_new_contributor'] = [
 			
 			'#type' => 'textfield',
 			  
@@ -65,11 +77,11 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			'#suffix' => '</div>',
 		];
 
-		$form['save'] = [
+		$form['add_new_contributor_wrapper']['save'] = [
 
 			'#type' => 'button', 
 
-			'#value' => t('Add'), 
+			'#value' => t('Add New Author'), 
 
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 2,
 
@@ -115,7 +127,7 @@ function submit_new_contributors($form, &$form_state){
 		    
 		    '#commands' => [
 
-				ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor']) ),
+				ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor_wrapper']['add_new_contributor']) ),
 			
 			],
   		];
