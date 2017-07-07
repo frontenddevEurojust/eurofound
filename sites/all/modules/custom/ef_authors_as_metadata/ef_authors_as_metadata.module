@@ -48,7 +48,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 	{
 
-		$form['field_ef_publ_contributors']['und']['#description'] = 'Use the other field to add new Authors';
+		$form['field_ef_publ_contributors']['und']['#description'] = "If you don't find an author, it can be added in the panel to the right.";
 
 		$form['add_new_contributor_wrapper'] = [
 
@@ -63,7 +63,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			  
 			'#title' => t('Add new authors'),
 			
-			'#description' => t('Use a colon to separate multiple values'),
+			'#description' => t('Use a semicolon to separate multiple values'),
 			
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
@@ -116,13 +116,13 @@ function submit_new_contributors($form, &$form_state){
 	
 	{
 
-		save_new_contributors($newAuthors, $form['nid']['#value']);
-			
+		$newAuthors = save_new_contributors($newAuthors, $form['nid']['#value']);
+		
 		load_js_for_tags_rendering($newAuthors, $form['nid']['#value']);
 		
 		
 		// Empty add new contributor textfield so that it's reloaded correctly
-		$form['add_new_contributor']['#value'] = '';
+		$form['add_new_contributor_wrapper']['add_new_contributor']['#value'] = '';
 		
 		return [
 		    
@@ -141,10 +141,12 @@ function submit_new_contributors($form, &$form_state){
 	catch (Exception $e)
 
 	{
+		dpm($e->getMessage());
 
 		_clear_authors_as_metadata_variables($form['nid']['#value']);
 		
-		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js');
+		load_js_for_error($e->getMessage());
+		
 	
 	}
 	
@@ -153,35 +155,44 @@ function submit_new_contributors($form, &$form_state){
 
 function save_new_contributors(array $authors, $nid){
 
+	$terms = [];
+
 	foreach ($authors as $value)
 
-	{
-		// Simple validation for avoiding duplicates
-		$exists = check_term_exists($value);
-		
-		if ($exists)
+	{	
+		// Control for some edge cases
+		if (!empty($value))
 
-		{
-			throw new Exception('The specified author already exists.');
+		{		
+			// Simple validation for avoiding duplicates
+			$exists = check_term_exists($value);
+			
+			if ($exists)
+
+			{
+				throw new Exception($value);
+			}
+
+			$term = build_basic_term($value);          
+			
+			$response = taxonomy_term_save($term);
+
+
+			if (!$response)
+			
+			{
+				throw new Exception('Error saving a new term.');
+			}
+
+			$terms[] = $value;
+				
+			$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
+
 		}
-
-		$term = build_basic_term($value);          
-		
-		$response = taxonomy_term_save($term);
-
-
-		if (!$response)
-		
-		{
-			throw new Exception('Error saving a new term.');
-		}
-	
-		
-		$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
 		
 	}
 
-	return $tids;
+	return $terms;
 
 }
 
@@ -249,12 +260,19 @@ function ef_authors_as_metadata_node_presave($node){
 * Implements hook_permission()
 */
 function ef_authors_as_metadata_permission(){
-    return array(
-        'access_ef_authors_as_metadata' => array(
+    
+    return [
+        
+        'access_ef_authors_as_metadata' => [
+            
             'title' => t('Authors as metadata'),
+            
             'description' => t('Enable access to authors as metadata features'),
-        ),
-    );
+        
+        ],
+    
+    ];
+
 }
 
 /*
@@ -271,7 +289,7 @@ function ef_authors_as_metadata_menu(){
 		
 		'type' => MENU_CALLBACK,
 
-		'access arguments' => array('access_ef_topics_page'),
+		'access arguments' => array('access_ef_authors_as_metadata'),
 	];
 
 	return $items;
@@ -287,8 +305,6 @@ function _delete_author($nid, $termName){
 
 	_clear_authors_as_metadata_variables($nid, $term[key($term)]->tid);
 
-	
-	dpm('delete executed');
 
 	if($output == 0)
 	
@@ -335,3 +351,12 @@ function build_basic_term($value, $vid = null){
 
 }
 
+function load_js_for_error($text){
+	
+	$settings['text'] = $text;
+
+	drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js');
+
+	drupal_add_js(array('ef_authors_as_metadata' => $settings), 'setting');
+
+}

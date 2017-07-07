@@ -15,7 +15,7 @@
 				}
 				
 				var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description span').attr('title');
-
+				console.log(textNewAuthor);
 				if (typeof textPublContrib != 'undefined')
 
 				{
