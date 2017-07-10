@@ -1570,7 +1570,7 @@ function webform_results_batch_finished($success, $results, $operations) {
     $node = node_load($results['node']->nid);
     $file_link = retrieve_created_file($node, $extension);
     if (!empty($file_link)) {
-      drupal_set_message(t('Export creation complete. Your download should begin now. If it does not start, <a href="!href">download the file here</a>.', array('!href' => $file_link)));
+      drupal_set_message(t('Export completed. You can <a href="!href">download the file here</a>.', array('!href' => $file_link)));
     }
   }
   else {
