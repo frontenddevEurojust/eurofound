@@ -32,20 +32,24 @@ if(!empty($variables['ef_activities'])){
     <section class="large-12 columns">
     <?php endif; ?>      
         
+        <?php if (isset($variables['summary']) || isset($variables['main_image'])): ?>
         <div class="topic-abstract">
-        <p>
-            <?php if(isset($variables['main_image'])): ?>
-                <?= $main_image; ?>  
-            <?php else: ?>
-                <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
-            <?php endif; ?>
-        </p>
-        <p>
-            <?php if(isset($variables['summary'])): ?>
-                <?= $summary; ?>
-            <?php endif; ?>
-        </p>
+            <p>
+                <?php if (isset($variables['main_image'])): ?>
+                    <?= $main_image; ?>  
+                <?php else: ?>
+                    <?php if(isset($variables['summary'])): ?>
+                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+                    <?php endif; ?>  
+                <?php endif; ?>
+            </p>
+            <p>
+                <?php if(isset($variables['summary'])): ?>
+                    <?= $summary; ?>
+                <?php endif; ?>
+            </p>
         </div>
+        <?php endif; ?>
         
         <?php if(isset($variables['subscription'])): ?>
         <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
