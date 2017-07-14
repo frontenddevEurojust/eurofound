@@ -83,21 +83,33 @@ $state = $node->workbench_moderation['current']->state;
 
 
 if (isset($content['field_ef_document'][0]['#file']))
+
 {
 	$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 }
 
 if ($state == 'forthcoming')
+
 {
 	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
 	$publication_date = date_format($publication_date,"F Y");
 }
 
+if (isset($content['group_ef_node_details']['field_ef_observatory']))
+
+{
+	$aux = explode('/',$content['group_ef_node_details']['field_ef_observatory'][0]['#href']);
+	$tid = $aux[2];
+	$observatory_url = url('publications', array('query'=>array('field_ef_observatory_tid[]' => $tid),'absolute' => TRUE));
+}
+
 ?>
 
 <?php print print_insert_link();?>
-<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-
+<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?= $attributes; ?>>
+	<div class="ds-node-languages">
+	<?php print drupal_render($content['links']); ?>
+	</div> 
 	<div class="row">
 
 
@@ -212,10 +224,9 @@ if ($state == 'forthcoming')
 					</li>
 					<?php endif; ?>
 
-					<?php if(isset($content['group_ef_node_details']['field_ef_isbn'])): ?>
+					<?php if(isset($content['group_ef_node_details']['field_ef_doi'])): ?>
 					<li>
-						<span class="label-inline">DOI: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_isbn'][0]['#markup']; ?></span>
-						
+						<span class="label-inline">DOI: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_doi'][0]['#markup']; ?></span>
 					</li>
 					<?php endif; ?>
 					<?php if($state == 'forthcoming'): ?>
@@ -234,7 +245,7 @@ if ($state == 'forthcoming')
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>
 					<li>
-						<span class="label-inline">Observatory: </span><span class="label-content"><a href="<?= url($content['group_ef_node_details']['field_ef_observatory'][0]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
+						<span class="label-inline">Observatory: </span><span><a href="<?= $observatory_url ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
@@ -278,14 +289,7 @@ if ($state == 'forthcoming')
 			    <span class="hide-text">Hide comments</span>
 			</div>
 		  	<div id="comments" class="title comment-wrapper">
-				<?php
-
-					$comment = new stdClass;
-					$comment->nid = $node->nid;
-					$form = drupal_get_form('comment_form', $comment);
-					print render($form);
-
-				?>
+				<?php print render($content['comments']);?>
 			</div>
 		</div>
 		<?php endif; ?>

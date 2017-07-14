@@ -56,6 +56,7 @@ function topics_page($contextual_term = ''){
             'related_links_block' => NULL,
             'ef_activities' => NULL,
             'print_tabs' => NULL,
+            'title' => NULL,
         ]
     );
 }
@@ -81,6 +82,7 @@ function ef_topics_page_theme(){
                 'ef_activities' => NULL,
                 'subscription_url' => NULL,
                 'print_tabs' => NULL,
+                'title' => NULL,
             ],
             'file' => 'preprocessor.inc'
         ],
@@ -219,7 +221,6 @@ function ef_topics_page_node_presave($node){
     
 }
 
-
 /*
  * Implements hook_taxonomy_term_presave($term)
  *
@@ -260,4 +261,23 @@ function update_fill_topics_titles(){
     
     
 
+}
+
+/**
+ * Implements hook_entity_update()
+ */
+function ef_topics_page_entity_update($entity, $type) {
+  if ($type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'ef_topics') {
+    cache_clear_all($entity->tid, 'cache_entity_taxonomy_term');
+    cache_clear_all($entity->path['alias'], 'cache_path');
+    entity_get_controller('taxonomy_term')->resetCache(array($entity->tid));
+  }
+  if (isset($entity->tid)) {
+    module_load_include('inc', 'purge', 'purge');
+    $alias = $entity->path['alias'];
+    $source = $entity->path['source'];
+    $link[$alias] = $alias;
+    $link[$source] = $source;
+    $result = purge_urls($link);
+  }
 }
