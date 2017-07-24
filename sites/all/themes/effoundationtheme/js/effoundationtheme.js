@@ -1280,7 +1280,8 @@ $(document).ready(function(){
 (function ($) {
   $(document).ready(function(){
 
-    if(window.location.href.indexOf('country') > -1){
+    //if(window.location.href.indexOf('country') > -1){
+    if($('body.node-type-ef-working-life-country-profiles')){
 
       var anchor_found = window.location.href.indexOf('#');
 
