@@ -81,16 +81,32 @@
 
 $state = $node->workbench_moderation['current']->state;
 
-
 if (isset($content['field_ef_document'][0]['#file']))
 {
 	$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 }
 
 if ($state == 'forthcoming')
+
 {
-	$publication_date = date_create($content['field_ef_publication_date'][0]['#markup']);
-	$publication_date = date_format($publication_date,"F Y");
+	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
+	
+	{
+		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
+		$publication_date = date_format($publication_date,"F Y");
+	}
+
+}
+
+else
+
+{
+	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
+	
+	{
+		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
+		$publication_date = date_format($publication_date,"d F Y");
+	}
 }
 
 ?>
@@ -144,7 +160,16 @@ if ($state == 'forthcoming')
 			<div class="field field-name-body">
 				<?= $content['body'][0]['#markup']; ?>
 			</div>
-
+			<?php if (isset($content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']) && !isset($content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup'])): ?>
+			
+			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?></em>
+			
+			<?php elseif( isset($content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']) && isset($content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup'])): ?>
+			
+			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?> in the context of <?= $content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup']; ?></em>
+			
+			<?php endif; ?>
+			
 			<div id="node_ef_publication_full_group_ef_node_details">
 				
 				<ul class="metadata-publications">
@@ -203,17 +228,13 @@ if ($state == 'forthcoming')
 					</li>
 					<?php endif; ?>
 					<?php if($state == 'forthcoming'): ?>
-						<?php if(isset($publication_date)): ?>
 						<li>
 							<span class="label-inline">Planned publication date: </span><span><?= $publication_date; ?></span>							
 						</li>
-						<?php endif; ?>
 					<?php else: ?>
-						<?php if(isset($content['group_ef_node_details']['published_on'])): ?>
 						<li>
-							<span class="label-inline">Published on: </span><span><?= $content['group_ef_node_details']['published_on'][0]['#markup']; ?></span>
+							<span class="label-inline">Published on: </span><span><?= $publication_date; ?></span>
 						</li>
-						<?php endif; ?>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>

@@ -85,6 +85,25 @@ ul.metadata-list-type li:empty {
 #views-exposed-form-ef-publications-view-page .container-inline-date div input{
       width: 100%!important;
 }
-
+.forthcoming-label{
+    margin: inherit;
+    background: #f7931e;
+    padding: 1px 6px;
+    text-align: center;
+    color: #FFF;
+    font-size: 12px;
+    letter-spacing: 0;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: super;
+    text-transform: uppercase;
+    font-family: 'OpenSans-Semibold-webfont';
+}
+.publications-title{
+  float: left;
+}
+ul.metadata-list-type{
+  clear: both;
+}
 
 /** END PUBLICATIONS VIEW LANDING PAGE* ***/
