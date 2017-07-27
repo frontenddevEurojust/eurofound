@@ -103,6 +103,18 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
 
 		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.js');
+	
+		$form['#attached']['js'] = [
+			[
+				'type'  => 'file',
+				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js',
+			],
+			[
+				'type'  => 'file',
+				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js',
+			],
+		];
+	
 
 	}	
 
@@ -118,39 +130,56 @@ function submit_new_contributors($form, &$form_state){
 
 		$newAuthors = save_new_contributors($newAuthors, $form['nid']['#value']);
 		
-		load_js_for_tags_rendering($newAuthors, $form['nid']['#value']);
-		
 		
 		// Empty add new contributor textfield so that it's reloaded correctly
 		$form['add_new_contributor_wrapper']['add_new_contributor']['#value'] = '';
-		
-		return [
-		    
-		    '#type' => 'ajax',
-		    
-		    '#commands' => [
 
-				ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor_wrapper']['add_new_contributor']) ),
-			
-			],
-  		];
-  		
+		$commands[] = ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor_wrapper']['add_new_contributor']) );
+
+
+		$commands[] = [
+
+			'command' => 'ChangeLabels'
+
+		];
+
+		$commands[] = [
+
+			// The command will be used in our JavaScript files
+			'command' => 'AddTag',
+			// We pass the values
+			'newAuthors' => $newAuthors,
+
+			'nid' => $form['nid']['#value'],
+
+		];
+
+		
+
+		return ['#type' => 'ajax', '#commands' => $commands];
 	
 	}
 	
 	catch (Exception $e)
 
 	{
-		dpm($e->getMessage());
 
 		_clear_authors_as_metadata_variables($form['nid']['#value']);
 		
-		load_js_for_error($e->getMessage());
+  		$commands[] = [
+
+			// The command will be used in our JavaScript files
+			'command' => 'DuplicateContributor',
+			// We pass the values 
+			
+			'error' => $e->getMessage(),
+		];
+ 
+		// And finally, we will return all of our commands to the system to be executed:
+		return ['#type' => 'ajax', '#commands' => $commands];
 		
-	
 	}
-	
-	
+
 }
 
 function save_new_contributors(array $authors, $nid){
@@ -316,21 +345,6 @@ function _delete_author($nid, $termName){
 
 }
 
-function load_js_for_tags_rendering($Authors, $nid){
-
-	$settings['new_authors'] = $Authors;
-	
-	$settings['iterations'] = count($Authors);
-
-	$settings['nid'] = $nid;
-
-	drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js');
-	
-	// Make authors available to javascript so that tags can be rendered
-	drupal_add_js(array('ef_authors_as_metadata' => $settings), 'setting');
-		
-}
-
 function build_basic_term($value, $vid = null){
 
 	if (!isset($vid))
@@ -351,12 +365,18 @@ function build_basic_term($value, $vid = null){
 
 }
 
-function load_js_for_error($text){
+function delete_dummy_authors(){
 	
-	$settings['text'] = $text;
+	$query = "SELECT a.tid
+				from taxonomy_term_data a
+				where a.vid = 12
+				and a.tid > 22343";
 
-	drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js');
+	$result = db_query($query)->fetchAll();
 
-	drupal_add_js(array('ef_authors_as_metadata' => $settings), 'setting');
+	foreach ($result as $key => $value) {
 
+		taxonomy_term_delete($value->tid);
+	
+	}
 }

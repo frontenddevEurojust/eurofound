@@ -1,37 +1,48 @@
-(function($) {
-    Drupal.behaviors.ef_authors_as_metadata = {
-        'attach': function(context) {
+(function($, Drupal)
+{
+    // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
+    Drupal.ajax.prototype.commands.AddTag = function(ajax, response, status)
+    {
 
-        $('#add-new-publ-contributor', context).once('ef_authors_as_metadata', function () {
-    		
-    		var newAuthors = Drupal.settings.ef_authors_as_metadata.new_authors;
-    		var iterations = Drupal.settings.ef_authors_as_metadata.iterations;
-    		var nid = Drupal.settings.ef_authors_as_metadata.nid;
+        var newAuthors = response.newAuthors;
+        var nid = response.nid;
 
-    		
-    		if (newAuthors != '')
+        
+        if (newAuthors.length > 0)
 
-    		{
-	    		for (var i = 0; i < iterations; i++) 
+        {
+            newAuthors.forEach(function(currentValue){
 
-	    		{
+                var element = '<span id="' + nid + '-' + currentValue + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + currentValue + '</a></span>';
+                
+                $('#add-new-publ-contributor').after(element);
+            
+            });
+        
+        }
 
-	    			var element = '<span id="' + nid + '-' + newAuthors[i] + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + newAuthors[i] + '</a></span>';
-	    			$('#add-new-publ-contributor').after(element);
+        $('.form-item-add-new-contributor input').append('<span>Success.The author has been saved in the Publication Contributor taxonomy.</span>');
 
-	    		}
-    		
-    		}
-    	});
-
-        $('.form-item-add-new-contributor input', context).once('ef_authors_as_metadata', function (){
-            $('.form-item-add-new-contributor input').append('<span>Success.The author has been saved in the Publication Contributor taxonomy.</span>');
-        });
-    		
-    	}
     };
 
-})(jQuery)
+    // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
+    Drupal.ajax.prototype.commands.ChangeLabels = function(ajax, response, status)
+    {
+
+        var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description span').attr('title');
+
+        if (typeof textNewAuthor != 'undefined')
+
+        {
+            jQuery('#edit-add-new-contributor-wrapper .description').remove();
+
+            jQuery('.form-item-add-new-contributor label').after('<p>' + textNewAuthor + '</p>');
+        }
+
+    };
+
+}(jQuery, Drupal));
+
 
 function removeTag(element, nid){
 
@@ -46,3 +57,5 @@ function removeTag(element, nid){
 	});
 
 }
+
+
