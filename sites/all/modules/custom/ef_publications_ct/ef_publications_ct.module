@@ -86,6 +86,9 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 		// Modifies URL pattern as Drupal does not consider hidden input values. Rely on users to avoid new values.
 		//$form['field_ef_theme']['#type'] = 'hidden';
 
+		// Hide publication date as it is no longer relevant
+		$form['field_ef_publication_date']['#type'] = 'hidden';
+
 
 		// For checkboxes 'checked' condition needs to be used
 	    // Show Subscription message
