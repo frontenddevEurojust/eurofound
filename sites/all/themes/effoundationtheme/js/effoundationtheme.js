@@ -1376,6 +1376,26 @@ $(document).ready(function(){
 /** END working live country profiles  **/
 
 
+/** WGS-115 FOMES update. Remove EMCC banner **/
+(function ($) {
+$(document).ready(function(){
+      var form_pages = window.location.pathname.split("/");
+      var pathname_form = form_pages[3];
+
+      if(pathname_form == "fome"){
+        var urlFome = $('h1#page-title.parent_emcc a').attr('href');
+        urlFome = urlFome + '/fome'; 
+        $('h1#page-title.parent_emcc a').attr('href',urlFome);
+        
+        $('h1#page-title.parent_emcc').addClass('parent_fome').removeClass('parent_emcc');
+        $('h1#page-title.parent_fome a').html('<span class="abbrevation">FOME</span> Future of Manufacturing in Europe');        
+      }
+
+
+  });
+})(jQuery);
+/** END WGS-115 FOMES update. Remove EMCC banner **/
+
 
 
 
