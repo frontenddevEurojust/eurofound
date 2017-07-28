@@ -133,28 +133,28 @@ function ef_nc_breadcrumbs_page_build(&$page) {
           $vid = db_query($query)->fetchAll()[0]->vid;
 
           $node = node_load($nid, $vid);
-          
-          if($node->workbench_moderation['current']->state != 'forthcoming')
-          {
-              $node_year = date('Y',$node->published_at);
-          }
-          else
-          {
-              $date = date_create($node->field_ef_publication_date['en'][0]['value']);
-              $node_year = date_format($date, 'Y');
-          }
-
-          $date_view_value = date('Y') - $node_year;
 
           $trail[1] = "<a href='/publications'>Publications</a>";
+          
           unset($trail[2]);
-          $trail[2] = "<a href='/publications?ef_search=&published_at=" . $date_view_value ."'>" . $node_year ." </a>";
+          
           unset($trail[3]);
           unset($trail[4]);
+
+          if($node->workbench_moderation['current']->state != 'draft' && $node->published_at != 0)
+
+          {
+              $node_year = date('Y',$node->published_at);
+
+              $date_view_value = date('Y') - $node_year;
+
+              $trail[2] = "<a href='/publications?ef_search=&published_at=" . $date_view_value ."'>" . $node_year ." </a>";
+          }  
 
           break;
 
         case 'ef_restructuring_in_smes':
+        
           $trail[2] = "<a href='/observatories/emcc'>EMCC</a>";
           $trail[3] = "<a href='/observatories/european-monitoring-centre-on-change-emcc/european-restructuring-monitor'>ERM</a>";
           $trail[4] = "<a href='/restructuring-in-smes-in-europe'>Restructuring in SMEs</a>";
