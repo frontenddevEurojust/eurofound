@@ -424,8 +424,8 @@ function webform_results_download_form($form, &$form_state, $node) {
   // If an export is waiting to be downloaded, redirect the user there after
   // the page has finished loading.
   if (isset($_SESSION['webform_export_info'])) {
-    $download_url = url('node/' . $node->nid . '/webform-results/download-file', array('absolute' => TRUE));
-    $form['#attached']['js'][] = array('data' => array('webformExport' => $download_url), 'type' => 'setting');
+    //$download_url = url('node/' . $node->nid . '/webform-results/download-file', array('absolute' => TRUE));
+    //$form['#attached']['js'][] = array('data' => array('webformExport' => $download_url), 'type' => 'setting');
   }
 
   $form['node'] = array(
@@ -1393,7 +1393,7 @@ function webform_results_download_callback($node) {
     webform_results_download($node, $export_info);
   }
   else {
-    return t('No export file ready for download. The file may have already been downloaded by your browser. Visit the <a href="!href">download export form</a> to create a new export.', array('!href' => url('node/' . $node->nid . '/webform-results/download')));
+      return t('No export file ready for download. The file may have already been downloaded by your browser. Visit the <a href="!href">download export form</a> to create a new export.', array('!href' => url('node/' . $node->nid . '/webform-results/download')));
   }
 }
 
@@ -1566,32 +1566,19 @@ function webform_results_batch_results($node, $format, $options, &$context) {
  * Batch API completion callback; Display completion message and cleanup.
  */
 function webform_results_batch_finished($success, $results, $operations) {
-  /*
-  $iexplorer = FALSE;
-  preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
-  if(count($matches) < 2){
-    preg_match('/Trident\/\d{1,2}.\d{1,2}; rv:([0-9]*)/', $_SERVER['HTTP_USER_AGENT'], $matches);
-  }
-  if (count($matches) > 1) {
-    //Then we're using IE
-    $iev = $matches[1];
-    if ($iev <= 8 || $iev == 9 || $iev == 10 || $iev == 11) {
-      $iexplorer = TRUE ;
+  if ($success) {
+    $node = node_load($results['node']->nid);
+    $file_link = retrieve_created_file($node, $extension);
+    if (!empty($file_link)) {
+      drupal_set_message(t('Export completed. You can <a href="!href">download the file here</a>.', array('!href' => $file_link)));
     }
   }
-  if (!$iexplorer) {
-  */
-    if ($success) {
-      $download_url = url('node/' . $results['node']->nid . '/webform-results/download-file');
-      drupal_set_message(t('Export creation complete. Your download should begin now. If it does not start, <a href="!href">download the file here</a>. This file may only be downloaded once.', array('!href' => $download_url)));
+  else {
+    drupal_set_message(t('An error occurred while generating the export file.'));
+    if (isset($results['file_name']) && is_file($results['file_name'])) {
+      @unlink($results['file_name']);
     }
-    else {
-      drupal_set_message(t('An error occurred while generating the export file.'));
-      if (isset($results['file_name']) && is_file($results['file_name'])) {
-        @unlink($results['file_name']);
-      }
-    }
-  //}
+  }
 }
 
 /**
@@ -2039,4 +2026,67 @@ function webform_download_latest_start_sid($nid, $latest_count, $completion_type
 
   $latest_sids = $query->execute()->fetchCol();
   return $latest_sids ? min($latest_sids) : 1;
+}
+
+function retrieve_created_file($node, $extension) {
+  global $base_url;
+  global $user;
+
+  $downloaded_file_name = $node->title . '.xlsx';
+
+  $filesxlsx = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
+  $filestsv = file_scan_directory('public://webform-download',  '/.*\.csv$/');
+
+  foreach ($filesxlsx as $file) {
+    if ($file->name == result_file_name($node->nid, $user->uid)) {
+      unlink('sites/default/files/webform-download/' . $file->filename);
+    }
+  }
+
+  foreach ($filestsv as $file) {
+    if ($file->name == result_file_name($node->nid, $user->uid)) {
+      unlink('sites/default/files/webform-download/' . $file->filename);
+    }
+  }
+
+  $files = file_scan_directory('temporary://',  '/^webform*/');
+
+  if (!empty($files)) {
+    foreach ($files as $file => $file_data) {
+      $finfo = new finfo(FILEINFO_MIME, "/usr/share/misc/magic");
+      $filename = 'sites/default/temp/' . $file_data->filename;
+      $mimetype = $finfo->file($filename);
+      strpos($mimetype, 'plain') === FALSE ? $extension = '.xlsx' : $extension = '.csv';
+      $clean_name = result_file_name($node->nid, $user->uid);
+      rename('sites/default/temp/' . $file_data->filename, 'sites/default/files/webform-download/' . $clean_name . $extension);
+    }
+  }
+
+  unset($file_data);
+
+  if ($extension == '.xlsx') {
+    $files = file_scan_directory('public://webform-download',  '/.*\.xlsx$/');
+  }
+  else {
+    $files = file_scan_directory('public://webform-download',  '/.*\.csv$/');
+  }
+ 
+  if (isset($files)) {
+    foreach ($files as $file => $data) {
+      if ($data->name == result_file_name($node->nid, $user->uid)) {
+        $file_data = $data;
+      }
+    }
+  }
+  
+  if (isset($file_data->uri)) {
+    $link = $base_url . '/sites/default/files/webform-download/' . $file_data->filename;
+  }
+
+  return $link;
+}
+
+function result_file_name($nid, $uid) {
+  $result_filename = $nid . '-webform-results-' . $uid;
+  return $result_filename;
 }

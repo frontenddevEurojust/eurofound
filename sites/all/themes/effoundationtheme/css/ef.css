@@ -13118,3 +13118,21 @@ ul.list-metadata li > ul li:first-child:before{
 	display:none;
 }
 /** end working life country profiles **/
+
+.topic-subscription a .fa:before {
+    content: "\f003";
+    font-size: 1.4rem;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+
+/** END PUBLICATIONS VIEW LANDING PAGE* ***/
+.pagination-centered ul.pagination li{
+  position: relative;
+}
+.pagination-centered ul.pagination li .ajax-progress{
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}

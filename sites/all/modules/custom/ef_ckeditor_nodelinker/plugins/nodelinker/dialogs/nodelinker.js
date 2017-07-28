@@ -1,5 +1,5 @@
 (function($){
-
+	
 	$.fn.extend({
         donetyping: function(callback,timeout){
             timeout = timeout || 1e3; // 1 second default timeout
@@ -34,7 +34,7 @@
             });
         }
     });
-
+	
 	CKEDITOR.config.dialog_noConfirmCancel = true;
 	
 	CKEDITOR.dialog.add( 'nodelinkDialog', function( editor ) {
@@ -107,7 +107,7 @@
 						
 						},
 					    appendTo: ".cke_dialog_contents_body",
-					    minLength: 4,
+					    minLength: 3,
 
 					});
 				}
@@ -127,7 +127,7 @@
 
 				var span = new CKEDITOR.dom.element('a');
 				span.setText(text);
-				span.setAttribute('href', $('input.cke_dialog_ui_input_text').val());
+				span.setAttribute('href', '/' + $('input.cke_dialog_ui_input_text').val());
 				
 				
 				range.insertNode(span);

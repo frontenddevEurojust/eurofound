@@ -1,22 +1,27 @@
 function scramble(plain) {
    var scrambled = "";
 
-   for ( var i=0; i < plain.length; i++ ) {
-      var chr = plain.charCodeAt(i);
 
-      // replace LF with tilde (~) and vv.
-      if ( chr==10 ) {
-         chr = 126;
-      }
-      else
-      if ( chr== 126 )
-         chr = 13;
+         for ( var i=0; i < plain.length; i++ ) {
+            var chr = plain.charCodeAt(i);
 
-      scrambled += ( chr >= 61 && chr <= 122 ) ?  // Process only from 'a' to 'z'
-          String.fromCharCode(122-chr+61):
-          String.fromCharCode(chr);
-   }
-   return scrambled;
+            // replace LF with tilde (~) and vv.
+            if ( chr==10 ) {
+               chr = 126;
+            }
+            else
+            if ( chr== 126 )
+               chr = 13;
+
+            scrambled += ( chr >= 61 && chr <= 122 ) ?  // Process only from 'a' to 'z'
+                String.fromCharCode(122-chr+61):
+                String.fromCharCode(chr);
+         }    
+
+
+       return scrambled;  
+
+
 }
 
 (function ($) {
@@ -28,7 +33,10 @@ function scramble(plain) {
             title: function() { return('By ' + scramble(this.attr('username')) + ' on ' + this.attr('created'));},
             text: function() {
                var str = scramble(this.attr('annotation'));
-               return str.replace(/\r/g, '</br>');
+               if(str){
+                return str.replace(/\r/g, '</br>');
+               }
+               
             },
          },
          events: {
@@ -41,9 +49,9 @@ function scramble(plain) {
       });
 
       $('body.not-logged-in .annotation').each(function(index) {
-        $(this).removeAttr('annotation');
-        $(this).removeAttr('created');
-        $(this).removeAttr('username');
+        $(this).removeAttribute('annotation');
+        $(this).removeAttribute('created');
+        $(this).removeAttribute('username');
       });
     }
   };

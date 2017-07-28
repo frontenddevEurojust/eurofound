@@ -28,6 +28,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                text: function() {
                   var str = scramble(this.attr('annotation'));
                   return str.replace(/\r/g, '</br>');
+
                },
             },
             position: {
