@@ -189,11 +189,11 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 			</div>
 			<?php if (isset($content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']) && !isset($content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup'])): ?>
 			
-			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?></em>
+			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?>.</em>
 			
 			<?php elseif( isset($content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']) && isset($content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup'])): ?>
 			
-			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?> in the context of <?= $content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup']; ?></em>
+			<em>Produced at the request of <?= $content['group_ef_node_details']['field_ef_origin_organisation'][0]['#markup']; ?> in the context of <?= $content['group_ef_node_details']['field_event_policy_initiative_co'][0]['#markup']; ?>.</em>
 			
 			<?php endif; ?>
 			
