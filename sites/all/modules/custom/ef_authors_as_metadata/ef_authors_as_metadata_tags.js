@@ -1,10 +1,11 @@
 (function($, Drupal)
 {
     // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
-    Drupal.ajax.prototype.commands.AddTag = function(ajax, response, status)
+    Drupal.ajax.prototype.commands.AddTags = function(ajax, response, status)
     {
 
         var newAuthors = response.newAuthors;
+        
         var nid = response.nid;
 
         
@@ -16,12 +17,19 @@
                 var element = '<span id="' + nid + '-' + currentValue + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + currentValue + '</a></span>';
                 
                 $('#add-new-publ-contributor').after(element);
+
+                $('.form-item-add-new-contributor input').after('<span class="success-msg">The author ' + currentValue + ' has been saved in the Publication Contributor taxonomy successfully.<a href="javascript:" class="success-msg-close"><i class="fa fa-times" aria-hidden="true"></i></a></span>');
             
             });
         
         }
 
-        $('.form-item-add-new-contributor input').append('<span>Success.The author has been saved in the Publication Contributor taxonomy.</span>');
+        $('.success-msg-close').click(function(){
+
+            $(this).parent().remove();
+        
+        });
+
 
     };
 
@@ -31,13 +39,11 @@
 
         var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description span').attr('title');
 
-        if (typeof textNewAuthor != 'undefined')
 
-        {
-            jQuery('#edit-add-new-contributor-wrapper .description').remove();
+        jQuery('#edit-add-new-contributor-wrapper .description').remove();
 
-            jQuery('.form-item-add-new-contributor label').after('<p>' + textNewAuthor + '</p>');
-        }
+        jQuery('.form-item-add-new-contributor label').after('<p>' + textNewAuthor + '</p>');
+        
 
     };
 
@@ -51,7 +57,7 @@ function removeTag(element, nid){
 		if(response.status == 200)
 
 		{
-			jQuery('#' + nid + '-' + element.innerHTML).remove();
+            jQuery('#' + nid + '-' + element.innerHTML).remove();
 		}
 
 	});

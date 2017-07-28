@@ -48,7 +48,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 	{
 
-		$form['field_ef_publ_contributors']['und']['#description'] = "If you don't find an author, it can be added in the panel to the right.";
+		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
 		$form['add_new_contributor_wrapper'] = [
 
@@ -100,19 +100,23 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 		
 		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
 		
+		
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
 
 		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.js');
 	
 		$form['#attached']['js'] = [
+
 			[
 				'type'  => 'file',
 				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js',
 			],
+			
 			[
 				'type'  => 'file',
 				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js',
 			],
+		
 		];
 	
 
@@ -134,9 +138,10 @@ function submit_new_contributors($form, &$form_state){
 		// Empty add new contributor textfield so that it's reloaded correctly
 		$form['add_new_contributor_wrapper']['add_new_contributor']['#value'] = '';
 
+		// Replace add new contributor form item
 		$commands[] = ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor_wrapper']['add_new_contributor']) );
 
-
+		// 
 		$commands[] = [
 
 			'command' => 'ChangeLabels'
@@ -146,15 +151,15 @@ function submit_new_contributors($form, &$form_state){
 		$commands[] = [
 
 			// The command will be used in our JavaScript files
-			'command' => 'AddTag',
-			// We pass the values
+			'command' => 'AddTags',
+			
+			// We pass the values to the function to be executed
 			'newAuthors' => $newAuthors,
 
 			'nid' => $form['nid']['#value'],
 
 		];
 
-		
 
 		return ['#type' => 'ajax', '#commands' => $commands];
 	
@@ -169,10 +174,11 @@ function submit_new_contributors($form, &$form_state){
   		$commands[] = [
 
 			// The command will be used in our JavaScript files
-			'command' => 'DuplicateContributor',
-			// We pass the values 
+			'command' => 'Error',
 			
+			// We pass the values to the function to be executed
 			'error' => $e->getMessage(),
+		
 		];
  
 		// And finally, we will return all of our commands to the system to be executed:
@@ -365,18 +371,3 @@ function build_basic_term($value, $vid = null){
 
 }
 
-function delete_dummy_authors(){
-	
-	$query = "SELECT a.tid
-				from taxonomy_term_data a
-				where a.vid = 12
-				and a.tid > 22343";
-
-	$result = db_query($query)->fetchAll();
-
-	foreach ($result as $key => $value) {
-
-		taxonomy_term_delete($value->tid);
-	
-	}
-}
