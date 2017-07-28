@@ -82,11 +82,6 @@ $country = $content['field_ef_country']['#items'][0]['safe_value'];
 $author = $content['field_ef_author']['#items'][0]['safe_value'];
 $institution = $content['field_ef_institution']['#items'][0]['safe_value'];
 
-$referer = $_SERVER['HTTP_REFERER'];
-$host = $_SERVER["HTTP_HOST"];
-$url = $_SERVER["REQUEST_URI"];
-
-
 ?>
 
 <ul class="list-metadata clearfix">
