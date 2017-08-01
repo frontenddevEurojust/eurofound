@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Provides the necessary routing to serve the resources for D3 based DVS
+ */
+
+/**
+ * Implements hook_menu().
+ */
+
+function ef_d3_dataexplorer_menu() {
+  $items['data-visualisation-test'] = array(
+    'title' => 'European Jobs Monitor Provisional',
+    'description' => 'Provisional root for Jobs Monitor Data Visualisation',
+    'page callback' => 'd3_ejm',
+    'access callback' => 'user_access',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function d3_ejm() {
+  $chart = array(
+    'id' => 'ejm-chart',
+    'type' => 'ejm',
+    'legend' => array(
+      'Male',
+      'Female',
+    ),
+    'rows' => array(
+      array('Low', 10, 20),
+      array('Mid-Low', 20, 26),
+      array('Mid', 10, 50),
+      array('Mid-High', 15, 76),
+      array('High', 20, 100),
+    ),
+  );
+
+  return d3_draw($chart);
+}
