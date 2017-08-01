@@ -9,6 +9,7 @@
  * Implements hook_menu().
  */
 
+
 function ef_d3_dataexplorer_menu() {
   $items['data-visualisation-test'] = array(
     'title' => 'European Jobs Monitor Provisional',
@@ -23,6 +24,8 @@ function ef_d3_dataexplorer_menu() {
 }
 
 function d3_ejm() {
+  //drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.css');
+
   $chart = array(
     'id' => 'ejm-chart',
     'type' => 'ejm',
