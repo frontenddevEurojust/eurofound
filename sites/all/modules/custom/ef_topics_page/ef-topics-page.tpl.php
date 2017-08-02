@@ -45,9 +45,11 @@ if(!empty($variables['ef_activities'])){
                     <?= $main_image; ?>  
                 <?php else: ?>
                     <?php if(isset($variables['summary'])): ?>
-                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>"
+                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                     <?php endif; ?>  
                 <?php endif; ?>
+            </p>
+            <p>
                 <?php if(isset($variables['summary'])): ?>
                     <?= $summary; ?>
                 <?php endif; ?>
