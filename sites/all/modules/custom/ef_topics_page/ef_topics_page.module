@@ -113,10 +113,6 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
     // Hide last updated field as it is populated automatically
     $form['field_term_last_updated']['#type'] = 'hidden';
-
-    $form['#attached']['js'] = array(
-        drupal_get_path('module', 'ef_topics_page') . '/add_term_merge_link.js',
-    );
  
   }
 
