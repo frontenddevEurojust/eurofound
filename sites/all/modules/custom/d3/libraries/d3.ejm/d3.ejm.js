@@ -2,9 +2,27 @@
 
   Drupal.d3.ejm = function (select, settings) {
 
+    var keysByBreakdown = {
+      "All Employment": "main",
+      "Gender": ["Male", "Female"],
+      "Full-time / Part-time": ["ft", "pt"],
+      "Employment status": ["employee", "selfemp"],
+      "Contract": ["permanent", "temporary"],
+      "Employment status": ["employee", "selfemp"],
+      "Combined employment status": ["ft_permanentemployee", "selfemployed", "temp employee ft", "pt employee"],
+      "Country of birth": ["reportingcountry", "eu13nonnative", "eu15nonnative", "noneu", "unspecified"],
+      "Broad sector": ["services", "manufact", "construc", "primary"],
+    }
+
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
-      
+
+      console.log(keysByBreakdown);
+
+      preSelection = ejm.filter(function(csv) {
+        return csv.country == country && csv.period == period && csv.criterion == criterion ;
+      });
+
       var rows = settings.rows,
         // Use first value in each row as the label.
         xLabels = rows.map(function(d) { return d.shift(); })
@@ -13,12 +31,13 @@
         // - Convert all values to numeric numbers.
         // - Merge all sub-arrays into one flat array.
         // - Return the highest (numeric) value from flat array.
-        max = d3.max(d3.merge(settings.rows).map(function(d) { return + d + 1; })),
-        //min = d3.min(d3.merge(settings.rows).map(function(d) { return + d; })),
+        min = d3.min(d3.merge(settings.rows).map(function(d) { return + d; })),
+        max = d3.max(d3.merge(settings.rows).map(function(d) { return + d; })),
+        range = (min >= 0) ? max : max - min,
         // Padding is top, right, bottom, left as in css padding.
         p = [20, 50, 30, 50],
         w = $("#ejm-chart").width(),
-        h = 680,
+        h = w * .60,
         // chart is 65% and 80% of overall height
         chart = {w: w * .90, h: h * .85},
         legend = {w: w * .50, h: h},
@@ -30,21 +49,25 @@
         // space in between each set
         barSpacing = (.50 * chart.w) / rows.length,
         x = d3.scale.linear().domain([0,rows.length]).range([0,chart.w]),
-        y = d3.scale.linear().domain([0,max]).range([chart.h, 0]),
+        y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
+        s = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
         z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
         div = (settings.id) ? settings.id : 'ejm-chart';
 
+      /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h)
         .append("g")
         .attr("transform", "translate(" + p[3] + "," + p[0] + ")");
 
+      /* GREY BACKGROUND */
       svg.append("rect")
         .attr("width", chart.w)
         .attr("height", chart.h)
         .attr("fill", "#eeeeee");
 
+      /* APPEND A GROUP WITH THE chart CLASS */
       var graph = svg.append("g")
         .attr("class", "chart");
 
@@ -88,9 +111,9 @@
         .data(function(d) { return d; })
         .enter().append('rect')
         .attr("width", barWidth)
-        .attr("height", function(d) { return chart.h - y(d); })
+        .attr("height", function(d) { return chart.h - s(Math.abs(d)); })
         .attr('x', function (d,i) { return i * barWidth + 25; })
-        .attr('y', function (d,i) { return y(d); })
+        .attr('y', function (d,i) { if (d >= 0) {return s(d - min)} else {return s(max);}; })
         .attr('fill', function(d,i) { return d3.rgb(z(i)); })
         .on('mouseover', function(d,i) { showToolTip(d, i, this); })
         .on('mouseout', function(d,i) { hideToolTip(d, i, this); });

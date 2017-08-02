@@ -31,11 +31,11 @@ function d3_ejm() {
       'Female',
     ),
     'rows' => array(
-      array('Low', 10, 20),
-      array('Mid-Low', 20, 26),
-      array('Mid', 10, 50),
-      array('Mid-High', 15, 76),
-      array('High', 20, 100),
+      array('Low', -10),
+      array('Mid-Low', -5),
+      array('Mid', -2),
+      array('Mid-High', 5),
+      array('High', 10),
     ),
   );
 
