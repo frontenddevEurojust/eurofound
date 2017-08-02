@@ -26,8 +26,8 @@ function build_content_tabs($variables, $term, $page = ''){
     }
     if (!isset($term->field_ef_term_hide_tabs['und'][0]['value']))
     {
-    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);	
     	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
+    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);	  	
     }
 
 
