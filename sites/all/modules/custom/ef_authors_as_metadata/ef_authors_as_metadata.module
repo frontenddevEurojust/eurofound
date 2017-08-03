@@ -47,7 +47,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
 
 	{
-
+		
 		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
 		$form['add_new_contributor_wrapper'] = [
@@ -367,7 +367,42 @@ function build_basic_term($value, $vid = null){
 		
 	$term->vid = $vid; 
 
+	$topic->description = '';
+
+	$topic->format = 'filtered_html';
+
 	return $term;
 
 }
 
+/*
+function update_publ_contributors(){
+
+    
+    $tax = taxonomy_get_tree('12');
+    
+    foreach ($tax as $key => $entity) 
+
+    {
+        
+        $term = taxonomy_term_load($entity->tid);
+
+        if(!isset($term->description))
+
+        {
+        	$term->description = '';
+        }
+
+        if(!isset($term->format))
+
+        {
+        	$term->format = 'filtered_html';
+        }
+
+        taxonomy_term_save($term);
+    
+    }
+    
+   
+}
+*/
