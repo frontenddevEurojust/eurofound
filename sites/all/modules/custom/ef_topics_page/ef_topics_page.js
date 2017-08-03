@@ -77,13 +77,7 @@ function build_HTML_output(response){
 	    tabs += '<ul class="metadata-items">';
 	    tabs += '<li>' + response.data[i].ct_name + '</li>';
 
-	    if(response.data[i].ct_name == 'Publication')
-	    {
-	    	
-	    	tabs += '<li>' + response.data[i].publication_date + '</li>';
-	    
-	    }
-	    else if(response.data[i].ct_name == 'Event')
+	    if(response.data[i].ct_name == 'Event')
 	    {
 
 	    	tabs += '<li>' + response.data[i].event_start_date + '</li>';
