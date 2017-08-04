@@ -97,7 +97,7 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
     
   if($form['#id'] == 'taxonomy-form-term')
   {
-
+    
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
         'visible' => array(
@@ -113,7 +113,9 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
     // Hide last updated field as it is populated automatically
     $form['field_term_last_updated']['#type'] = 'hidden';
- 
+    
+    drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_edit_form.js');
+
   }
 
 }
