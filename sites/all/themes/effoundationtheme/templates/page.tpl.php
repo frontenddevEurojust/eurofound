@@ -228,7 +228,7 @@
               else{
                 $link_path="none";
               }
-              if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe' ) :?>
+              if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe (FOME)' ) :?>
                <h1 id="page-title" class="title parent_emcc">
                  <a href="<?php print $base_url?>/observatories/emcc">
                     <span class="abbrevation">EMCC</span>
@@ -247,12 +247,12 @@
 
                    ?>
                 </h1>
-              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe'): ?>
+              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>
                 <h1 id="page-title" class="title parent_fome">
                  <a href="http://eflocal.es/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
-                 Future of Manufacturing in Europe<
-                 /a>
+                 Future of Manufacturing in Europe
+                 </a>
                 </h1>
               <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
                  <h1 id="page-title" class="title parent_eurwork">
