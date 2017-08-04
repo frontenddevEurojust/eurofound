@@ -224,12 +224,11 @@
               $trail_holder = menu_set_active_trail();
               if(sizeof($trail_holder)>2){
                 $link_path = $trail_holder[2]['link_path'];
-
               }
               else{
                 $link_path="none";
               }
-              if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) ) :?>
+              if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe' ) :?>
                <h1 id="page-title" class="title parent_emcc">
                  <a href="<?php print $base_url?>/observatories/emcc">
                     <span class="abbrevation">EMCC</span>
@@ -247,6 +246,13 @@
                       }
 
                    ?>
+                </h1>
+              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe'): ?>
+                <h1 id="page-title" class="title parent_fome">
+                 <a href="http://eflocal.es/observatories/emcc/fome">
+                 <span class="abbrevation">FOME</span> 
+                 Future of Manufacturing in Europe<
+                 /a>
                 </h1>
               <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
                  <h1 id="page-title" class="title parent_eurwork">
@@ -280,7 +286,6 @@
                 </h1>
 
               <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc'))) : ?>
-
                  <h1 id="page-title" class="title parent_emcc">
                   <a href="<?php print $base_url?>/observatories/emcc">
                   <span class="abbrevation">EMCC</span>
@@ -288,6 +293,7 @@
                   </a>
                   </h1>
 
+              
               <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
 
                  <h1 id="page-title" class="title parent_emcc">
