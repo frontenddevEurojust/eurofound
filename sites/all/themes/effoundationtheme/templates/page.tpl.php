@@ -249,7 +249,7 @@
                 </h1>
               <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>
                 <h1 id="page-title" class="title parent_fome">
-                 <a href="http://eflocal.es/observatories/emcc/fome">
+                 <a href="<?php print $base_url?>/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
                  Future of Manufacturing in Europe
                  </a>
