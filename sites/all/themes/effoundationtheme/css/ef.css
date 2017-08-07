@@ -9016,7 +9016,6 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 }
 
 .page-search aside section:nth-child(2) h2.block-title,
-.page-search aside section:nth-child(3) h2.block-title,
 .page-search aside section:nth-child(4) h2.block-title,
 .page-search .block-ef-search-ef-search-clear-filters h3{
 	border-top: 1px solid #8f8f8f;
@@ -9033,11 +9032,6 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 	content: "\f1e5";
 	margin-right: 5px;
 }
-.page-search aside section:nth-child(3) h2:before{
-	font-family: FontAwesome;
-	content: "\f07c";
-	margin-right: 5px;
-}
 .page-search aside section:nth-child(4) h2:before{
 	font-family: FontAwesome;
 	content: "\f02d";
@@ -9049,28 +9043,24 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 }
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-observatory,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-type,
-#facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-theme,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-topic{
 	padding-left: 10px;
 }
 
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-observatory li,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-type li,
-#facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-theme li,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-topic li{
 	line-height: 1.5em;
 	color: #F58020;
 }
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-observatory li a.facetapi-inactive:before,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-type li a.facetapi-inactive:before,
-#facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-theme li a.facetapi-inactive:before,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-topic li a.facetapi-inactive:before{
 	font-family: FontAwesome;
 	content: "\f096";
 }
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-observatory li a.facetapi-active:before,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-type li a.facetapi-active:before,
-#facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-theme li a.facetapi-active:before,
 #facetapi-facet-search-apidefault-multilingual-node-index-block-field-ef-topic li a.facetapi-active:before{
 	font-family: FontAwesome;
 	content: "\f14a";
