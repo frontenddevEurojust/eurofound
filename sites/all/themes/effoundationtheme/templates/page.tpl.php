@@ -248,12 +248,16 @@
                    ?>
                 </h1>
               <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>
+                
                 <h1 id="page-title" class="title parent_fome">
                  <a href="<?php print $base_url?>/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
                  Future of Manufacturing in Europe
                  </a>
                 </h1>
+                
+                <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
+
               <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
                  <h1 id="page-title" class="title parent_eurwork">
                   <a href="<?php print $base_url?>/observatories/eurwork">
