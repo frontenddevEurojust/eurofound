@@ -24,7 +24,6 @@ function ef_d3_dataexplorer_menu() {
 }
 
 function d3_ejm() {
-  //drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.css');
 
   $chart = array(
     'id' => 'ejm-chart',
@@ -34,12 +33,83 @@ function d3_ejm() {
       'Female',
     ),
     'rows' => array(
-      array('Low', -10),
-      array('Mid-Low', -5),
-      array('Mid', -2),
-      array('Mid-High', 5),
-      array('High', 10),
+      array('Low', '', '', '', '', '',),
+      array('Mid-Low', '', '', '', '', '',),
+      array('Mid', '', '', '', '', '',),
+      array('Mid-High', '', '', '', '', '',),
+      array('High', '', '', '', '', '',),
     ),
+    'countries' => array(
+      array('AT', 'Austria'),
+      array('BE', 'Belgium'),
+      array('BG', 'Bulgary'),
+      array('CY', 'Cyprus'),
+      array('CZ', 'Czech Republic'),
+      array('DE', 'Germany'),
+      array('DK', 'Denmark'),
+      array('EE', 'Estonia'),
+      array('ES', 'Spain'),
+      array('FI', 'Finland'),
+      array('FR', 'France'),
+      array('GR', 'Greece'),
+      array('HU', 'Hungary'),
+      array('HR', 'Croatia'),
+      array('IE', 'Ireland'),
+      array('IT', 'Italy'),
+      array('LT', 'Lithuania'),
+      array('LV', 'Latvia'),
+      array('MT', 'Malta'),
+      array('NL', 'Netherlands'),
+      array('PL', 'Poland'),
+      array('PT', 'Portugal'),
+      array('RO', 'Romania'),
+      array('SE', 'Sweden'),
+      array('SI', 'Slovenia'),
+      array('SK', 'Slovakia'),
+      array('UK', 'United Kingdom'),
+      array('EU', 'European Union'),
+    ),
+    'keys_by_breakdown' => array(
+      'All employment' => array(
+        0 => array('Main', 'main'),
+      ),
+      'Gender' => array(
+        0 => array('Male', 'male'),
+        1 => array('Female', 'female'),
+      ),
+      'Full-time / Part-time' => array(
+        0 => array('Full-time', 'ft'),
+        1 => array('Part-time', 'pt'),
+      ),
+      'Employment status' => array(
+        0 => array('Employee', 'employee'),
+        1 => array('Self employee', 'selfemp'),
+      ),
+      'Contract' => array(
+        0 => array('Permanent', 'permanent'),
+        1 => array('Temporary', 'temporary'),
+      ),
+      'Combined employment status' => array(
+        0 => array('Full-time permanent employee', 'ft_permanentemployee'),
+        1 => array('Self employed', 'selfemployed'),
+        2 => array('Full-time temporary employee', 'temp employee ft'),
+        3 => array('Part-time employee', 'pt employee'),
+      ),
+      'Country of birth' => array(
+        0 => array('Reporting country', 'reportingcountry'),
+        1 => array('EU-13 non native', 'eu13nonnative'),
+        2 => array('EU-15 non native', 'eu15nonnative'),
+        3 => array('Non EU', 'noneu'),
+        4 => array('Unspecified', 'unspecified'),
+      ),
+      'Broad sector' => array(
+        0 => array('Services:', 'services'),
+        1 => array('Manufacturing', 'manufact'),
+        2 => array('Construction', 'construc'),
+        3 => array('Primary', 'primary'),
+      ),
+    ),
+    
   );
 
   return d3_draw($chart);

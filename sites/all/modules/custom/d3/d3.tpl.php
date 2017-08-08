@@ -5,7 +5,7 @@
  */
 drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.css');
 drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.js');
- ?>
+?>
 
 
 <div  class="jm-charts-wrapper ">	
@@ -32,7 +32,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			    <legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			    	<div class="group-filters jm-filter-countries">
 				    	<label>Countries</label>
-				    	<select>
+				    	<select id="country">
 								<option value="GB">United Kingdom</option>
 								<option value="AL">Albania</option>
 								<option value="AD">Andorra</option>
@@ -86,15 +86,15 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			    	</div>
 						<div class="group-filters jm-filter-time">
 				    	<label>Time period</label>
-				    	<select>
-				    		<option value="2011-2013">2011-2013</option>
-				    		<option value="2011-2016" selected="selected">2011-2016</option>
-				    		<option value="2013-2016">2013-2016</option>
+				    	<select id="period">
+				    		<option value="2011-13">2011-2013</option>
+				    		<option value="2011-16" selected="selected">2011-2016</option>
+				    		<option value="2013-16">2013-2016</option>
 				    	</select>
 			    	</div>
 			    	<div class="group-filters jm-filter-breakdown">
 				    	<label>Breakdown</label>
-				    	<select>
+				    	<select id="breakdown">
 				    		<option>All employment</option>
 				    		<option selected="selected">Gender</option>
 				    		<option>Full time / part-time</option>
@@ -110,7 +110,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			  		<legend><i class="fa fa-filter" aria-hidden="true"></i> More filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			  		<div class="group-filters jm-filter-criterion">
 				    	<label>Job quality criterion</label>
-				    	<select>
+				    	<select id="criterion">
 				    		<option selected="selected">Wage</option>
 				    		<option>Education</option>
 				    		<option>Broad job quality</option>
