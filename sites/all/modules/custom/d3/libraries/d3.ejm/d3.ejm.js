@@ -47,7 +47,7 @@
         y = d3.scale.linear().domain([0,max]).range([chart.h, 0]),
         ng = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
         z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
-        div = (settings.id) ? settings.id : 'visualization';
+        div = (settings.id) ? settings.id : 'visualisation';
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
