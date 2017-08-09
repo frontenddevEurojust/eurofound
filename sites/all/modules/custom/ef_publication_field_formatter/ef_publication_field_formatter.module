@@ -1,47 +1,13 @@
 <?php
 
-function ef_publication_field_formatter_preprocess_field(&$vars){
-  $content_type = $vars['element']['#object']->type;
-  if($content_type=='ef_publication'){
-	  $options = array();
-	  $element_name = $vars['element']['#field_name'];
-		  if($element_name=='field_ef_theme'){
-				foreach($vars['items'] as $key=>$value){
-					$to_change = $vars['items'][$key]['#href'];
-					$path_array = explode('/', $to_change);
-					$term = $path_array[2];
-					$new_path = url('publications', array('query'=>array('ef_theme_topic[]'=>$term),'absolute' => TRUE));
-					$vars['items'][$key]['#href'] =  $new_path;
-				}
-		  }
-	  
-		if($element_name=='field_ef_observatory'){
-			foreach($vars['items'] as $key=>$value){
-				$to_change = $vars['items'][$key]['#href'];
-				$path_array = explode('/', $to_change);
-				$term = $path_array[2];
-				$new_path = url('publications', array('query'=>array('ef_observatory[]'=>$term),'absolute' => TRUE));
-				$vars['items'][$key]['#href'] =  $new_path;
-			}
-		}
-  }
-}
-
 function ef_publication_field_formatter_views_pre_render(&$view){
 	if($view->name=="ef_publications_view"){
 		foreach ($view->result as $publication) {
-			foreach ($publication->field_field_ef_theme as $key => $value) {
-				$to_change = $publication->field_field_ef_theme[$key]['rendered']['#href'];
-				$path_array = explode('/',$to_change);
-				$term = $path_array[2];
-				$new_path = url('publications', array('query'=>array('ef_theme_topic[]'=>$term),'absolute' => TRUE));
-				$publication->field_field_ef_theme[$key]['rendered']['#href'] = $new_path;				
-			}
 			foreach ($publication->field_field_ef_observatory as $key => $value) {
 				$to_change = $publication->field_field_ef_observatory[$key]['rendered']['#href'];
 				$path_array = explode('/',$to_change);
 				$term = $path_array[2];
-				$new_path = url('publications', array('query'=>array('ef_observatory[]'=>$term),'absolute' => TRUE));
+				$new_path = url('publications', array('query'=>array('field_ef_observatory_tid[]'=>$term),'absolute' => TRUE));
 				$publication->field_field_ef_observatory[$key]['rendered']['#href'] = $new_path;
 			}
 		}

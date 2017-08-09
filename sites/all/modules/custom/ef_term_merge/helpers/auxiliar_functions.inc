@@ -40,7 +40,7 @@ function _return_formatted_array($db_result, $field)
 {
 
 	$array = array();
-
+	
 	foreach ($db_result as $key => $value) 
 	{
 			$array[] = $value->{$field};
@@ -117,6 +117,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 			// Check field cardinality as we need to distinguish the approach used depending whether it's multivalue or not
 			if(_retrieve_field_cardinality($field_name) != 1) 
 			{
+
 				// Multivalue. Node's with $merge_into term get removed $tid value. If there is no $merge_into, $tid is replaced by $merge_into.
 				// Nodes to be passed for cache clearing process
 				$revision_affected_nodes = table_affected_nodes('revision', $field_name, $tid,'entity_id', TRUE);

@@ -1,5 +1,5 @@
 (function($){
-
+	
 	$.fn.extend({
         donetyping: function(callback,timeout){
             timeout = timeout || 1e3; // 1 second default timeout
@@ -34,7 +34,7 @@
             });
         }
     });
-
+	
 	CKEDITOR.config.dialog_noConfirmCancel = true;
 	
 	CKEDITOR.dialog.add( 'nodelinkDialog', function( editor ) {
@@ -96,7 +96,12 @@
 					       
 					        });
 
-					        response(results.slice(0,20));
+					        if (results.length == 0)
+					        {
+					        	results.push({ label: "Sorry. No results were found", value:""});
+					        }
+
+					        response(results.slice(0,25));
 					    
 					    },
 					    // Remove ui-helper (gives information about results)
@@ -107,7 +112,7 @@
 						
 						},
 					    appendTo: ".cke_dialog_contents_body",
-					    minLength: 4,
+					    minLength: 3,
 
 					});
 				}

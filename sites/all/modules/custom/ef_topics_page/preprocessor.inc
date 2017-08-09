@@ -10,35 +10,38 @@ require_once 'helpers/db_functions.inc';
 */
 function template_preprocess_ef_topics_page(&$variables){
 
-    // Global $language variable is used for textfield translations
     global $language;
-    
 
     // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
+    $data = check_topic_exists_by_url_and_language(strtolower($variables['contextual_term']), $language->language);
 
-    $found = check_topic_exists_by_url(strtolower($variables['contextual_term']));
+    $variables = prepare_template_content($data['term'], $data['language']);
 
-    if(!$found)
-    {
-        drupal_not_found();
-    }
-    else
-    {
-    
-    // Always follows the rule: 'taxonomy/term/id'
-    $aux = explode("/",$found[0]->source);
-    $tid = $aux[2];  
-    // Retrieve full term for $variables populating
-    $term = taxonomy_term_load($tid);
-    
+    add_js_and_css_files($data['term'], $data['language']);
+    // Use drupal_set_title function as hook_menu can't work with contextual values
+    drupal_set_title($variables['title']);
+
+    $variables['nodes_language'] = $language->language;
+
+}
+
+function prepare_template_content($term, $language){
+
+    // Global $language variable is used for node url updates
+
+    $variables = [];
 
     // Needs to be passed for Rendering Media CKEDitors
     $variables['term'] = $term;
 
-    // TABS DATA 
-    $variables = build_content_tabs($variables, $term,$language->language, $page);
+    // Add language for proper link rendering
 
-    $variables = build_content_pagers($variables, $term, $language->language, $page, $limit = 5000000);
+    $variables['language'] = $language;
+
+    // TABS DATA 
+    $variables = build_content_tabs($variables, $term, $page);
+
+    $variables = build_content_pagers($variables, $term, $page, $limit = 5000000);
 
     // Metatag data preprocessing
     $string_ef_activities = build_activities_string($term);
@@ -51,45 +54,50 @@ function template_preprocess_ef_topics_page(&$variables){
     $variables = add_subscription_to_variables($variables, $term);
     
     // Topics preprocessing for image and name
-    $variables = add_topics_to_variables($variables, $term, $language->language);
+    $variables = add_topics_to_variables($variables, $term, $language);
 
     // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
 
     $variables = add_administrator_menu($variables, $term);
     
-    $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000, $language->language);
+    $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
     
     // Additional variables sent to ef_topics_page.tpl.php
-    $variables['summary'] = $term->field_term_summary[$language->language][0]['value'];
-    $variables['description'] = $term->description;
+    $variables['summary'] = check_markup($term->field_term_summary[$language][0]['value'], 'filtered_html');
+    $variables['description'] = check_markup($term->description, 'filtered_html');
     $variables['show_menu'] = check_current_user();
+    $variables['title'] = $term->field_term_title[$language][0]['value'];
+   
+    
+    
     if ($term->field_term_last_updated)
-    $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
-
-
+    {
+        $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
+    }
+    
     if(isset($term->field_ef_featured_block_content))
     {
-    	$variables['featured_block'] = $term->field_ef_featured_block_content[$language->language][0]['value'];;
+        $variables['featured_block'] = check_markup($term->field_ef_featured_block_content[$language][0]['value'], 'filtered_html');
     }
 
     if(isset($term->field_ef_related_links_block))
     {
-    	$variables['related_links_block'] = $term->field_ef_related_links_block[$language->language][0]['value'];
+        $variables['related_links_block'] = check_markup($term->field_ef_related_links_block[$language][0]['value'], 'filtered_html');
     }
     
-    
+    return $variables;
+        
+}
+
+function add_js_and_css_files($term, $language){
+
     drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
     
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
-    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000, $language->language);
+    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000, $language);
    
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
-    // Use drupal_set_title function as hook_menu can't work with contextual values
-    drupal_set_title($term->field_term_title[$language->language][0]['value']);
-
-   
-  }  
 }

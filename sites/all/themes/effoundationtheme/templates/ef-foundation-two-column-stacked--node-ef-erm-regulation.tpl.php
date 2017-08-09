@@ -308,14 +308,7 @@
           	</div>
           	<div id="comments" class="title comment-wrapper">
 				<h3><?php print t("Eurofound welcomes feedback and updates on this regulation"); ?></h3>
-				<?php
-
-					$comment = new stdClass;
-					$comment->nid = $node->nid;
-					$form = drupal_get_form('comment_form', $comment);
-					print render($form);
-
-		    	?>
+				<?php print render($content['comments']);?>
 		    </div>
 		</div>
 	<?php endif; ?>

@@ -6,6 +6,8 @@
  * @see template_preprocess_ef_topics_page()
  *
  */
+global $language;
+
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
@@ -30,7 +32,7 @@ if(!empty($variables['ef_activities'])){
     </ul>
     <?php endif; ?>
     
-    <?php if (isset($variables['term']->field_term_title['und'][0]['value'])): ?>
+    <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
         <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
         <section class="large-9 columns">
         <?php else: ?>
@@ -43,9 +45,11 @@ if(!empty($variables['ef_activities'])){
                     <?= $main_image; ?>  
                 <?php else: ?>
                     <?php if(isset($variables['summary'])): ?>
-                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>"
+                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                     <?php endif; ?>  
                 <?php endif; ?>
+            </p>
+            <p>
                 <?php if(isset($variables['summary'])): ?>
                     <?= $summary; ?>
                 <?php endif; ?>
@@ -55,7 +59,7 @@ if(!empty($variables['ef_activities'])){
             
             <?php if (isset($variables['subscription'])): ?>
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
-            <?= t("Subscribe now and receive updates on Eurofound's work in the area of @contextterm", array("@contextterm" => $contextual_term)); ?></a></p>
+            <?= t("Subscribe now and receive updates on Eurofound's work in the area of @title", array("@title" => $term->name)); ?></a></p>
             <?php endif; ?>
             <?php if(isset($variables['description'])): ?>  
             <div class="topic-description">
@@ -93,12 +97,14 @@ if(!empty($variables['ef_activities'])){
                         <div class="content" data-section-content>
                             <ul class="latest-news-list">
                             <?php foreach ($tab_data as $node_data): ?>
-                                <li class=""><a href="/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
+                                <?php if ($variables['nodes_language'] != 'en'): ?>
+                                <li><a href="<?php print '/' . $variables['nodes_language']; ?>/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
+                                <?php else: ?>
+                                <li><a href="/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
+                                <?php endif; ?>
                                     <ul class="metadata-items">
-                                        <li><?= $node_data->ct_name; ?></li>
-                                        <?php if($tab_name == 'Publications'): ?>
-                                            <li><?= $node_data->publication_date; ?></li>
-                                        <?php elseif($tab_name == 'Events'): ?>
+                                        <li><?= t($node_data->ct_name); ?></li>
+                                        <?php if($tab_name == 'Events'): ?>
                                             <li><?= $node_data->event_start_date; ?></li>
                                         <?php else: ?>
                                             <li><?= $node_data->published_at; ?></li>
@@ -107,7 +113,6 @@ if(!empty($variables['ef_activities'])){
                                 </li>
                             <?php endforeach; ?>
                             </ul>
-                            <!-- MOSTRAR PAGINADOR -->
                             <?php if( $pager[$tab_name] !== 0): ?>
                                 <?= $pager[$tab_name]; ?>
                             <?php endif; ?>

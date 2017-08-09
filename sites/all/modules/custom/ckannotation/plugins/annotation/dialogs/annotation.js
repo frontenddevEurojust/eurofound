@@ -53,7 +53,7 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
                         id:             'annotation',
                         type:           'textarea',
                         rows:           4,
-                        default:        'Texto por defecto',
+                        default:        '',
                         validate:       CKEDITOR.dialog.validate.notEmpty( "Annotation cannot be empty." ),
                     },
                     {
@@ -76,15 +76,41 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
               title: 'Delete this annotation',
               onClick: function() {
                   start = editor.getSelection().getStartElement();
-                  start.remove();
-                  editor.insertHtml(start.getText());
+				           startTags = start.$.localName;
 
+				            if(startTags =="strong" || startTags == "i" || startTags == "em" || startTags == "u"){
+				              startArray = editor.getSelection().getStartElement().getParents();
+				              start = startArray[startArray.length-2];
+				            }else{
+				               start = editor.getSelection().getStartElement();
+				            }
+				            
+                  //console.log(start.getText());
+                  start.removeAttribute('class');
+                  start.removeAttribute('annotation');
+                  start.removeAttribute('aria-describedby');
+                  start.removeAttribute('data-hasqtip');
+                  start.removeAttribute('username');
+                  start.removeAttribute('created');
+                  start.removeAttribute('color');                 
+
+
+                  //start.remove();
+                  //editor.insertHtml(start.getText());
                   this.getDialog().hide();
               }
            }
         ],
         onShow: function() {
            start = editor.getSelection().getStartElement();
+           startTags = start.$.localName;
+
+            if(startTags =="strong" || startTags == "em" || startTags == "i" || startTags == "u"){
+              startArray = editor.getSelection().getStartElement().getParents();
+              start = startArray[startArray.length-2];
+            }else{
+               start = editor.getSelection().getStartElement();
+            }
 
            if ( start.hasClass("annotation") ) {
               mode = "edit";
@@ -110,8 +136,9 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
            else
            {
               mode = "add";
-              text = editor.getSelection().getSelectedText();
-
+             text = editor.getSelection().getSelectedText();
+               //text = editor.getSelection().getStartElement().$.innerHTML;
+//console.log('texto--------------'+text);
               created = ckaCurDate();
 
               this.getContentElement("main", "username").setValue(Drupal.settings.ckannotation.username);
@@ -119,7 +146,8 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
               this.getContentElement("main", "annotation").setValue("");
               this.getContentElement("main", "additional").disable();
            }
-
+          
+//console.log(text);
            this.getContentElement("main", "username").disable();
            this.getContentElement("main", "created").disable();
         },
@@ -129,6 +157,8 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
            var dialog = this;
            var annotation = editor.document.createElement('span');
            var anntext;
+
+
 
            if ( dialog.getValueOf('main', 'additional').length > 0 )
                anntext = 
@@ -143,12 +173,20 @@ CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {
            annotation.setAttribute('username', scramble(dialog.getValueOf('main', 'username')));
            annotation.setAttribute('color', Drupal.settings.ckannotation.color);
            annotation.setAttribute('annotation', scramble(anntext));
-	        annotation.setText(text);
+	         annotation.setText(text);
 
-           console.log(annotation);
+         
 
            if ( mode == "edit" ) {
+           start = editor.getSelection().getStartElement();
+           startTags = start.$.localName;
+
+            if(startTags =="strong" || startTags == "i" || startTags == "em" || startTags == "u"){
+              startArray = editor.getSelection().getStartElement().getParents();
+              start = startArray[startArray.length-2];
+            }else{
                start = editor.getSelection().getStartElement();
+            }
                annotation.replace(start);
            }
            else

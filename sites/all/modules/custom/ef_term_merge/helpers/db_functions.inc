@@ -158,6 +158,11 @@ function delete_and_update($table, $field_name, $merge_into, $tid_select, $x_wit
 
 function _update_taxonomy_index($tid, $merge_into)
 {
+	
+	$updated_nodes = db_select('taxonomy_index','a')->fields('a', array('nid'))->condition('a.tid', $tid,'=')->execute();
+
+	$nodes_to_count = _return_formatted_array($updated_nodes,'nid');
+
 
 	$query = db_select('taxonomy_index','a')->fields('a', array('nid'))->condition('a.tid', $merge_into,'=');
 	$query = $query->execute();
@@ -170,22 +175,23 @@ function _update_taxonomy_index($tid, $merge_into)
 				->condition('tid', $tid, '=');
 	
 	
-	if(count($nodes))
+	if (count($nodes))
 	{
-		
-		$update->condition('nid', $nodes ,'NOT IN');
+		$update->condition('nid', $nodes ,'NOT IN');	
 
-		$delete = db_delete('taxonomy_index')->condition('tid', $tid, '=')
-		  ->condition('nid' , $nodes, 'IN')
-		  ->execute();	
-	
+		$delete = db_delete('taxonomy_index')
+			->condition('tid', $tid, '=')
+			->condition('nid', $nodes, 'IN')
+		 	->execute();	
 	}
 
 				
 	$update->execute();
 
+	
 
-	return $nodes;
+
+	return $nodes_to_count;
 			
 }
 
