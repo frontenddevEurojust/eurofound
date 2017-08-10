@@ -24,20 +24,15 @@ function ef_d3_dataexplorer_menu() {
 }
 
 function d3_ejm() {
-
   $chart = array(
     'id' => 'ejm-chart',
     'type' => 'ejm',
-    'legend' => array(
-      'Male',
-      'Female',
-    ),
     'rows' => array(
-      array('Low', '', '', '', '', '',),
-      array('Mid-Low', '', '', '', '', '',),
-      array('Mid', '', '', '', '', '',),
-      array('Mid-High', '', '', '', '', '',),
-      array('High', '', '', '', '', '',),
+      array('Low',),
+      array('Mid-Low'),
+      array('Mid'),
+      array('Mid-High'),
+      array('High'),
     ),
     'countries' => array(
       array('AT', 'Austria'),
@@ -109,7 +104,8 @@ function d3_ejm() {
         3 => array('Primary', 'primary'),
       ),
     ),
-    
+    'period' => array('2011-13','2013-16','2011-16'),
+    'criterion' => array('Wage','Job quality','Education'),
   );
 
   return d3_draw($chart);

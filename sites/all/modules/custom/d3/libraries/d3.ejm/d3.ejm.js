@@ -2,6 +2,40 @@
 
   Drupal.d3.ejm = function (select, settings) {
 
+    var countryFilter = d3.select("#country");
+
+    countryFilter.selectAll("option")
+      .data(settings.countries)
+      .enter().append("option")
+      .attr("value", function (d) { return d[0]; })
+      .text(function (d) { return d[1]; });
+
+    var periodFilter = d3.select("#period");
+
+    periodFilter.selectAll("option")
+      .data(settings.period)
+      .enter().append("option")
+      .attr("value", function (d) { return d; })
+      .text(function (d) { return d; });
+
+    breakdownKeys = Object.keys(settings.keys_by_breakdown);
+
+    var breakdownFilter = d3.select("#breakdown");
+
+    breakdownFilter.selectAll("option")
+      .data(breakdownKeys)
+      .enter().append("option")
+      .attr("value", function (d) { return d; })
+      .text(function (d) { return d; });
+
+    var criterionFilter = d3.select("#criterion");
+
+    criterionFilter.selectAll("option")
+      .data(settings.criterion)
+      .enter().append("option")
+      .attr("value", function (d) { return d; })
+      .text(function (d) { return d; });
+
     country = d3.select("#country").property('value');
     period = d3.select("#period").property('value');
     criterion = d3.select("#criterion").property('value');
@@ -21,7 +55,7 @@
       var rows = columnValues,
         // Use first value in each row as the label.
         xLabels = rows.map(function(d) { return d.shift(); })
-        key = settings.legend,
+        key = breakdownColumns.map(function(d) { return d[0]; })
         // From inside out:
         // - Convert all values to numeric numbers.
         // - Merge all sub-arrays into one flat array.
@@ -30,7 +64,7 @@
         max = d3.max(d3.merge(columnValues).map(function(d) { return + d; })),
         range = (min >= 0) ? max : max - min,
         // Padding is top, right, bottom, left as in css padding.
-        p = [20, 50, 30, 50],
+        p = [50, 50, 30, 50, 60],
         w = $("#ejm-chart").width(),
         h = w * .60,
         // chart is 65% and 80% of overall height
@@ -44,22 +78,23 @@
         // space in between each set
         barSpacing = (.50 * chart.w) / rows.length,
         x = d3.scale.linear().domain([0,rows.length]).range([0,chart.w]),
-        y = d3.scale.linear().domain([0,max]).range([chart.h, 0]),
-        ng = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
+        y = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
+        ng = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
         z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
         div = (settings.id) ? settings.id : 'visualisation';
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
-        .attr("height", h)
+        .attr("height", h + 100)
         .append("g")
         .attr("transform", "translate(" + p[3] + "," + p[0] + ")");
 
       /* GREY BACKGROUND */
       svg.append("rect")
         .attr("width", chart.w)
-        .attr("height", chart.h)
+        .attr("height", h)
+        .attr("y", -p[4])
         .attr("fill", "#efefef");
 
       /* APPEND A GROUP WITH THE chart CLASS */
@@ -79,10 +114,10 @@
 
       /* LINES */
       var rule = graph.selectAll("g.rule")
-        .data(y.ticks(4))
+        .data(ng.ticks(8))
         .enter().append("g")
         .attr("class", "rule")
-        .attr("transform", function(d) { return "translate(0," + y(d) + ")"; });
+        .attr("transform", function(d) { return "translate(0," + ng(d) + ")"; });
 
       rule.append("line")
         .attr("x2", chart.w)
@@ -94,7 +129,7 @@
         .attr("x", -15)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
-        .text(d3.format(",d"));
+        .text(function(d,i){ console.log(d); return d + " k" });
 
       var bar = graph.selectAll('g.bars')
         .data(rows)
@@ -106,14 +141,14 @@
         .data(function(d) { return d; })
         .enter().append('rect')
         .attr("width", barWidth)
-        .attr("height", function(d) { return chart.h - y(d); })
+        .attr("height", function(d) { return chart.h - y(Math.abs(d)); })
         .attr('x', function (d,i) { return i * barWidth + 25; })
-        .attr('y', function (d,i) { return y(d); })
+        .attr('y', function (d,i) { return (d > 0) ? ng(Math.abs(d)) : ng(Math.abs(d)) + chart.h - y(Math.abs(d)) ; })
         .attr('fill', function(d,i) { return d3.rgb(z(i)); })
         .on('mouseover', function(d, i) { showToolTip(d, i, this); })
         .on('mouseout', function(d, i) { hideToolTip(d, i, this); });
 
-/*
+      /*
       bar.selectAll('rect')
         .data(function(d) { return d; })
         .enter().append('rect')
@@ -124,7 +159,7 @@
         .attr('fill', function(d,i) { return d3.rgb(z(i)); })
         .on('mouseover', function(d,i) { showToolTip(d, i, this); })
         .on('mouseout', function(d,i) { hideToolTip(d, i, this); });
-*/
+      */
 
       /* LEGEND */
       var legend = svg.append("g")
@@ -158,7 +193,7 @@
         var bar = d3.select(obj);
         bar.attr('stroke', '#ccc')
           .attr('stroke-width', '1')
-          .attr('opacity', '0.75');
+          .attr('fill', '#000');
 
         var group = d3.select(obj.parentNode);
 
@@ -168,7 +203,7 @@
           .attr('transform', function(data) { return group.attr('transform'); })
             .append('g')
           // now move to the actual x and y of the bar within that group
-          .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + y(d-20) + ')'; });
+          .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + ng(d) + ')'; });
 
         d3.tooltip(tooltip, d);
       }
@@ -177,7 +212,7 @@
         var group = d3.select(obj.parentNode);
         var bar = d3.select(obj);
         bar.attr('stroke-width', '0')
-          .attr('opacity', 1);
+          .attr('fill', function(d) { return d3.rgb(z(i)); })
 
         graph.select('g.tooltip-ejm').remove();
       }
@@ -185,9 +220,7 @@
       function getColumnValues(json, breakdownColumns, datagrid) {
         $.each(json, function(key, value) {
           $.each(breakdownColumns, function(key2, value2) {
-            $.each(datagrid, function(key3, value3) {
-              datagrid[key][(key2 + 1)] = value[value2[1]];
-            });
+            datagrid[key].push(value[value2[1]]);
           });
         });
         return datagrid;

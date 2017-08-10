@@ -33,76 +33,16 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			    	<div class="group-filters jm-filter-countries">
 				    	<label>Countries</label>
 				    	<select id="country">
-								<option value="GB">United Kingdom</option>
-								<option value="AL">Albania</option>
-								<option value="AD">Andorra</option>
-								<option value="AT">Austria</option>
-								<option value="BY">Belarus</option>
-								<option value="BE">Belgium</option>
-								<option value="BA">Bosnia and Herzegovina</option>
-								<option value="BG">Bulgaria</option>
-								<option value="HR">Croatia (Hrvatska)</option>
-								<option value="CY">Cyprus</option>
-								<option value="CZ">Czech Republic</option>
-								<option value="FR">France</option>
-								<option value="GI">Gibraltar</option>
-								<option value="DE" selected="selected">Germany</option>
-								<option value="GR">Greece</option>
-								<option value="VA">Holy See (Vatican City State)</option>
-								<option value="HU">Hungary</option>
-								<option value="IT">Italy</option>
-								<option value="LI">Liechtenstein</option>
-								<option value="LU">Luxembourg</option>
-								<option value="MK">Macedonia</option>
-								<option value="MT">Malta</option>
-								<option value="MD">Moldova</option>
-								<option value="MC">Monaco</option>
-								<option value="ME">Montenegro</option>
-								<option value="NL">Netherlands</option>
-								<option value="PL">Poland</option>
-								<option value="PT">Portugal</option>
-								<option value="RO">Romania</option>
-								<option value="SM">San Marino</option>
-								<option value="RS">Serbia</option>
-								<option value="SK">Slovakia</option>
-								<option value="SI">Slovenia</option>
-								<option value="ES">Spain</option>
-								<option value="UA">Ukraine</option>
-								<option value="DK">Denmark</option>
-								<option value="EE">Estonia</option>
-								<option value="FO">Faroe Islands</option>
-								<option value="FI">Finland</option>
-								<option value="GL">Greenland</option>
-								<option value="IS">Iceland</option>
-								<option value="IE">Ireland</option>
-								<option value="LV">Latvia</option>
-								<option value="LT">Lithuania</option>
-								<option value="NO">Norway</option>
-								<option value="SJ">Svalbard and Jan Mayen Islands</option>
-								<option value="SE">Sweden</option>
-								<option value="CH">Switzerland</option>
-								<option value="TR">Turkey</option>		    				    	
 							</select>
 			    	</div>
 						<div class="group-filters jm-filter-time">
 				    	<label>Time period</label>
 				    	<select id="period">
-				    		<option value="2011-13">2011-2013</option>
-				    		<option value="2011-16" selected="selected">2011-2016</option>
-				    		<option value="2013-16">2013-2016</option>
 				    	</select>
 			    	</div>
 			    	<div class="group-filters jm-filter-breakdown">
 				    	<label>Breakdown</label>
 				    	<select id="breakdown">
-				    		<option>All employment</option>
-				    		<option selected="selected">Gender</option>
-				    		<option>Full time / part-time</option>
-				    		<option>Employment status</option>
-				    		<option>Contract</option>
-				    		<option>Combined employment status</option>
-				    		<option>Country of birth</option>
-				    		<option>Broad sector</option>
 				    	</select>
 			    	</div>
 			  </fieldset>
@@ -111,9 +51,6 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			  		<div class="group-filters jm-filter-criterion">
 				    	<label>Job quality criterion</label>
 				    	<select id="criterion">
-				    		<option selected="selected">Wage</option>
-				    		<option>Education</option>
-				    		<option>Broad job quality</option>
 				    	</select>
 			    	</div>
 			  </fieldset>
