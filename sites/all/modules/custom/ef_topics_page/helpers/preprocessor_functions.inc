@@ -1,16 +1,16 @@
 <?php 
 
 
-function build_content_pagers($variables, $term, $language, $page, $limit = 500000){
+function build_content_pagers($variables, $term, $page, $limit = 500000){
 
-	$variables['pager'] = retrieve_total_results_per_tab($term, $limit, $language);	
+	$variables['pager'] = retrieve_total_results_per_tab($term, $limit);	
 	
 	$variables = build_pager_html($variables);
 
 	return $variables;
 }
 
-function build_content_tabs($variables, $term, $language, $page = ''){
+function build_content_tabs($variables, $term, $page = ''){
 	// Hide higlights tab
 	/* Not set -> show both
 	*  0 -> hide Highlights
@@ -18,26 +18,26 @@ function build_content_tabs($variables, $term, $language, $page = ''){
 	*/
 	if (isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '1')
 	{      
-		$variables['tabs']['All'] = add_all_tab($term->tid, $language, $page);	
+		$variables['tabs']['All'] = add_all_tab($term->tid, $page);	
     }
     if (isset($term->field_ef_term_hide_tabs['und'][0]['value']) && $term->field_ef_term_hide_tabs['und'][0]['value'] !== '0')
     {
-    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $language, $page);
+    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
     }
     if (!isset($term->field_ef_term_hide_tabs['und'][0]['value']))
     {
-    	$variables['tabs']['All'] = add_all_tab($term->tid, $language, $page);	
-    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $language, $page);
+    	$variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
+    	$variables['tabs']['All'] = add_all_tab($term->tid, $page);	  	
     }
 
 
-	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $language, $page);
+	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $page);
 
-	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $language, $page);
+	$variables['tabs']['Articles'] = add_articles_tab($term->tid, $page);
 
-	$variables['tabs']['News'] = add_news_tab($term->tid, $language, $page);
+	$variables['tabs']['News'] = add_news_tab($term->tid, $page);
 
-	$variables['tabs']['Events'] = add_events_tab($term->tid, $language, $page);
+	$variables['tabs']['Events'] = add_events_tab($term->tid, $page);
 	
 	foreach ($variables['tabs'] as $content_type => $value) 
 	{
@@ -54,20 +54,20 @@ function build_content_tabs($variables, $term, $language, $page = ''){
 
 }
 
-function retrieve_total_results_per_tab($term, $limit, $language){
+function retrieve_total_results_per_tab($term, $limit){
 
-    $results['Highlights'] = count(add_highlights_tab($term->tid, $language, $page, $limit));
+    $results['Highlights'] = count(add_highlights_tab($term->tid, $page, $limit));
 
-    $results['All'] = count(add_all_tab($term->tid, $language, $page, $limit));
+    $results['All'] = count(add_all_tab($term->tid, $page, $limit));
 
-    $results['Publications'] = count(add_publications_tab($term->tid, $language, $page, $limit));
+    $results['Publications'] = count(add_publications_tab($term->tid, $page, $limit));
 
-    $results['Articles'] = count(add_articles_tab($term->tid, $language, $page, $limit));
+    $results['Articles'] = count(add_articles_tab($term->tid, $page, $limit));
 
-    $results['News'] = count(add_news_tab($term->tid, $language, $page, $limit));
+    $results['News'] = count(add_news_tab($term->tid, $page, $limit));
 
-    $results['Events'] = count(add_events_tab($term->tid, $language, $page, $limit));
-    
+    $results['Events'] = count(add_events_tab($term->tid, $page, $limit));
+
     return $results;
 }
 
@@ -215,7 +215,7 @@ function add_administrator_menu($variables, $term){
 	
 	$variables['admin_menu']['Term_merge'] = '/admin/config/ef-term-merge';
 
-	$variables['admin_menu']['Translate'] = 'taxonomy/term/' . $term->tid . '/translate';
+	$variables['admin_menu']['Translate'] = '/taxonomy/term/' . $term->tid . '/translate';
 
 	return $variables;
 }

@@ -62,6 +62,7 @@ function ef_publications_ct_node_view_alter(&$build)
 	    		$build['field_order_label'][0]['#markup'] . '</a></p>';
 
 	    }
+	    
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
 
 	    if($node->workbench_moderation['current']->state == 'forthcoming')
@@ -80,34 +81,54 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 {
 
 	if($form['#id'] == 'ef-publication-node-form') 
+	
 	{
-		
-		$form['field_ef_theme']['#type'] = 'hidden';
+		// Modifies URL pattern as Drupal does not consider hidden input values. Rely on users to avoid new values.
+		//$form['field_ef_theme']['#type'] = 'hidden';
+
+		// Hide publication date as it is no longer relevant
+		$form['field_ef_publication_date']['#access'] = FALSE;
 
 
 		// For checkboxes 'checked' condition needs to be used
-	    // Subscription URL
+	    // Show Subscription message
 	    $form['field_term_subscription_url']['#states'] = array(
 	      'visible' => array(
-	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
-	        );
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+	       )
+	    );
 
 	    $form['field_term_subscription_text']['#states'] = array(
 	      'visible' => array(
-	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE))
-	        );
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+	        )
+	    );
 
-	    // Order button
+	    // Show Order button
 	    $form['field_order_label']['#states'] = array(
 	      'visible' => array(
-	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE))
-	        );
+	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE)
+	       )
+	    );
 
 	    $form['field_order_url']['#states'] = array(
 	      'visible' => array(
 	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE))
-	        );
+	    );
 
+	    // Show info checkbox
+	    $form['field_ef_origin_organisation']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_publication_show_info[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
+	    $form['field_event_policy_initiative_co']['#states'] = array(
+	      'visible' => array(
+	      	'input[name="field_publication_show_info[und]"]' => array('checked' => TRUE),
+	        'input[name="field_ef_origin_organisation[und][0][value]"]' => array('filled' => TRUE)
+	        )
+	    );
 
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
 	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_edit_mode.js');
@@ -116,6 +137,7 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 
 	
 	if($form['#id'] == 'views-exposed-form-ef-publications-view-page')
+	
 	{
 
 		$query = "SELECT * FROM workbench_moderation_node_history a WHERE a.state = 'forthcoming' AND a.current = 1";
@@ -134,6 +156,7 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 		}
 		
 	  drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
+	
 	}	
 
 	return $form;
@@ -167,4 +190,13 @@ function ef_publications_ct_views_query_alter(&$view, &$query)
 function ef_publications_ct_update_7100()
 {
 	db_add_index('field_data_field_ef_publication_date', 'field_ef_publication_date_value_index', array('field_ef_publication_date_value'));
+}
+
+/*
+ * Implements hook_update_N(). 
+ * As index is not used any more, delete it.
+ */
+function ef_publications_ct_update_7101()
+{
+	db_drop_index('field_data_field_ef_publication_date', 'field_ef_publication_date_value_index');
 }

@@ -1280,9 +1280,10 @@ $(document).ready(function(){
 (function ($) {
   $(document).ready(function(){
 
-    if(window.location.href.indexOf('working-life-country-profiles') > -1){
+    //if(window.location.href.indexOf('country') > -1){
+    if($('body.node-type-ef-working-life-country-profiles')){
 
-      var anchor_found = window.location.href.indexOf('working-life-country-profile#');
+      var anchor_found = window.location.href.indexOf('#');
 
       if(anchor_found != -1){
         
@@ -1307,7 +1308,7 @@ $(document).ready(function(){
       
       $('section > h2').click(function(){
 
-        anchor_found = window.location.href.indexOf('working-life-country-profile#');
+        anchor_found = window.location.href.indexOf('#');
         
         active = $(this).parent().attr('class');
 
@@ -1373,6 +1374,7 @@ $(document).ready(function(){
   });
 })(jQuery);
 /** END working live country profiles  **/
+
 
 
 
