@@ -2,6 +2,8 @@
 
   Drupal.d3.ejm = function (select, settings) {
 
+    var ejm = [];
+
     var countryFilter = d3.select("#country");
 
     countryFilter.selectAll("option")
@@ -36,25 +38,38 @@
       .attr("value", function (d) { return d; })
       .text(function (d) { return d; });
 
-    country = d3.select("#country").property('value');
-    period = d3.select("#period").property('value');
-    criterion = d3.select("#criterion").property('value');
-    breakdown = d3.select("#breakdown").property('value');
-
-    var breakdownColumns = settings.keys_by_breakdown[breakdown];
-
+    d3.select("#country").on("change", render_graph);
+    d3.select("#period").on("change", render_graph);
+    d3.select("#criterion").on("change", render_graph);
+    d3.select("#breakdown").on("change", render_graph);
+ 
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
+      render_graph();
+    });
+
+    function render_graph() {
+
+      d3.select("svg").remove();
+
+      country = d3.select("#country").property('value');
+      period = d3.select("#period").property('value');
+      criterion = d3.select("#criterion").property('value');
+      breakdown = d3.select("#breakdown").property('value');
+
+      var breakdownColumns = settings.keys_by_breakdown[breakdown];
+
+      var datagrid = [];
 
       selection = ejm.filter(function(csv) {
         return csv.country == country && csv.criterion == criterion && csv.period == period;
       });
 
-      columnValues = getColumnValues(selection, breakdownColumns, settings.rows);
+      columnValues = getColumnValues(selection, breakdownColumns, datagrid);
 
-      var rows = columnValues,
+      var rows = columnValues.map(function(d, i) { return d; }),
         // Use first value in each row as the label.
-        xLabels = rows.map(function(d) { return d.shift(); })
+        xLabels = ['Low', 'Mid-low', 'Mid', 'Mid-high', 'High'],
         key = breakdownColumns.map(function(d) { return d[0]; })
         // From inside out:
         // - Convert all values to numeric numbers.
@@ -82,6 +97,8 @@
         ng = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
         z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
         div = (settings.id) ? settings.id : 'visualisation';
+
+      console.log(rows);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
@@ -129,7 +146,7 @@
         .attr("x", -15)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
-        .text(function(d,i){ console.log(d); return d + " k" });
+        .text(function(d,i){ return d + " k" });
 
       var bar = graph.selectAll('g.bars')
         .data(rows)
@@ -147,19 +164,6 @@
         .attr('fill', function(d,i) { return d3.rgb(z(i)); })
         .on('mouseover', function(d, i) { showToolTip(d, i, this); })
         .on('mouseout', function(d, i) { hideToolTip(d, i, this); });
-
-      /*
-      bar.selectAll('rect')
-        .data(function(d) { return d; })
-        .enter().append('rect')
-        .attr("width", barWidth)
-        .attr("height", function(d) { return chart.h - y(Math.abs(d)); })
-        .attr('x', function (d,i) { return i * barWidth + 25; })
-        .attr('y', function (d,i) { if (d >= 0) {return y(d)} else {return s(max);}; })
-        .attr('fill', function(d,i) { return d3.rgb(z(i)); })
-        .on('mouseover', function(d,i) { showToolTip(d, i, this); })
-        .on('mouseout', function(d,i) { hideToolTip(d, i, this); });
-      */
 
       /* LEGEND */
       var legend = svg.append("g")
@@ -187,7 +191,7 @@
         .attr("x", 20)
         .attr("y", function(d,i) { return i * 20})
         .attr("dy", "1em");
-
+    
       function showToolTip(d, i, obj) {
         // Change color and style of the bar.
         var bar = d3.select(obj);
@@ -219,12 +223,15 @@
 
       function getColumnValues(json, breakdownColumns, datagrid) {
         $.each(json, function(key, value) {
+          datagrid.push(new Array());
           $.each(breakdownColumns, function(key2, value2) {
+            console.log(key, value, value[value2[1]]);
             datagrid[key].push(value[value2[1]]);
           });
         });
+
         return datagrid;
       }
-    });
+    }
   }
 })(jQuery);

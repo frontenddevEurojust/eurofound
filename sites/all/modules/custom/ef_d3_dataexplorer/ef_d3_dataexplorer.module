@@ -27,13 +27,6 @@ function d3_ejm() {
   $chart = array(
     'id' => 'ejm-chart',
     'type' => 'ejm',
-    'rows' => array(
-      array('Low',),
-      array('Mid-Low'),
-      array('Mid'),
-      array('Mid-High'),
-      array('High'),
-    ),
     'countries' => array(
       array('AT', 'Austria'),
       array('BE', 'Belgium'),
