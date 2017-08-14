@@ -82,7 +82,7 @@
         // - Merge all sub-arrays into one flat array.
         // - Return the highest (numeric) value from flat array.
         min = d3.min(d3.merge(columnValues).map(function(d) { (d > 0) ? minY = 0 : minY = d; return + minY; })),
-        max = d3.max(d3.merge(columnValues).map(function(d) { return + d; })),
+        max = d3.max(d3.merge(columnValues).map(function(d) { (d < 0) ? maxY = 0 : maxY = d; return + maxY; })),
         range = (min >= 0) ? max : max - min,
         // Padding is top, right, bottom, left as in css padding.
         p = [50, 50, 30, 50, 60],
@@ -93,11 +93,11 @@
         legend = {w: w * .50, h: h},
         // bar width is calculated based on chart width, and amount of data
         // items - will resize if there is more or less
-        barWidth = ((chart.w * .50) / (rows.length * key.length)),
+        barWidth = ((chart.w * .65) / (rows.length * key.length)),
         // each cluster of bars - makes coding later easier
         barGroupWidth = (key.length * barWidth),
         // space in between each set
-        barSpacing = (.50 * chart.w) / rows.length,
+        barSpacing = (.35 * chart.w) / rows.length,
         x = d3.scale.linear().domain([0,rows.length]).range([0,chart.w]),
         barY = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
         y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
@@ -202,6 +202,7 @@
     
       function showToolTip(d, i, obj) {
         // Change color and style of the bar.
+        console.log(d);
         var bar = d3.select(obj);
         bar.attr('stroke', '#ccc')
           .attr('stroke-width', '1')
