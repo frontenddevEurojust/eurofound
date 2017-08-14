@@ -42,6 +42,8 @@
     d3.select("#period").on("change", render_graph);
     d3.select("#criterion").on("change", render_graph);
     d3.select("#breakdown").on("change", render_graph);
+
+    window.addEventListener("resize", render_graph);
  
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
@@ -56,6 +58,10 @@
       period = d3.select("#period").property('value');
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
+
+      countryText = settings.countries.filter(function(countries) {
+        return countries[0] == country;
+      });
 
       var breakdownColumns = settings.keys_by_breakdown[breakdown];
 
@@ -75,7 +81,7 @@
         // - Convert all values to numeric numbers.
         // - Merge all sub-arrays into one flat array.
         // - Return the highest (numeric) value from flat array.
-        min = d3.min(d3.merge(columnValues).map(function(d) { return + d; })),
+        min = d3.min(d3.merge(columnValues).map(function(d) { (d > 0) ? minY = 0 : minY = d; return + minY; })),
         max = d3.max(d3.merge(columnValues).map(function(d) { return + d; })),
         range = (min >= 0) ? max : max - min,
         // Padding is top, right, bottom, left as in css padding.
@@ -93,12 +99,14 @@
         // space in between each set
         barSpacing = (.50 * chart.w) / rows.length,
         x = d3.scale.linear().domain([0,rows.length]).range([0,chart.w]),
-        y = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
-        ng = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
+        barY = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
+        y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
         z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      console.log(rows);
+      d3.select(".breakdown-text").text(key);
+      d3.select(".country-text").text(countryText[0][1]);
+      d3.select(".time-period-text").text(period);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
@@ -131,10 +139,10 @@
 
       /* LINES */
       var rule = graph.selectAll("g.rule")
-        .data(ng.ticks(8))
+        .data(y.ticks(8))
         .enter().append("g")
         .attr("class", "rule")
-        .attr("transform", function(d) { return "translate(0," + ng(d) + ")"; });
+        .attr("transform", function(d) { return "translate(0," + y(d) + ")"; });
 
       rule.append("line")
         .attr("x2", chart.w)
@@ -158,9 +166,9 @@
         .data(function(d) { return d; })
         .enter().append('rect')
         .attr("width", barWidth)
-        .attr("height", function(d) { return chart.h - y(Math.abs(d)); })
+        .attr("height", function(d) { return chart.h - barY(Math.abs(d)); })
         .attr('x', function (d,i) { return i * barWidth + 25; })
-        .attr('y', function (d,i) { return (d > 0) ? ng(Math.abs(d)) : ng(Math.abs(d)) + chart.h - y(Math.abs(d)) ; })
+        .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)) ; })
         .attr('fill', function(d,i) { return d3.rgb(z(i)); })
         .on('mouseover', function(d, i) { showToolTip(d, i, this); })
         .on('mouseout', function(d, i) { hideToolTip(d, i, this); });
@@ -207,7 +215,7 @@
           .attr('transform', function(data) { return group.attr('transform'); })
             .append('g')
           // now move to the actual x and y of the bar within that group
-          .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + ng(d) + ')'; });
+          .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + y(d) + ')'; });
 
         d3.tooltip(tooltip, d);
       }
@@ -225,13 +233,13 @@
         $.each(json, function(key, value) {
           datagrid.push(new Array());
           $.each(breakdownColumns, function(key2, value2) {
-            console.log(key, value, value[value2[1]]);
             datagrid[key].push(value[value2[1]]);
           });
         });
 
         return datagrid;
       }
+
     }
   }
 })(jQuery);
