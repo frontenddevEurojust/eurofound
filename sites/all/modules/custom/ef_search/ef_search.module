@@ -313,12 +313,12 @@ function ef_search_block_view($delta = '') {
           '#markup' => l(t('Clear filter'), current_path()),
         );
       }
-      
+
       return array(
         'subject' => '<none>',
         'content' => drupal_render($content),
       );
-      
+
       break;
 
     case 'ef_search_topics_block':
@@ -326,9 +326,9 @@ function ef_search_block_view($delta = '') {
 
       //Add CSS file
       drupal_add_css(drupal_get_path('module', 'ef_search') . '/ef_search.css');
-      
+
       $search_term = $_GET['search_block_form'];
-      
+
       if (!empty($search_term)) {
         preg_match('/"([^"]+)"/', $search_term, $inquotes);
         $search_terms = explode(' ', $search_term);
@@ -359,10 +359,13 @@ function ef_search_block_view($delta = '') {
         $select->condition($db_or);
         //EXECUTE
         $result = $select->execute();
+
         //ITERABLE OBJECT
         while ($record = $result->fetchAssoc()) {
           $terms[] = $record;
         }
+
+        $search_term = str_replace('"', "", $search_term);
         //Second query, taxonomy term data table for exact match
         $select2 = db_select('taxonomy_term_data', 'ttd');
         $select2->distinct();
@@ -382,7 +385,7 @@ function ef_search_block_view($delta = '') {
         foreach ($terms as $key => $tid) {
           $term_obj = taxonomy_term_load($tid['tid']);
           $term_name = $term_obj->name;
-          $unsorted[$term_name] = $tid; 
+          $unsorted[$term_name] = $tid;
         }
         ksort($unsorted);
         foreach ($unsorted as $key => $value) {
@@ -427,13 +430,13 @@ function ef_search_block_view($delta = '') {
         }
         return $block;
       }
-      
+
       return;
 
       break;
-    
+
     default:
-      
+
       return;
 
       break;
@@ -442,7 +445,7 @@ function ef_search_block_view($delta = '') {
   if ($delta != 'ef_search_clear_filters') {
     return;
   }
-  
+
 }
 
 function _get_topic_data_multilingual($tid, $lang) {
@@ -881,7 +884,7 @@ function ef_search_theme() {
 
 function _ef_search_keywords_autocomplete($string = '*') {
   $matches = array();
-  
+
   $select = db_select('ef_search_topics', 'st');
   $select->fields('st', array('keywords'));
   $select->condition('st.keywords', '%' . $string . '%', 'LIKE');
@@ -897,7 +900,7 @@ function _ef_search_keywords_autocomplete($string = '*') {
       }
     }
   }
- 
+
   drupal_json_output($matches);
 }
 
