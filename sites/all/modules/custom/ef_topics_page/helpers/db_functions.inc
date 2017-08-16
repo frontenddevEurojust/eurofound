@@ -22,11 +22,19 @@ function check_topic_exists_by_url_and_language($term, $language){
 
 
     $data['term'] = $term;
-    $data['language'] = 'en';
+   
     
     if (isset($term->field_term_title[$language]))
     {
         $data['language'] = $language;
+    }
+    elseif (isset($term->field_term_title['en']))
+    {
+         $data['language'] = 'en';
+    }
+    else
+    {
+        drupal_not_found();
     }
 
 
