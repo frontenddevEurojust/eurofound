@@ -10,13 +10,16 @@ include_once('helpers/excel_functions.inc');
 */
 function ef_term_merge_form($form,$form_state){
 	
-	
 	if ( $_SESSION['ef_term_merge']['confirm'] && $form_state['clicked_button']['#value'] != 'Cancel' ) 
 	{
 
-	    $question = t( "Are you sure you want to Merge Terms?" );
+		$merge = load_terms_from_array($_SESSION['ef_term_merge']['selected']['#options']);
+		$mergeInto = taxonomy_term_load($_SESSION['ef_term_merge']['state']['values']['terms-list-to-merge-into']);
+
+
+	    $question = build_question($merge, $mergeInto);
 	    $path = 'admin/config/ef-term-merge';
-	    $description = t( "This action cannot be undone. A log file will be available if 'Confirm' is pressed." );
+	    $description = "Do you still want to proceed? This action cannot be undone.\n A log file will be available if 'Confirm' is pressed.";
 	    $yes = t( "Confirm" );
 	    $no = t( "Cancel" );
 
@@ -209,7 +212,7 @@ function _execute_merge_terms($form,&$form_state)
 	// Merge terms button use case
 	if ( $_SESSION['ef_term_merge']['confirm'] == 0  && $form_state['clicked_button']['#value'] == 'Merge terms') 
 	{
-
+		
 	    $_SESSION['ef_term_merge']['confirm'] = 1;
 	    // $form_state is stored to have all data available during the process.
 	    $_SESSION['ef_term_merge']['state'] = $form_state;
@@ -218,13 +221,14 @@ function _execute_merge_terms($form,&$form_state)
   	}
   	else 
   	{
+  		
   		// Confirm button use case. Processing starts
   		if($form_state['clicked_button']['#value'] == 'Confirm')
+  		
   		{
+
 	  		$_SESSION['ef_term_merge']['confirm'] = 0;
 	  		$form_state = $_SESSION['ef_term_merge']['state'];
-	  		
-	  		
 
 			// Reusing variable defined in ef_content_inventory. Defines vocabulary, field and content type relationship.
 			$data_structure = variable_get('ef_content_inventory_taxonomic_fields_by_content_type');
@@ -245,7 +249,67 @@ function _execute_merge_terms($form,&$form_state)
 			$_SESSION['ef_term_merge']['download'] = $filename;
 			
 			drupal_set_message('Terms have been merged successfully.');
+		
 		}
 	}
 }
 
+function load_terms_from_array($options){
+	
+	$tids = [];
+
+	foreach ($options as $tid => $value) 
+	{
+		$tids[] = $tid; 
+	}
+
+	return taxonomy_term_load_multiple($tids);
+}
+
+function build_question(array $merge, $mergeInto){
+
+	$aliasList = retrieve_multiple_url_alias($merge);
+
+	$mergeIntoUrlAlias = "select a.alias from url_alias a where a.source LIKE :source";
+
+	$mergeIntoUrlAlias = db_query($mergeIntoUrlAlias,array(':source' => 'taxonomy/term/' . $mergeInto->tid))->fetchAll();
+	
+	$question = "The term/s";
+
+	$counter = 0;
+
+	foreach ($merge as $key => $term) 
+
+	{
+	 	$question = $question . " <a href='/" . $aliasList[$counter] . "'>" . $term->name . "</a> (tid: " . $term->tid . ", taxonomy: " . "<a href='/admin/structure/taxonomy/" . $term->vocabulary_machine_name . "'>" . $term->vocabulary_machine_name . "</a>)";
+
+	 	$counter++;
+	} 
+
+	$question = $question . " is/are going to be merged into <a href='/" . $mergeIntoUrlAlias[0]->alias ."'>" . $mergeInto->name . "</a> (tid: " . $mergeInto->tid .", taxonomy: <a href='/admin/structure/taxonomy/" . $mergeInto->vocabulary_machine_name ."'>" . $mergeInto->vocabulary_machine_name ."</a>).";
+
+	return $question;
+
+}
+		
+function retrieve_multiple_url_alias(array $merge){
+
+	$aliasList = [];
+
+	foreach ($merge as $tid => $value) 
+
+	{
+		$alias = "select a.alias from url_alias a where a.source LIKE :source";
+
+		$alias = db_query($alias,array(':source' => 'taxonomy/term/' . $tid))->fetchAll();
+		
+		if ($alias[0]->alias)
+
+		{
+			$aliasList[] = $alias[0]->alias;
+		}
+	}
+
+
+	return $aliasList;	
+}
