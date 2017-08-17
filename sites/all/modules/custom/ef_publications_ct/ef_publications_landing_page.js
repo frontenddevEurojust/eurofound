@@ -9,6 +9,9 @@ $(document).ready(function(){
         $('#views-exposed-form-ef-publications-view-page .views-reset-button').appendTo($('.views-exposed-form > .views-exposed-widgets'));
 
       };
+
+      $('.field-contributors a').attr('href', $('.field-contributors a').attr('href').replace('%2C%20', '-'));
+  
   });
 })(jQuery);
 
