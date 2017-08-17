@@ -124,6 +124,41 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 }
 
+/*
+*  Implements hook_node_view_alter(&$build). 
+*/
+function ef_authors_as_metadata_node_view_alter(&$build)
+{
+
+	$node = $build['#node'];
+
+	
+	if ($node->type == 'ef_report')
+
+	{	
+
+		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++) 
+		
+		{
+		 
+			$publications_query = "select a.entity_id from node b 
+								inner join field_data_field_ef_publ_contributors a  on b.nid = a.entity_id 
+								where b.status = 1 AND
+								a.bundle = 'ef_publication' AND a.field_ef_publ_contributors_tid = :tid";
+
+			$publications_query = db_query($publications_query, array(':tid' => $build['field_ef_publ_contributors']['#items'][$i]['tid']))->fetchAll();
+			
+			if (count($publications_query))
+
+			{
+				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . str_replace(', ','-', $build['field_ef_publ_contributors'][$i]['#markup']) . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
+			}
+
+		}
+	}
+	
+}
+
 function submit_new_contributors($form, &$form_state){
 
 	$newAuthors = explode(';', $form_state['values']['add_new_contributor']);
