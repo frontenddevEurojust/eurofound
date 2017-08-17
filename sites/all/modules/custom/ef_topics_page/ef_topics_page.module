@@ -97,7 +97,7 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
     
   if($form['#id'] == 'taxonomy-form-term')
   {
-
+    
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
         'visible' => array(
@@ -113,7 +113,9 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
     // Hide last updated field as it is populated automatically
     $form['field_term_last_updated']['#type'] = 'hidden';
- 
+    
+    drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_edit_form.js');
+
   }
 
 }
@@ -129,37 +131,37 @@ function _update_topics_tab($tid, $content_type_name, $page){
 
         case 'Highlights':
 
-            $data = add_highlights_tab($tid, $language->language, $page_number);
+            $data = add_highlights_tab($tid, $page_number);
 
             break;
 
         case 'All':
 
-            $data = add_all_tab($tid, $language->language, $page_number);
+            $data = add_all_tab($tid, $page_number);
 
             break;
           
         case 'Publications':
             
-            $data = add_publications_tab($tid, $language->language, $page_number);
+            $data = add_publications_tab($tid, $page_number);
 
             break;
 
         case 'Articles':
             
-            $data = add_articles_tab($tid, $language->language, $page_number);
+            $data = add_articles_tab($tid, $page_number);
 
             break;
 
         case 'News':
             
-            $data = add_news_tab($tid, $language->language, $page_number);
+            $data = add_news_tab($tid, $page_number);
 
             break;
 
         case 'Events':
             
-            $data = add_events_tab($tid, $language->language, $page_number);
+            $data = add_events_tab($tid, $page_number);
 
             break;
     }
@@ -239,7 +241,7 @@ function ef_topics_page_taxonomy_term_presave($term){
     
 }
 
-
+/*
 function update_fill_topics_titles(){
 
     // topics vid = 21
@@ -262,7 +264,7 @@ function update_fill_topics_titles(){
     
 
 }
-
+*/
 /**
  * Implements hook_entity_update()
  */

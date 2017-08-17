@@ -96,7 +96,12 @@
 					       
 					        });
 
-					        response(results.slice(0,20));
+					        if (results.length == 0)
+					        {
+					        	results.push({ label: "Sorry. No results were found", value:""});
+					        }
+
+					        response(results.slice(0,25));
 					    
 					    },
 					    // Remove ui-helper (gives information about results)

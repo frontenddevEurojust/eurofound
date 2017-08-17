@@ -1,0 +1,14 @@
+name = EJM 
+description = D3 Chart for European Jobs Monitor
+files[js][] = d3.ejm.js
+files[css][] = ejm.css
+version = 0.1
+dependencies[] = d3.extend
+dependencies[] = d3.tooltip
+
+; Information added by Drupal.org packaging script on 2016-12-07
+version = "7.x-1.0"
+core = "7.x"
+project = "d3"
+datestamp = "1481138585"
+
