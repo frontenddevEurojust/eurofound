@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Provides the necessary routing to serve the resources for D3 based DVS
+ */
+
+/**
+ * Implements hook_menu().
+ */
+
+
+function ef_d3_dataexplorer_menu() {
+  $items['data-visualisation-test'] = array(
+    'title' => 'European Jobs Monitor Provisional',
+    'description' => 'Provisional root for Jobs Monitor Data Visualisation',
+    'page callback' => 'd3_ejm',
+    'access callback' => 'user_access',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function d3_ejm() {
+  $chart = array(
+    'id' => 'ejm-chart',
+    'type' => 'ejm',
+    'countries' => array(
+      array('AT', 'Austria'),
+      array('BE', 'Belgium'),
+      array('BG', 'Bulgary'),
+      array('CY', 'Cyprus'),
+      array('CZ', 'Czech Republic'),
+      array('DE', 'Germany'),
+      array('DK', 'Denmark'),
+      array('EE', 'Estonia'),
+      array('ES', 'Spain'),
+      array('FI', 'Finland'),
+      array('FR', 'France'),
+      array('GR', 'Greece'),
+      array('HU', 'Hungary'),
+      array('HR', 'Croatia'),
+      array('IE', 'Ireland'),
+      array('IT', 'Italy'),
+      array('LT', 'Lithuania'),
+      array('LV', 'Latvia'),
+      array('MT', 'Malta'),
+      array('NL', 'Netherlands'),
+      array('PL', 'Poland'),
+      array('PT', 'Portugal'),
+      array('RO', 'Romania'),
+      array('SE', 'Sweden'),
+      array('SI', 'Slovenia'),
+      array('SK', 'Slovakia'),
+      array('UK', 'United Kingdom'),
+      array('EU', 'European Union'),
+    ),
+    'keys_by_breakdown' => array(
+      'All employment' => array(
+        0 => array('Main', 'main'),
+      ),
+      'Gender' => array(
+        0 => array('Male', 'male'),
+        1 => array('Female', 'female'),
+      ),
+      'Full-time / Part-time' => array(
+        0 => array('Full-time', 'ft'),
+        1 => array('Part-time', 'pt'),
+      ),
+      'Employment status' => array(
+        0 => array('Employee', 'employee'),
+        1 => array('Self employee', 'selfemp'),
+      ),
+      'Contract' => array(
+        0 => array('Permanent', 'permanent'),
+        1 => array('Temporary', 'temporary'),
+      ),
+      'Combined employment status' => array(
+        0 => array('Full-time permanent employee', 'ft_permanentemployee'),
+        1 => array('Self employed', 'selfemployed'),
+        2 => array('Full-time temporary employee', 'temp employee ft'),
+        3 => array('Part-time employee', 'pt employee'),
+      ),
+      'Country of birth' => array(
+        0 => array('Reporting country', 'reportingcountry'),
+        1 => array('EU-13 non native', 'eu13nonnative'),
+        2 => array('EU-15 non native', 'eu15nonnative'),
+        3 => array('Non EU', 'noneu'),
+        4 => array('Unspecified', 'unspecified'),
+      ),
+      'Broad sector' => array(
+        0 => array('Services:', 'services'),
+        1 => array('Manufacturing', 'manufact'),
+        2 => array('Construction', 'construc'),
+        3 => array('Primary', 'primary'),
+      ),
+    ),
+    'period' => array('2011-13','2013-16','2011-16'),
+    'criterion' => array('Wage','Job quality','Education'),
+  );
+
+  return d3_draw($chart);
+}

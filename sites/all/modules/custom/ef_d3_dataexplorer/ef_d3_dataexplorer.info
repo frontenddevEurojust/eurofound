@@ -1,0 +1,7 @@
+name = EF D3 Data Explorer
+description = "New Data Visualisation System based on D3."
+package = EF modules
+core = 7.x
+
+dependencies[] = libraries (>=2.0)
+dependencies[] = d3
