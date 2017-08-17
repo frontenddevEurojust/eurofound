@@ -1,0 +1,4 @@
+name = ef_excel
+description = Import taxonomy terms from excel file
+core = 7.x
+files[] = ejemplo-excel.xlsx
