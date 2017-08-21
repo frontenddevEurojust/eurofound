@@ -25,7 +25,7 @@
   d3.tooltip = function(tipjar, txt, breakdowndata, i) {
 
     var tooltip = {
-      w: breakdowndata[i][0].length * 10,
+      w: (breakdowndata[i][0].length > 18) ? breakdowndata[i][0].length * 6.5 : breakdowndata[i][0].length * 10,
       h: 40,
       tip: {
         // The width of the triangular tip as it is on the base

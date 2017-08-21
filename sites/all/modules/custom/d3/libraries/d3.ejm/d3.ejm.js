@@ -7,6 +7,26 @@
 
     var countryFilter = d3.select("#country");
 
+    var shapeData = ["Stacked", "Columns"], 
+    j = 0;  // Choose the rectangle as default
+
+    // Create the shape selectors
+    var form = d3.select("#ejm-chart").append("form");
+
+    chartlabels = form.selectAll("label")
+      .data(shapeData)
+      .enter()
+      .append("label")
+      .text(function(d) {return d;})
+      .insert("input")
+      .attr({
+        type: "radio",
+        class: "chart-type",
+        name: "mode",
+        value: function(d, i) {return i;}
+      })
+      .property("checked", function(d, i) {return i===j;});
+
     countryFilter.selectAll("option")
       .data(settings.countries)
       .enter().append("option")
@@ -39,10 +59,16 @@
       .attr("value", function (d) { return d; })
       .text(function (d) { return d; });
 
+    var stackedInput = 0;
+
     d3.select("#country").on("change", render_graph);
     d3.select("#period").on("change", render_graph);
     d3.select("#criterion").on("change", render_graph);
     d3.select("#breakdown").on("change", render_graph);
+    d3.selectAll(".chart-type").on("input", function() {
+      stackedInput = this.value;
+      render_graph();
+    });
 
     window.addEventListener("resize", render_graph);
  
@@ -53,18 +79,14 @@
 
     function render_graph() {
 
-      d3.select("svg").remove();
+      d3.select("svg").transition().duration(1000).style({ opacity: 0 }).remove();
 
       country = d3.select("#country").property('value');
       period = d3.select("#period").property('value');
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
-      stacked = 0;
-
-      if (breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector') {
-        stacked = 1;
-      }
+      ((breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector') && stackedInput == 0) ? stacked = 1 : stacked = 0;
 
       countryText = settings.countries.filter(function(countries) {
         return countries[0] == country;
@@ -118,14 +140,13 @@
         y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
         barYStacked = d3.scale.linear().domain([0,rangeStacked]).range([chart.h, 0]),
         yStacked = d3.scale.linear().domain([minStacked,maxStacked]).range([chart.h, 0]),
+        z = d3.scale.ordinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
       d3.select(".breakdown").text(breakdown);
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion);
-
-      z = d3.scale.ordinal().range(settings.colors[breakdown]);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
