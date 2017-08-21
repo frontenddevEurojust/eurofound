@@ -1241,9 +1241,10 @@ $(document).ready(function(){
 (function ($) {
 $(document).ready(function(){
       var form_pages=window.location.pathname.split("/");
-      var pathname_form=form_pages[form_pages.length-2];
+      var pathname_form=form_pages[form_pages.length-1];
 
-      if(pathname_form ==''){
+
+      if(pathname_form =='' || pathname_form == 'topic'){
 
         var importantKeyTopics = '<div class="important-key-topics-group"></div>';
         var notImportantKeyTopics = '<div class="not-important-key-topics-group"></div>';
