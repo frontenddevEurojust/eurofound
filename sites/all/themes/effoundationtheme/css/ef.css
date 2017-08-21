@@ -1345,6 +1345,7 @@ height: 28px;
 #mini-panel-publication_mini_panel table.views-view-grid{
 	background: transparent none!important;
 	border: none!important;
+	width: 100%;
 }
 #mini-panel-publication_mini_panel table td{
 	padding: 0px 2% 0px 0px!important;
