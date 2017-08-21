@@ -25,6 +25,7 @@ function ef_term_merge_menu()
 
 	return $items;
 }
+
 /*
 * Implements hook_forn_FORM_ID_alter(&$form, &$form_state, $form_id)
 */
@@ -45,4 +46,6 @@ function ef_term_merge_form_ef_term_merge_form_alter(&$form, &$form_state, $form
     }
 
 }
+
+
 

@@ -63,7 +63,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			  
 			'#title' => t('Add new authors'),
 			
-			'#description' => t('Use a semicolon to separate multiple values'),
+			'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values'),
 			
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
@@ -122,6 +122,45 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 	}	
 
+}
+
+/*
+*  Implements hook_node_view_alter(&$build). 
+*/
+function ef_authors_as_metadata_node_view_alter(&$build)
+{
+
+	$node = $build['#node'];
+
+	
+	if ($node->type == 'ef_report')
+
+	{	
+
+		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++) 
+		
+		{
+		 
+			$publications_query = "select a.entity_id from node b 
+								inner join field_data_field_ef_publ_contributors a  on b.nid = a.entity_id 
+								where b.status = 1 AND
+								a.bundle = 'ef_publication' AND a.field_ef_publ_contributors_tid = :tid";
+
+			$publications_query = db_query($publications_query, array(':tid' => $build['field_ef_publ_contributors']['#items'][$i]['tid']))->fetchAll();
+			
+			if (count($publications_query))
+
+			{
+				$url = str_replace(',','[', $build['field_ef_publ_contributors'][$i]['#markup']);
+
+				$url = str_replace(' ','_', $build['field_ef_publ_contributors'][$i]['#markup']);
+
+				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
+			}
+
+		}
+	}
+	
 }
 
 function submit_new_contributors($form, &$form_state){
