@@ -1378,10 +1378,12 @@ $(document).ready(function(){
 
 
 
-
-
-
-
-
+/** PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
+(function ($) {
+$(document).ready(function(){
+    $('.ef-navigation-menus .menu-minipanel-publication-mini-panel #mini-panel-publication_mini_panel .large-6').removeClass('large-6').addClass('large-9');
+  });
+})(jQuery);
+/** END PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
 
 
