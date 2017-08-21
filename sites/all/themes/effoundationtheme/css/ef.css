@@ -13164,3 +13164,8 @@ ul.list-metadata li > ul li:first-child:before{
   top: 1px;
   left: 1px;
 }
+/** search facetapi **/
+.block.block-facetapi{
+	padding: 0 !important;
+}
+/** end search facetapi **/
