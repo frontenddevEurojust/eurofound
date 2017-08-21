@@ -1,10 +1,16 @@
+(function ($) {
+$(document).ready(function(){
+	
+	console.log('aaaaaaaa');
+	$('.field-contributors a').each(function(index, element){
 
-(function($) {
-    $(document).ready(function(){
-		
-		var title = $('.breadcrumbs .current').text().replace('Forthcoming','');
+      	var href = $(element).attr('href');
+        href = href.replace('%20', '_');
+        href = href.replace('%2C', '[');
 
-		$('.breadcrumbs .current a').text(title);
-		
-	});
-})(jQuery)
+        $(element).attr('href', href);
+      
+    });
+
+  });
+})(jQuery);
