@@ -17,15 +17,15 @@
    * @param txt
    *   Text to display inside the popup
    *   @todo make more customizable
-   * @param h
-   *   height of container group
-   * @param w
-   *   width of container group
+   * @param breakdowndata
+   *   Text for the tooltip
+   * @param i
+   *   Index of the element
    */
-  d3.tooltip = function(tipjar, txt, h, w) {
+  d3.tooltip = function(tipjar, txt, breakdowndata, i) {
 
     var tooltip = {
-      w: 65,
+      w: breakdowndata[i][0].length * 10,
       h: 40,
       tip: {
         // The width of the triangular tip as it is on the base
@@ -84,7 +84,7 @@
       .attr('transform', function(d) { return 'translate(-' + offset + ',-' + tooltip.h + ')'});
 
     textbox.append('text')
-      .text('Value:')
+      .text(breakdowndata[i][0] + ':')
       .attr('text-anchor', 'start')
       .attr('dx', 5)
       .attr('dy', 8)
