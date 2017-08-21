@@ -151,7 +151,11 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 			if (count($publications_query))
 
 			{
-				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . str_replace(', ','-', $build['field_ef_publ_contributors'][$i]['#markup']) . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
+				$url = str_replace(',','[', $build['field_ef_publ_contributors'][$i]['#markup']);
+
+				$url = str_replace(' ','_', $build['field_ef_publ_contributors'][$i]['#markup']);
+
+				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
 			}
 
 		}

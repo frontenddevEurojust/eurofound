@@ -29,11 +29,13 @@ function ef_publications_ct_node_view_alter(&$build)
     		for( $i = 0; $i < count($build['field_ef_publ_contributors']['#items']); $i++) 
 
     		{
+    			$url = 'author/' . $build['field_ef_publ_contributors'][0]['#title'];
     			
-    			$build['field_ef_publ_contributors'][$i]['#href'] = 'author/' . str_replace(", ","-",$name);
-    		
+    			$build['field_ef_publ_contributors'][$i]['#href'] = $url;	
     		}
-    	
+
+    		drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_view_mode.js');
+	
     	}
 
     	
@@ -85,7 +87,7 @@ function ef_publications_ct_node_view_alter(&$build)
 	    {
 	    	drupal_set_title($node->title . '<span class="forthcoming-label">Forthcoming</span>', $output = PASS_THROUGH);
 
-	    	drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_view_mode.js');
+	    	drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_forthcoming.js');
 	    }
 	    
     }
