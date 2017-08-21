@@ -91,7 +91,7 @@ function d3_ejm() {
         4 => array('Unspecified', 'unspecified'),
       ),
       'Broad sector' => array(
-        0 => array('Services:', 'services'),
+        0 => array('Services', 'services'),
         1 => array('Manufacturing', 'manufact'),
         2 => array('Construction', 'construc'),
         3 => array('Primary', 'primary'),
@@ -102,6 +102,16 @@ function d3_ejm() {
     'footnote' => array(
         'A' => "(1) German LFS data does not capture the different categories of the 'country of birth' variable; all respondents not born in Germany are recorded here as 'unspecified'.",
         'B' => "(2) Data only available for Germany for 2012-16 due to revision in 2011/12 of the occupational classification. As a result, data presented here for the earlier period 2011-13 covers just the one year change from 2012-13 for Germany.",
+    ),
+    'colors' => array(
+      'All employment' => array("#134480"),
+      'Gender' => array("#ebe131", "#46be76"),
+      'Full-time / Part-time' => array("#12389e", "#669900"),
+      'Employment status' => array("#12389e", "#eba102"),
+      'Contract' => array("#12389e", "#c10163"),
+      'Combined employment status' => array("#12389e", "#eba102", "#c10163", "#669900"),
+      'Country of birth' => array("#12389e", "#669900", "#c10163", "#eba102", "#808080"),
+      'Broad sector' => array("#12389e", "#eba102", "#c10163", "#669900"),
     ),
   );
 

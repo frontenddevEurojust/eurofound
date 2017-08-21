@@ -96,6 +96,7 @@
         maxStacked = getMaxStackedValue(columnValues),
         range = (min >= 0) ? max : max - min,
         rangeStacked = (minStacked >= 0) ? maxStacked : maxStacked - minStacked,
+
         // Padding is top, right, bottom, left as in css padding.
         p = [50, 50, 30, 50, 60],
         w = $("#ejm-chart").width(),
@@ -117,12 +118,14 @@
         y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
         barYStacked = d3.scale.linear().domain([0,rangeStacked]).range([chart.h, 0]),
         yStacked = d3.scale.linear().domain([minStacked,maxStacked]).range([chart.h, 0]),
-        z = d3.scale.ordinal().range(["#2361A6", "#9BBB5A", "#4AADC4", "#F7931A", "#9269D6"]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      d3.select(".breakdown-text").text(key);
-      d3.select(".country-text").text(countryText[0][1]);
-      d3.select(".time-period-text").text(period);
+      d3.select(".breakdown").text(breakdown);
+      d3.select(".country").text(countryText[0][1]);
+      d3.select(".period").text(period);
+      d3.select(".criterion").text(criterion);
+
+      z = d3.scale.ordinal().range(settings.colors[breakdown]);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
@@ -252,7 +255,7 @@
       var labelWrapper = keys.append("g");
 
       labelWrapper.selectAll("text")
-        .data(function(d,i) { return d3.splitString(key[i], 15); })
+        .data(function(d,i) { return d3.splitString(key[i], 20); })
         .enter().append("text")
         .text(function(d,i) { return d})
         .attr("x", 20)
@@ -262,9 +265,7 @@
       $.each(footNote, function(key, value) {
         svg.append("text")
           .attr("y", chart.h + 100 + key * 30)
-          .attr("font-family", "Verdana")
-          .attr("font-size", 10)
-          .attr("fill", "#444")
+          .attr("class", "footnote-text")
           .text(value)
           .call(wrap, $("#ejm-chart").width() - 80);
       });
@@ -299,19 +300,32 @@
         var bar = d3.select(obj);
         bar.attr('stroke', '#ccc')
           .attr('stroke-width', '1')
-          .attr('fill', '#000');
+          .attr('fill', '#f16000');
 
         var group = d3.select(obj.parentNode);
 
-        var tooltip = graph.append('g')
-          .attr('class', 'tooltip-ejm')
-          // move to the x position of the parent group
-          .attr('transform', function(data) { return group.attr('transform'); })
-            .append('g')
-          // now move to the actual x and y of the bar within that group
-          .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + y(d) + ')'; });
 
-        d3.tooltip(tooltip, d);
+        
+        if (stacked) {
+          var tooltip = graph.append('g')
+            .attr('class', 'tooltip-ejm')
+            // move to the x position of the parent group
+            .attr('transform', function(data) { return group.attr('transform'); })
+              .append('g')
+            // now move to the actual x and y of the bar within that group
+            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidthStacked) + ',' + Number(bar.attr('y')) + ')'; });
+        }
+        else {
+          var tooltip = graph.append('g')
+            .attr('class', 'tooltip-ejm')
+            // move to the x position of the parent group
+            .attr('transform', function(data) { return group.attr('transform'); })
+              .append('g')
+            // now move to the actual x and y of the bar within that group
+            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + y(d) + ')'; });
+        }
+
+        d3.tooltip(tooltip, d, breakdownColumns, i);
       }
 
       function hideToolTip(d, i, obj) {
