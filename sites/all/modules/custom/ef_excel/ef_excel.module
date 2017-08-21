@@ -2,7 +2,7 @@
 
 
 
-function ef_excel_update_7104(&$sandbox) {
+function ef_excel_update_7107(&$sandbox) {
   
 
 	require_once 'Classes/PHPExcel.php';
@@ -23,7 +23,7 @@ function ef_excel_update_7104(&$sandbox) {
 		$terms[$i] = $sheet->getCell("A".$row)->getValue();
 		$i = $i + 1;
 	}
-
+	
 	//CREAMOS LOS OBJETOS TERMINOS Y LOS GUARDAMOS EN UN ARRAY
 	for($i = 0; $i <count($terms); $i++){
 		$term = new stdClass(); 
@@ -32,185 +32,16 @@ function ef_excel_update_7104(&$sandbox) {
 		$new_terms[$i] = $term; 	
 	}
 
-	dpm($new_terms);
+	
 
 	$publication_contributors = taxonomy_get_tree(12);
-	//dpm($publication_contributors);
-
+	
 	//COMPARAMOS LOS TERMINOS OBTENIDOS EN EL EXCEL CON LOS TEMRINOS DEL VOCABURALIO 12, GUARDAMOS LOS TERMINOS QUE NO EXISTAN 
 	for($i = 0; $i < count($new_terms); $i++ ){
 	$exist = false;
 		for($j = 0; $j < count($publication_contributors); $j++ ){
 			
-			if($new_terms[$i]->name == $publication_contributors[$j]->name){
-				$exist = true;
-			}
-		}
-
-		if($exist == false){
-           	$final_terms[$i] = $new_terms[$i];
-        }
-
-        if($exist == true){
-           	$existing_terms[$i] = $new_terms[$i];
-        }
-
-	}
-
-	/*
-	if(!empty($existing_terms)){
-		sort($existing_terms);
-	}
-
-	dpm($existing_terms);	
-
-	if(!empty($final_terms)){
-		sort($final_terms);
-	}
-
-	dpm($final_terms);
-	*/
-	
-	//GUARDAMOS LOS NUEVOS TERMINOS EN BASE DE DATOS
-	if(!empty($final_terms)){
-		for($i = 0; $i <= count($final_terms); $i++){
-			taxonomy_term_save($final_terms[$i]);
-		}
-	}else{
-		dpm("No hay nuevos terminos");
-	}
-
-
-	
-///////////////SEGUNDA PARTE DEL SCRIPT, MODIFICACI´ON DE NODOS CON LOS DATOS DE PUBLICATION CONTRIBUTORS//////////////
-
-	$sheet = $objPHPExcel->getSheet(0);
-	$highestRow = $sheet->getHighestRow();
-	$highestColumn = $sheet->getHighestColumn();
-
-
-	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
-	$i = 0;
-	
-	for ($row = 1; $row <= $highestRow; $row++){
-		$nodes[$i]['id'] = $sheet->getCell("A".$row)->getValue();
-		$nodes[$i]['revision'] = $sheet->getCell("D".$row)->getValue();
-		$nodes[$i]['author'] = $sheet->getCell("F".$row)->getValue();
-		$i = $i + 1;
-	}
-	
-	unset($nodes[0]);
-	
-	for($i = 1; $i <= count($nodes); $i++){
-		$nodes_object[$i] = node_load($nodes[$i]['id'],$nodes[$i]['revision']);
-	}
-	
-	
-
-	
-	for($i=1; $i <= count($nodes_object); $i++){
-
-		$authors[$i] = explode(";", rtrim($nodes[$i]['author']));
-	}
 		
-	
-
-
-
-	//$publication_contributors = taxonomy_get_tree(12);
-	
-		for($j=1; $j <= count($authors); $j++){
-					
-			for($x=0; $x < count($authors[$j]); $x++){
-			
-				for($i=0; $i < count($publication_contributors); $i++){
-					
-					if(trim($authors[$j][$x]) == trim($publication_contributors[$i]->name))	{
-						$publication_contributor_terms[$j][$x] = $publication_contributors[$i];
-						break;
-				
-					}	
-				}
-
-				
-			}
-			
-		}
-
-
-
-	for($i=1; $i <= count($publication_contributor_terms); $i++){
-
-		
-		for($z=0; $z < count($publication_contributor_terms[$i]); $z++){
-
-			$nodes_object[$i]->field_ef_publ_contributors['und'][$z]['tid'] = $publication_contributor_terms[$i][$z]->tid;	
-		}
-
-		//field_attach_update('node', $nodes_object[$i]);
-		//entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
-	
-	}
-
-	//dpm($nodes_object[1719]);
-
-
-
-}
-
-
-function ef_excel_form_alter(&$form, &$form_state, $form_id) {
-
-	
-
-
-	if($form_id == 'views_form_ef_administration_nodes_system_1'){
-
-
-	require_once 'Classes/PHPExcel.php';
-
-	$archivo = drupal_get_path('module', 'ef_excel').'/test.xlsx';
-	$inputFileType = PHPExcel_IOFactory::identify($archivo);
-	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-	$objPHPExcel = $objReader->load($archivo);
-	$sheet = $objPHPExcel->getSheet(1);
-	$highestRow = $sheet->getHighestRow();
-	$highestColumn = $sheet->getHighestColumn();
-
-
-	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
-	$i = 0;
-	
-	for ($row = 1; $row <= $highestRow; $row++){
-		$terms[$i] = $sheet->getCell("A".$row)->getValue();
-		$i = $i + 1;
-	}
-	dpm($terms);
-	//CREAMOS LOS OBJETOS TERMINOS Y LOS GUARDAMOS EN UN ARRAY
-	for($i = 0; $i <count($terms); $i++){
-		$term = new stdClass(); 
-		$term->vid=12; 
-		$term->name= $terms[$i];
-		$new_terms[$i] = $term; 	
-	}
-
-	dpm($new_terms);
-
-	$publication_contributors = taxonomy_get_tree(12);
-	//dpm($publication_contributors);
-
-	//COMPARAMOS LOS TERMINOS OBTENIDOS EN EL EXCEL CON LOS TEMRINOS DEL VOCABURALIO 12, GUARDAMOS LOS TERMINOS QUE NO EXISTAN 
-	for($i = 0; $i < count($new_terms); $i++ ){
-	$exist = false;
-		for($j = 0; $j < count($publication_contributors); $j++ ){
-			
-			/*if($new_terms[$i]->name == 'Viera, Škvarkova'){
-
-				dpm("Hola");
-				dpm($new_terms[$i]->name == $publication_contributors[$j]->name);
-			}
-			*/
-			
 			if($new_terms[$i]->name == $publication_contributors[$j]->name){
 				$exist = true;
 				break;
@@ -227,31 +58,24 @@ function ef_excel_form_alter(&$form, &$form_state, $form_id) {
 
 	}
 
-	/*
-	if(!empty($existing_terms)){
-		sort($existing_terms);
-	}
-
-	dpm($existing_terms);	
-
-	if(!empty($final_terms)){
-		sort($final_terms);
-	}
-
-	dpm($final_terms);
-	*/
-	dpm($final_terms);
+	
+	
 	$status = [];
 	//GUARDAMOS LOS NUEVOS TERMINOS EN BASE DE DATOS
 	if(!empty($final_terms)){
-		for($i = 0; $i <= count($final_terms); $i++){
-			$status[] = taxonomy_term_save($final_terms[$i]);
+
+		foreach ($final_terms as $key => $term) {
+			
+			$status[] = taxonomy_term_save($term);
 			dpm($final_terms[$i]->tid);
+
 		}
 	}else{
 		dpm("No hay nuevos terminos");
 	}
-	dpm($status);
+	
+	
+	
 
 
 
@@ -291,9 +115,9 @@ function ef_excel_form_alter(&$form, &$form_state, $form_id) {
 	
 
 
-
-	//$publication_contributors = taxonomy_get_tree(12);
-	dpm($authors);
+	$publication_contributors = taxonomy_get_tree(12);
+	
+	
 		for($j=1; $j <= count($authors); $j++){
 					
 			for($x=0; $x < count($authors[$j]); $x++){
@@ -312,7 +136,10 @@ function ef_excel_form_alter(&$form, &$form_state, $form_id) {
 			
 		}
 
-dpm($publication_contributor_terms);
+	
+
+	
+
 
 	for($i=1; $i <= count($publication_contributor_terms); $i++){
 
@@ -322,16 +149,194 @@ dpm($publication_contributor_terms);
 			$nodes_object[$i]->field_ef_publ_contributors['und'][$z]['tid'] = $publication_contributor_terms[$i][$z]->tid;	
 		}
 
-		//field_attach_update('node', $nodes_object[$i]);
-		//entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
+		field_attach_update('node', $nodes_object[$i]);
+		entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
 	
 	}
 
-	//dpm($nodes_object[1719]);
+	
+
+
+
+	
+
+	
 
 
 
 
+}
+
+/*
+function ef_excel_form_alter(&$form, &$form_state, $form_id) {
+
+	
+
+
+	if($form_id == 'views_form_ef_administration_nodes_system_1'){
+
+
+	require_once 'Classes/PHPExcel.php';
+
+	$archivo = drupal_get_path('module', 'ef_excel').'/ef-article-authors-normalised-and-unique.xlsx';
+	$inputFileType = PHPExcel_IOFactory::identify($archivo);
+	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+	$objPHPExcel = $objReader->load($archivo);
+	$sheet = $objPHPExcel->getSheet(1);
+	$highestRow = $sheet->getHighestRow();
+	$highestColumn = $sheet->getHighestColumn();
+
+
+	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
+	$i = 0;
+	
+	for ($row = 1; $row <= $highestRow; $row++){
+		$terms[$i] = $sheet->getCell("A".$row)->getValue();
+		$i = $i + 1;
+	}
+	
+	//CREAMOS LOS OBJETOS TERMINOS Y LOS GUARDAMOS EN UN ARRAY
+	for($i = 0; $i <count($terms); $i++){
+		$term = new stdClass(); 
+		$term->vid=12; 
+		$term->name= $terms[$i];
+		$new_terms[$i] = $term; 	
+	}
+
+	
+
+	$publication_contributors = taxonomy_get_tree(12);
+	
+	//COMPARAMOS LOS TERMINOS OBTENIDOS EN EL EXCEL CON LOS TEMRINOS DEL VOCABURALIO 12, GUARDAMOS LOS TERMINOS QUE NO EXISTAN 
+	for($i = 0; $i < count($new_terms); $i++ ){
+	$exist = false;
+		for($j = 0; $j < count($publication_contributors); $j++ ){
+			
+		
+			if($new_terms[$i]->name == $publication_contributors[$j]->name){
+				$exist = true;
+				break;
+			}
+		}
+
+		if($exist == false){
+           	$final_terms[$i] = $new_terms[$i];
+        }
+
+        if($exist == true){
+           	$existing_terms[$i] = $new_terms[$i];
+        }
+
+	}
+
+	
+	
+	$status = [];
+	//GUARDAMOS LOS NUEVOS TERMINOS EN BASE DE DATOS
+	if(!empty($final_terms)){
+
+		foreach ($final_terms as $key => $term) {
+			
+			$status[] = taxonomy_term_save($term);
+			dpm($final_terms[$i]->tid);
+
+		}
+	}else{
+		dpm("No hay nuevos terminos");
+	}
+	
+	
+	
+
+
+
+
+
+	///////////////SEGUNDA PARTE DEL SCRIPT, MODIFICACI´ON DE NODOS CON LOS DATOS DE PUBLICATION CONTRIBUTORS//////////////
+
+	$sheet = $objPHPExcel->getSheet(0);
+	$highestRow = $sheet->getHighestRow();
+	$highestColumn = $sheet->getHighestColumn();
+
+
+	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
+	$i = 0;
+	
+	for ($row = 1; $row <= $highestRow; $row++){
+		$nodes[$i]['id'] = $sheet->getCell("A".$row)->getValue();
+		$nodes[$i]['revision'] = $sheet->getCell("D".$row)->getValue();
+		$nodes[$i]['author'] = $sheet->getCell("F".$row)->getValue();
+		$i = $i + 1;
+	}
+	
+	unset($nodes[0]);
+	
+	for($i = 1; $i <= count($nodes); $i++){
+		$nodes_object[$i] = node_load($nodes[$i]['id'],$nodes[$i]['revision']);
+	}
+	
+	
+
+	
+	for($i=1; $i <= count($nodes_object); $i++){
+
+		$authors[$i] = explode(";", rtrim($nodes[$i]['author']));
+	}
+		
+	
+
+
+	$publication_contributors = taxonomy_get_tree(12);
+	dpm($authors);
+	
+		for($j=1; $j <= count($authors); $j++){
+					
+			for($x=0; $x < count($authors[$j]); $x++){
+			
+				for($i=0; $i < count($publication_contributors); $i++){
+					
+					if(trim($authors[$j][$x]) == trim($publication_contributors[$i]->name))	{
+						$publication_contributor_terms[$j][$x] = $publication_contributors[$i];
+						break;
+				
+					}	
+				}
+
+				
+			}
+			
+		}
+
+	dpm($publication_contributor_terms);
+
+
+	for($i=1;$i<=1773;$i++){
+	
+		if(empty($publication_contributor_terms[$i])){
+			dpm($i);
+		}
+
+	}
+
+
+	for($i=1; $i <= count($publication_contributor_terms); $i++){
+
+		
+		for($z=0; $z < count($publication_contributor_terms[$i]); $z++){
+
+			$nodes_object[$i]->field_ef_publ_contributors['und'][$z]['tid'] = $publication_contributor_terms[$i][$z]->tid;	
+		}
+
+		field_attach_update('node', $nodes_object[$i]);
+		entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
+	
+	}
+
+	
+
+
+
+	dpm($nodes_object);
 
 
 
@@ -348,6 +353,7 @@ dpm($publication_contributor_terms);
 }
 
 
+*/
 
 
 
