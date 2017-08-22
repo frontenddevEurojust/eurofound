@@ -54,12 +54,6 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 				    	</select>
 			    	</div>
 			  </fieldset>
-			  <fieldset>
-			    <legend ><i class="fa fa-filter" aria-hidden="true"></i> More filters 02: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-			  </fieldset>
-			  <fieldset>
-			    <legend ><i class="fa fa-filter" aria-hidden="true"></i> More filters 03: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-			  </fieldset>
 			</form>		
 		</div>
 		<div <?php print $attributes ?> class="jm-charts large-9 <?php print implode(' ', $classes_array); ?>">
