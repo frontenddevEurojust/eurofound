@@ -1244,7 +1244,7 @@ $(document).ready(function(){
       var pathname_form=form_pages[form_pages.length-1];
 
 
-      if(pathname_form =='' || pathname_form == 'topic'){
+      if($('.pane-ef-key-topics-home') || pathname_form == 'topic'){
 
         var importantKeyTopics = '<div class="important-key-topics-group"></div>';
         var notImportantKeyTopics = '<div class="not-important-key-topics-group"></div>';
