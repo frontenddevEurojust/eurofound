@@ -7,26 +7,6 @@
 
     var countryFilter = d3.select("#country");
 
-    var shapeData = ["Stacked", "Columns"], 
-    j = 0;  // Choose the rectangle as default
-
-    // Create the shape selectors
-    var form = d3.select("#ejm-chart").append("form");
-
-    chartlabels = form.selectAll("label")
-      .data(shapeData)
-      .enter()
-      .append("label")
-      .text(function(d) {return d;})
-      .insert("input")
-      .attr({
-        type: "radio",
-        class: "chart-type",
-        name: "mode",
-        value: function(d, i) {return i;}
-      })
-      .property("checked", function(d, i) {return i===j;});
-
     countryFilter.selectAll("option")
       .data(settings.countries)
       .enter().append("option")
@@ -79,14 +59,14 @@
 
     function render_graph() {
 
-      d3.select("svg").transition().duration(1000).style({ opacity: 0 }).remove();
+      d3.select("svg").remove();
 
       country = d3.select("#country").property('value');
       period = d3.select("#period").property('value');
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
-      ((breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector') && stackedInput == 0) ? stacked = 1 : stacked = 0;
+      breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector' ? stacked = 1 : stacked = 0;
 
       countryText = settings.countries.filter(function(countries) {
         return countries[0] == country;
