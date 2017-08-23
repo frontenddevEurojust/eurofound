@@ -9,7 +9,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 
 
 <div  class="jm-charts-wrapper ">	
-	<div clas="row">
+	<div class="row">
 		<div class="jm-abstract-wrapper large-9">
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
 			<div class="jm-abstract">

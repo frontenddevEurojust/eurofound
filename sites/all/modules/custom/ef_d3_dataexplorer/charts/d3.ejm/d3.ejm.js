@@ -76,7 +76,7 @@
 
     /* Y AXIS */
     rule.append("text")
-      .attr("x", -15)
+      .attr("x", -5)
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
       .text(d3.format(",d"));

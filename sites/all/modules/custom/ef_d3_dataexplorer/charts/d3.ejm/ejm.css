@@ -1,8 +1,10 @@
 g.rule text {
   font-size: 12px;
+  fill: #666666 !important;
 }
 g.ticks text {
-  font-size: 11px;
+  font-size: 1em;
+  fill: #666666 !important;
 }
 .tooltip {
   z-index: 1000;
@@ -45,6 +47,7 @@ g.ticks text {
 
 .jm-filters-chart {
   background: #E9EDF3;
+  overflow: auto;
 }
 .filters-jm-chart {
   padding: 90px 0 0 0;
@@ -106,39 +109,69 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.75em !important;
+    padding: 0.5em !important;
     height: auto;
-    color: #999;
+    color: #222;
 }
-
+.filters-jm-chart .group-filters select::-ms-expand {
+    display: none;
+}
 .jm-methodology-wrapper{
 	padding: 45px 25px 15px;
 }
-
+.jm-charts h2:first-child{
+  margin-top: 0px;
+  margin-left: 10px;
+}
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-back-button {
-      padding: 15px 0;
+      padding: 15px 7px;
   }
   .filters-jm-chart .group-filters {
     padding: 15px;
   }
-  .back-to-results-block a{
-    padding: 15px 0 !important;
+  .jm-charts-wrapper .back-to-results-block a{
+    padding: 10px 0 7px !important;
+  }
+  .jm-charts-wrapper  .boxed-block {
+      margin-top: 7px;
+      margin-left: 15px;
+  }
+  .filters-jm-chart i.fa.fa-filter {
+    margin-left: 5px;
   }
 }
 
 @media only screen and (max-width : 767px) {
-	.jm-back-button {
+  .jm-back-button {
     width: 100%;
-	}
-	.filters-jm-chart{
-		width: 100%;
-	}
-	.filters-jm-chart {
-	  padding: 25px 0;
-	}
-	.filters-jm-chart legend {
-	  padding: 15px !important;
-	}
-
+  }
+  .filters-jm-chart{
+    width: 100%;
+  }
+  .filters-jm-chart {
+    padding: 25px 0;
+  }
+  .filters-jm-chart legend {
+    padding: 15px !important;
+  }
+  .jm-filters-chart {
+    overflow: initial;
+  }
+  .jm-charts-wrapper .row{
+    overflow:auto;
+  }
+  .back-to-results-block{
+    box-shadow: none !important;
+  }
+  .jm-charts-wrapper .back-to-results-block a{
+    background: #f2f2f2 !important;
+    color: #000 !important;
+    border-radius: 0 !important;
+    border: 1px solid #CFCFCF !important;
+  }
+  g.rule text {
+      font-size: 10px;
+      fill: #666666 !important;
+  }
 }
