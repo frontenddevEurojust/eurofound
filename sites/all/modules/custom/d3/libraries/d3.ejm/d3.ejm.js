@@ -45,10 +45,6 @@
     d3.select("#period").on("change", render_graph);
     d3.select("#criterion").on("change", render_graph);
     d3.select("#breakdown").on("change", render_graph);
-    d3.selectAll(".chart-type").on("input", function() {
-      stackedInput = this.value;
-      render_graph();
-    });
 
     window.addEventListener("resize", render_graph);
  
@@ -249,10 +245,39 @@
         .attr("class", "legend")
         .attr("transform", "translate(" + 0 + "," + (chart.h + 40) + ")");
 
-      var keys = legend.selectAll("g")
-        .data(key)
-        .enter().append("g")
-        .attr("transform", function(d,i) { return "translate(" + (i * 180) + "," + 0 + ")"});
+      switch (breakdown) {
+        case "All employment":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + chart.w / 2.5 + "," + 0 + ")"});
+            break;
+
+        case "Gender":
+        case "Full-time / Part-time":
+        case "Employment status":
+        case "Contract":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 3) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+
+        case "Combined employment status":
+        case "Broad sector":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+
+        case "Country of birth":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 10) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+      }
 
       keys.append("rect")
         .attr("fill", function(d,i) { return d3.rgb(z(i)); })
@@ -264,7 +289,7 @@
       var labelWrapper = keys.append("g");
 
       labelWrapper.selectAll("text")
-        .data(function(d,i) { return d3.splitString(key[i], 20); })
+        .data(function(d,i) { return d3.splitString(key[i], 15); })
         .enter().append("text")
         .text(function(d,i) { return d})
         .attr("font-size", 11)
