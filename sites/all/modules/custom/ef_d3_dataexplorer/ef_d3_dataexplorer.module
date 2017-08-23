@@ -59,7 +59,7 @@ function d3_ejm() {
     ),
     'keys_by_breakdown' => array(
       'All employment' => array(
-        0 => array('Main', 'main'),
+        0 => array('All employment', 'main'),
       ),
       'Gender' => array(
         0 => array('Male', 'male'),

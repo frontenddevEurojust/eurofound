@@ -21,21 +21,39 @@
    *   Text for the tooltip
    * @param i
    *   Index of the element
+   * @param i
+   *   Index of the element
    */
-  d3.tooltip = function(tipjar, txt, breakdowndata, i) {
+  d3.tooltip = function(tipjar, txt, breakdowndata, i, canvasWidth) {
 
-    var tooltip = {
-      w: (breakdowndata[i][0].length > 18) ? breakdowndata[i][0].length * 6.5 : breakdowndata[i][0].length * 10,
-      h: 40,
-      tip: {
-        // The width of the triangular tip as it is on the base
-        width: 12,
-        // Tip length, vertically
-        length: 9,
-        // Tip offset point, from the very tip to the middle of the square
-        offset: 22,
-      },
-    };
+    if (canvasWidth > 550) { 
+      var tooltip = {
+        w: (breakdowndata[i][0].length > 12) ? breakdowndata[i][0].length * 8 : breakdowndata[i][0].length * 12,
+        h: 40,
+        tip: {
+          // The width of the triangular tip as it is on the base
+          width:  9,
+          // Tip length, vertically
+          length: 9,
+          // Tip offset point, from the very tip to the middle of the square
+          offset: 9,
+        },
+      }
+    }
+    else { 
+      var tooltip = {
+        w: (breakdowndata[i][0].length > 12) ? breakdowndata[i][0].length * 5 : breakdowndata[i][0].length * 7,
+        h: 25,
+        tip: {
+          // The width of the triangular tip as it is on the base
+          width: 4.5,
+          // Tip length, vertically
+          length: 4.5,
+          // Tip offset point, from the very tip to the middle of the square
+          offset: 4.5,
+        },
+      }
+    }
 
     var svg = tipjar.node();
     while (svg.tagName != "svg" && svg.parentNode) {
@@ -83,23 +101,44 @@
       .attr('class', 'text')
       .attr('transform', function(d) { return 'translate(-' + offset + ',-' + tooltip.h + ')'});
 
-    textbox.append('text')
-      .text(breakdowndata[i][0] + ':')
-      .attr('text-anchor', 'start')
-      .attr('dx', 5)
-      .attr('dy', 8)
-      .attr('font-family', 'Arial,sans-serif')
-      .attr('font-size', '12')
-      .attr('font-weight', 'bold');
+    if (canvasWidth > 550) {       
+      textbox.append('text')
+        .text(breakdowndata[i][0] + ':')
+        .attr('text-anchor', 'start')
+        .attr('dx', 5)
+        .attr('dy', 8)
+        .attr('font-family', 'OpenSans-Regular-webfont')
+        .attr('font-size', '12')
+        .attr('font-weight', 'bold');
 
-    textbox.append('text')
-      .text(txt)
-      .attr('text-anchor', 'start')
-      .attr('dx', 5)
-      .attr('dy', 25)
-      .attr('font-family', 'Arial,sans-serif')
-      .attr('font-size', '12')
-      .attr('font-weight', 'normal');
+      textbox.append('text')
+        .text(txt)
+        .attr('text-anchor', 'start')
+        .attr('dx', 5)
+        .attr('dy', 25)
+        .attr('font-family', 'OpenSans-Regular-webfont')
+        .attr('font-size', '12')
+        .attr('font-weight', 'normal');
+    }
+    else {
+      textbox.append('text')
+        .text(breakdowndata[i][0] + ':')
+        .attr('text-anchor', 'start')
+        .attr('dx', 5)
+        .attr('dy', 8)
+        .attr('font-family', 'OpenSans-Regular-webfont')
+        .attr('font-size', '8')
+        .attr('font-weight', 'bold');
+      
+      textbox.append('text')
+        .text(txt)
+        .attr('text-anchor', 'start')
+        .attr('dx', 5)
+        .attr('dy', 18)
+        .attr('font-family', 'OpenSans-Regular-webfont')
+        .attr('font-size', '8')
+        .attr('font-weight', 'normal');
+    }
   };
 
   d3.tooltip.tooltipDefault = {
@@ -120,7 +159,7 @@
       + 'l0,-' + tooltip.h + ''
       + 'l-' + tooltip.w + ',0'
       + 'l0, ' + tooltip.h
-      + 'l' + (tooltip.w / 2) +',0'
+      + 'l' + ((tooltip.w / 2) - tooltip.tip.width) + ',0'
       + "L0,0";
   };
 
