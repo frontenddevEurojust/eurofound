@@ -140,6 +140,9 @@ g.ticks text {
   .filters-jm-chart i.fa.fa-filter {
     margin-left: 5px;
   }
+  g.rule text {
+      font-size: 10px !important;
+  }
 }
 
 @media only screen and (max-width : 767px) {

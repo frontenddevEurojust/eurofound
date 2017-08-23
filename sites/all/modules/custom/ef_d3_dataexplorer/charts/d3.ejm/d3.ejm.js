@@ -71,7 +71,7 @@
 
     rule.append("line")
       .attr("x2", chart.w)
-      .style("stroke", function(d) { return d ? "#fff" : "#000"; })
+      .style("stroke", function(d) { return d ? "#fff" : "#BBB"; })
       .style("stroke-opacity", function(d) { return d ? .7 : null; });
 
     /* Y AXIS */
