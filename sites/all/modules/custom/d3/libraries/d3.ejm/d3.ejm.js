@@ -104,7 +104,7 @@
         w = $("#ejm-chart").width(),
         h = w * .60,
         // chart is 65% and 80% of overall height
-        chart = {w: w * .90, h: h * .85},
+        chart = {w: w * .80, h: h * .85},
         legend = {w: w * .50, h: h},
         // bar width is calculated based on chart width, and amount of data
         // items - will resize if there is more or less
@@ -131,7 +131,7 @@
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
-        .attr("height", h + 200)
+        .attr("height", h + 50)
         .append("g")
         .attr("transform", "translate(" + p[3] + "," + p[0] + ")");
 
@@ -196,7 +196,7 @@
         .attr("x", -15)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
-        .text(function(d,i){ return d + " k" });
+        .text(function(d,i){ return d });
 
       if (stacked) {
         var accp = 0, accn = 0;
@@ -248,8 +248,8 @@
 
       keys.append("rect")
         .attr("fill", function(d,i) { return d3.rgb(z(i)); })
-        .attr("width", 16)
-        .attr("height", 16)
+        .attr("width", 12)
+        .attr("height", 12)
         .attr("y", 0)
         .attr("x", 0);
 
@@ -259,6 +259,7 @@
         .data(function(d,i) { return d3.splitString(key[i], 20); })
         .enter().append("text")
         .text(function(d,i) { return d})
+        .attr("font-size", 11)
         .attr("x", 20)
         .attr("y", function(d,i) { return i * 20})
         .attr("dy", "1em");
@@ -304,8 +305,6 @@
           .attr('fill', '#f16000');
 
         var group = d3.select(obj.parentNode);
-
-
         
         if (stacked) {
           var tooltip = graph.append('g')
@@ -314,7 +313,7 @@
             .attr('transform', function(data) { return group.attr('transform'); })
               .append('g')
             // now move to the actual x and y of the bar within that group
-            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidthStacked) + ',' + Number(bar.attr('y')) + ')'; });
+            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x') - (barWidthStacked / 2)) + barWidthStacked) + ',' + Number(bar.attr('y')) + ')'; });
         }
         else {
           var tooltip = graph.append('g')
@@ -323,10 +322,10 @@
             .attr('transform', function(data) { return group.attr('transform'); })
               .append('g')
             // now move to the actual x and y of the bar within that group
-            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x')) + barWidth) + ',' + y(d) + ')'; });
+            .attr('transform', function(data) { d < 0 ? tooltipY = 0 : tooltipY = d; return 'translate(' + (Number(bar.attr('x') - (barWidth / 2)) + barWidth) + ',' + y(tooltipY) + ')'; });
         }
 
-        d3.tooltip(tooltip, d, breakdownColumns, i);
+        d3.tooltip(tooltip, d, breakdownColumns, i, w);
       }
 
       function hideToolTip(d, i, obj) {

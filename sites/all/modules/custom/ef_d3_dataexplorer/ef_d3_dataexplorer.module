@@ -11,8 +11,8 @@
 
 
 function ef_d3_dataexplorer_menu() {
-  $items['data-visualisation-test'] = array(
-    'title' => 'European Jobs Monitor Provisional',
+  $items['data-explorer/european-jobs-monitor'] = array(
+    'title' => 'European Jobs Monitor',
     'description' => 'Provisional root for Jobs Monitor Data Visualisation',
     'page callback' => 'd3_ejm',
     'access callback' => 'user_access',
@@ -59,7 +59,7 @@ function d3_ejm() {
     ),
     'keys_by_breakdown' => array(
       'All employment' => array(
-        0 => array('Main', 'main'),
+        0 => array('All employment', 'main'),
       ),
       'Gender' => array(
         0 => array('Male', 'male'),
