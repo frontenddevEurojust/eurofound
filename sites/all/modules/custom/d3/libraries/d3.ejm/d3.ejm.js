@@ -142,6 +142,14 @@
         .attr("y", -p[4])
         .attr("fill", "#efefef");
 
+      /* people (thousands) LITERAL) */
+      svg.append("text")
+        .attr("x", -40)
+        .attr("y", chart.h / 2.4)
+        .attr("font-size", 10)
+        .attr("style", "writing-mode: tb;")
+        .text("people (thousands)");
+
       /* APPEND A GROUP WITH THE chart CLASS */
       var graph = svg.append("g")
         .attr("class", "chart");
