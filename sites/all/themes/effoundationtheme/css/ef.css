@@ -182,7 +182,7 @@ a.popup-element-title.popup-title-active span:after,
 .light-style ul.quicktabs-tabs.quicktabs-style-basic a#quicktabs-tab-ef_block_latest_content-1:before,
 .surveys h2.pane-title:before,
 .page-index .view-ef-spotlight-on .view-content .item-list .views-field-nid:after,
-.node-ef-publication .field-name-field-ef-document .file a:after, 
+.node-ef-publication .field-name-field-ef-document .file a:after,
 .block-views-ef-countries-jump-block-block label:before,
 .pane-ef-latest-for-country-panel-pane-1 h2.pane-title:before,
 .country-specific-info .view-country:before,
@@ -1349,7 +1349,7 @@ height: 28px;
 }
 #mini-panel-publication_mini_panel table td{
 	padding: 0px 2% 0px 0px!important;
-	width: 33.333%;
+	width: 25%;
 	vertical-align: top;
 }
 .menu-minipanel-panel .views-view-grid .views-field-field-ef-document{
@@ -7415,7 +7415,7 @@ h1.parent_fome.title {
   background: #FFF url(../images/background-fome.png) no-repeat !important;
   background-size: 100% !important;
   padding: 24px 50px 30px 184px !important;
-  background-position-y: -10px !important;	
+  background-position-y: -10px !important;
 	border: none;
 	margin: -18px -0 40px 0;
 	-moz-box-shadow:none;
@@ -7435,7 +7435,7 @@ h1.parent_fome.title {
     margin-right: 15px;
     vertical-align: middle;
     letter-spacing: -0.03em;
-   
+
 }
 h1.parent_fome ~ span.print_pdf{
 	top: 10em;
