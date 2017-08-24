@@ -140,10 +140,11 @@
 
       /* people (thousands) LITERAL) */
       svg.append("text")
-        .attr("x", -40)
-        .attr("y", chart.h / 2.4)
+        .attr("x", -chart.h / 2)
+        .attr("y", -40)
         .attr("font-size", 10)
-        .attr("style", "writing-mode: tb;")
+        //.attr("style", "writing-mode: tb;")
+        .attr('style','transform: rotate(-90deg)')
         .text("people (thousands)");
 
       /* APPEND A GROUP WITH THE chart CLASS */
@@ -243,7 +244,7 @@
       /* LEGEND */
       var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", "translate(" + 0 + "," + (chart.h + 40) + ")");
+        .attr("transform", "translate(" + 0 + "," + (chart.h + 60) + ")");
 
       switch (breakdown) {
         case "All employment":
