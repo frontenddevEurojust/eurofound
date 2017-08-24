@@ -31,7 +31,6 @@ g.ticks text {
 	padding: 15px 25px;
   text-align: center;
 }
-
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
   padding: 0;
@@ -135,6 +134,7 @@ g.ticks text {
   font-size: 16px !important;
   color: #212121 !important;
 }
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-back-button {
       padding: 15px 7px;
@@ -158,6 +158,13 @@ g.ticks text {
 }
 
 @media only screen and (max-width : 767px) {
+
+  #ejm-chart > svg > g{
+    transform: translate(30px,10px) !important;
+  }
+  #ejm-chart > svg > g > text{
+    transform:rotate(-90deg) translate(0px,15px) !important;
+  }
   .jm-back-button {
     width: 100%;
   }
@@ -188,5 +195,37 @@ g.ticks text {
   g.rule text {
       font-size: 10px;
       fill: #666666 !important;
+  }
+}
+
+
+@media only screen and (max-width : 480px) {
+  #ejm-chart > svg > g{
+    transform: translate(20px,10px) !important;
+  }
+  #ejm-chart > svg > g > rect{
+    width: 250px !important;
+  }
+  g.rule text {
+    font-size: 7px;
+  }
+  #ejm-chart  > svg > g > g.legend > g text{
+    font-size:8px !important;
+  }
+  #ejm-chart  > svg > g > g.legend > g:nth-child(1){
+    transform:translate(-30px, 0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(2){
+    transform:translate(40px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(3){
+    transform:translate(120px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(4){
+    transform:translate(200px,0px) !important;
+  } 
+  .jm-footnote {
+    margin: 3rem 40px 0 12px;
+    display: block;
   }
 }

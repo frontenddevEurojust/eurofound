@@ -119,10 +119,10 @@
         z = d3.scale.ordinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      d3.select(".breakdown").text(breakdown);
+      d3.select(".breakdown").text(breakdown.toLowerCase());
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
-      d3.select(".criterion").text(criterion);
+      d3.select(".criterion").text(criterion.toLowerCase());
 
       //console.log('#' + div);
 
@@ -154,7 +154,7 @@
         .attr("font-size", 10)
         //.attr("style", "writing-mode: tb;")
         .attr('style','transform: rotate(-90deg)')
-        .text("people (thousands)");
+        .text("People (thousands)");
 
       /* APPEND A GROUP WITH THE chart CLASS */
       var graph = svg.append("g")
