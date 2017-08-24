@@ -136,9 +136,12 @@
       /* GREY BACKGROUND */
       svg.append("rect")
         .attr("width", chart.w)
-        .attr("height", h)
-        .attr("y", -p[4])
+        .attr("height", chart.h)
         .attr("fill", "#efefef");
+
+      svg.append("line")
+        .attr("y2", chart.h)
+        .style("stroke", "#000");
 
       /* people (thousands) LITERAL) */
       svg.append("text")
@@ -334,7 +337,6 @@
           divFootnotes.append("p").text(value);
         });
       }
-
     
       function showToolTip(d, i, obj) {
         // Change color and style of the bar.
