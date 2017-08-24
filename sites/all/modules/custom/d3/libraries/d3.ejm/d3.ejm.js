@@ -124,6 +124,8 @@
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion);
 
+      console.log('#' + div);
+
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
@@ -298,14 +300,6 @@
         .attr("y", function(d,i) { return i * 20})
         .attr("dy", "1em");
 
-      $.each(footNote, function(key, value) {
-        svg.append("text")
-          .attr("y", chart.h + 100 + key * 30)
-          .attr("class", "footnote-text")
-          .text(value)
-          .call(wrap, $("#ejm-chart").width() - 80);
-      });
-
       function wrap(text, width) {
         text.each(function() {
           var text = d3.select(this),
@@ -330,6 +324,17 @@
           }
         });
       }
+
+      divFootnotes = d3.select(".jm-footnote");
+      divFootnotes.select("h3").remove();
+      divFootnotes.selectAll("p").remove();
+      if (footNote[0]) {
+        divFootnotes.append("h3").text("Note");
+        $.each(footNote, function(key, value) {
+          divFootnotes.append("p").text(value);
+        });
+      }
+
     
       function showToolTip(d, i, obj) {
         // Change color and style of the bar.
