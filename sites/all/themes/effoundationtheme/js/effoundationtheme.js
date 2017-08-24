@@ -1052,6 +1052,10 @@ $(document).ready(function(){
         $('#mini-panel-themes_mini_panel').parent().parent().append(localStorage['submenuThemmes']);
         removeIdMenu('#mini-panel-themes_mini_panel');
 
+        localStorage['submenuDataExplorer'] = $('#mini-panel-data_explorer ul.dropdown').html();
+        $('#mini-panel-data_explorer').parent().parent().append(localStorage['submenuDataExplorer']);
+        removeIdMenu('#mini-panel-data_explorer');
+
         localStorage['submenuSurveys'] = $('#mini-panel-surveys_mini_panel ul.dropdown').html();
         $('#mini-panel-surveys_mini_panel').parent().parent().append(localStorage['submenuSurveys']);
         removeIdMenu('#mini-panel-surveys_mini_panel');
