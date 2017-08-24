@@ -123,6 +123,13 @@ g.ticks text {
   margin-top: 0px;
   margin-left: 10px;
 }
+.jm-footnote {
+  margin: 0 40px 0 12px;
+}
+.jm-footnote h3{
+  font-family: 'OpenSans-Semibold-webfont';
+  font-size: 16px;
+}
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-back-button {
       padding: 15px 7px;

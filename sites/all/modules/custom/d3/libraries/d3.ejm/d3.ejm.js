@@ -100,7 +100,7 @@
         w = $("#ejm-chart").width(),
         h = w * .60,
         // chart is 65% and 80% of overall height
-        chart = {w: w * .80, h: h * .85},
+        chart = {w: w * .90, h: h * .85},
         legend = {w: w * .50, h: h},
         // bar width is calculated based on chart width, and amount of data
         // items - will resize if there is more or less
@@ -131,13 +131,16 @@
         .attr("width", w)
         .attr("height", h + 50)
         .append("g")
-        .attr("transform", "translate(" + p[3] + "," + p[0] + ")");
+        .attr("transform", "translate(" + p[4] + "," + p[4] + ")");
 
       /* GREY BACKGROUND */
+      
       svg.append("rect")
         .attr("width", chart.w)
-        .attr("height", chart.h)
-        .attr("fill", "#efefef");
+        .attr("height",chart.h)
+        .attr("y",0)
+        .attr("fill", "#F9F9F9");
+
 
       svg.append("line")
         .attr("y2", chart.h)
@@ -145,7 +148,7 @@
 
       /* people (thousands) LITERAL) */
       svg.append("text")
-        .attr("x", -chart.h / 2)
+        .attr("x", -chart.h / 2-60)
         .attr("y", -40)
         .attr("font-size", 10)
         //.attr("style", "writing-mode: tb;")
@@ -173,7 +176,7 @@
           .data(rows)
           .enter().append("g")
           .attr("class","ticks")
-          .attr('transform', function(d,i) { return 'translate(' + (x(i) + ((barGroupWidth + 50) / 2)) + ',' + (chart.h + 10) + ')'})
+          .attr('transform', function(d,i) { return 'translate(' + (x(i) + ((barGroupWidth + 50) / 2)) + ',' + (chart.h + 20) + ')'})
           .append("text")
           .attr("dy", ".71em")
           .attr("text-anchor", "middle")
@@ -199,7 +202,8 @@
       rule.append("line")
         .attr("x2", chart.w)
         .style("stroke", function(d) { return d ? "#fff" : "#BBB"; })
-        .style("stroke-opacity", function(d) { return d ? .7 : null; });
+        .style("stroke-width", 2)
+        .style("stroke-opacity", function(d) { return d ? 1 : null; });
 
       /* Y AXIS */
       rule.append("text")
