@@ -197,14 +197,48 @@ g.ticks text {
       fill: #666666 !important;
   }
 }
-
-
 @media only screen and (max-width : 480px) {
   #ejm-chart > svg > g{
     transform: translate(20px,10px) !important;
   }
   #ejm-chart > svg > g > rect{
-    width: 250px !important;
+    width: 91% !important;
+  }
+  g.rule text {
+    font-size: 7px;
+  }
+  #ejm-chart  > svg > g > g.legend > g text{
+    font-size:8px !important;
+  }
+  #ejm-chart  > svg > g > g.legend > g:nth-child(1){
+    transform:translate(-30px, 0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(2){
+    transform:translate(40px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(3){
+    transform:translate(120px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(4){
+    transform:translate(200px,0px) !important;
+  } 
+  .jm-footnote {
+    margin: 3rem 12px 0 12px;
+    display: block;
+  }
+}
+@media only screen and (max-width: 414px){
+  #ejm-chart > svg > g {
+      transform: translate(30px,10px) !important;
+  }
+
+}
+@media only screen and (max-width : 400px) {
+  #ejm-chart > svg > g{
+    transform: translate(25px,10px) !important;
+  }
+  #ejm-chart > svg > g > rect{
+    width: 91% !important;
   }
   g.rule text {
     font-size: 7px;

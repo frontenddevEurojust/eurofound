@@ -296,6 +296,9 @@ list-style-type:none;
 .surveys h2.pane-title:before {
 	content: "\e605";
 }
+.icon-ef_data_explorer:before {
+	content: "\e605";
+}
 .icon-ef_signup:before {
 	content: "\e606";
 }
