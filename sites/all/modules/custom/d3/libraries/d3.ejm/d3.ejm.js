@@ -124,14 +124,14 @@
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion);
 
-      console.log('#' + div);
+      //console.log('#' + div);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h + 50)
         .append("g")
-        .attr("transform", "translate(" + p[4] + "," + p[4] + ")");
+        .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
 
       /* GREY BACKGROUND */
       
@@ -144,7 +144,8 @@
 
       svg.append("line")
         .attr("y2", chart.h)
-        .style("stroke", "#000");
+        .style("stroke-width",1)
+        .style("stroke", "#BBB");
 
       /* people (thousands) LITERAL) */
       svg.append("text")
@@ -200,7 +201,8 @@
       }
 
       rule.append("line")
-        .attr("x2", chart.w)
+        .attr("x2", chart.w-1)
+        .attr("transform",function(d) { return d ? "translate(1,0)" : "translate(0,0)"; })
         .style("stroke", function(d) { return d ? "#fff" : "#BBB"; })
         .style("stroke-width", 2)
         .style("stroke-opacity", function(d) { return d ? 1 : null; });
@@ -304,7 +306,7 @@
         .text(function(d,i) { return d})
         .attr("font-size", 11)
         .attr("x", 20)
-        .attr("y", function(d,i) { return i * 20})
+        .attr("y", function(d,i) { return i * 12})
         .attr("dy", "1em");
 
       function wrap(text, width) {
