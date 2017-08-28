@@ -119,7 +119,7 @@
         z = d3.scale.ordinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      if (breakdown != "All employment") { d3.select(".breakdown").text(" and by " + breakdown.toLowerCase()) } ;
+      breakdown != "All employment" ? d3.select(".breakdown").text(" and by " + breakdown.toLowerCase()) : d3.select(".breakdown").text("") ;
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion.toLowerCase());
