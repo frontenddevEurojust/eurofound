@@ -59,7 +59,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 		</div>
 
 		<div class="jm-charts large-9 <?php print implode(' ', $classes_array); ?>">
-				<h2>Employment shifts by <span class="criterion"></span> quintile (and by  <span class="breakdown"></span>), for <span class="country"></span>, <span class="period"></span></h2>
+				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, for <span class="country"></span>, <span class="period"></span></h2>
 				<div id="ejm-chart"></div>
 				<div class="jm-footnote"></div>
 		</div>
