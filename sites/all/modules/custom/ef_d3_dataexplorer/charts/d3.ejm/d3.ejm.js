@@ -71,12 +71,12 @@
 
     rule.append("line")
       .attr("x2", chart.w)
-      .style("stroke", function(d) { return d ? "#fff" : "#000"; })
+      .style("stroke", function(d) { return d ? "#fff" : "#BBB"; })
       .style("stroke-opacity", function(d) { return d ? .7 : null; });
 
     /* Y AXIS */
     rule.append("text")
-      .attr("x", -15)
+      .attr("x", -5)
       .attr("dy", ".35em")
       .attr("text-anchor", "end")
       .text(d3.format(",d"));

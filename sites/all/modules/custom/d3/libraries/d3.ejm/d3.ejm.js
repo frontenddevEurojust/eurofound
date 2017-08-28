@@ -45,10 +45,6 @@
     d3.select("#period").on("change", render_graph);
     d3.select("#criterion").on("change", render_graph);
     d3.select("#breakdown").on("change", render_graph);
-    d3.selectAll(".chart-type").on("input", function() {
-      stackedInput = this.value;
-      render_graph();
-    });
 
     window.addEventListener("resize", render_graph);
  
@@ -104,7 +100,7 @@
         w = $("#ejm-chart").width(),
         h = w * .60,
         // chart is 65% and 80% of overall height
-        chart = {w: w * .80, h: h * .85},
+        chart = {w: w * .90, h: h * .85},
         legend = {w: w * .50, h: h},
         // bar width is calculated based on chart width, and amount of data
         // items - will resize if there is more or less
@@ -123,24 +119,42 @@
         z = d3.scale.ordinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      d3.select(".breakdown").text(breakdown);
+      breakdown != "All employment" ? d3.select(".breakdown").text(" and by " + breakdown.toLowerCase()) : d3.select(".breakdown").text("") ;
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
-      d3.select(".criterion").text(criterion);
+      d3.select(".criterion").text(criterion.toLowerCase());
+
+      //console.log('#' + div);
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h + 50)
         .append("g")
-        .attr("transform", "translate(" + p[3] + "," + p[0] + ")");
+        .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
 
       /* GREY BACKGROUND */
+      
       svg.append("rect")
         .attr("width", chart.w)
-        .attr("height", h)
-        .attr("y", -p[4])
-        .attr("fill", "#efefef");
+        .attr("height",chart.h)
+        .attr("y",0)
+        .attr("fill", "#F9F9F9");
+
+
+      svg.append("line")
+        .attr("y2", chart.h)
+        .style("stroke-width",1)
+        .style("stroke", "#BBB");
+
+      /* people (thousands) LITERAL) */
+      svg.append("text")
+        .attr("x", -chart.h / 2-60)
+        .attr("y", -40)
+        .attr("font-size", 10)
+        //.attr("style", "writing-mode: tb;")
+        .attr('style','transform: rotate(-90deg)')
+        .text("People (thousands)");
 
       /* APPEND A GROUP WITH THE chart CLASS */
       var graph = svg.append("g")
@@ -163,7 +177,7 @@
           .data(rows)
           .enter().append("g")
           .attr("class","ticks")
-          .attr('transform', function(d,i) { return 'translate(' + (x(i) + ((barGroupWidth + 50) / 2)) + ',' + (chart.h + 10) + ')'})
+          .attr('transform', function(d,i) { return 'translate(' + (x(i) + ((barGroupWidth + 50) / 2)) + ',' + (chart.h + 20) + ')'})
           .append("text")
           .attr("dy", ".71em")
           .attr("text-anchor", "middle")
@@ -187,13 +201,15 @@
       }
 
       rule.append("line")
-        .attr("x2", chart.w)
-        .style("stroke", function(d) { return d ? "#fff" : "#000"; })
-        .style("stroke-opacity", function(d) { return d ? .7 : null; });
+        .attr("x2", chart.w-1)
+        .attr("transform",function(d) { return d ? "translate(1,0)" : "translate(0,0)"; })
+        .style("stroke", function(d) { return d ? "#fff" : "#BBB"; })
+        .style("stroke-width", 2)
+        .style("stroke-opacity", function(d) { return d ? 1 : null; });
 
       /* Y AXIS */
       rule.append("text")
-        .attr("x", -15)
+        .attr("x", -5)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
         .text(function(d,i){ return d });
@@ -239,12 +255,41 @@
       /* LEGEND */
       var legend = svg.append("g")
         .attr("class", "legend")
-        .attr("transform", "translate(" + 0 + "," + (chart.h + 40) + ")");
+        .attr("transform", "translate(" + 0 + "," + (chart.h + 60) + ")");
 
-      var keys = legend.selectAll("g")
-        .data(key)
-        .enter().append("g")
-        .attr("transform", function(d,i) { return "translate(" + (i * 180) + "," + 0 + ")"});
+      switch (breakdown) {
+        case "All employment":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + chart.w / 2.5 + "," + 0 + ")"});
+            break;
+
+        case "Gender":
+        case "Full-time / Part-time":
+        case "Employment status":
+        case "Contract":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 3) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+
+        case "Combined employment status":
+        case "Broad sector":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+
+        case "Country of birth":
+          var keys = legend.selectAll("g")
+            .data(key)
+            .enter().append("g")
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 10) + (i * chart.w / 6))  + "," + 0 + ")"});
+            break;
+      }
 
       keys.append("rect")
         .attr("fill", function(d,i) { return d3.rgb(z(i)); })
@@ -256,21 +301,13 @@
       var labelWrapper = keys.append("g");
 
       labelWrapper.selectAll("text")
-        .data(function(d,i) { return d3.splitString(key[i], 20); })
+        .data(function(d,i) { return d3.splitString(key[i], 15); })
         .enter().append("text")
         .text(function(d,i) { return d})
         .attr("font-size", 11)
         .attr("x", 20)
-        .attr("y", function(d,i) { return i * 20})
+        .attr("y", function(d,i) { return i * 12})
         .attr("dy", "1em");
-
-      $.each(footNote, function(key, value) {
-        svg.append("text")
-          .attr("y", chart.h + 100 + key * 30)
-          .attr("class", "footnote-text")
-          .text(value)
-          .call(wrap, $("#ejm-chart").width() - 80);
-      });
 
       function wrap(text, width) {
         text.each(function() {
@@ -294,6 +331,16 @@
               tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
             }
           }
+        });
+      }
+
+      divFootnotes = d3.select(".jm-footnote");
+      divFootnotes.select("h3").remove();
+      divFootnotes.selectAll("p").remove();
+      if (footNote[0]) {
+        divFootnotes.append("h3").text("Note");
+        $.each(footNote, function(key, value) {
+          divFootnotes.append("p").text(value);
         });
       }
     
