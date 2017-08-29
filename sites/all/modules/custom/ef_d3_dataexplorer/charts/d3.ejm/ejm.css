@@ -135,7 +135,12 @@ g.ticks text {
   color: #212121 !important;
 }
 
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  .jm-charts {
+      background: #F1F4F8;
+      padding: 30px 15px 60px;
+  }
   .jm-back-button {
       padding: 15px 7px;
   }
