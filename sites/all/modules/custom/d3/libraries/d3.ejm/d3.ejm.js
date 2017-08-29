@@ -11,8 +11,7 @@
       .data(settings.countries)
       .enter().append("option")
       .attr("value", function (d) { return d[0]; })
-      .text(function (d) { return d[1]; })
-      .property("selected", function(d){ return d[0] === "EU"; });
+      .text(function (d) { return d[1]; });
 
     var periodFilter = d3.select("#period");
 
@@ -20,8 +19,7 @@
       .data(settings.period)
       .enter().append("option")
       .attr("value", function (d) { return d; })
-      .text(function (d) { return d; })
-      .property("selected", function(d){ console.log(d); return d === "2013-2016"; });;
+      .text(function (d) { return d; });
 
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
@@ -121,7 +119,7 @@
         z = d3.scale.ordinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("") ;
+      breakdown != "All employment" ? d3.select(".breakdown").text(" and by " + breakdown.toLowerCase()) : d3.select(".breakdown").text("") ;
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion.toLowerCase());
@@ -134,6 +132,12 @@
         .attr("height", h + 50)
         .append("g")
         .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
+
+      /* INITIAL SVG TRANSITION */
+      svg.transition()
+          .each("start", function() { d3.select(this).style("opacity", 0); })
+          .duration(850)
+          .style("opacity", 1);
 
       /* GREY BACKGROUND */
       
@@ -282,7 +286,7 @@
           var keys = legend.selectAll("g")
             .data(key)
             .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 6))  + "," + 0 + ")"});
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 5.5))  + "," + 0 + ")"});
             break;
 
         case "Country of birth":
