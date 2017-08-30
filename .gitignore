@@ -14,3 +14,4 @@ robots.txt
 .htaccess
 sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
 phpinfo.php
+test.sh
