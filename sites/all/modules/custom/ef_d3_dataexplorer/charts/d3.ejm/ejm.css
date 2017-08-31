@@ -283,7 +283,7 @@ g.ticks text {
 }
 @media only screen and (max-width : 320px) {
   #ejm-chart > svg > g > text{
-    transform: rotate(-90deg) translate(-125px,17px) !important;
+    transform: rotate(-90deg) translate(-115px,17px) !important;
   }
 }
 @media only screen and (max-width : 300px) {

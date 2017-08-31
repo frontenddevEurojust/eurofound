@@ -135,6 +135,7 @@
         .append("g")
         .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
 
+
       /* INITIAL SVG TRANSITION */
       svg.transition()
           .each("start", function() { d3.select(this).style("opacity", 0); })
@@ -288,7 +289,7 @@
           var keys = legend.selectAll("g")
             .data(key)
             .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 6))  + "," + 0 + ")"});
+            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 5.5))  + "," + 0 + ")"});
             break;
 
         case "Country of birth":
