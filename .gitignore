@@ -15,3 +15,6 @@ robots.txt
 sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
 phpinfo.php
 test.sh
+
+# Ignore git commit message template for each environment due to different file structure
+.git-commit-template.txt
