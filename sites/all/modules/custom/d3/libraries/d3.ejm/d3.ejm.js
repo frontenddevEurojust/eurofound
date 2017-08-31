@@ -157,11 +157,11 @@
 
       /* people (thousands) LITERAL) */
       svg.append("text")
-        .attr("x", -chart.h / 2-60)
-        .attr("y", -40)
-        .attr("font-size", 10)
+        .attr("x", (chart.h / 2)-55)
+        .attr("y", -45)
+        .attr("font-size", 12)
+        .attr("transform","rotate(-90 "+ Number(chart.h/2) +" "+ Number(chart.h/2)+ ")")
         //.attr("style", "writing-mode: tb;")
-        .attr('style','transform: rotate(-90deg)')
         .text("People (thousands)");
 
       /* APPEND A GROUP WITH THE chart CLASS */
@@ -274,9 +274,9 @@
             break;
 
         case "Gender":
-        case "Full-time / Part-time":
+        case "Part time / full time":
         case "Employment status":
-        case "Contract":
+        case "Contract (employees only)":
           var keys = legend.selectAll("g")
             .data(key)
             .enter().append("g")
@@ -312,7 +312,7 @@
         .data(function(d,i) { return d3.splitString(key[i], 15); })
         .enter().append("text")
         .text(function(d,i) { return d})
-        .attr("font-size", 11)
+        .attr("font-size", 12)
         .attr("x", 20)
         .attr("y", function(d,i) { return i * 12})
         .attr("dy", "1em");
