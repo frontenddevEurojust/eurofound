@@ -26,9 +26,8 @@
   display: block;
 }
 .view-authors-as-metadata .image a img{
-	height: 100% !important;
-	width: auto !important;
-
+  height: auto !important;
+  width: 100%!important;
 }
 .view-authors-as-metadata .view-content{
 	clear: both;
@@ -110,4 +109,7 @@ p.image-content {
 }
 .content-author-as-metadata p{
 	font-style: normal !important;
+}
+.view-authors-as-metadata .view-footer-wrapper{
+	clear: both;
 }
