@@ -30,7 +30,7 @@ function d3_ejm() {
     'countries' => array(
       array('AT', 'Austria'),
       array('BE', 'Belgium'),
-      array('BG', 'Bulgary'),
+      array('BG', 'Bulgaria'),
       array('CY', 'Cyprus'),
       array('CZ', 'Czech Republic'),
       array('DE', 'Germany'),
