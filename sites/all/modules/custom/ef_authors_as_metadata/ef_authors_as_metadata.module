@@ -136,6 +136,7 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 	if ($node->type == 'ef_report')
 
 	{	
+	
 
 		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++) 
 		
