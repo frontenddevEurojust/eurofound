@@ -9,22 +9,24 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 
 
 <div  class="jm-charts-wrapper ">	
-<div clas="row">
-	<div class="jm-back-button large-3">
-		<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
-			<a href="#" title="Back to Data Explorer">Data Explorer</a>  
-		</section>
-	</div>
 
-	<div class="jm-abstract-wrapper large-9">
-	  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
-		<div class="jm-abstract">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt vehicula ex. Sed finibus odio eget aliquam pretium. Etiam eu dui semper turpis efficitur condimentum sit amet ut justo. Duis maximus est eget facilisis ultrices. Curabitur dolor sapien, lobortis ut libero id, efficitur malesuada lorem. Praesent placerat dui leo, pulvinar vestibulum arcu aliquet at. Pellentesque vitae auctor metus. Mauris id rhoncus arcu. Integer pulvinar libero sed orci elementum semper. Sed semper aliquet tellus vel dapibus.</p>
+	<div class="row">
+		<div class="jm-abstract-wrapper large-9">
+		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
+			<div class="jm-abstract">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt vehicula ex. Sed finibus odio eget aliquam pretium. Etiam eu dui semper turpis efficitur condimentum sit amet ut justo. Duis maximus est eget facilisis ultrices. Curabitur dolor sapien, lobortis ut libero id, efficitur malesuada lorem. Praesent placerat dui leo, pulvinar vestibulum arcu aliquet at. Pellentesque vitae auctor metus. Mauris id rhoncus arcu. Integer pulvinar libero sed orci elementum semper. Sed semper aliquet tellus vel dapibus.</p>
 
-			<p>Morbi dui tellus, pulvinar maximus magna sed, consectetur consequat risus. Nam vestibulum est in molestie elementum. Morbi gravida nisl nec sem consectetur dignissim. Donec scelerisque sem accumsan massa lacinia viverra. Phasellus vel purus bibendum, mollis nisl convallis, ultrices elit. Sed eu tortor placerat turpis blandit suscipit. Morbi vel turpis sapien. Nam sodales metus eu purus condimentum consequat. Etiam posuere tempus volutpat. Praesent nec dapibus odio. Etiam tempus urna quis odio egestas, id ullamcorper ex sagittis.</p>
+				<p>Morbi dui tellus, pulvinar maximus magna sed, consectetur consequat risus. Nam vestibulum est in molestie elementum. Morbi gravida nisl nec sem consectetur dignissim. Donec scelerisque sem accumsan massa lacinia viverra. Phasellus vel purus bibendum, mollis nisl convallis, ultrices elit. Sed eu tortor placerat turpis blandit suscipit. Morbi vel turpis sapien. Nam sodales metus eu purus condimentum consequat. Etiam posuere tempus volutpat. Praesent nec dapibus odio. Etiam tempus urna quis odio egestas, id ullamcorper ex sagittis.</p>
+
+			</div>
+		</div>
+		<div class="jm-back-button large-3">
+			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
+				<a href="/data-explorer" title="Back to Data Explorer">Data Explorer</a>  
+			</section>
 		</div>
 	</div>
-	</div>
+
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart large-3">
 			<form>
@@ -54,18 +56,13 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 				    	</select>
 			    	</div>
 			  </fieldset>
-			  <fieldset>
-			    <legend ><i class="fa fa-filter" aria-hidden="true"></i> More filters 02: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-			  </fieldset>
-			  <fieldset>
-			    <legend ><i class="fa fa-filter" aria-hidden="true"></i> More filters 03: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-			  </fieldset>
 			</form>		
 		</div>
-		<div <?php print $attributes ?> class="jm-charts large-9 <?php print implode(' ', $classes_array); ?>">
-			<h2>Employment shifts by <span class="criterion"></span> quintile (and by  <span class="breakdown"></span>), for <span class="country"></span>, <span class="period"></span></h2>
-			<div class="jm-footnote">
-			</div>
+
+		<div class="jm-charts large-9 <?php print implode(' ', $classes_array); ?>">
+				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, <span class="country"></span>, <span class="period"></span></h2>
+				<div id="ejm-chart"></div>
+				<div class="jm-footnote"></div>
 		</div>
 	</div>
 	
@@ -77,4 +74,5 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/
 			<p>Morbi dui tellus, pulvinar maximus magna sed, consectetur consequat risus. Nam vestibulum est in molestie elementum. Morbi gravida nisl nec sem consectetur dignissim. Donec scelerisque sem accumsan massa lacinia viverra. Phasellus vel purus bibendum, mollis nisl convallis, ultrices elit. Sed eu tortor placerat turpis blandit suscipit. Morbi vel turpis sapien. Nam sodales metus eu purus condimentum consequat. Etiam posuere tempus volutpat. Praesent nec dapibus odio. Etiam tempus urna quis odio egestas, id ullamcorper ex sagittis.</p>		
 		</div>
 	</div>
+
 </div>

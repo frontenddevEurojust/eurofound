@@ -1,20 +1,24 @@
 g.rule text {
   font-size: 12px;
+  fill: #666666 !important;
 }
 g.ticks text {
-  font-size: 11px;
+  font-size: 1em;
+  fill: #666666 !important;
 }
 .tooltip {
   z-index: 1000;
 }
-
+.page-data-explorer-european-jobs-monitor svg:not(:root) {
+    overflow: visible;
+}
 
 
 /** CHARTSA JOBS MONITOR **/
-.page-data-visualisation-test .ef-main{
+.page-data-explorer-european-jobs-monitor .ef-main{
 	padding: 30px 0px 40px 0px;
 }
-.page-data-visualisation-test #page-title{
+.page-data-explorer-european-jobs-monitor #page-title{
 	display: none;
 }
 .filters-jm-chart, .jm-back-button {
@@ -27,7 +31,6 @@ g.ticks text {
 	padding: 15px 25px;
   text-align: center;
 }
-
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
   padding: 0;
@@ -43,6 +46,7 @@ g.ticks text {
 
 .jm-filters-chart {
   background: #E9EDF3;
+  overflow: auto;
 }
 .filters-jm-chart {
   padding: 90px 0 0 0;
@@ -104,28 +108,163 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.75em !important;
+    padding: 0.5em !important;
     height: auto;
-    color: #999;
+    color: #222;
 }
-
+.filters-jm-chart .group-filters select::-ms-expand {
+    display: none;
+}
 .jm-methodology-wrapper{
 	padding: 45px 25px 15px;
 }
+.jm-charts h2:first-child{
+  margin-top: 0px;
+  margin-left: 10px;
+}
+.jm-footnote:empty {
+  display: none;
+}
+.jm-footnote {
+  margin: 1rem 40px 0 12px;
+  display: block;
+}
+.jm-footnote h3{
+  font-family: 'OpenSans-Semibold-webfont' !important;
+  font-size: 16px !important;
+  color: #212121 !important;
+}
 
 
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  .jm-charts {
+      background: #F1F4F8;
+      padding: 30px 15px 60px;
+  }
+  .jm-back-button {
+      padding: 15px 7px;
+  }
+  .filters-jm-chart .group-filters {
+    padding: 15px;
+  }
+  .jm-charts-wrapper .back-to-results-block a{
+    padding: 10px 0 7px !important;
+  }
+  .jm-charts-wrapper  .boxed-block {
+      margin-top: 7px;
+      margin-left: 15px;
+  }
+  .filters-jm-chart i.fa.fa-filter {
+    margin-left: 5px;
+  }
+  g.rule text {
+      font-size: 10px !important;
+  }
+}
 
 @media only screen and (max-width : 767px) {
-	.jm-back-button {
+
+  #ejm-chart > svg > g{
+    transform: translate(30px,10px) !important;
+  }
+  #ejm-chart > svg > g > text{
+    transform:rotate(-90deg) translate(0px,15px) !important;
+  }
+  .jm-back-button {
     width: 100%;
-	}
-	.filters-jm-chart{
-		width: 100%;
-	}
-	.filters-jm-chart {
-	  padding: 25px 0;
-	}
-	.filters-jm-chart legend {
-	  padding: 15px !important;
-	}
+  }
+  .filters-jm-chart{
+    width: 100%;
+  }
+  .filters-jm-chart {
+    padding: 25px 0;
+  }
+  .filters-jm-chart legend {
+    padding: 15px !important;
+  }
+  .jm-filters-chart {
+    overflow: initial;
+  }
+  .jm-charts-wrapper .row{
+    overflow:auto;
+  }
+  .back-to-results-block{
+    box-shadow: none !important;
+  }
+  .jm-charts-wrapper .back-to-results-block a{
+    background: #f2f2f2 !important;
+    color: #000 !important;
+    border-radius: 0 !important;
+    border: 1px solid #CFCFCF !important;
+  }
+  g.rule text {
+      font-size: 10px;
+      fill: #666666 !important;
+  }
+}
+@media only screen and (max-width : 480px) {
+  #ejm-chart > svg > g{
+    transform: translate(20px,10px) !important;
+  }
+  #ejm-chart > svg > g > rect{
+    width: 91% !important;
+  }
+  g.rule text {
+    font-size: 7px;
+  }
+  #ejm-chart  > svg > g > g.legend > g text{
+    font-size:8px !important;
+  }
+  #ejm-chart  > svg > g > g.legend > g:nth-child(1){
+    transform:translate(-30px, 0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(2){
+    transform:translate(40px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(3){
+    transform:translate(120px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(4){
+    transform:translate(200px,0px) !important;
+  } 
+  .jm-footnote {
+    margin: 3rem 12px 0 12px;
+    display: block;
+  }
+}
+@media only screen and (max-width: 414px){
+  #ejm-chart > svg > g {
+      transform: translate(30px,10px) !important;
+  }
+
+}
+@media only screen and (max-width : 400px) {
+  #ejm-chart > svg > g{
+    transform: translate(25px,10px) !important;
+  }
+  #ejm-chart > svg > g > rect{
+    width: 91% !important;
+  }
+  g.rule text {
+    font-size: 7px;
+  }
+  #ejm-chart  > svg > g > g.legend > g text{
+    font-size:8px !important;
+  }
+  #ejm-chart  > svg > g > g.legend > g:nth-child(1){
+    transform:translate(-30px, 0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(2){
+    transform:translate(40px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(3){
+    transform:translate(120px,0px) !important;
+  }
+  #ejm-chart  > svg > g .legend > g:nth-child(4){
+    transform:translate(200px,0px) !important;
+  } 
+  .jm-footnote {
+    margin: 3rem 40px 0 12px;
+    display: block;
+  }
 }
