@@ -368,7 +368,7 @@
             .attr('transform', function(data) { return group.attr('transform'); })
               .append('g')
             // now move to the actual x and y of the bar within that group
-            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x') - (barWidthStacked / 2)) + barWidthStacked) + ',' + Number(bar.attr('y')) + ')'; });
+            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x') - (barWidthStacked / 2)) + barWidthStacked-1.5) + ',' + Number(bar.attr('y')) + ')'; });
         }
         else {
           var tooltip = graph.append('g')

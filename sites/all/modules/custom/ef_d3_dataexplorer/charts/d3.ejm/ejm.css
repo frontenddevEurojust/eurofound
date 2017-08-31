@@ -165,10 +165,11 @@ g.ticks text {
 @media only screen and (max-width : 767px) {
 
   #ejm-chart > svg > g{
-    transform: translate(30px,10px) !important;
+    transform: translate(50px,10px) !important;
   }
   #ejm-chart > svg > g > text{
-    transform:rotate(-90deg) translate(0px,15px) !important;
+    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
+    font-size: 9px;
   }
   .jm-back-button {
     width: 100%;
@@ -183,8 +184,12 @@ g.ticks text {
     padding: 15px !important;
   }
   .jm-filters-chart {
-    overflow: initial;
+    overflow:initial;
+    -ms-overflow:hidden;
   }
+  .jm-charts{
+    padding: 30px 15px 60px;
+  } 
   .jm-charts-wrapper .row{
     overflow:auto;
   }
@@ -204,7 +209,10 @@ g.ticks text {
 }
 @media only screen and (max-width : 480px) {
   #ejm-chart > svg > g{
-    transform: translate(20px,10px) !important;
+    transform: translate(24px,10px) !important;
+  }
+  #ejm-chart > svg > g > text{
+    transform: rotate(-90deg) translate(-195px,17px) !important;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
@@ -236,11 +244,16 @@ g.ticks text {
   #ejm-chart > svg > g {
       transform: translate(30px,10px) !important;
   }
-
+  #ejm-chart > svg > g > text{
+    transform: rotate(-90deg) translate(-171px,17px) !important;
+  }
 }
 @media only screen and (max-width : 400px) {
   #ejm-chart > svg > g{
     transform: translate(25px,10px) !important;
+  }
+  #ejm-chart > svg > g > text{
+    transform: rotate(-90deg) translate(-150px,17px) !important;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
@@ -266,5 +279,15 @@ g.ticks text {
   .jm-footnote {
     margin: 3rem 40px 0 12px;
     display: block;
+  }
+}
+@media only screen and (max-width : 320px) {
+  #ejm-chart > svg > g > text{
+    transform: rotate(-90deg) translate(-125px,17px) !important;
+  }
+}
+@media only screen and (max-width : 300px) {
+  #ejm-chart > svg > g > text{
+    transform: rotate(-90deg) translate(-110px,17px) !important;
   }
 }
