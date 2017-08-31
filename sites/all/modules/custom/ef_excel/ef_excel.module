@@ -2,10 +2,13 @@
 
 
 
-function ef_excel_update_7108(&$sandbox) {
+function ef_excel_update_7111(&$sandbox) {
   
 
-	require_once 'Classes/PHPExcel.php';
+	//Load the Excel library
+	$library = libraries_load('PHPExcel');
+	//Create new PHPExcel object
+	$objPHPExcel = new PHPExcel;
 
 	$archivo = drupal_get_path('module', 'ef_excel').'/ef-article-authors-normalised-and-unique.xlsx';
 	$inputFileType = PHPExcel_IOFactory::identify($archivo);
@@ -166,6 +169,7 @@ function ef_excel_update_7108(&$sandbox) {
 
 
 }
+
 
 
 
