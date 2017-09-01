@@ -9020,15 +9020,15 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 .eurofound-observatories-block h2:before{
 	content: "\e60a" !important;
 }
-.eurofound-observatories-block ul li:nth-child(5){
+.eurofound-observatories-block ul li:nth-child(4){
 	background-color: #fff !important;
 }
-.eurofound-observatories-block ul li:nth-child(5) > a{
+.eurofound-observatories-block ul li:nth-child(4) > a{
 	color: #1758A2 !important;
 }
-.eurofound-observatories-block ul li:nth-child(5):hover > a,
-.eurofound-observatories-block ul li:nth-child(5):focus > a,
-.eurofound-observatories-block ul li:nth-child(5):active > a{
+.eurofound-observatories-block ul li:nth-child(4):hover > a,
+.eurofound-observatories-block ul li:nth-child(4):focus > a,
+.eurofound-observatories-block ul li:nth-child(4):active > a{
 	color: #F7931E !important;
 	background-color: #fff !important;
 	border: 1px solid #F7931E !important;
@@ -13173,3 +13173,15 @@ ul.list-metadata li > ul li:first-child:before{
 	padding: 0 !important;
 }
 /** end search facetapi **/
+.fome-home-block a{
+	color: #fff!important;
+	text-indent: 0px;
+    padding-left: 0px;
+    margin: 0px 0px 10px 0px;
+    font-size: 1.1em;
+    font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif;
+}
+.fome-home-block .pane-content p{
+	margin-bottom: 0;
+	text-align: center;
+}
