@@ -99,7 +99,7 @@
     var path = d3.tooltip.tooltipPathArrow(tooltip);
       img.append('path')
           .attr("d", path)
-          .attr("fill",'#000')
+          .attr("fill",'#000');
 
 
     var offset = (tooltip.w / 2) - (tooltip.tip.offset - tooltip.tip.width);
@@ -118,7 +118,7 @@
         .attr('dy', 8)
         .attr('font-family', 'OpenSans-Semibold-webfont')
         .attr('fill','#000')
-        .attr('font-size', '12')
+        .attr('font-size', '11')
         .attr('font-weight', 'bold');
 
       textbox.append('text')
@@ -139,7 +139,7 @@
         .attr('dy', 8)
         .attr('font-family', 'OpenSans-Semibold-webfont')
         .attr('fill','#000')
-        .attr('font-size', '12')
+        .attr('font-size', '11')
         .attr('font-weight', 'bold');
       
       textbox.append('text')
