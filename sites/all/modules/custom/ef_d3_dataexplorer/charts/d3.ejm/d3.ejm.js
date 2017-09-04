@@ -21,7 +21,7 @@
       .enter().append("option")
       .attr("value", function (d) { return d; })
       .text(function (d) { return d; })
-      .property("selected", function(d){ console.log(d); return d === "2013-2016"; });;
+      .property("selected", function(d){ return d === "2013-2016"; });;
 
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
