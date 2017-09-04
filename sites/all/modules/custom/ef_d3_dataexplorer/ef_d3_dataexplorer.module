@@ -117,3 +117,15 @@ function d3_ejm() {
 
   return d3_draw($chart);
 }
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function d3_custom_libraries() {
+  return array(
+    'd3.extend',
+    'd3.tooltip',
+    'd3.ejm',
+  );
+}

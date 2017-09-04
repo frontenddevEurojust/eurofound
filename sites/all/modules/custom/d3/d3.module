@@ -113,10 +113,15 @@ function d3_libraries_info_file_paths() {
 
   // Load the directory where the d3 example libraries are.
   $example_path = drupal_get_path('module', 'd3') . '/libraries/';
+  $custom_path = drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/';
 
   // Add these to the search directories for libraries.
   foreach (d3_default_libraries() as $example) {
     $paths[] = $example_path . $example;
+  }
+
+  foreach (d3_custom_libraries() as $example) {
+    $paths[] = $custom_path . $example;
   }
 
   return $paths;
@@ -207,6 +212,13 @@ function d3_libraries_info_alter(&$libraries) {
     // Change library path to path/to/module/d3/libraries
     $libraries[$library_name]['library path'] = $path . $library_name;
   }
+
+  $custom_path = drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/';
+  foreach (d3_custom_libraries() as $library_name) {
+    // Change library path to path/to/module/d3/libraries
+    $libraries[$library_name]['library path'] = $custom_path . $library_name;
+  }
+
 }
 
 /**
@@ -337,14 +349,11 @@ function d3_libraries_info() {
 function d3_default_libraries() {
   return array(
     'd3.columnchart',
-    'd3.extend',
     'd3.forcedirected',
     'd3.module_dependencies',
     'd3.linegraph',
-    'd3.tooltip',
     'd3.barchart',
     'd3.piechart',
-    'd3.ejm',
   );
 }
 
