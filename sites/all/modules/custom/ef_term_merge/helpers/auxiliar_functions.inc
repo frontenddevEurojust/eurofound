@@ -27,7 +27,7 @@ function _clear_node_list_cache($array)
 	foreach ($array as $a => $nid) {
 		entity_get_controller('node')->resetCache(array($nid));
 	}
-	
+
 	return;
 }
 
@@ -36,16 +36,16 @@ function _clear_node_list_cache($array)
 * @params: $db_result: executed database statement to iterate over
 *          $field: field to be retrieved from results
 */
-function _return_formatted_array($db_result, $field) 
+function _return_formatted_array($db_result, $field)
 {
 
 	$array = array();
-	
-	foreach ($db_result as $key => $value) 
+
+	foreach ($db_result as $key => $value)
 	{
 			$array[] = $value->{$field};
 	}
-	
+
 
 	return $array;
 }
@@ -57,7 +57,7 @@ function _file_download($file_uri)
 {
 
 
-	if (file_exists($file_uri)) 
+	if (file_exists($file_uri))
 	{
 
 	drupal_add_http_header('Content-Description', 'File Transfer');
@@ -75,7 +75,7 @@ function _file_download($file_uri)
 	//unlink($file_uri);
 
 	}
-	else 
+	else
 	{
 		drupal_set_message('The file does not exist');
 	}
@@ -90,10 +90,11 @@ function _reset_session_variables(){
 * @params: $vocabulary: vocabulary id
 *          $terms_selected: array formed by term ids to be merged
 *          $merge_into: term id to use as replacement
-*          $content_type_field_structure: defines vocabulary, field and content type relationship. 
+*          $content_type_field_structure: defines vocabulary, field and content type relationship.
 */
-function update_database_tables($vocabulary, $terms_selected, $merge_into, $content_type_field_structure)
+function update_database_tables($vocabulary, $terms_selected, $merge_into, $content_type_field_structure, $question)
 {
+	// Used for selecting sheet. One sheet per from to and field combination
 	$index = 0;
 
 	$objPHPExcel = initialize_excel_file();
@@ -101,21 +102,24 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
 	// Array of nodes to be passed to logger function
 	$nodes_affected = array();
-	
-	foreach ($terms_selected as $tid => $name) 
+
+	// Used for populating excel sheet with correct tid data
+	$counter = 0;
+
+	foreach ($terms_selected as $tid => $name)
 	{
 
 		$term_from = taxonomy_term_load($tid);
-		
+
 		$term_to = taxonomy_term_load($merge_into);
 
 		$objPHPExcel = select_sheet($objPHPExcel, $index);
-		
-		foreach ($content_type_field_structure[$vocabulary] as $k => $field_name) 
+
+		foreach ($content_type_field_structure[$vocabulary] as $k => $field_name)
 		{
 
 			// Check field cardinality as we need to distinguish the approach used depending whether it's multivalue or not
-			if(_retrieve_field_cardinality($field_name) != 1) 
+			if(_retrieve_field_cardinality($field_name) != 1)
 			{
 
 				// Multivalue. Node's with $merge_into term get removed $tid value. If there is no $merge_into, $tid is replaced by $merge_into.
@@ -128,13 +132,13 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 
 				// Check field_revision_field table
 				$revisions_with_merge_into = table_affected_nodes('revision', $field_name, $merge_into,'revision_id', FALSE);
-				
+
 				delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
 
 
 				$nodes_affected = array_merge($nodes_affected, $revision_affected_nodes);
 			}
-			else 
+			else
 			{
 				// Not Multivalue. $merge_into replaces $tid.
 				// Check field_data_field table and field_revision_table
@@ -154,7 +158,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 			// Retrieve nodes data to populate the excel
 			$nodes_data = return_nodes_data($nodes_updated);
 
-			$filename = _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter);
+			$filename = _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter);
 			$index++;
 		}
 
@@ -164,6 +168,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 		_delete_term_in_url_alias($tid);
 
 		_clear_node_list_cache($nodes_updated);
+		$counter++;
 	}
 
   return $filename;
