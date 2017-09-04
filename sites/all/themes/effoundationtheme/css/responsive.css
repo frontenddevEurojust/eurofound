@@ -374,7 +374,20 @@ font-family: 'ef-icon-font';
 	.view-ef-network-quarterly-reports-export #edit-field-ef-quartely-report-year-value-wrapper{
 		width: 20%
 	}
-
+	.fome-home-block .pane-content a {
+	  padding: 12px 12px 12px 0px;
+	  text-align: left;
+	}
+	.fome-home-block .pane-content a:before{
+		min-height: 50px;
+		margin-top: 7px;
+	}
+	.fome-home-block .pane-content a:after {
+	  margin-top: -15px;
+	}
+	.fome-home-block .pane-content a span {
+		font-size: 1.5rem;
+	}
 
 
 }
@@ -1014,6 +1027,19 @@ width:100%;
 	#views-exposed-form-ef-publications-view-page .views-reset-button{
 		width: 100% !important;
 	}
+	.fome-home-block .pane-content a {
+	  padding: 12px 12px 12px 0px;
+	  text-align: left;
+	}
+	.fome-home-block .pane-content a:before{
+		min-height: 50px;
+	}
+	.fome-home-block .pane-content a:after {
+	  margin-top: -15px;
+	}
+	.fome-home-block .pane-content a span {
+		font-size: 1.5rem;
+	}
 }
 
 
@@ -1252,6 +1278,9 @@ color: #fff;
 	    width: 100%;
 	    float: none;
 	    margin: 0.5rem auto 1rem;
+	}
+	.fome-home-block .pane-content a {
+	  padding: 12px 12px 12px 0px!important;
 	}
 }
 

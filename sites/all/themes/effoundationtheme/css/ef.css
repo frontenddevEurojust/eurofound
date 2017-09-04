@@ -13173,15 +13173,66 @@ ul.list-metadata li > ul li:first-child:before{
 	padding: 0 !important;
 }
 /** end search facetapi **/
-.fome-home-block a{
-	color: #fff!important;
-	text-indent: 0px;
-    padding-left: 0px;
-    margin: 0px 0px 10px 0px;
-    font-size: 1.1em;
-    font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif;
+.fome-home-block .pane-content a{
+  display: block;
+  color: #fff;
+  padding: 12px 35px 12px 12px;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+}
+.fome-home-block .pane-content a span{
+	font-size: 2rem;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	position: relative;
+	top: 3px;
+}
+.fome-home-block .pane-content a:hover:before, .fome-home-block .pane-content a:focus:before, 
+.fome-home-block .pane-content a:hover, .fome-home-block .pane-content a:focus {
+	color: #F8931F;
+	-webkit-transition: background-color 0.3s ease, color 0.3s ease;
+	-moz-transition: background-color 0.3s ease, color 0.3s ease;
+	-ms-transition: background-color 0.3s ease, color 0.3s ease;
+	-o-transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+.fome-home-block .pane-content a:before{
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal!important;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: top!important;
+  margin-left: 0;
+	margin-right: 8px;
+	margin-top: -3px;
+  font-size: 2.6em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: left;
+  display: inline;
+  content: "\e612";
+}
+.fome-home-block .pane-content a:after{
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal!important;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: top!important;
+  margin-right: -20px;
+  font-size: 1.6em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e627";
+  float: right;
+  margin-top: 2px;
 }
 .fome-home-block .pane-content p{
 	margin-bottom: 0;
-	text-align: center;
 }
