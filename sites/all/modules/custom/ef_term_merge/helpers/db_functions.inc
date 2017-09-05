@@ -16,7 +16,7 @@ function _delete_term_in_base_taxonomic_table($table, $find_value)
 *          $find_value: value to use as strict condition(is equal to)
 *          $replace_value: value used as replacement.
 */
-function _affected_field_data($field_name, $find_value, $replace_value) 
+function _affected_field_data($field_name, $find_value, $replace_value)
 {
 
 	// Revisions are used as they cover field_data cases
@@ -26,20 +26,20 @@ function _affected_field_data($field_name, $find_value, $replace_value)
 	$query->distinct();
 
 	$nodes = $query->execute();
-	
-	if(count($nodes > 0)) 
+
+	if(count($nodes > 0))
 	{
 		_update_taxonomic_field_table('data', $field_name, $replace_value, $find_value);
 		_update_taxonomic_field_table('revision', $field_name, $replace_value, $find_value);
 	}
-	
+
 	$result = _return_formatted_array($nodes,'node_id');
 
 	return $result;
 
 }
 /*
-* Update the table for a taxonomic field. Conditions are optional 
+* Update the table for a taxonomic field. Conditions are optional
 *
 * @params: $table: field table name
 *          $field_name: field machine name
@@ -62,7 +62,7 @@ function _update_taxonomic_field_table($table, $field_name, $replace_value, $fin
 * @description: Return field cardinality based on field machine name.
 * @params: $field_name: field machine name.
 */
-function _retrieve_field_cardinality($field_name) 
+function _retrieve_field_cardinality($field_name)
 {
 
 	$field_info_query = db_select('field_config', 'a')->fields('a',array('cardinality'))->condition('a.field_name', $field_name, '=')->execute();
@@ -81,7 +81,7 @@ function _retrieve_field_cardinality($field_name)
 *          $column: column to retrieve by
 *          $distinct: boolean to indicate if a distinct query should be performed
 */
-function table_affected_nodes($table, $field_name, $tid_value, $column, $distinct) 
+function table_affected_nodes($table, $field_name, $tid_value, $column, $distinct)
 {
 
 		$query = db_select('field_' . $table . '_' . $field_name, 'a')->fields('a',array($column))
@@ -92,13 +92,13 @@ function table_affected_nodes($table, $field_name, $tid_value, $column, $distinc
 
 		$query = $query->execute();
 		$result = _return_formatted_array($query,$column);
-		
+
 		return $result;
 
 }
 
 /*
-* Return data for a set of $nodes (array). Used later for populating the excel file 
+* Return data for a set of $nodes (array). Used later for populating the excel file
 */
 function return_nodes_data($nodes)
 {
@@ -106,7 +106,7 @@ function return_nodes_data($nodes)
 
 	if(count($nodes))
 	{
-		
+
 		$node_string = implode(",", $nodes);
 
 		$query = "SELECT a.nid, a.title, b.name
@@ -116,7 +116,7 @@ function return_nodes_data($nodes)
 
 		$result = db_query($query)->fetchAll();
 	}
-	
+
 
 	return $result;
 }
@@ -149,7 +149,7 @@ function delete_and_update($table, $field_name, $merge_into, $tid_select, $x_wit
 /*
 *
 *	Updates 'taxonomy_index' table with provided values
-*	
+*
 *	@param string $field_name
 *	@param integer $tid
 *	@param integer $merge_into
@@ -158,7 +158,7 @@ function delete_and_update($table, $field_name, $merge_into, $tid_select, $x_wit
 
 function _update_taxonomy_index($tid, $merge_into)
 {
-	
+
 	$updated_nodes = db_select('taxonomy_index','a')->fields('a', array('nid'))->condition('a.tid', $tid,'=')->execute();
 
 	$nodes_to_count = _return_formatted_array($updated_nodes,'nid');
@@ -166,36 +166,34 @@ function _update_taxonomy_index($tid, $merge_into)
 
 	$query = db_select('taxonomy_index','a')->fields('a', array('nid'))->condition('a.tid', $merge_into,'=');
 	$query = $query->execute();
-	
+
 	$nodes = _return_formatted_array($query,'nid');
 
-	
+
 	$update = db_update('taxonomy_index')
 				->fields(array('tid'  => $merge_into))
 				->condition('tid', $tid, '=');
-	
-	
+
+
 	if (count($nodes))
 	{
-		$update->condition('nid', $nodes ,'NOT IN');	
+		$update->condition('nid', $nodes ,'NOT IN');
 
 		$delete = db_delete('taxonomy_index')
 			->condition('tid', $tid, '=')
 			->condition('nid', $nodes, 'IN')
-		 	->execute();	
+			->execute();
 	}
 
-				
-	$update->execute();
 
-	
+	$update->execute();
 
 
 	return $nodes_to_count;
-			
+
 }
 
 function _delete_term_in_url_alias($tid)
 {
-	$delete = db_delete('url_alias')->condition('source', 'taxonomy/term/' . $tid, '=')->execute();	
+	$delete = db_delete('url_alias')->condition('source', 'taxonomy/term/' . $tid, '=')->execute();
 }

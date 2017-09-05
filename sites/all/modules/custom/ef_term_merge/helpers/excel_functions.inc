@@ -45,9 +45,8 @@ function select_sheet($objPHPExcel, $index)
 *			$term_to: complete taxonomy term entity to merge into
 *			$objWriter: PHP Excel writer object. Needed to save the excel file
 */
-function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter)
+function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter)
 {
-
 	$objSheet = $objPHPExcel->getActiveSheet();
 	//Set tab title
 
@@ -58,7 +57,9 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 
 	$objPHPExcel->getActiveSheet()->setCellValue('A1', "List of nodes updated for " . $field_name ."(" . count($nodes_data) . ")");
 
-	$objPHPExcel->getActiveSheet()->setCellValue('A2', $term_from->name . " -> " . $term_to->name);
+	//DZA Test Target 1 (tid: 22212, taxonomy: ef_topics) -> DZA Test Topic 5 (tid: 22216, taxonomy: ef_topics)
+	$topic_string = build_topics_string($question, $counter);
+	$objPHPExcel->getActiveSheet()->setCellValue('A2', $topic_string);
 
 	//And there goes all the content row by row
 	$from_cell = 'A';
@@ -111,4 +112,16 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 
 
 	return $filename;
+}
+
+function build_topics_string($question, $counter){
+
+	$from_string = $question['from'][$counter]['name'] . " (tid:" . $question['from'][$counter]['tid']  . ", taxonomy:" . $question['from'][$counter]['taxonomy'] . ")";
+	$to_string = $question['to']['0']['name'] . " (tid:" . $question['to']['0']['tid'] . ", taxonomy:" . $question['from']['0']['taxonomy'] . ")";
+
+	$string = $from_string . " -> " . $to_string;
+
+
+	return $string;
+
 }
