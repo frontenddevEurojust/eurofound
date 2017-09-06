@@ -18,6 +18,10 @@ g.ticks text {
 .node-type-data-explorer-page .ef-main{
   padding: 30px 0px 40px 0px;
 }
+.node-type-data-explorer-page .ef-main .button-group, 
+.node-type-data-explorer-page .ef-main .action-links {
+    padding:0 15px !important;
+}
 .node-type-data-explorer-page #page-title{
   display: none;
 }

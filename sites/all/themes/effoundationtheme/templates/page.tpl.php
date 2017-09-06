@@ -390,6 +390,7 @@
         <?php if (isset($node->type)) {
 
           $hide_pdf = false;
+          $hide_print = false;
           $survey_print=true;
 /*
           if ($node->type == 'ef_comparative_analytical_report'
@@ -400,7 +401,8 @@
           if ($node->type == 'dvs_survey') {
             $survey_print = false;
           }else if($node->type == 'data_explorer_page') {
-            $survey_print = false;
+           $hide_print  = true;
+           $hide_pdf = true;
           }
 
         }
@@ -411,7 +413,17 @@
                 <?php print print_pdf_insert_link();?>
           <?php endif; ?>
         <?php endif; ?>
-        <?php if (!drupal_is_front_page() && $survey_print == true ): ?>
+        <?php if (!drupal_is_front_page() && $hide_print == false && $survey_print == true ): ?>
+          <?php if (!strpos($aux,'print-page')): ?>
+            <?php print print_insert_link();?>
+          <?php endif; ?>
+        <?php endif; ?>
+        <?php if (!drupal_is_front_page() &&  $hide_print  == false ): ?>
+          <?php if (!strpos($aux,'print-page')): ?>
+            <?php print print_insert_link();?>
+          <?php endif; ?>
+        <?php endif; ?>
+        <?php if (!drupal_is_front_page() &&  $hide_pdf == false ): ?>
           <?php if (!strpos($aux,'print-page')): ?>
             <?php print print_insert_link();?>
           <?php endif; ?>
