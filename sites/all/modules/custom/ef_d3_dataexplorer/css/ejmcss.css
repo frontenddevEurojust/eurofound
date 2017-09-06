@@ -119,6 +119,9 @@ g.ticks text {
 .filters-jm-chart .group-filters select::-ms-expand {
     display: none;
 }
+.filters-jm-chart .group-filters  select option[disabled]{
+    color: #CCC;
+}
 .jm-methodology-wrapper{
   padding: 45px 25px 15px;
 }
