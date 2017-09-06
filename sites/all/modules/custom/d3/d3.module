@@ -413,7 +413,6 @@ function d3_draw($vis) {
       'data' => $js,
       'type' => 'setting',
     );
-
     // Renders the html - .tpl.php if specified or default d3.tpl.php.
     return render($output);
   }

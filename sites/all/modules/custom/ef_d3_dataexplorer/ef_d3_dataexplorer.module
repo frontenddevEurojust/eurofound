@@ -112,3 +112,17 @@ function d3_custom_libraries() {
   );
 }
 
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function ef_d3_dataexplorer_node_view($node, $view_mode) {
+  //Each Data Explorer Page item will contain a different visualisation
+  //with their different
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
+    drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
+    $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
+    d3_ejm();
+  }
+}

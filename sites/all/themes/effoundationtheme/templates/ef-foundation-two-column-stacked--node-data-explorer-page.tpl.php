@@ -3,10 +3,7 @@
  * @file
  * Default theme file for d3 visualizations.
  */
-drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejm.css');
-drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 ?>
-
 
 <div  class="jm-charts-wrapper ">	
 
@@ -14,9 +11,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		<div class="jm-abstract-wrapper large-9">
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
 			<div class="jm-abstract">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt vehicula ex. Sed finibus odio eget aliquam pretium. Etiam eu dui semper turpis efficitur condimentum sit amet ut justo. Duis maximus est eget facilisis ultrices. Curabitur dolor sapien, lobortis ut libero id, efficitur malesuada lorem. Praesent placerat dui leo, pulvinar vestibulum arcu aliquet at. Pellentesque vitae auctor metus. Mauris id rhoncus arcu. Integer pulvinar libero sed orci elementum semper. Sed semper aliquet tellus vel dapibus.</p>
-
-				<p>Morbi dui tellus, pulvinar maximus magna sed, consectetur consequat risus. Nam vestibulum est in molestie elementum. Morbi gravida nisl nec sem consectetur dignissim. Donec scelerisque sem accumsan massa lacinia viverra. Phasellus vel purus bibendum, mollis nisl convallis, ultrices elit. Sed eu tortor placerat turpis blandit suscipit. Morbi vel turpis sapien. Nam sodales metus eu purus condimentum consequat. Etiam posuere tempus volutpat. Praesent nec dapibus odio. Etiam tempus urna quis odio egestas, id ullamcorper ex sagittis.</p>
+				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
 
 			</div>
 		</div>
@@ -69,9 +64,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 	<div class="jm-methodology-wrapper large-9  push-3">
 		<h2>Methodology</h2>
 		<div class="jm-methodology">
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tincidunt vehicula ex. Sed finibus odio eget aliquam pretium. Etiam eu dui semper turpis efficitur condimentum sit amet ut justo. Duis maximus est eget facilisis ultrices. Curabitur dolor sapien, lobortis ut libero id, efficitur malesuada lorem. Praesent placerat dui leo, pulvinar vestibulum arcu aliquet at. Pellentesque vitae auctor metus. Mauris id rhoncus arcu. Integer pulvinar libero sed orci elementum semper. Sed semper aliquet tellus vel dapibus.</p>
-
-			<p>Morbi dui tellus, pulvinar maximus magna sed, consectetur consequat risus. Nam vestibulum est in molestie elementum. Morbi gravida nisl nec sem consectetur dignissim. Donec scelerisque sem accumsan massa lacinia viverra. Phasellus vel purus bibendum, mollis nisl convallis, ultrices elit. Sed eu tortor placerat turpis blandit suscipit. Morbi vel turpis sapien. Nam sodales metus eu purus condimentum consequat. Etiam posuere tempus volutpat. Praesent nec dapibus odio. Etiam tempus urna quis odio egestas, id ullamcorper ex sagittis.</p>		
+			<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
 		</div>
 	</div>
 
