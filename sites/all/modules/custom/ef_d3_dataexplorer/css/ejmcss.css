@@ -16,10 +16,10 @@ g.ticks text {
 
 /** CHARTSA JOBS MONITOR **/
 .page-data-explorer-european-jobs-monitor .ef-main{
-	padding: 30px 0px 40px 0px;
+  padding: 30px 0px 40px 0px;
 }
 .page-data-explorer-european-jobs-monitor #page-title{
-	display: none;
+  display: none;
 }
 .filters-jm-chart, .jm-back-button {
   margin: 0;
@@ -28,7 +28,7 @@ g.ticks text {
   display: inline-block;
 }
 .jm-back-button{
-	padding: 15px 25px;
+  padding: 15px 25px;
   text-align: center;
 }
 .jm-charts, .jm-abstract-wrapper{
@@ -37,11 +37,11 @@ g.ticks text {
   display: inline-block;
 }
 .jm-abstract-wrapper{
-	padding: 15px 25px;
+  padding: 15px 25px;
 }
 .jm-charts{
-	background: #F1F4F8;
-	padding: 30px 15px;
+  background: #F1F4F8;
+  padding: 30px 15px;
 }
 
 .jm-filters-chart {
@@ -56,7 +56,7 @@ g.ticks text {
     margin-left: 15px;
 }
 .filters-jm-chart  i.fa.fa-angle-down{
-	float: right;
+  float: right;
 }
 
 
@@ -77,7 +77,7 @@ g.ticks text {
   border-bottom: 1px dotted #666;
 }
 .filters-jm-chart fieldset:last-child legend{
-	 border-bottom: 1px dotted #666;
+   border-bottom: 1px dotted #666;
 }
 
 .filters-jm-chart  legend.opened .fa-angle-down:before{
@@ -89,8 +89,8 @@ g.ticks text {
 }
 
 .filters-jm-chart .group-filters {
-	padding: 15px 15px 15px 45px;
-	display: none;
+  padding: 15px 15px 15px 45px;
+  display: none;
 }
 .filters-jm-chart  legend.opened ~ .group-filters{
   display: block;
@@ -116,7 +116,7 @@ g.ticks text {
     display: none;
 }
 .jm-methodology-wrapper{
-	padding: 45px 25px 15px;
+  padding: 45px 25px 15px;
 }
 .jm-charts h2:first-child{
   margin-top: 0px;

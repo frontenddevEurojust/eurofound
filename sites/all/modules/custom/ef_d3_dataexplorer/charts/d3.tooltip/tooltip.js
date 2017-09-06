@@ -76,7 +76,7 @@
         .attr("fill", (x == 0) ? '#fff' : '#FFF')
         .attr('transform', 'translate(' + x + ',' + x + ')')
         .attr('stroke', 'transparent')
-        .attr('padding', '25px')
+        .attr('padding', '25px 15px')
         .attr('fill-opacity', function(d) {
           switch (x) {
             case 0:
@@ -118,7 +118,7 @@
         .attr('dy', 8)
         .attr('font-family', 'OpenSans-Semibold-webfont')
         .attr('fill','#000')
-        .attr('font-size', '11')
+        .attr('font-size', '12')
         .attr('font-weight', 'bold');
 
       textbox.append('text')
@@ -135,7 +135,7 @@
       textbox.append('text')
         .text(breakdowndata[i][0])
         .attr('text-anchor', 'start')
-        .attr('dx', (tooltip.w/2)-(breakdowndata[i][0].length*3))
+        .attr('dx', (tooltip.w/2)-(breakdowndata[i][0].length*3.1))
         .attr('dy', 8)
         .attr('font-family', 'OpenSans-Semibold-webfont')
         .attr('fill','#000')
