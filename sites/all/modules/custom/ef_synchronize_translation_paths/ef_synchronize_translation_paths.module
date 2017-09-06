@@ -229,15 +229,17 @@ function ef_synchronize_translation_paths_get_setting($key) {
  */
 function ef_synchronize_translation_paths_taxonomy_term_update($term) {
   $languages = language_list();
-  foreach ($languages as $langcode => $language) {
-    // Insert or update the alias.
-    db_merge('url_alias')
-      ->key(array(
-      'source' => 'taxonomy/term/' . $term->tid,
-      'language' => $langcode
-    ))
-      ->fields(array('alias' => $term->path['alias']))
-      ->execute();
+  if (isset($term->path['alias'])) {
+    foreach ($languages as $langcode => $language) {
+      // Insert or update the alias.
+      db_merge('url_alias')
+        ->key(array(
+        'source' => 'taxonomy/term/' . $term->tid,
+        'language' => $langcode
+      ))
+        ->fields(array('alias' => $term->path['alias']))
+        ->execute();
+    }
   }
 }
 
