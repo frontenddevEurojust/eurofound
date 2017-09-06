@@ -358,9 +358,14 @@
                  </h1>
 
              <?php else : ?>
-                 <h1 id="page-title" class="title secundary">
-                  <?php print $title ?>
-                 </h1>
+                
+                 
+                 <?php  if($node->type != "data_explorer_page"): ?>
+                    <h1 id="page-title" class="title secundary">
+                      <?php print $title ?>
+                    </h1>
+                 <?php endif; ?>                 
+                 
               <?php endif; ?>
 
               <!-- END issues 3189 -->
@@ -393,6 +398,8 @@
           }
 */
           if ($node->type == 'dvs_survey') {
+            $survey_print = false;
+          }else if($node->type == 'data_explorer_page') {
             $survey_print = false;
           }
 

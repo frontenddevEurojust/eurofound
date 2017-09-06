@@ -8,7 +8,7 @@
 <div  class="jm-charts-wrapper ">	
 
 	<div class="row">
-		<div class="jm-abstract-wrapper large-9">
+		<div class="jm-abstract-wrapper small-12 large-9">
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
 			<div class="jm-abstract">
 				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="jm-filters-chart">
-		<div class="filters-jm-chart large-3">
+		<div class="filters-jm-chart small-12 large-3">
 			<form>
 			  <fieldset>
 			    <legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
@@ -54,14 +54,14 @@
 			</form>		
 		</div>
 
-		<div class="jm-charts large-9 <?php print implode(' ', $classes_array); ?>">
+		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
 				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, <span class="country"></span>, <span class="period"></span></h2>
 				<div id="ejm-chart"></div>
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
 	
-	<div class="jm-methodology-wrapper large-9  push-3">
+	<div class="jm-methodology-wrapper small-12 large-9  push-3">
 		<h2>Methodology</h2>
 		<div class="jm-methodology">
 			<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
