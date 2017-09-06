@@ -64,6 +64,25 @@
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
+      if (period == '2011-2013' || period == '2011-2016') {
+        countryFilter.selectAll("option")
+          .property("disabled", function(d){ return d[0] === "NL" || d[0] === "SK"});
+      }
+      else {
+        countryFilter.selectAll("option")
+          .attr("disabled", null);
+      }
+
+      if (country == 'NL' || country == 'SK') {
+        console.log(country);
+        periodFilter.selectAll("option")
+          .property("disabled", function(d){ console.log(d); return d === "2011-2013" || d === "2011-2016"});
+      } 
+      else {
+        periodFilter.selectAll("option")
+          .attr("disabled", null);
+      }
+
       breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector' ? stacked = 1 : stacked = 0;
 
       countryText = settings.countries.filter(function(countries) {
