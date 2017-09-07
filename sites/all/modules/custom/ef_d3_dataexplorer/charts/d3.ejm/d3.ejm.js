@@ -150,7 +150,7 @@
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
-        .attr("height", h + 50)
+        .attr("height", h + 90)
         .append("g")
         .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
 

@@ -9,16 +9,20 @@ g.ticks text {
 .tooltip {
   z-index: 1000;
 }
-.page-data-explorer-european-jobs-monitor svg:not(:root) {
+.node-type-data-explorer-page svg:not(:root) {
     overflow: visible;
 }
 
 
 /** CHARTSA JOBS MONITOR **/
-.page-data-explorer-european-jobs-monitor .ef-main{
+.node-type-data-explorer-page .ef-main{
   padding: 30px 0px 40px 0px;
 }
-.page-data-explorer-european-jobs-monitor #page-title{
+.node-type-data-explorer-page .ef-main .button-group, 
+.node-type-data-explorer-page .ef-main .action-links {
+    padding:0 15px !important;
+}
+.node-type-data-explorer-page #page-title{
   display: none;
 }
 .filters-jm-chart, .jm-back-button {
@@ -115,6 +119,9 @@ g.ticks text {
 .filters-jm-chart .group-filters select::-ms-expand {
     display: none;
 }
+.filters-jm-chart .group-filters  select option[disabled]{
+    color: #CCC;
+}
 .jm-methodology-wrapper{
   padding: 45px 25px 15px;
 }
@@ -178,7 +185,7 @@ g.ticks text {
     width: 100%;
   }
   .filters-jm-chart {
-    padding: 25px 0;
+    padding: 0 0 25px;
   }
   .filters-jm-chart legend {
     padding: 15px !important;
