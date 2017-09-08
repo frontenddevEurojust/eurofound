@@ -27,22 +27,7 @@ function ef_case_studies_import_libraries_info() {
  * Libraries API version callback.
  */
 function phpexcel_get_library_version() {
-  $library = libraries_load('PHPExcel');
-  $changelog_file = $library['library path'] . '/changelog.txt';
-
-  if (file_exists($changelog_file)) {
-    $changelog = file_get_contents($changelog_file);
-    $match;
-
-    if (preg_match('/\d{4}-\d{2}-\d{2}\s+\(v([0-9\.]+)/', $changelog, $match)) {
-      return $match[1];
-    }
-    elseif (preg_match('/@version\s+([0-9\.]+)/', $changelog, $match)) {
-      return $match[1];
-    }
-  }
-
-  return 'n/a';
+  return '1.8.2';
 }
 
 /**
