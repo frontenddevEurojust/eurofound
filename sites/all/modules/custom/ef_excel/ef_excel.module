@@ -1,11 +1,50 @@
 <?php
 
-
-
 function ef_excel_update_7111(&$sandbox) {
-  
 
-	//Load the Excel library
+	start_process();
+}
+
+function start_process(){
+
+	$objPHPExcel = load_authors_file();
+
+	$sheet = $objPHPExcel->getSheet(1);
+	$highestRow = $sheet->getHighestRow();
+
+	import_unique_authors($highestRow, $sheet);
+
+	$sheet = $objPHPExcel->getSheet(0);
+	$highestRow = $sheet->getHighestRow();
+
+	update_node_author_values($highestRow, $sheet);
+
+}
+
+function import_unique_authors($highestRow, $sheet){
+
+	unlink("import_unique_authors_log.txt");
+
+	$fp1 = fopen("import_unique_authors_log.txt", "w+");
+
+	$new_terms = read_unique_authors($fp1, $highestRow, $sheet);
+
+	$publication_contributors = taxonomy_get_tree(12);
+
+	$final_terms = retrieve_non_existing_terms($fp1, $new_terms, $publication_contributors);
+
+	fwrite($fp1, "Number of existing Authors: " . count($publication_contributors) . " \n");
+	fwrite($fp1, "Number of Authors to add: " . count($final_terms) . " \n");
+	var_dump("Number of existing Authors: " . count($publication_contributors));
+	var_dump("Number of Authors to add: " . count($final_terms));
+
+	save_non_existing_terms($fp1, $final_terms);
+
+	fclose($fp1);
+}
+
+function load_authors_file(){
+	//Load PHPExcel library
 	$library = libraries_load('PHPExcel');
 	//Create new PHPExcel object
 	$objPHPExcel = new PHPExcel;
@@ -14,37 +53,58 @@ function ef_excel_update_7111(&$sandbox) {
 	$inputFileType = PHPExcel_IOFactory::identify($archivo);
 	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
 	$objPHPExcel = $objReader->load($archivo);
-	$sheet = $objPHPExcel->getSheet(1);
-	$highestRow = $sheet->getHighestRow();
-	$highestColumn = $sheet->getHighestColumn();
+
+	return $objPHPExcel;
+}
 
 
-	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
+
+function read_unique_authors($fp, $highestRow, $sheet){
+
+	var_dump("Reading ef-article-authors-normalised-and-unique.xlsx file.");
+	fwrite($fp, "Reading ef-article-authors-normalised-and-unique.xlsx file \n");
+
 	$i = 0;
-	
-	for ($row = 1; $row <= $highestRow; $row++){
+
+	for ($row = 1; $row <= $highestRow; $row++)
+	{
 		$terms[$i] = $sheet->getCell("A".$row)->getValue();
 		$i = $i + 1;
 	}
-	
+
+	var_dump("Reading process finished.");
+	fwrite($fp, "Reading process finished. \n");
+
+	var_dump("------------------------------------------------------------------------");
+	fwrite($fp, "--------------------------------------------------------------------- \n");
+
+
+	$new_terms = [];
 	//CREAMOS LOS OBJETOS TERMINOS Y LOS GUARDAMOS EN UN ARRAY
-	for($i = 0; $i <count($terms); $i++){
-		$term = new stdClass(); 
-		$term->vid=12; 
+	for($i = 0; $i < count($terms); $i++)
+	{
+		$term = new stdClass();
+		$term->vid=12;
 		$term->name= $terms[$i];
-		$new_terms[$i] = $term; 	
+		$new_terms[$i] = $term;
 	}
 
-	
+	return $new_terms;
+}
 
-	$publication_contributors = taxonomy_get_tree(12);
-	
-	//COMPARAMOS LOS TERMINOS OBTENIDOS EN EL EXCEL CON LOS TEMRINOS DEL VOCABURALIO 12, GUARDAMOS LOS TERMINOS QUE NO EXISTAN 
+function retrieve_non_existing_terms($fp, $new_terms, $publication_contributors){
+
+
+	fwrite($fp, "Starting term comparison. \n");
+	var_dump("Starting term comparison.");
+	//COMPARAMOS LOS TERMINOS OBTENIDOS EN EL EXCEL CON LOS TEMRINOS DEL VOCABURALIO 12, GUARDAMOS LOS TERMINOS QUE NO EXISTAN
+	$final_terms = [];
+	$existing_terms = [];
+
 	for($i = 0; $i < count($new_terms); $i++ ){
 	$exist = false;
 		for($j = 0; $j < count($publication_contributors); $j++ ){
-			
-		
+
 			if($new_terms[$i]->name == $publication_contributors[$j]->name){
 				$exist = true;
 				break;
@@ -58,132 +118,109 @@ function ef_excel_update_7111(&$sandbox) {
         if($exist == true){
            	$existing_terms[$i] = $new_terms[$i];
         }
-
 	}
 
-	
-	
-	$status = [];
-	//GUARDAMOS LOS NUEVOS TERMINOS EN BASE DE DATOS
-	if(!empty($final_terms)){
+	fwrite($fp, "Term comparison ended. \n");
+	var_dump("Term comparison ended.");
 
-		foreach ($final_terms as $key => $term) {
-			
-			$status[] = taxonomy_term_save($term);
-			dpm($final_terms[$i]->tid);
-
-		}
-	}else{
-		dpm("No hay nuevos terminos");
-	}
-	
-	
-	
-
-
-
-
-
-	///////////////SEGUNDA PARTE DEL SCRIPT, MODIFICACI´ON DE NODOS CON LOS DATOS DE PUBLICATION CONTRIBUTORS//////////////
-
-	$sheet = $objPHPExcel->getSheet(0);
-	$highestRow = $sheet->getHighestRow();
-	$highestColumn = $sheet->getHighestColumn();
-
-
-	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
-	$i = 0;
-	
-	for ($row = 1; $row <= $highestRow; $row++){
-		$nodes[$i]['id'] = $sheet->getCell("A".$row)->getValue();
-		$nodes[$i]['revision'] = $sheet->getCell("D".$row)->getValue();
-		$nodes[$i]['author'] = $sheet->getCell("F".$row)->getValue();
-		$i = $i + 1;
-	}
-	
-	unset($nodes[0]);
-	
-	for($i = 1; $i <= count($nodes); $i++){
-		$nodes_object[$i] = node_load($nodes[$i]['id'],$nodes[$i]['revision']);
-	}
-	
-	
-
-	
-	for($i=1; $i <= count($nodes_object); $i++){
-
-		$authors[$i] = explode(";", rtrim($nodes[$i]['author']));
-	}
-		
-	
-
-
-	$publication_contributors = taxonomy_get_tree(12);
-	
-	
-		for($j=1; $j <= count($authors); $j++){
-					
-			for($x=0; $x < count($authors[$j]); $x++){
-			
-				for($i=0; $i < count($publication_contributors); $i++){
-					
-					if(trim($authors[$j][$x]) == trim($publication_contributors[$i]->name))	{
-						$publication_contributor_terms[$j][$x] = $publication_contributors[$i];
-						break;
-				
-					}	
-				}
-
-				
-			}
-			
-		}
-
-	
-
-	
-
-
-	for($i=1; $i <= count($publication_contributor_terms); $i++){
-
-		
-		for($z=0; $z < count($publication_contributor_terms[$i]); $z++){
-
-			$nodes_object[$i]->field_ef_publ_contributors['und'][$z]['tid'] = $publication_contributor_terms[$i][$z]->tid;	
-		}
-
-		field_attach_update('node', $nodes_object[$i]);
-		entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
-	
-	}
-
-	
-
-
-
-	
-
-	
-
-
-
+	return $final_terms;
 
 }
 
 
+function save_non_existing_terms($fp, $final_terms){
+
+	//GUARDAMOS LOS NUEVOS TERMINOS EN BASE DE DATOS
+	if(!empty($final_terms)){
+		var_dump("------------------------------------------------------------------------");
+		fwrite($fp, "--------------------------------------------------------------------- \n");
+		var_dump("Saving new terms.");
+		fwrite($fp, "Saving new terms. \n");
+
+		$status = [];
+		$initial_time = microtime(true);
+
+		foreach ($final_terms as $key => $term) {
+
+			$status[$term->name] = taxonomy_term_save($term);
+			if ($status[$term->name] != 1){
+				fwrite($fp,"There was a problem saving " . $term->name . " status " . $status[$term->name] . ". \n");
+			}else{
+				fwrite($fp,"'" . $term->name . "' was saved successfully. \n");
+			}
+
+		}
+
+		$time_elapsed_secs = microtime(true) - $initial_time;
+		fwrite($fp, "Saving process completed. It took " . $time_elapsed_secs . "s \n");
+		fwrite($fp, "Number of Authors after finishing the process: " . count($publication_contributors = taxonomy_get_tree(12)) . " \n");
+		var_dump("Saving process completed. It took " . $time_elapsed_secs);
+		var_dump("Number of Authors after finishing the process: " . count($publication_contributors = taxonomy_get_tree(12)));
+		var_dump("------------------------------------------------------------------------");
+		fwrite($fp, "--------------------------------------------------------------------- \n");
+	}
+}
+
+function update_node_author_values($highestRow, $sheet){
+
+	$fp1 = fopen("updated_nodes.txt", "w+");
+
+	var_dump("Saving new terms into nodes.");
+	fwrite($fp1, "Saving new terms into nodes. \n");
+	//GUARDAMOS LOS VALORES DEL EXCEL EN UN ARRAY
+	$i = 0;
+
+	for ($row = 1; $row <= $highestRow; $row++){
+		$nodes[$i]['id'] = $sheet->getCell("A".$row)->getValue();
+		$nodes[$i]['revision'] = $sheet->getCell("D".$row)->getValue();
+		$nodes[$i]['author'] = $sheet->getCell("F".$row)->getValue();
+		$i++;
+	}
+
+	unset($nodes[0]);
+
+	for($i = 1; $i <= count($nodes); $i++){
+		$nodes_object[$i] = node_load($nodes[$i]['id'],$nodes[$i]['revision']);
+	}
+
+	for($i=1; $i <= count($nodes_object); $i++){
+
+		$authors[$i] = explode(";", rtrim($nodes[$i]['author']));
+	}
+
+	$publication_contributors = taxonomy_get_tree(12);
+
+	for($j=1; $j <= count($authors); $j++){
+
+		for($x=0; $x < count($authors[$j]); $x++){
+
+			for($i=0; $i < count($publication_contributors); $i++){
+
+				if(trim($authors[$j][$x]) == trim($publication_contributors[$i]->name))	{
+					$publication_contributor_terms[$j][$x] = $publication_contributors[$i];
+					break;
+				}
+			}
+		}
+	}
+
+	for($i=1; $i <= count($publication_contributor_terms); $i++){
 
 
+		for($z=0; $z < count($publication_contributor_terms[$i]); $z++){
 
+			$nodes_object[$i]->field_ef_publ_contributors['und'][$z]['tid'] = $publication_contributor_terms[$i][$z]->tid;
+			var_dump("Node " . $nodes_object[$i]->nid . " updated with Author " . $publication_contributor_terms[$i][$z]->tid);
+			fwrite($fp1, "Node " . $nodes_object[$i]->nid . " updated with Author " . $publication_contributor_terms[$i][$z]->tid . " \n");
+		}
 
+		field_attach_update('node', $nodes_object[$i]);
+		entity_get_controller('node')->resetCache(array($nodes_object[$i]->nid));
 
+	}
 
-  
-  
+	var_dump("Saving new terms ended.");
+	fwrite($fp1, "Saving new terms ended. \n");
 
-
-
-
-
-
-
-
+	fclose($fp1);
+}
