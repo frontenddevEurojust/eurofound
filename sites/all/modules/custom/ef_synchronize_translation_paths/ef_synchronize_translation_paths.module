@@ -232,7 +232,6 @@ function ef_synchronize_translation_paths_taxonomy_term_update($term) {
   if (isset($term->path['alias']) && !empty($term->path['alias'])) {
     if ($term->path['pathauto'] == 1 && $term->vid == 21) {
       $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name);
-      dpm($term->path['alias']);
     } 
     foreach ($languages as $langcode => $language) {
       // Insert or update the alias.
