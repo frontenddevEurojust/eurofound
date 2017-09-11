@@ -3,7 +3,6 @@
  * @file
  * Default theme file for d3 visualizations.
  */
-dpm($content);
 ?>
 
 <div  class="jm-charts-wrapper ">	
