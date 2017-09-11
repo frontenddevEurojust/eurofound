@@ -5,24 +5,6 @@
  * Provides the necessary routing to serve the resources for D3 based DVS
  */
 
-/**
- * Implements hook_menu().
- */
-
-
-function ef_d3_dataexplorer_menu() {
-  $items['data-explorer/european-jobs-monitor'] = array(
-    'title' => 'European Jobs Monitor',
-    'description' => 'Provisional root for Jobs Monitor Data Visualisation',
-    'page callback' => 'd3_ejm',
-    'access callback' => 'user_access',
-    'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-
-  return $items;
-}
-
 function d3_ejm() {
   $chart = array(
     'id' => 'ejm-chart',
@@ -116,4 +98,31 @@ function d3_ejm() {
   );
 
   return d3_draw($chart);
+}
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function d3_custom_libraries() {
+  return array(
+    'd3.extend',
+    'd3.tooltip',
+    'd3.ejm',
+  );
+}
+
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function ef_d3_dataexplorer_node_view($node, $view_mode) {
+  //Each Data Explorer Page item will contain a different visualisation
+  //with their different
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
+    drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
+    $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
+    d3_ejm();
+  }
 }
