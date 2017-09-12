@@ -59,24 +59,41 @@ function ef_notifications_node_insert($node) {
 }
 
 /**
- * Implements hook_field_update().
+ * Implements hook_field_attach_update().
  */
 function ef_notifications_field_attach_update($entity_type, $entity) {
   if ($entity_type == 'node') {
 
-    // retrieve previous and current assign to user and compare them
-    $previous_user = $entity->field_ef_assign_to_user['und'][0]['entity']->uid;
-    $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
-    if ($previous_user != $current_user && !empty($previous_user)) {
-      $user_assignment_notification = TRUE;
-    }
+    if (isset($entity->field_ef_assign_to_user['und'][0]['entity'])) {
+      // retrieve previous and current assign to user and compare them
+      // This will work when assigment is changed from the view mode form.
+      $previous_user = $entity->field_ef_assign_to_user['und'][0]['entity']->uid;
+      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+      if ($previous_user != $current_user && !empty($previous_user)) {
+        $user_assignment_notification = TRUE;
+      }
 
-    $previous_author = $entity->field_ef_assign_to_author['und'][0]['entity']->uid;
-    $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
-    if ($previous_author != $current_author_mid && !empty($previous_author)) {
-      $author_assignment_notification = TRUE;
+      $previous_author = $entity->field_ef_assign_to_author['und'][0]['entity']->uid;
+      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
+      if ($previous_author != $current_author_mid && !empty($previous_author)) {
+        $author_assignment_notification = TRUE;
+      }
+      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
     }
-    $current_author = get_assigned_author_uid_by_mid($current_author_mid);
+    else {
+      $previous_user = $entity->original->field_ef_assign_to_user['und'][0]['target_id'];
+      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+      if ($previous_user != $current_user && !empty($previous_user)) {
+        $user_assignment_notification = TRUE;
+      }
+      
+      $previous_author = $entity->original->field_ef_assign_to_author['und'][0]['target_id'];
+      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
+      if ($previous_author != $current_author_mid && !empty($previous_author)) {
+        $author_assignment_notification = TRUE;
+      }
+      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
+    }
 
     $current_timestamp = time();
 
@@ -98,6 +115,7 @@ function ef_notifications_field_attach_update($entity_type, $entity) {
   }
   return;
 }
+
 
 /**
  * Generates a notification when assigned user changes
