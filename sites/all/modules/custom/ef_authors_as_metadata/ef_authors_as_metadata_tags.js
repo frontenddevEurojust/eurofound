@@ -38,9 +38,13 @@
     {
 
         var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description span').attr('title');
+            
+        if(textNewAuthor == undefined){
+            var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description').text();
+        }     
 
 
-        jQuery('#edit-add-new-contributor-wrapper .description').remove();
+        jQuery('#edit-add-new-contributor-wrapper .description').css('display','none');
 
         jQuery('.form-item-add-new-contributor label').after('<p>' + textNewAuthor + '</p>');
         
