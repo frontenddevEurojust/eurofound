@@ -58,7 +58,16 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 
   if(isset($view->name)){
 
-    if($view->name == 'ef_publications_view' && $view->vid == 75){$type = 'ef_publication';}
+    if($view->name == 'ef_publications_view' && $view->vid == 75)
+    {
+      $type = 'ef_publication';
+      $conditions = $query->where[1]['conditions'];
+      foreach ($conditions as $key => $value) {
+          if($value['field'] === 'publication_date.published_at = 0'){
+            unset($query->where[1]['conditions'][$key]);
+          }
+        }
+    }
     if($view->name == 'ef_articles' && $view->vid == 52){$type = 'ef_report';}
     if($view->name == 'ef_news' && $view->vid == 63){$type = 'ef_news';}
     if($view->name == 'ef_ir_dictionary' && $view->vid == 84){
