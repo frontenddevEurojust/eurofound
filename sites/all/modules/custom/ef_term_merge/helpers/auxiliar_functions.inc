@@ -133,6 +133,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 
 
 				$nodes_affected = array_merge($nodes_affected, $revision_affected_nodes);
+				$index++;
 			}
 			else
 			{
