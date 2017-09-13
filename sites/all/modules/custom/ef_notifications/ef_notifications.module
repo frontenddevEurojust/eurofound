@@ -80,7 +80,7 @@ function ef_notifications_field_attach_update($entity_type, $entity) {
       }
       $current_author = get_assigned_author_uid_by_mid($current_author_mid);
     }
-    else {
+    elseif (isset($entity->original->field_ef_assign_to_user)) {
       $previous_user = $entity->original->field_ef_assign_to_user['und'][0]['target_id'];
       $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
       if ($previous_user != $current_user && !empty($previous_user)) {
@@ -88,6 +88,21 @@ function ef_notifications_field_attach_update($entity_type, $entity) {
       }
       
       $previous_author = $entity->original->field_ef_assign_to_author['und'][0]['target_id'];
+      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
+      if ($previous_author != $current_author_mid && !empty($previous_author)) {
+        $author_assignment_notification = TRUE;
+      }
+      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
+    }
+    else {
+      $node = node_load($entity->nid);
+      $previous_user = $node->field_ef_assign_to_user['und'][0]['target_id'];
+      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+      if ($previous_user != $current_user && !empty($previous_user)) {
+        $user_assignment_notification = TRUE;
+      }
+
+      $previous_author = $node->field_ef_assign_to_author['und'][0]['target_id'];
       $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
       if ($previous_author != $current_author_mid && !empty($previous_author)) {
         $author_assignment_notification = TRUE;
