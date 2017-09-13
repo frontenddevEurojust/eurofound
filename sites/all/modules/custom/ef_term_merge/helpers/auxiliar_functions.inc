@@ -23,11 +23,7 @@ function _retrieve_list_vocabularies()
 */
 function _clear_node_list_cache($array)
 {
-
-	foreach ($array as $a => $nid) {
-		entity_get_controller('node')->resetCache(array($nid));
-	}
-
+	entity_get_controller('node')->resetCache($array);
 	return;
 }
 
@@ -98,7 +94,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 	$index = 0;
 
 	$objPHPExcel = initialize_excel_file();
-	//Create the writer
+	// Create the writer
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
 	// Array of nodes to be passed to logger function
 	$nodes_affected = array();
@@ -168,6 +164,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 		_delete_term_in_url_alias($tid);
 
 		_clear_node_list_cache($nodes_updated);
+		$nodes_affected = array();
 		$counter++;
 	}
 
