@@ -12932,8 +12932,8 @@ p.view-empty.error-msg:before{
   height: 100%;
   display: block;
   width: 100%;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
   display: block;
   background: rgba(0,91,170, 0.5);
 }
