@@ -1947,7 +1947,18 @@ html body.admin-menu {
       padding: 2px 0px 6px 41px;
   }
 }
-
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : portrait){
+  .view-ef-key-topics-home .key-topics-list{
+  	height: auto;
+    min-height:110px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape){
+  .view-ef-key-topics-home .key-topics-list{
+  	height: auto;
+    min-height:126px;
+  }
+}
 @media only screen and (max-width:768px){
 	.l-header .ef-top{
 		margin-bottom: 1em;
