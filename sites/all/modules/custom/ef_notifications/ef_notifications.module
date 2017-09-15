@@ -59,11 +59,10 @@ function ef_notifications_node_insert($node) {
 }
 
 /**
- * Implements hook_field_attach_update().
+ * Implements hook_field_storage_pre_update().
  */
-function ef_notifications_field_attach_update($entity_type, $entity) {
+function ef_notifications_field_storage_pre_update($entity_type, $entity) {
   if ($entity_type == 'node') {
-
     if (isset($entity->field_ef_assign_to_user['und'][0]['entity'])) {
       // retrieve previous and current assign to user and compare them
       // This will work when assigment is changed from the view mode form.
@@ -96,8 +95,10 @@ function ef_notifications_field_attach_update($entity_type, $entity) {
     }
     else {
       $node = node_load($entity->nid);
+      $node = node_load($node->nid, $node->workbench_moderation['current']->vid);
       $previous_user = $node->field_ef_assign_to_user['und'][0]['target_id'];
       $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+      dpm($previous_user . ' - ' . $current_user);
       if ($previous_user != $current_user && !empty($previous_user)) {
         $user_assignment_notification = TRUE;
       }
