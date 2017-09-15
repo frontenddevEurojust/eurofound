@@ -81,8 +81,6 @@ $bytes = formatSizeUnits($bytes);
 $path_extension = $content['field_pdf_presentation'][0]['#preview_path'];
 $ext  = (new SplFileInfo($path_extension))->getExtension();
 
-dpm($content);
-
 ?>
 
 <!DOCTYPE html>

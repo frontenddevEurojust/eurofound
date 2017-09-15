@@ -40,6 +40,10 @@ h1 .title-blog-presentation{
 	font-size:1.2em;
 }
 
+.node-type-blog section.large-12.columns > div.topic-abstract > p:nth-child(2){
+    font-size:1.2em;
+}
+
 .related-links-block ul, .featured-block ul {
     list-style-type: none;
 }
@@ -80,6 +84,14 @@ h1 .title-blog-presentation{
 
 .node-type-presentation .field-name-content-type{
 	text-transform: capitalize;
+}
+
+section.large-9.columns.blog-presentation-content > div.topic-abstract > p:nth-child(1){
+    font-size:1.2em;
+}
+
+section.large-12.columns.blog-presentation-content > div.topic-abstract > p:nth-child(1){
+   font-size:1.2em; 
 }
 
 .node-type-presentation .viewerjs-formatter-field{
