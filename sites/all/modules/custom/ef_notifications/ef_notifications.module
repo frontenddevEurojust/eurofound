@@ -98,7 +98,6 @@ function ef_notifications_field_storage_pre_update($entity_type, $entity) {
       $node = node_load($node->nid, $node->workbench_moderation['current']->vid);
       $previous_user = $node->field_ef_assign_to_user['und'][0]['target_id'];
       $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
-      dpm($previous_user . ' - ' . $current_user);
       if ($previous_user != $current_user && !empty($previous_user)) {
         $user_assignment_notification = TRUE;
       }
