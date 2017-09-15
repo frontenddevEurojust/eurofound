@@ -12883,20 +12883,20 @@ p.view-empty.error-msg:before{
     font-size: 1.4em;
     padding: 0px 1px;
     position: absolute;
-    z-index: 11;
+    z-index: 10;
     background: #F7931E;
     border-radius: 10px;
     right: 5px;
     top: 5px;
 }
-.pane-ef-key-topics-home .key-topics-list p a:nth-child(1) img,
-.view-ef-key-topics-home .key-topics-list p a:nth-child(1) img{
+.pane-ef-key-topics-home .key-topics-list p > img,
+.view-ef-key-topics-home .key-topics-list p > img{
   position: absolute;
   z-index: 9;
   border:0;
    outline-width: 0px;
 }
-.view-ef-key-topics-home .key-topics-list p a:nth-child(1) img{
+.view-ef-key-topics-home .key-topics-list p > img{
   position: absolute;
   z-index: 9;
   width: 100%;
@@ -12932,8 +12932,8 @@ p.view-empty.error-msg:before{
   height: 100%;
   display: block;
   width: 100%;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
   display: block;
   background: rgba(0,91,170, 0.5);
 }

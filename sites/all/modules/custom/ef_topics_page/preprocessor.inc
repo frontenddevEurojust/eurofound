@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'helpers/preprocessor_functions.inc';
 require_once 'helpers/db_functions.inc';
@@ -38,7 +38,7 @@ function prepare_template_content($term, $language){
 
     $variables['language'] = $language;
 
-    // TABS DATA 
+    // TABS DATA
     $variables = build_content_tabs($variables, $term, $page);
 
     $variables = build_content_pagers($variables, $term, $page, $limit = 5000000);
@@ -50,9 +50,9 @@ function prepare_template_content($term, $language){
     // Main image preprocessing
     $variables = add_main_image_to_variables($variables, $term);
 
-    // Subscription fields preprocessing 
-    $variables = add_subscription_to_variables($variables, $term);
-    
+    // Subscription fields preprocessing
+    $variables = add_subscription_to_variables($variables, $term, $language);
+
     // Topics preprocessing for image and name
     $variables = add_topics_to_variables($variables, $term, $language);
 
@@ -60,22 +60,22 @@ function prepare_template_content($term, $language){
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
 
     $variables = add_administrator_menu($variables, $term);
-    
+
     $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
-    
+
     // Additional variables sent to ef_topics_page.tpl.php
     $variables['summary'] = check_markup($term->field_term_summary[$language][0]['value'], 'filtered_html');
     $variables['description'] = check_markup($term->description, 'filtered_html');
     $variables['show_menu'] = check_current_user();
     $variables['title'] = $term->field_term_title[$language][0]['value'];
-   
-    
-    
+
+
+
     if ($term->field_term_last_updated)
     {
         $variables['last_updated'] = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
     }
-    
+
     if(isset($term->field_ef_featured_block_content))
     {
         $variables['featured_block'] = check_markup($term->field_ef_featured_block_content[$language][0]['value'], 'filtered_html');
@@ -85,19 +85,19 @@ function prepare_template_content($term, $language){
     {
         $variables['related_links_block'] = check_markup($term->field_ef_related_links_block[$language][0]['value'], 'filtered_html');
     }
-    
+
     return $variables;
-        
+
 }
 
 function add_js_and_css_files($term, $language){
 
     drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
-    
+
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
     $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000, $language);
-   
+
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
 }
