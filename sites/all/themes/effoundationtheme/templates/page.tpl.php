@@ -403,6 +403,9 @@
           }else if($node->type == 'data_explorer_page') {
            $hide_print  = true;
            $hide_pdf = true;
+          }else if($node->type == 'blog') {
+           $hide_print  = true;
+           $hide_pdf = true;
           }
 
         }
