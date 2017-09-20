@@ -1,0 +1,201 @@
+/** working life country profiles **/
+ul.list-metadata{
+  font-size: 11px;
+  list-style-type: none;
+  float: left;
+  width: 100%;
+  margin: 0rem 0 2rem;
+}
+
+ul.list-metadata > li {
+  font-family: 'Opensans-Semibold-webfont';
+  display: inline;
+  width: auto;
+  color:#5A5A5A;
+  margin-right: 0.5rem;
+}
+ul.list-metadata > li{
+  border-right: 2px solid orange;
+  padding-right: 0.3rem;
+}
+ul.list-metadata > li:nth-last-child(-n+2){
+  border-right: 0px solid orange;
+}
+ul.list-metadata > li:last-child{
+  display: block;
+}
+/*
+ul.list-metadata > li:before{
+  content: '| ';
+  color: #F7931E;
+}
+*/
+ul.list-metadata li > ul {
+  font-weight: normal;
+  display: inline;
+  margin: 0;
+}
+ul.list-metadata li > ul li {
+  color: #5A5A5A;
+  font-family: 'OpenSans-Regular-webfont';
+  display: inline;
+  padding-right: 0rem;
+  margin-right: 0rem;
+}
+ul.list-metadata li > ul li:before{
+  content: '| ';
+  color: #5A5A5A;
+}
+ul.list-metadata li > ul li:first-child:before{
+  content: '';
+}
+.summary-group{
+  padding: 1rem;
+}
+.wp_about{
+  width: 36%;
+  font-size: 12px;
+  margin: -10px 0 0 2%;
+  background: #f9f9f9;
+  padding: 1rem;
+}
+.wp_about h2{
+  border-bottom: 1px dotted #ccc;
+  font-family: 'Opensans-light-webfont';
+}
+.wp_about ul{
+  list-style-type: none;
+}
+.wp_body li{
+  display: block;
+  overflow: auto;
+}
+.wp_about ul li > span{
+  text-align: left;
+}
+.wp_about ul li > span:first-child{
+  font-family:'OpenSans-Semibold-Webfont';
+}
+.summary{
+  float: left;
+  width: 60%;
+  margin: 0;
+  font-style: italic;
+}
+.section-container.vertical-tabs{
+  margin: 2rem 0;
+}
+.section-container.vertical-tabs>.section.active,
+.section-container.vertical-tabs>section.active {
+    padding-left: 27%;
+}
+.section-container.vertical-tabs > section > .title {
+    cursor: pointer;
+    background-color: #fff!important;
+    color: #005baa;
+    padding: 15px!important;
+    margin: 0 !important;
+    width: 25% !important;
+    text-align: left;
+    font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif!important;
+    font-size: 16px !important;
+    border: none;
+    border-right: 1px solid #CCC !important;
+    overflow: visible;
+}
+.section-container.vertical-tabs > section.active2 .content{
+  display: none !important;
+}
+.section-container.vertical-tabs > section > .title:hover {
+    background-color: #f9f9f9 !important;
+}
+.section-container.vertical-tabs > section > .title:after {
+    content: "";
+    width: 3px;
+    background:#005baa ;
+    display: inline-block;
+    right: -3px;
+    top: 0;
+    position: absolute;
+    height:0%;
+    opacity: 0;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active2  > .title:after{
+    content: "\f107" !important;
+}
+.section-container.vertical-tabs > section > .title:hover:after {
+    height: 100%;
+    opacity: 0.5;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active > .title {
+    background-color: #f2f2f2 !important;
+}
+.section-container.vertical-tabs > section.active > .title:after {
+    height: 100%;
+    opacity: 1;
+}
+.section-container.vertical-tabs>section>.content{
+    border: none;
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 0 0 0;
+    background-color: #fff;
+}
+.section-container.vertical-tabs>section>.content p.subtitle {
+    font-size: 22px;
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif!important;
+    color: #005baa;
+}
+.go-top-wrapper{
+  padding: 0px;
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+  z-index: 9000;
+  width: auto !important;
+  border-radius: 30px;
+}
+#ef-working-life-country-profiles-node-form span.field-edit-link{
+  display:none;
+}
+
+.eurostat-result {
+  background: #f2f2f2;
+  border:1px solid #CCC;
+  float: left;
+  padding: 20px;
+  margin: 0 20px 10px 0;
+}
+.eurostat-result ul {
+  margin: 0;
+}
+.eurostat-result ul li {
+  display: block;
+  margin: 20px 0;
+}
+.eurostat-result ul li span{
+  font-family: 'OpenSans-Regular-webfont' !important;
+  margin-left: 5px;
+}
+.eurostat-result p a:after{
+  content: "\f08e";
+  display: inline-block;
+  margin-left: 6px;
+  font: normal normal normal 12px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/** end working life country profiles **/

@@ -13194,6 +13194,35 @@ ul.list-metadata li > ul li:first-child:before{
 #ef-working-life-country-profiles-node-form span.field-edit-link{
 	display:none;
 }
+
+.eurostat-result {
+	background: #f2f2f2;
+	border:1px solid #CCC;
+	float: left;
+	padding: 20px;
+	margin: 0 20px 10px 0;
+}
+.eurostat-result ul {
+	margin: 0;
+}
+.eurostat-result ul li {
+	display: block;
+	margin: 20px 0;
+}
+.eurostat-result ul li span{
+	font-family: 'OpenSans-Regular-webfont' !important;
+	margin-left: 5px;
+}
+.eurostat-result p a:after{
+	content: "\f08e";
+  display: inline-block;
+  margin-left: 6px;
+  font: normal normal normal 12px/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /** end working life country profiles **/
 
 .topic-subscription a .fa:before {

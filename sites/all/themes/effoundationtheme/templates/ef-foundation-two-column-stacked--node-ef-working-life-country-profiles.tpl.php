@@ -76,14 +76,53 @@
  */
 global $user;
 
+
+//drupal_add_css('sites/all/themes/effoundationtheme/css/working-life-country-profile.css');
+//drupal_add_js('sites/all/themes/effoundationtheme/js/working-life-country-profile.js');
+
 $logged = in_array('authenticated user', $user->roles);
 
 $country = $content['field_ef_country']['#items'][0]['safe_value'];
 $author = $content['field_ef_author']['#items'][0]['safe_value'];
 $institution = $content['field_ef_institution']['#items'][0]['safe_value'];
-
+$subtitle = $content['field_subtitle']['#items'][0]['safe_value'];
+$eurostatResult = $content['field_ef_eurostat_results']['#items'][0]['value'];
+$summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 ?>
 
+
+<div class="eurostat-result"><?php print $eurostatResult ?></div>
+<div class="summary-living-working"><?php print $summary ?></div>
+
+
+<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
+<div class="section-container vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
+	<?php if($i == 0): ?>
+	<section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']['#items'][0]['value'])))); ?>">
+	<?php else: ?>
+	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']['#items'][0]['value'])))); ?>">
+	<?php endif; ?>
+		<h2 class="title" data-section-title><?php 
+		//dpm($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']);
+		print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+		<div class="content" data-section-content>
+			<p class="subtitle"><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
+			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+		</div>
+	</section>
+<?php endfor; ?>
+</div>
+<?php endif; ?>
+
+
+
+
+
+
+<div class="clear"></div>
+
+<h1><?php print $subtitle ?></h1>
 <ul class="list-metadata clearfix">
 <?php if(isset($content['field_ef_observatory'][0]['#title'])): ?>
 	<li>Observatory:

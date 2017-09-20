@@ -1298,6 +1298,7 @@ $(document).ready(function(){
 
 
         var active = window.location.href.match(/#+[a-z\-]+/g);
+        
         active = active[0].substr(1);
 
         if($('section.' + active).length > 0)
