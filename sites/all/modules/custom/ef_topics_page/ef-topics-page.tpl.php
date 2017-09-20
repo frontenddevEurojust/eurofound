@@ -6,7 +6,6 @@
  * @see template_preprocess_ef_topics_page()
  *
  */
-global $language;
 
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
@@ -15,7 +14,7 @@ if(!empty($variables['ef_activities'])){
 <!DOCTYPE html>
 <html>
 <body>
-    
+
     <?php if (isset($last_updated)): ?>
     <span class="last-updated"><?= $last_updated; ?></span>
     <?php endif; ?>
@@ -31,22 +30,22 @@ if(!empty($variables['ef_activities'])){
         <?php endforeach; ?>
     </ul>
     <?php endif; ?>
-    
+
     <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
         <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
         <section class="large-9 columns">
         <?php else: ?>
         <section class="large-12 columns">
-        <?php endif; ?>      
+        <?php endif; ?>
             <?php if (isset($variables['summary']) || isset($variables['main_image'])): ?>
             <div class="topic-abstract">
             <p>
                 <?php if (isset($variables['main_image'])): ?>
-                    <?= $main_image; ?>  
+                    <?= $main_image; ?>
                 <?php else: ?>
                     <?php if(isset($variables['summary'])): ?>
                     <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
-                    <?php endif; ?>  
+                    <?php endif; ?>
                 <?php endif; ?>
             </p>
             <p>
@@ -56,36 +55,36 @@ if(!empty($variables['ef_activities'])){
             </p>
             </div>
             <?php endif; ?>
-            
+
             <?php if (isset($variables['subscription'])): ?>
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
             <?= t("Subscribe now and receive updates on Eurofound's work in the area of @title", array("@title" => $term->name)); ?></a></p>
             <?php endif; ?>
-            <?php if(isset($variables['description'])): ?>  
+            <?php if(isset($variables['description'])): ?>
             <div class="topic-description">
                 <?= $description; ?>
             </div>
             <?php endif; ?>
-            
+
             <?php if (count($variables['topics'])): ?>
             <ul class="related-content-topic">
-                <?php foreach ($variables['topics'] as $topic): ?>     
+                <?php foreach ($variables['topics'] as $topic): ?>
                     <?php if (isset($topic['related_topic_image'])): ?>
                     <li><a href="/<?= $topic['url']; ?>"><?= $topic['related_topic_image']; ?></a>
                     <?php else: ?>
                     <li><img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                     <?php endif; ?>
-                        <p><span class="item-topic"><?php print t("Topic:") ?></span><a class="name-topic" href="/<?= $topic['url']; ?>"><?= $topic['related_topic_name']; ?></a></p>   
+                        <p><span class="item-topic"><?php print t("Topic:") ?></span><a class="name-topic" href="/<?= $topic['url']; ?>"><?= $topic['related_topic_name']; ?></a></p>
                     </li>
                 <?php endforeach; ?>
             <?php endif; ?>
             </ul>
-            
-            
+
+
             <!-- PRINT CONTENT TABS -->
            <?php if (isset($print_tabs)): ?>
             <div class="section-container tabs" data-section="tabs">
-            
+
             <?php foreach ($tabs as $tab_name => $tab_data): ?>
                 <?php if (isset($tab_data)): ?>
                     <?php if($tab_name == 'publications'): ?>
@@ -97,8 +96,8 @@ if(!empty($variables['ef_activities'])){
                         <div class="content" data-section-content>
                             <ul class="latest-news-list">
                             <?php foreach ($tab_data as $node_data): ?>
-                                <?php if ($variables['nodes_language'] != 'en'): ?>
-                                <li><a href="<?php print '/' . $variables['nodes_language']; ?>/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
+                                <?php if ($variables['navigation_language'] != 'en'): ?>
+                                <li><a href="<?php print '/' . $variables['navigation_language']; ?>/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
                                 <?php else: ?>
                                 <li><a href="/<?php print(drupal_get_path_alias('node/' . $node_data->node_id)); ?>"><?= $node_data->title; ?></a>
                                 <?php endif; ?>
@@ -116,37 +115,37 @@ if(!empty($variables['ef_activities'])){
                             <?php if( $pager[$tab_name] !== 0): ?>
                                 <?= $pager[$tab_name]; ?>
                             <?php endif; ?>
-                        </div>            
+                        </div>
                     </section>
-                <?php endif; ?>  
+                <?php endif; ?>
             <?php endforeach; ?>
-            
+
             </div>
             <?php endif; ?>
-        
-        
+
+
 
     </section>
     <?php endif; ?>
-    
+
     <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
-    <aside class="large-3 columns">   
-        
+    <aside class="large-3 columns">
+
         <?php if (isset($variables['featured_block'])): ?>
         <div class="featured-block">
             <?= render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
         </div>
 
         <?php endif; ?>
-        
+
         <?php if (isset($variables['related_links_block'])): ?>
         <div class="related-links-block">
             <?= render(field_view_field('taxonomy_term', $term, 'field_ef_related_links_block', array('label'=>'hidden'))); ?>
         </div>
         <?php endif; ?>
-    
+
     </aside>
-    <?php endif; ?> 
+    <?php endif; ?>
 
 </body>
 </html>

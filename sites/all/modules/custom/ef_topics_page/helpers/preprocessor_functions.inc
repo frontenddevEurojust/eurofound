@@ -119,7 +119,7 @@ function add_subscription_to_variables($variables, $term)
 
 
 
-function add_topics_to_variables($variables, $term, $language)
+function add_topics_to_variables($variables, $term, $language, $navigation_language)
 {
 
     // Maximum number of related topics is set to 3 in field configuration
@@ -146,9 +146,9 @@ function add_topics_to_variables($variables, $term, $language)
 			$data = return_url_alias_data($topic->tid);
 
 			// Always follows the rule: 'taxonomy/term/id'
-			if ($language != 'en')
+			if ($navigation_language != 'en')
 			{
-				$variables['topics']['topic_' . $i]['url'] = $language . '/' . $data[0]->alias;
+				$variables['topics']['topic_' . $i]['url'] = $navigation_language . '/' . $data[0]->alias;
 			}
 			else
 			{

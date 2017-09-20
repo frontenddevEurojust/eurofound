@@ -15,17 +15,17 @@ function template_preprocess_ef_topics_page(&$variables){
     // Need to check what's the tid of the received string as the URL can be changed with URL_ALIAS and not follow the pattern: topic/name
     $data = check_topic_exists_by_url_and_language(strtolower($variables['contextual_term']), $language->language);
 
-    $variables = prepare_template_content($data['term'], $data['language']);
+    $variables = prepare_template_content($data['term'], $data['language'], $navigation_language = $language->language);
 
-    add_js_and_css_files($data['term'], $data['language']);
+    add_js_and_css_files($data['term']);
     // Use drupal_set_title function as hook_menu can't work with contextual values
     drupal_set_title($variables['title']);
 
-    $variables['nodes_language'] = $language->language;
+    $variables['navigation_language'] = $language->language;
 
 }
 
-function prepare_template_content($term, $language){
+function prepare_template_content($term, $data_language, $navigation_language){
 
     // Global $language variable is used for node url updates
 
@@ -36,7 +36,7 @@ function prepare_template_content($term, $language){
 
     // Add language for proper link rendering
 
-    $variables['language'] = $language;
+    $variables['language'] = $data_language;
 
     // TABS DATA
     $variables = build_content_tabs($variables, $term, $page);
@@ -51,10 +51,10 @@ function prepare_template_content($term, $language){
     $variables = add_main_image_to_variables($variables, $term);
 
     // Subscription fields preprocessing
-    $variables = add_subscription_to_variables($variables, $term, $language);
+    $variables = add_subscription_to_variables($variables, $term);
 
     // Topics preprocessing for image and name
-    $variables = add_topics_to_variables($variables, $term, $language);
+    $variables = add_topics_to_variables($variables, $term, $data_language, $navigation_language);
 
     // Metatag building. <meta name="ef-activities" content='$string_ef_activities'>
     $variables = add_metatag_to_variables($variables, $term, $string_ef_activities);
@@ -64,10 +64,10 @@ function prepare_template_content($term, $language){
     $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
 
     // Additional variables sent to ef_topics_page.tpl.php
-    $variables['summary'] = check_markup($term->field_term_summary[$language][0]['value'], 'filtered_html');
+    $variables['summary'] = check_markup($term->field_term_summary[$data_language][0]['value'], 'filtered_html');
     $variables['description'] = check_markup($term->description, 'filtered_html');
     $variables['show_menu'] = check_current_user();
-    $variables['title'] = $term->field_term_title[$language][0]['value'];
+    $variables['title'] = $term->field_term_title[$data_language][0]['value'];
 
 
 
@@ -78,26 +78,26 @@ function prepare_template_content($term, $language){
 
     if(isset($term->field_ef_featured_block_content))
     {
-        $variables['featured_block'] = check_markup($term->field_ef_featured_block_content[$language][0]['value'], 'filtered_html');
+        $variables['featured_block'] = check_markup($term->field_ef_featured_block_content[$data_language][0]['value'], 'filtered_html');
     }
 
     if(isset($term->field_ef_related_links_block))
     {
-        $variables['related_links_block'] = check_markup($term->field_ef_related_links_block[$language][0]['value'], 'filtered_html');
+        $variables['related_links_block'] = check_markup($term->field_ef_related_links_block[$data_language][0]['value'], 'filtered_html');
     }
 
     return $variables;
 
 }
 
-function add_js_and_css_files($term, $language){
+function add_js_and_css_files($term){
 
     drupal_add_css(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.css');
 
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_page.js');
 
     $settings['tid'] = $term->tid;
-    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000, $language);
+    $settings['pages'] = retrieve_total_results_per_tab($term, $limit = 500000);
 
     drupal_add_js(array('ef_topics_page' => $settings), 'setting');
 }
