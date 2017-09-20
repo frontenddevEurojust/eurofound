@@ -152,7 +152,7 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 			if (count($publications_query))
 
 			{
-				$url = str_replace(', ','_', $build['field_ef_publ_contributors'][$i]['#markup']);
+				$url = str_replace(', ','_', strtolower($build['field_ef_publ_contributors'][$i]['#markup']));
 
 				$build['field_ef_publ_contributors'][$i]['#markup'] = "Author: <a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
 			}
