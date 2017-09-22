@@ -29,7 +29,7 @@ function ef_publications_ct_node_view_alter(&$build)
 			for( $i = 0; $i < count($build['field_ef_publ_contributors']['#items']); $i++)
 
     		{
-    			$url = 'author/' . $build['field_ef_publ_contributors'][0]['#title'];
+				$url = 'author/' . $build['field_ef_publ_contributors'][$i]['#title'];
 
 				$build['field_ef_publ_contributors'][$i]['#href'] = $url;
     		}

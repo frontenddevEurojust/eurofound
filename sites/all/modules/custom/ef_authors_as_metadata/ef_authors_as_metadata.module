@@ -136,8 +136,6 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 	if ($node->type == 'ef_report')
 
 	{
-
-
 		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++)
 
 		{
@@ -154,9 +152,8 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 			{
 				$url = str_replace(', ','_', strtolower($build['field_ef_publ_contributors'][$i]['#markup']));
 
-				$build['field_ef_publ_contributors'][$i]['#markup'] = "Author: <a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
+				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
 			}
-
 		}
 	}
 
