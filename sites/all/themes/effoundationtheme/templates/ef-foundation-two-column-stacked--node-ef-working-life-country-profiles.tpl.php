@@ -96,18 +96,31 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 
 
 <?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
-<div class="section-container vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+<div class="section-container section-livig-working vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
 <?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
+
+		<?php
+			$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
+
+			$cadena = str_replace('&nbsp;', '', $cadena);			
+			$cadena = str_replace('/\s/', '', $cadena);
+			$cadena = str_replace('&amp;', '', $cadena);
+			$cadena = str_replace('&', '', $cadena);
+			$cadena = preg_replace('/\s+/','-', $cadena);
+
+			//dpm($cadena);
+		  //dpm($cadena .'-------->'. strlen($cadena))
+	   ?>
+
 	<?php if($i == 0): ?>
-	<section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']['#items'][0]['value'])))); ?>">
+	<section class="active <?php print strtolower($cadena);?>">
 	<?php else: ?>
-	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']['#items'][0]['value'])))); ?>">
+	<section class="<?php print strtolower($cadena);?>">
 	<?php endif; ?>
 		<h2 class="title" data-section-title><?php 
-		//dpm($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs']);
 		print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
 		<div class="content" data-section-content>
-			<p class="subtitle"><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
+			<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
 			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
 		</div>
 	</section>
@@ -215,7 +228,7 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 </div>
 
 <?php if(count($content['field_ef_tabs']['#items'])): ?>
-<div class="section-container vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+<div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
 <?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
 	<?php if($i == 0): ?>
 	<section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">

@@ -13169,6 +13169,9 @@ ul.list-metadata li > ul li:first-child:before{
     height: 100%;
     opacity: 1;
 }
+.section-container.vertical-tabs > section > .title i:before {
+  font: normal normal normal 22px/1 FontAwesome;
+}
 .section-container.vertical-tabs>section>.content{
     border: none;
     width: 100%;
@@ -13209,19 +13212,11 @@ ul.list-metadata li > ul li:first-child:before{
 	display: block;
 	margin: 20px 0;
 }
-.eurostat-result ul li span{
-	font-family: 'OpenSans-Regular-webfont' !important;
-	margin-left: 5px;
+.eurostat-result li i:before{
+  font: normal normal normal 22px/1 FontAwesome;
 }
-.eurostat-result p a:after{
-	content: "\f08e";
-  display: inline-block;
-  margin-left: 6px;
-  font: normal normal normal 12px/1 FontAwesome;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+
+
 
 /** end working life country profiles **/
 

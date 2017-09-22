@@ -1298,8 +1298,9 @@ $(document).ready(function(){
 
 
         var active = window.location.href.match(/#+[a-z\-]+/g);
-        
+
         active = active[0].substr(1);
+        console.log(active);
 
         if($('section.' + active).length > 0)
         {
@@ -1312,7 +1313,7 @@ $(document).ready(function(){
 
       }
 
-      $('section > h2').click(function(){
+      $('.section-livig-working section > h2').click(function(){
 
         anchor_found = window.location.href.indexOf('#');
 
@@ -1327,6 +1328,24 @@ $(document).ready(function(){
         }
 
       });
+
+
+      $('.section-working-life-country-profile > h2').click(function(){
+
+        anchor_found = window.location.href.indexOf('#');
+
+        active = $(this).parent().attr('class');
+
+        if(anchor_found != -1) {
+          // Replace #title value for the clicked one
+          window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active) ;
+        }
+        else {
+           window.location.href =  window.location.href + '#' + active;
+        }
+
+      });
+
 
 
 
@@ -1354,9 +1373,11 @@ $(document).ready(function(){
 
 
       $('.section-container.vertical-tabs h2.title').click(function () {
+        
         $('html, body').animate({
             scrollTop: $("#content-tabs").offset().top
         }, 0);
+        
       });
 
      $(window).scroll(function () {
