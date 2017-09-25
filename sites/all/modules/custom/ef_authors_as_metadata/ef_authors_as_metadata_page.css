@@ -17,7 +17,8 @@
   width: 15%;
   margin: 0 !important;
 }
-.view-authors-as-metadata .image a{
+.view-authors-as-metadata .image a, 
+.view-authors-as-metadata .image > span{
   border-radius: 110px;
   border: 1px solid #CCC;
   overflow: hidden;
@@ -25,15 +26,14 @@
   height: 120px;
   display: block;
 }
-.view-authors-as-metadata .image a img{
+.view-authors-as-metadata .image a img, 
+.view-authors-as-metadata .image span img{
   height: auto !important;
   width: 100%!important;
 }
 .view-authors-as-metadata .view-content{
 	clear: both;
 }
-
-
 .view-authors-as-metadata ul.user-details {
 	list-style-type: none;
 }

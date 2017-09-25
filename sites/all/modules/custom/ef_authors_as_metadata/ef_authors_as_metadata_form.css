@@ -103,13 +103,15 @@
   color: #333;
   line-height: 13px;
   cursor: default;
-  font-family: opensans-regular-webfont;
+
 }
 #edit-add-new-contributor-wrapper .author-tag a:hover{
 	background: #FFF;
 	color: #222 !important;
   -webkit-transition: all 0.6s;
   transition: all 0.6s;
+	cursor: pointer;
+	text-decoration:none;
 }
 #edit-add-new-contributor-wrapper .author-tag a:after{
 	content: " ";
@@ -183,5 +185,26 @@ a.success-msg-close {
   text-align: center;
 }
 a.success-msg-close:hover {
+	color: #000;
+}
+span.error-msg {
+  display: block;
+  padding: 15px;
+  color: #FFF;
+  background: #ef5872;
+  margin: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+a.msg-error-close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+  color: #FFF;
+}
+a.msg-error-close:hover {
 	color: #000;
 }

@@ -1848,7 +1848,27 @@ div.qrr-info img {
   line-height: 1.2em;
   float: left;
  }
-
+ .field-name-field-ef-publ-contributors  .links.inline{
+  margin: 0px 0px 0px 0px;
+  padding: 0px 3px;
+  letter-spacing: 0.02em;
+  line-height: 1.2em;
+  display: inline-block;
+  float: left;
+  width: auto;
+ }
+ .field-name-field-ef-publ-contributors ul.links.inline li {
+  float: left;
+  width: auto;
+  text-align: left;
+  margin: 0;
+	}
+ .field-name-field-ef-publ-contributors ul.links.inline li:before {
+  content: ';  ';
+	}
+ .field-name-field-ef-publ-contributors ul.links.inline li:first-child:before {
+  content: '' !important;
+	}
 /*.ds-node-metadata .field-name-ds-publication-date{
 	clear: both;
 	padding-left: 0px;
