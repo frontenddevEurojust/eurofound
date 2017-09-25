@@ -294,7 +294,16 @@ list-style-type:none;
 }
 .icon-ef_surveys:before,
 .surveys h2.pane-title:before {
+  content: "\f046";
+  font: normal normal normal 14px/1 FontAwesome;
+}
+.icon-ef_data_and_resources:before{
 	content: "\e605";
+}
+.icon-ef_countries:before{
+	content: "\e612";
+ /* font-size: 27px !important;
+	vertical-align: -28% !important;*/
 }
 .icon-ef_signup:before {
 	content: "\e606";
@@ -411,7 +420,8 @@ nav .icon-ef_publications:before,
     content: "\f085";
     font-family: fontawesome;
 }
-.icon-ef_about_eurofound:before {
+.icon-ef_about_eurofound:before, 
+.icon-ef_eurofound:before {
 	content: "\e614";
 }
 .icon-arrow-up:before {
