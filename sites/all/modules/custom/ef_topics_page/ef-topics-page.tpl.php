@@ -103,7 +103,7 @@ if(!empty($variables['ef_activities'])){
                                 <?php endif; ?>
                                     <ul class="metadata-items">
                                         <li><?= t($node_data->ct_name); ?></li>
-                                        <?php if($tab_name == 'Events'): ?>
+                                        <?php if($node_data->ct_name == 'Event'): ?>
                                             <li><?= $node_data->event_start_date; ?></li>
                                         <?php else: ?>
                                             <li><?= $node_data->published_at; ?></li>

@@ -167,7 +167,7 @@ function update_node_author_values($fp, $highestRow, $sheet){
 function save_node_and_clear_cache($node){
 
 	field_attach_update('node', $node);
-	entity_get_controller('node')->resetCache(array($node));
+	entity_get_controller('node')->resetCache(array($node->nid));
 }
 
 function retrieve_node_rows($highestRow, $sheet){
@@ -229,21 +229,4 @@ function add_author_to_node($fp1, $node, $author_tid){
 	save_node_and_clear_cache($node);
 }
 
-function markel_test(){
-	$test = explode(";", trim('Bilous, Alexandre '));
-	var_dump($test);
 
-	$found = taxonomy_get_term_by_name(trim('Bilous, Alexandre '), $vocabulary = 'ef_publication_contributors');
-	var_dump($found);
-
-	if(count($found) == 0){
-		$term = new stdClass();
-		$term->vid = 12;
-		$term->name = 'Alsos, Kristin';
-		$status = taxonomy_term_save($term);
-		var_dump($status);
-	}
-
-	$a = taxonomy_get_term_by_name('Alsos, Kristin', $vocabulary = 'ef_publication_contributors');
-	//var_dump($a);
-}
