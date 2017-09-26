@@ -1335,6 +1335,7 @@ $(document).ready(function(){
         anchor_found = window.location.href.indexOf('#');
 
         active = $(this).parent().attr('class');
+        console.log(active);
 
         if(anchor_found != -1) {
           // Replace #title value for the clicked one
@@ -1372,10 +1373,10 @@ $(document).ready(function(){
       });
 
 
-      $('.section-container.vertical-tabs h2.title').click(function () {
+      $('.section-working-life-country-profile.vertical-tabs h2.title').click(function () {
         
         $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
+            scrollTop: $("#content-tabs-country-profile").offset().top
         }, 0);
         
       });

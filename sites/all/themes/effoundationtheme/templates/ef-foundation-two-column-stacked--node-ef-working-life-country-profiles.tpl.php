@@ -88,6 +88,7 @@ $institution = $content['field_ef_institution']['#items'][0]['safe_value'];
 $subtitle = $content['field_subtitle']['#items'][0]['safe_value'];
 $eurostatResult = $content['field_ef_eurostat_results']['#items'][0]['value'];
 $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
+$news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates'); 
 ?>
 
 
@@ -96,12 +97,11 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 
 
 <?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
-<div class="section-container section-livig-working vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+<div class="section-container section-livig-working vertical-tabs row" id="content-tabs-livig-working" data-section="vertical-tabs">
 <?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
 
 		<?php
 			$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
-
 			$cadena = str_replace('&nbsp;', '', $cadena);			
 			$cadena = str_replace('/\s/', '', $cadena);
 			$cadena = str_replace('&amp;', '', $cadena);
@@ -125,12 +125,15 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 		</div>
 	</section>
 <?php endfor; ?>
+	<section class="news-and-quartely-country-updates">
+		<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i> News and quarterly country updates</h2>
+		<div class="content" data-section-content>
+			<p class="subtitle">News and quarterly country updates</p>
+			<?php print $news_and_quartely_reports; ?>
+		</div>
+	</section>
 </div>
 <?php endif; ?>
-
-
-
-
 
 
 <div class="clear"></div>
@@ -228,7 +231,7 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 </div>
 
 <?php if(count($content['field_ef_tabs']['#items'])): ?>
-<div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs" data-section="vertical-tabs">
+<div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs-country-profile" data-section="vertical-tabs">
 <?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
 	<?php if($i == 0): ?>
 	<section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
