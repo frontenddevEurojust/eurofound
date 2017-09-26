@@ -31,36 +31,41 @@ var qText;
 })(jQuery);
 
 jQuery(document).ready(function(){
-  jQuery('fieldset.qrr-fieldset .qrr-info, '+
-    '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-table .qrr-info, '+
-    '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-header .qrr-info'
-    ).qtip({
-      content: {
-        text: qText,
-      },
-      position: {
-        my: 'top right',
-        at: 'bottom left',
-      }
-  });
 
+  var form_pages=window.location.pathname.split("/");
+  var pathname_form=form_pages[form_pages.length-2];
 
-  // Add event handlers
-  jQuery("form#ef-qrr-quality-rating input[type='checkbox'][id^='select_']").once().click(function() {
-      _ef_qrr_update_qr_buttons();
-  });
+  if(pathname_form != "survey-data"){
+    jQuery('fieldset.qrr-fieldset .qrr-info, '+
+      '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-table .qrr-info, '+
+      '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-header .qrr-info'
+      ).qtip({
+        content: {
+          text: qText,
+        },
+        position: {
+          my: 'top right',
+          at: 'bottom left',
+        }
+    });
 
-  jQuery("form#ef-qrr-status-actions input[type='checkbox'][id^='select_']").once().click(function() {
-      _ef_qrr_update_afp_button();
-  });
+    // Add event handlers
+    jQuery("form#ef-qrr-quality-rating input[type='checkbox'][id^='select_']").once().click(function() {
+        _ef_qrr_update_qr_buttons();
+    });
 
-  jQuery("form#ef-qrr-comments-documents input[type='checkbox'][id^='select_']").once().click(function() {
-      _ef_qrr_update_comdoc_buttons();
-  });
+    jQuery("form#ef-qrr-status-actions input[type='checkbox'][id^='select_']").once().click(function() {
+        _ef_qrr_update_afp_button();
+    });
 
-  jQuery("form#ef-qrr-view-attachments input[type='checkbox'][id^='select_']").once().click(function() {
-      _ef_qrr_update_comdoc_buttons();
-  });
+    jQuery("form#ef-qrr-comments-documents input[type='checkbox'][id^='select_']").once().click(function() {
+        _ef_qrr_update_comdoc_buttons();
+    });
+
+    jQuery("form#ef-qrr-view-attachments input[type='checkbox'][id^='select_']").once().click(function() {
+        _ef_qrr_update_comdoc_buttons();
+    });
+  }
 });
 
   function _ef_qrr_update_qr_buttons() {
