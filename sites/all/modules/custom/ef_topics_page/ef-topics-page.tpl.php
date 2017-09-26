@@ -10,7 +10,6 @@
 if(!empty($variables['ef_activities'])){
     drupal_add_html_head($variables['ef_activities'], 'ef-activities-metatag');
 }
-dpm($variables);
 ?>
 <!DOCTYPE html>
 <html>
