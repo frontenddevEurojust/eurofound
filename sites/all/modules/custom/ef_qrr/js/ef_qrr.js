@@ -35,7 +35,7 @@ jQuery(document).ready(function(){
   var form_pages=window.location.pathname.split("/");
   var pathname_form=form_pages[form_pages.length-2];
 
-  if(pathname_form != "survey-data"){
+  if(pathname_form != "data"){
     jQuery('fieldset.qrr-fieldset .qrr-info, '+
       '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-table .qrr-info, '+
       '.page-admin-content-ef-qrr form#ef-qrr-quality-rating table.sticky-header .qrr-info'
