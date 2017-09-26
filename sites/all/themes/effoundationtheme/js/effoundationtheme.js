@@ -202,7 +202,7 @@
         num_divisor=parseInt(2);
       }
       else if(pathname_form=='factsheets'
-        || pathname_form=='tackling-undeclared-work-in-europe'
+        || pathname_form=='undeclared-work-database'
         || pathname_form=='support-instrument'){
         num_divisor=parseInt(4);
       }else if(pathname_form=='osu-contract-reporting-test'
