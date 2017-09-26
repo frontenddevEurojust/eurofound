@@ -16,6 +16,9 @@ function ef_back_search_button_boot() {
 	// We define a global variable $_SESSION['back_search'] 
 	// $_SESSION['back_search'] is $referrer if $valid_url is within $referers
 	$array_valid_uri =array( 
+					// DATA and RESOURCES
+					'/data/undeclared-work-database',
+
 					// EMCC
 					'/observatories/emcc/erm/factsheets',
 					'/observatories/emcc/erm/support-instrument',
