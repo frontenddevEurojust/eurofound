@@ -1390,5 +1390,27 @@ $(document).ready(function(){
   });
 })(jQuery);
 /** END PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
+/** HOVER AFTER MAIN MENU FOR SUBMENU **/
+(function ($) {
+$(document).ready(function(){
 
+  $('#main-menu-links > li').each(function( index ) {
+    if($( '> ul',this ).attr('class') == undefined){
+       var classLinkMenu = $( '> a',this ).attr('class');
+       $( '> a',this ).addClass('noSubmenu');
+    }
+  
+});
+
+  });
+})(jQuery);
+/** END HOVER AFTER MAIN MENU FOR SUBMENU **/
+
+/** BREADCRUMBS FOR Tackling undeclared work database **/
+(function ($) {
+  $(document).ready(function(){
+    $('.page-data-tackling-undeclared-work-in-europe-database ul.breadcrumbs li.current').text('Database');
+  });
+})(jQuery);
+/** END BREADCRUMBS FOR Tackling undeclared work database **/
 
