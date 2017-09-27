@@ -226,6 +226,9 @@ html.js #node_ef_event_full_group_venue_details .fieldset-legend a:after,
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+.noSubmenu:hover::after{
+  display: none !important;
+}
 a.print-pdf:before{
     content: "\f1c1";
     font-family: fontAwesome;
