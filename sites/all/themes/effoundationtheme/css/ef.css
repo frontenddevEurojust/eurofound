@@ -1123,7 +1123,12 @@ height: 28px;
 	text-shadow: -1px -1px 0px #144072;
 	vertical-align: -15%;
 }
-
+.lang-de .ef-navigation-menus a {
+  padding: 16px 10px 16px 10px;
+}
+.lang-de .ef-navigation-menus a:before {
+	padding: 0px 10px 0px 0px;
+}
 .ef-navigation-menus ul.menu ul.menu{
   display: none;
 }
