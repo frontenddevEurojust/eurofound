@@ -398,12 +398,13 @@
             $hide_pdf = true;
           }
 */
+
           if ($node->type == 'dvs_survey') {
             $survey_print = false;
           }else if($node->type == 'data_explorer_page') {
            $hide_print  = true;
            $hide_pdf = true;
-          }else if($node->type == 'blog') {
+          }else if($node->type == 'blog' || $node->type == 'presentation') {
            $hide_print  = true;
            $hide_pdf = true;
           }
