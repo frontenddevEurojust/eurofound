@@ -17,7 +17,7 @@
 		</div>
 		<div class="jm-back-button large-3">
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
-				<a href="/data-explorer" title="Back to Data Explorer">Data Explorer</a>  
+				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>  
 			</section>
 		</div>
 	</div>
@@ -62,7 +62,7 @@
 	</div>
 	
 	<div class="jm-methodology-wrapper small-12 large-9  push-3">
-		<h2>Methodology</h2>
+		<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
 		<div class="jm-methodology">
 			<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
 		</div>

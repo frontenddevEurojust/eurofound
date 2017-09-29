@@ -23,11 +23,7 @@ function _retrieve_list_vocabularies()
 */
 function _clear_node_list_cache($array)
 {
-
-	foreach ($array as $a => $nid) {
-		entity_get_controller('node')->resetCache(array($nid));
-	}
-
+	entity_get_controller('node')->resetCache($array);
 	return;
 }
 
@@ -98,7 +94,7 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 	$index = 0;
 
 	$objPHPExcel = initialize_excel_file();
-	//Create the writer
+	// Create the writer
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
 	// Array of nodes to be passed to logger function
 	$nodes_affected = array();
@@ -115,13 +111,14 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 
 		$objPHPExcel = select_sheet($objPHPExcel, $index);
 
+		$cell_number = 2;
+
 		foreach ($content_type_field_structure[$vocabulary] as $k => $field_name)
 		{
 
 			// Check field cardinality as we need to distinguish the approach used depending whether it's multivalue or not
-			if(_retrieve_field_cardinality($field_name) != 1)
+			if (_retrieve_field_cardinality($field_name) != 1)
 			{
-
 				// Multivalue. Node's with $merge_into term get removed $tid value. If there is no $merge_into, $tid is replaced by $merge_into.
 				// Nodes to be passed for cache clearing process
 				$revision_affected_nodes = table_affected_nodes('revision', $field_name, $tid,'entity_id', TRUE);
@@ -132,7 +129,6 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 
 				// Check field_revision_field table
 				$revisions_with_merge_into = table_affected_nodes('revision', $field_name, $merge_into,'revision_id', FALSE);
-
 				delete_and_update('revision', $field_name, $merge_into, $tid, $revision_with_merge_into,'revision_id');
 
 
@@ -145,7 +141,6 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 				$nodes_altered = _affected_field_data($field_name, $tid, $merge_into);
 
 				$nodes_affected = array_merge($nodes_affected, $nodes_altered);
-
 			}
 
 			$taxonomy_index_nodes = _update_taxonomy_index($tid, $merge_into);
@@ -158,8 +153,11 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 			// Retrieve nodes data to populate the excel
 			$nodes_data = return_nodes_data($nodes_updated);
 
-			$filename = _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter);
-			$index++;
+
+			$data = _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter, $cell_number);
+
+			$cell_number = $data['cell_number'];
+			$nodes_affected = array();
 		}
 
 		// Clear taxonomic tables
@@ -168,10 +166,11 @@ function update_database_tables($vocabulary, $terms_selected, $merge_into, $cont
 		_delete_term_in_url_alias($tid);
 
 		_clear_node_list_cache($nodes_updated);
+		$index++;
 		$counter++;
 	}
 
-  return $filename;
+  return $data['filename'];
 
 }
 
