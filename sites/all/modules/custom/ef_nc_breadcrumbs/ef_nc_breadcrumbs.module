@@ -106,15 +106,19 @@ function ef_nc_breadcrumbs_page_build(&$page) {
 
         case 'blog':
 
-          $trail[1] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22214&published_at='>" . t('Blogs') . "</a>";
-
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22214&published_at='>" . t('Blogs') . "</a>";
           break;
         
         case 'presentation':
 
-          $trail[1] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22215&published_at='>" . t('Presentations') . "</a>";
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22215&published_at='>" . t('Presentations') . "</a>";
 
           break;
+
 
         case 'ef_news':
           reset($array_nodes);
