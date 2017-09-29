@@ -190,7 +190,7 @@ a.success-msg-close:hover {
 span.error-msg {
   display: block;
   padding: 15px;
-  color: #FFF;
+  color: #FFF !important;
   background: #ef5872;
   margin: 15px;
   border-radius: 4px;

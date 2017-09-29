@@ -70,6 +70,20 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			'#prefix' => '<div id="add-new-publ-contributor">',
 
 			'#suffix' => '</div>',
+
+			'#ajax' => [
+
+				'callback' => 'submit_new_contributors',
+
+				'wrapper' => 'add-new-contributor',
+
+      			'method' => 'replace',
+
+      			'effect' => 'fade',
+
+      			'keypress' => TRUE,
+
+			],
 		];
 
 		$form['add_new_contributor_wrapper']['save'] = [
@@ -89,10 +103,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
       			'method' => 'replace',
 
       			'effect' => 'fade',
-
 			],
-
-			'#submit' => ['submit_new_contributors'],
 		];
 
 		// Add the new form item to the group authors fieldset
@@ -161,8 +172,13 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 
 function submit_new_contributors($form, &$form_state){
 
-	$newAuthors = explode(';', $form_state['values']['add_new_contributor']);
-
+	$newAuthors = $form_state['values']['add_new_contributor'];
+	
+	if ($newAuthors != '')
+	{
+		$newAuthors = explode(';', $newAuthors);	
+	}
+	
 	try
 
 	{
@@ -203,66 +219,103 @@ function submit_new_contributors($form, &$form_state){
 	catch (Exception $e)
 
 	{
+		
+		if (strpos("Something needs to be introduced for saving.", $e->getMessage()) !== FALSE)
 
-		_clear_authors_as_metadata_variables($form['nid']['#value']);
+		{
+			
 
-  		$commands[] = [
+			_clear_authors_as_metadata_variables($form['nid']['#value']);
 
-			// The command will be used in our JavaScript files
-			'command' => 'Error',
+	  		$commands[] = [
 
-			// We pass the values to the function to be executed
-			'error' => $e->getMessage(),
+				// The command will be used in our JavaScript files
+				'command' => 'EmptyValue',
 
-		];
+			];
 
-		// And finally, we will return all of our commands to the system to be executed:
-		return ['#type' => 'ajax', '#commands' => $commands];
+			// And finally, we will return all of our commands to the system to be executed:
+			return ['#type' => 'ajax', '#commands' => $commands];
+		}
 
+		else
+
+		{
+
+			
+			_clear_authors_as_metadata_variables($form['nid']['#value']);
+
+	  		$commands[] = [
+
+				// The command will be used in our JavaScript files
+				'command' => 'ErrorAuthorExists',
+
+				// We pass the values to the function to be executed
+				'error' => $e->getMessage(),
+
+			];
+
+			// And finally, we will return all of our commands to the system to be executed:
+			return ['#type' => 'ajax', '#commands' => $commands];
+		}
 	}
 
 }
 
-function save_new_contributors(array $authors, $nid){
-
-	$terms = [];
-
-	foreach ($authors as $value)
+function save_new_contributors($authors, $nid){
+	
+	if ($authors != '')
 
 	{
-		// Control for some edge cases
-		if (!empty($value))
+
+		$terms = [];
+
+		foreach ($authors as $value)
 
 		{
-			// Simple validation for avoiding duplicates
-			$exists = check_term_exists($value);
-
-			if ($exists)
+			// Control for some edge cases
+			if (!empty($value))
 
 			{
-				throw new Exception($value);
+				// Simple validation for avoiding duplicates
+				$exists = check_term_exists($value);
+
+				if ($exists)
+
+				{
+					throw new Exception($value);
+				}
+
+				$term = build_basic_term($value);
+
+				$response = taxonomy_term_save($term);
+
+
+				if (!$response)
+
+				{
+					throw new Exception('Error saving a new term.');
+				}
+
+				$terms[] = $value;
+
+				$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
+
 			}
-
-			$term = build_basic_term($value);
-
-			$response = taxonomy_term_save($term);
-
-
-			if (!$response)
-
-			{
-				throw new Exception('Error saving a new term.');
-			}
-
-			$terms[] = $value;
-
-			$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
 
 		}
 
+		return $terms;
 	}
 
-	return $terms;
+	else
+
+	{
+		
+		throw new Exception('Something needs to be introduced for saving.');
+	}
+
+	
 
 }
 
@@ -410,34 +463,3 @@ function build_basic_term($value, $vid = null){
 
 }
 
-/*
-function update_publ_contributors(){
-
-
-    $tax = taxonomy_get_tree('12');
-
-    foreach ($tax as $key => $entity)
-
-    {
-
-        $term = taxonomy_term_load($entity->tid);
-
-        if(!isset($term->description))
-
-        {
-        	$term->description = '';
-        }
-
-        if(!isset($term->format))
-
-        {
-        	$term->format = 'filtered_html';
-        }
-
-        taxonomy_term_save($term);
-
-    }
-
-
-}
-*/
