@@ -226,6 +226,9 @@ html.js #node_ef_event_full_group_venue_details .fieldset-legend a:after,
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+.noSubmenu:hover::after{
+  display: none !important;
+}
 a.print-pdf:before{
     content: "\f1c1";
     font-family: fontAwesome;
@@ -1123,7 +1126,12 @@ height: 28px;
 	text-shadow: -1px -1px 0px #144072;
 	vertical-align: -15%;
 }
-
+.lang-de .ef-navigation-menus a {
+  padding: 16px 10px 16px 10px;
+}
+.lang-de .ef-navigation-menus a:before {
+	padding: 0px 10px 0px 0px;
+}
 .ef-navigation-menus ul.menu ul.menu{
   display: none;
 }
