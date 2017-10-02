@@ -223,7 +223,6 @@ function _execute_merge_terms($form,&$form_state)
 
   		// Confirm button use case. Processing starts
   		if($form_state['clicked_button']['#value'] == 'Confirm')
-
   		{
 
 	  		$_SESSION['ef_term_merge']['confirm'] = 0;
@@ -330,7 +329,6 @@ function retrieve_multiple_url_alias(array $merge){
 			$aliasList[] = $alias[0]->alias;
 		}
 	}
-
 
 	return $aliasList;
 }

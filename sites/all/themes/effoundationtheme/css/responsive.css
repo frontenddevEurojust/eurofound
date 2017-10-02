@@ -85,16 +85,6 @@
     }
 }
 @media only screen and (max-width: 1024px) {
-
-	.ef-navigation-menus a:before{
-		padding: 0 5px 0 5px;
-		font-size: 1em;
-	}
-	.ef-navigation-menus li a {
-		padding-right:10px;
-		padding-left:5px;
-		font-size: 0.95em;
-	}
 	.top-bar, .top-bar.expanded .title-area {
 		background: none repeat scroll 0 0 blue;
 		height: 57px;
@@ -439,6 +429,109 @@ font-family: 'ef-icon-font';
 	 /*END 3257 factsheet admin view */
 
 }
+
+
+ @media only screen and (min-width: 1152px) and (max-width: 1280px){
+	#search-block-form input {
+	  width: 100px;
+	}
+	.ef-navigation-menus {
+	  position: relative!important;
+	  width: 100% !important;
+	  margin: 0 !important;
+	}
+	.ef-navigation-menus li a {
+		padding: 16px 15px;
+		font-size: 1em;
+	}
+	.ef-navigation-menus a:before{
+	  padding: 0 5px 0 5px;
+	  font-size: 1em;
+	  vertical-align: -1px;
+	}
+	.lang-de .ef-navigation-menus li a{
+		padding: 16px 10px;
+		font-size: 0.95em !important;
+	}
+	.lang-de .ef-navigation-menus a:before{
+		padding: 0 4px 0 4px !important;
+		vertical-align: 0px !important;
+	}
+ }
+ @media only screen and (min-width: 801px) and (max-width: 1152px){
+	#search-block-form input {
+	  width: 100px;
+	}
+	.ef-navigation-menus {
+	  position: relative!important;
+	  width: 100% !important;
+	  margin: 0 !important;
+	}
+	.ef-navigation-menus li a {
+		padding: 16px 5px;
+		font-size: 1em;
+	}
+	.ef-navigation-menus a:before{
+	  padding: 0 4px 0 4px;
+	  font-size: 1em;
+	  vertical-align: -1px;
+	}
+
+  .lang-de .ef-navigation-menus li, 
+  .lang-fi .ef-navigation-menus li, 
+  .lang-bg .ef-navigation-menus li{
+    border-left: 0;
+    border-right: 0;
+  }
+	.lang-de .ef-navigation-menus li a, 
+	.lang-fi .ef-navigation-menus li a, 
+	.lang-bg .ef-navigation-menus li a{
+		padding: 16px 2px;
+		font-size: 0.95em !important;
+	}
+	.lang-de .ef-navigation-menus a:before, 
+	.lang-fi .ef-navigation-menus a:before, 
+	.lang-bg .ef-navigation-menus a:before{
+		padding: 0 3px 0 2px !important;
+		vertical-align: 0px !important;
+	}
+ }
+  @media only screen and (min-width: 768px) and (max-width: 800px){
+	#search-block-form input {
+	  width: 100px;
+	}
+	.ef-navigation-menus {
+	  position: relative!important;
+	  width: 100% !important;
+	  margin: 0 !important;
+	}
+  .ef-navigation-menus li {
+    border-left: 0;
+    border-right: 0;
+  }
+	.ef-navigation-menus li a {
+		padding: 16px 2px;
+		font-size: 0.95em;
+	}
+	.ef-navigation-menus a:before{
+	  padding: 0 2px 0 2px;
+	  font-size: 1em;
+	  vertical-align: -1px;
+	}
+
+	.lang-de .ef-navigation-menus li a, 
+	.lang-fi .ef-navigation-menus li a, 
+	.lang-bg .ef-navigation-menus li a{
+		padding: 16px 1px 16px 2px !important;
+		font-size: 0.9em !important;
+	}
+	.lang-de .ef-navigation-menus a:before, 
+	.lang-fi .ef-navigation-menus a:before, 
+	.lang-bg .ef-navigation-menus a:before{
+		padding: 0 1px 0 0px !important;
+		vertical-align: 0px !important;
+	}
+ }
 
 /* Landscape phones and down */
 @media (max-width: 800px) {
@@ -1914,6 +2007,41 @@ html body.admin-menu {
   html body.admin-menu {
       margin-top: 59px !important;
   }
+  /*
+   .ef-navigation-menus {
+    position: relative!important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .ef-navigation-menus li {
+    border-left: 0;
+    border-right: 0;
+  }
+  .ef-navigation-menus a:before {
+    padding: 0 2px 0 4px;
+    font-size: 0.75rem;
+    vertical-align: -1px !important;
+  }
+  .ef-navigation-menus li a {
+    padding-right:10px;
+    padding: 16px 2px;
+    font-size: 0.95em;
+  }
+
+
+  .lang-de .ef-navigation-menus li a{
+    padding: 16px 2px 16px 2px;
+    font-size: 0.85em !important;
+  }
+  .lang-de .ef-navigation-menus a:before{
+    padding: 0 4px 0 0px !important;
+    vertical-align: 0px !important;
+  }
+	.lang-de .ef-navigation-menus a:hover::after {
+		width: 50%;
+		margin: 15px auto 0px auto;
+	}
+*/
 	ul.list-years-blocks {
 	margin: 3em 0em 2em 0em;
 	}
@@ -1947,7 +2075,18 @@ html body.admin-menu {
       padding: 2px 0px 6px 41px;
   }
 }
-
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : portrait){
+  .view-ef-key-topics-home .key-topics-list{
+  	height: auto;
+    min-height:110px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape){
+  .view-ef-key-topics-home .key-topics-list{
+  	height: auto;
+    min-height:126px;
+  }
+}
 @media only screen and (max-width:768px){
 	.l-header .ef-top{
 		margin-bottom: 1em;

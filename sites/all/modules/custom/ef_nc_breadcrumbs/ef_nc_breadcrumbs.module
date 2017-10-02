@@ -23,7 +23,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
 
   // build a breadcrumb trail and set the breadcrumb
   $trail = _ef_nc_breadcrumbs_build_trail($uri);
-
+  
     if(isset($page['content']['system_main']['nodes'])){
 
       $array_nodes = $page['content']['system_main']['nodes'];
@@ -43,8 +43,19 @@ function ef_nc_breadcrumbs_page_build(&$page) {
           break;
 
         case 'ef_case_study':
-          //Remove case study name for these cases: Pecs,Egs,Restructuring in SMEs in Europe as there are no linked views.
+          // Remove case study name for these cases: Pecs,Egs,Restructuring in SMEs in Europe as there are no linked views.
           unset($trail['4']);
+
+          if ($node['field_ef_case_study_name'][0]['#href'] == 'taxonomy/term/13776'){
+            // Change breadcrumb to fit new Data explorer structure
+            unset($trail['1']);
+            unset($trail['2']);
+            unset($trail['3']);
+            $trail['1'] = '<a href="/data">Data and Resources</a>';
+            $trail['2'] = '<a href="/data/tackling-undeclared-work-in-europe">Tackling undeclared work in Europe</a>';
+            $trail['3'] = '<a href="/data/tackling-undeclared-work-in-europe/database">Database</a>';
+          }
+
 
           break;
 

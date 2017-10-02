@@ -103,13 +103,15 @@
   color: #333;
   line-height: 13px;
   cursor: default;
-  font-family: opensans-regular-webfont;
+
 }
 #edit-add-new-contributor-wrapper .author-tag a:hover{
 	background: #FFF;
 	color: #222 !important;
   -webkit-transition: all 0.6s;
   transition: all 0.6s;
+	cursor: pointer;
+	text-decoration:none;
 }
 #edit-add-new-contributor-wrapper .author-tag a:after{
 	content: " ";
@@ -134,4 +136,75 @@
 
 .ajax-process{
 	display: block !important;
+}
+
+/** styles for admin profile **/
+.logged-in #edit-add-new-contributor-wrapper input{
+	margin-bottom: 0;
+	border: 1px dotted #A0A0A0;
+	border-radius: 4px;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+	padding: 0.75em;
+	height: auto;
+}
+.logged-in .field-name-field-ef-publ-contributors {
+  width: 47%;
+  float: left;
+  padding: 20px 15px;
+  background: rgba(0, 91, 170, 0.36) url(userList.png) no-repeat 97% 85%;
+  min-height: 17rem;
+}
+.logged-in #edit-add-new-contributor-wrapper {
+  width: 47%;
+  float: left;
+  padding: 20px 15px;
+  background: rgba(247, 147, 30, 0.34) url(addUser.png) no-repeat 97% 85%;
+  min-height: 17rem;
+  margin-left: 1%;
+}
+#edit-add-new-contributor-wrapper input{
+  display: block;	
+}
+
+span.success-msg {
+  display: block;
+  padding: 15px;
+  background: #C6F0C1;
+  margin: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+a.success-msg-close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+}
+a.success-msg-close:hover {
+	color: #000;
+}
+span.error-msg {
+  display: block;
+  padding: 15px;
+  color: #FFF;
+  background: #ef5872;
+  margin: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+a.msg-error-close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+  color: #FFF;
+}
+a.msg-error-close:hover {
+	color: #000;
 }

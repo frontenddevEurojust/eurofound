@@ -45,8 +45,9 @@ function select_sheet($objPHPExcel, $index)
 *			$term_to: complete taxonomy term entity to merge into
 *			$objWriter: PHP Excel writer object. Needed to save the excel file
 */
-function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter)
+function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter, $cell_number)
 {
+
 	$objSheet = $objPHPExcel->getActiveSheet();
 	//Set tab title
 
@@ -55,16 +56,16 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 	//Let's bold and size the header
 	$objSheet->getStyle('A1:BZ1')->getFont()->setBold(true);
 
-	$objPHPExcel->getActiveSheet()->setCellValue('A1', "List of nodes updated for " . $field_name ."(" . count($nodes_data) . ")");
-
-	//DZA Test Target 1 (tid: 22212, taxonomy: ef_topics) -> DZA Test Topic 5 (tid: 22216, taxonomy: ef_topics)
 	$topic_string = build_topics_string($question, $counter);
-	$objPHPExcel->getActiveSheet()->setCellValue('A2', $topic_string);
+	//DZA Test Target 1 (tid: 22212, taxonomy: ef_topics) -> DZA Test Topic 5 (tid: 22216, taxonomy: ef_topics)
+	$objPHPExcel->getActiveSheet()->setCellValue('A1', $topic_string);
 
+	$objPHPExcel->getActiveSheet()->setCellValue('A' . (string) $cell_number, "List of nodes updated for " . $field_name ."(" . count($nodes_data) . ")");
+	$cell_number++;
 	//And there goes all the content row by row
 	$from_cell = 'A';
-	$begin_row = 3;
 
+	$row = [];
 	if(count($nodes_data))
 	{
 
@@ -73,23 +74,24 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 			//Add all fields
 			foreach ($object as $key => $field)
 			{
-
 				$row[] = $field;
 			}
 
-			$cell = $from_cell . (string) $begin_row;
+			$cell = $from_cell . (string) $cell_number;
 			$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
 			unset($row);
-			$begin_row++;
-		}
 
+			$data['cell_number'] = $cell_number + 1;
+		}
 	}
 	else
 	{
 
-		$row[] = "No nodes affected for this term";
-		$cell = $from_cell . (string) $begin_row;
+		$row[] = "No nodes affected";
+		$cell = $from_cell . (string) $cell_number;
 		$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
+
+		$data['cell_number'] = $cell_number + 1;
 
 	}
 
@@ -110,8 +112,9 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 		$objWriter->save($path);
 	}
 
+	$data['filename'] = $filename;
 
-	return $filename;
+	return $data;
 }
 
 function build_topics_string($question, $counter){
