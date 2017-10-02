@@ -16,6 +16,10 @@ function ef_nc_breadcrumbs_page_build(&$page) {
   $path = current_path();
   $uri = drupal_get_path_alias($path);
 
+  $term_array_blog = taxonomy_get_term_by_name('Blog');
+  $term_blog = reset($term_array_blog); # get the first element of the array which is our term object
+  $term_array_presentation = taxonomy_get_term_by_name('Presentation');
+  $term_presentation = reset($term_array_presentation); # get the first element of the array which is our term object
 
   // build a breadcrumb trail and set the breadcrumb
   $trail = _ef_nc_breadcrumbs_build_trail($uri);
@@ -108,14 +112,14 @@ function ef_nc_breadcrumbs_page_build(&$page) {
 
           unset($trail[1]);
           $trail[2] = '<a href="/publications/">Publications</a>';
-          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22214&published_at='>" . t('Blogs') . "</a>";
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_blog->tid&published_at='>" . t('Blogs') . "</a>";
           break;
         
         case 'presentation':
 
           unset($trail[1]);
           $trail[2] = '<a href="/publications/">Publications</a>';
-          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=22215&published_at='>" . t('Presentations') . "</a>";
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_presentation->tid&published_at='>" . t('Presentations') . "</a>";
 
           break;
 

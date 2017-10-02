@@ -43,7 +43,6 @@ $email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
-
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 

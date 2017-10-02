@@ -178,12 +178,12 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract > p:nth-
 .block-easy-social-easy-social-block-2 .fa-facebook{
 	color: #FFF!important;
     background: #F99E35;
-    border-radius: 25px;
+    border-radius: 17px;
     width: 35px;
     height: 35px;
     margin-top: 0px;
     padding-left: 11px;
-    padding-top: 7px;
+    padding-top: 8px;
     font-size: 21px;
     margin-right: 75px;
 }
@@ -205,12 +205,12 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract > p:nth-
 .block-easy-social-easy-social-block-2 .fa-twitter{
 	color: #FFF!important;
     background: #F99E35;
-    border-radius: 25px;
+    border-radius: 17px;
     width: 35px;
     height: 35px;
     margin-top: 0px;
     padding-left: 9px;
-    padding-top: 7px;
+    padding-top: 8px;
     font-size: 21px;
     margin-right: 50px;
 }
@@ -232,12 +232,12 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract > p:nth-
 .block-easy-social-easy-social-block-2 .fa-linkedin{
 	color: #FFF!important;
     background: #F99E35;
-    border-radius: 25px;
+    border-radius: 17px;
     width: 35px;
     height: 35px;
     margin-top: 0px;
     padding-left: 10px;
-    padding-top: 6px;
+    padding-top: 7px;
     font-size: 21px;
     margin-right: 25px;
 }
@@ -259,13 +259,13 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract > p:nth-
 .block-easy-social-email{
     color: #FFF!important;
     background: #F99E35;
-    border-radius: 25px;
-    width: 35px;
+    border-radius: 17px;
+    width: 36px;
     height: 35px;
     margin-top: 0px;
-    padding-left: 7px;
-    padding-top: 6.6px;
-    font-size: 23px!important;
+    padding-left: 8px;
+    padding-top: 7px;
+    font-size: 21px!important;
 }
 
 .block-easy-social-email:hover{
