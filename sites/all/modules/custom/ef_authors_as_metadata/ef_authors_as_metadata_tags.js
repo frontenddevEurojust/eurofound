@@ -5,29 +5,29 @@
     {
 
         var newAuthors = response.newAuthors;
-        
+
         var nid = response.nid;
 
-        
+
         if (newAuthors.length > 0)
 
         {
             newAuthors.forEach(function(currentValue){
 
                 var element = '<span id="' + nid + '-' + currentValue + '" class="author-tag"><a href="javascript:" onclick="removeTag(this,' + nid + ')">' + currentValue + '</a></span>';
-                
+
                 $('#add-new-publ-contributor').after(element);
 
-                $('.form-item-add-new-contributor input').after('<span class="success-msg">The author ' + currentValue + ' has been saved in the Publication Contributor taxonomy successfully.<a href="javascript:" class="success-msg-close"><i class="fa fa-times" aria-hidden="true"></i></a></span>');
-            
+                $('.form-item-add-new-contributor input').after('<span class="success-msg">The author ' + currentValue + ' has been saved in both the taxonomy Authors and the current node successfully.<a href="javascript:" class="success-msg-close"><i class="fa fa-times" aria-hidden="true"></i></a></span>');
+
             });
-        
+
         }
 
         $('.success-msg-close').click(function(){
 
             $(this).parent().remove();
-        
+
         });
 
 
@@ -39,11 +39,15 @@
 
         var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description span').attr('title');
 
+        if(textNewAuthor == undefined){
+            var textNewAuthor = jQuery('#edit-add-new-contributor-wrapper .description').text();
+        }
 
-        jQuery('#edit-add-new-contributor-wrapper .description').remove();
+
+        jQuery('#edit-add-new-contributor-wrapper .description').css('display','none');
 
         jQuery('.form-item-add-new-contributor label').after('<p>' + textNewAuthor + '</p>');
-        
+
 
     };
 

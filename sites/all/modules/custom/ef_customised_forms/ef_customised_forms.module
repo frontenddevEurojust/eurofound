@@ -32,6 +32,32 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 	  unset($form['actions']['delete']);
 	}
   }
+	/*
+	** Issue: WGS-118.
+	*/
+	if ($form['#id'] == 'views-exposed-form-ef-news-page'){
+		$options = $form['field_ef_topic_tid_selective']['#options'];
+		foreach ($options as $key => $value) {
+			if (strpos($value, "Empty") !== false){
+				unset($options[$key]);
+			}
+		}
+		natcasesort($options);
+		$form['field_ef_topic_tid_selective']['#options'] = $options;
+	}
+	/*
+	** Issue: WGS-118.
+	*/
+	if ($form['#id'] == 'views-exposed-form-ef-events-list-events-page-view'){
+		$options = $form['field_ef_topic_tid_selective']['#options'];
+		foreach ($options as $key => $value) {
+			if (strpos($value, "Empty") !== false){
+				unset($options[$key]);
+			}
+		}
+		natcasesort($options);
+		$form['field_ef_topic_tid_selective']['#options'] = $options;
+	}
   /*
 	** Issue: #3703. Webform download form.
 	*/
@@ -380,7 +406,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 }
 
 function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id){
-  
+
   	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
 	$form['field_ef_theme']['#access'] = FALSE;
 
