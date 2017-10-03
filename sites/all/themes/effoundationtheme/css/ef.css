@@ -1860,7 +1860,7 @@ div.qrr-info img {
  }
 .ds-node-metadata .links.inline{
   margin: 0px 0px 0px 0px;
-  padding: 0px 3px;
+  padding: 0px 0px 0px 3px;
   letter-spacing: 0.02em;
   display: inline-block;
   line-height: 1.2em;
