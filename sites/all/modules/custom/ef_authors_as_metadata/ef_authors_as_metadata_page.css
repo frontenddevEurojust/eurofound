@@ -52,9 +52,13 @@
 }
 
 .view-authors-as-metadata .authors-as-metadata{
-	overflow: auto;
-	width: 46%;
-	margin-left: 4%;
+  overflow: auto;
+  width: 48%;
+  margin-left: 4%;
+  margin-bottom: 2rem;
+}
+.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata p em{
+	font-style: normal !important;
 }
 .view-authors-as-metadata .authors-as-metadata:nth-child(odd){
  margin-left: 0%;
