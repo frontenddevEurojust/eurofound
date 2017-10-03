@@ -117,8 +117,9 @@
       });
 
       $("a[href='#up']").click(function () {
+        console.log($(this));
         $('html, body').animate({
-            scrollTop: $("#logo").offset().top
+            scrollTop: $(".page").offset().top
         }, 800);
       });
     }
