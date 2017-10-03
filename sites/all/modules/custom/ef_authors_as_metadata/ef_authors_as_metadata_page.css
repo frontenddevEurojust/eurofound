@@ -118,3 +118,28 @@ p.image-content {
 .view-authors-as-metadata h1{
 	border-bottom: none !important;
 }
+
+@media only screen and (max-width : 768px)  { 
+
+	.view-authors-as-metadata .authors-as-metadata {
+	  width: 100%;
+	  display: block;
+	  float: none;
+	  vertical-align: top;
+	  margin-left: 0;
+	  margin-bottom: 2rem;
+	  min-height: auto;
+	}
+	.page-author .ef-filters .views-submit-button, 
+	.page-author .ef-filters .views-reset-button {
+	  border: none;
+	  padding: 0px 7%;
+	  float: none;
+	  width: 100%;
+	  text-align: center;
+	}
+	.view-authors-as-metadata h1.user-name {
+	  width: 100%;
+	  text-align: center;
+	}
+}
