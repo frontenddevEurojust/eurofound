@@ -119,7 +119,14 @@ p.image-content {
 	border-bottom: none !important;
 }
 
-@media only screen and (max-width : 768px)  { 
+
+@media only screen and (min-width : 901px) and (max-width : 1024px)  { 
+	.view-authors-as-metadata .authors-as-metadata {
+	  min-height: 400px;
+	}
+}
+
+@media only screen and (max-width : 900px)  { 
 
 	.view-authors-as-metadata .authors-as-metadata {
 	  width: 100%;
