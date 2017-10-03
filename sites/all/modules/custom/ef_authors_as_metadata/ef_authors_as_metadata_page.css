@@ -3,13 +3,12 @@
 }
 .view-header {
     background: #f9f9f9;
-		padding: 1rem;
-		margin: 0 0 2rem 0;
+	padding: 1rem 1rem 0 1rem;
+	margin: 0 0 2rem 0;
     overflow: auto;
     border-bottom: 3px solid #DDDDDD;
 }
 .view-authors-as-metadata h1.user-name{
-  float: right;
   width: 85%;
 }
 .view-authors-as-metadata .image{
@@ -86,6 +85,9 @@
 .view-authors-as-metadata .authors-as-metadata .item-list li:after{
 	content: ', ';
 }
+.view-authors-as-metadata .authors-as-metadata .item-list li:last-child:after{
+	content: '';
+}
 .data-and-read span{
 	display: inline-block;
 	width: 50%;
@@ -112,4 +114,7 @@ p.image-content {
 }
 .view-authors-as-metadata .view-footer-wrapper{
 	clear: both;
+}
+.view-authors-as-metadata h1{
+	border-bottom: none !important;
 }
