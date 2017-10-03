@@ -1,53 +1,79 @@
-    //alert('aaaaaaa');
-/** working live country profiles  **/
+/** working life country profiles  **/
+(function ($) {
+  $(document).ready(function(){
 
-  jQuery(document).ready(function(){
-    console.log('aaaaaaa');
     //if(window.location.href.indexOf('country') > -1){
-    if(jQuery('body.node-type-ef-working-life-country-profiles')){
+    if($('body.node-type-ef-working-life-country-profiles')){
 
       var anchor_found = window.location.href.indexOf('#');
+      var urlLength = window.location.href.length;
+      var anchorUp = window.location.href.slice(anchor_found+1, urlLength);
 
-      if(anchor_found != -1){
+      $('.section-container section').each(function( index ) {
+        var currentClass = unescape(escape($(this).attr('class')).replace('%A0',''));
+        $(this).attr('class',currentClass);
+      });
 
-        jQuery('html, body').animate({
-            scrollTop: jQuery("#content-tabs").offset().top
-        }, 800);
-
+      if(anchor_found != -1 && anchorUp != 'up'){
 
         var active = window.location.href.match(/#+[a-z\-]+/g);
+
         active = active[0].substr(1);
 
-        if(jQuery('section.' + active).length > 0)
-        {
-          jQuery('section.active').removeClass('active');
+        $('.section-container').each(function( index ) {
 
-          jQuery('section.' + active).addClass('active');
-        }
+          var currentSection = $('section',this);
 
 
+          $('section',this).each(function( i ) {    
 
+            if(active == $(this).attr('class')){     
+
+              if($(this).hasClass( active )){
+                 //console.log(active.length +'-------------->'+ $(this).attr('class').length +'-------------->' + $(this).attr('class'));
+                  currentSection.removeClass('active');
+                  $(this).addClass('active');
+
+                  $('html, body').animate({
+                      scrollTop: $(this).offset().top
+                  }, 800);  
+
+              }
+            }
+
+          });  
+        });
       }
 
-      jQuery('section > h2').click(function(){
 
-        anchor_found = window.location.href.indexOf('#');
-
-        active = jQuery(this).parent().attr('class');
-
-        if(anchor_found != -1) {
-          // Replace #title value for the clicked one
-          window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active) ;
+      $('.section-living-working section > h2').each(function( index ) {
+        if($('p',this).html() != null){
+          tabs_living = $('p',this).html();
+          $('p',this).remove();
+          $(this).html(tabs_living);        
         }
-        else {
-           window.location.href =  window.location.href + '#' + active;
-        }
+      });
 
+       $('.section-container').each(function( index ) {
+        $('section',this).each(function( i ) {
+          $('> h2', this).click(function(){          
+            anchor_found = window.location.href.indexOf('#');
+            active = $(this).parent().attr('class');
+
+            if(anchor_found != -1){
+              // Replace #title value for the clicked one
+              window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active).replace('active','');
+            }else{
+               window.location.href =  window.location.href + '#' + active.replace('active','');
+            }
+          });
+        });
       });
 
 
 
-      jQuery(window).on("load resize", function(event) {
+
+      $(window).on("load resize", function(event) {
         var screenWidth;
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
          screenWidth = 990;
@@ -55,45 +81,47 @@
           screenWidth = 973;
         }
         // mobile resolutions
-        if( jQuery(window).width()<=screenWidth){
-          jQuery('.section-container.vertical-tabs h2.title').click(function () {
+        if( $(window).width()<=screenWidth){
 
-            if(jQuery(this).parent().attr('class') != undefined && jQuery(this).parent().attr('class').length > 0){
-              if(jQuery(this).parent().hasClass('active2') == false ){
-                jQuery(this).parent().addClass('active2');
-              }else{
-                jQuery(this).parent().removeClass('active2');
-              }
-            }
-          });
+
+              $('.section-container section > h2').click(function(){   
+                console.log($(this).parent().attr('class'));
+  
+
+              });
+
+
+
         }
       });
 
 
-      jQuery('.section-container.vertical-tabs h2.title').click(function () {
-        jQuery('html, body').animate({
-            scrollTop: jQuery("#content-tabs").offset().top
+      $('.section-working-life-country-profile.vertical-tabs h2.title').click(function () {
+        
+        $('html, body').animate({
+            scrollTop: $("#content-tabs-country-profile").offset().top
         }, 0);
+        
       });
 
-     jQuery(window).scroll(function () {
-        if (jQuery(this).scrollTop() >1300) {
-           jQuery(".go-top-wrapper").css('display','block');
-           jQuery(".go-top-wrapper").fadeIn();
-           jQuery(".ef-to-top-nav").css('display','none');
+      $(window).scroll(function () {
+        if ($(this).scrollTop() >1300) {
+           $(".go-top-wrapper").css('display','block');
+           $(".go-top-wrapper").fadeIn();
+           $(".ef-to-top-nav").css('display','none');
         } else {
-            jQuery(".go-top-wrapper").fadeOut();
-            jQuery(".go-top-wrapper").css('display','none');
-            jQuery(".ef-to-top-nav").css('display','block');
+            $(".go-top-wrapper").fadeOut();
+            $(".go-top-wrapper").css('display','none');
+            $(".ef-to-top-nav").css('display','block');
         }
       });
 
-      jQuery("a[href='#content-tabs']").click(function () {
-        jQuery('html, body').animate({
-            scrollTop: jQuery("#content-tabs").offset().top
+      $("a[href='#up']").click(function () {
+        $('html, body').animate({
+            scrollTop: $("#logo").offset().top
         }, 800);
       });
     }
   });
-
-/** END working live country profiles  **/
+})(jQuery);
+/** END working life country profiles  **/

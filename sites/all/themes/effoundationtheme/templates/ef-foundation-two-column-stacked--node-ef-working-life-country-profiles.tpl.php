@@ -76,69 +76,99 @@
  */
 global $user;
 
-
-//drupal_add_css('sites/all/themes/effoundationtheme/css/working-life-country-profile.css');
-//drupal_add_js('sites/all/themes/effoundationtheme/js/working-life-country-profile.js');
+drupal_add_css('sites/all/themes/effoundationtheme/css/working-life-country-profile.css', array ('weight' => 200,'group' => CSS_THEME));
+drupal_add_js('sites/all/themes/effoundationtheme/js/working-life-country-profile.js');
 
 $logged = in_array('authenticated user', $user->roles);
 
 $country = $content['field_ef_country']['#items'][0]['safe_value'];
 $author = $content['field_ef_author']['#items'][0]['safe_value'];
 $institution = $content['field_ef_institution']['#items'][0]['safe_value'];
+$labelpublishedon = $content['field_ef_cp_update_day']['#title'];
+$publishedon = $content['field_ef_cp_update_day'][0]['#markup'];
+
+
 $subtitle = $content['field_subtitle']['#items'][0]['safe_value'];
 $eurostatResult = $content['field_ef_eurostat_results']['#items'][0]['value'];
 $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
-$news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates'); 
+$mainImagen = $content['field_ef_country_main_img'];
+$news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']); 
+
 ?>
 
+<div class="print-wrapper no-pdf"><?php print print_insert_link();?></div>
+<p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
 
-<div class="eurostat-result"><?php print $eurostatResult ?></div>
-<div class="summary-living-working"><?php print $summary ?></div>
+<?php if(isset($mainImagen)): ?>
+<div class="summary-living-working small-12 large-9 columns no-pdf">
+<?php else: ?>
+<div class="summary-living-working small-12 large-12 columns no-pdf">
+<?php endif; ?>
 
+	<?php if(isset($eurostatResult)): ?>
+	<div class="eurostat-result small-12 large-4 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
+	<?php endif; ?>
+
+	<?php if(isset($summary)): ?>
+		<?php print $summary ?>
+	<?php endif; ?>
+</div>
+
+<?php if(isset($mainImagen)): ?>
+	<div class="eurostat-img small-12 large-3 columns no-pdf"><?php print render($mainImagen); ?></div>
+<?php endif; ?>
+
+<div class="clear"></div>
 
 <?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
-<div class="section-container section-livig-working vertical-tabs row" id="content-tabs-livig-working" data-section="vertical-tabs">
-<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
-
+<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
+	<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
 		<?php
 			$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
-			$cadena = str_replace('&nbsp;', '', $cadena);			
+
+			$cadena = str_replace('&nbsp;', '', $cadena);		
 			$cadena = str_replace('/\s/', '', $cadena);
 			$cadena = str_replace('&amp;', '', $cadena);
 			$cadena = str_replace('&', '', $cadena);
 			$cadena = preg_replace('/\s+/','-', $cadena);
-
-			//dpm($cadena);
-		  //dpm($cadena .'-------->'. strlen($cadena))
+			$cadena = str_replace(' ', '', $cadena);		
 	   ?>
 
-	<?php if($i == 0): ?>
-	<section class="active <?php print strtolower($cadena);?>">
-	<?php else: ?>
-	<section class="<?php print strtolower($cadena);?>">
-	<?php endif; ?>
-		<h2 class="title" data-section-title><?php 
-		print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+		<?php if($i == 0): ?>
+		<section class="<?php print strtolower($cadena);?> active">
+		<?php else: ?>
+		<section class="<?php print strtolower($cadena);?>">
+		<?php endif; ?>
+
+		<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
 		<div class="content" data-section-content>
 			<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
 			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+
 		</div>
 	</section>
-<?php endfor; ?>
+	<?php endfor; ?>
+<?php endif; ?>
+
+	<?php if(isset($news_and_quartely_updates)): ?>
 	<section class="news-and-quartely-country-updates">
 		<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i> News and quarterly country updates</h2>
 		<div class="content" data-section-content>
 			<p class="subtitle">News and quarterly country updates</p>
-			<?php print $news_and_quartely_reports; ?>
+			<?php print $news_and_quartely_updates; ?>
 		</div>
 	</section>
+	<?php endif; ?>
 </div>
-<?php endif; ?>
+
 
 
 <div class="clear"></div>
 
-<h1><?php print $subtitle ?></h1>
+<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
+<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
+
+<!--
 <ul class="list-metadata clearfix">
 <?php if(isset($content['field_ef_observatory'][0]['#title'])): ?>
 	<li>Observatory:
@@ -182,6 +212,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 	</li>
 <?php endif; ?>
 
+
 <?php if(count($content['field_ef_topic']['#items'])): ?>
 	<li>Topics:
 		<ul>
@@ -191,9 +222,10 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 		</ul>
 	</li>
 <?php endif; ?>
-
-
 </ul>
+-->
+
+
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
@@ -209,6 +241,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 	    </li>
     	<?php endif; ?>
 
+
     	<?php if(isset($author)): ?>
     	<li>
         	<span class='small-3 columns'>Author: </span>
@@ -216,12 +249,22 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
         </li>
     	<?php endif; ?>
 
+
     	<?php if(isset($institution)): ?>
     	<li>
         	<span class='small-3 columns'>Institution: </span>
 	        <span class='small-9 columns'><?php print $institution; ?></span>
         </li>
     	<?php endif; ?>
+
+
+    	<?php if(isset($publishedon)): ?>
+    	<li>
+        	<span class='small-3 columns'><?php print $labelpublishedon; ?>: </span>
+	        <span class='small-9 columns'><?php print $publishedon; ?></span>
+        </li>
+    	<?php endif; ?>
+
       </ul>
 	</div>
 	<div class="summary">
@@ -253,7 +296,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 <?php endif; ?>
 
 <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
-<div class="ds-node-comments">
+<div class="ds-node-comments no-pdf">
 	<div class="ef-comment-toggler toggler">
 	    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
 	    <span class="hide-text">Hide comments</span>
@@ -271,8 +314,8 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 </div>
 <?php endif; ?>
 
-<div class="go-top-wrapper">
-  <a class="go-top fa-stack fa-2x" href="#content-tabs">
+<div class="go-top-wrapper no-pdf">
+  <a class="go-top fa-stack fa-2x" href="#up">
     <i class="fa fa-circle fa-stack-2x"></i>
     <i class="fa fa-angle-up fa-stack-1x fa-inverse"></i>
   </a>

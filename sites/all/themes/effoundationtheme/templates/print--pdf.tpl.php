@@ -27,6 +27,9 @@
   width: 100% !important;
   float: none !important;
 }*/
+.no-pdf, .node-type-ef-working-life-country-profiles h1:first-child{
+  display: none !important;
+}
 #logo{
   display:block;
   width:3.5cm ;
