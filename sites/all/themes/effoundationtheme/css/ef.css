@@ -226,6 +226,9 @@ html.js #node_ef_event_full_group_venue_details .fieldset-legend a:after,
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+.noSubmenu:hover::after{
+  display: none !important;
+}
 a.print-pdf:before{
     content: "\f1c1";
     font-family: fontAwesome;
@@ -294,10 +297,19 @@ list-style-type:none;
 }
 .icon-ef_surveys:before,
 .surveys h2.pane-title:before {
+  content: "\f046";
+  font: normal normal normal 14px/1 FontAwesome;
+}
+.icon-ef_data_and_resources:before{
 	content: "\e605";
 }
 .icon-ef_data_explorer:before {
 	content: "\e605";
+}
+.icon-ef_countries:before{
+	content: "\e612";
+ /* font-size: 27px !important;
+	vertical-align: -28% !important;*/
 }
 .icon-ef_signup:before {
 	content: "\e606";
@@ -414,7 +426,8 @@ nav .icon-ef_publications:before,
     content: "\f085";
     font-family: fontawesome;
 }
-.icon-ef_about_eurofound:before {
+.icon-ef_about_eurofound:before, 
+.icon-ef_eurofound:before {
 	content: "\e614";
 }
 .icon-arrow-up:before {
@@ -1113,7 +1126,12 @@ height: 28px;
 	text-shadow: -1px -1px 0px #144072;
 	vertical-align: -15%;
 }
-
+.lang-de .ef-navigation-menus a {
+  padding: 16px 10px 16px 10px;
+}
+.lang-de .ef-navigation-menus a:before {
+	padding: 0px 10px 0px 0px;
+}
 .ef-navigation-menus ul.menu ul.menu{
   display: none;
 }
@@ -1848,7 +1866,27 @@ div.qrr-info img {
   line-height: 1.2em;
   float: left;
  }
-
+ .field-name-field-ef-publ-contributors  .links.inline{
+  margin: 0px 0px 0px 0px;
+  padding: 0px 3px;
+  letter-spacing: 0.02em;
+  line-height: 1.2em;
+  display: inline-block;
+  float: left;
+  width: auto;
+ }
+ .field-name-field-ef-publ-contributors ul.links.inline li {
+  float: left;
+  width: auto;
+  text-align: left;
+  margin: 0;
+	}
+ .field-name-field-ef-publ-contributors ul.links.inline li:before {
+  content: ';  ';
+	}
+ .field-name-field-ef-publ-contributors ul.links.inline li:first-child:before {
+  content: '' !important;
+	}
 /*.ds-node-metadata .field-name-ds-publication-date{
 	clear: both;
 	padding-left: 0px;
@@ -1875,7 +1913,7 @@ div.qrr-info img {
 	margin: 0px 0px 0px 0px;
 	/*text-transform: uppercase;
 	font-size: 0.8em;*/
-	padding: 0px 3px;
+	padding: 0px 0px 0px 3px;
 	letter-spacing: 0.02em;
 	display: inline-block;
 	line-height: 1.2em;
@@ -12883,20 +12921,20 @@ p.view-empty.error-msg:before{
     font-size: 1.4em;
     padding: 0px 1px;
     position: absolute;
-    z-index: 11;
+    z-index: 10;
     background: #F7931E;
     border-radius: 10px;
     right: 5px;
     top: 5px;
 }
-.pane-ef-key-topics-home .key-topics-list p a:nth-child(1) img,
-.view-ef-key-topics-home .key-topics-list p a:nth-child(1) img{
+.pane-ef-key-topics-home .key-topics-list p > img,
+.view-ef-key-topics-home .key-topics-list p > img{
   position: absolute;
   z-index: 9;
   border:0;
    outline-width: 0px;
 }
-.view-ef-key-topics-home .key-topics-list p a:nth-child(1) img{
+.view-ef-key-topics-home .key-topics-list p > img{
   position: absolute;
   z-index: 9;
   width: 100%;
@@ -12932,8 +12970,8 @@ p.view-empty.error-msg:before{
   height: 100%;
   display: block;
   width: 100%;
-  -webkit-transition: all 1s;
-  transition: all 1s;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
   display: block;
   background: rgba(0,91,170, 0.5);
 }

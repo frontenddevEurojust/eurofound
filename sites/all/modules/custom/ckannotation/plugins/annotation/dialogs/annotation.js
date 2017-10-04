@@ -11,8 +11,8 @@ function ckaCurDate() {
   hours = (hours < 10 ? '0' + hours : hours );
   minutes = date.getMinutes();
   minutes = (minutes < 10 ? '0' + minutes : minutes );
-
-  return date.getDate() +'/'+ date.getMonth() +'/'+ date.getFullYear() +' '+ hours + ':' + minutes;
+  var month = new Array("Jan","Feb","Mar","Apr","May","Jun.","Jul.","Aug.","Sep","Oct","Nov","Dec");
+  return date.getDate() +'/'+ month[date.getMonth()] +'/'+ date.getFullYear() +' '+ hours + ':' + minutes;
 }
 
 CKEDITOR.dialog.add( 'annotationDialog', function ( editor ) {

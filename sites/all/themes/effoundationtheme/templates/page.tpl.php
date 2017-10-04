@@ -422,16 +422,6 @@
             <?php print print_insert_link();?>
           <?php endif; ?>
         <?php endif; ?>
-        <?php if (!drupal_is_front_page() &&  $hide_print  == false ): ?>
-          <?php if (!strpos($aux,'print-page')): ?>
-            <?php print print_insert_link();?>
-          <?php endif; ?>
-        <?php endif; ?>
-        <?php if (!drupal_is_front_page() &&  $hide_pdf == false ): ?>
-          <?php if (!strpos($aux,'print-page')): ?>
-            <?php print print_insert_link();?>
-          <?php endif; ?>
-        <?php endif; ?>
         <?php print $aux; ?>
       <!-- END Issue 3199 -->
 
