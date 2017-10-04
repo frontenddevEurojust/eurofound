@@ -12,6 +12,7 @@
       $('.section-container section').each(function( index ) {
         var currentClass = unescape(escape($(this).attr('class')).replace('%A0',''));
         $(this).attr('class',currentClass);
+        $('.content',this).addClass('inactive');
       });
 
       if(anchor_found != -1 && anchorUp != 'up'){
@@ -31,8 +32,11 @@
 
               if($(this).hasClass( active )){
                  //console.log(active.length +'-------------->'+ $(this).attr('class').length +'-------------->' + $(this).attr('class'));
+                 console.log($(this));
                   currentSection.removeClass('active');
                   $(this).addClass('active');
+                  $('div.content',this).removeClass('inactive');
+
 
                   $('html, body').animate({
                       scrollTop: $(this).offset().top
@@ -82,12 +86,11 @@
         }
         // mobile resolutions
         if( $(window).width()<=screenWidth){
+              
 
-
-              $('.section-container section > h2').click(function(){   
-                console.log($(this).parent().attr('class'));
-  
-
+              $('.section-container section > h2').once().click(function(){
+                var sectionActive = $(this).parent();
+                sectionActive.find(".content").toggleClass('inactive');
               });
 
 

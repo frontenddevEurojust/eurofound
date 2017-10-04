@@ -144,7 +144,6 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 		<div class="content" data-section-content>
 			<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
 			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-
 		</div>
 	</section>
 	<?php endfor; ?>
@@ -277,7 +276,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 <div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs-country-profile" data-section="vertical-tabs">
 <?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
 	<?php if($i == 0): ?>
-	<section class="active <?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?> active">
 	<?php else: ?>
 	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
 	<?php endif; ?>

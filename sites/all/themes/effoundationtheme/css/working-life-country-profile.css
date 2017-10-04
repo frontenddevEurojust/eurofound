@@ -448,6 +448,9 @@ h1.title-working-life .fa{
 #ef-working-life-country-profiles-node-form span.field-edit-link{
   display:none;
 }
+
+
+
 /** end working life country profiles **/
 
 @media only screen and (max-width : 767px) { 
@@ -475,8 +478,8 @@ h1.title-working-life .fa{
     display: none;
   }
   .section-container.vertical-tabs > section > .title:after{
-    content: '';
-    display: none;
+    /*content: '';
+    display: none;*/
   }
   .wp_about {
     width: 100%;
@@ -593,5 +596,44 @@ h1.title-working-life .fa{
   }
   .go-top-wrapper{
     display: none;
+  }
+}
+
+
+@media only screen and (max-width : 767px) { 
+  .inactive{
+    display: none !important;
+  }
+  .section-container.vertical-tabs>section>.content {
+    padding: 10px;
+  }
+  .section-working-life-country-profile, 
+  .section-living-working{
+    border: 0;
+  }
+  .section-container.vertical-tabs > section > .title {
+    border: 0 !important;
+  }
+  .section-container.vertical-tabs > section{
+    position: relative;
+  }
+  .section-container.vertical-tabs > section > h2.title:after {
+    content: "\f107";
+    font-family: 'FontAwesome';
+    width: 30px;
+    height: 30px !important;
+    background: transparent;
+    display: inline-block !important;
+    right: -10px !important;
+    top: 19px !important;
+    position: absolute;
+    height: 0%;
+    opacity: 1;
+    -webkit-transition: all .20s;
+    -moz-transition: all .20s;
+    -ms-transition: all .20s;
+    -o-transition: all .20s;
+    transition: all .20s;
+    font-size: 22px !important;
   }
 }
