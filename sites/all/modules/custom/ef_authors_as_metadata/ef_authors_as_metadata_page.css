@@ -32,6 +32,8 @@
 }
 .view-authors-as-metadata .view-content{
 	clear: both;
+	display: flex;
+  flex-wrap: wrap;
 }
 .view-authors-as-metadata ul.user-details {
 	list-style-type: none;
@@ -50,17 +52,16 @@
 }
 
 .view-authors-as-metadata .authors-as-metadata{
-  width: 46%;
-  display: inline-block;
-  float: right;
-  vertical-align: top;
+  overflow: auto;
+  width: 48%;
   margin-left: 4%;
   margin-bottom: 2rem;
-  min-height: 340px;
+}
+.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata p em{
+	font-style: normal !important;
 }
 .view-authors-as-metadata .authors-as-metadata:nth-child(odd){
-  margin-left: 0%;
-  float: left;
+ margin-left: 0%;
 }
 
 .view-authors-as-metadata .authors-as-metadata h2{
@@ -118,3 +119,40 @@ p.image-content {
 .view-authors-as-metadata h1{
 	border-bottom: none !important;
 }
+
+
+@media only screen and (min-width : 901px) and (max-width : 1024px)  { 
+	.view-authors-as-metadata .authors-as-metadata {
+	  min-height: 400px;
+	}
+}
+
+@media only screen and (max-width : 900px)  { 
+
+	.view-authors-as-metadata .authors-as-metadata {
+	  width: 100%;
+	  display: block;
+	  vertical-align: top;
+	  margin-left: 0;
+	  margin-bottom: 2rem;
+	  min-height: auto;
+	}
+	.page-author .ef-filters .views-submit-button, 
+	.page-author .ef-filters .views-reset-button {
+	  border: none;
+	  padding: 0px 7%;
+	  float: none;
+	  width: 100%;
+	  text-align: center;
+	}
+	.page-author .views-exposed-form .views-exposed-widget .form-submit {
+	  margin-top: 1.3em;
+	  width: 100%;
+	}
+	.view-authors-as-metadata h1.user-name {
+	  width: 100%;
+	  text-align: center;
+	}
+}
+
+
