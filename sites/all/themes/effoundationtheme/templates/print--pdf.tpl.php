@@ -27,7 +27,7 @@
   width: 100% !important;
   float: none !important;
 }*/
-.no-pdf, .node-type-ef-working-life-country-profiles h1:first-child{
+.no-pdf, .node-type-ef-working-life-country-profiles h1#page-title{
   display: none !important;
 }
 #logo{
@@ -635,11 +635,32 @@ word-break: break-all;
 .landing-topics-item {
   page-break-inside:avoid; !important;
 }
-
+/** working life countri profile **/
+.node-ef-working-life-country-profiles .wp_about h2{
+   font-size: 12px !important;
+}
+.node-ef-working-life-country-profiles .wp_about ul, 
+.node-ef-working-life-country-profiles .wp_about ul li {
+  list-style-type: none;
+  font-size: 10px !important;
+}
+.node-ef-working-life-country-profiles table{
+  background: #ccc !important;
+  width: 100% !important
+}
+.node-ef-working-life-country-profiles table tr{
+  background: #f9f9f9 !important;
+}
+.node-ef-working-life-country-profiles table tr td{
+  width: auto !important;
+  padding:0 15px !important;
+}
+/** end working life countri profile **/
 
 </style>
   </head>
   <body>
+
     <?php if (!empty($message)): ?>
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>
@@ -649,7 +670,17 @@ word-break: break-all;
     <!--<div class="site_name"><?php print theme('print_published'); ?></div>-->
     <!--<div class="breadcrumbs"><?php // print theme('print_breadcrumb', array('node' => $node)); ?></div> -->
     <div class="columns">
-    <h1 id="page-title" class="title"><?php print $print_title;?></h1>
+
+      <?php 
+        $url = explode('/', $_SERVER['REQUEST_URI']);
+        $pathCountry = $url[count($url)-2];
+         if ($pathCountry == 'country'):
+      ?>
+        <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
+      <?php else : ?>
+        <h1 id="page-title" class="title"><?php print $print_title;?></h1>
+      <?php endif; ?>
+
       <?php
         $contentBefore = urlencode($content);
         $contentAfter = str_replace("%E2%80%8B", "", $contentBefore);

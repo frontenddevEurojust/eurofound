@@ -2,8 +2,15 @@
 (function ($) {
   $(document).ready(function(){
 
-    //if(window.location.href.indexOf('country') > -1){
+      var form_pages=window.location.pathname.split("/");
+      var pathname_form=form_pages[form_pages.length-2];     
+     if(pathname_form =='country'){
+      $('h1#page-title').addClass('no-pdf');
+    }
     if($('body.node-type-ef-working-life-country-profiles')){
+
+
+      $('h1#page-title').addClass('no-pdf');
 
       var anchor_found = window.location.href.indexOf('#');
       var urlLength = window.location.href.length;
@@ -99,7 +106,7 @@
                 scrollTop: $("#content-tabs-country-profile").offset().top
             }, 0);            
           }); 
-                   
+
         }
       });
 
