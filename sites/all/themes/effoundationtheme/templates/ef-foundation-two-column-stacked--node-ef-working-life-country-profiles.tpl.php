@@ -259,7 +259,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 
     	<?php if(isset($publishedon)): ?>
     	<li>
-        	<span class='small-3 columns'><?php print $labelpublishedon; ?>: </span>
+        	<span class='small-3 columns'><?php print $labelpublishedon; ?> </span>
 	        <span class='small-9 columns'><?php print $publishedon; ?></span>
         </li>
     	<?php endif; ?>

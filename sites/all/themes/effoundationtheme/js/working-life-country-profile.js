@@ -32,10 +32,10 @@
 
               if($(this).hasClass( active )){
                  //console.log(active.length +'-------------->'+ $(this).attr('class').length +'-------------->' + $(this).attr('class'));
-                 console.log($(this));
+                 //console.log($(this));
                   currentSection.removeClass('active');
                   $(this).addClass('active');
-                  $('div.content',this).removeClass('inactive');
+                  $('.content',this).removeClass('inactive');
 
 
                   $('html, body').animate({
@@ -85,27 +85,26 @@
           screenWidth = 973;
         }
         // mobile resolutions
-        if( $(window).width()<=screenWidth){
-              
+        if( $(window).width()<=screenWidth){              
 
-              $('.section-container section > h2').once().click(function(){
-                var sectionActive = $(this).parent();
-                sectionActive.find(".content").toggleClass('inactive');
-              });
+          $('.section-container section > h2').once().click(function(){
+            var sectionActive = $(this).parent();
+            sectionActive.find(".content").toggleClass('inactive');
+          });
 
+        }else{
 
-
+          $('.section-working-life-country-profile.vertical-tabs h2.title').click(function () {            
+            $('html, body').animate({
+                scrollTop: $("#content-tabs-country-profile").offset().top
+            }, 0);            
+          }); 
+                   
         }
       });
 
 
-      $('.section-working-life-country-profile.vertical-tabs h2.title').click(function () {
-        
-        $('html, body').animate({
-            scrollTop: $("#content-tabs-country-profile").offset().top
-        }, 0);
-        
-      });
+
 
       $(window).scroll(function () {
         if ($(this).scrollTop() >1300) {

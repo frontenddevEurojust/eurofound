@@ -361,6 +361,9 @@ h1.title-working-life .fa{
   margin: 0;
   font-style: italic;
 }
+.view.view-latest-country-update .view-content > div {
+  margin-bottom: 1rem;
+}
 .section-container.vertical-tabs{
   margin: 2rem 0;
 }
@@ -381,9 +384,6 @@ h1.title-working-life .fa{
     border: none;
     border-right: 1px solid #CCC !important;
     overflow: visible;
-}
-.section-container.vertical-tabs > section.active2 .content{
-  display: none !important;
 }
 .section-container.vertical-tabs > section > .title:hover {
     background-color: #f9f9f9 !important;
@@ -454,6 +454,7 @@ h1.title-working-life .fa{
 /** end working life country profiles **/
 
 @media only screen and (max-width : 767px) { 
+
   h1.title-working-life .fa {
     color: #F58020;
     margin-right: 10px;
@@ -494,6 +495,78 @@ h1.title-working-life .fa{
     width: 100%;
     margin: 20px 0;
     font-style: italic;
+  }
+}
+@media only screen and (min-width : 768px) and (max-width : 1024px) { 
+  .section-living-working i {
+    color: #F58020;
+    margin-right: 5px;
+    font-size: 22px;
+    height: 2rem;
+    display: inline-block;
+    float: left;
+  }
+
+}
+@media only screen and (min-width : 768px) and (max-width : 1023px) { 
+  .eurostat-result {
+    width: 100%;
+  }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+  .eurostat-result {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width : 767px) { 
+  .inactive{
+    display: none !important;
+  }
+  .section-container.vertical-tabs>section>.content {
+    padding: 10px;
+  }
+  .section-working-life-country-profile, 
+  .section-living-working{
+    border: 0;
+  }
+  .section-container.vertical-tabs > section > .title {
+    border: 0 !important;
+  }
+  .section-container.vertical-tabs > section{
+    position: relative;
+  }
+  .section-container.vertical-tabs > section > h2.title:after {
+    content: "\f107";
+    font-family: 'FontAwesome';
+    width: 30px;
+    height: 30px !important;
+    background: transparent;
+    display: inline-block !important;
+    right: -10px !important;
+    top: 19px !important;
+    position: absolute;
+    height: 0%;
+    opacity: 1;
+    -webkit-transition: all .20s;
+    -moz-transition: all .20s;
+    -ms-transition: all .20s;
+    -o-transition: all .20s;
+    transition: all .20s;
+    font-size: 22px !important;
+  }
+}
+@media only screen and (max-width : 767px) { 
+  .summary-group{
+    padding: 0;
+  }
+  .wp_about ul li > span:first-child {
+    margin-bottom: 0;
+  }
+  .wp_about ul li > span {
+    margin-bottom: 15px;
+    display: block;
+    width: 100%;
   }
 }
 
@@ -600,40 +673,4 @@ h1.title-working-life .fa{
 }
 
 
-@media only screen and (max-width : 767px) { 
-  .inactive{
-    display: none !important;
-  }
-  .section-container.vertical-tabs>section>.content {
-    padding: 10px;
-  }
-  .section-working-life-country-profile, 
-  .section-living-working{
-    border: 0;
-  }
-  .section-container.vertical-tabs > section > .title {
-    border: 0 !important;
-  }
-  .section-container.vertical-tabs > section{
-    position: relative;
-  }
-  .section-container.vertical-tabs > section > h2.title:after {
-    content: "\f107";
-    font-family: 'FontAwesome';
-    width: 30px;
-    height: 30px !important;
-    background: transparent;
-    display: inline-block !important;
-    right: -10px !important;
-    top: 19px !important;
-    position: absolute;
-    height: 0%;
-    opacity: 1;
-    -webkit-transition: all .20s;
-    -moz-transition: all .20s;
-    -ms-transition: all .20s;
-    -o-transition: all .20s;
-    transition: all .20s;
-    font-size: 22px !important;
-  }
-}
+
