@@ -516,6 +516,71 @@ h1.title-working-life .fa{
 
 /** end working life country profiles **/
 
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) { 
+  .summary-living-working {
+    width: 60%;
+  }
+  .eurostat-result {
+    width: 40%;
+    float: right;
+    padding: 15px 10px !important;
+  }
+  .eurostat-result ul {
+    list-style-type: none;
+    margin: 0 0 10px !important;
+    padding: 0;
+    text-align: left;
+  }
+  .eurostat-result ul li {
+    padding: 7px 0;
+    font-size: 13px;
+  }
+  .eurostat-img {
+    width: 40%;
+    padding: 1px;
+    margin: 10px 0;
+  }
+  .eurostat-img img{
+    outline: 0 !important;
+    border: 0px !important;
+  }
+  .section-living-working i {
+    color: #F58020;
+    margin-right: 5px;
+    font-size: 22px;
+    height: 2.5rem;
+    display: inline-block;
+    float: left;
+  }
+  .latest-news-working-life {
+    border-right: 0px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+    width: 100%;
+  }
+  .quarterly-overviews {
+    width: 100%;
+  }
+  .quarterly-overviews h3 {
+    margin-top: 1rem !important;
+  }
+  .quarterly-overviews .view-content{
+    column-count: 2;
+  }
+  section .small-12.large-6 {
+    width: 100% !important;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+  .country-specific-info {
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+
+}
 @media only screen and (max-width : 767px) { 
 
   h1.title-working-life .fa {
@@ -545,6 +610,16 @@ h1.title-working-life .fa{
     /*content: '';
     display: none;*/
   }
+  .view.view-display-id-news_and_quartely_updates .view-content > div {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    margin-right: 2%;
+  }
+  .section-living-working .related-content ul {
+    list-style-type: none;
+    column-count: 1;
+  }
   .wp_about {
     width: 100%;
     font-size: 12px;
@@ -559,30 +634,6 @@ h1.title-working-life .fa{
     margin: 20px 0;
     font-style: italic;
   }
-}
-@media only screen and (min-width : 768px) and (max-width : 1024px) { 
-  .section-living-working i {
-    color: #F58020;
-    margin-right: 5px;
-    font-size: 22px;
-    height: 2rem;
-    display: inline-block;
-    float: left;
-  }
-
-}
-@media only screen and (min-width : 768px) and (max-width : 1023px) { 
-  .eurostat-result {
-    width: 100%;
-  }
-}
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
-  .eurostat-result {
-    width: 45%;
-  }
-}
-
-@media only screen and (max-width : 767px) { 
   .inactive{
     display: none !important;
   }
@@ -618,8 +669,13 @@ h1.title-working-life .fa{
     transition: all .20s;
     font-size: 22px !important;
   }
-}
-@media only screen and (max-width : 767px) { 
+  .eurostat-result {
+    background: #f2f2f2;
+    margin: 0;
+    padding: 15px 10px !important;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+  }
   .summary-group{
     padding: 0;
   }
@@ -630,6 +686,9 @@ h1.title-working-life .fa{
     margin-bottom: 15px;
     display: block;
     width: 100%;
+  }
+  .go-top-wrapper {
+    right: 20px;
   }
 }
 
