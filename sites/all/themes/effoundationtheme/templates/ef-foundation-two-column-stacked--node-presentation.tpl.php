@@ -133,9 +133,9 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                         <?php if ($language->language != 'en'): ?> 
-                            <a href="/<?php print $language->language;?>/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
                         <?php else: ?>
-                            <a href="/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
                         <?php endif; ?>
                     </div>
                     <div class="field field-name-field-ef-author">
