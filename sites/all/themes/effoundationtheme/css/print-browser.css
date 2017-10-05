@@ -882,7 +882,7 @@ ul.metadata-publications > li > ul li {
   padding: 25px 20px !important;
   border: 1px solid #ccc;
   float: none;
-  margin: 15px auto !important;
+  margin: 45px auto !important;
   width: 90% !important;
   clear: both !important;
 }
@@ -921,7 +921,25 @@ ul.metadata-publications > li > ul li {
     width: 100% !important;
     margin-top: 10px;
   }
-
+.section-living-working section{
+  clear: both;
+}
+.section-living-working section > .content{
+  overflow:auto;
+}
+.section-living-working.section-container.vertical-tabs > section > .title {
+  position: static !important;
+  display: block !important;
+  font-size: 22px !important;
+  font-family: OpenSans-semibold-webfont;
+  margin-bottom: 0px !important;
+  clear: both !important;
+  border: none !important;
+  width: 100%;
+}
+.section-living-working.section-container.vertical-tabs > section > .title p {
+  margin-bottom: 0px !important;
+}
 .section-living-working h3.subtitle {
   font-size: 1rem; 
   margin:0;
@@ -959,6 +977,28 @@ ul.metadata-publications > li > ul li {
     margin-bottom: 15px;
     clear: both !important;
   }
+.node-ef-working-life-country-profiles .wp_about {
+    margin: 2rem 0 !important;
+    padding: 10px !important;
+    width: 100% !important;
+    border: none !important;
+    background: #f2f2f2 !important;
+  }
+  .node-ef-working-life-country-profiles .wp_about ul li {
+    list-style-type: none;
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .wp_about ul li span.small-3 {
+    padding: 0;
+    float: left !important;
+    width: auto;
+  }
+  .wp_about ul li span.small-9 {
+    width: auto;
+    float: left !important;
+  }
   .go-top-wrapper{
     display: none;
   }
@@ -969,6 +1009,10 @@ ul.metadata-publications > li > ul li {
     padding: 0 10px 10px;
     width: 100% !important;
     border: 1px solid #ccc !important;
+  }
+  .quarterly-overviews, .latest-news-working-life{
+    width: 100% !important;
+    float: none !important;
   }
 }
 /** end working life countri profile **/

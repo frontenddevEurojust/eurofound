@@ -1,4 +1,7 @@
 /** working life country profiles **/
+h1.title-working-life {
+  margin-top: 4rem;
+}
 .section-country .print-pdf-wrapper{
   width: 100%;
   text-align: right;
@@ -98,9 +101,9 @@ ul.list-metadata li > ul li:first-child:before{
   margin: 0;
   padding: 25px 20px !important;
   border: 1px solid #ccc;
-  float: left;
+ /* float: left;
   margin-right: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 10px;*/
 }
   .eurostat-result ul {
     list-style-type: none;
@@ -152,11 +155,47 @@ ul.list-metadata li > ul li:first-child:before{
   margin: 0;
   font-style: italic;
 }
+.section-living-working {
+  margin: 4rem 0;
+}
 .section-living-working i{
   color: #F58020;
   margin-right: 5px;
   font-size: 22px;
 }
+.section-living-working .media.media-element-container{
+  display: inline-block;
+}
+.section-living-working .related-content ul{
+  list-style-type: none;
+  column-count: 2;
+}
+.section-living-working .related-content ul li:before{
+  content: "\f105";
+  font-family: 'FontAwesome';
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.country-specific-info{
+  margin-top: 35px;  
+}
+.country-specific-info p {
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif!important;
+  padding: 15px 20px;
+
+}
+.country-specific-info > p:before{
+  content: "\e614";
+  font-family: 'ef-icon-font';
+  margin-left: 0;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 15px;
+  left: 7px;
+}
+
+
 .section-container.vertical-tabs{
   margin: 2rem 0;
 }
@@ -234,29 +273,47 @@ ul.list-metadata li > ul li:first-child:before{
 .section-container.vertical-tabs>section img{
     outline-width: 0;
 }
+.section-container .content h3{
+  font-family: Opensans-semibold-webfont;
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;  
+} 
+.section-container .content h4{
+  font-family: Opensans-semibold-webfont;
+  color: #444;
+  font-size: 1rem; 
+    margin-top: 0; 
+} 
+.latest-news-working-life{
+  border-right: 1px dotted #ccc;
+}
 h3.subtitle {
   font-size: 1rem; 
   margin:0;
   font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+
 }
-ul.metadata-items {
+.content ul.metadata-items {
   margin: 0px 0 10px !important;
   padding: 0;
   color: #2d68aa;
   font-size: 0.9em;
 }
-  ul.metadata-items li{
+  .content ul.metadata-items li{
     list-style-type: none;
     display: inline;
     border:0;
+    font-size: 12px;
   }
-  ul.metadata-items li a{
+  .content ul.metadata-items li a{
     padding: 0px 0px 0px 0px !important;
   }
-  .metadata-type, .metadata-topics{
+  .content .metadata-type, .metadata-topics{
     color: #F7931E;
-    font-size: 0.9em;
-
+  }
+  .content li.metadata-deliverable-kind {
+    color: #F58020;
   }
 
 .go-top-wrapper{
@@ -363,6 +420,12 @@ h1.title-working-life .fa{
 }
 .view.view-latest-country-update .view-content > div {
   margin-bottom: 1rem;
+}
+.view.view-display-id-news_and_quartely_updates .view-content > div {
+  display: inline-block;
+  float: left;
+  width: 46%;
+  margin-right: 2%;
 }
 .section-container.vertical-tabs{
   margin: 2rem 0;
@@ -571,13 +634,26 @@ h1.title-working-life .fa{
 }
 
 @media print {
+  p:empty{
+    display: none !important;
+  }
+  section.l-featured.row {
+    display: none;
+  }
+  h1.title.secundary {
+  margin: 0 !important;
+  padding: 0 !important;
+  }
+  .summary-living-working{
+  width: 100% !important;
+  }
 .eurostat-result {
   background: #f2f2f2 !important;
   margin: 0;
-  padding: 25px 20px !important;
+  padding:10px !important;
   border: 1px solid #ccc;
   float: none;
-  margin: 15px auto !important;
+  margin: 4rem auto 1rem !important;
   width: 90% !important;
   clear: both !important;
 }
@@ -626,15 +702,40 @@ h1.title-working-life .fa{
   float: none;
   width: 100%;
 }
+.field-name-field-ef-country-main-figure img {
+  width: auto;
+}
+.section-container.vertical-tabs {
+  border: none;
+}
+.section-container.vertical-tabs > section > .title:after {
+  content:none;
+}
+
 .section-container.vertical-tabs>.section.active, 
 .section-container.vertical-tabs>section.active {
   padding-left: 0;
 }
+.section-living-working.section-container.vertical-tabs > section > .title {
+  position: static !important;
+  display: block !important;
+  font-size: 22px !important;
+  font-family:'OpenSans-Bold-webfont' !important;
+  margin-bottom: 0px !important;
+  clear: both !important;
+  border: none !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+.section-living-working.section-container.vertical-tabs > section > .title p {
+  margin-bottom: 0px !important;
+}
 .section-living-working h3.subtitle {
   font-size: 1rem; 
   margin:0;
-  font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+  font-family: 'OpenSans-Bold-webfont', Arial, Helvetica !important;
 }
+
 .section-living-working ul.metadata-items {
   margin: 0px 0 10px !important;
   padding: 0;
@@ -660,6 +761,9 @@ h1.title-working-life .fa{
     border: 0 !important;
     margin: 0 !important;
   }
+  .latest-news-working-life {
+    border-right:none;
+  }
   .section-living-working>section p.subtitle, 
   .section-working-life-country-profile>section p.subtitle{
     font-size: 22px !important;
@@ -667,8 +771,30 @@ h1.title-working-life .fa{
     margin-bottom: 15px;
     clear: both !important;
   }
+  .view.view-display-id-news_and_quartely_updates .view-content > div, 
+  .view.view-latest-country-update .view-content > div{
+    display: inline-block;
+    float: none;
+    width: auto;
+    margin: 0 15px;
+  }
+  .node-ef-working-life-country-profiles .wp_about {
+    margin: 2rem 0;
+    padding: 10px;
+    width: 100% !important;
+    border: none !important;
+    background: #f2f2f2 !important;
+  }
+  .wp_about ul li span.small-3 {
+    padding: 0;
+    float: left;
+    width: auto;
+  }
+  .wp_about ul li span.small-9 {
+    width: auto;
+  }
   .go-top-wrapper{
-    display: none;
+    display: none !important;
   }
 }
 
