@@ -91,7 +91,12 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
                         </div>
                     </div>
                     <div class="field field-name-field-ef-author">
-                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div><a href="/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php if ($language->language != 'en'): ?> 
+                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print  print $author[1] . " " . $author[0]; ?></a>
+                        <?php else: ?>
+                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php endif; ?>
                     </div>
                     <div class="field field-name-field-ef-author">
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
@@ -127,9 +132,9 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
                 <?php endif; ?>  
             <?php endif; ?>
             <?php print $content['field_abstract'][0]['#markup']?>
-            <p>
-                <?php print $content['body'][0]['#markup'] ?>
-            </p>
+        </div>
+        <div>
+            <?php print $content['body'][0]['#markup'] ?>
         </div>
         
         <!-- FREE COMMENTS -->
@@ -152,11 +157,6 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
     <aside class="large-3 columns blog-presentation">   
         <?php if ($blog_presentation_find === false): ?>
         <h2>
-            <?php if ($image != ''): ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="<?= $image_url ?>"/></span>
-            <?php else: ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="/<?php print(drupal_get_path('module','ef_my_dashboard') . '/no_avatar.png'); ?>"/></span>
-            <?php endif; ?>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
         <div class="author-view">

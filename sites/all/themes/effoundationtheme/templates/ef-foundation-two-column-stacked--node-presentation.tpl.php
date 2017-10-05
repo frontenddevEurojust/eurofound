@@ -84,6 +84,8 @@ $bytes = formatSizeUnits($bytes);
 $path_extension = $content['field_pdf_presentation'][0]['#preview_path'];
 $ext  = (new SplFileInfo($path_extension))->getExtension();
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -129,7 +131,12 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                         </div>
                     </div>
                     <div class="field field-name-field-ef-author">
-                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div><a href="/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php if ($language->language != 'en'): ?> 
+                            <a href="/<?php print $language->language;?>/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php else: ?>
+                            <a href="/author/<?= $link; ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php endif; ?>
                     </div>
                     <div class="field field-name-field-ef-author">
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
@@ -165,9 +172,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                 <br>
                 <span class="description"><?php print $content['field_pdf_description'][0]['#markup'] ?></span>
             </div>
-            <p>
-                <?php print $content['body'][0]['#markup'] ?>
-            </p>
+        </div>
+        <br>
+        <div>
+            <?php print $content['body'][0]['#markup'] ?>
         </div>
         <!-- FREE COMMENTS -->
         <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
@@ -189,11 +197,6 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     <aside class="large-3 columns blog-presentation"> 
         <?php if ($blog_presentation_find === false): ?>  
         <h2>
-            <?php if ($image != ''): ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="<?= $image_url ?>"/></span>
-            <?php else: ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="/<?php print(drupal_get_path('module','ef_my_dashboard') . '/no_avatar.png'); ?>"/></span>
-            <?php endif; ?>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
         <div class="author-view">
@@ -205,6 +208,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </div>
     </aside>
 </body>
+<script>
+    //Delete the src iframe language from Drupal 
+    jQuery('.content-pdf-viewer iframe').attr('src',jQuery('.content-pdf-viewer iframe').attr('src').replace('/<?php print $language->language ?>', ''));
+</script>
 </html>
 
 
