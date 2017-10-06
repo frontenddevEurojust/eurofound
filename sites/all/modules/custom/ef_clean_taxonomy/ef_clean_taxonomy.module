@@ -1,0 +1,143 @@
+<?php
+/**
+ * A log file will be created.
+ */
+$totalCount = 0;
+$totalModif = 0;
+$file = fopen('/var/tmp/cleanTaxonomyLog.log', 'w');
+$initTime = time();
+fwrite($file, "Init Time: ".$initTime."\n");
+$loadedNode = "";
+/**
+ * First thing to obtain is the list of nodes which are currently published.
+ */
+try
+{ 
+	$query = db_select('workbench_moderation_node_history', 'wm')
+		->fields('wm',array('nid'))
+		->condition('published', '1','=')
+		->condition('current', '1','=');
+	$result = $query->execute();
+	foreach($result->fetchAll() as $record)
+	{
+		$isModified = false;
+		$nidValue = $record->nid;
+//		fwrite($file, "record->nid: ".$record->nid."\n");
+		/*
+		 * Node is loaded using its id.
+		 */
+		$loadedNode = node_load($nidValue);
+		/*
+		 * For the type of nodes, all its related taxonomy fields are obtained.
+		 */	
+		$nodeFields = field_info_instances('node', $loadedNode->type);
+//		fwrite($file, "record->nid: ".$record->nid.", loadedNode->type: ".$loadedNode->type."\n");
+		$tidValuesNodeArray = array();
+		$tidValuesTableArray = array();
+
+		/*
+		 * For each of the node fields, its value, is obtained...
+		 */
+		try
+		{
+			foreach($nodeFields as $nodeField)
+			{
+				$fieldName = $nodeField['field_name'];
+//				fwrite($file, "record->nid: ".$record->nid.", fieldName: ".$fieldName."\n");
+				$taxonomyName = $loadedNode->$fieldName;
+				foreach($taxonomyName as $taxonomyNameUndefined)
+				{
+					foreach ($taxonomyNameUndefined as $taxonomyElement)
+					{
+						$tidValue = $taxonomyElement['tid'];
+						if($tidValue !== NULL && strlen($tidValue) > 0)
+						{
+							/*
+							 *...and stored in an array which will contain all the values that the node 
+							 * currently has for taxonomy elements.
+							 */
+							$tidValuesNodeArray[] = $tidValue;
+//							fwrite($file, "record->nid: ".$record->nid.", fieldName: ".$fieldName.", tidValue: ".$tidValue."\n");
+						}
+					}
+				}
+			}
+			
+			/**
+			 * This query will get all taxonomy values currently related to the node
+			 * and store them in an array.
+			 */
+			$querySelect = db_select('taxonomy_index', 'ti')
+				->fields('ti',array('tid'))
+				->condition('nid',$nidValue,'=');
+			$result = $querySelect->execute();
+			foreach($result as $record)
+			{
+				$tidValuesTableArray[] = $record->tid;
+//				fwrite($file, "loadedNode->nid: ".$loadedNode->nid.", tidValue: ".$tidValuesTableArray."\n");
+			}
+			
+			$addedCounter = 0;
+			/*
+			 * Both arrays will be compared. Any value present in the node but not in the table
+			 * will be inserted.
+			 */
+			foreach($tidValuesNodeArray as $tidInNode)
+			{
+				if(!in_array($tidInNode, $tidValuesTableArray))
+				{
+					$isModified = true;
+					$queryInsert = db_insert('taxonomy_index')->fields(array('nid', 'tid', 'sticky', 'created'));
+					$queryInsert->values(array(
+						'nid' => $nidValue,
+						'tid' => $tidInNode,
+						'sticky' => $loadedNode->current_sticky,
+						'created' => $loadedNode->created,
+					));
+					$queryInsert->execute();
+					$addedCounter ++;
+				}
+			}
+//			fwrite($file, "addedCounter: ".$addedCounter."\n");
+			
+			$deletedCounter = 0;
+			/*
+			 * Any value present in the table, but not in the node, will be deleted.
+			 */
+			foreach($tidValuesTableArray as $tidInTable)
+			{	
+				if(!in_array($tidInTable, $tidValuesNodeArray))
+				{
+					$isModified = true;
+					$queryDelete = db_delete('taxonomy_index');
+					$queryDelete->condition('nid', $nidValue);
+					$queryDelete->condition('tid', $tidInTable);
+					$queryDelete->execute();
+					$deletedCounter ++;
+				}
+			}
+//			fwrite($file, "deletedCounter: ".$deletedCounter."\n");
+			if($isModified)
+			{
+				$totalModif ++;
+			}
+			$totalCount ++;
+		}
+		catch (Exception $e)
+		{
+			fwrite($file, "Node could not be processed. NID: ".$nidValue.". Cause: ".$e->getMessage());
+		}
+	}
+	fwrite($file, "Total count: ".$totalCount."\n");
+	fwrite($file, "Total modif: ".$totalModif."\n");
+	$endTime = time();
+	fwrite($file, "End Time: ".$endTime."\n");
+	$totalTime = $endTime - $initTime;
+	fwrite($file, "Total Time: ".$totalTime."\n");
+}
+catch (Exception $e)
+{
+	fwrite($file, "ERROR: Nodes cannot be obtained. END OF PROCESS. Cause: ".$e->getMessage());
+}
+fclose($file);
+?>

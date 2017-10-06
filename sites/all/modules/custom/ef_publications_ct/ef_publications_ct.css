@@ -34,6 +34,74 @@
 	right: 10px;
 	font-size: 1.8em;
 }
+
+.page-node-edit.node-type-ef-publication .form-managed-file{
+  background: #f2f2f2;
+  margin: 15px 0;
+  padding: 15px 15px 0;
+}
+.page-node-edit.node-type-ef-publication .form-managed-file .form-type-managed-file{
+  margin: 0;
+  padding:0;
+}
+.page-node-edit.node-type-ef-publication .form-managed-file .form-type-checkbox{
+  padding: 20px 0 5px;
+  margin: 0;
+  border: 0;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a{
+  color: #FFF;
+  margin: 0px;
+  padding: 3px 15px !important;
+  display: inline-block;
+  font-size: 14px;
+  background: #0074BD;
+  border-radius: 4px;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a:hover {
+  text-decoration: none;
+  opacity: 0.6;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a:after{
+  content: "\f019";
+  color: #FFF;
+  position: relative !important;
+  top: 0;
+  right: 0;
+  font-size: 1.2rem;
+  font-family: 'fontawesome';
+  background: #0074BD;
+  padding: 0;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document span.file-size:after {
+  content: "-";
+  display: block;
+  color: transparent !important;
+}
+.page-node-edit.node-type-ef-publication .insert-button{
+  background: #2E67AA !important;
+  border:1px solid #004798;
+  font-weight: normal;
+  font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
+  border-radius: 0;
+  color: #fff;
+  padding: 3px 15px;
+  position: relative;
+  top: 1px;
+  left: 15px;
+  cursor: pointer;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5)inset !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.5)inset !important;
+  -webkit-transition: background-color 300ms ease-out !important;
+  -moz-transition: background-color 300ms ease-out !important;
+  transition: background-color 300ms ease-out !important;
+}
+.page-node-edit.node-type-ef-publication .insert-button:hover{
+	background-color: #004798;
+}
+
 /* */
 /* @group PUBLICATIONS----------*/
 #node_ef_publication_full_group_ef_node_details{
