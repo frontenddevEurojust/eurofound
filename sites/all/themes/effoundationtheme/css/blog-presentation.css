@@ -135,9 +135,8 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
 }
 
 .email-blog{
-	position: absolute;
-    top: 30px;
-    right: 40px;
+    position: absolute;
+    right: 5px;
 }
 
 .block-easy-social-easy-social-block-2 .block-easy-social .easy_social_box div{
@@ -290,25 +289,18 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
 /*Resposive*/
 @media only screen and (max-width: 767px) {
    
-   h1 .title-blog-presentation{
-   	width: 100%;
-   }
+    h1 .title-blog-presentation{
+    	width: 100%;
+    }
 
-   .block-easy-social-easy-social-block-2{
+    .block-easy-social-easy-social-block-2{
    		position: relative;
 		top: -45px;
 		width: auto;
 		right: -10px;
-   }
+    }
 
-   .email-blog {
-	    position: relative;
-	    top: -45px;
-	    right: 0;
-	    float: right;
-	}
-
-	.node-type-presentation .viewerjs-formatter-field{
+    .node-type-presentation .viewerjs-formatter-field{
 		width: 100%;
 	}
 
