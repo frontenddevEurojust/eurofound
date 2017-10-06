@@ -81,7 +81,7 @@
   color: transparent !important;
 }
 .page-node-edit.node-type-ef-publication .insert-button{
-  background-color: #2E67AA;
+  background: #2E67AA !important;
   border:1px solid #004798;
   font-weight: normal;
   font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
