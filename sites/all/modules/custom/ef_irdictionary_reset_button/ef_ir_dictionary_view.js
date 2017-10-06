@@ -96,9 +96,21 @@
 
     // Glossary event
     $('span .close-letter-tag').click(function(){
-      pathname = pathname.substring(0,pathname.length - 2);
+      //pathname = pathname.substring(0,pathname.length - 2);
+
+      if(pathname.substring(pathname.length - 2,pathname.length).indexOf('/') >= 0){
+        pathname = pathname.substring(0,pathname.length - 2);
+      }else{
+        pathname = pathname.substring(0,pathname.length);
+      }
+
       if(parameters.indexOf('&page=')){
-        window.location.href = 'http://' + window.location.host + pathname + '?' + parameters;
+        if(parameters == window.location.origin+pathname){
+          window.location.href = window.location.origin+pathname
+        }else{
+          window.location.href = 'http://' + window.location.host + pathname + '?' + parameters;
+        }
+        
       }
     })
 
