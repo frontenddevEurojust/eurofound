@@ -7,6 +7,7 @@
  *
  */
 global $language;
+global $base_url; 
 
 drupal_add_css('sites/all/themes/effoundationtheme/css/blog-presentation.css');
 drupal_add_js('sites/all/themes/effoundationtheme/js/blog-presentation.js');
@@ -36,7 +37,9 @@ else
 }
 
 $user_data = $query->execute()->fetchObject();
-
+$email_subjet= strip_tags($content['title_field'][0]['#markup']);
+$nodeurl = url('node/'. $node->nid);
+$email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
@@ -81,13 +84,15 @@ $bytes = formatSizeUnits($bytes);
 $path_extension = $content['field_pdf_presentation'][0]['#preview_path'];
 $ext  = (new SplFileInfo($path_extension))->getExtension();
 
+
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
     <div class="email-blog">
-        <a href="mailto:<?= $user_data->mail; ?>">
+        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t("The text will provide it in the issue WEM-683"); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
         </a>
     </div>
@@ -126,22 +131,29 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                         </div>
                     </div>
                     <div class="field field-name-field-ef-author">
-                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div><a href="/author/<?= $link; ?>"><?= $content['field_ef_publ_contributors'][0]['#markup']; ?></a>
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php if ($language->language != 'en'): ?> 
+                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php else: ?>
+                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php endif; ?>
                     </div>
                     <div class="field field-name-field-ef-author">
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
                             <?php print t("Topic:") ?>&nbsp;
-                            <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
-                                <?php if ($language->language != 'en'): ?> 
-                                <a href="/<?php print $language->language;?>/<?php print $content['field_ef_topic'][$i]['#href']; ?>" >
-                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                </a>
-                                <?php else: ?>
-                                <a href="/<?php print $content['field_ef_topic'][$i]['#href']; ?>" >
-                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                </a>    
-                                <?php endif; ?>
-                            <?php endfor; ?>
+                                    <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
+                                        <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
+                                        <?php if ($language->language != 'en'): ?> 
+                                        <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
+                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                        </a>
+                                        <?php else: ?>
+                                        <a href="/<?php print $result[0]->alias; ?>" >
+                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                        </a>    
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                            </li>
                         <?php endif; ?>
                     </div>             
                 </div>
@@ -160,9 +172,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                 <br>
                 <span class="description"><?php print $content['field_pdf_description'][0]['#markup'] ?></span>
             </div>
-            <p>
-                <?php print $content['body'][0]['#markup'] ?>
-            </p>
+        </div>
+        <br>
+        <div>
+            <?php print $content['body'][0]['#markup'] ?>
         </div>
         <!-- FREE COMMENTS -->
         <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
@@ -184,11 +197,6 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     <aside class="large-3 columns blog-presentation"> 
         <?php if ($blog_presentation_find === false): ?>  
         <h2>
-            <?php if ($image != ''): ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="<?= $image_url ?>"/></span>
-            <?php else: ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="/<?php print(drupal_get_path('module','ef_my_dashboard') . '/no_avatar.png'); ?>"/></span>
-            <?php endif; ?>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
         <div class="author-view">
@@ -200,6 +208,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </div>
     </aside>
 </body>
+<script>
+    //Delete the src iframe language from Drupal 
+    jQuery('.content-pdf-viewer iframe').attr('src',jQuery('.content-pdf-viewer iframe').attr('src').replace('/<?php print $language->language ?>', ''));
+</script>
 </html>
 
 

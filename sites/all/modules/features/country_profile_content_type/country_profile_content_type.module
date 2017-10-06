@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Country Profile Content Type feature.
+ */
+
+include_once 'country_profile_content_type.features.inc';

@@ -202,7 +202,7 @@
         num_divisor=parseInt(2);
       }
       else if(pathname_form=='factsheets'
-        || pathname_form=='tackling-undeclared-work-in-europe'
+        || pathname_form=='database'
         || pathname_form=='support-instrument'){
         num_divisor=parseInt(4);
       }else if(pathname_form=='osu-contract-reporting-test'
@@ -1281,104 +1281,8 @@ $(document).ready(function(){
 
 /** END QRR ADMIN **/
 
-/** working live country profiles  **/
-(function ($) {
-  $(document).ready(function(){
-
-    //if(window.location.href.indexOf('country') > -1){
-    if($('body.node-type-ef-working-life-country-profiles')){
-
-      var anchor_found = window.location.href.indexOf('#');
-
-      if(anchor_found != -1){
-
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 800);
 
 
-        var active = window.location.href.match(/#+[a-z\-]+/g);
-        active = active[0].substr(1);
-
-        if($('section.' + active).length > 0)
-        {
-          $('section.active').removeClass('active');
-
-          $('section.' + active).addClass('active');
-        }
-
-
-
-      }
-
-      $('section > h2').click(function(){
-
-        anchor_found = window.location.href.indexOf('#');
-
-        active = $(this).parent().attr('class');
-
-        if(anchor_found != -1) {
-          // Replace #title value for the clicked one
-          window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active) ;
-        }
-        else {
-           window.location.href =  window.location.href + '#' + active;
-        }
-
-      });
-
-
-
-      $(window).on("load resize", function(event) {
-        var screenWidth;
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-         screenWidth = 990;
-        } else {
-          screenWidth = 973;
-        }
-        // mobile resolutions
-        if( $(window).width()<=screenWidth){
-          $('.section-container.vertical-tabs h2.title').click(function () {
-
-            if($(this).parent().attr('class') != undefined && $(this).parent().attr('class').length > 0){
-              if($(this).parent().hasClass('active2') == false ){
-                $(this).parent().addClass('active2');
-              }else{
-                $(this).parent().removeClass('active2');
-              }
-            }
-          });
-        }
-      });
-
-
-      $('.section-container.vertical-tabs h2.title').click(function () {
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 0);
-      });
-
-     $(window).scroll(function () {
-        if ($(this).scrollTop() >1300) {
-           $(".go-top-wrapper").css('display','block');
-           $(".go-top-wrapper").fadeIn();
-           $(".ef-to-top-nav").css('display','none');
-        } else {
-            $(".go-top-wrapper").fadeOut();
-            $(".go-top-wrapper").css('display','none');
-            $(".ef-to-top-nav").css('display','block');
-        }
-      });
-
-      $("a[href='#content-tabs']").click(function () {
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 800);
-      });
-    }
-  });
-})(jQuery);
-/** END working live country profiles  **/
 
 
 
@@ -1390,5 +1294,27 @@ $(document).ready(function(){
   });
 })(jQuery);
 /** END PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
+/** HOVER AFTER MAIN MENU FOR SUBMENU **/
+(function ($) {
+$(document).ready(function(){
 
+  $('#main-menu-links > li').each(function( index ) {
+    if($( '> ul',this ).attr('class') == undefined){
+       var classLinkMenu = $( '> a',this ).attr('class');
+       $( '> a',this ).addClass('noSubmenu');
+    }
+  
+});
+
+  });
+})(jQuery);
+/** END HOVER AFTER MAIN MENU FOR SUBMENU **/
+
+/** BREADCRUMBS FOR Tackling undeclared work database **/
+(function ($) {
+  $(document).ready(function(){
+    $('.page-data-tackling-undeclared-work-in-europe-database ul.breadcrumbs li.current').text('Database');
+  });
+})(jQuery);
+/** END BREADCRUMBS FOR Tackling undeclared work database **/
 

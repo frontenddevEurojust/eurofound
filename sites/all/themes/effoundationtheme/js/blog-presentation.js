@@ -12,5 +12,17 @@ jQuery( document ).ready(function() {
     
     jQuery( ".block-easy-social-easy-social-block-2 .easy_social-widget-linkedin i" ).removeClass( "fa-linkedin-square" );
     jQuery( ".block-easy-social-easy-social-block-2 .easy_social-widget-linkedin i" ).addClass( "fa-linkedin" );
+
+    jQuery(".fa-facebook").click(function(){
+        jQuery(".fa-facebook").toggleClass("active");
+    });
+
+    jQuery(".fa-twitter").click(function(){
+        jQuery(".fa-twitter").toggleClass("active");
+    });
+
+    jQuery(".fa-linkedin").click(function(){
+        jQuery(".fa-linkedin").toggleClass("active");
+    });
     
 });

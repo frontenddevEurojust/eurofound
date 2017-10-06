@@ -1,82 +1,99 @@
 <?php
 
 /*
- * Implements HOOK_views_query_alter(&$view,&$query) 
+ * Implements HOOK_views_query_alter(&$view,&$query)
  */
 function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 
 	if ($view->name == 'authors_as_metadata')
-	
+
 	{
-		
+
 		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
-		
+
 		{
-		
+
 			$filter = [
-				
+
 				'field' => 'taxonomy_index.tid',
-				
+
 				'value' => $view->exposed_raw_input['tid'],
-				
+
 				'operator' => '=',
-			
+
 			];
 
 			$view->query->where[1]['conditions'][] = $filter;
-			
+
 		}
 	}
 
 }
 
 /*
- * Implements HOOK_form_alter(&$view,&$query) 
+ * Implements HOOK_form_alter(&$view,&$query)
  */
 function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
-	
-	
+
 	if ($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1')
-	
+
 	{
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_page.css');
 	}
-	
+
 
 
 	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
 
-	{
-		
-		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
+	{	
 
-		$form['add_new_contributor_wrapper'] = [
+		if (!in_array($form['#node']->type, ['blog','presentation'])){
 
-			'#type' => 'container',
+			$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
-      		'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
-    	];
+			$form['add_new_contributor_wrapper'] = [
 
-		$form['add_new_contributor_wrapper']['add_new_contributor'] = [
-			
-			'#type' => 'textfield',
-			  
-			'#title' => t('Add new authors'),
-			
-			'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values'),
-			
-			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+				'#type' => 'container',
 
-			'#prefix' => '<div id="add-new-publ-contributor">',
-			
-			'#suffix' => '</div>',
-		];
+	      		'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+	    	];
+
+	    	
+			$form['add_new_contributor_wrapper']['add_new_contributor'] = [
+
+				'#type' => 'textfield',
+
+				'#title' => t('Add new authors'),
+
+				'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values'),
+
+				'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+
+				'#prefix' => '<div id="add-new-publ-contributor">',
+
+				'#suffix' => '</div>',
+
+				'#ajax' => [
+
+					'callback' => 'submit_new_contributors',
+
+					'wrapper' => 'add-new-contributor',
+
+	      			'method' => 'replace',
+
+	      			'effect' => 'fade',
+
+	      			'keypress' => TRUE,
+
+				],
+			];
+	
 
 		$form['add_new_contributor_wrapper']['save'] = [
 
-			'#type' => 'button', 
+			'#type' => 'button',
 
-			'#value' => t('Add New Author'), 
+			'#value' => t('Add New Author'),
 
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 2,
 
@@ -89,99 +106,98 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
       			'method' => 'replace',
 
       			'effect' => 'fade',
-
 			],
-
-			'#submit' => ['submit_new_contributors'],
 		];
+
+		}
 
 		// Add the new form item to the group authors fieldset
 		$form['#groups']['group_authors']->children[] = 'add_new_contributor_wrapper';
-		
+
 		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
-		
-		
+
+
 		drupal_add_css(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css');
 
 		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.js');
-	
+
 		$form['#attached']['js'] = [
 
 			[
 				'type'  => 'file',
 				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js',
 			],
-			
+
 			[
 				'type'  => 'file',
 				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js',
 			],
-		
-		];
-	
 
-	}	
+		];
+
+
+	}
 
 }
 
 /*
-*  Implements hook_node_view_alter(&$build). 
+*  Implements hook_node_view_alter(&$build).
 */
 function ef_authors_as_metadata_node_view_alter(&$build)
 {
 
 	$node = $build['#node'];
 
-	
+
 	if ($node->type == 'ef_report')
 
-	{	
-	
+	{
+		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++)
 
-		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++) 
-		
 		{
-		 
-			$publications_query = "select a.entity_id from node b 
-								inner join field_data_field_ef_publ_contributors a  on b.nid = a.entity_id 
+
+			$publications_query = "select a.entity_id from node b
+								inner join field_data_field_ef_publ_contributors a  on b.nid = a.entity_id
 								where b.status = 1 AND
 								a.bundle = 'ef_publication' AND a.field_ef_publ_contributors_tid = :tid";
 
 			$publications_query = db_query($publications_query, array(':tid' => $build['field_ef_publ_contributors']['#items'][$i]['tid']))->fetchAll();
-			
+
 			if (count($publications_query))
 
 			{
-				$url = str_replace(',','[', $build['field_ef_publ_contributors'][$i]['#markup']);
-
-				$url = str_replace(' ','_', $build['field_ef_publ_contributors'][$i]['#markup']);
+				$url = str_replace(', ','_', strtolower($build['field_ef_publ_contributors'][$i]['#markup']));
 
 				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
 			}
-
 		}
 	}
-	
+
 }
 
 function submit_new_contributors($form, &$form_state){
 
-	$newAuthors = explode(';', $form_state['values']['add_new_contributor']);
+	$newAuthors = $form_state['values']['add_new_contributor'];
+	
+	if ($newAuthors != '')
+	{
+		$newAuthors = explode(';', $newAuthors);	
+	}
 	
 	try
-	
+
 	{
 
 		$newAuthors = save_new_contributors($newAuthors, $form['nid']['#value']);
-		
-		
+
+
 		// Empty add new contributor textfield so that it's reloaded correctly
 		$form['add_new_contributor_wrapper']['add_new_contributor']['#value'] = '';
 
 		// Replace add new contributor form item
 		$commands[] = ajax_command_replace( "#add-new-publ-contributor", render($form['add_new_contributor_wrapper']['add_new_contributor']) );
 
-		// 
+		//
 		$commands[] = [
 
 			'command' => 'ChangeLabels'
@@ -192,7 +208,7 @@ function submit_new_contributors($form, &$form_state){
 
 			// The command will be used in our JavaScript files
 			'command' => 'AddTags',
-			
+
 			// We pass the values to the function to be executed
 			'newAuthors' => $newAuthors,
 
@@ -202,77 +218,114 @@ function submit_new_contributors($form, &$form_state){
 
 
 		return ['#type' => 'ajax', '#commands' => $commands];
-	
+
 	}
-	
+
 	catch (Exception $e)
 
 	{
-
-		_clear_authors_as_metadata_variables($form['nid']['#value']);
 		
-  		$commands[] = [
+		if (strpos("Something needs to be introduced for saving.", $e->getMessage()) !== FALSE)
 
-			// The command will be used in our JavaScript files
-			'command' => 'Error',
+		{
 			
-			// We pass the values to the function to be executed
-			'error' => $e->getMessage(),
-		
-		];
- 
-		// And finally, we will return all of our commands to the system to be executed:
-		return ['#type' => 'ajax', '#commands' => $commands];
-		
+
+			_clear_authors_as_metadata_variables($form['nid']['#value']);
+
+	  		$commands[] = [
+
+				// The command will be used in our JavaScript files
+				'command' => 'EmptyValue',
+
+			];
+
+			// And finally, we will return all of our commands to the system to be executed:
+			return ['#type' => 'ajax', '#commands' => $commands];
+		}
+
+		else
+
+		{
+
+			
+			_clear_authors_as_metadata_variables($form['nid']['#value']);
+
+	  		$commands[] = [
+
+				// The command will be used in our JavaScript files
+				'command' => 'ErrorAuthorExists',
+
+				// We pass the values to the function to be executed
+				'error' => $e->getMessage(),
+
+			];
+
+			// And finally, we will return all of our commands to the system to be executed:
+			return ['#type' => 'ajax', '#commands' => $commands];
+		}
 	}
 
 }
 
-function save_new_contributors(array $authors, $nid){
+function save_new_contributors($authors, $nid){
+	
+	if ($authors != '')
 
-	$terms = [];
+	{
 
-	foreach ($authors as $value)
+		$terms = [];
 
-	{	
-		// Control for some edge cases
-		if (!empty($value))
+		foreach ($authors as $value)
 
-		{		
-			// Simple validation for avoiding duplicates
-			$exists = check_term_exists($value);
-			
-			if ($exists)
+		{
+			// Control for some edge cases
+			if (!empty($value))
 
 			{
-				throw new Exception($value);
+				// Simple validation for avoiding duplicates
+				$exists = check_term_exists($value);
+
+				if ($exists)
+
+				{
+					throw new Exception($value);
+				}
+
+				$term = build_basic_term($value);
+
+				$response = taxonomy_term_save($term);
+
+
+				if (!$response)
+
+				{
+					throw new Exception('Error saving a new term.');
+				}
+
+				$terms[] = $value;
+
+				$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
+
 			}
-
-			$term = build_basic_term($value);          
-			
-			$response = taxonomy_term_save($term);
-
-
-			if (!$response)
-			
-			{
-				throw new Exception('Error saving a new term.');
-			}
-
-			$terms[] = $value;
-				
-			$_SESSION['authors_as_metadata'][$nid][$term->tid] = $term->tid;
 
 		}
-		
+
+		return $terms;
 	}
 
-	return $terms;
+	else
+
+	{
+		
+		throw new Exception('Something needs to be introduced for saving.');
+	}
+
+	
 
 }
 
 function _clear_authors_as_metadata_variables($nid = null, $tid = null){
-	
+
 	if($nid && $tid == null)
 
 	{
@@ -298,7 +351,7 @@ function check_term_exists($author){
 	$query = "SELECT * FROM taxonomy_term_data a WHERE a.vid = 12 AND a.name = :name";
 
 	$result = db_query($query, [':name' => $author])->fetchObject();
-	
+
 	if (isset($result) && $result != 0)
 	{
 		return TRUE;
@@ -311,23 +364,23 @@ function check_term_exists($author){
 function ef_authors_as_metadata_node_presave($node){
 
 	$types = ['ef_report', 'ef_publication'];
-	
+
 	if (in_array($node->type, $types))
 
 	{
 		if(isset($_SESSION['authors_as_metadata']))
-		
+
 		{
 			foreach($_SESSION['authors_as_metadata'][$node->nid] as $tid)
 
-			{	
+			{
 				$node->field_ef_publ_contributors['und'][] = ['tid' => $tid];
 			}
-			
+
 			_clear_authors_as_metadata_variables($node->nid);
 		}
 	}
-	
+
 
 }
 
@@ -335,17 +388,17 @@ function ef_authors_as_metadata_node_presave($node){
 * Implements hook_permission()
 */
 function ef_authors_as_metadata_permission(){
-    
+
     return [
-        
+
         'access_ef_authors_as_metadata' => [
-            
+
             'title' => t('Authors as metadata'),
-            
+
             'description' => t('Enable access to authors as metadata features'),
-        
+
         ],
-    
+
     ];
 
 }
@@ -354,14 +407,14 @@ function ef_authors_as_metadata_permission(){
 * Implements hook_menu()
 */
 function ef_authors_as_metadata_menu(){
-	
+
 	//Define URI to remove an author
 	$items['authors-as-metadata/delete-author/%/%'] = [
-		
+
 		'page callback' => '_delete_author',
-		
+
 		'page arguments' => array(2,3),
-		
+
 		'type' => MENU_CALLBACK,
 
 		'access arguments' => array('access_ef_authors_as_metadata'),
@@ -382,7 +435,7 @@ function _delete_author($nid, $termName){
 
 
 	if($output == 0)
-	
+
 	{
 		drupal_json_output(array('status' => 500, 'data' => 'The term could not be deleted.'));
 	}
@@ -402,10 +455,10 @@ function build_basic_term($value, $vid = null){
 
 
 	$term = new stdClass();
-		
-	$term->name = $value;  
-		
-	$term->vid = $vid; 
+
+	$term->name = $value;
+
+	$term->vid = $vid;
 
 	$topic->description = '';
 
@@ -415,34 +468,3 @@ function build_basic_term($value, $vid = null){
 
 }
 
-/*
-function update_publ_contributors(){
-
-    
-    $tax = taxonomy_get_tree('12');
-    
-    foreach ($tax as $key => $entity) 
-
-    {
-        
-        $term = taxonomy_term_load($entity->tid);
-
-        if(!isset($term->description))
-
-        {
-        	$term->description = '';
-        }
-
-        if(!isset($term->format))
-
-        {
-        	$term->format = 'filtered_html';
-        }
-
-        taxonomy_term_save($term);
-    
-    }
-    
-   
-}
-*/

@@ -1,0 +1,861 @@
+/** working life country profiles **/
+h1.title-working-life {
+  margin-top: 4rem;
+}
+.section-country .print-pdf-wrapper{
+  width: 100%;
+  text-align: right;
+  top: -2.6rem;
+  position: relative;
+}
+.section-country span.print_pdf, .views-page .print_pdf {
+  list-style: none;
+  position: relative;
+  right:0;
+  top:0;
+  z-index: 10;
+}
+
+
+ul.list-metadata{
+  font-size: 11px;
+  list-style-type: none;
+  float: left;
+  width: 100%;
+  margin: 0rem 0 2rem;
+}
+
+ul.list-metadata > li {
+  font-family: 'Opensans-Semibold-webfont';
+  display: inline;
+  width: auto;
+  color:#5A5A5A;
+  margin-right: 0.5rem;
+}
+ul.list-metadata > li{
+  border-right: 2px solid orange;
+  padding-right: 0.3rem;
+}
+ul.list-metadata > li:nth-last-child(-n+2){
+  border-right: 0px solid orange;
+}
+ul.list-metadata > li:last-child{
+  display: block;
+}
+/*
+ul.list-metadata > li:before{
+  content: '| ';
+  color: #F7931E;
+}
+*/
+ul.list-metadata li > ul {
+  font-weight: normal;
+  display: inline;
+  margin: 0;
+}
+ul.list-metadata li > ul li {
+  color: #5A5A5A;
+  font-family: 'OpenSans-Regular-webfont';
+  display: inline;
+  padding-right: 0rem;
+  margin-right: 0rem;
+}
+ul.list-metadata li > ul li:before{
+  content: '| ';
+  color: #5A5A5A;
+}
+ul.list-metadata li > ul li:first-child:before{
+  content: '';
+}
+.summary-group{
+  padding: 1rem;
+}
+.wp_about{
+  width: 36%;
+  font-size: 12px;
+  margin: -10px 0 0 2%;
+  background: #f9f9f9;
+  padding: 1rem;
+}
+.wp_about h2{
+  border-bottom: 1px dotted #ccc;
+  font-family: 'Opensans-light-webfont';
+}
+.wp_about ul{
+  list-style-type: none;
+}
+.wp_body li{
+  display: block;
+  overflow: auto;
+}
+.wp_about ul li > span{
+  text-align: left;
+}
+.wp_about ul li > span:first-child{
+  font-family:'OpenSans-Semibold-Webfont';
+}
+
+
+.eurostat-result {
+  background: #f2f2f2;
+  margin: 0;
+  padding: 25px 20px !important;
+  border: 1px solid #ccc;
+ /* float: left;
+  margin-right: 25px;
+  margin-bottom: 10px;*/
+}
+  .eurostat-result ul {
+    list-style-type: none;
+    margin: 0 0 20px !important;
+    padding: 0;
+  }
+  .eurostat-result p {
+    margin: 0 !important;
+    padding: 0;
+    font-size: 12px;
+  }
+   .eurostat-result a:after {
+    content: "\f08e";
+    display: inline-block;
+    margin-left: 5px;
+    font: normal normal normal 12px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+  .eurostat-result ul li{
+    padding:7px 0;
+  }
+  .eurostat-result ul li .fa{
+    font-size: 20px !important;
+  }
+
+
+.field-name-field-ef-country-main-img{
+  position: relative;
+}
+.field-name-field-ef-country-main-figure img{
+  width: 100%;
+}
+.field.field-name-field-ef-country-img-caption {
+  background-color: rgba(255,255,255,0.8) !important;
+  bottom: 0;
+  position: absolute;
+  padding: 10px;
+  font-size: 12px;
+}
+.field.field-name-field-ef-country-img-caption *{
+  margin: 0;
+}
+.summary{
+  float: left;
+  width: 60%;
+  margin: 0;
+  font-style: italic;
+}
+.section-living-working {
+  margin: 4rem 0;
+}
+.section-living-working i{
+  color: #F58020;
+  margin-right: 5px;
+  font-size: 22px;
+}
+.section-living-working .media.media-element-container{
+  display: inline-block;
+}
+.section-living-working .related-content ul{
+  list-style-type: none;
+  column-count: 2;
+}
+.section-living-working .related-content ul li:before{
+  content: "\f105";
+  font-family: 'FontAwesome';
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.country-specific-info{
+  margin-top: 35px;  
+}
+.country-specific-info p {
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif!important;
+  padding: 15px 20px;
+
+}
+.country-specific-info > p:before{
+  content: "\e614";
+  font-family: 'ef-icon-font';
+  margin-left: 0;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 15px;
+  left: 7px;
+}
+
+
+.section-container.vertical-tabs{
+  margin: 2rem 0;
+}
+.section-container.vertical-tabs>.section.active,
+.section-container.vertical-tabs>section.active {
+    padding-left: 27%;
+}
+.section-container.vertical-tabs > section > .title {
+    cursor: pointer;
+    background-color: #fff!important;
+    color: #005baa;
+    padding: 15px!important;
+    margin: 0 !important;
+    width: 25% !important;
+    text-align: left;
+    font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif!important;
+    font-size: 16px !important;
+    border: none;
+    border-right: 1px solid #CCC !important;
+    overflow: visible;
+}
+.section-container.vertical-tabs > section.active2 .content{
+  display: none !important;
+}
+.section-container.vertical-tabs > section > .title:hover {
+    background-color: #f9f9f9 !important;
+}
+.section-container.vertical-tabs > section > .title:after {
+    content: "";
+    width: 3px;
+    background:#005baa ;
+    display: inline-block;
+    right: -3px;
+    top: 0;
+    position: absolute;
+    height:0%;
+    opacity: 0;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active2  > .title:after{
+    content: "\f107" !important;
+}
+.section-container.vertical-tabs > section > .title:hover:after {
+    height: 100%;
+    opacity: 0.5;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active > .title {
+    background-color: #f2f2f2 !important;
+}
+.section-container.vertical-tabs > section.active > .title:after {
+    height: 100%;
+    opacity: 1;
+}
+.section-container.vertical-tabs>section>.content{
+    border: none;
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 0 0 0;
+    background-color: #fff;
+}
+.section-container.vertical-tabs>section>.content p.subtitle{
+    font-size: 22px;
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif!important;
+    color: #005baa;
+}
+.section-container.vertical-tabs>section img{
+    outline-width: 0;
+}
+.section-container .content h3{
+  font-family: Opensans-semibold-webfont;
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;  
+} 
+.section-container .content h4{
+  font-family: Opensans-semibold-webfont;
+  color: #444;
+  font-size: 1rem; 
+    margin-top: 0; 
+} 
+.latest-news-working-life{
+  border-right: 1px dotted #ccc;
+}
+h3.subtitle {
+  font-size: 1rem; 
+  margin:0;
+  font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+
+}
+.content ul.metadata-items {
+  margin: 0px 0 10px !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+}
+  .content ul.metadata-items li{
+    list-style-type: none;
+    display: inline;
+    border:0;
+    font-size: 12px;
+  }
+  .content ul.metadata-items li a{
+    padding: 0px 0px 0px 0px !important;
+  }
+  .content .metadata-type, .metadata-topics{
+    color: #F7931E;
+  }
+  .content li.metadata-deliverable-kind {
+    color: #F58020;
+  }
+
+.go-top-wrapper{
+  padding: 0px;
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+  z-index: 9000;
+  width: auto !important;
+  border-radius: 30px;
+}
+#ef-working-life-country-profiles-node-form span.field-edit-link{
+  display:none;
+}
+/** end working life country profiles **//** working life country profiles **/
+ul.list-metadata{
+  font-size: 11px;
+  list-style-type: none;
+  float: left;
+  width: 100%;
+  margin: 0rem 0 2rem;
+}
+
+ul.list-metadata > li {
+  font-family: 'Opensans-Semibold-webfont';
+  display: inline;
+  width: auto;
+  color:#5A5A5A;
+  margin-right: 0.5rem;
+}
+ul.list-metadata > li{
+  border-right: 2px solid orange;
+  padding-right: 0.3rem;
+}
+ul.list-metadata > li:nth-last-child(-n+2){
+  border-right: 0px solid orange;
+}
+ul.list-metadata > li:last-child{
+  display: block;
+}
+/*
+ul.list-metadata > li:before{
+  content: '| ';
+  color: #F7931E;
+}
+*/
+ul.list-metadata li > ul {
+  font-weight: normal;
+  display: inline;
+  margin: 0;
+}
+ul.list-metadata li > ul li {
+  color: #5A5A5A;
+  font-family: 'OpenSans-Regular-webfont';
+  display: inline;
+  padding-right: 0rem;
+  margin-right: 0rem;
+}
+ul.list-metadata li > ul li:before{
+  content: '| ';
+  color: #5A5A5A;
+}
+ul.list-metadata li > ul li:first-child:before{
+  content: '';
+}
+.summary-group{
+  padding: 1rem;
+}
+.wp_about{
+  width: 36%;
+  font-size: 12px;
+  margin: -10px 0 0 2%;
+  background: #f9f9f9;
+  padding: 1rem;
+}
+.wp_about h2{
+  border-bottom: 1px dotted #ccc;
+  font-family: 'Opensans-light-webfont';
+}
+.wp_about ul{
+  list-style-type: none;
+}
+.wp_body li{
+  display: block;
+  overflow: auto;
+}
+.wp_about ul li > span{
+  text-align: left;
+}
+.wp_about ul li > span:first-child{
+  font-family:'OpenSans-Semibold-Webfont';
+}
+h1.title-working-life .fa{
+  color: #F58020;
+  margin-right: 10px;
+  font-size: 36px;
+}
+.summary{
+  float: left;
+  width: 60%;
+  margin: 0;
+  font-style: italic;
+}
+.view.view-latest-country-update .view-content > div {
+  margin-bottom: 1rem;
+}
+.view.view-display-id-news_and_quartely_updates .view-content > div {
+  display: inline-block;
+  float: left;
+  width: 46%;
+  margin-right: 2%;
+}
+.section-container.vertical-tabs{
+  margin: 2rem 0;
+}
+.section-container.vertical-tabs>.section.active,
+.section-container.vertical-tabs>section.active {
+    padding-left: 27%;
+}
+.section-container.vertical-tabs > section > .title {
+    cursor: pointer;
+    background-color: #fff!important;
+    color: #005baa;
+    padding: 15px!important;
+    margin: 0 !important;
+    width: 25% !important;
+    text-align: left;
+    font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif!important;
+    font-size: 16px !important;
+    border: none;
+    border-right: 1px solid #CCC !important;
+    overflow: visible;
+}
+.section-container.vertical-tabs > section > .title:hover {
+    background-color: #f9f9f9 !important;
+}
+.section-container.vertical-tabs > section > .title:after {
+    content: "";
+    width: 3px;
+    background:#005baa ;
+    display: inline-block;
+    right: -3px;
+    top: 0;
+    position: absolute;
+    height:0%;
+    opacity: 0;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active2  > .title:after{
+    content: "\f107" !important;
+}
+.section-container.vertical-tabs > section > .title:hover:after {
+    height: 100%;
+    opacity: 0.5;
+   -webkit-transition:all .20s;
+   -moz-transition:all .20s;
+   -ms-transition:all .20s;
+   -o-transition:all .20s;
+   transition:all .20s;
+}
+.section-container.vertical-tabs > section.active > .title {
+    background-color: #f2f2f2 !important;
+}
+.section-container.vertical-tabs > section.active > .title:after {
+    height: 100%;
+    opacity: 1;
+}
+.section-container.vertical-tabs>section>.content{
+    border: none;
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px 0 0 0;
+    background-color: #fff;
+}
+.section-container.vertical-tabs>section>.content p.subtitle {
+    font-size: 22px;
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif!important;
+    color: #005baa;
+}
+.go-top-wrapper{
+  padding: 0px;
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+  z-index: 9000;
+  width: auto !important;
+  border-radius: 30px;
+}
+#ef-working-life-country-profiles-node-form span.field-edit-link{
+  display:none;
+}
+
+
+
+/** end working life country profiles **/
+
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) { 
+  .summary-living-working {
+    width: 60%;
+  }
+  .eurostat-result {
+    width: 40%;
+    float: right;
+    padding: 15px 10px !important;
+  }
+  .eurostat-result ul {
+    list-style-type: none;
+    margin: 0 0 10px !important;
+    padding: 0;
+    text-align: left;
+  }
+  .eurostat-result ul li {
+    padding: 7px 0;
+    font-size: 13px;
+  }
+  .eurostat-img {
+    width: 40%;
+    padding: 1px;
+    margin: 10px 0;
+  }
+  .eurostat-img img{
+    outline: 0 !important;
+    border: 0px !important;
+  }
+  .section-living-working i {
+    color: #F58020;
+    margin-right: 5px;
+    font-size: 22px;
+    height: 2.5rem;
+    display: inline-block;
+    float: left;
+  }
+  .latest-news-working-life {
+    border-right: 0px dotted #ccc;
+    border-bottom: 1px dotted #ccc;
+    width: 100%;
+  }
+  .quarterly-overviews {
+    width: 100%;
+  }
+  .quarterly-overviews h3 {
+    margin-top: 1rem !important;
+  }
+  .quarterly-overviews .view-content{
+    column-count: 2;
+  }
+  section .small-12.large-6 {
+    width: 100% !important;
+    border-bottom: 1px dotted #ccc;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+  .country-specific-info {
+    margin-top: 1rem;
+  }
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+
+}
+@media only screen and (max-width : 767px) { 
+
+  h1.title-working-life .fa {
+    color: #F58020;
+    margin-right: 10px;
+    font-size: 36px;
+    min-height: 2rem;
+    float: left;
+  }
+  .section-living-working {
+    margin:40px 0 !important;
+    border: 0 !important;
+  }
+  .section-living-working .content, 
+  .section-working-life-country-profile .content{
+    margin: 10px 40px !important;
+  } 
+  .section-living-working section, 
+  .section-working-life-country-profile section{
+    clear: both;
+  }
+  .section-living-working section p.subtitle, 
+  .section-working-life-country-profile section p.subtitle{
+    display: none;
+  }
+  .section-container.vertical-tabs > section > .title:after{
+    /*content: '';
+    display: none;*/
+  }
+  .view.view-display-id-news_and_quartely_updates .view-content > div {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    margin-right: 2%;
+  }
+  .section-living-working .related-content ul {
+    list-style-type: none;
+    column-count: 1;
+  }
+  .wp_about {
+    width: 100%;
+    font-size: 12px;
+    margin: 10px 0;
+    background: #f9f9f9;
+    padding: 1rem;
+    float: none !important;
+  }
+  .summary {
+    float: none;
+    width: 100%;
+    margin: 20px 0;
+    font-style: italic;
+  }
+  .inactive{
+    display: none !important;
+  }
+  .section-container.vertical-tabs>section>.content {
+    padding: 10px;
+  }
+  .section-working-life-country-profile, 
+  .section-living-working{
+    border: 0;
+  }
+  .section-container.vertical-tabs > section > .title {
+    border: 0 !important;
+  }
+  .section-container.vertical-tabs > section{
+    position: relative;
+  }
+  .section-container.vertical-tabs > section > h2.title:after {
+    content: "\f107";
+    font-family: 'FontAwesome';
+    width: 30px;
+    height: 30px !important;
+    background: transparent;
+    display: inline-block !important;
+    right: -10px !important;
+    top: 19px !important;
+    position: absolute;
+    height: 0%;
+    opacity: 1;
+    -webkit-transition: all .20s;
+    -moz-transition: all .20s;
+    -ms-transition: all .20s;
+    -o-transition: all .20s;
+    transition: all .20s;
+    font-size: 22px !important;
+  }
+  .eurostat-result {
+    background: #f2f2f2;
+    margin: 0;
+    padding: 15px 10px !important;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+  }
+  .summary-group{
+    padding: 0;
+  }
+  .wp_about ul li > span:first-child {
+    margin-bottom: 0;
+  }
+  .wp_about ul li > span {
+    margin-bottom: 15px;
+    display: block;
+    width: 100%;
+  }
+  .go-top-wrapper {
+    right: 20px;
+  }
+}
+
+@media print {
+  p:empty{
+    display: none !important;
+  }
+  section.l-featured.row {
+    display: none;
+  }
+  h1.title.secundary {
+  margin: 0 !important;
+  padding: 0 !important;
+  }
+  .summary-living-working{
+  width: 100% !important;
+  }
+.eurostat-result {
+  background: #f2f2f2 !important;
+  margin: 0;
+  padding:10px !important;
+  border: 1px solid #ccc;
+  float: none;
+  margin: 4rem auto 1rem !important;
+  width: 90% !important;
+  clear: both !important;
+}
+  .eurostat-result ul {
+    list-style-type: none;
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+  }
+  .eurostat-result p {
+    margin: 0 !important;
+    padding: 0;
+    font-size: 12px;
+  }
+   .eurostat-result a:after {
+    content: "\f08e";
+    display: inline-block;
+    margin-left: 5px;
+    font: normal normal normal 12px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   }
+  .eurostat-result ul li{
+    padding:7px 0;
+  }
+  .eurostat-result ul li .fa{
+    font-size: 20px !important;
+  }
+  .eurostat-img{
+    text-align: center !important;
+    width: 100% !important;
+  }  
+  .eurostat-img img{
+    width: auto !important;
+  }
+  .field.field-name-field-ef-country-img-caption {
+    position: relative;
+  }
+  .eurostat-img p{
+    text-align: center !important;
+    width: 100% !important;
+    margin-top: 10px;
+  }
+.summary {
+  float: none;
+  width: 100%;
+}
+.field-name-field-ef-country-main-figure img {
+  width: auto;
+}
+.section-container.vertical-tabs {
+  border: none;
+}
+.section-container.vertical-tabs > section > .title:after {
+  content:none;
+}
+
+.section-container.vertical-tabs>.section.active, 
+.section-container.vertical-tabs>section.active {
+  padding-left: 0;
+}
+.section-living-working.section-container.vertical-tabs > section > .title {
+  position: static !important;
+  display: block !important;
+  font-size: 22px !important;
+  font-family:'OpenSans-Bold-webfont' !important;
+  margin-bottom: 0px !important;
+  clear: both !important;
+  border: none !important;
+  width: 100% !important;
+  background: transparent !important;
+}
+.section-living-working.section-container.vertical-tabs > section > .title p {
+  margin-bottom: 0px !important;
+}
+.section-living-working h3.subtitle {
+  font-size: 1rem; 
+  margin:0;
+  font-family: 'OpenSans-Bold-webfont', Arial, Helvetica !important;
+}
+
+.section-living-working ul.metadata-items {
+  margin: 0px 0 10px !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+}
+  .section-living-working ul.metadata-items li{
+    list-style-type: none;
+    display: inline;
+    border:0;
+  }
+  .section-living-working ul.metadata-items li a{
+    padding: 0px 0px 0px 0px !important;
+  }
+  .section-living-working .metadata-type, .metadata-topics{
+    color: #F7931E;
+    font-size: 0.9em;
+
+  }
+  .section-living-working>section>.content, 
+  .section-working-life-country-profile>section>.content{
+    display: block !important;
+    border: 0 !important;
+    margin: 0 !important;
+  }
+  .latest-news-working-life {
+    border-right:none;
+  }
+  .section-living-working>section p.subtitle, 
+  .section-working-life-country-profile>section p.subtitle{
+    font-size: 22px !important;
+    font-family: OpenSans-semibold-webfont;
+    margin-bottom: 15px;
+    clear: both !important;
+  }
+  .view.view-display-id-news_and_quartely_updates .view-content > div, 
+  .view.view-latest-country-update .view-content > div{
+    display: inline-block;
+    float: none;
+    width: auto;
+    margin: 0 15px;
+  }
+  .node-ef-working-life-country-profiles .wp_about {
+    margin: 2rem 0;
+    padding: 10px;
+    width: 100% !important;
+    border: none !important;
+    background: #f2f2f2 !important;
+  }
+  .wp_about ul li span.small-3 {
+    padding: 0;
+    float: left;
+    width: auto;
+  }
+  .wp_about ul li span.small-9 {
+    width: auto;
+  }
+  .go-top-wrapper{
+    display: none !important;
+  }
+}
+
+
+

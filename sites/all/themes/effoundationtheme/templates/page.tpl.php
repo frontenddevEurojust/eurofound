@@ -404,11 +404,14 @@
           }else if($node->type == 'data_explorer_page') {
            $hide_print  = true;
            $hide_pdf = true;
-          }else if($node->type == 'blog' || $node->type == 'presentation') {
+          }else if(
+                    $node->type == 'blog' || 
+                    $node->type == 'presentation' || 
+                    $node->type == 'ef_working_life_country_profiles'
+                  ) {
            $hide_print  = true;
            $hide_pdf = true;
           }
-
         }
         ?>
 
@@ -418,16 +421,6 @@
           <?php endif; ?>
         <?php endif; ?>
         <?php if (!drupal_is_front_page() && $hide_print == false && $survey_print == true ): ?>
-          <?php if (!strpos($aux,'print-page')): ?>
-            <?php print print_insert_link();?>
-          <?php endif; ?>
-        <?php endif; ?>
-        <?php if (!drupal_is_front_page() &&  $hide_print  == false ): ?>
-          <?php if (!strpos($aux,'print-page')): ?>
-            <?php print print_insert_link();?>
-          <?php endif; ?>
-        <?php endif; ?>
-        <?php if (!drupal_is_front_page() &&  $hide_pdf == false ): ?>
           <?php if (!strpos($aux,'print-page')): ?>
             <?php print print_insert_link();?>
           <?php endif; ?>
