@@ -93,22 +93,22 @@ $eurostatResult = $content['field_ef_eurostat_results']['#items'][0]['value'];
 $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 $mainImagen = $content['field_ef_country_main_img'];
 $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']); 
+$quartely_overviews = views_embed_view('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']); 
 
 ?>
 
 <div class="print-wrapper no-pdf"><?php print print_insert_link();?></div>
 <p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
 
-<?php if(isset($mainImagen)): ?>
-<div class="summary-living-working small-12 large-9 columns no-pdf">
-<?php else: ?>
-<div class="summary-living-working small-12 large-12 columns no-pdf">
+<?php if(isset($eurostatResult)): ?>
+<div class="eurostat-result small-12 large-3 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
 <?php endif; ?>
 
-	<?php if(isset($eurostatResult)): ?>
-	<div class="eurostat-result small-12 large-4 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
-	<?php endif; ?>
-
+<?php if(isset($mainImagen)): ?>
+<div class="summary-living-working small-12 large-6 columns no-pdf">
+<?php else: ?>
+<div class="summary-living-working small-12 large-8 columns no-pdf">
+<?php endif; ?>
 	<?php if(isset($summary)): ?>
 		<?php print $summary ?>
 	<?php endif; ?>
@@ -142,7 +142,7 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 
 		<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
 		<div class="content" data-section-content>
-			<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>
+			<!--<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>-->
 			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
 		</div>
 	</section>
@@ -153,8 +153,16 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 	<section class="news-and-quartely-country-updates">
 		<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i> News and quarterly country updates</h2>
 		<div class="content" data-section-content>
-			<p class="subtitle">News and quarterly country updates</p>
-			<?php print $news_and_quartely_updates; ?>
+			<div class="small-12 large-8 column latest-news-working-life">
+				<h3>Latest news on Austria working life</h3>
+				<!--<p class="subtitle">News and quarterly country updates</p>-->
+				<?php print $news_and_quartely_updates; ?>
+			</div>
+
+			<div class="small-12 large-4 column quarterly-overviews">
+				<h3>Quaterly overwievs</h3>
+				<?php print $quartely_overviews; ?>
+			</div>
 		</div>
 	</section>
 	<?php endif; ?>
@@ -233,13 +241,16 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 	<div class='wp_about right'>
 		<h2 class='wp_tit'>About</h2>
       <ul class="wp_body row">
+
+
+      	<!--
       	<?php if(isset($country)): ?>
       	<li>
         	<span class='small-3 columns'>Country: </span>
 	        <span class='small-9 columns'><?php print $country; ?></span>
 	    </li>
     	<?php endif; ?>
-
+			-->
 
     	<?php if(isset($author)): ?>
     	<li>

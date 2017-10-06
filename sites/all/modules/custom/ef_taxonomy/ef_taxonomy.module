@@ -1,0 +1,75 @@
+<?php
+/**
+ * This function implements the code which inserts, if a node is updated 
+ * or created, the proper values in the taxonomy_index table, but only if
+ * the node is published.
+ */
+function ef_taxonomy_revisionapi($op, $node_revision)
+{
+	$nidValue = $node_revision->nid;
+	$publishState = '0';
+	/*
+	 * The first thing is checking whether the node is to be published or not.
+	 */
+	$query = db_select('workbench_moderation_node_history', 'wm')
+		->fields('wm',array('published'))
+		->condition('current', '1','=')
+		->condition('nid', $nidValue,'=');
+	$result = $query->execute();
+	foreach($result->fetchAll() as $record)
+	{
+		$publishState = $record->published;
+	}
+	
+	/*
+	 * If published, taxonomies are inserted.
+	 */
+	if($publishState == '1')
+	{
+		/*
+		 * First, table is cleaned.
+		 */
+		$query = db_delete('taxonomy_index')
+			->condition('nid', $nidValue,'=');		
+		$query->execute();
+		
+		
+		$query = db_insert('taxonomy_index')->fields(array('nid', 'tid', 'sticky', 'created'));
+		/*
+		 * Then, the fields that need to be inserted are got. In order to know 
+		 * which are the possible fields, the affected field names are obtained
+		 * by getting them from the node type. Each node type is related to specific
+		 * taxonomy terms, so their names are obtained...
+		 */
+		$nodeFields = field_info_instances('node', $node_revision->type);
+		foreach($nodeFields as $nodeField)
+		{
+			$fieldName = $nodeField['field_name'];
+			$taxonomyName = $node_revision->$fieldName;
+			/*
+			 * ...then the specific value for each term for the current node...
+			 */
+			foreach($taxonomyName as $taxonomyNameUndefined)
+			{
+				foreach ($taxonomyNameUndefined as $taxonomyElement)
+				{
+					$tidValue = $taxonomyElement['tid'];
+					/*
+					 * ...and, if the value is not empty, it will be inserted
+					 * into the database.
+					 */
+					if($tidValue !== NULL && strlen($tidValue) > 0)
+					{
+						$query->values(array(
+							'nid' => $nidValue,
+							'tid' => $tidValue,
+							'sticky' => $node_revision->current_sticky,
+							'created' => $node_revision->created,
+						));
+						$query->execute();
+					}
+				}
+			}
+		}
+	}
+}
