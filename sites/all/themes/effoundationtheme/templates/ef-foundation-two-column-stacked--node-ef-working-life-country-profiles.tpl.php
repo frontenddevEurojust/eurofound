@@ -312,14 +312,7 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 	    <span class="hide-text">Hide comments</span>
 	</div>
   	<div id="comments" class="title comment-wrapper">
-		<?php
-
-			$comment = new stdClass;
-			$comment->nid = $node->nid;
-			$form = drupal_get_form('comment_form', $comment);
-			print render($form);
-
-		?>
+			<?php print render($content['comments']);?>
 	</div>
 </div>
 <?php endif; ?>
