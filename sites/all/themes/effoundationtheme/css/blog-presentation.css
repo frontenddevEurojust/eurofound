@@ -325,3 +325,18 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
     }
 
 }
+
+
+@media only screen and (max-width: 420px) {
+   
+    .node-type-blog .topic-abstract p:first-child{
+        width: 100%;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+
+    .node-type-blog .ds-node-metadata .field div{
+        text-align: left;
+    }
+
+}
