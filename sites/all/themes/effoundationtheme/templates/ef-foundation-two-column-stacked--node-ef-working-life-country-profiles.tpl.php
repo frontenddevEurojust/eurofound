@@ -107,7 +107,7 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 <?php if(isset($mainImagen)): ?>
 <div class="summary-living-working small-12 large-6 columns no-pdf">
 <?php else: ?>
-<div class="summary-living-working small-12 large-12 columns no-pdf">
+<div class="summary-living-working small-12 large-8 columns no-pdf">
 <?php endif; ?>
 	<?php if(isset($summary)): ?>
 		<?php print $summary ?>

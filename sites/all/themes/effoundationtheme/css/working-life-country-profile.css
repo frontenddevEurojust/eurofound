@@ -2,6 +2,29 @@
 h1.title-working-life {
   margin-top: 4rem;
 }
+.section-living-working a:after {
+  content: "\f08e";
+  display: inline-block;
+  margin-left: 5px;
+  font: normal normal normal 12px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.summary-living-working .content a:after{
+  content: "\f08e";
+  display: inline-block;
+  margin-left: 5px;
+  font: normal normal normal 12px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.metadata-items a:after{
+  content: ""; 
+}
 .section-country .print-pdf-wrapper{
   width: 100%;
   text-align: right;
