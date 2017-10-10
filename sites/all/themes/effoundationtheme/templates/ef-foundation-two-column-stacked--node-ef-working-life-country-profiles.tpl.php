@@ -120,8 +120,8 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
 <div class="clear"></div>
 
-<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
 <div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
+<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
 	<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
 		<?php
 			$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
@@ -278,7 +278,9 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
       </ul>
 	</div>
 	<div class="summary">
-		<p><?php print $content['body']['#items'][0]['safe_value'] ?></p>
+		<p><?php 
+		print $content['body'][0]['#markup'];
+		//print $content['body']['#items'][0]['safe_value'] ?></p>
 	</div>
 <?php endif; ?>
 </div>
@@ -301,21 +303,31 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 </div>
 <?php endif; ?>
 
+
+
+
+<!-- RATINGS -->
 <?php if(in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles)):?>
 	<?php print render($content['qrr']);?>
 <?php endif; ?>
+<!-- end RATINGS -->
 
+<!--COMMENTS-->
 <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
 <div class="ds-node-comments no-pdf">
+	
 	<div class="ef-comment-toggler toggler">
 	    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
 	    <span class="hide-text">Hide comments</span>
-	</div>
-  	<div id="comments" class="title comment-wrapper">
+	</div>  
+
+  <div id="comments" class="title comment-wrapper">
 			<?php print render($content['comments']);?>
 	</div>
+
 </div>
 <?php endif; ?>
+<!-- end comments -->
 
 <div class="go-top-wrapper no-pdf">
   <a class="go-top fa-stack fa-2x" href="#up">
