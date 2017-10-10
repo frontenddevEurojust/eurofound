@@ -166,10 +166,11 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
             </div>
             <div class="name-pdf">
                 <a href="<?php print $content['field_pdf_presentation'][0]['#preview_path'] ?>" target="_blank">
-                    <?php print $content['field_pdf_presentation']['#items'][0]['filename'] ?>
-                    &nbsp;(<span class="presentation-extension"><?= $ext?> </span><?php print $bytes ?>)
+                    
+                    <?php print t("Donwload"); ?> <span class="presentation-extension"><?= $ext?> </span>(<?php print $bytes ?>)
                 </a>
-                <br>
+            </div>
+            <div class="content-description">
                 <span class="description"><?php print $content['field_pdf_description'][0]['#markup'] ?></span>
             </div>
         </div>

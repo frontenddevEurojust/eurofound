@@ -99,9 +99,16 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
 	margin: 0 auto;
 }
 
+.content-description{
+    padding-top: 1em;
+    text-align: center;
+}
+
 .name-pdf{
     text-align: center;
     font-size: 0.85em;
+    max-width: 280px;
+    margin: 0 auto;
 }
 
 .presentation-extension{
@@ -112,6 +119,32 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
     display: block;
     padding-top: 7px;
 }
+
+.node-type-presentation .name-pdf a{
+    display: block;
+    background-color: #F99E35;
+    text-align: left;
+    clear: both;
+    position: relative;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 18px 30px 18px 15px !important;
+    color: #fff;
+    margin: 0px;
+    padding-right: 0px;
+    display: block;
+}
+
+.node-type-presentation .name-pdf  a:after{
+    content: "\e62a";
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+    font-family: 'ef-icon-font';
+}
+
 
 /* Blog and Presentation */
 
@@ -285,8 +318,12 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
 	padding-bottom: 0.8em;
 }
 
+.view-authors-as-metadata .authors-as-metadata a{
+    line-height: 20px;
+}
 
-/*Resposive*/
+
+/*Responsive*/
 @media only screen and (max-width: 767px) {
    
     h1 .title-blog-presentation{
