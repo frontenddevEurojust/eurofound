@@ -24,7 +24,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
 	//Prevent Old token error in search forms
 	if ($form_id == 'views_exposed_form' ) {
-	unset($form['#token']);
+		unset($form['#token']);
 	}
 	// Unset 'Disable all revisions' button
 	if (strpos($form_id, '_node_form') !== FALSE) {
@@ -36,7 +36,6 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 	** Issue: WGS-196.
 	*/
 	if ($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1'){
-		dpm('aaaaaa');
 		$options = $form['tid']['#options'];
 	
 		natcasesort($options);
@@ -47,7 +46,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 	** Issue: WGS-196.
 	*/
 	if ($form['#id'] == 'views-exposed-form-ef-publications-view-page'){
-		dpm('alllaa');
+
 		$options_topics = $form['field_ef_topic_tid']['#options'];
 		$options_authors = $form['field_ef_publ_contributors_tid']['#options'];
 		$options_observatory = $form['field_ef_observatory_tid']['#options'];
