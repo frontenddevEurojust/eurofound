@@ -278,7 +278,9 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
       </ul>
 	</div>
 	<div class="summary">
-		<p><?php print $content['body']['#items'][0]['safe_value'] ?></p>
+		<p><?php 
+		print $content['body'][0]['#markup'];
+		//print $content['body']['#items'][0]['safe_value'] ?></p>
 	</div>
 <?php endif; ?>
 </div>
