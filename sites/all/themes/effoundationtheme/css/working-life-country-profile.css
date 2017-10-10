@@ -2,6 +2,9 @@
 h1.title-working-life {
   margin-top: 4rem;
 }
+.node-type-ef-working-life-country-profiles p:empty{
+  display: none;
+}
 .section-living-working a:after {
   content: "\f08e";
   display: inline-block;
