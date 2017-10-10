@@ -615,9 +615,7 @@ function ef_notifications_save_transition_records($node, $previous_state, $new_s
       $noti_user = user_load($uid);
       if ($noti_user->field_ef_notification_settings['und'][0]['value'] == 1){
         $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
-        dpm($mail_already_sent);
         if (!$mail_already_sent) {
-          dpm('sending');
           ef_notifications_real_time($node, $uid, $previous_state, $new_state);
           $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
           ef_notifications_save_real_time_db($node->nid, $uid, $type);
