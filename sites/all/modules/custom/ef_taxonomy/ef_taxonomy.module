@@ -13,18 +13,24 @@ function ef_taxonomy_revisionapi($op, $node_revision)
 	 */
 	$query = db_select('workbench_moderation_node_history', 'wm')
 		->fields('wm',array('published'))
+//		->fields('wm',array('state'))
 		->condition('current', '1','=')
+		//->condition('state', 'published','=')
 		->condition('nid', $nidValue,'=');
 	$result = $query->execute();
 	foreach($result->fetchAll() as $record)
 	{
 		$publishState = $record->published;
+//		$publishState = $record->state;
+//		$publishState == 1;
 	}
+error_log("publishState: ".$publishState);
+//error_log("publishState: ".$publishState);
 	
 	/*
 	 * If published, taxonomies are inserted.
 	 */
-	if($publishState == '1')
+	if($publishState == 1)
 	{
 		/*
 		 * First, table is cleaned.
