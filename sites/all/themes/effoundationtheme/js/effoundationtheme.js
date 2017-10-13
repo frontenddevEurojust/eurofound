@@ -1321,7 +1321,7 @@ $(document).ready(function(){
 /** BREADCRUMBS FOR country profile **/
 (function ($) {
   $(document).ready(function(){
-    $('.page-node.section-country ul.breadcrumbs li.current').text('Country');
+    $('.page-node.section-country.page-node-56423 ul.breadcrumbs li.current').text('Country');
   });
 })(jQuery);
 /** END BREADCRUMBS FOR country profile **/
