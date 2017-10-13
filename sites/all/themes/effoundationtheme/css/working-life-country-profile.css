@@ -189,7 +189,10 @@ ul.list-metadata li > ul li:first-child:before{
   margin-right: 5px;
   font-size: 22px;
 }
-.section-living-working .media.media-element-container{
+.section-living-working .active i {
+  color:#005baa;
+}
+  .section-living-working .media.media-element-container{
   display: inline-block;
 }
 .section-living-working .related-content ul{
@@ -221,96 +224,6 @@ ul.list-metadata li > ul li:first-child:before{
   left: 7px;
 }
 
-
-.section-container.vertical-tabs{
-  margin: 2rem 0;
-
-  margin-top: 4rem;
-  border-bottom: 5px solid #A6B4D1;
-  border-left: none;
-  border-top: none;
-  border-right: none;
-  border-radius: 14px;
-  /* background: #f9f9f9; */
-  padding: 1rem;
-  -webkit-box-shadow: 0px 5px 10px 0px rgba(204,204,204,1);
-  -moz-box-shadow: 0px 5px 10px 0px rgba(204,204,204,1);
-  box-shadow: 0px 5px 10px 0px rgba(204,204,204,1);
-}
-.section-container.vertical-tabs>.section.active,
-.section-container.vertical-tabs>section.active {
-    padding-left: 27%;
-}
-.section-container.vertical-tabs > section > .title {
-    cursor: pointer;
-    background-color: #fff!important;
-    color: #005baa;
-    padding: 15px!important;
-    margin: 0 !important;
-    width: 25% !important;
-    text-align: left;
-    font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif!important;
-    font-size: 16px !important;
-    border: none;
-    border-right: 1px solid #CCC !important;
-    overflow: visible;
-}
-.section-container.vertical-tabs > section.active2 .content{
-  display: none !important;
-}
-.section-container.vertical-tabs > section > .title:hover {
-    background-color: #f9f9f9 !important;
-}
-.section-container.vertical-tabs > section > .title:after {
-    content: "";
-    width: 3px;
-    background:#005baa ;
-    display: inline-block;
-    right: -3px;
-    top: 0;
-    position: absolute;
-    height:0%;
-    opacity: 0;
-   -webkit-transition:all .20s;
-   -moz-transition:all .20s;
-   -ms-transition:all .20s;
-   -o-transition:all .20s;
-   transition:all .20s;
-}
-.section-container.vertical-tabs > section.active2  > .title:after{
-    content: "\f107" !important;
-}
-.section-container.vertical-tabs > section > .title:hover:after {
-    height: 100%;
-    opacity: 0.5;
-   -webkit-transition:all .20s;
-   -moz-transition:all .20s;
-   -ms-transition:all .20s;
-   -o-transition:all .20s;
-   transition:all .20s;
-}
-.section-container.vertical-tabs > section.active > .title {
-    background-color: #f2f2f2 !important;
-}
-.section-container.vertical-tabs > section.active > .title:after {
-    height: 100%;
-    opacity: 1;
-}
-.section-container.vertical-tabs>section>.content{
-    border: none;
-    width: 100%;
-    margin: 0 !important;
-    padding: 10px 0 0 0;
-    background-color: #fff;
-}
-.section-container.vertical-tabs>section>.content p.subtitle{
-    font-size: 22px;
-    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif!important;
-    color: #005baa;
-}
-.section-container.vertical-tabs>section img{
-    outline-width: 0;
-}
 .section-container .content h3{
   font-family: Opensans-semibold-webfont;
   color: #444;
@@ -318,11 +231,15 @@ ul.list-metadata li > ul li:first-child:before{
   margin-bottom: 1rem;  
 } 
 .section-container .content h4{
-  font-family: Opensans-semibold-webfont;
+  font-family: Opensans-bold-webfont;
   color: #444;
-  font-size: 1rem; 
+  font-size: 14px; 
     margin-top: 0; 
 } 
+.section-living-working .content h4 a:after{
+  font-size: 10px;  
+}
+
 .latest-news-working-life{
   border-right: 1px dotted #ccc;
 }
@@ -457,7 +374,11 @@ h1.title-working-life .fa{
   font-style: italic;
 }
 .view.view-latest-country-update .view-content > div {
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
+}
+.view.view-display-id-news_and_quartely_updates > .view-content{
+  display: flex;
+  flex-wrap: wrap;
 }
 .view.view-display-id-news_and_quartely_updates .view-content > div {
   display: inline-block;
@@ -483,7 +404,7 @@ h1.title-working-life .fa{
     font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif!important;
     font-size: 16px !important;
     border: none;
-    border-right: 1px solid #CCC !important;
+    border-right: 1px solid #CCC;
     overflow: visible;
 }
 .section-container.vertical-tabs > section > .title:hover {
@@ -536,6 +457,9 @@ h1.title-working-life .fa{
     font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif!important;
     color: #005baa;
 }
+.section-container.vertical-tabs>section img{
+    outline-width: 0;
+}
 .go-top-wrapper{
   padding: 0px;
   display: none;
@@ -551,6 +475,42 @@ h1.title-working-life .fa{
 }
 
 
+#content-tabs-living-working {
+  /*background-color: #E3E3E3 !important;
+  border: 1px solid #ccc;*/
+}
+#content-tabs-living-working>section{
+  padding-left: 25%;
+}
+#content-tabs-living-working>section>.content{
+  background-color: #f2f2f2 !important;
+  float: left;
+  padding: 15px 10px;
+  border-color: #CCC;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px !important;
+}
+#content-tabs-living-working > section > .title {
+  background-color:#E3E3E3 !important;
+  border: 1px solid #CCC;
+  border-right: none ;
+}
+#content-tabs-living-working > section.active > .title {
+  background-color: #f2f2f2 !important;
+  width: 25.1% !important;
+}
+#content-tabs-living-working  > section > .title:after {
+  content: none;
+}
+#content-tabs-living-working > section:first-child > .title {
+  border-bottom:none;
+}
+#content-tabs-living-working > section:last-child > .title {
+
+}
+.news-and-quartely-country-updates i{
+  margin-right: 9px;
+}
 
 /** end working life country profiles **/
 
@@ -640,6 +600,10 @@ h1.title-working-life .fa{
   .section-working-life-country-profile section{
     clear: both;
   }
+  #content-tabs-living-working > section.active > .title {
+    background-color: #f2f2f2 !important;
+    width:100% !important;
+  }
   .section-living-working section p.subtitle, 
   .section-working-life-country-profile section p.subtitle{
     display: none;
@@ -683,13 +647,16 @@ h1.title-working-life .fa{
     border: 0;
   }
   .section-container.vertical-tabs > section > .title {
-    border: 0 !important;
+    border:none !important;
+  }
+  #content-tabs-living-working > section > .title {
+    border: 1px solid #ccc !important;
   }
   .section-container.vertical-tabs > section{
     position: relative;
   }
   .section-container.vertical-tabs > section > h2.title:after {
-    content: "\f107";
+    content: "\f107" !important;
     font-family: 'FontAwesome';
     width: 30px;
     height: 30px !important;
@@ -706,6 +673,9 @@ h1.title-working-life .fa{
     -o-transition: all .20s;
     transition: all .20s;
     font-size: 22px !important;
+  }
+  .section-container.vertical-tabs > section > h2.title.active:after {
+     content: "\f106" !important; 
   }
   .eurostat-result {
     background: #f2f2f2;
