@@ -494,7 +494,7 @@ h1.title-working-life .fa{
   background-color:#E9E9E9 !important;
   border: 1px solid #CCC;
   border-right: none ;
-
+  font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif!important;
 }
 #content-tabs-living-working > section.active > .title {
   background-color: #f9f9f9 !important;
