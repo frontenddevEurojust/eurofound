@@ -46,6 +46,11 @@ $image_url = image_style_url('thumbnail', $image->uri);
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 
+$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
+$term = $terms[key($terms)];
+$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle='ef_publication'";
+$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +77,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($blog_presentation_find === false)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($count[0]->count > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">

@@ -43,10 +43,13 @@ $email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
-
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 
+$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
+$term = $terms[key($terms)];
+$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle='ef_publication'";
+$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
 
 $bytes = $content['field_pdf_presentation']['#items'][0]['filesize'];
 
@@ -112,7 +115,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($blog_presentation_find === false)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ( $count[0]->count > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -165,7 +168,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                 <?php print render($content['field_pdf_presentation']);?>
             </div>
             <div class="name-pdf">
-                <a href="<?php print $content['field_pdf_presentation'][0]['#preview_path'] ?>" target="_blank">
+                <a href="<?php print $content['field_pdf_presentation'][0]['#preview_path'] ?>">
                     
                     <?php print t("Donwload"); ?> <span class="presentation-extension"><?= $ext?> </span>(<?php print $bytes ?>)
                 </a>
@@ -212,6 +215,9 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
 <script>
     //Delete the src iframe language from Drupal 
     jQuery('.content-pdf-viewer iframe').attr('src',jQuery('.content-pdf-viewer iframe').attr('src').replace('/<?php print $language->language ?>', ''));
+
+    //Delete the href button download language from Drupal 
+    jQuery('.name-pdf a').attr('href',jQuery('.name-pdf a').attr('href').replace('/<?php print $language->language ?>', ''));
 </script>
 </html>
 
