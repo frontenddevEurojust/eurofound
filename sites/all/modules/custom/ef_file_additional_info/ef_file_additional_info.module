@@ -586,7 +586,6 @@ function ef_file_additional_info_node_update($node) {
   }
 
   if ($must_send_email == TRUE) {
-    dpm('WGS-12');
     ef_file_additional_info_mail_send($nid);
   }
 }
@@ -607,7 +606,6 @@ function _compare_docs($before, $after) {
     }
     elseif ($difference == TRUE){
       foreach ($adocs as $key => $doc) {
-        dpm($doc['fid'] . ' - ' .$bdocs[$key]['fid']);
         if ($doc['fid'] == $bdocs[$key]['fid']) {
           $must_send_email = TRUE;
         }
