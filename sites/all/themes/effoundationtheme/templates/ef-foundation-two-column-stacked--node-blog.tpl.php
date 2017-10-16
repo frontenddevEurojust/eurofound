@@ -160,7 +160,7 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
     
     
     <aside class="large-3 columns blog-presentation">   
-        <?php if ($blog_presentation_find === false): ?>
+        <?php if ($count[0]->count > 0): ?>
         <h2>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
