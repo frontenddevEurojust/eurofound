@@ -1318,3 +1318,10 @@ $(document).ready(function(){
 })(jQuery);
 /** END BREADCRUMBS FOR Tackling undeclared work database **/
 
+/** BREADCRUMBS FOR country profile **/
+(function ($) {
+  $(document).ready(function(){
+    $('.page-node.section-country.page-node-56423 ul.breadcrumbs li.current').text('Country');
+  });
+})(jQuery);
+/** END BREADCRUMBS FOR country profile **/

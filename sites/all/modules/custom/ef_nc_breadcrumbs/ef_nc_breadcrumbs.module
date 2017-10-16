@@ -234,6 +234,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     'Mobility and migration' => 'news/spotlight-on/mobility-and-migration',
     'Social dialogue' => 'news/spotlight-on/social-dialogue');
   $country_profiles = 'country-profile';
+  $countries = '/country/';
   $themes = '/ef-themes/';
   $news = '/news/';
   $newsletter = 'publication-types/newsletter';
@@ -245,6 +246,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
   $pos_wlcp = strpos($current_URL,$working_life_country_profiles);
   $pos_cwb = strpos($current_URL, $cwb);
   $pos_wlcpnode = strpos($current_URL,$country_profiles);
+  $pos_countriesnode = strpos($current_URL,$countries);  
   $pos_spotlight_on = strpos($current_URL,'news/spotlight-on');
   $pos_news = strpos($current_URL,$news);
   $pos_newsletter = strpos($current_URL,$newsletter);
@@ -284,6 +286,8 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     $trail[3] = '<a href="/observatories/eurwork/articles">Articles</a>';
   }elseif ($pos_wlcpnode > 0) {
     $trail[3] = '<a href="/observatories/eurwork/comparative-information/working-life-country-profiles">Working life country profiles</a>';
+  }elseif ($pos_countriesnode > 0) {
+    $trail[1] = '<a href="/country">Country</a>';
   }elseif ($pos_news > 0){
     $trail[1] = '<a href="/news">News</a>';
   }elseif ($pos_newsletter > 0){

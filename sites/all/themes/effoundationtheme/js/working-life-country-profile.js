@@ -101,6 +101,7 @@
         if( $(window).width()<=screenWidth){              
 
           $('.section-container section > h2').once().click(function(){
+            $(this).toggleClass('active');
             var sectionActive = $(this).parent();
             sectionActive.find(".content").toggleClass('inactive');
           });
