@@ -76,6 +76,7 @@
  */
 global $user;
 
+
 drupal_add_css('sites/all/themes/effoundationtheme/css/working-life-country-profile.css', array ('weight' => 200,'group' => CSS_THEME));
 drupal_add_js('sites/all/themes/effoundationtheme/js/working-life-country-profile.js');
 
@@ -137,6 +138,25 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 		<?php if($i == 0): ?>
 		<section class="<?php print strtolower($cadena);?> active">
 		<?php else: ?>
+			<?php if($i == 1): ?>
+				<?php if(isset($news_and_quartely_updates)): ?>
+				<section class="news-and-quartely-country-updates">
+					<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
+					<div class="content" data-section-content>
+						<div class="small-12 large-8 column latest-news-working-life">
+							<h3><?php print t('Latest news on Austria working life') ?></h3>
+							<!--<p class="subtitle">News and quarterly country updates</p>-->
+							<?php print $news_and_quartely_updates; ?>
+						</div>
+
+						<div class="small-12 large-4 column quarterly-overviews">
+							<h3><?php print t('Quaterly overwievs') ?></h3>
+							<?php print $quartely_overviews; ?>
+						</div>
+					</div>
+				</section>
+				<?php endif; ?>
+			<?php endif; ?>	
 		<section class="<?php print strtolower($cadena);?>">
 		<?php endif; ?>
 
@@ -148,24 +168,6 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 	</section>
 	<?php endfor; ?>
 <?php endif; ?>
-
-	<?php if(isset($news_and_quartely_updates)): ?>
-	<section class="news-and-quartely-country-updates">
-		<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i> News and quarterly country updates</h2>
-		<div class="content" data-section-content>
-			<div class="small-12 large-8 column latest-news-working-life">
-				<h3>Latest news on Austria working life</h3>
-				<!--<p class="subtitle">News and quarterly country updates</p>-->
-				<?php print $news_and_quartely_updates; ?>
-			</div>
-
-			<div class="small-12 large-4 column quarterly-overviews">
-				<h3>Quaterly overwievs</h3>
-				<?php print $quartely_overviews; ?>
-			</div>
-		</div>
-	</section>
-	<?php endif; ?>
 </div>
 
 
@@ -254,7 +256,7 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
     	<?php if(isset($author)): ?>
     	<li>
-        	<span class='small-3 columns'>Author: </span>
+        	<span class='small-3 columns'><?php print t('Author') ?>: </span>
 	        <span class='small-9 columns'><?php print $author; ?></span>
         </li>
     	<?php endif; ?>
@@ -262,7 +264,7 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
     	<?php if(isset($institution)): ?>
     	<li>
-        	<span class='small-3 columns'>Institution: </span>
+        	<span class='small-3 columns'><?php print t('Institution') ?>: </span>
 	        <span class='small-9 columns'><?php print $institution; ?></span>
         </li>
     	<?php endif; ?>
@@ -317,8 +319,8 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 <div class="ds-node-comments no-pdf">
 	
 	<div class="ef-comment-toggler toggler">
-	    <span class="show-text">Useful? Interesting? Tell us what you think.</span>
-	    <span class="hide-text">Hide comments</span>
+	    <span class="show-text"><?php print t('Useful? Interesting? Tell us what you think.') ?></span>
+	    <span class="hide-text"><?php print t('Hide comments') ?></span>
 	</div>  
 
   <div id="comments" class="title comment-wrapper">
