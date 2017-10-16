@@ -115,7 +115,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ( $count[0]->count > 0)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ( $count[0]->count > 1)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -199,7 +199,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     
     
     <aside class="large-3 columns blog-presentation"> 
-        <?php if ($count[0]->count > 0): ?>  
+        <?php if ($count[0]->count > 1): ?>  
         <h2>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
