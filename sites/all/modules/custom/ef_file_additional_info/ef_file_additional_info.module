@@ -572,70 +572,88 @@ function _compare_all_revision_files($nprf, $prf, $fr) {
 
 //CONTROL VALUES FOR DOCUMENTS FIELDS
 function ef_file_additional_info_node_update($node) {
-  global $user;
   $nid = $node->nid;
 
-  $current_docs = get_current_docs($nid);
+  $published_docs = get_published_docs($nid);
 
-  $previous_docs = get_previous_docs($nid);
-  $previous_docs = array_reverse($previous_docs, TRUE);
+  $vid = array_keys($published_docs);
 
-  $differents = FALSE;
-  $must_send_email = FALSE;
+  $after_published_docs = get_after_published_docs($nid, $vid);
 
-  foreach ($previous_docs as $key => $items) {
-    if ($current_docs == $items) {
-      if ($current_docs == $items && $differents == TRUE) {
-        $must_send_email = TRUE;
-      }
-    }
-    else {
-      $differents = TRUE;
-    }
+
+  if (!empty($published_docs) && !empty($after_published_docs)) {
+    $must_send_email = _compare_docs($published_docs, $after_published_docs);
   }
-  if ($must_send_email = TRUE) {
+
+  if ($must_send_email == TRUE) {
+    dpm('WGS-12');
     ef_file_additional_info_mail_send($nid);
   }
 }
 
-function get_current_docs($nid) {
-  $select = db_select('field_revision_field_ef_documents', 'd');
-  $select->distinct();
-  $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
-  $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
-  $select->fields('nh', array('state'));
-  $select->condition('d.entity_id', $nid);
-  $select->condition('nh.current', 1);
-  $select->orderBy('entity_id');
-  $select->orderBy('revision_id');
-  $select->orderBy('delta');
+function _compare_docs($before, $after) {
 
-  $current_value = $select->execute()->fetchAll();
+  $difference = FALSE;
+  $must_send_email = FALSE;
 
-  foreach ($current_value as $key => $document) {
-    $docs[] = $document->field_ef_documents_fid;
+  foreach ($before as $key => $docs) {
+    $bdocs = $docs['und'];
   }
-  return $docs;
+  
+  foreach ($after as $key => $docs) {
+    $adocs = $docs['und'];
+    if (count($adocs) != count($bdocs)) {
+      $difference = TRUE;
+    }
+    elseif ($difference == TRUE){
+      foreach ($adocs as $key => $doc) {
+        dpm($doc['fid'] . ' - ' .$bdocs[$key]['fid']);
+        if ($doc['fid'] == $bdocs[$key]['fid']) {
+          $must_send_email = TRUE;
+        }
+        else {
+          return FALSE;
+        }
+      }
+    }
+  }
+  if ($must_send_email) {
+    return TRUE;
+  } 
 }
 
-function get_previous_docs($nid) {
-  $select = db_select('field_revision_field_ef_documents', 'd');
-  $select->distinct();
-  $select->join('workbench_moderation_node_history', 'nh', 'd.revision_id = nh.vid');
-  $select->fields('d', array('entity_id', 'revision_id', 'delta', 'field_ef_documents_fid'));
-  $select->fields('nh', array('state'));
-  $select->condition('d.entity_id', $nid);
-  $select->condition('nh.current', 0);
-  $select->orderBy('entity_id');
-  $select->orderBy('revision_id');
-  $select->orderBy('delta');
+function get_published_docs($nid) {
+  
+  $select = db_select('workbench_moderation_node_history', 'nh');
+  $select->fields('nh', array('vid'));
+  $select->condition('nh.nid', $nid);
+  $select->condition('nh.state', 'published');
+  $select->condition('nh.published', 1);
 
-  $previous_values = $select->execute()->fetchAll();
+  $vid = $select->execute()->fetch();
 
-  foreach ($previous_values as $key => $document) {
-    $docs[$document->revision_id][] = $document->field_ef_documents_fid;
+  $pnode = node_load($nid, $vid->vid);
+
+  $pdocs[$vid->vid] = $pnode->field_ef_documents;
+
+  return $pdocs;
+}
+
+function get_after_published_docs($nid, $vid) {
+  
+  $select = db_select('workbench_moderation_node_history', 'nh');
+  $select->fields('nh', array('vid'));
+  $select->condition('nh.nid', $nid);
+  $select->condition('nh.vid', $vid, '>');
+  
+  $vid = $select->execute()->fetchAll();
+
+  foreach ($vid as $key => $vidobj) {
+    $apnode = node_load($nid, $vidobj->vid);
+    $apdocs[$vidobj->vid] = $apnode->field_ef_documents;
   }
-  return $docs;
+
+  return $apdocs;
 }
 
 function ef_file_additional_info_mail_send($nid) {
