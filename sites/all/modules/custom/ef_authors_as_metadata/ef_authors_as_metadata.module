@@ -31,6 +31,19 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 }
 
 /*
+ * Implements HOOK_form_alter to change the values of Authors in Blog and Presentation
+ */
+function ef_authors_as_metadata_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Find the content type of the node we are editing.
+  $content_type = $form['#node']->type;
+  	if (in_array($form['#node']->type, ['blog','presentation'])){
+		$form['field_ef_publ_contributors']['und']['#multiple'] = FALSE;
+	}
+}
+
+
+
+/*
  * Implements HOOK_form_alter(&$view,&$query)
  */
 function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
