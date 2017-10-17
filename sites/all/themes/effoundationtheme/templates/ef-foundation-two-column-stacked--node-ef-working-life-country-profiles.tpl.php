@@ -98,7 +98,7 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
 ?>
 
-<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
+<div class="print-wrapper no-pdf"><?php if(!isset($subtitle)): ?><?php print print_pdf_insert_link();?><?php endif; ?><?php print print_insert_link();?></div>
 
 <p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
 
