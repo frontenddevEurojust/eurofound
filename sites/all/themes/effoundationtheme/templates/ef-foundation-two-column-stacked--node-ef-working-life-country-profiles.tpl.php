@@ -98,7 +98,8 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
 ?>
 
-<div class="print-wrapper no-pdf"><?php print print_insert_link();?></div>
+<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
+
 <p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
 
 <?php if(isset($eurostatResult)): ?>
@@ -121,6 +122,10 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
 <div class="clear"></div>
 
+<?php 
+	$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
+	if($number_tabs != 0): 
+?>
 <div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
 <?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
 	<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
@@ -169,13 +174,16 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 	<?php endfor; ?>
 <?php endif; ?>
 </div>
-
+<?php endif; ?>	
 
 
 <div class="clear"></div>
 
-<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
-<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
+<?php if(isset($subtitle)): ?>
+	<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
+	<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
+<?php endif; ?>
+
 
 <!--
 <ul class="list-metadata clearfix">
@@ -238,54 +246,51 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-<div class="summary-group row">
-<?php if(isset($author) || isset($country) || isset($institution)): ?>
-	<div class='wp_about right'>
-		<h2 class='wp_tit'>About</h2>
-      <ul class="wp_body row">
+<?php if(isset($author) || isset($publishedon) || isset($institution)): ?>
+	<div class="summary-group row">
+		<div class='wp_about right'>
+			<h2 class='wp_tit'>About</h2>
+	      <ul class="wp_body row">
+
+	    	<?php if(isset($author)): ?>
+	    	<li>
+	        	<span class='small-3 columns'><?php print t('Author') ?>: </span>
+		        <span class='small-9 columns'><?php print $author; ?></span>
+	        </li>
+	    	<?php endif; ?>
 
 
-      	<!--
-      	<?php if(isset($country)): ?>
-      	<li>
-        	<span class='small-3 columns'>Country: </span>
-	        <span class='small-9 columns'><?php print $country; ?></span>
-	    </li>
-    	<?php endif; ?>
-			-->
-
-    	<?php if(isset($author)): ?>
-    	<li>
-        	<span class='small-3 columns'><?php print t('Author') ?>: </span>
-	        <span class='small-9 columns'><?php print $author; ?></span>
-        </li>
-    	<?php endif; ?>
+	    	<?php if(isset($institution)): ?>
+	    	<li>
+	        	<span class='small-3 columns'><?php print t('Institution') ?>: </span>
+		        <span class='small-9 columns'><?php print $institution; ?></span>
+	        </li>
+	    	<?php endif; ?>
 
 
-    	<?php if(isset($institution)): ?>
-    	<li>
-        	<span class='small-3 columns'><?php print t('Institution') ?>: </span>
-	        <span class='small-9 columns'><?php print $institution; ?></span>
-        </li>
-    	<?php endif; ?>
+	    	<?php if(isset($publishedon)): ?>
+	    	<li>
+	        	<span class='small-3 columns'><?php print $labelpublishedon; ?> </span>
+		        <span class='small-9 columns'><?php print $publishedon; ?></span>
+	        </li>
+	    	<?php endif; ?>
 
+	      </ul>
+		</div>
 
-    	<?php if(isset($publishedon)): ?>
-    	<li>
-        	<span class='small-3 columns'><?php print $labelpublishedon; ?> </span>
-	        <span class='small-9 columns'><?php print $publishedon; ?></span>
-        </li>
-    	<?php endif; ?>
+		<div class="summary">
+			<p><?php print $content['body'][0]['#markup']; ?></p>
+		</div>
 
-      </ul>
 	</div>
-	<div class="summary">
-		<p><?php 
-		print $content['body'][0]['#markup'];
-		//print $content['body']['#items'][0]['safe_value'] ?></p>
-	</div>
+<?php else: ?>
+
+		<div class="summary-12">
+			<p><?php print $content['body'][0]['#markup']; ?></p>
+		</div>
+
 <?php endif; ?>
-</div>
+
 
 <?php if(count($content['field_ef_tabs']['#items'])): ?>
 <div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs-country-profile" data-section="vertical-tabs">
