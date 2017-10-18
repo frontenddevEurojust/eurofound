@@ -576,10 +576,13 @@ function ef_file_additional_info_node_update($node) {
 
   $published_docs = get_published_docs($nid);
 
-  $vid = array_keys($published_docs);
+  if (!empty($published_docs)) {
+    $vid = array_keys($published_docs);
+  }
 
-  $after_published_docs = get_after_published_docs($nid, $vid);
-
+  if (!empty($vid)) {
+    $after_published_docs = get_after_published_docs($nid, $vid);
+  }
 
   if (!empty($published_docs) && !empty($after_published_docs)) {
     $must_send_email = _compare_docs($published_docs, $after_published_docs);
@@ -630,9 +633,10 @@ function get_published_docs($nid) {
 
   $vid = $select->execute()->fetch();
 
-  $pnode = node_load($nid, $vid->vid);
-
-  $pdocs[$vid->vid] = $pnode->field_ef_documents;
+  if (isset($vid->vid)) {
+    $pnode = node_load($nid, $vid->vid);
+    $pdocs[$vid->vid] = $pnode->field_ef_documents;
+  }
 
   return $pdocs;
 }
@@ -665,7 +669,7 @@ function ef_file_additional_info_mail_send($nid) {
   $from = variable_get('site_mail');
 
   $params['subject'] = 'WGS-12 Telemetry - Node: ' . $nid . ' - '  . date('d F Y', time());
-  $params['message'] = 'Please check the attached documents in ' . $base_url . drupal_get_path_alias('node/' . $nid) . '. Some of these files could be missing.';
+  $params['message'] = 'Please check the attached documents in ' . $base_url . '/' . drupal_get_path_alias('node/' . $nid) . '. Some of these files could be missing.';
 
   $language = language_default();
   $send = TRUE;
