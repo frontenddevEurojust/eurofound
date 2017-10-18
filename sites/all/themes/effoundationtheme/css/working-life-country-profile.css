@@ -28,13 +28,20 @@ h1.title-working-life {
 .metadata-items a:after{
   content: ""; 
 }
+.print-wrapper span.print_pdf{
+  list-style: none;
+  position: absolute;
+  right: 5.6em;
+  top: 2.35em;
+}
 .section-country .print-pdf-wrapper{
   width: 100%;
   text-align: right;
   top: -2.6rem;
   position: relative;
 }
-.section-country span.print_pdf, .views-page .print_pdf {
+
+.section-country .print-pdf-wrapper span.print_pdf, .views-page .print_pdf {
   list-style: none;
   position: relative;
   right:0;
