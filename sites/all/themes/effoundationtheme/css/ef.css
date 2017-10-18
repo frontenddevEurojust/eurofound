@@ -1722,8 +1722,9 @@ aside .boxed-block:first-child {
 .ef-main img{
 	border: 0px solid #ccc;
 	outline-style: solid;
-    outline-color: #ccc;
-    outline-width: 1px;
+	outline-color: #ccc;
+	outline-width: 1px;
+	margin-left: 1px;
 }
 div.qrr-info img {
     outline-width: 0;
