@@ -57,7 +57,7 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
 <html>
 <body>
     <div class="email-blog">
-        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t("The text will provide it in the issue WEM-683"); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
+        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
         </a>
     </div>
