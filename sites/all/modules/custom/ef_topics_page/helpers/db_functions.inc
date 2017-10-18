@@ -151,7 +151,7 @@ function add_publications_tab($tid, $page, $limit = 8){
     $query->addField('f', 'name', 'ct_name');
     $query->addField('e', 'published_at','published_at');
     $query->condition('a.tid', $tid, '=');
-    $query->condition('b.type', 'ef_publication', '=');
+    $query->condition('b.type', array('ef_publication','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
 

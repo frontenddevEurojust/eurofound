@@ -46,13 +46,18 @@ $image_url = image_style_url('thumbnail', $image->uri);
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 
+$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
+$term = $terms[key($terms)];
+$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle='ef_publication'";
+$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
     <div class="email-blog">
-        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t("The text will provide it in the issue WEM-683"); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
+        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
         </a>
     </div>
@@ -72,7 +77,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($blog_presentation_find === false)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($count[0]->count > 1)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -155,7 +160,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
     
     
     <aside class="large-3 columns blog-presentation">   
-        <?php if ($blog_presentation_find === false): ?>
+        <?php if ($count[0]->count > 1): ?>
         <h2>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>

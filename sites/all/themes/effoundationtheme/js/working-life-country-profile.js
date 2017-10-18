@@ -67,6 +67,12 @@
 
        $('.section-container').each(function( index ) {
         $('section',this).each(function( i ) {
+
+          console.log($(this).attr('class'));
+          if($(this).attr('class').indexOf('news-and-quartely-country-updates')){
+
+          }
+
           $('> h2', this).click(function(){          
             anchor_found = window.location.href.indexOf('#');
             active = $(this).parent().attr('class');
@@ -95,6 +101,7 @@
         if( $(window).width()<=screenWidth){              
 
           $('.section-container section > h2').once().click(function(){
+            $(this).toggleClass('active');
             var sectionActive = $(this).parent();
             sectionActive.find(".content").toggleClass('inactive');
           });
