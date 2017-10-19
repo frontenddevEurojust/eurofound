@@ -163,7 +163,7 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 								<?php if(count($check_view_country_update) > 0): ?>
 									<div class="content" data-section-content>
 										<div class="small-12 large-8 column latest-news-working-life">
-											<h3><?php print t('Latest news on Austria working life') ?></h3>
+											<h3><?php print t('Latest news on ' . $country .' working life') ?></h3>
 											<!--<p class="subtitle">News and quarterly country updates</p>-->
 											<?php print $news_and_quartely_updates; ?>
 										</div>
@@ -203,8 +203,7 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 									<?php else: ?>
 										<div class="small-12 large-12 column latest-news-working-life">
 									<?php endif; ?>
-									<h3><?php print t('Latest news on Austria working life') ?></h3>
-									<!--<p class="subtitle">News and quarterly country updates</p>-->
+									<h3><?php print t('Latest news on ' . $country .' working life') ?></h3>
 									<?php print $news_and_quartely_updates; ?>
 								</div>
 							<?php endif; ?>
