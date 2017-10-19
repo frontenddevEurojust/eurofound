@@ -511,7 +511,7 @@ function get_assign_to_user_role_dependency_by_default($node, $role){
 				// By default: Hilary O'Donoghue
 				// --> name: hod
 				// --> uid: 332
-				$default_uid = '332';
+				$node->type == 'ef_factsheet' ? $default_uid = '9528' : $default_uid = '332';
 				break;
 
 			case 'External Editor':

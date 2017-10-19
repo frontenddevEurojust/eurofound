@@ -54,7 +54,7 @@
       }, 100);
     });
 
-   // Review and repair contracts
+    // Review and repair contracts
     $('.contract-correct-link').on('click', function(e){
 
       e.preventDefault();

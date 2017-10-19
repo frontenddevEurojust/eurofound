@@ -60,8 +60,8 @@
       $('.section-living-working section > h2').each(function( index ) {
         if($('p',this).html() != null){
           tabs_living = $('p',this).html();
-          $('p',this).remove();
-          $(this).html(tabs_living);        
+           $('p',this).addClass('title-tabs');
+          // $(this).html(tabs_living);        
         }
       });
 
