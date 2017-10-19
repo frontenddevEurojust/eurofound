@@ -507,11 +507,14 @@ h1.title-working-life .fa{
   background-color: #f9f9f9 !important;
   width: 25.1% !important;
 }
+#content-tabs-living-working > section > .title  p {
+  margin: 0 !important;
+}
 #content-tabs-living-working  > section > .title:after {
   content: none;
 }
-#content-tabs-living-working > section:first-child > .title {
-  border-bottom:none;
+#content-tabs-living-working > section:first-child > .title.frist {
+  border-bottom:none !important;
 }
 #content-tabs-living-working > section:last-child > .title {
 
