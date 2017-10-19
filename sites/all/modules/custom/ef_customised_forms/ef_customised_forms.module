@@ -423,7 +423,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
 
   if ($form['#id'] =='user-profile-form') {
-	$form['account']['mail']['#weight'] = -8;
+		$form['account']['mail']['#weight'] = -8;
   }
 }
 
@@ -431,6 +431,9 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 
   	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
 	$form['field_ef_theme']['#access'] = FALSE;
+
+	drupal_add_js(drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js', 'file');
+
 
 }
 

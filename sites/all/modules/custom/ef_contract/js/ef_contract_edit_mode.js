@@ -54,13 +54,6 @@
       }, 100);
     });
 
-    $('.node-form').submit(function(){
-      $('#edit-submit').prop( "disabled", true );
-      $('#edit-submit').prop( "class", "form-submit" );
-      $('#edit-save-edit').prop( "disabled", true );
-      $('#edit-save-edit').prop( "class", "form-submit" );
-    });
-
     // Review and repair contracts
     $('.contract-correct-link').on('click', function(e){
 
