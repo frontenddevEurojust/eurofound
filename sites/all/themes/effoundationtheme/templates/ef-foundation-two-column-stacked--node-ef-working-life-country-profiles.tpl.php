@@ -95,6 +95,8 @@ $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 $mainImagen = $content['field_ef_country_main_img'];
 $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']); 
 $quartely_overviews = views_embed_view('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']); 
+$check_view_country_update = views_get_view_result('latest_country_update','news_and_quartely_updates');
+$check_view_overview = views_get_view_result('latest_country_update','quarterly_overviews');
 
 ?>
 
@@ -107,10 +109,15 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 <?php endif; ?>
 
 <?php if(isset($mainImagen)): ?>
-<div class="summary-living-working small-12 large-6 columns no-pdf">
+	<div class="summary-living-working small-12 large-6 columns no-pdf">
 <?php else: ?>
-<div class="summary-living-working small-12 large-8 columns no-pdf">
+	<?php if(!isset($eurostatResult)): ?>
+		<div class="summary-living-working small-12 large-12 columns no-pdf">
+	<?php else: ?>
+		<div class="summary-living-working small-12 large-8 columns no-pdf">
+	<?php endif; ?>	
 <?php endif; ?>
+
 	<?php if(isset($summary)): ?>
 		<?php print $summary ?>
 	<?php endif; ?>
@@ -126,54 +133,96 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 	$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
 	if($number_tabs != 0): 
 ?>
-<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
-<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
-	<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
-		<?php
-			$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
+	<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
+	<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
+		<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
+			<?php
+				$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
 
-			$cadena = str_replace('&nbsp;', '', $cadena);		
-			$cadena = str_replace('/\s/', '', $cadena);
-			$cadena = str_replace('&amp;', '', $cadena);
-			$cadena = str_replace('&', '', $cadena);
-			$cadena = preg_replace('/\s+/','-', $cadena);
-			$cadena = str_replace(' ', '', $cadena);		
-	   ?>
+				$cadena = str_replace('&nbsp;', '', $cadena);		
+				$cadena = str_replace('/\s/', '', $cadena);
+				$cadena = str_replace('&amp;', '', $cadena);
+				$cadena = str_replace('&', '', $cadena);
+				$cadena = preg_replace('/\s+/','-', $cadena);
+				$cadena = str_replace(' ', '', $cadena);		
+		   ?>
 
-		<?php if($i == 0): ?>
-		<section class="<?php print strtolower($cadena);?> active">
-		<?php else: ?>
-			<?php if($i == 1): ?>
-				<?php if(isset($news_and_quartely_updates)): ?>
-				<section class="news-and-quartely-country-updates">
-					<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
+			<?php if($i == 0): ?>
+					<section class="<?php print strtolower($cadena);?> active">
+						<h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+						<div class="content" data-section-content>
+							<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+						</div>
+					</section>
+					<?php 
+					if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
+						<section class="news-and-quartely-country-updates">
+							<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
+							<?php if(count($check_view_country_update) > 0): ?>
+								<div class="content" data-section-content>
+									<div class="small-12 large-8 column latest-news-working-life">
+										<h3><?php print t('Latest news on Austria working life') ?></h3>
+										<!--<p class="subtitle">News and quarterly country updates</p>-->
+										<?php print $news_and_quartely_updates; ?>
+									</div>
+								<?php endif; ?>
+
+								<?php if(count($check_view_overview) > 0): ?>
+									<div class="small-12 large-4 column quarterly-overviews">
+										<h3><?php print t('Quaterly overwievs') ?></h3>
+										<?php print $quartely_overviews; ?>
+									</div>
+								</div>
+							<?php endif; ?>
+						</section>
+					<?php endif; ?>
+				<?php else: ?>
+					<section class="<?php print strtolower($cadena);?>">
+					<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
 					<div class="content" data-section-content>
-						<div class="small-12 large-8 column latest-news-working-life">
-							<h3><?php print t('Latest news on Austria working life') ?></h3>
-							<!--<p class="subtitle">News and quarterly country updates</p>-->
-							<?php print $news_and_quartely_updates; ?>
-						</div>
-
-						<div class="small-12 large-4 column quarterly-overviews">
-							<h3><?php print t('Quaterly overwievs') ?></h3>
-							<?php print $quartely_overviews; ?>
-						</div>
+						<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
 					</div>
 				</section>
-				<?php endif; ?>
-			<?php endif; ?>	
-		<section class="<?php print strtolower($cadena);?>">
-		<?php endif; ?>
+			<?php endif; ?>
+		<?php endfor; ?>
+	<?php endif; ?>
+	</div>
 
-		<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
-		<div class="content" data-section-content>
-			<!--<p class="subtitle"><?php print strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></p>-->
-			<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-		</div>
-	</section>
-	<?php endfor; ?>
-<?php endif; ?>
-</div>
+<?php else: ?>
+		<?php 
+
+
+		if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
+			<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">				
+				<section class="news-and-quartely-country-updates active">
+					<?php if(count($check_view_country_update) > 0): ?>
+						<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
+						<div class="content" data-section-content>
+								<?php if(count($check_view_overview) > 0): ?>
+									<div class="small-12 large-8 column latest-news-working-life">
+								<?php else: ?>
+									<div class="small-12 large-12 column latest-news-working-life">
+								<?php endif; ?>
+								<h3><?php print t('Latest news on Austria working life') ?></h3>
+								<!--<p class="subtitle">News and quarterly country updates</p>-->
+								<?php print $news_and_quartely_updates; ?>
+							</div>
+						<?php endif; ?>
+
+						<?php if(count($check_view_overview) > 0): ?>
+								<?php if(count($check_view_country_update) > 0): ?>
+									<div class="small-12 large-4 column quarterly-overviews">
+								<?php else: ?>
+									<div class="small-12 large-12 column quarterly-overviews">
+								<?php endif; ?>
+								<h3><?php print t('Quaterly overwievs') ?></h3>
+								<?php print $quartely_overviews; ?>
+							</div>
+						</div>
+					<?php endif; ?>
+				</section>
+			</div>
+		<?php endif; ?>
 <?php endif; ?>	
 
 
@@ -183,64 +232,6 @@ $quartely_overviews = views_embed_view('latest_country_update','quarterly_overvi
 	<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
 	<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
 <?php endif; ?>
-
-
-<!--
-<ul class="list-metadata clearfix">
-<?php if(isset($content['field_ef_observatory'][0]['#title'])): ?>
-	<li>Observatory:
-		<ul>
-			<li><a href="/<?php print $content['field_ef_observatory'][0]['#href']; ?>"><?php print $content['field_ef_observatory'][0]['#title']; ?></a></li>
-		</ul>
-	</li>
-<?php endif; ?>
-
-<?php if($logged): ?>
-	<li>Assign to User:
-		<ul>
-			<li><?php print(ucfirst($content['field_ef_assign_to_user'][0]['#markup'])); ?></li>
-		</ul>
-	</li>
-	<li>Contract:
-		<ul>
-			<li><?php print($content['field_ef_author_contract'][0]['#markup']); ?></li>
-		</ul>
-	</li>
-	<li>Country Group:
-		<ul>
-			<li><?php print($content['field_ef_assign_to_country_group'][0]['#markup']); ?></li>
-		</ul>
-	</li>
-<?php endif; ?>
-
-<?php if(isset($content['field_ef_report_delivery_date'][0]['#markup']) && $logged): ?>
-	<li>Scheduled record delivery date:
-		<ul>
-			<li> <?php print $content['field_ef_report_delivery_date'][0]['#markup']; ?></li>
-		</ul>
-	</li>
-<?php endif; ?>
-
-<?php if(isset($content['published_on'][0]['#markup'])): ?>
-	<li>Published on:
-		<ul>
-			<li><?php print $content['published_on'][0]['#markup']; ?></li>
-		</ul>
-	</li>
-<?php endif; ?>
-
-
-<?php if(count($content['field_ef_topic']['#items'])): ?>
-	<li>Topics:
-		<ul>
-			<?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
-				<li><a href="/<?php print $content['field_ef_topic'][$i]['#href']; ?>" ><?php print $content['field_ef_topic'][$i]['#title']; ?></a></li>
-			<?php endfor; ?>
-		</ul>
-	</li>
-<?php endif; ?>
-</ul>
--->
 
 
 
