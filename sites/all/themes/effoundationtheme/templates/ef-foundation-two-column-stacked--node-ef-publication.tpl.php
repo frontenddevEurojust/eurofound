@@ -220,13 +220,7 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 						<span class="label-inline">Number of pages: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_number_of_pages'][0]['#markup']; ?></span>
 					</li>
 					<?php endif; ?>
-					
-					<?php if(isset($content['group_ef_node_details']['field_ef_document_type'])): ?>
-					<li>
-						<span class="label-inline">Document type: </span><span class="label-content"><a href="<?= url($content['group_ef_node_details']['field_ef_document_type'][0]['#href']) ?>"><?= $content['group_ef_node_details']['field_ef_document_type'][0]['#title']; ?></a></span>
-					</li>
-					<?php endif; ?>
-					
+
 					<?php if(isset($content['group_ef_node_details']['field_ef_reference_no'])): ?>
 					<li>
 						<span class="label-inline">Reference nº: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_reference_no'][0]['#markup']; ?></span>
