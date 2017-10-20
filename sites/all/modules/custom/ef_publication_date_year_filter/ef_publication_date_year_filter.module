@@ -118,6 +118,16 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 // get years
 function get_years($type){
 
+  $years = variable_get('publication_date_years_array');
+
+  return $years;
+
+}
+
+/**
+ * Implements hook_cron()
+ */
+function ef_publication_date_year_filter_cron() {
   $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
             as fecha
             from publication_date
@@ -137,7 +147,6 @@ function get_years($type){
     $years[] = $year;
   }
 
-
-  return $years;
+  variable_set('publication_date_years_array', $years);
 
 }
