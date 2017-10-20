@@ -42,6 +42,7 @@ if (strpos($resultado,'?') == true) {
 }else{
   $contPdf='?';
 }
+
 ?>
     <ul  class="print-preview">
     <li><a href="#" title="Print this page." onclick="window.print(); return false" class="print-page" >

@@ -7,6 +7,7 @@
  *
  */
 global $language;
+global $base_url; 
 
 drupal_add_css('sites/all/themes/effoundationtheme/css/blog-presentation.css');
 drupal_add_js('sites/all/themes/effoundationtheme/js/blog-presentation.js');
@@ -36,13 +37,19 @@ else
 }
 
 $user_data = $query->execute()->fetchObject();
-
+$email_subjet= strip_tags($content['title'][0]['#markup']);
+$nodeurl = url('node/'. $node->nid);
+$email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
-
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
+
+$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
+$term = $terms[key($terms)];
+$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle='ef_publication'";
+$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
 
 ?>
 
@@ -50,7 +57,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
 <html>
 <body>
     <div class="email-blog">
-        <a href="mailto:<?= $user_data->mail; ?>">
+        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
         </a>
     </div>
@@ -70,7 +77,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($blog_presentation_find === false)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($count[0]->count > 1)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -89,18 +96,24 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
                         </div>
                     </div>
                     <div class="field field-name-field-ef-author">
-                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div><a href="/author/<?= $link; ?>"><?= $content['field_ef_publ_contributors'][0]['#markup']; ?></a>
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php if ($language->language != 'en'): ?> 
+                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print  print $author[1] . " " . $author[0]; ?></a>
+                        <?php else: ?>
+                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
+                        <?php endif; ?>
                     </div>
                     <div class="field field-name-field-ef-author">
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
                             <?php print t("Topic:") ?>&nbsp;
                                     <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
+                                        <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
                                         <?php if ($language->language != 'en'): ?> 
-                                        <a href="/<?php print $language->language;?>/<?php print $content['field_ef_topic'][$i]['#href']; ?>" >
+                                        <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
                                             <?php print $content['field_ef_topic'][$i]['#title']; ?>
                                         </a>
                                         <?php else: ?>
-                                        <a href="/<?php print $content['field_ef_topic'][$i]['#href']; ?>" >
+                                        <a href="/<?php print $result[0]->alias; ?>" >
                                             <?php print $content['field_ef_topic'][$i]['#title']; ?>
                                         </a>    
                                         <?php endif; ?>
@@ -114,7 +127,7 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
         <div class="topic-abstract">
             <?php if (isset($content['field_ef_main_image'][0]['#item']['filename'])): ?>
                <p>
-                <img src="/sites/default/files/<?php print $content['field_ef_main_image'][0]['#item']['filename'] ?>">
+                <img width="250" src="/sites/default/files/<?php print $content['field_ef_main_image'][0]['#item']['filename'] ?>">
                </p>
             <?php else: ?>
                 <?php if(isset($variables['summary'])): ?>
@@ -124,9 +137,9 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
                 <?php endif; ?>  
             <?php endif; ?>
             <?php print $content['field_abstract'][0]['#markup']?>
-            <p>
-                <?php print $content['body'][0]['#markup'] ?>
-            </p>
+        </div>
+        <div>
+            <?php print $content['body'][0]['#markup'] ?>
         </div>
         
         <!-- FREE COMMENTS -->
@@ -147,13 +160,8 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
     
     
     <aside class="large-3 columns blog-presentation">   
-        <?php if ($blog_presentation_find === false): ?>
+        <?php if ($count[0]->count > 1): ?>
         <h2>
-            <?php if ($image != ''): ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="<?= $image_url ?>"/></span>
-            <?php else: ?>
-            <span class="content-img-author"><img class="author-blog-presentation" src="/<?php print(drupal_get_path('module','ef_my_dashboard') . '/no_avatar.png'); ?>"/></span>
-            <?php endif; ?>
             <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
         </h2>
         <div class="author-view">
@@ -166,33 +174,3 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
     </aside>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

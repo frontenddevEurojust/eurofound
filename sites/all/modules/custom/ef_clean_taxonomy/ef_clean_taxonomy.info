@@ -1,0 +1,4 @@
+name = EF Clean Taxonomy
+description = This module will ensure that all published contents contain the proper taxonomy items in the taxonomy_index table.
+package = EF modules
+core = 7.x

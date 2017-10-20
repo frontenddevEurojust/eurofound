@@ -371,6 +371,7 @@ function ef_search_block_view($delta = '') {
         $select2->distinct();
         $select2->fields('ttd', array('tid'));
         $select2->condition('ttd.name', $search_term);
+        $select2->condition('ttd.vid', 21);
         $result2 = $select2->execute();
         while ($record = $result2->fetchAssoc()) {
           $terms[] = $record;

@@ -404,11 +404,14 @@
           }else if($node->type == 'data_explorer_page') {
            $hide_print  = true;
            $hide_pdf = true;
-          }else if($node->type == 'blog' || $node->type == 'presentation') {
+          }else if(
+                    $node->type == 'blog' || 
+                    $node->type == 'presentation' || 
+                    $node->type == 'ef_working_life_country_profiles'
+                  ) {
            $hide_print  = true;
            $hide_pdf = true;
           }
-
         }
         ?>
 

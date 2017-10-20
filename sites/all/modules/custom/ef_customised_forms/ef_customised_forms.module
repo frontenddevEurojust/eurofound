@@ -22,28 +22,50 @@ function ef_customised_forms_views_pre_render(&$view){
 function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   global $user;
 
-  //Prevent Old token error in search forms
-  if ($form_id == 'views_exposed_form' ) {
-	unset($form['#token']);
-  }
-  // Unset 'Disable all revisions' button
-  if (strpos($form_id, '_node_form') !== FALSE) {
-	if (isset($form['actions']['delete'])){
-	  unset($form['actions']['delete']);
+	//Prevent Old token error in search forms
+	if ($form_id == 'views_exposed_form' ) {
+		unset($form['#token']);
 	}
-  }
-	/*
-	** Issue: WGS-118.
-	*/
-	if ($form['#id'] == 'views-exposed-form-ef-news-page'){
-		$options = $form['field_ef_topic_tid_selective']['#options'];
-		foreach ($options as $key => $value) {
-			if (strpos($value, "Empty") !== false){
-				unset($options[$key]);
-			}
+	// Unset 'Disable all revisions' button
+	if (strpos($form_id, '_node_form') !== FALSE) {
+		if (isset($form['actions']['delete'])){
+		  unset($form['actions']['delete']);
 		}
+	}
+	/*
+	** Issue: WGS-196.
+	*/
+	if ($form['#id'] == 'views-exposed-form-authors-as-metadata-page-1'){
+		$options = $form['tid']['#options'];
+	
 		natcasesort($options);
-		$form['field_ef_topic_tid_selective']['#options'] = $options;
+		$form['tid']['#options'] = $options;
+	}
+	
+	/*
+	** Issue: WGS-196.
+	*/
+	if ($form['#id'] == 'views-exposed-form-ef-publications-view-page'){
+
+		$options_topics = $form['field_ef_topic_tid']['#options'];
+		$options_authors = $form['field_ef_publ_contributors_tid']['#options'];
+		$options_observatory = $form['field_ef_observatory_tid']['#options'];
+		
+		natcasesort($options_authors);
+		natcasesort($options_topics);
+		natcasesort($options_observatory);
+		
+		$form['field_ef_observatory_tid']['#options'] = $options_observatory;
+		$form['field_ef_publ_contributors_tid']['#options'] = $options_authors;
+		$form['field_ef_topic_tid']['#options'] = $options_topics;
+	}
+	/*
+	** Issue: WGS-196.
+	*/
+	if ($form['#id'] == 'ctools-jump-menu'){
+		$options = $form['jump']['#options'];
+		natcasesort($options);
+		$form['jump']['#options'] = $options;
 	}
 	/*
 	** Issue: WGS-118.
@@ -401,14 +423,18 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
 
   if ($form['#id'] =='user-profile-form') {
-	$form['account']['mail']['#weight'] = -8;
+		$form['account']['mail']['#weight'] = -8;
   }
 }
 
 function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id){
 
-  	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
+	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
 	$form['field_ef_theme']['#access'] = FALSE;
+
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js',
+  );
 
 }
 

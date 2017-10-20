@@ -63,6 +63,7 @@ function ef_notifications_node_insert($node) {
  */
 function ef_notifications_field_storage_pre_update($entity_type, $entity) {
   if ($entity_type == 'node') {
+    $nid = $entity->nid;
     if (isset($entity->field_ef_assign_to_user['und'][0]['entity'])) {
       // retrieve previous and current assign to user and compare them
       // This will work when assigment is changed from the view mode form.
@@ -115,6 +116,17 @@ function ef_notifications_field_storage_pre_update($entity_type, $entity) {
     // We only will generate an assignment notification if the state stays the same
     // When there are no changes in moderation state, stamp is not the current stamp
     // but an old one
+
+    // Let's prevent duplicated notifications when user has real time notifications active.
+    if ($user_assignment_notification) {
+      $user_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_user);
+      $user_mail_already_sent ? $user_assignment_notification = FALSE : $user_assignment_notification = TRUE;
+    }
+    if ($author_assignment_notification) {
+      $author_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_author);
+      $author_mail_already_sent ? $author_assignment_notification = FALSE : $author_assignment_notification = TRUE;
+    }
+
     if ($entity->workbench_moderation['current']->stamp <= $current_timestamp - 10 ) {
       if ($user_assignment_notification) {
         ef_notifications_assignment_notification($entity, $current_user);
@@ -129,6 +141,28 @@ function ef_notifications_field_storage_pre_update($entity_type, $entity) {
     }
   }
   return;
+}
+
+/**
+ * Function to prevent duplicated emails
+ */
+function check_prevent_duplicated_notifications($nid, $uid) {
+  $query = db_select('notifications_db_support', 'ns')
+    ->fields('ns', array('uid', 'nid', 'notification_timestamp'))
+    ->condition('ns.nid', $nid)
+    ->condition('ns.uid', $uid);
+  $result = $query->execute();
+  $db_feedback = $result->fetchAssoc();
+
+  if (empty($db_feedback)) {
+    return FALSE;
+  }
+  else {
+    $curr_ts = time();
+    if ($db_feedback['notification_timestamp'] >= $curr_ts - 10) {
+      return TRUE;
+    }
+  }
 }
 
 
@@ -229,7 +263,6 @@ function _ef_notifications_auth() {
         $receiver = user_load($uid);
         $email =  $receiver->mail;
         $imploded = ef_notifications_implode_message($message_body);
-        //dd($receiver->name . ' - ' . $receiver->uid . ' - DIGEST');
         ef_notifications_mail_send($email, $imploded, $receiver->mail);
       }
     }
@@ -581,9 +614,12 @@ function ef_notifications_save_transition_records($node, $previous_state, $new_s
     foreach ($notified_users as $uid) {
       $noti_user = user_load($uid);
       if ($noti_user->field_ef_notification_settings['und'][0]['value'] == 1){
-        ef_notifications_real_time($node, $uid, $previous_state, $new_state);
-        $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
-        ef_notifications_save_real_time_db($node->nid, $uid, $type);
+        $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
+        if (!$mail_already_sent) {
+          ef_notifications_real_time($node, $uid, $previous_state, $new_state);
+          $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
+          ef_notifications_save_real_time_db($node->nid, $uid, $type);
+        }
       }
       else {
         ef_notifications_save_for_digest($nid, $uid, $previous_state, $new_state);
@@ -602,9 +638,11 @@ function ef_notifications_real_time($node, $uid, $previous_state, $new_state) {
   foreach ($real_time_message as $uid => $message_body) {
     $imploded = ef_notifications_implode_message($message_body);
   }
-  //dd($receiver->name . ' - ' . $receiver->uid . ' - Real time - NODE: ' . $node->nid . ' DATE: ' . date());
+  $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
   ef_notifications_mail_send($email, $imploded, $receiver->mail, $node->nid);
 }
+
+
 
 /**
  * Real time message dynamic generation

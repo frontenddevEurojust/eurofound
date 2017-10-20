@@ -41,19 +41,20 @@
       $('#edit-save-edit').prop( "disabled", true );
       $('#edit-save-edit').prop( "class", "form-submit-disabled" );
       var checkExist = setInterval(function() {
-        if ($("#edit-field-ef-assign-to-user-und--2").length) {
+        if ($("#edit-field-ef-assign-to-user-und--2").length || $("#edit-field-ef-assign-to-user-und--3").length) {
           $('#edit-submit').prop( "disabled", false );
           $('#edit-submit').prop( "class", "form-submit" );
           $('#edit-save-edit').prop( "disabled", false );
           $('#edit-save-edit').prop( "class", "form-submit" );
           $('#edit-field-ef-assign-to-user-und--2').attr('id','edit-field-ef-assign-to-user-und');
+          $('#edit-field-ef-assign-to-user-und--3').attr('id','edit-field-ef-assign-to-user-und');
           $('#edit-field-ef-assign-to-user-und').prop( "disabled", false );
           clearInterval(checkExist);
         }
       }, 100);
     });
 
-   // Review and repair contracts
+    // Review and repair contracts
     $('.contract-correct-link').on('click', function(e){
 
       e.preventDefault();
