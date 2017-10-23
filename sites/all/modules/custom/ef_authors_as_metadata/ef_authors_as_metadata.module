@@ -134,20 +134,9 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 		drupal_add_js(drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata.js');
 
-		$form['#attached']['js'] = [
+		$form['#attached']['js'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js';
 
-			[
-				'type'  => 'file',
-				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_error.js',
-			],
-
-			[
-				'type'  => 'file',
-				'data' => drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js',
-			],
-
-		];
-
+		$form['#attached']['js'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js';
 
 	}
 
