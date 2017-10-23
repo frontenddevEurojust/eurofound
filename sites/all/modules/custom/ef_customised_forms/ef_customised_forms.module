@@ -304,7 +304,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 	  $form['#groups']['group_ef_publishing_options']->children[] = 'revision_log_messages_summary';
 	  $form['#group_children']['revision_log_messages_summary'] = 'group_ef_publishing_options';
 
-	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 	}
 
   }
@@ -432,7 +432,8 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
 	$form['field_ef_theme']['#access'] = FALSE;
 
-  $form['#attached']['js'][] = drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js';
+	
+  	$form['#attached']['js'][] = drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js';
 
 }
 
