@@ -150,14 +150,15 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 			   ?>
 
 				<?php if($i == 0): ?>
-						<section class="<?php print strtolower($cadena);?> active">
-							<h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
-							<div class="content" data-section-content>
-								<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-							</div>
-						</section>
-						<?php 
-						if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
+						<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
+							<section class="<?php print strtolower($cadena);?> active">
+								<h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+								<div class="content" data-section-content>
+									<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+								</div>
+							</section>
+						<?php endif; ?>
+						<?php	if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
 							<section class="news-and-quartely-country-updates">
 								<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
 								<?php if(count($check_view_country_update) > 0): ?>
@@ -179,20 +180,21 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 							</section>
 						<?php endif; ?>
 					<?php else: ?>
-						<section class="<?php print strtolower($cadena);?>">
-						<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
-						<div class="content" data-section-content>
-							<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-						</div>
-					</section>
+						<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
+							<section class="<?php print strtolower($cadena);?>">
+							<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+							<div class="content" data-section-content>
+								<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+							</div>
+						</section>
+					<?php endif; ?>
 				<?php endif; ?>
 			<?php endfor; ?>
 		<?php endif; ?>
 		</div>
 		<div class="clear"></div>
 	<?php else: ?>
-			<?php 
-			if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
+			<?php	if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
 				<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">				
 					<section class="news-and-quartely-country-updates active">
 						<?php if(count($check_view_country_update) > 0): ?>
