@@ -193,7 +193,7 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 
 function submit_new_contributors($form, &$form_state){
 
-	$newAuthors = $form_state['values']['add_new_contributor'];
+	$newAuthors = trim($form_state['values']['add_new_contributor']);
 	
 	if ($newAuthors != '')
 	{
