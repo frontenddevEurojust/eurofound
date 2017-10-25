@@ -543,7 +543,7 @@ function update_old_authors_urls(){
  * Implements hook_update_N().
  * Change publication-contributor urls to author/name
  */
-function ef_authors_as_metadata_update_7100(){
+function ef_authors_as_metadata_update_7102(){
 	update_old_authors_urls();
 }
 /*
