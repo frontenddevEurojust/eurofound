@@ -3,7 +3,6 @@
     // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
     Drupal.ajax.prototype.commands.AddTags = function(ajax, response, status)
     {
-
         var newAuthors = response.newAuthors;
 
         var nid = response.nid;
@@ -37,7 +36,7 @@
     // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
     Drupal.ajax.prototype.commands.ChangeLabels = function(ajax, response, status)
     {
-
+        
         var textNewAuthor = $('#edit-add-new-contributor-wrapper .description span').attr('title');
 
         if(textNewAuthor == undefined){

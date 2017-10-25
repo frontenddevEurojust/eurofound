@@ -532,3 +532,22 @@ function update_old_authors_urls(){
 	fclose($fp);
 }
 
+/*
+ * Implements hook_update_N().
+ * Change publication-contributor urls to author/name
+ */
+/*
+function ef_authors_as_metadata_7100(){
+	update_old_authors_urls();
+}
+*/
+/*
+ * Implements hook_update_N().
+ * Change all contributors' weight to avoid automatical reordering
+ */
+function ef_authors_as_metadata_7101(){
+	
+	$query = "UPDATE taxonomy_term_data SET weight = 0 WHERE vid = 12";
+
+	db_query($query);
+}

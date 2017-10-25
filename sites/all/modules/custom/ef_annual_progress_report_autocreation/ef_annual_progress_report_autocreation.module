@@ -209,12 +209,9 @@ function ef_annual_progress_report_autocreation_form($node, &$form_state){
 
 
   // JS and CSS files
-  $form['#attached']['js'] = array(
-      drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_autocreation.js',
-    );
-  $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_autocreation.css',
-    );
+  $form['#attached']['js'][] = drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_autocreation.js';
+
+  $form['#attached']['css'][] = drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_autocreation.css';
 
   $form['submit'] = array(
     '#type' => 'submit',

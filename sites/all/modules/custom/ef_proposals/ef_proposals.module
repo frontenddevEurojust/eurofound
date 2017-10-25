@@ -15,10 +15,8 @@ function ef_proposals_form_alter(&$form, &$form_state, $form_id){
 			//$form['field_ef_contract']['#type'] = 'hidden';
 			$form['field_ef_assign_to']['#type'] = 'hidden';
 
-			$form['#attached']['js'] = array(
-     			drupal_get_path('module', 'ef_proposals') . '/ef_proposals.js',
-   			);
 
+			$form['#attached']['js'][] = drupal_get_path('module', 'ef_proposals') . '/ef_proposals.js';   			
 		}
 
 	}
