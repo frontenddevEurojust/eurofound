@@ -166,8 +166,8 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		// JS and CSS ATTACHED FILES
 		//drupal_add_js(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
 	  //drupal_add_css(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
-	  $form['#attached']['js'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
-	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['js'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js';
+	  $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 
 
 	  $key_anticipation = get_aticipation_key($type_taxonomy_machine_name);
@@ -241,19 +241,19 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		unset($form['field_country_erm_si_tid_selective']['#options'][21122]);
 		$form['#submit'][] = 'support_instrument_user_session_variable_saving_function';
 
-	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 
 		return $form;
 	}
 	// ERM support instruments Authors bulk view
 	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-authors'
 		&& $form['reset']['#access'] == TRUE ) {
-		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+		$form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 	}
 	// ERM support instruments QM bulk view
 	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-qm'
 		&& $form['reset']['#access'] == TRUE ) {
-		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+		$form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 	}
 
 

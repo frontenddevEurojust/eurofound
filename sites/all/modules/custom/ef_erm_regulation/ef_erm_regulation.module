@@ -183,8 +183,8 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
     //drupal_add_js(drupal_get_path('module', 'ef_erm_regulation') . '/js/ef_erm_regulation.js');
     //drupal_add_css(drupal_get_path('module', 'ef_erm_regulation') . '/css/ef_erm_regulation.css');
     
-    $form['#attached']['js'] = array(drupal_get_path('module', 'ef_erm_regulation') . '/js/ef_erm_regulation.js',);
-    $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_regulation') . '/css/ef_erm_regulation.css',);
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_erm_regulation') . '/js/ef_erm_regulation.js';
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_regulation') . '/css/ef_erm_regulation.css';
     
     $key_anticipation = get_aticipation_key($type_taxonomy_machine_name);
     $key_management = get_management_key($type_taxonomy_machine_name);
