@@ -518,7 +518,7 @@ function update_old_authors_urls(){
 
       		$path = [
       			'source' => 'taxonomy/term/' . $term->tid,
-      			'alias' => 'author/' . pathauto_cleanstring($term->name),
+      			'alias' => 'authors/' . pathauto_cleanstring($term->name),
       		];
 
 			// Add alias
