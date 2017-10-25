@@ -43,9 +43,8 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
         '#suffix' => '</div>'
       );
 
-      $form['#attached']['css'] = array(
-        drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css',
-      );
+      $form['#attached']['css'][] = drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css';
+      
 
       return $form;
   }

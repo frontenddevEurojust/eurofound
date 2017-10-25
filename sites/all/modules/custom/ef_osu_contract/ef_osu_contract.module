@@ -88,9 +88,8 @@ function ef_osu_contract_form_alter(&$form, $form_state, $form_id, $account) {
       || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page'
       || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1' ) {
 
-    $form['#attached']['js'] = array(
-      drupal_get_path('module', 'ef_osu_contract') . '/ef_osu_contract.js',
-    );
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_osu_contract') . '/ef_osu_contract.js';
+    
 
     $dk = $form['field_ef_deliverable_kind_tid']['#options'];
 

@@ -155,14 +155,11 @@ function ef_term_merge_form($form,$form_state){
 
 		// JS and CSS attachments
 
-		$form['#attached']['js'] = array(
-	    	drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.js'
-	  	);
+		$form['#attached']['js'][] = drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.js';
+	 
 
 
-	  	$form['#attached']['css'] = array(
-	    	drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.css'
-	  	);
+	  	$form['#attached']['css'][] = drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.css';
 	}
 
 	return $form;
