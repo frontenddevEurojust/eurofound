@@ -1,5 +1,6 @@
 (function($, Drupal)
 {
+
     // Our function name is prototyped as part of the Drupal.ajax namespace, adding to the commands:
     Drupal.ajax.prototype.commands.AddTags = function(ajax, response, status)
     {

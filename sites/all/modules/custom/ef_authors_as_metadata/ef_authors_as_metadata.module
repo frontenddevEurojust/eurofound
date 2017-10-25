@@ -69,7 +69,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
 
 	{	
-
+		
 		if (!in_array($form['#node']->type, ['blog','presentation'])){
 
 			$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
@@ -194,7 +194,10 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 function submit_new_contributors($form, &$form_state){
 
 	$newAuthors = trim($form_state['values']['add_new_contributor']);
+
 	
+	$form_state['test'] = trim($form_state['values']['add_new_contributor']);
+
 	if ($newAuthors != '')
 	{
 		$newAuthors = explode(';', $newAuthors);	
@@ -515,7 +518,7 @@ function update_old_authors_urls(){
 
       		$path = [
       			'source' => 'taxonomy/term/' . $term->tid,
-      			'alias' => 'authors/' . pathauto_cleanstring($term->name),
+      			'alias' => 'author/' . pathauto_cleanstring($term->name),
       		];
 
 			// Add alias
@@ -536,16 +539,14 @@ function update_old_authors_urls(){
  * Implements hook_update_N().
  * Change publication-contributor urls to author/name
  */
-/*
-function ef_authors_as_metadata_7100(){
+function ef_authors_as_metadata_update_7100(){
 	update_old_authors_urls();
 }
-*/
 /*
  * Implements hook_update_N().
  * Change all contributors' weight to avoid automatical reordering
  */
-function ef_authors_as_metadata_7101(){
+function ef_authors_as_metadata_update_7101(){
 	
 	$query = "UPDATE taxonomy_term_data SET weight = 0 WHERE vid = 12";
 
