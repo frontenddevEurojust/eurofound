@@ -487,7 +487,6 @@ function build_basic_term($value, $vid = null){
 /*
 * Convert old publication-contributors urls into authors/name
 */
-/*
 function update_old_authors_urls(){
 
 	// Use pathauto and core functions for easier processing
@@ -535,9 +534,6 @@ function update_old_authors_urls(){
 
 	fclose($fp);
 }
-<<<<<<< HEAD
-*/
-=======
 
 /*
  * Implements hook_update_N().
@@ -556,4 +552,3 @@ function ef_authors_as_metadata_update_7101(){
 
 	db_query($query);
 }
->>>>>>> Authors-fixes
