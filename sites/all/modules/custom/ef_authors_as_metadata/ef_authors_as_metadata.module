@@ -8,7 +8,7 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 	if ($view->name == 'authors_as_metadata')
 
 	{
-		/*
+		
 		$input  = check_plain($view->args[0]);
 
 		$input = str_replace("_",", ", $input);
@@ -16,8 +16,8 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 		$terms = taxonomy_get_term_by_name($input, $vocabulary = 'ef_publication_contributors');
 		
 		$view->build_info['title'] = $terms[key($terms)]->name;
-		*/
 		
+		/*
 		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
 
 		{
@@ -33,8 +33,9 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 			];
 
 			$view->query->where[1]['conditions'][] = $filter;
-
+	
 		}
+		*/
 		
 	}
 
