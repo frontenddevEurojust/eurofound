@@ -121,6 +121,10 @@ function ef_notifications_field_storage_pre_update($entity_type, $entity) {
     if ($user_assignment_notification) {
       $user_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_user);
       $user_mail_already_sent ? $user_assignment_notification = FALSE : $user_assignment_notification = TRUE;
+      //WGS-213
+      if ($entity_type == 'ef_factsheet' && $current_user == 332){
+        $user_assignment_notification = FALSE;
+      }
     }
     if ($author_assignment_notification) {
       $author_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_author);
@@ -152,19 +156,21 @@ function check_prevent_duplicated_notifications($nid, $uid) {
     ->condition('ns.nid', $nid)
     ->condition('ns.uid', $uid);
   $result = $query->execute();
-  $db_feedback = $result->fetchAssoc();
+  $db_feedback = $result->fetchAll();
 
-  if (empty($db_feedback)) {
+  foreach ($db_feedback as $key => $value) {
+    $last = $value->notification_timestamp;
+  }
+  if (empty($last)) {
     return FALSE;
   }
   else {
     $curr_ts = time();
-    if ($db_feedback['notification_timestamp'] >= $curr_ts - 10) {
+    if ($last <= $curr_ts - 10) {
       return TRUE;
     }
   }
 }
-
 
 /**
  * Generates a notification when assigned user changes
@@ -468,25 +474,25 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This article is a new proposal:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $$base_url . '/node/' . $node->nid);
       }
       break;
     case 'requested':
       if ($uid == $node->uid) {
         $var_line['ini'] = 'The article you proposed has been accepted and assigned to you:';
-        $var_line['end'] = 'You can edit it here: ' . $base_url . '/' .drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid);
       } else {
         $var_line['ini'] = 'The article proposed by ' . $node_vips['node_author'] . ' has been accepted:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       }
       break;
     case 'submitted':
       $var_line['ini'] = 'This item needs a review:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
     case 'submitted_qr':
       $var_line['ini'] = 'This item needs a review:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
     case 'approved_for_editing':
       if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
@@ -494,7 +500,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been approved_for_editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       }
       break;
     case 'on_second_editing':
@@ -503,7 +509,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been assigned for second editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       }
       break;
     case 'on_external_editing':
@@ -512,7 +518,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been assigned for external editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       }
       break;
     case 'ready_for_publishing':
@@ -524,24 +530,24 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
       break;
     case 'published':
       $var_line['ini'] = 'This item has been published:';
-      $var_line['end'] = 'You can view it here: ' .  $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' .  $base_url . '/node/' . $node->nid);
       break;
     case 'approved':
       $var_line['ini'] = 'This item has been approved:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
     //NODE CREATION
     case 'created':
       $var_line['ini'] = 'This item has been created:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
     case 'assignment':
       $var_line['ini'] = 'This item has been assigned to you:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
     default:
       $var_line['ini'] = 'This item has been moderated to' . $transition_human;
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid);
       break;
   }
   return $var_line;
