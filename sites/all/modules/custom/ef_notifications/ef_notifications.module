@@ -121,6 +121,10 @@ function ef_notifications_field_storage_pre_update($entity_type, $entity) {
     if ($user_assignment_notification) {
       $user_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_user);
       $user_mail_already_sent ? $user_assignment_notification = FALSE : $user_assignment_notification = TRUE;
+      //WGS-213
+      if ($entity_type == 'ef_factsheet' && $current_user == 332){
+        $user_assignment_notification = FALSE;
+      }
     }
     if ($author_assignment_notification) {
       $author_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_author);
