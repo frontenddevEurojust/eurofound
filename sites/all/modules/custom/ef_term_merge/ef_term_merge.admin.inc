@@ -244,6 +244,8 @@ function _execute_merge_terms($form,&$form_state)
       		$form_state['rebuild'] = TRUE;
 			$_SESSION['ef_term_merge']['download'] = $filename;
 
+			taxonomy_terms_static_reset();
+
 			drupal_set_message('Terms have been merged successfully.');
 
 		}
