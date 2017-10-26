@@ -1865,9 +1865,12 @@ div.qrr-info img {
 	color: #9D9FA0;
 	font-size: 0.8em;
 /*	padding-top: 5px;*/
-	margin: 0px 1.5% 35px 1.5%;
+	margin: 5px 1.5% 35px 1.5%;
 	width: 95%;
 	float: left;
+}
+.ds-node-metadata .field-group-div {
+  margin-top: 0px;
 }
 .ds-node-metadata .field {
 	border-right: 1px solid #F7931E;
@@ -1881,7 +1884,14 @@ div.qrr-info img {
 	padding-left: 0px;
 }
  .ds-node-metadata .field:last-child {
-	border: none;
+	/*border: none;*/
+}
+.field-group-div:last-child > div{
+  display: inline-block;
+  margin-top: 5px;
+}
+.field-group-div:last-child > div:last-child {
+  border: none;
 }
 .ds-node-metadata .field div {
 	display: inline-block;
