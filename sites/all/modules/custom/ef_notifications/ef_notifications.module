@@ -152,18 +152,22 @@ function check_prevent_duplicated_notifications($nid, $uid) {
     ->condition('ns.nid', $nid)
     ->condition('ns.uid', $uid);
   $result = $query->execute();
-  $db_feedback = $result->fetchAssoc();
+  $db_feedback = $result->fetchAll();
 
-  if (empty($db_feedback)) {
+  foreach ($db_feedback as $key => $value) {
+    $last = $value->notification_timestamp;
+  }
+  if (empty($last)) {
     return FALSE;
   }
   else {
     $curr_ts = time();
-    if ($db_feedback['notification_timestamp'] >= $curr_ts - 10) {
+    if ($last <= $curr_ts - 10) {
       return TRUE;
     }
   }
 }
+
 
 
 /**
