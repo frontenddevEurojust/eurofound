@@ -1409,12 +1409,13 @@ height: 28px;
 	vertical-align: top;
 }
 .menu-minipanel-panel .views-view-grid .views-field-field-ef-document{
-	float: left;
-	margin-right:5px;
-	width: 50%;
+  float: left;
+  margin-right: 9px;
+  width: 35%;
+  box-shadow: 0px 0px 10px #ccc;
 }
 .menu-minipanel-panel .views-view-grid .views-field-field-ef-document img{
-	max-width: 90%;
+	max-width: 100%;
 }
 .menu-minipanel-panel .view-latest-publications .views-view-grid{
 	margin-top:12px;
