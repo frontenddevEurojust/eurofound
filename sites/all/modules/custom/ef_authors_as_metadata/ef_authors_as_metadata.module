@@ -11,11 +11,15 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 		
 		$input  = check_plain($view->args[0]);
 
-		$input = str_replace("_",", ", $input);
+		$source = drupal_get_normal_path("authors/" . $input);
 
-		$terms = taxonomy_get_term_by_name($input, $vocabulary = 'ef_publication_contributors');
+		$source = explode("/", $source);
 		
-		$view->build_info['title'] = $terms[key($terms)]->name;
+		$tid = $source[2];
+		
+		$term = taxonomy_term_load($tid);
+		
+		$view->build_info['title'] = $term->name;
 		
 		/*
 		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
@@ -169,6 +173,8 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 	if ($node->type == 'ef_report')
 
 	{	
+		module_load_include('inc', 'pathauto');
+		
 		for ($i=0; $i < count($build['field_ef_publ_contributors']['#items']); $i++)
 
 		{
@@ -183,11 +189,12 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 			if (count($publications_query))
 
 			{
-				$url = str_replace(', ','_', strtolower($build['field_ef_publ_contributors'][$i]['#markup']));
+				$url = pathauto_cleanstring($build['field_ef_publ_contributors'][$i]['#markup']);
 
 				$build['field_ef_publ_contributors'][$i]['#markup'] = "<a href='/author/" . $url . "' target='_blank'>" . $build['field_ef_publ_contributors'][$i]['#markup'] . "</a>";
 			}
 		}
+		
 	}
 
 }
@@ -195,9 +202,6 @@ function ef_authors_as_metadata_node_view_alter(&$build)
 function submit_new_contributors($form, &$form_state){
 
 	$newAuthors = trim($form_state['values']['add_new_contributor']);
-
-	
-	$form_state['test'] = trim($form_state['values']['add_new_contributor']);
 
 	if ($newAuthors != '')
 	{
