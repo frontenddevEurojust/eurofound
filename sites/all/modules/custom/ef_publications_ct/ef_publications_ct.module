@@ -21,24 +21,6 @@ function ef_publications_ct_node_view_alter(&$build)
 
     if($node->type == "ef_publication"){
 
-    	// Change authors href to fit authors as metadata view
-    	if (count($build['field_ef_publ_contributors']['#items']))
-
-    	{
-
-			for( $i = 0; $i < count($build['field_ef_publ_contributors']['#items']); $i++)
-
-    		{
-				$url = 'author/' . $build['field_ef_publ_contributors'][$i]['#title'];
-
-				$build['field_ef_publ_contributors'][$i]['#href'] = $url;
-    		}
-
-    		drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_view_mode.js');
-
-    	}
-
-
     	if($node->field_ef_subscription_msg['und'][0]['value'])
     	{
 
@@ -171,7 +153,7 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 			drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
 		}
 
-	  drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
+	  	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
 
 	}
 

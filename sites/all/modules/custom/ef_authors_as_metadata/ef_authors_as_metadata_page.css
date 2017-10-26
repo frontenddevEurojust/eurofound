@@ -1,15 +1,11 @@
 .page-author .ef-main{
 	overflow: auto;
 }
-.view-header {
+#page-title{
     background: #f9f9f9;
-	padding: 1rem 1rem 0 1rem;
+	padding: 1rem 1rem 1rem 1rem;
 	margin: 0 0 2rem 0;
-    overflow: auto;
     border-bottom: 3px solid #DDDDDD;
-}
-.view-authors-as-metadata h1.user-name{
-  width: 85%;
 }
 .view-authors-as-metadata .image{
   float: left;
@@ -152,6 +148,10 @@ p.image-content {
 	.view-authors-as-metadata h1.user-name {
 	  width: 100%;
 	  text-align: center;
+	}
+
+	.views-page #page-title{
+		padding-right: 0 !important;
 	}
 }
 
