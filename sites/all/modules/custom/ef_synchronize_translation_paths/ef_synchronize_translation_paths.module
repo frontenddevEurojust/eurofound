@@ -233,6 +233,9 @@ function ef_synchronize_translation_paths_taxonomy_term_update($term) {
     if ($term->path['pathauto'] == 1 && $term->vid == 21) {
       $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
     } 
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
+    } 
     foreach ($languages as $langcode => $language) {
       // Insert or update the alias.
       db_merge('url_alias')
@@ -256,6 +259,9 @@ function ef_synchronize_translation_paths_taxonomy_term_insert($term) {
   if (isset($term->path['alias'])) {
     if ($term->path['pathauto'] == 1 && $term->vid == 21) {
       $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
+    }
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
     } 
     foreach ($languages as $langcode => $language) {
       if ($langcode != 'en') {
