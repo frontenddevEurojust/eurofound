@@ -286,7 +286,7 @@ function build_question(array $merge, $mergeInto){
 	foreach ($merge as $key => $term)
 
 	{
-	 	$question = $question . " <a href='/" . $aliasList[$counter] . "' target='_blank'>" . $term->name . "</a> (tid: " . $term->tid . ", taxonomy: " . "<a href='/admin/structure/taxonomy/" . $term->vocabulary_machine_name . "' target='_blank'>" . $term->vocabulary_machine_name . "</a>)";
+	 	$question = $question . " <a href='/" . $aliasList[$counter] . "' target='_blank'>" . $term->name . "</a> (tid: " . $term->tid . ", taxonomy: " . "<a href='/admin/structure/taxonomy/" . $term->vocabulary_machine_name . "' target='_blank'>" . taxonomy_vocabulary_machine_name_load($term->vocabulary_machine_name)->name . "</a>)";
 
 	 	$counter++;
 
@@ -299,7 +299,7 @@ function build_question(array $merge, $mergeInto){
 
 	}
 
-	$question = $question . " is/are going to be merged into <a href='/" . $mergeIntoUrlAlias[0]->alias ."' target='_blank'>" . $mergeInto->name . "</a> (tid: " . $mergeInto->tid .", taxonomy: <a href='/admin/structure/taxonomy/" . $mergeInto->vocabulary_machine_name ."' target='_blank'>" . $mergeInto->vocabulary_machine_name ."</a>).";
+	$question = $question . " is/are going to be merged into <a href='/" . $mergeIntoUrlAlias[0]->alias ."' target='_blank'>" . $mergeInto->name . "</a> (tid: " . $mergeInto->tid .", taxonomy: <a href='/admin/structure/taxonomy/" . $mergeInto->vocabulary_machine_name ."' target='_blank'>" . taxonomy_vocabulary_machine_name_load($mergeInto->vocabulary_machine_name)->name ."</a>).";
 
 	$_SESSION['ef_term_merge']['question']['to'][] = [
 		'name' => $mergeInto->name,
