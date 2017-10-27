@@ -20,7 +20,8 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 			$form['field_ef_factsheet_sources']['#access']=FALSE;
 
 		}
-		drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
+		//drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
+		$form['#attached']['js'][] = drupal_get_path('module','ef_factsheet') . '/js/ef_factsheet.js';
     }
 }
 
