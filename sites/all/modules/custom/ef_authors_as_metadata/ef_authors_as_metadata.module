@@ -505,38 +505,7 @@ function update_old_authors_urls(){
 
 
 	foreach ($authors as $term) {
-<<<<<<< Updated upstream
 
-		// Check if the term has a manual url_alias
-		$query = "SELECT * from pathauto_state a WHERE a.pathauto = 0
-  			AND a.entity_id = :tid";
-
-      	$found = db_query($query, [":tid" => $term->tid])->fetchObject();	
-      	
-      	if (!$found)
-      	{	
-      		
-      		$pid = db_query("SELECT pid FROM url_alias WHERE source = :source", [":source" => "taxonomy/term/" . $term->tid])->fetchField();
-
-      		// Remove existing alias. No transliteration is assumed.
-      		
-      		path_delete(['pid' => $pid]);
-
-      		$path = [
-      			'source' => 'taxonomy/term/' . $term->tid,
-      			'alias' => 'authors/' . pathauto_cleanstring($term->name),
-      		];
-
-			// Add alias
-      		$saved = _pathauto_set_alias($path);
-      		
-      		if ($saved){
-      			fwrite($fp, "The author " . $term->name . " with " . $term->tid . " was successfully saved with the following alias: " . $saved['alias'] . ". \n");
-      		}
-      		
-      	}
-			
-=======
   		
   		$pid = db_query("SELECT pid FROM url_alias WHERE source = :source", [":source" => "taxonomy/term/" . $term->tid])->fetchField();
 
@@ -554,7 +523,7 @@ function update_old_authors_urls(){
   		if ($saved){
   			fwrite($fp, "The author " . $term->name . " with " . $term->tid . " was successfully saved with the following alias: " . $saved['alias'] . ". \n");
   		}	
->>>>>>> Stashed changes
+
 	}
 
 	fclose($fp);
