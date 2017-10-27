@@ -62,90 +62,68 @@ function ef_notifications_node_insert($node) {
  * Implements hook_field_storage_pre_update().
  */
 function ef_notifications_field_storage_pre_update($entity_type, $entity) {
-  if ($entity_type == 'node') {
-    $nid = $entity->nid;
-    if (isset($entity->field_ef_assign_to_user['und'][0]['entity'])) {
-      // retrieve previous and current assign to user and compare them
-      // This will work when assigment is changed from the view mode form.
-      $previous_user = $entity->field_ef_assign_to_user['und'][0]['entity']->uid;
-      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
-      if ($previous_user != $current_user && !empty($previous_user)) {
-        $user_assignment_notification = TRUE;
-      }
 
-      $previous_author = $entity->field_ef_assign_to_author['und'][0]['entity']->uid;
-      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
-      if ($previous_author != $current_author_mid && !empty($previous_author)) {
-        $author_assignment_notification = TRUE;
-      }
-      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
-    }
-    elseif (isset($entity->original->field_ef_assign_to_user)) {
-      $previous_user = $entity->original->field_ef_assign_to_user['und'][0]['target_id'];
-      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
-      if ($previous_user != $current_user && !empty($previous_user)) {
-        $user_assignment_notification = TRUE;
-      }
-      
-      $previous_author = $entity->original->field_ef_assign_to_author['und'][0]['target_id'];
-      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
-      if ($previous_author != $current_author_mid && !empty($previous_author)) {
-        $author_assignment_notification = TRUE;
-      }
-      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
+  if ($entity_type == 'node') {
+    $entity->vid == $entity->workbench_moderation['published']->vid ? $published_revision = TRUE : $published_revision = FALSE;
+    if ($published_revision) {
+      $entity->vid != $entity->workbench_moderation['current']->vid ? $current_revision = FALSE : $current_revision = TRUE;
     }
     else {
-      $node = node_load($entity->nid);
-      $node = node_load($node->nid, $node->workbench_moderation['current']->vid);
-      $previous_user = $node->field_ef_assign_to_user['und'][0]['target_id'];
-      $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
-      if ($previous_user != $current_user && !empty($previous_user)) {
-        $user_assignment_notification = TRUE;
-      }
-
-      $previous_author = $node->field_ef_assign_to_author['und'][0]['target_id'];
-      $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
-      if ($previous_author != $current_author_mid && !empty($previous_author)) {
-        $author_assignment_notification = TRUE;
-      }
-      $current_author = get_assigned_author_uid_by_mid($current_author_mid);
+      $current_revision = TRUE;
     }
 
-    $current_timestamp = time();
+    $query_user = db_select('field_revision_field_ef_assign_to_user', 'atu');
+    $query_user->join('workbench_moderation_node_history', 'nh', 'atu.revision_id = nh.vid');
+    $query_user->fields('atu', array('field_ef_assign_to_user_target_id'));
+    $query_user->condition('nh.current', 1);
+    $query_user->condition('atu.entity_id', $entity->nid);
+  
+    $result = $query_user->execute()->fetchAssoc();
+    $previous_user = $result['field_ef_assign_to_user_target_id'];
+    $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
 
-    // We only will generate an assignment notification if the state stays the same
-    // When there are no changes in moderation state, stamp is not the current stamp
-    // but an old one
+    $query_author = db_select('field_revision_field_ef_assign_to_author', 'ata');
+    $query_author->join('workbench_moderation_node_history', 'nh', 'ata.revision_id = nh.vid');
+    $query_author->fields('ata', array('field_ef_assign_to_author_target_id'));
+    $query_author->condition('nh.current', 1);
+    $query_author->condition('ata.entity_id', $entity->nid);
+  
+    $result = $query_author->execute()->fetchAssoc();
+    $previous_author = $result['field_ef_assign_to_author_target_id'];
+    $current_author = $entity->field_ef_assign_to_author['und'][0]['target_id'];
 
-    // Let's prevent duplicated notifications when user has real time notifications active.
-    if ($user_assignment_notification) {
-      $user_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_user);
-      $user_mail_already_sent ? $user_assignment_notification = FALSE : $user_assignment_notification = TRUE;
-      //WGS-213
-      if ($entity_type == 'ef_factsheet' && $current_user == 332){
-        $user_assignment_notification = FALSE;
-      }
+    if ($previous_user != $current_user && !empty($previous_user)) {
+      $user_assignment_notification = TRUE;
     }
-    if ($author_assignment_notification) {
-      $author_mail_already_sent = check_prevent_duplicated_notifications($nid, $current_author);
-      $author_mail_already_sent ? $author_assignment_notification = FALSE : $author_assignment_notification = TRUE;
+
+    if ($previous_author != $current_author && !empty($previous_author)) {
+      $author_assignment_notification = TRUE;
     }
 
-    if ($entity->workbench_moderation['current']->stamp <= $current_timestamp - 10 ) {
-      if ($user_assignment_notification) {
-        ef_notifications_assignment_notification($entity, $current_user);
-        $type = 'User assignment';
-        ef_notifications_save_real_time_db($entity->nid, $current_user, $type);
+    $current_author = get_assigned_author_uid_by_mid($current_author);
+
+    if ($current_revision) {
+      if ($user_assignment_notification == TRUE) {
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_user);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_user);
+          $type = 'User assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_user, $type);
+        }
       }
       if ($author_assignment_notification) {
-        ef_notifications_assignment_notification($entity, $current_author);
-        $type = 'Author assignment';
-        ef_notifications_save_real_time_db($entity->nid, $current_author, $type);
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_author);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_author);
+          $type = 'Author assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_author, $type);
+        }
       }
     }
   }
   return;
 }
+
 
 /**
  * Function to prevent duplicated emails
@@ -166,7 +144,7 @@ function check_prevent_duplicated_notifications($nid, $uid) {
   }
   else {
     $curr_ts = time();
-    if ($last <= $curr_ts - 10) {
+    if ($last >= $curr_ts - 10) {
       return TRUE;
     }
   }
