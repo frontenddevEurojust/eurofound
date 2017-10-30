@@ -53,8 +53,13 @@
   margin-left: 4%;
   margin-bottom: 2rem;
 }
-.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata p em{
-	font-style: normal !important;
+.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata{
+	font-family: inherit;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1.25em;
+    text-rendering: optimizeLegibility;
 }
 .view-authors-as-metadata .authors-as-metadata:nth-child(odd){
  margin-left: 0%;
@@ -105,9 +110,6 @@ p.image-content {
 	float: left;
 	margin-right: 1.5rem;
 	margin-top: 6px;
-}
-.content-author-as-metadata p{
-	font-style: normal !important;
 }
 .view-authors-as-metadata .view-footer-wrapper{
 	clear: both;
