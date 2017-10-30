@@ -84,7 +84,7 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
     <?php endif; ?>     
         <div class="row">
             <div class="ds-node-metadata">
-                <div class="field field-name-field-ef-topic">
+
                     <div class="field field-name-published-on">
                         <div class="label-inline">
                             <?php print $content['published_on'][0]['#markup']; ?>
@@ -103,8 +103,9 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                             <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
                         <?php endif; ?>
                     </div>
-                    <div class="field field-name-field-ef-author">
+                    
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
+                            <div class="field field-name-field-ef-topic">
                             <?php print t("Topic:") ?>&nbsp;
                                     <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
                                         <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
@@ -118,10 +119,11 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                                         </a>    
                                         <?php endif; ?>
                                     <?php endfor; ?>
-                            </li>
+                          
+                             </div>      
                         <?php endif; ?>
-                    </div>             
-                </div>
+                          
+             
             </div>
         </div>
         <div class="topic-abstract">
