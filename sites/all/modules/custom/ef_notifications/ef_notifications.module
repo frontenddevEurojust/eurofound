@@ -64,9 +64,9 @@ function ef_notifications_node_insert($node) {
 function ef_notifications_field_storage_pre_update($entity_type, $entity) {
 
   if ($entity_type == 'node') {
-    $entity->vid == $entity->workbench_moderation['published']->vid ? $published_revision = TRUE : $published_revision = FALSE;
-    if ($published_revision) {
-      $entity->vid != $entity->workbench_moderation['current']->vid ? $current_revision = FALSE : $current_revision = TRUE;
+
+    if ($entity->status == 1  && $entity->vid != $entity->workbench_moderation['current']->vid) {
+      $current_revision = FALSE;
     }
     else {
       $current_revision = TRUE;
