@@ -72,8 +72,8 @@ function add_highlights_tab($tid, $page, $limit = 8){
 
 
 
-    // Order by publication_date field
-    $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
+    // Ordering is managed in topics edit mode
+    
     // Limit the result set to 8 and define an offset dependant on the $page provided
      if (isset($page))
     {
@@ -114,8 +114,9 @@ function add_all_tab($tid, $page, $limit = 8){
     $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
     $query->condition('b.status', 1, '=');
 
-    // Ordering is managed in topics edit mode
     
+    // Order by publication_date field
+    $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided
      if (isset($page))
     {
