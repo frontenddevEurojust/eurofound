@@ -67,7 +67,7 @@ function add_highlights_tab($tid, $page, $limit = 8){
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.entity_id', $tid, '=');
     $query->condition('a.bundle', 'ef_topics', '=');
-    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
+    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
 
@@ -111,7 +111,7 @@ function add_all_tab($tid, $page, $limit = 8){
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.tid', $tid, '=');
-    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
+    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
     
