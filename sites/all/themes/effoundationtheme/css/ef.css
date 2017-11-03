@@ -13124,8 +13124,8 @@ p.view-empty.error-msg:before{
 	z-index: 9999999;
 }
 
+// erm-data-export , hide NutsID tr 
 #views-dynamic-fields-filters-table-sort tr:nth-child(10){
-	// erm-data-export , hide NutsID tr 
-	display: none!important;
+	display:none;
 }
 
