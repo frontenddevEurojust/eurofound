@@ -13123,3 +13123,9 @@ p.view-empty.error-msg:before{
 .reveal-modal-bg.payment{
 	z-index: 9999999;
 }
+
+#views-dynamic-fields-filters-table-sort tr:nth-child(10){
+	// erm-data-export , hide NutsID tr 
+	display: none!important;
+}
+
