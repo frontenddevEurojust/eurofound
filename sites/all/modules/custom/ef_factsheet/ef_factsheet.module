@@ -25,12 +25,11 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
     }
 }
 
-
-
 function ef_factsheet_form_validate($form, &$form_state) {
 	$employed_number = $form_state['values']['field_ef_number_employed']['und'][0]['value'];
 	$min_jobs = $form_state['values']['field_ef_job_reductions_min']['und'][0]['value'];
 	$min_jobs_int = intval($min_jobs);
+	$job_creation = $form_state['values']['field_ef_planned_job_creation']['und'][0]['value'];
 	$employed_number_int = intval($employed_number);
 
 	if(FALSE){
@@ -59,4 +58,9 @@ function ef_factsheet_form_validate($form, &$form_state) {
 				}
 		}
 	}
+
+	if ($min_jobs == null && $job_creation== null) {
+    	form_set_error('field_ef_job_reductions_min', t('Planned Job Reductions min and Planned Job Creation can not be both empty'));
+    	form_set_error('field_ef_planned_job_creation');
+ 	 }
 }

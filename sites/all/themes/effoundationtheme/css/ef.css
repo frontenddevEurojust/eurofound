@@ -13129,3 +13129,15 @@ p.view-empty.error-msg:before{
 	display:none;
 }
 
+#alertLocation{
+	visibility: visible;
+	display: block; 
+	opacity: 1;
+	margin-top:102em;
+	width:45%;
+	z-index: 99999999;
+}
+
+#alertLocation .lead{
+	text-align: left;
+}
