@@ -24,7 +24,7 @@ function ef_taxonomy_revisionapi($op, $node_revision)
 	/*
 	 * If published, taxonomies are inserted.
 	 */
-	if($publishState == '1')
+	if($publishState == 1)
 	{
 		/*
 		 * First, table is cleaned.

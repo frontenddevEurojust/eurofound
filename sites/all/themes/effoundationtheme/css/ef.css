@@ -1409,12 +1409,13 @@ height: 28px;
 	vertical-align: top;
 }
 .menu-minipanel-panel .views-view-grid .views-field-field-ef-document{
-	float: left;
-	margin-right:5px;
-	width: 50%;
+  float: left;
+  margin-right: 9px;
+  width: 35%;
+  box-shadow: 0px 0px 10px #ccc;
 }
 .menu-minipanel-panel .views-view-grid .views-field-field-ef-document img{
-	max-width: 90%;
+	max-width: 100%;
 }
 .menu-minipanel-panel .view-latest-publications .views-view-grid{
 	margin-top:12px;
@@ -1864,9 +1865,12 @@ div.qrr-info img {
 	color: #9D9FA0;
 	font-size: 0.8em;
 /*	padding-top: 5px;*/
-	margin: 0px 1.5% 35px 1.5%;
+	margin: 5px 1.5% 35px 1.5%;
 	width: 95%;
 	float: left;
+}
+.ds-node-metadata .field-group-div {
+  margin-top: 0px;
 }
 .ds-node-metadata .field {
 	border-right: 1px solid #F7931E;
@@ -1880,7 +1884,14 @@ div.qrr-info img {
 	padding-left: 0px;
 }
  .ds-node-metadata .field:last-child {
-	border: none;
+	/*border: none;*/
+}
+.field-group-div:last-child > div{
+  display: inline-block;
+  margin-top: 5px;
+}
+.field-group-div:last-child > div:last-child {
+  border: none;
 }
 .ds-node-metadata .field div {
 	display: inline-block;
@@ -13079,4 +13090,54 @@ p.view-empty.error-msg:before{
   position: absolute;
   top: 1px;
   left: 1px;
+}
+
+
+/** Modal Approved for payment css  **/
+
+#payment{
+	visibility: visible;
+	display: block; 
+	opacity: 1;
+	margin-top:13em;
+	width:42%;
+	z-index: 99999999;
+}
+
+.btn-payment{
+	background-color: #D6DFE8;
+	border-color: #9CB1C7;
+	border:1px solid #37628E;
+	padding:0.5em 1em;
+	margin-right:1em;
+	color:#37628E;
+	font-weight: normal;
+    font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
+}
+
+.btn-payment:hover{
+	background-color: #BAC9D8;
+	color:#37628E;
+}
+
+.reveal-modal-bg.payment{
+	z-index: 9999999;
+}
+
+/*erm-data-export , hide NutsID tr */
+#views-dynamic-fields-filters-table-sort tr:nth-child(10){
+	display:none;
+}
+
+#alertLocation{
+	visibility: visible;
+	display: block; 
+	opacity: 1;
+	margin-top:102em;
+	width:45%;
+	z-index: 99999999;
+}
+
+#alertLocation .lead{
+	text-align: left;
 }

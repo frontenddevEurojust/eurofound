@@ -155,14 +155,11 @@ function ef_term_merge_form($form,$form_state){
 
 		// JS and CSS attachments
 
-		$form['#attached']['js'] = array(
-	    	drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.js'
-	  	);
+		$form['#attached']['js'][] = drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.js';
+	 
 
 
-	  	$form['#attached']['css'] = array(
-	    	drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.css'
-	  	);
+	  	$form['#attached']['css'][] = drupal_get_path('module', 'ef_term_merge') . '/ef_term_merge.css';
 	}
 
 	return $form;
@@ -247,6 +244,8 @@ function _execute_merge_terms($form,&$form_state)
       		$form_state['rebuild'] = TRUE;
 			$_SESSION['ef_term_merge']['download'] = $filename;
 
+			taxonomy_terms_static_reset();
+
 			drupal_set_message('Terms have been merged successfully.');
 
 		}
@@ -287,7 +286,7 @@ function build_question(array $merge, $mergeInto){
 	foreach ($merge as $key => $term)
 
 	{
-	 	$question = $question . " <a href='/" . $aliasList[$counter] . "' target='_blank'>" . $term->name . "</a> (tid: " . $term->tid . ", taxonomy: " . "<a href='/admin/structure/taxonomy/" . $term->vocabulary_machine_name . "' target='_blank'>" . $term->vocabulary_machine_name . "</a>)";
+	 	$question = $question . " <a href='/" . $aliasList[$counter] . "' target='_blank'>" . $term->name . "</a> (tid: " . $term->tid . ", taxonomy: " . "<a href='/admin/structure/taxonomy/" . $term->vocabulary_machine_name . "' target='_blank'>" . taxonomy_vocabulary_machine_name_load($term->vocabulary_machine_name)->name . "</a>)";
 
 	 	$counter++;
 
@@ -300,7 +299,7 @@ function build_question(array $merge, $mergeInto){
 
 	}
 
-	$question = $question . " is/are going to be merged into <a href='/" . $mergeIntoUrlAlias[0]->alias ."' target='_blank'>" . $mergeInto->name . "</a> (tid: " . $mergeInto->tid .", taxonomy: <a href='/admin/structure/taxonomy/" . $mergeInto->vocabulary_machine_name ."' target='_blank'>" . $mergeInto->vocabulary_machine_name ."</a>).";
+	$question = $question . " is/are going to be merged into <a href='/" . $mergeIntoUrlAlias[0]->alias ."' target='_blank'>" . $mergeInto->name . "</a> (tid: " . $mergeInto->tid .", taxonomy: <a href='/admin/structure/taxonomy/" . $mergeInto->vocabulary_machine_name ."' target='_blank'>" . taxonomy_vocabulary_machine_name_load($mergeInto->vocabulary_machine_name)->name ."</a>).";
 
 	$_SESSION['ef_term_merge']['question']['to'][] = [
 		'name' => $mergeInto->name,

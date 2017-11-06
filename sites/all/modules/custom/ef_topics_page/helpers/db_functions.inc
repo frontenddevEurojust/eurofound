@@ -67,13 +67,13 @@ function add_highlights_tab($tid, $page, $limit = 8){
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.entity_id', $tid, '=');
     $query->condition('a.bundle', 'ef_topics', '=');
-    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
+    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
 
 
-    // Order by publication_date field
-    $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
+    // Ordering is managed in topics edit mode
+    
     // Limit the result set to 8 and define an offset dependant on the $page provided
      if (isset($page))
     {
@@ -111,9 +111,10 @@ function add_all_tab($tid, $page, $limit = 8){
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
     $query->condition('a.tid', $tid, '=');
-    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event'), 'IN');
+    $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
+    
     // Order by publication_date field
     $query->extend('TableSort')->orderBy('e.published_at', 'DESC');
     // Limit the result set to 8 and define an offset dependant on the $page provided

@@ -25,9 +25,7 @@ function ef_assistant_settings_form_alter(&$form, &$form_state,$form_id){
 
 		}
 
-		$form['#attached']['css'] = array(
-	    	drupal_get_path('module', 'ef_assistant_settings') . '/ef_assistant_settings.css',
-	  	);
+		$form['#attached']['css'][] = drupal_get_path('module', 'ef_assistant_settings') . '/ef_assistant_settings.css';
 
 	}
 

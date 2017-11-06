@@ -43,7 +43,7 @@
       var checkExist = setInterval(function() {
         if ($("#edit-field-ef-assign-to-user-und--2").length || $("#edit-field-ef-assign-to-user-und--3").length) {
           $('#edit-submit').prop( "disabled", false );
-          $('#edit-submit').prop( "class", "form-submit" );
+          $('#edit-submit').prop( "class", "form-submit primary" );
           $('#edit-save-edit').prop( "disabled", false );
           $('#edit-save-edit').prop( "class", "form-submit" );
           $('#edit-field-ef-assign-to-user-und--2').attr('id','edit-field-ef-assign-to-user-und');

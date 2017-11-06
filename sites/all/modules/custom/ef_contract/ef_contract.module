@@ -607,9 +607,7 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     // Erase non-functional 'save' button
     unset($form['actions']['submit']);
 
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
 
@@ -622,9 +620,7 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     // Erase non-functional 'save' button
     unset($form['actions']['submit']);
 
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
+    $form['#attached']['css'] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
 
@@ -706,9 +702,7 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
 
     $form['select']['#type'] = 'hidden';
 
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
 
@@ -743,9 +737,7 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#value'] = 'Save all items';
     $form['#submit'][] = 'correct_bulk_contract_submit';
 
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
   }

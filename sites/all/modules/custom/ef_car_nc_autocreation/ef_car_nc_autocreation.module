@@ -219,12 +219,8 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	);
 
 	/* --- Attached files (bilbomatica) --- */
-	$form['#attached']['js'] = array(
-    drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.js',
-  );
-	$form['#attached']['css'] = array(
-  	drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.css',
-  );
+	$form['#attached']['js'][] = drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.js';
+	$form['#attached']['css'][] = drupal_get_path('module', 'ef_car_nc_autocreation') . '/ef_car_nc_autocreation.css';
   	/* --- end --- */
 	return $form;
 }

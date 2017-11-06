@@ -123,10 +123,10 @@ function ef_search_form_alter(&$form, &$form_state, $form_id) {
       'checkbox',
       '#title' => t('phrase'),
 
-    );
-      $form['#attached']['js'] = array(
-        drupal_get_path('module', 'ef_search') . '/ef_search.js',
       );
+      
+      $form['#attached']['js'][] = drupal_get_path('module', 'ef_search') . '/ef_search.js';
+    
     }
 
 

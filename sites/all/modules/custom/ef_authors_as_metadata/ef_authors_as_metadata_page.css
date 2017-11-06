@@ -1,15 +1,11 @@
 .page-author .ef-main{
 	overflow: auto;
 }
-.view-header {
+#page-title{
     background: #f9f9f9;
-	padding: 1rem 1rem 0 1rem;
+	padding: 1rem 1rem 1rem 1rem;
 	margin: 0 0 2rem 0;
-    overflow: auto;
     border-bottom: 3px solid #DDDDDD;
-}
-.view-authors-as-metadata h1.user-name{
-  width: 85%;
 }
 .view-authors-as-metadata .image{
   float: left;
@@ -57,8 +53,13 @@
   margin-left: 4%;
   margin-bottom: 2rem;
 }
-.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata p em{
-	font-style: normal !important;
+.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata{
+	font-family: inherit;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1.25em;
+    text-rendering: optimizeLegibility;
 }
 .view-authors-as-metadata .authors-as-metadata:nth-child(odd){
  margin-left: 0%;
@@ -110,9 +111,6 @@ p.image-content {
 	margin-right: 1.5rem;
 	margin-top: 6px;
 }
-.content-author-as-metadata p{
-	font-style: normal !important;
-}
 .view-authors-as-metadata .view-footer-wrapper{
 	clear: both;
 }
@@ -152,6 +150,10 @@ p.image-content {
 	.view-authors-as-metadata h1.user-name {
 	  width: 100%;
 	  text-align: center;
+	}
+
+	.views-page #page-title{
+		padding-right: 0 !important;
 	}
 }
 
