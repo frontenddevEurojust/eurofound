@@ -1349,7 +1349,7 @@ height: 28px;
 .menu-minipanel-panel a:before{content:none;text-shadow:none; padding: 0 8px 0 10px}
 .menu-minipanel-panel a{
 	background: none;
-	padding: 0px;
+	padding: 0px !important;
 	color:#005baa;
 	text-align: left;
 	height: auto;
