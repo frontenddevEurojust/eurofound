@@ -117,7 +117,9 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 // get years
 function get_years($type){
 
-  $years = variable_get('publication_date_years_array');
+  $all_ct_years = variable_get('publication_date_years_array');
+
+  $years = $all_ct_years[$type];
 
   return $years;
 
@@ -127,7 +129,10 @@ function get_years($type){
  * Implements hook_cron()
  */
 function ef_publication_date_year_filter_cron() {
-  $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
+  $content_types = array('ef_publication', 'ef_report', 'ef_news', 'ef_ir_dictionary', 'ef_comparative_analytical_report');
+
+  foreach ($content_types as $key => $type) {
+    $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
             as fecha
             from publication_date
             inner join node on node.nid = publication_date.nid
@@ -136,16 +141,16 @@ function ef_publication_date_year_filter_cron() {
             and from_unixtime(publication_date.published_at, '%Y') is not null
             order by fecha asc";
 
-  $results = db_query($select_years, array(':type' => '%' . $type . '%'))->fetchAll();
+    $results = db_query($select_years, array(':type' => '%' . $type . '%'))->fetchAll();
 
-  $years = array();
-  $min_year = $results[0]->fecha;
-  $max_year = date('Y');
+    $min_year = $results[0]->fecha;
+    $max_year = date('Y');
 
-  foreach (range($max_year, $min_year) as $i => $year) {
-    $years[] = $year;
+    foreach (range($max_year, $min_year) as $i => $year) {
+      $years_by_ct[$type][] = $year;
+    }  
   }
-
-  variable_set('publication_date_years_array', $years);
+  
+  variable_set('publication_date_years_array', $years_by_ct);
 
 }
