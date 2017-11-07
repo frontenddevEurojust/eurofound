@@ -30,23 +30,24 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
       $type = 'ef_comparative_analytical_report';
     }
 
-    $years = array();
-    $years = get_years($type);
-
-    // Don't use default value !!
+    if (!empty($type)) {
+      $years = array();
+      $years = get_years($type);
       $form['published_at'] = array(
         '#type' => 'select',
         '#options' => $years,
-        /*'#default_value' => '-1',*/
+        //'#default_value' => '-1',
         "#empty_option"=>t('Any'),
         '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
         '#suffix' => '</div>'
       );
+    }
 
-      $form['#attached']['css'][] = drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css';
-      
+    // Don't use default value !!
 
-      return $form;
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css';
+
+    return $form;
   }
 
 
@@ -54,9 +55,9 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
 
 // hook_views_query_alter()
 function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
-
+  
   if(isset($view->name)){
-
+    
     if($view->name == 'ef_publications_view' && $view->vid == 75)
     {
       $type = 'ef_publication';
@@ -85,7 +86,7 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 
     $field = 'publication_date.published_at';
 
-
+    
     if(isset($view->exposed_data['published_at']) && $view->exposed_data['published_at'] >= '0'){
 
       $year_index = $view->exposed_data['published_at'];
@@ -109,9 +110,9 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
       $query->where[1]['conditions'][5]['operator'] = '<=';
 
     }
-
+    
   }
-
+  
 }
 
 // get years
