@@ -29,19 +29,22 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
     if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page' || $form['#id'] == 'views-exposed-form-ef-car-reports-page-1'){
       $type = 'ef_comparative_analytical_report';
     }
-    
-    if (!empty($type)) {
-      $years = array();
-      $years = get_years($type);
-      $form['published_at'] = array(
-        '#type' => 'select',
-        '#options' => $years,
-        //'#default_value' => '-1',
-        "#empty_option"=>t('Any'),
-        '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
-        '#suffix' => '</div>'
-      );
+
+    if($form['#id'] == 'views-exposed-form-ef-ir-dictionary-page'){
+      $type = 'ef_ir_dictionary';
     }
+
+    $years = array();
+    $years = get_years($type);
+    
+    $form['published_at'] = array(
+      '#type' => 'select',
+      '#options' => $years,
+      //'#default_value' => '-1',
+      "#empty_option"=>t('Any'),
+      '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
+      '#suffix' => '</div>'
+    );
 
     // Don't use default value !!
 
@@ -130,7 +133,7 @@ function get_years($type){
  * Implements hook_cron()
  */
 function ef_publication_date_year_filter_cron() {
-  $content_types = array('ef_publication', 'ef_report', 'ef_news', 'ef_ir_dictionary', 'ef_comparative_analytical_report');
+  $content_types = array('ef_publication', 'ef_report', 'ef_news', 'ef_ir_dictionary', 'ef_comparative_analytical_report', '');
 
   foreach ($content_types as $key => $type) {
     $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
