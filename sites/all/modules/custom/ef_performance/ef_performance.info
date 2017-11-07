@@ -1,0 +1,4 @@
+name = EF Performance
+description = Code needed to improve performance
+package = EF modules
+core = 7.x

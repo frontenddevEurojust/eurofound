@@ -1,0 +1,12 @@
+ <?php
+
+ /**
+  * This module will be used to alter unwanted behaviors
+  * affecting the performance
+  */
+
+
+
+function ef_performance_views_query_alter(&$view, &$query) {
+	dpm($query);
+}
