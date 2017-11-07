@@ -95,7 +95,7 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                             <?php print  $node->type; ?>
                         </div>
                     </div>
-                    <div class="field field-name-field-ef-author">
+                    <div class="field field-name-field-ef-name">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                         <?php if ($language->language != 'en'): ?> 
                             <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print  print $author[1] . " " . $author[0]; ?></a>
