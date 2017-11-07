@@ -26,10 +26,10 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
       $type = 'ef_news';
     }
 
-    if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page'){
+    if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page' || $form['#id'] == 'views-exposed-form-ef-car-reports-page-1'){
       $type = 'ef_comparative_analytical_report';
     }
-
+    
     if (!empty($type)) {
       $years = array();
       $years = get_years($type);
