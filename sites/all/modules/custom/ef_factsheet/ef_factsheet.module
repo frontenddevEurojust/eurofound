@@ -50,7 +50,8 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	$min_jobs_int = intval($min_jobs);
 	$job_creation = $form_state['values']['field_ef_planned_job_creation']['und'][0]['value'];
 	$employed_number_int = intval($employed_number);
-
+	$restructuring = $form_state['values']['field_ef_type_of_restructuring']['und'][0]['tid'];
+	$new_location = $form_state['values']['field_ef_new_location']['und'][0]['tid'];
 	if(FALSE){
 		if(($min_jobs!=0)){
 			if($min_jobs_int<25){
@@ -81,5 +82,10 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	if ($min_jobs == null && $job_creation== null) {
     	form_set_error('field_ef_job_reductions_min', t('Planned Job Reductions min and Planned Job Creation can not be both empty'));
     	form_set_error('field_ef_planned_job_creation');
- 	 }
+ 	}
+
+ 	if(intval($restructuring) ==1105 &&  $new_location == NULL) {
+		form_set_error('field_ef_new_location',t('New Location cannot be blank if “offshoring/ delocalisation” is selected in Type of Restructuring '));
+	}
+	
 }
