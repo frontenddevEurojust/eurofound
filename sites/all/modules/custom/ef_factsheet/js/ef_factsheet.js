@@ -15,74 +15,6 @@
           $('#edit_field_ef_type_of_restructuring_und_chosen .chosen-drop').show();
         }
       }
-
-    });
-
-    //Min job loss or job creation –cannot submit if both are empty 
-
-    
-    //New location: cannot be blank if “offshoring/ delocalisation” is selected in restructuring type
-
-    $( "#edit-field-ef-type-of-restructuring-und" ).change(function() {
-      $('.chosen-container-multi .search-choice span').each(function () {
-          if ($(this).once().text() == 'Offshoring/Delocalisation') {
-              if ($('#edit_field_ef_new_location_und_chosen .chosen-single span').text() == '- None -') {
-                $('#edit-submit').attr("disabled","disabled");
-                $('#edit-save-edit').attr("disabled","disabled");
-
-                $("#edit-field-ef-new-location div label").once().append("<div id='alertLocation' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>New location cannot be none if 'offshoring/delocalisation' is selected in Type of Restructuring</p><a id='accept-button' class='btn-payment'>Accept</a></div></div>" );
-                $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
-                $('#alertLocation').show();
-                $('.reveal-modal-bg').show();
-
-
-                $('#accept-button').click(function() {
-                  $('#alertLocation').hide();
-                  $('.reveal-modal-bg').hide();
-                });
-                $('#go-to').click(function() {
-                  $('#alertLocation').hide();
-                  $('.reveal-modal-bg').hide();
-                  $('#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0').focus().click();
-                });
-
-              }
-          }else{
-            $('#edit-submit').removeAttr("disabled");
-            $('#edit-save-edit').removeAttr("disabled","disabled");
-          }
-      });
-    });
-
-    $( "#edit-field-ef-new-location-und" ).change(function() {
-
-      $('.chosen-single span').each(function () {
-          if ($(this).text() == '- None -') {
-              if ($('#edit_field_ef_type_of_restructuring_und_chosen .search-choice span').text() == 'Offshoring/Delocalisation') {
-                $('#edit-submit').attr("disabled","disabled");
-                $('#edit-save-edit').attr("disabled","disabled");
-                $("#edit-field-ef-new-location div label").once().append("<div id='alertLocation' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>New location cannot be none if 'offshoring/delocalisation' is selected in Type of Restructuring</p><a id='accept-button' class='btn-payment'>Accept</a></div></div>" );
-                $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
-                $('#alertLocation').show();
-                $('.reveal-modal-bg').show();
-
-
-                $('#accept-button').click(function() {
-                  $('#alertLocation').hide();
-                  $('.reveal-modal-bg').hide();
-                });
-                $('#go-to').click(function() {
-                  $('#alertLocation').hide();
-                  $('.reveal-modal-bg').hide();
-                  $('#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0').focus().click();
-                });
-                
-               }
-          }else{
-            $('#edit-submit').removeAttr("disabled");
-            $('#edit-save-edit').removeAttr("disabled","disabled");
-          }
-      });
     });
   });
 })(jQuery);
@@ -92,8 +24,9 @@
 //Only when the node is moved to published and the Approved for payment field is empty, show a dialog box warning user about this situation.
 
 (function ($) {
-  Drupal.behaviors.mynewsdesk = {
+  Drupal.behaviors.ef_factsheet = {
   attach: function (context, settings) {
+    console.log('aaaaaaa');
       $('#edit-field-ef-moderation-state').on('change', function () {
         
     var isDirty = !this.options[this.selectedIndex].defaultSelected;
@@ -101,7 +34,7 @@
     if (isDirty) {
         if ($(this).val() == 'published'){
           if ($("#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0").val() === "") {
-            $(".form-item-field-ef-moderation-state").once().append("<div id='payment' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>Approved for payment field is empty</p><a id='accept-button' class='btn-payment'>Accept</a> <a id='go-to' class='btn-payment'>Go to the Approved for payment field</a></div></div>" );
+            $(".form-item-field-ef-moderation-state").once().append("<div id='payment' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>The 'Approved for payment' field is empty. Are you sure you want to publish this factsheet?</p><a id='accept-button' class='btn-payment'>Yes, I want to publish</a> <a id='go-to' class='btn-payment'>No, I want to fill-in the 'Approved for payment' field</a></div></div>" );
             $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
             $('#payment').show();
             $('.reveal-modal-bg').show();
@@ -116,6 +49,7 @@
             $('#accept-button').click(function() {
               $('#payment').hide();
               $('.reveal-modal-bg').hide();
+              $('#edit-submit').trigger( "click" );
             });
             $('#go-to').click(function() {
               $('#payment').hide();
@@ -129,3 +63,52 @@
 
   }};
 })(jQuery);
+
+
+//Mode View check payment field
+(function ($) {
+    Drupal.behaviors.ef_factsheet_view = 
+    {
+      attach: function (context, settings) {
+      $('#edit-state').on('change', function () 
+      {
+        if (typeof Drupal.settings.ef_factsheet !== 'undefined') 
+        {
+          var $checkPayment = Drupal.settings.ef_factsheet.field_ef_approved_for_payment;
+          var $nodeID = Drupal.settings.ef_factsheet.nid;
+          var $baseURL = Drupal.settings.ef_factsheet.baseURL;
+          var isDirty = !this.options[this.selectedIndex].defaultSelected;
+          if (isDirty) 
+            if ($(this).val() == 'published'){
+              {
+
+                if ($checkPayment == null)
+                  {
+                    $(".workbench-info-block").once().append("<div id='payment' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>The 'Approved for payment' field is empty. Are you sure you want to publish this factsheet?</p><a id='accept-button' class='btn-payment'>Yes, I want to publish</a> <a id='go-to' class='btn-payment'>No, I want to fill-in the 'Approved for payment' field</a> <a id='cancel' class='btn-payment'>Cancel</a></div></div>" );
+                    $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
+                    $('#payment').show();
+                    $('.reveal-modal-bg').show();   
+                    
+                    $('#accept-button').click(function() {
+                      $('#payment').hide();
+                      $('.reveal-modal-bg').hide();
+                      $('#edit-button').trigger( "click" );
+                    });
+                    $('#go-to').click(function() {
+                      $('#payment').hide();
+                      $('.reveal-modal-bg').hide();
+                      window.location.replace($baseURL + "/node/" + $nodeID + "/edit" + "#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0");
+                    });
+                    $('#cancel').click(function() {
+                      $('#payment').hide();
+                      $('.reveal-modal-bg').hide();
+                    });
+                  }
+              } 
+            }
+        }
+      });
+    }
+  }
+})(jQuery);
+

@@ -1,5 +1,24 @@
 <?php
 
+
+function ef_factsheet_node_view($node, $view_mode, $langcode) {
+  switch ($node->type) {
+    case 'ef_factsheet':
+      drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
+      
+      	$checkPayment = $node->field_ef_approved_for_payment['und'][0]['value'];
+      	$nodeID = $node->nid;
+      	$baseURL = $GLOBALS['base_url'];
+	  	$settings['field_ef_approved_for_payment'] = variable_get('ef_factsheet', $checkPayment);
+		$settings['nid'] = variable_get('ef_factsheet', $nodeID);
+		$settings['baseURL'] = variable_get('ef_factsheet', $baseURL);
+	  	drupal_add_js(array('ef_factsheet' => $settings), 'setting');
+      break;
+  }
+}
+
+
+
 function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 	global $user;
 	if($form_id=='ef_factsheet_node_form'){

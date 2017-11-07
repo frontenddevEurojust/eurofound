@@ -13100,7 +13100,7 @@ p.view-empty.error-msg:before{
 	display: block; 
 	opacity: 1;
 	margin-top:13em;
-	width:42%;
+	width:auto;
 	z-index: 99999999;
 }
 
