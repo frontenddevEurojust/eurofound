@@ -6,7 +6,22 @@
   */
 
 
-
 function ef_performance_views_query_alter(&$view, &$query) {
-	dpm($query);
+	
+	if ($view->name == 'custom_taxonomy_term_display') {
+		$tid = $view->args[0];
+		//run taxonomy_index subquery
+		$subquery = db_select('taxonomy_index', 'ti')
+    	->fields('ti', array('nid'))
+    	->condition('ti.tid', $tid);
+  	$result = $subquery->execute();
+		//get an array of nids
+		$related_nids = $result->fetchAll();
+		foreach ($related_nids as $key => $item) {
+			$nids[] = $item->nid;
+		}
+		//Change the condition nid is in array of nids
+		$query->where[0]['conditions'][0]['value'] = $nids;
+	}
+	
 }
