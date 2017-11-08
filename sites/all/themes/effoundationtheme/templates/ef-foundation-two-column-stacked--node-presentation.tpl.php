@@ -131,7 +131,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                             <?php print  $node->type; ?>
                         </div>
                     </div>
-                    <div class="field field-name-field-ef-name">
+                    <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                         <?php if ($language->language != 'en'): ?> 
                             <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
