@@ -78,8 +78,7 @@
 <?php
 
   global $language;
-  //dpm($node);
-
+  
   function getSectorByNid($nid)
   {
     $sql = "SELECT n.nid as nid, n.title as title, nace.delta as delta, nace.field_ef_nace_tid as tid,
@@ -114,8 +113,6 @@
   return $result;
 
 }
-
-
 
 ?>
 
@@ -463,6 +460,19 @@
                         </div>
                     <?php endif; ?>
                 </div>
+                <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
+                   <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
+
+                  <div class="ef_fs_source_pdf fs_indoor row">
+                      <span class="small-3 columns">Other full text sources:</span>
+                      <span class="fs_data">
+                        <a target="_blank" href="<?php print ($content['field_otheref_full_text_sources'][0]['#markup']); ?>">
+                          <?php print render($node->field_otheref_full_text_sources['und'][0]['filename']); ?>
+                        </a>
+                      </span>
+                  </div>
+                <?php endif; ?>
+                 <?php endif; ?>
             </div>
         </div>
 
