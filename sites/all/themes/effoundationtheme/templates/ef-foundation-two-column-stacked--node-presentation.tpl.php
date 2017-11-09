@@ -91,9 +91,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<body>
+
     <div class="email-blog">
         <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
@@ -144,7 +142,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                    
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
                              <div class="field field-name-field-ef-topic">
-                            <?php print t("Topic:") ?>&nbsp;
+                            <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
                                     <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
                                         <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
                                         <?php if ($language->language != 'en'): ?> 
@@ -212,7 +210,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
             <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>
         </div>
     </aside>
-</body>
+
 <script>
     //Delete the src iframe language from Drupal 
     jQuery('.content-pdf-viewer iframe').attr('src',jQuery('.content-pdf-viewer iframe').attr('src').replace('/<?php print $language->language ?>', ''));
@@ -220,7 +218,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     //Delete the href button download language from Drupal 
     jQuery('.name-pdf a').attr('href',jQuery('.name-pdf a').attr('href').replace('/<?php print $language->language ?>', ''));
 </script>
-</html>
+
 
 
 
