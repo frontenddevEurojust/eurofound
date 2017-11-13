@@ -19,6 +19,11 @@
   });
 })(jQuery);
 
+jQuery( window ).load(function() {
+   if (window.location.href.indexOf("field-ef-approved-for-payment-add-more-wrapper") > -1) {
+     jQuery('#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0').focus();
+    }
+});
 
 
 //Only when the node is moved to published and the Approved for payment field is empty, show a dialog box warning user about this situation.
@@ -26,7 +31,7 @@
 (function ($) {
   Drupal.behaviors.ef_factsheet = {
   attach: function (context, settings) {
-    console.log('aaaaaaa');
+   
       $('#edit-field-ef-moderation-state').on('change', function () {
         
     var isDirty = !this.options[this.selectedIndex].defaultSelected;
@@ -97,7 +102,7 @@
                     $('#go-to').click(function() {
                       $('#payment').hide();
                       $('.reveal-modal-bg').hide();
-                      window.location.replace($baseURL + "/node/" + $nodeID + "/edit" + "#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0");
+                      window.location.replace($baseURL + "/node/" + $nodeID + "/edit" + "#field-ef-approved-for-payment-add-more-wrapper");
                     });
                     $('#cancel').click(function() {
                       $('#payment').hide();
