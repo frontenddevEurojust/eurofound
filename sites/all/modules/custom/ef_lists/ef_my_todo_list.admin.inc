@@ -105,7 +105,8 @@ function my_todo_list_form($form,$form_state){
 		'#js_select' => FALSE,
 	);
 
-	$form['#attached']['css'][] = drupal_get_path('module', 'ef_lists') . '/ef_mytodo_list.css' => array(
+	$form['#attached']['css'][] = array( 
+		drupal_get_path('module', 'ef_lists') . '/ef_mytodo_list.css' => array(
 			'group' => CSS_THEME,
 			'weight' => 999,
 		)
