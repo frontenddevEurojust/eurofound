@@ -3559,7 +3559,7 @@ form#views-exposed-form-ef-quarterly-reports-page .date-year{
     -webkit-box-shadow:none!important;
     box-shadow:none!important;
 }
-.featured.panel-pane img{float: none; border: none; margin:0px; width: 55%;}
+.featured.panel-pane img{float: none; border: none; margin:0px; /*width: 55%;*/}
 .featured.panel-pane .pdfpreview{
 	width: 120%;
 	height: 219px;
