@@ -356,7 +356,7 @@
             <?php if (isset($content['field_ef_restruct_si_sc']) || isset($content['field_ef_restruct_si_gc'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('ERM Database on restructuring support instruments'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('ERM legal database'); ?></h3>
                 <?php if (isset($content['field_ef_restruct_si_sc'])): ?>
                 <div>
                   <h4><?php print t('Specific comments: '); ?></h4>
@@ -809,44 +809,11 @@
               </div>
             </li>
           <?php endif; ?>
-          <?php if(isset($content['field_ef_network_tender']) || isset($content['field_ef_network_tend_main_area']) || isset($content['field_ef_network_tender_aspects']) ): ?>
-            <li>
-              <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('5. Eurofound is currently preparing a new Network tender to cover 2018-2021 period. Please let us know, which of the current areas of reporting your organisation values the most and would love to do for Eurofound in the future?'); ?></h3>
-                <?php if (isset($content['field_ef_network_tend_main_area'])): ?>
-                <div>
-                  <h4><?php print t('Main area'); ?></h4>
-                  <ul class='ef-metatag'>
-                  <?php foreach($areas_array as $key => $value): ?>
-                    <?php if($value == ' Other area'): ?>
-                    <li><?php print render($content['field_ef_network_tend_other']); ?></li>
-                    <?php else: ?>
-                    <li><?php print $value; ?></li>  
-                    <?php endif; ?>
-                  <?php endforeach; ?>  
-                  </ul>
-                </div>
-                <?php endif; ?>
-                <?php if (isset($content['field_ef_network_tender'])): ?>
-                <div>
-                  <h4><?php print t('5.1 Develop on the aspects that are most important for you in your work as correspondent'); ?></h4>
-                  <div><?php print render($content['field_ef_network_tender']); ?></div>
-                </div>
-                <?php endif; ?>
-                <?php if (isset($content['field_ef_network_tender_aspects'])): ?>
-                <div>
-                  <h4><?php print t('5.2 Which aspects of the current Network did you value most as Eurofound correspondent'); ?></h4>
-                  <div><?php print render($content['field_ef_network_tender_aspects']); ?></div>
-                </div>
-                <?php endif; ?>
-              </div>
-            </li>
-          <?php endif; ?>
           
           <?php if(isset($node->field_ef_cms_system_rating['und'][0]['value']) || isset($content['field_ef_fb_cms_system'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('6. CMS system'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('5. CMS system'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_cms_system_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -856,7 +823,7 @@
                   </div>
                   <?php endif; ?>
                   <?php if (isset($content['field_ef_fb_cms_system'])): ?>
-                    <h4><?php print t('6.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print t('5.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_cms_system']); ?></div>
                   <?php endif; ?>
                 </div>
