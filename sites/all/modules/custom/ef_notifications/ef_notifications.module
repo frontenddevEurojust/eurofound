@@ -59,44 +59,95 @@ function ef_notifications_node_insert($node) {
 }
 
 /**
- * Implements hook_field_update().
+ * Implements hook_field_storage_pre_update().
  */
-function ef_notifications_field_attach_update($entity_type, $entity) {
+function ef_notifications_field_storage_pre_update($entity_type, $entity) {
+
   if ($entity_type == 'node') {
 
-    // retrieve previous and current assign to user and compare them
-    $previous_user = $entity->field_ef_assign_to_user['und'][0]['entity']->uid;
+    if ($entity->status == 1  && $entity->vid != $entity->workbench_moderation['current']->vid) {
+      $current_revision = FALSE;
+    }
+    else {
+      $current_revision = TRUE;
+    }
+
+    $query_user = db_select('field_revision_field_ef_assign_to_user', 'atu');
+    $query_user->join('workbench_moderation_node_history', 'nh', 'atu.revision_id = nh.vid');
+    $query_user->fields('atu', array('field_ef_assign_to_user_target_id'));
+    $query_user->condition('nh.current', 1);
+    $query_user->condition('atu.entity_id', $entity->nid);
+  
+    $result = $query_user->execute()->fetchAssoc();
+    $previous_user = $result['field_ef_assign_to_user_target_id'];
     $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+
+    $query_author = db_select('field_revision_field_ef_assign_to_author', 'ata');
+    $query_author->join('workbench_moderation_node_history', 'nh', 'ata.revision_id = nh.vid');
+    $query_author->fields('ata', array('field_ef_assign_to_author_target_id'));
+    $query_author->condition('nh.current', 1);
+    $query_author->condition('ata.entity_id', $entity->nid);
+  
+    $result = $query_author->execute()->fetchAssoc();
+    $previous_author = $result['field_ef_assign_to_author_target_id'];
+    $current_author = $entity->field_ef_assign_to_author['und'][0]['target_id'];
+
     if ($previous_user != $current_user && !empty($previous_user)) {
       $user_assignment_notification = TRUE;
     }
 
-    $previous_author = $entity->field_ef_assign_to_author['und'][0]['entity']->uid;
-    $current_author_mid = $entity->field_ef_assign_to_author['und'][0]['target_id'];
-    if ($previous_author != $current_author_mid && !empty($previous_author)) {
+    if ($previous_author != $current_author && !empty($previous_author)) {
       $author_assignment_notification = TRUE;
     }
-    $current_author = get_assigned_author_uid_by_mid($current_author_mid);
 
-    $current_timestamp = time();
+    $current_author = get_assigned_author_uid_by_mid($current_author);
 
-    // We only will generate an assignment notification if the state stays the same
-    // When there are no changes in moderation state, stamp is not the current stamp
-    // but an old one
-    if ($entity->workbench_moderation['current']->stamp <= $current_timestamp - 10 ) {
-      if ($user_assignment_notification) {
-        ef_notifications_assignment_notification($entity, $current_user);
-        $type = 'User assignment';
-        ef_notifications_save_real_time_db($entity->nid, $current_user, $type);
+    if ($current_revision) {
+      if ($user_assignment_notification == TRUE) {
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_user);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_user);
+          $type = 'User assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_user, $type);
+        }
       }
       if ($author_assignment_notification) {
-        ef_notifications_assignment_notification($entity, $current_author);
-        $type = 'Author assignment';
-        ef_notifications_save_real_time_db($entity->nid, $current_author, $type);
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_author);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_author);
+          $type = 'Author assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_author, $type);
+        }
       }
     }
   }
   return;
+}
+
+
+/**
+ * Function to prevent duplicated emails
+ */
+function check_prevent_duplicated_notifications($nid, $uid) {
+  $query = db_select('notifications_db_support', 'ns')
+    ->fields('ns', array('uid', 'nid', 'notification_timestamp'))
+    ->condition('ns.nid', $nid)
+    ->condition('ns.uid', $uid);
+  $result = $query->execute();
+  $db_feedback = $result->fetchAll();
+
+  foreach ($db_feedback as $key => $value) {
+    $last = $value->notification_timestamp;
+  }
+  if (empty($last)) {
+    return FALSE;
+  }
+  else {
+    $curr_ts = time();
+    if ($last >= $curr_ts - 10) {
+      return TRUE;
+    }
+  }
 }
 
 /**
@@ -196,7 +247,6 @@ function _ef_notifications_auth() {
         $receiver = user_load($uid);
         $email =  $receiver->mail;
         $imploded = ef_notifications_implode_message($message_body);
-        //dd($receiver->name . ' - ' . $receiver->uid . ' - DIGEST');
         ef_notifications_mail_send($email, $imploded, $receiver->mail);
       }
     }
@@ -402,25 +452,25 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This article is a new proposal:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       }
       break;
     case 'requested':
       if ($uid == $node->uid) {
         $var_line['ini'] = 'The article you proposed has been accepted and assigned to you:';
-        $var_line['end'] = 'You can edit it here: ' . $base_url . '/' .drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid;
       } else {
         $var_line['ini'] = 'The article proposed by ' . $node_vips['node_author'] . ' has been accepted:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       }
       break;
     case 'submitted':
       $var_line['ini'] = 'This item needs a review:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
     case 'submitted_qr':
       $var_line['ini'] = 'This item needs a review:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
     case 'approved_for_editing':
       if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
@@ -428,7 +478,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been approved_for_editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       }
       break;
     case 'on_second_editing':
@@ -437,7 +487,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been assigned for second editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       }
       break;
     case 'on_external_editing':
@@ -446,7 +496,7 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
         $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
       } else {
         $var_line['ini'] = 'This item has been assigned for external editing:';
-        $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       }
       break;
     case 'ready_for_publishing':
@@ -458,24 +508,24 @@ function ef_notifications_variable_lines($uid, $node, $transition_to) {
       break;
     case 'published':
       $var_line['ini'] = 'This item has been published:';
-      $var_line['end'] = 'You can view it here: ' .  $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' .  $base_url . '/node/' . $node->nid;
       break;
     case 'approved':
       $var_line['ini'] = 'This item has been approved:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
     //NODE CREATION
     case 'created':
       $var_line['ini'] = 'This item has been created:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
     case 'assignment':
       $var_line['ini'] = 'This item has been assigned to you:';
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
     default:
       $var_line['ini'] = 'This item has been moderated to' . $transition_human;
-      $var_line['end'] = 'You can view it here: ' . $base_url . '/' . drupal_get_path_alias('node/' . $node->nid);
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
       break;
   }
   return $var_line;
@@ -548,9 +598,12 @@ function ef_notifications_save_transition_records($node, $previous_state, $new_s
     foreach ($notified_users as $uid) {
       $noti_user = user_load($uid);
       if ($noti_user->field_ef_notification_settings['und'][0]['value'] == 1){
-        ef_notifications_real_time($node, $uid, $previous_state, $new_state);
-        $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
-        ef_notifications_save_real_time_db($node->nid, $uid, $type);
+        $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
+        if (!$mail_already_sent) {
+          ef_notifications_real_time($node, $uid, $previous_state, $new_state);
+          $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
+          ef_notifications_save_real_time_db($node->nid, $uid, $type);
+        }
       }
       else {
         ef_notifications_save_for_digest($nid, $uid, $previous_state, $new_state);
@@ -569,9 +622,11 @@ function ef_notifications_real_time($node, $uid, $previous_state, $new_state) {
   foreach ($real_time_message as $uid => $message_body) {
     $imploded = ef_notifications_implode_message($message_body);
   }
-  //dd($receiver->name . ' - ' . $receiver->uid . ' - Real time - NODE: ' . $node->nid . ' DATE: ' . date());
+  $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
   ef_notifications_mail_send($email, $imploded, $receiver->mail, $node->nid);
 }
+
+
 
 /**
  * Real time message dynamic generation

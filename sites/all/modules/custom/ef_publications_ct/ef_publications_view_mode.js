@@ -1,10 +1,15 @@
+(function ($) {
+$(document).ready(function(){
 
-(function($) {
-    $(document).ready(function(){
-		
-		var title = $('.breadcrumbs .current').text().replace('Forthcoming','');
+	$('.field-contributors a').each(function(index, element){
 
-		$('.breadcrumbs .current a').text(title);
-		
-	});
-})(jQuery)
+      	var href = $(element).attr('href');
+		href = href.replace('%2C%20', '_');
+		href = href.toLowerCase();
+
+        $(element).attr('href', href);
+
+    });
+
+  });
+})(jQuery);

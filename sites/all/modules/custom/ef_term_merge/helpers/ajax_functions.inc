@@ -3,7 +3,7 @@
 /*
 * @description: Populate select items. Function dependant on form created in ef_term_merge_form() from ef_term_merge.admin.inc
 */
-function _ajax_terms_by_taxonomy($form, &$form_state) 
+function _ajax_terms_by_taxonomy($form, &$form_state)
 {
 
 	$vid = $form_state['values']['vocabularies'];
@@ -41,7 +41,7 @@ function _ajax_terms_by_taxonomy($form, &$form_state)
 /*
 * @description: add new item/s in #options array. Function dependant on form created in ef_term_merge_form() from ef_term_merge.admin.inc
 */
-function _ajax_add_selected($form,&$form_state) 
+function _ajax_add_selected($form,&$form_state)
 {
 	// Update select with new options so that it's populated
 	$form['merge-into']['terms-list-to-merge-into']['#options'] = array(0 => 'Choose one term') + $_SESSION['ef_term_merge']['to-select']['#options'];
@@ -53,8 +53,8 @@ function _ajax_add_selected($form,&$form_state)
 	}
 	if( isset($form_state['input']['terms-list-to-merge']) )
 	{
-		
-		foreach ($form_state['input']['terms-list-to-merge'] as $selected_tid) 
+
+		foreach ($form_state['input']['terms-list-to-merge'] as $selected_tid)
 		{
 			// If the selected tid does not exist append it
 			if(!$_SESSION['ef_term_merge']['selected']['#options'][$selected_tid])
@@ -64,13 +64,12 @@ function _ajax_add_selected($form,&$form_state)
 			// Remove from merge into options selected values
 			unset($_SESSION['ef_term_merge']['to-select']['#options'][$selected_tid]);
 		}
-	
+
 		$form['container']['selected']['terms-selected-to-merge']['#options'] = $_SESSION['ef_term_merge']['selected']['#options'];
 		$form['merge-into']['terms-list-to-merge-into']['#options'] = array(0 => 'Choose one term') + $_SESSION['ef_term_merge']['to-select']['#options'];
 		$form['container']['to-select']['terms-list-to-merge']['#options'] = $_SESSION['ef_term_merge']['to-select']['#options'];
-	
+
 	}
-	
 
 	return array(
 	    '#type' => 'ajax',
@@ -92,21 +91,20 @@ function _ajax_remove_selected($form,&$form_state)
 	if(isset($form_state['values']['terms-selected-to-merge']))
 	{
 
-		foreach ($form_state['values']['terms-selected-to-merge'] as $tid) 
+		foreach ($form_state['values']['terms-selected-to-merge'] as $tid)
 		{
 			unset($_SESSION['ef_term_merge']['selected']['#options'][$tid]);
-			
+
 			$term = taxonomy_term_load($tid);
 			$_SESSION['ef_term_merge']['to-select']['#options'][$tid] = $term->name . ' (tid:' . $tid .')';
-			usort($_SESSION['ef_term_merge']['to-select']['#options'], 'strnatcasecmp');
+			asort($_SESSION['ef_term_merge']['to-select']['#options'], SORT_NATURAL);
 		}
 
 		$form['container']['selected']['terms-selected-to-merge']['#options'] = $_SESSION['ef_term_merge']['selected']['#options'];
 		$form['merge-into']['terms-list-to-merge-into']['#options'] = array(0 => 'Choose one term') + $_SESSION['ef_term_merge']['to-select']['#options'];
 		$form['container']['to-select']['terms-list-to-merge']['#options'] = $_SESSION['ef_term_merge']['to-select']['#options'];
-	}	
+	}
 
-	
 	return array(
 	    '#type' => 'ajax',
 	    '#commands' => array(

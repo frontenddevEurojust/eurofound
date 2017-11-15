@@ -625,6 +625,7 @@ function taxonomy_check_vocabulary_hierarchy($vocabulary, $changed_term) {
  */
 function taxonomy_term_save($term) {
   // Prevent leading and trailing spaces in term names.
+  
   $term->name = trim($term->name);
   if (!isset($term->vocabulary_machine_name)) {
     $vocabulary = taxonomy_vocabulary_load($term->vid);

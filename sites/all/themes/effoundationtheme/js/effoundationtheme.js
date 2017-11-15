@@ -202,7 +202,7 @@
         num_divisor=parseInt(2);
       }
       else if(pathname_form=='factsheets'
-        || pathname_form=='tackling-undeclared-work-in-europe'
+        || pathname_form=='database'
         || pathname_form=='support-instrument'){
         num_divisor=parseInt(4);
       }else if(pathname_form=='osu-contract-reporting-test'
@@ -1052,6 +1052,10 @@ $(document).ready(function(){
         $('#mini-panel-themes_mini_panel').parent().parent().append(localStorage['submenuThemmes']);
         removeIdMenu('#mini-panel-themes_mini_panel');
 
+        localStorage['submenuDataExplorer'] = $('#mini-panel-data_explorer ul.dropdown').html();
+        $('#mini-panel-data_explorer').parent().parent().append(localStorage['submenuDataExplorer']);
+        removeIdMenu('#mini-panel-data_explorer');
+
         localStorage['submenuSurveys'] = $('#mini-panel-surveys_mini_panel ul.dropdown').html();
         $('#mini-panel-surveys_mini_panel').parent().parent().append(localStorage['submenuSurveys']);
         removeIdMenu('#mini-panel-surveys_mini_panel');
@@ -1241,9 +1245,10 @@ $(document).ready(function(){
 (function ($) {
 $(document).ready(function(){
       var form_pages=window.location.pathname.split("/");
-      var pathname_form=form_pages[form_pages.length-2];
+      var pathname_form=form_pages[form_pages.length-1];
 
-      if(pathname_form ==''){
+
+      if($('.pane-ef-key-topics-home') || pathname_form == 'topic'){
 
         var importantKeyTopics = '<div class="important-key-topics-group"></div>';
         var notImportantKeyTopics = '<div class="not-important-key-topics-group"></div>';
@@ -1276,111 +1281,47 @@ $(document).ready(function(){
 
 /** END QRR ADMIN **/
 
-/** working live country profiles  **/
+
+
+
+
+
+/** PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
 (function ($) {
-  $(document).ready(function(){
-
-    //if(window.location.href.indexOf('country') > -1){
-    if($('body.node-type-ef-working-life-country-profiles')){
-
-      var anchor_found = window.location.href.indexOf('#');
-
-      if(anchor_found != -1){
-        
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 800);
-
-         
-        var active = window.location.href.match(/#+[a-z\-]+/g);
-        active = active[0].substr(1);
-
-        if($('section.' + active).length > 0)
-        {
-          $('section.active').removeClass('active'); 
-           
-          $('section.' + active).addClass('active');
-        }
-       
-        
-
-      }
-      
-      $('section > h2').click(function(){
-
-        anchor_found = window.location.href.indexOf('#');
-        
-        active = $(this).parent().attr('class');
-
-        if(anchor_found != -1) {
-          // Replace #title value for the clicked one
-          window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active) ;
-        } 
-        else {
-           window.location.href =  window.location.href + '#' + active;
-        }
-      
-      });
-
-
-
-      $(window).on("load resize", function(event) {
-        var screenWidth;
-        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-         screenWidth = 990;
-        } else {
-          screenWidth = 973;
-        }
-        // mobile resolutions
-        if( $(window).width()<=screenWidth){
-          $('.section-container.vertical-tabs h2.title').click(function () {
-
-            if($(this).parent().attr('class') != undefined && $(this).parent().attr('class').length > 0){
-              if($(this).parent().hasClass('active2') == false ){
-                $(this).parent().addClass('active2');
-              }else{
-                $(this).parent().removeClass('active2');
-              }
-            }
-          });
-        }
-      });
-
-
-      $('.section-container.vertical-tabs h2.title').click(function () {
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 0);
-      });
-
-     $(window).scroll(function () {
-        if ($(this).scrollTop() >1300) {
-           $(".go-top-wrapper").css('display','block');
-           $(".go-top-wrapper").fadeIn();
-           $(".ef-to-top-nav").css('display','none');
-        } else {
-            $(".go-top-wrapper").fadeOut();
-            $(".go-top-wrapper").css('display','none');
-            $(".ef-to-top-nav").css('display','block');
-        }
-      });
-
-      $("a[href='#content-tabs']").click(function () {
-        $('html, body').animate({
-            scrollTop: $("#content-tabs").offset().top
-        }, 800);
-      });
-    }
+$(document).ready(function(){
+    $('.ef-navigation-menus .menu-minipanel-publication-mini-panel #mini-panel-publication_mini_panel .large-6').removeClass('large-6').addClass('large-10');
+    $('.ef-navigation-menus .menu-minipanel-publication-mini-panel #mini-panel-publication_mini_panel .large-3').removeClass('large-3').addClass('large-2');
   });
 })(jQuery);
-/** END working live country profiles  **/
+/** END PUBLICATIONS MAIN MENU LARGE-6 TO LARGE-9 **/
+/** HOVER AFTER MAIN MENU FOR SUBMENU **/
+(function ($) {
+$(document).ready(function(){
 
+  $('#main-menu-links > li').each(function( index ) {
+    if($( '> ul',this ).attr('class') == undefined){
+       var classLinkMenu = $( '> a',this ).attr('class');
+       $( '> a',this ).attr('class',classLinkMenu + ' noSubmenu');
+    }
+  
+});
 
+  });
+})(jQuery);
+/** END HOVER AFTER MAIN MENU FOR SUBMENU **/
 
+/** BREADCRUMBS FOR Tackling undeclared work database **/
+(function ($) {
+  $(document).ready(function(){
+    $('.page-data-tackling-undeclared-work-in-europe-database ul.breadcrumbs li.current').text('Database');
+  });
+})(jQuery);
+/** END BREADCRUMBS FOR Tackling undeclared work database **/
 
-
-
-
-
-
-
+/** BREADCRUMBS FOR country profile **/
+(function ($) {
+  $(document).ready(function(){
+    $('.page-node.section-country.page-node-56423 ul.breadcrumbs li.current').text('Country');
+  });
+})(jQuery);
+/** END BREADCRUMBS FOR country profile **/

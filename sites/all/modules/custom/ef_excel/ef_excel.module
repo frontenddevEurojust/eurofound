@@ -1,0 +1,232 @@
+<?php
+
+function ef_excel_update_7111(&$sandbox) {
+
+	start_process();
+}
+
+function start_process(){
+
+	$objPHPExcel = load_authors_file();
+
+	$node_update_time = microtime(true);
+
+	$sheet = $objPHPExcel->getSheet(0);
+	$highestRow = $sheet->getHighestRow();
+
+	delete_logs();
+
+	$fp = fopen("updated_nodes_log.txt", "w+");
+	update_node_author_values($fp, $highestRow, $sheet);
+
+	$time_elapsed_secs = microtime(true) - $node_update_time;
+
+	var_dump("Node update process took " . $time_elapsed_secs . " seconds.");
+	fwrite($fp, "Node update process took " . $time_elapsed_secs . " seconds.");
+
+	fclose($fp);
+
+}
+
+function delete_logs(){
+	unlink('updated_nodes_log.txt');
+	unlink('import_authors_log.txt');
+	unlink('check_term_existance.txt');
+	unlink('check_nodes_have_been_tagged.txt');
+}
+
+function import_authors($fp, $author_string){
+
+	$term = new stdClass();
+	$term->vid = 12;
+	$term->name = $author_string;
+
+	$term = save_non_existing_term($fp, $term);
+
+	return $term;
+}
+
+function load_authors_file(){
+	//Load PHPExcel library
+	$library = libraries_load('PHPExcel');
+	//Create new PHPExcel object
+	$objPHPExcel = new PHPExcel;
+
+	$archivo = drupal_get_path('module', 'ef_excel').'/ef-article-authors-normalised-and-unique.xlsx';
+	$inputFileType = PHPExcel_IOFactory::identify($archivo);
+	$objReader = PHPExcel_IOFactory::createReader($inputFileType);
+	$objPHPExcel = $objReader->load($archivo);
+
+	return $objPHPExcel;
+}
+
+
+function save_non_existing_term($fp, $term){
+
+	var_dump("------------------------------------------------------------------------");
+	fwrite($fp, "--------------------------------------------------------------------- \n");
+
+	$status = [];
+
+	$status[$term->name] = taxonomy_term_save($term);
+	taxonomy_terms_static_reset();
+
+	if ($status[$term->name] != 1 && $status[$term->name] != 2){
+		fwrite($fp,"Saving new term. There was a problem saving " . $term->name . " status " . $status[$term->name] . ". \n");
+	}else{
+		fwrite($fp,"Saving new term.'" . $term->name . "' was saved successfully. \n");
+	}
+
+	var_dump("------------------------------------------------------------------------");
+	fwrite($fp, "--------------------------------------------------------------------- \n");
+
+	return $term;
+}
+
+function check_terms_exists($fp, $term){
+
+	var_dump("----------------------------------------------------------------");
+	var_dump("Checking term existance. ");
+
+	$result = taxonomy_get_term_by_name($term->name, $vocabulary = 'ef_publication_contributors');
+
+	if (count($result)){
+		var_dump("'" . $term->name . "' was successfully found.");
+		fwrite($fp,"'" . $term->name . "' was successfully found. \n");
+	}else{
+		var_dump("'" . $term->name . "' was not found.");
+		fwrite($fp,"'" . $term->name . "' was not found. \n");
+	}
+
+	var_dump("Checking term existance ended.");
+	var_dump("----------------------------------------------------------------");
+}
+
+function update_node_author_values($fp, $highestRow, $sheet){
+
+	$rows = retrieve_node_rows($highestRow, $sheet);
+
+	$fp_import_authors = fopen("import_authors_log.txt", "w+");
+
+	$fp_term_existance = fopen("check_term_existance.txt", "w+");
+
+	$fp_node_tagging = fopen("check_nodes_have_been_tagged.txt", "w+");
+
+	var_dump("Saving new terms into nodes.");
+	fwrite($fp, "Saving new terms into nodes. \n");
+
+	unset($rows[0]);
+
+	for($i = 1; $i <= count($rows); $i++)
+	{
+
+		$current_node = node_load($rows[$i]['id'], $rows[$i]['revision']);
+
+		foreach (explode(";", trim($rows[$i]['author'])) as $key => $author_string)
+		{
+			var_dump("Author is '" . $author_string);
+			fwrite($fp, "Author is '" . $author_string . " \n");
+
+			$author_array = taxonomy_get_term_by_name($author_string, $vocabulary = 'ef_publication_contributors');
+
+			if (count($author_array))
+			{
+				var_dump("Term '" . $author_string . "' was found.");
+				fwrite($fp, "Term '" . $author_string . "' was found. \n");
+
+				$author_term = $author_array[key($author_array)];
+
+				add_author_to_node($fp, $current_node, $author_term->tid);
+
+				check_node_has_been_updated($fp_node_tagging, $current_node, $author_term->tid);
+			}
+			else
+			{
+				var_dump("Term '" . $author_string . "' was not found. Proceeding to create.");
+				fwrite($fp, "Term '" . $author_string . "' was not found. Proceeding to create. \n");
+
+				$term = import_authors($fp_import_authors, $author_string);
+
+				check_terms_exists($fp_term_existance, $term);
+
+				add_author_to_node($fp, $current_node, $term->tid);
+
+				check_node_has_been_updated($fp_node_tagging, $current_node, $term->tid);
+			}
+		}
+	}
+
+	fclose($fp_import_authors);
+	fclose($fp_term_existance);
+	fclose($fp_node_tagging);
+
+	var_dump("Saving new terms ended.");
+	fwrite($fp, "Saving new terms ended. \n");
+}
+
+function save_node_and_clear_cache($node){
+
+	field_attach_update('node', $node);
+	entity_get_controller('node')->resetCache(array($node->nid));
+}
+
+function retrieve_node_rows($highestRow, $sheet){
+
+	$i = 0;
+	$rows = [];
+
+	for ($row = 1; $row <= $highestRow; $row++){
+		$rows[$i]['id'] = $sheet->getCell("A".$row)->getValue();
+		$rows[$i]['revision'] = $sheet->getCell("D".$row)->getValue();
+		$rows[$i]['author'] = $sheet->getCell("F".$row)->getValue();
+		$i++;
+	}
+
+	return $rows;
+}
+
+function check_node_has_been_updated($fp, $node, $tid){
+
+	var_dump("Checking node-author relationship.");
+	fwrite($fp, "Checking node-author relationship. \n");
+
+	$node = node_load($node->nid, $node->vid);
+
+	$contributors = $node->field_ef_publ_contributors['und'];
+
+	$found = false;
+	foreach ($contributors as $key => $value)
+	{
+
+		if ($value['tid'] == $tid)
+		{
+			var_dump("Node " . $node->nid . " has " . $tid . " tid as Author.");
+			fwrite($fp, "Node " . $node->nid . " has " . $tid . " tid as Author. \n");
+			$found = true;
+			break;
+		}
+	}
+
+	if(!$found)
+	{
+		var_dump("Node " . $node->nid . " does not have " . $tid . " tid as Author.");
+		fwrite($fp, "Node " . $node->nid . " does not have " . $tid . " tid as Author. \n");
+	}
+
+	var_dump("Node-author relationship ended.");
+	fwrite($fp, "Node-author relationship ended. \n");
+}
+
+function add_author_to_node($fp1, $node, $author_tid){
+
+	$node->field_ef_publ_contributors['und'][] = [
+		'tid' => $author_tid
+	];
+
+	var_dump("Node " . $node->nid . " updated with Author " . $author_tid);
+	fwrite($fp1, "Node " . $node->nid . " updated with Author " . $author_tid . " \n");
+
+	save_node_and_clear_cache($node);
+}
+
+

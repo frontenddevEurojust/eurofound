@@ -224,20 +224,69 @@ function ef_synchronize_translation_paths_get_setting($key) {
 
 /**
  *
- * Implements hook_pathauto_alias_alter
+ * Implements hook_taxonomy_term_update
  *
  */
 function ef_synchronize_translation_paths_taxonomy_term_update($term) {
   $languages = language_list();
-  foreach ($languages as $langcode => $language) {
-    // Insert or update the alias.
-    db_merge('url_alias')
-      ->key(array(
-      'source' => 'taxonomy/term/' . $term->tid,
-      'language' => $langcode
-    ))
+  if (isset($term->path['alias']) && !empty($term->path['alias'])) {
+    if ($term->path['pathauto'] == 1 && $term->vid == 21) {
+      $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
+      foreach ($languages as $langcode => $language) {
+        // Insert or update the alias.
+        db_merge('url_alias')
+          ->key(array(
+          'source' => 'taxonomy/term/' . $term->tid,
+          'language' => $langcode
+        ))
+        ->fields(array('alias' => $term->path['alias']))
+        ->execute();
+      }
+    }
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
+      db_merge('url_alias')
+        ->key(array(
+        'source' => 'taxonomy/term/' . $term->tid,
+        'language' => 'und'
+      ))
       ->fields(array('alias' => $term->path['alias']))
       ->execute();
+    } 
+  }
+}
+
+/**
+ *
+ * Implements hook_taxonomy_term_insert
+ *
+ */
+function ef_synchronize_translation_paths_taxonomy_term_insert($term) {
+  $languages = language_list();
+  if (isset($term->path['alias']) && !empty($term->path['alias'])) {
+    if ($term->path['pathauto'] == 1 && $term->vid == 21) {
+      $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
+      foreach ($languages as $langcode => $language) {
+        // Insert or update the alias.
+        db_merge('url_alias')
+          ->key(array(
+          'source' => 'taxonomy/term/' . $term->tid,
+          'language' => $langcode
+        ))
+        ->fields(array('alias' => $term->path['alias']))
+        ->execute();
+      }
+    }
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
+      db_merge('url_alias')
+        ->key(array(
+        'source' => 'taxonomy/term/' . $term->tid,
+        'language' => 'und'
+      ))
+      ->fields(array('alias' => $term->path['alias']))
+      ->execute();
+    } 
   }
 }
 

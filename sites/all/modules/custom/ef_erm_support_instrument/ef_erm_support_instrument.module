@@ -166,8 +166,8 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		// JS and CSS ATTACHED FILES
 		//drupal_add_js(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
 	  //drupal_add_css(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
-	  $form['#attached']['js'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js');
-	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['js'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/js/ef_erm_support_instrument.js';
+	  $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 
 
 	  $key_anticipation = get_aticipation_key($type_taxonomy_machine_name);
@@ -241,19 +241,19 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		unset($form['field_country_erm_si_tid_selective']['#options'][21122]);
 		$form['#submit'][] = 'support_instrument_user_session_variable_saving_function';
 
-	  $form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+	  $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 
 		return $form;
 	}
 	// ERM support instruments Authors bulk view
 	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-authors'
 		&& $form['reset']['#access'] == TRUE ) {
-		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+		$form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 	}
 	// ERM support instruments QM bulk view
 	if ( $form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-bulk-qm'
 		&& $form['reset']['#access'] == TRUE ) {
-		$form['#attached']['css'] = array(drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css');
+		$form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_support_instrument') . '/css/ef_erm_support_instrument.css';
 	}
 
 
@@ -575,7 +575,6 @@ function ef_submitted_to_qr_to_under_revision_request($entity, $context) {
     $node->field_ef_assign_to_user['und'][0]['target_id'] = $assign_to_user;
     $new_state = 'under_revision_request';
 
-    //ef_notifications_save_transition_records($node, 'submitted_qr', $new_state);
     workbench_moderation_moderate($node, $new_state);
     field_attach_update('node', $node);
     entity_get_controller('node')->resetCache(array($node->nid));
@@ -616,9 +615,9 @@ function ef_published_to_draft($entity, $context){
 
       //$node->field_ef_revision_deadline = '2016-05-11 00:00:00';
     $node->revision = 1;
-    dpm($node);
+
     node_save($node);
-    dpm($node);
+
 
     drupal_set_message(l(t('Node: ') . $entity->nid . t(', has been changed to draft'), $base_url . '/node/' . $entity->nid), 'status', FALSE);
   }
@@ -643,23 +642,32 @@ function revision_deadline_submit($form,&$form_state){
  * Implements hook_views_bulk_operations_form_alter.
 */
 function ef_erm_support_instrument_views_bulk_operations_form_alter(&$form, &$form_state, $vbo) {
-  //Add a select type element to the VBO confirmation form
+  // Add a select type element to the VBO confirmation form
   if ($form_state['step'] == 'views_bulk_operations_confirm_form'
-      && $vbo->options['vbo_operations']['action::ef_assign_to_user_by_country']) {
-    //Populates the select element to assign the content
+      && $vbo->options['vbo_operations']['action::ef_assign_to_user_by_country']['selected']) {
+
+	// Empty session variable each time we arrive in this form to make sure we are not saving previous values
+	if (count($_SESSION['ef_vbo_nodes']))
+	{
+		unset($_SESSION['ef_vbo_nodes']);
+	}
+
+    // Populates the select element to assign the content
     $form['ef_select_assign_to_user'] = array(
       '#type' => 'select',
       '#title' => t('Assign this content to the following user:'),
       '#options' => get_another_users('Quality Manager'),
       '#size' => NULL,
     );
-    //Save the nodes to be assigned to a session variable
-    foreach ($form_state['input']['views_bulk_operations'] as $key => $value) {
-      if (!empty($value)){
-        $_SESSION['ef_vbo_nodes'][] = $value;
+
+    // Save the nodes to be assigned to a session variable
+    foreach ($form_state['input']['views_bulk_operations'] as $key => $nid) {
+      if (!empty($nid)){
+        $_SESSION['ef_vbo_nodes'][] = $nid;
       }
     }
-    //Add a submit function callback to apply the logic
+
+    // Add a submit function callback to apply the logic
     $form['actions']['submit']['#submit'][] = '_ef_erm_support_instruments_assignment_by_country';
   }
 }
@@ -667,21 +675,20 @@ function ef_erm_support_instrument_views_bulk_operations_form_alter(&$form, &$fo
 //ISSUE 3632: Callback function to apply the logic of the operation
 //out of VBO.
 function _ef_erm_support_instruments_assignment_by_country(&$form, &$form_state) {
-  //For each selected node
-  foreach ($_SESSION['ef_vbo_nodes'] as $key => $value) {
-    //Load node
-    $node = node_load($value);
-    //Retrieve current vid
-    $current = $node->workbench_moderation['current']->vid;
-    //Load current revision
-    $node = node_load($value, $current);
-    node_object_prepare($node);
-    //Assignment change
+
+  // For each selected node
+  foreach ($_SESSION['ef_vbo_nodes'] as $key => $nid) {
+    // Load node
+    $node = node_load($nid);
+    // Retrieve current vid
+    $currentVid = $node->workbench_moderation['current']->vid;
+    // Load current revision
+    $node = node_load($nid, $currentVid);
+    // Assignment change
     $node->field_ef_assign_to_user['und'][0]['target_id'] = $form_state['values']['ef_select_assign_to_user'];
-    $node = node_submit($node);
-    //Save modified node
-    node_save($node);
+
+    field_attach_update('node', $node);
+    entity_get_controller('node')->resetCache([$node->nid]);
   }
-  //Remove the var containing modified nids
-  unset($_SESSION['ef_vbo_nodes']);
+
 }

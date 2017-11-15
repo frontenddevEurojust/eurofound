@@ -16,10 +16,14 @@ function ef_nc_breadcrumbs_page_build(&$page) {
   $path = current_path();
   $uri = drupal_get_path_alias($path);
 
+  $term_array_blog = taxonomy_get_term_by_name('Blog');
+  $term_blog = reset($term_array_blog); # get the first element of the array which is our term object
+  $term_array_presentation = taxonomy_get_term_by_name('Presentation');
+  $term_presentation = reset($term_array_presentation); # get the first element of the array which is our term object
 
   // build a breadcrumb trail and set the breadcrumb
   $trail = _ef_nc_breadcrumbs_build_trail($uri);
-
+  
     if(isset($page['content']['system_main']['nodes'])){
 
       $array_nodes = $page['content']['system_main']['nodes'];
@@ -39,8 +43,19 @@ function ef_nc_breadcrumbs_page_build(&$page) {
           break;
 
         case 'ef_case_study':
-          //Remove case study name for these cases: Pecs,Egs,Restructuring in SMEs in Europe as there are no linked views.
+          // Remove case study name for these cases: Pecs,Egs,Restructuring in SMEs in Europe as there are no linked views.
           unset($trail['4']);
+
+          if ($node['field_ef_case_study_name'][0]['#href'] == 'taxonomy/term/13776'){
+            // Change breadcrumb to fit new Data explorer structure
+            unset($trail['1']);
+            unset($trail['2']);
+            unset($trail['3']);
+            $trail['1'] = '<a href="/data">Data and Resources</a>';
+            $trail['2'] = '<a href="/data/tackling-undeclared-work-in-europe">Tackling undeclared work in Europe</a>';
+            $trail['3'] = '<a href="/data/tackling-undeclared-work-in-europe/database">Database</a>';
+          }
+
 
           break;
 
@@ -103,6 +118,22 @@ function ef_nc_breadcrumbs_page_build(&$page) {
           unset($trail[1]);
 
           break;
+
+        case 'blog':
+
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_blog->tid&published_at='>" . t('Blogs') . "</a>";
+          break;
+        
+        case 'presentation':
+
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_presentation->tid&published_at='>" . t('Presentations') . "</a>";
+
+          break;
+
 
         case 'ef_news':
           reset($array_nodes);
@@ -203,6 +234,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     'Mobility and migration' => 'news/spotlight-on/mobility-and-migration',
     'Social dialogue' => 'news/spotlight-on/social-dialogue');
   $country_profiles = 'country-profile';
+  $countries = '/country/';
   $themes = '/ef-themes/';
   $news = '/news/';
   $newsletter = 'publication-types/newsletter';
@@ -214,6 +246,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
   $pos_wlcp = strpos($current_URL,$working_life_country_profiles);
   $pos_cwb = strpos($current_URL, $cwb);
   $pos_wlcpnode = strpos($current_URL,$country_profiles);
+  $pos_countriesnode = strpos($current_URL,$countries);  
   $pos_spotlight_on = strpos($current_URL,'news/spotlight-on');
   $pos_news = strpos($current_URL,$news);
   $pos_newsletter = strpos($current_URL,$newsletter);
@@ -253,6 +286,8 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     $trail[3] = '<a href="/observatories/eurwork/articles">Articles</a>';
   }elseif ($pos_wlcpnode > 0) {
     $trail[3] = '<a href="/observatories/eurwork/comparative-information/working-life-country-profiles">Working life country profiles</a>';
+  }elseif ($pos_countriesnode > 0) {
+    $trail[1] = '<a href="/country">Country</a>';
   }elseif ($pos_news > 0){
     $trail[1] = '<a href="/news">News</a>';
   }elseif ($pos_newsletter > 0){

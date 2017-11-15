@@ -358,9 +358,14 @@
                  </h1>
 
              <?php else : ?>
-                 <h1 id="page-title" class="title secundary">
-                  <?php print $title ?>
-                 </h1>
+                
+                 
+                 <?php  if($node->type != "data_explorer_page"): ?>
+                    <h1 id="page-title" class="title secundary">
+                      <?php print $title ?>
+                    </h1>
+                 <?php endif; ?>                 
+                 
               <?php endif; ?>
 
               <!-- END issues 3189 -->
@@ -385,6 +390,7 @@
         <?php if (isset($node->type)) {
 
           $hide_pdf = false;
+          $hide_print = false;
           $survey_print=true;
 /*
           if ($node->type == 'ef_comparative_analytical_report'
@@ -392,10 +398,20 @@
             $hide_pdf = true;
           }
 */
+
           if ($node->type == 'dvs_survey') {
             $survey_print = false;
+          }else if($node->type == 'data_explorer_page') {
+           $hide_print  = true;
+           $hide_pdf = true;
+          }else if(
+                    $node->type == 'blog' || 
+                    $node->type == 'presentation' || 
+                    $node->type == 'ef_working_life_country_profiles'
+                  ) {
+           $hide_print  = true;
+           $hide_pdf = true;
           }
-
         }
         ?>
 
@@ -404,7 +420,7 @@
                 <?php print print_pdf_insert_link();?>
           <?php endif; ?>
         <?php endif; ?>
-        <?php if (!drupal_is_front_page() && $survey_print == true ): ?>
+        <?php if (!drupal_is_front_page() && $hide_print == false && $survey_print == true ): ?>
           <?php if (!strpos($aux,'print-page')): ?>
             <?php print print_insert_link();?>
           <?php endif; ?>

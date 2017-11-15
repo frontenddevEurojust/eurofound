@@ -53,10 +53,11 @@
       $('#edit-button').prop( "class", "form-submit-disabled" );
       $('#edit-field-ef-assign-to-user').prop( "disabled", true );
       var checkExist = setInterval(function() {
-        if ($("#edit-field-ef-assign-to-user--2").length) {
+        if ($("#edit-field-ef-assign-to-user--2").length || $("#edit-field-ef-assign-to-user--3").length) {
           $('#edit-button').prop( "disabled", false);
           $('#edit-button').prop( "class", "form-submit" );
           $('#edit-field-ef-assign-to-user--2').attr('id','edit-field-ef-assign-to-user');
+          $('#edit-field-ef-assign-to-user--3').attr('id','edit-field-ef-assign-to-user');
           $('#edit-field-ef-assign-to-user').prop( "disabled", false );
           clearInterval(checkExist);
         }

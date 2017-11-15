@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Provides the necessary routing to serve the resources for D3 based DVS
+ */
+
+function d3_ejm() {
+  $chart = array(
+    'id' => 'ejm-chart',
+    'type' => 'ejm',
+    'countries' => array(
+      array('AT', 'Austria'),
+      array('BE', 'Belgium'),
+      array('BG', 'Bulgaria'),
+      array('CY', 'Cyprus'),
+      array('CZ', 'Czech Republic'),
+      array('DE', 'Germany'),
+      array('DK', 'Denmark'),
+      array('EE', 'Estonia'),
+      array('ES', 'Spain'),
+      array('FI', 'Finland'),
+      array('FR', 'France'),
+      array('GR', 'Greece'),
+      array('HU', 'Hungary'),
+      array('HR', 'Croatia'),
+      array('IE', 'Ireland'),
+      array('IT', 'Italy'),
+      array('LT', 'Lithuania'),
+      array('LV', 'Latvia'),
+      array('MT', 'Malta'),
+      array('NL', 'Netherlands'),
+      array('PL', 'Poland'),
+      array('PT', 'Portugal'),
+      array('RO', 'Romania'),
+      array('SE', 'Sweden'),
+      array('SI', 'Slovenia'),
+      array('SK', 'Slovakia'),
+      array('UK', 'United Kingdom'),
+      array('EU', 'European Union'),
+    ),
+    'keys_by_breakdown' => array(
+      'All employment' => array(
+        0 => array('All employment', 'main'),
+      ),
+      'Gender' => array(
+        0 => array('Male', 'male'),
+        1 => array('Female', 'female'),
+      ),
+      'Part time / full time' => array(
+        0 => array('Full time', 'ft'),
+        1 => array('Part time', 'pt'),
+      ),
+      'Employment status' => array(
+        0 => array('Employee', 'employee'),
+        1 => array('Self-employed', 'selfemp'),
+      ),
+      'Contract (employees only)' => array(
+        0 => array('Temporary', 'temporary'), 
+        1 => array('Permanent', 'permanent'),
+      ),
+      'Combined employment status' => array(
+        0 => array('Part time employee', 'pt employee'),
+        1 => array('Self-employed', 'selfemployed'),
+        2 => array('Temporary full time employee', 'temp employee ft'), 
+        3 => array('Permanent full time employee', 'ft_permanentemployee'),
+      ),
+      'Country of birth' => array(
+        0 => array('Reporting country', 'reportingcountry'),
+        1 => array('EU13 non-native', 'eu13nonnative'),
+        2 => array('EU15 non-native', 'eu15nonnative'),
+        3 => array('Non-EU', 'noneu'),
+        4 => array('Unspecified', 'unspecified'),
+      ),
+      'Broad sector' => array(
+        0 => array('Primary', 'primary'),
+        1 => array('Manufacturing', 'manufact'),
+        2 => array('Construction', 'construc'),
+        3 => array('Services', 'services'),
+      ),
+    ),
+    'period' => array('2011-2013','2013-2016','2011-2016'),
+    'criterion' => array('Job-wage','Broad job quality','Education'),
+    'footnote' => array(
+        'A' => "German LFS data does not capture the different categories of the 'country of birth' variable; all respondents not born in Germany are recorded here as 'unspecified'.",
+        'B' => "Data only available for Germany for 2012-16 due to revision in 2011/12 of the occupational classification. As a result, data presented here for the earlier period 2011-13 covers just the one year change from 2012-13 for Germany.",
+    ),
+    'colors' => array(
+      'All employment' => array("#134480"),
+      'Gender' => array("#ebe131", "#46be76"),
+      'Part time / full time' => array("#12389e", "#669900"),
+      'Employment status' => array("#12389e", "#eba102"),
+      'Contract (employees only)' => array("#c10163", "#12389e"),
+      'Combined employment status' => array("#669900", "#eba102", "#c10163", "#12389e"),
+      'Country of birth' => array("#12389e", "#669900", "#c10163", "#eba102", "#808080"),
+      'Broad sector' => array("#669900", "#eba102", "#c10163", "#12389e"),
+    ),
+  );
+
+  return d3_draw($chart);
+}
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function d3_custom_libraries() {
+  return array(
+    'd3.extend',
+    'd3.tooltip',
+    'd3.ejm',
+  );
+}
+
+
+/**
+ * Helper callback to return all sample libraries located inside this custom module.
+ * New charts should be added here aswell.
+ */
+function ef_d3_dataexplorer_node_view($node, $view_mode) {
+  //Each Data Explorer Page item will contain a different visualisation
+  //with their different
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
+    drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
+    $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
+    d3_ejm();
+  }
+}

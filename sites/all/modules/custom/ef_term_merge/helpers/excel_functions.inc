@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 * Load PHPExcel library and initialize Excel file.
 */
@@ -27,12 +27,12 @@ function select_sheet($objPHPExcel, $index)
 {
 	if($index != 0)
 	{
-		//Create a new sheet 
+		//Create a new sheet
 		$objPHPExcel->createSheet($index);
 		//Set it as active sheet
 		$objPHPExcel->setActiveSheetIndex($index);
 	}
-	
+
 	return $objPHPExcel;
 }
 /**
@@ -45,57 +45,60 @@ function select_sheet($objPHPExcel, $index)
 *			$term_to: complete taxonomy term entity to merge into
 *			$objWriter: PHP Excel writer object. Needed to save the excel file
 */
-function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter) 
+function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $term_to, $objWriter, $question, $counter, $cell_number)
 {
 
 	$objSheet = $objPHPExcel->getActiveSheet();
 	//Set tab title
-	
+
 	$objSheet->setTitle($term_from->tid . " -> " . $term_to->tid);
 
 	//Let's bold and size the header
 	$objSheet->getStyle('A1:BZ1')->getFont()->setBold(true);
 
-	$objPHPExcel->getActiveSheet()->setCellValue('A1', "List of nodes updated for " . $field_name ."(" . count($nodes_data) . ")");
+	$topic_string = build_topics_string($question, $counter);
+	//DZA Test Target 1 (tid: 22212, taxonomy: ef_topics) -> DZA Test Topic 5 (tid: 22216, taxonomy: ef_topics)
+	$objPHPExcel->getActiveSheet()->setCellValue('A1', $topic_string);
 
-	$objPHPExcel->getActiveSheet()->setCellValue('A2', $term_from->name . " -> " . $term_to->name);
-	
+	$objPHPExcel->getActiveSheet()->setCellValue('A' . (string) $cell_number, "List of nodes updated for " . $field_name ."(" . count($nodes_data) . ")");
+	$cell_number++;
 	//And there goes all the content row by row
 	$from_cell = 'A';
-	$begin_row = 3;
-	
+
+	$row = [];
 	if(count($nodes_data))
 	{
-		
-		foreach ($nodes_data as $key => $object) 
+
+		foreach ($nodes_data as $key => $object)
 		{
 			//Add all fields
-			foreach ($object as $key => $field) 
+			foreach ($object as $key => $field)
 			{
-
 				$row[] = $field;
 			}
 
-			$cell = $from_cell . (string) $begin_row;
+			$cell = $from_cell . (string) $cell_number;
 			$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
 			unset($row);
-			$begin_row++;
-		}
 
+			$data['cell_number'] = $cell_number + 1;
+		}
 	}
 	else
 	{
-		
-		$row[] = "No nodes affected for this term";
-		$cell = $from_cell . (string) $begin_row;
+
+		$row[] = "No nodes affected";
+		$cell = $from_cell . (string) $cell_number;
 		$objPHPExcel->getActiveSheet()->fromArray($row, NULL, $cell);
-	
+
+		$data['cell_number'] = $cell_number + 1;
+
 	}
 
 	$directory = 'public://ef_term_merge';
 
 	$writable = file_prepare_directory($directory, $options = FILE_MODIFY_PERMISSIONS);
-	
+
 	if($writable)
 	{
 		//Set the directory to store the files
@@ -108,7 +111,20 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 		//Save the file
 		$objWriter->save($path);
 	}
-	
 
-	return $filename;
+	$data['filename'] = $filename;
+
+	return $data;
+}
+
+function build_topics_string($question, $counter){
+
+	$from_string = $question['from'][$counter]['name'] . " (tid:" . $question['from'][$counter]['tid']  . ", taxonomy:" . $question['from'][$counter]['taxonomy'] . ")";
+	$to_string = $question['to']['0']['name'] . " (tid:" . $question['to']['0']['tid'] . ", taxonomy:" . $question['from']['0']['taxonomy'] . ")";
+
+	$string = $from_string . " -> " . $to_string;
+
+
+	return $string;
+
 }

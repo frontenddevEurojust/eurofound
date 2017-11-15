@@ -14,3 +14,8 @@ robots.txt
 .htaccess
 sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
 phpinfo.php
+test.sh
+version.txt
+
+# Ignore git commit message template for each environment due to different file structure
+.git-commit-template.txt

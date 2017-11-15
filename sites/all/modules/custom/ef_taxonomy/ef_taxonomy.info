@@ -1,0 +1,4 @@
+name = EF Taxonomy
+description = This module will save taxonomy term to content when it is published.
+package = EF modules
+core = 7.x

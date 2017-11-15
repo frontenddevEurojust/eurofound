@@ -556,6 +556,7 @@
 .fs_indoor.row {
     margin-left: 15px;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .fs_data {
@@ -570,7 +571,7 @@
 {
     float: left;
     padding-right: 1em;
-    padding-left: 7.5em;
+    padding-left: 7em;
 }
 
 .fs_col_name{
@@ -615,6 +616,11 @@
 
 .fs_data.plus {
     padding-left: 20.8em;
+    display: block;
+}
+
+.node-type-ef-factsheet .fs_data.plus {
+    padding-left: 22.8em;
     display: block;
 }
 
