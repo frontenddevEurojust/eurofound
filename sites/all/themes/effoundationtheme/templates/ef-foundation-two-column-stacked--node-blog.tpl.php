@@ -97,11 +97,9 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                     </div>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                        <?php if ($language->language != 'en'): ?> 
-                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print  print $author[1] . " " . $author[0]; ?></a>
-                        <?php else: ?>
-                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
-                        <?php endif; ?>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
+                        <?php endforeach; ?>
                     </div>
                     
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
