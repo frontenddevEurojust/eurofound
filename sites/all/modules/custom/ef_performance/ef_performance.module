@@ -114,6 +114,8 @@ function _save_old_revisions_to_drupal_archive($cropped) {
  *   An array of the revisions that will be archived
  */
 function _custom_revision_list($nid, $pub_vid) {
+  //Queries to get both revision IDs before publication and
+  //all revision IDs
   $query_cut = db_select('node_revision', 'nr');
   $query_cut->fields('nr', array('vid'));
   $query_cut->condition('nr.nid', $nid);
@@ -136,7 +138,8 @@ function _custom_revision_list($nid, $pub_vid) {
   foreach ($vids as $key => $item) {
   	$all_vids[] = $item->vid;
   }
-
+  //But we have to filter to ensure that at least
+  //3 revisions will remain as are
   $archived_vids = _filter_archived_vids($all_vids, $all_vids_cut, $pub_vid);
 
   return $archived_vids;
@@ -156,13 +159,15 @@ function _custom_revision_list($nid, $pub_vid) {
  *
  */
 function _save_records_from_old_revisions($nid, $bundle, $revisions) {
-
+  //Get field configuration by content type
 	$fields = field_info_instances('node', $bundle);
 	foreach ($fields as $key => $field_name) {
+    //Get the table where values are stored by field
 		$field = field_info_field($key);
 		$tables[] = key($field['storage']['details']['sql']['FIELD_LOAD_REVISION']);
 	}
 
+  //Add data for the DB connection from the application
 	$other_database = array(
     'database' => 'drupal_archive',
     'username' => 'root',
@@ -172,6 +177,7 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
   );
   Database::addConnectionInfo('archive', 'default', $other_database);
 	
+  //Get all the data from the production environment
 	foreach ($tables as $key => $table) {
 		$query = db_select($table, 't');
   	$query->fields('t');
@@ -202,19 +208,24 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
   	$records_array['node_revision'] = $result->fetchAll();
 	}
 
+  //Enable the secondary database
 	db_set_active('archive');
+  //Insert the archived data in the secondary database
   foreach ($records_array as $table => $records) {
   	foreach ($records as $key => $record) {
   		$fields = get_object_vars($record);
   		$query = db_insert($table)->fields(array_keys($fields))->values($fields)->execute();
   	}
   }
+  //Enable again the production database
 	db_set_active();
 
+  //Delete the archived data (core)
 	foreach ($revisions as $key => $revision) {
 		node_revision_delete($revision);
 	}
 	
+  //Delete the revisions from Workbench Moderation
 	foreach ($revisions as $key => $revision) {
 		db_delete('workbench_moderation_node_history')
   		->condition('vid', $revision)
@@ -225,7 +236,7 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
 }
 
 /**
- * Gets the list of revisions to be archived
+ * Ensures that at least 3 revisions will remain
  * 
  * @param array $vids_cut
  *   An array containing all the revision IDs of a given node
@@ -240,7 +251,9 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
  *   An array of the revisions that will be archived
  */
 function _filter_archived_vids($all_vids, $vids_cut, $cut) {
+  //If remaining revisions are less than 3
 	if ((sizeof($all_vids) - sizeof($vids_cut)) < 3) {
+    //Re-create the array adding the necesary items
 		$vids_cut = array_slice($all_vids, 0, sizeof($all_vids) - 3);
   }
 
@@ -248,9 +261,10 @@ function _filter_archived_vids($all_vids, $vids_cut, $cut) {
 }
 
 function _write_output_csv_file($data) {
+  //Open file
 	$csv = fopen('sites/default/files/deleted_revisions.csv', 'a');
-
+  //Write file with the previously prepared array
 	fputcsv($csv, $data);
-	
+	//Close file
 	fclose($csv);
 }
