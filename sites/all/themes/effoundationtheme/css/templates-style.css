@@ -620,8 +620,12 @@
 }
 
 .node-type-ef-factsheet .fs_data.plus {
-    padding-left: 22.8em;
+    padding-left: 23.8em;
     display: block;
+}
+
+.node-type-ef-factsheet .small-3 {
+    width: 28%;
 }
 
 .source_link{

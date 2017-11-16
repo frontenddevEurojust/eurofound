@@ -467,7 +467,7 @@
                       <span class="small-3 columns">Other full text sources:</span>
                       <span class="fs_data">
                         <a target="_blank" href="<?php print ($content['field_otheref_full_text_sources'][0]['#markup']); ?>">
-                          <?php print render($node->field_otheref_full_text_sources['und'][0]['filename']); ?>
+                          <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
                         </a>
                       </span>
                   </div>
