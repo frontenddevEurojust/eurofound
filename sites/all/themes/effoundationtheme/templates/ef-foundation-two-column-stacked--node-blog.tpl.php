@@ -6,6 +6,7 @@
  * @see template_preprocess_ef_topics_page()
  *
  */
+
 global $language;
 global $base_url; 
 
@@ -43,7 +44,9 @@ $email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
+
 $blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
+
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 
 $terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
@@ -53,9 +56,6 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<body>
     <div class="email-blog">
         <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
             <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
@@ -97,16 +97,14 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                     </div>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                        <?php if ($language->language != 'en'): ?> 
-                            <a href="/<?php print $language->language;?>/author/<?= strtolower($link); ?>"><?php print  print $author[1] . " " . $author[0]; ?></a>
-                        <?php else: ?>
-                            <a href="/author/<?= strtolower($link); ?>"><?php print $author[1] . " " . $author[0]; ?></a>
-                        <?php endif; ?>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
+                        <?php endforeach; ?>
                     </div>
                     
                         <?php if(count($content['field_ef_topic']['#items'])): ?>
                             <div class="field field-name-field-ef-topic">
-                            <?php print t("Topic:") ?>&nbsp;
+                            <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
                                     <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
                                         <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
                                         <?php if ($language->language != 'en'): ?> 
@@ -174,5 +172,3 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
             <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>
         </div>
     </aside>
-</body>
-</html>

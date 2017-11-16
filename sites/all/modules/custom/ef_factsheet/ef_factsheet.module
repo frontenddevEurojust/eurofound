@@ -1,5 +1,24 @@
 <?php
 
+
+function ef_factsheet_node_view($node, $view_mode, $langcode) {
+  switch ($node->type) {
+    case 'ef_factsheet':
+      drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
+      
+      	$checkPayment = $node->field_ef_approved_for_payment['und'][0]['value'];
+      	$nodeID = $node->nid;
+      	$baseURL = $GLOBALS['base_url'];
+	  	$settings['field_ef_approved_for_payment'] = variable_get('ef_factsheet', $checkPayment);
+		$settings['nid'] = variable_get('ef_factsheet', $nodeID);
+		$settings['baseURL'] = variable_get('ef_factsheet', $baseURL);
+	  	drupal_add_js(array('ef_factsheet' => $settings), 'setting');
+      break;
+  }
+}
+
+
+
 function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 	global $user;
 	if($form_id=='ef_factsheet_node_form'){
@@ -31,7 +50,8 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	$min_jobs_int = intval($min_jobs);
 	$job_creation = $form_state['values']['field_ef_planned_job_creation']['und'][0]['value'];
 	$employed_number_int = intval($employed_number);
-
+	$restructuring = $form_state['values']['field_ef_type_of_restructuring']['und'][0]['tid'];
+	$new_location = $form_state['values']['field_ef_new_location']['und'][0]['tid'];
 	if(FALSE){
 		if(($min_jobs!=0)){
 			if($min_jobs_int<25){
@@ -62,5 +82,10 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	if ($min_jobs == null && $job_creation== null) {
     	form_set_error('field_ef_job_reductions_min', t('Planned Job Reductions min and Planned Job Creation can not be both empty'));
     	form_set_error('field_ef_planned_job_creation');
- 	 }
+ 	}
+
+ 	if(intval($restructuring) ==1105 &&  $new_location == NULL) {
+		form_set_error('field_ef_new_location',t('New Location cannot be blank if “offshoring/ delocalisation” is selected in Type of Restructuring '));
+	}
+	
 }

@@ -26,27 +26,31 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
       $type = 'ef_news';
     }
 
-    if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page'){
+    if($form['#id'] == 'views-exposed-form-ef-car-reports-car-reports-page' || $form['#id'] == 'views-exposed-form-ef-car-reports-page-1'){
       $type = 'ef_comparative_analytical_report';
+    }
+
+    if($form['#id'] == 'views-exposed-form-ef-ir-dictionary-page'){
+      $type = 'ef_ir_dictionary';
     }
 
     $years = array();
     $years = get_years($type);
+    
+    $form['published_at'] = array(
+      '#type' => 'select',
+      '#options' => $years,
+      //'#default_value' => '-1',
+      "#empty_option"=>t('Any'),
+      '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
+      '#suffix' => '</div>'
+    );
 
     // Don't use default value !!
-      $form['published_at'] = array(
-        '#type' => 'select',
-        '#options' => $years,
-        /*'#default_value' => '-1',*/
-        "#empty_option"=>t('Any'),
-        '#prefix' => '<div id="edit-year-wrapper" class="form-item form-type-select form-item-year">',
-        '#suffix' => '</div>'
-      );
 
-      $form['#attached']['css'][] = drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css';
-      
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_publication_date_year_filter') . '/ef_publication_date_year_filter.css';
 
-      return $form;
+    return $form;
   }
 
 
@@ -54,9 +58,9 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
 
 // hook_views_query_alter()
 function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
-
+  
   if(isset($view->name)){
-
+    
     if($view->name == 'ef_publications_view' && $view->vid == 75)
     {
       $type = 'ef_publication';
@@ -85,7 +89,7 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 
     $field = 'publication_date.published_at';
 
-
+    
     if(isset($view->exposed_data['published_at']) && $view->exposed_data['published_at'] >= '0'){
 
       $year_index = $view->exposed_data['published_at'];
@@ -109,15 +113,17 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
       $query->where[1]['conditions'][5]['operator'] = '<=';
 
     }
-
+    
   }
-
+  
 }
 
 // get years
 function get_years($type){
 
-  $years = variable_get('publication_date_years_array');
+  $all_ct_years = variable_get('publication_date_years_array');
+
+  $years = $all_ct_years[$type];
 
   return $years;
 
@@ -127,7 +133,10 @@ function get_years($type){
  * Implements hook_cron()
  */
 function ef_publication_date_year_filter_cron() {
-  $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
+  $content_types = array('ef_publication', 'ef_report', 'ef_news', 'ef_ir_dictionary', 'ef_comparative_analytical_report', '');
+
+  foreach ($content_types as $key => $type) {
+    $select_years = "SELECT distinct from_unixtime(publication_date.published_at, '%Y')
             as fecha
             from publication_date
             inner join node on node.nid = publication_date.nid
@@ -136,16 +145,16 @@ function ef_publication_date_year_filter_cron() {
             and from_unixtime(publication_date.published_at, '%Y') is not null
             order by fecha asc";
 
-  $results = db_query($select_years, array(':type' => '%' . $type . '%'))->fetchAll();
+    $results = db_query($select_years, array(':type' => '%' . $type . '%'))->fetchAll();
 
-  $years = array();
-  $min_year = $results[0]->fecha;
-  $max_year = date('Y');
+    $min_year = $results[0]->fecha;
+    $max_year = date('Y');
 
-  foreach (range($max_year, $min_year) as $i => $year) {
-    $years[] = $year;
+    foreach (range($max_year, $min_year) as $i => $year) {
+      $years_by_ct[$type][] = $year;
+    }  
   }
-
-  variable_set('publication_date_years_array', $years);
+  
+  variable_set('publication_date_years_array', $years_by_ct);
 
 }

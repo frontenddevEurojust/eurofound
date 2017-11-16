@@ -1087,7 +1087,7 @@ height: 28px;
 .ef-navigation-menus a {
 	display: block;
 	position: relative;
-	padding: 16px 18px 16px 8px;
+	padding: 16px 10px 16px 4px;
 	color: #FFFFFF;
 	text-align: center;
 	overflow: hidden;
@@ -1349,7 +1349,7 @@ height: 28px;
 .menu-minipanel-panel a:before{content:none;text-shadow:none; padding: 0 8px 0 10px}
 .menu-minipanel-panel a{
 	background: none;
-	padding: 0px;
+	padding: 0px !important;
 	color:#005baa;
 	text-align: left;
 	height: auto;
@@ -1402,6 +1402,7 @@ height: 28px;
 #mini-panel-publication_mini_panel table.views-view-grid{
 	background: transparent none!important;
 	border: none!important;
+	width: 100%;
 }
 #mini-panel-publication_mini_panel table td{
 	padding: 0px 2% 0px 0px!important;
@@ -3558,7 +3559,7 @@ form#views-exposed-form-ef-quarterly-reports-page .date-year{
     -webkit-box-shadow:none!important;
     box-shadow:none!important;
 }
-.featured.panel-pane img{float: none; border: none; margin:0px; width: 55%;}
+.featured.panel-pane img{float: none; border: none; margin:0px; /*width: 55%;*/}
 .featured.panel-pane .pdfpreview{
 	width: 120%;
 	height: 219px;
@@ -13100,7 +13101,7 @@ p.view-empty.error-msg:before{
 	display: block; 
 	opacity: 1;
 	margin-top:13em;
-	width:42%;
+	width:auto;
 	z-index: 99999999;
 }
 
@@ -13122,11 +13123,6 @@ p.view-empty.error-msg:before{
 
 .reveal-modal-bg.payment{
 	z-index: 9999999;
-}
-
-/*erm-data-export , hide NutsID tr */
-#views-dynamic-fields-filters-table-sort tr:nth-child(10){
-	display:none;
 }
 
 #alertLocation{
