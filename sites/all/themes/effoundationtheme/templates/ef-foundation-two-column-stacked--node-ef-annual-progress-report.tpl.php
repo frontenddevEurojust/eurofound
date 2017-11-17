@@ -847,7 +847,6 @@
                 </div>
                 <?php endif; ?>
               </div>
-Add a comment to this line
             </li>
           <?php endif; ?>
           
