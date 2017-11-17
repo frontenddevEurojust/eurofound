@@ -680,6 +680,7 @@
       <!-- end WORKING METHODS -->
 
       <!-- ADDITIONAL INFORMATION -->
+      <?php $tab = 0; ?>
       <?php if ($is_additional): ?>
       <div id="additional-information" class="apr-additional-info row">
         <div class="section">
@@ -689,9 +690,10 @@
                 || isset($node->field_ef_related_acess['und'][0]['value'])
                 || isset($content['field_ef_fb_access'])):
           ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('1. Access to information'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Access to information'); ?></h3>
                   <div>
                     <ul>
                       <?php if(isset($node->field_ef_general_kind_access['und'][0]['value'])): ?>
@@ -731,9 +733,10 @@
                 || isset($node->field_ef_related_deliv_useful['und'][0]['value'])
                 || isset($content['field_ef_fb_useful'])):
           ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('2. Usefulness of provided information'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Usefulness of provided information'); ?></h3>
                 <div>
                   <ul>
                     <?php if(isset($node->field_ef_general_kind_useful['und'][0]['value'])): ?>
@@ -770,9 +773,10 @@
             </li>
           <?php endif; ?>
           <?php if(isset($node->field_ef_support_admin_rating['und'][0]['value']) || isset($content['field_ef_fb_support_admin'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('3. Support from Eurofound staff regarding administrative issues'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Support from Eurofound staff regarding administrative issues'); ?></h3>
                   <div>
                   <?php if(isset($node->field_ef_support_admin_rating['und'][0]['value'])): ?>
                     <h4><?php print t('Rating:'); ?></h4>
@@ -790,9 +794,10 @@
             </li>
           <?php endif; ?>
           <?php if(isset($node->field_ef_support_deliver_rating['und'][0]['value']) || isset($content['field_ef_fb_support_deliverables'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('4. Support from Eurofound staff regarding content aspects of deliverables'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Support from Eurofound staff regarding content aspects of deliverables'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_support_deliver_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -809,11 +814,48 @@
               </div>
             </li>
           <?php endif; ?>
-          
-          <?php if(isset($node->field_ef_cms_system_rating['und'][0]['value']) || isset($content['field_ef_fb_cms_system'])): ?>
+
+          <?php if(isset($content['field_ef_network_tender']) || isset($content['field_ef_network_tend_main_area']) || isset($content['field_ef_network_tender_aspects']) ): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('5. CMS system'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Eurofound is currently preparing a new Network tender to cover 2018-2021 period. Please let us know, which of the current areas of reporting your organisation values the most and would love to do for Eurofound in the future?'); ?></h3>
+                <?php if (isset($content['field_ef_network_tend_main_area'])): ?>
+                <div>
+                  <h4><?php print t('Main area'); ?></h4>
+                  <ul class='ef-metatag'>
+                  <?php foreach($areas_array as $key => $value): ?>
+                    <?php if($value == ' Other area'): ?>
+                    <li><?php print render($content['field_ef_network_tend_other']); ?></li>
+                    <?php else: ?>
+                    <li><?php print $value; ?></li>  
+                    <?php endif; ?>
+                  <?php endforeach; ?>  
+                  </ul>
+                </div>
+                <?php endif; ?>
+                <?php if (isset($content['field_ef_network_tender'])): ?>
+                <div>
+                  <h4><?php print $tab . t('.1 Develop on the aspects that are most important for you in your work as correspondent'); ?></h4>
+                  <div><?php print render($content['field_ef_network_tender']); ?></div>
+                </div>
+                <?php endif; ?>
+                <?php if (isset($content['field_ef_network_tender_aspects'])): ?>
+                <div>
+                  <h4><?php print $tab . t('.2 Which aspects of the current Network did you value most as Eurofound correspondent'); ?></h4>
+                  <div><?php print render($content['field_ef_network_tender_aspects']); ?></div>
+                </div>
+                <?php endif; ?>
+              </div>
+Add a comment to this line
+            </li>
+          <?php endif; ?>
+          
+          <?php if(isset($node->field_ef_cms_system_rating['und'][0]['value']) || isset($content['field_ef_fb_cms_system'])): ?>
+            <?php $tab++ ; ?>
+            <li>
+              <div class="subsection collapsed-on default">
+                <h3 class="apr-accordion"><?php print $tab . t('. CMS system'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_cms_system_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -832,9 +874,10 @@
           <?php endif; ?>
 
           <?php if(isset($content['field_ef_any_other_feedback_ef'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('6. Any other feedback you would like to pass on to Eurofound?'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Any other feedback you would like to pass on to Eurofound?'); ?></h3>
                 <?php if (isset($content['field_ef_any_other_feedback_ef'])): ?>
                 <div>
                   <h4><?php print t('Any other feedback:'); ?></h4>
@@ -847,9 +890,10 @@
 
 
           <?php if(isset($node->field_ef_invoicing_policy_rating['und'][0]['value']) || isset($content['field_ef_fb_invoicing_policy'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('7. Clarity of Eurofound invoicing policy'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Clarity of Eurofound invoicing policy'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_invoicing_policy_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -868,9 +912,10 @@
           <?php endif; ?>
           
           <?php if(isset($node->field_ef_ef_adherence_rating['und'][0]['value']) || isset($content['field_ef_fb_time_schedules'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('8. Eurofound’s adherence to time schedules'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Eurofound’s adherence to time schedules'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_ef_adherence_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -889,16 +934,17 @@
           <?php endif; ?>
 
           <?php if(isset($node->field_ef_yammer_rating['und'][0]['value']) || isset($content['field_ef_fb_yammer'])): ?>
+            <?php $tab++ ; ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('9. Possibility to use Yammer for network related discussions'); ?></h3>
+                <h3 class="apr-accordion"><?php print $tab . t('. Possibility to use Yammer for network related discussions'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_yammer_rating['und'][0]['value'])): ?>
                     <h4><?php print t('What do you think about Yammer and how do you use it?'); ?></h4>
                     <div><?php print render($content['field_ef_yammer_rating']); ?></div>
                   <?php endif; ?>
                   <?php if (isset($content['field_ef_fb_yammer'])): ?>
-                    <h4><?php print t('9.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print $tab . t('.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_yammer']); ?></div>
                   <?php endif; ?>
                 </div>
