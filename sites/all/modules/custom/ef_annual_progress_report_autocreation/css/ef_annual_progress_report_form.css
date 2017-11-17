@@ -316,10 +316,6 @@ body.admin-menu #node_ef_annual_progress_report_form_group_working_methods_topic
 /** end provisional **/
 
 /** change text EF network tender **/
-#node_ef_annual_progress_report_form_group_additional_info_page .field-group-tabs-wrapper .vertical-tabs-list li:nth-child(5){
-    display: none;
-}
-
 #node_ef_annual_progress_report_form_group_additional_info_page .field-group-tabs-wrapper .vertical-tabs-list li:nth-child(5) a strong{
     display: none;
 }
