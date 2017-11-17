@@ -220,9 +220,19 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
   //Enable again the production database
 	db_set_active();
 
+  foreach ($tables as $key => $table) {
+    foreach ($revisions as $key => $revision) {
+      db_delete($table)
+        ->condition('revision_id', $revision)
+        ->execute();
+    }
+  }
+
   //Delete the archived data (core)
 	foreach ($revisions as $key => $revision) {
-		node_revision_delete($revision);
+		db_delete('node_revision')
+      ->condition('vid', $revision)
+      ->execute();
 	}
 	
   //Delete the revisions from Workbench Moderation
