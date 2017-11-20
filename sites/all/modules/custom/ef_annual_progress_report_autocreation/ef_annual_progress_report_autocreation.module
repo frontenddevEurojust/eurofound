@@ -561,15 +561,22 @@ function ef_annual_progress_report_node_form_after_build($form, &$form_state) {
     if (isset($form['nid']['#value'])) {
 
       $node = node_load($form['nid']['#value']);
-
       $type_of_report = $node->field_ef_type_of_report['und'][0]['value'];
-      $empty_mandatory_fields = get_empty_apr_mandatory_fields($node);
 
-      $settings['type_of_report'] = variable_get('ef_annual_progress_report_autocreation', $type_of_report);
-      $settings['empty_fields'] = variable_get('ef_annual_progress_report_autocreation', $empty_mandatory_fields);
+      $mandatory_fields = get_apr_mandatory_fields();
+      
+      foreach ($mandatory_fields as $key => $mandatory_field) {
+        if (empty($form_state['values'][$mandatory_field]['und'])) {
+          $empty_mandatory_fields[] = $mandatory_field;
+        }
+      }
+
+      $settings['type_of_report'] = $type_of_report;
+      $settings['empty_fields'] = $empty_mandatory_fields;
       drupal_add_js(array('ef_annual_progress_report_autocreation' => $settings), 'setting');
 
     }
+
     // JS and CSS files
     drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_form.js');
     drupal_add_css(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_form.css');
