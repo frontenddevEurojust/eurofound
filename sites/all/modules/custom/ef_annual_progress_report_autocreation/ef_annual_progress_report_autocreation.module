@@ -570,6 +570,9 @@ function ef_annual_progress_report_node_form_after_build($form, &$form_state) {
           $empty_mandatory_fields[] = $mandatory_field;
         }
       }
+      if (empty($form_state['values']['field_ef_date_and_partici_bm']['und'][0]['value'])) {
+        $empty_mandatory_fields[] = 'field_ef_date_and_partici_bm';
+      }
 
       $settings['type_of_report'] = $type_of_report;
       $settings['empty_fields'] = $empty_mandatory_fields;
