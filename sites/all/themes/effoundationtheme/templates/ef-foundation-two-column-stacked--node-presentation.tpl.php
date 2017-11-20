@@ -43,12 +43,12 @@ $email_link = $base_url.$nodeurl;
 $image = file_load($user_data->picture);
 
 $image_url = image_style_url('thumbnail', $image->uri);
-$blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']);
+$blog_presentation_author_view = views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#title']);
 $blog_presentation_find = strpos($blog_presentation_author_view,'No results were found. Please try again');
 
-$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#markup'], $vocabulary = 'ef_publication_contributors');
+$terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#title'], $vocabulary = 'ef_publication_contributors');
 $term = $terms[key($terms)];
-$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle='ef_publication'";
+$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle IN ('ef_publication', 'blog', 'presentation')";
 $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
 
 $bytes = $content['field_pdf_presentation']['#items'][0]['filesize'];
@@ -198,10 +198,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     <aside class="large-3 columns blog-presentation"> 
         <?php if ($count[0]->count > 1): ?>  
         <h2>
-            <span class="author-name-right"><?php print $author[1] . " " . $author[0]; ?></span>
+            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></span>
         </h2>
         <div class="author-view">
-            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#markup']); ?>
+            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][$key]['#title']); ?>
         </div>
         <?php endif; ?>
         <div class="related-links-block">
