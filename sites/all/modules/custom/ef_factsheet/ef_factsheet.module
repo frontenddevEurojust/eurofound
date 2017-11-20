@@ -52,6 +52,9 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	$employed_number_int = intval($employed_number);
 	$restructuring = $form_state['values']['field_ef_type_of_restructuring']['und'][0]['tid'];
 	$new_location = $form_state['values']['field_ef_new_location']['und'][0]['tid'];
+	$egf_year_date = $form_state['values']['field_egf_year_date']['und'][0]['value'];
+	$egf_code = $form_state['values']['field_egf_code']['und'][0]['value'];
+	
 	if(FALSE){
 		if(($min_jobs!=0)){
 			if($min_jobs_int<25){
@@ -87,5 +90,18 @@ function ef_factsheet_form_validate($form, &$form_state) {
  	if(intval($restructuring) ==1105 &&  $new_location == NULL) {
 		form_set_error('field_ef_new_location',t('New Location cannot be blank if “offshoring/ delocalisation” is selected in Type of Restructuring '));
 	}
+
+	if ($egf_year_date != null && $egf_code == null) {
+		form_set_error('field_egf_code',t('EGF code cannot be blank if EGF date has value'));
+	}
+
+	if ($egf_year_date == null && $egf_code != null) {
+		form_set_error('field_egf_year_date',t('EGF date cannot be blank if EGF code has value'));
+	}
+
+	if (strlen($egf_code) > 4) {
+		form_set_error('field_egf_code',t('Only 4 numbers are allowed in EGF Code.'));
+	}
+
 	
 }
