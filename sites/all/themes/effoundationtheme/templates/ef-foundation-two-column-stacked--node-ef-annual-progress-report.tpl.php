@@ -823,7 +823,7 @@
                   </div>
                   <?php endif; ?>
                   <?php if (isset($content['field_ef_fb_cms_system'])): ?>
-                    <h4><?php print t('6.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print t('5.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_cms_system']); ?></div>
                   <?php endif; ?>
                 </div>
@@ -834,7 +834,7 @@
           <?php if(isset($content['field_ef_any_other_feedback_ef'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('7. Any other feedback you would like to pass on to Eurofound?'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('6. Any other feedback you would like to pass on to Eurofound?'); ?></h3>
                 <?php if (isset($content['field_ef_any_other_feedback_ef'])): ?>
                 <div>
                   <h4><?php print t('Any other feedback:'); ?></h4>
@@ -849,7 +849,7 @@
           <?php if(isset($node->field_ef_invoicing_policy_rating['und'][0]['value']) || isset($content['field_ef_fb_invoicing_policy'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('8. Clarity of Eurofound invoicing policy'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('7. Clarity of Eurofound invoicing policy'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_invoicing_policy_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -859,7 +859,7 @@
                   </div>
                   <?php endif; ?>
                   <?php if(isset($content['field_ef_fb_invoicing_policy'])): ?>
-                    <h4><?php print t('8.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print t('7.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_invoicing_policy']); ?></div>
                   <?php endif; ?>
                 </div>
@@ -870,7 +870,7 @@
           <?php if(isset($node->field_ef_ef_adherence_rating['und'][0]['value']) || isset($content['field_ef_fb_time_schedules'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('9. Eurofound’s adherence to time schedules'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('8. Eurofound’s adherence to time schedules'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_ef_adherence_rating['und'][0]['value'])): ?>
                   <h4><?php print t('Rating:'); ?></h4>
@@ -880,7 +880,7 @@
                   </div>
                   <?php endif; ?>
                   <?php if (isset($content['field_ef_fb_time_schedules'])): ?>
-                    <h4><?php print t('9.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print t('8.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_time_schedules']); ?></div>
                   <?php endif; ?>
                 </div>
@@ -891,14 +891,14 @@
           <?php if(isset($node->field_ef_yammer_rating['und'][0]['value']) || isset($content['field_ef_fb_yammer'])): ?>
             <li>
               <div class="subsection collapsed-on default">
-                <h3 class="apr-accordion"><?php print t('10. Possibility to use Yammer for network related discussions'); ?></h3>
+                <h3 class="apr-accordion"><?php print t('9. Possibility to use Yammer for network related discussions'); ?></h3>
                 <div>
                   <?php if(isset($node->field_ef_yammer_rating['und'][0]['value'])): ?>
                     <h4><?php print t('What do you think about Yammer and how do you use it?'); ?></h4>
                     <div><?php print render($content['field_ef_yammer_rating']); ?></div>
                   <?php endif; ?>
                   <?php if (isset($content['field_ef_fb_yammer'])): ?>
-                    <h4><?php print t('10.1. Any other feedback related to the question'); ?></h4>
+                    <h4><?php print t('9.1. Any other feedback related to the question'); ?></h4>
                     <div><?php print render($content['field_ef_fb_yammer']); ?></div>
                   <?php endif; ?>
                 </div>

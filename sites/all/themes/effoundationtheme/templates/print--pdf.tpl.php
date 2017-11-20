@@ -478,7 +478,8 @@ margin: 0.5em 0 !important;
     width:96% !important;
     font-size: 9px !important;
     border: 0 !important;
-    border-bottom:1px solid #ccc !important;
+    border-bottom:1px solid #FFF !important;
+     border-collapse:unset !important;  
 }
 th{
     border: 0 !important;
@@ -488,8 +489,9 @@ th{
 td{
     border: 0 !important;
     font-size: 9px !important;
-    border-bottom:1px solid #ccc !important;
+    border-bottom:1px solid #FFF !important;
     border-collapse: collapse !important;
+
 }
 table tr:last-child td{
   border-bottom:0px solid #ccc !important;

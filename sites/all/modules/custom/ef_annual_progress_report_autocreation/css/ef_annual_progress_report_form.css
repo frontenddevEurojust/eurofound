@@ -323,6 +323,7 @@ body.admin-menu #node_ef_annual_progress_report_form_group_working_methods_topic
 #node_ef_annual_progress_report_form_group_additional_info_page .field-group-tabs-wrapper .vertical-tabs-list li:nth-child(5) a strong{
     display: none;
 }
+
 #node_ef_annual_progress_report_form_group_additional_info_page .field-group-tabs-wrapper .vertical-tabs-list li:nth-child(5) a:before{
     content:"Eurofound is currently preparing a new Network tender to cover 2018-2021 period. Please let us know, which of the current areas of reporting your organisation values the most and would love to do for Eurofound in the future?";
     font-family: "OpenSans-Semibold-webfont";
