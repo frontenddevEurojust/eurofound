@@ -138,7 +138,7 @@
       } else {
         var $empty_fields = Drupal.settings.ef_annual_progress_report_autocreation.empty_fields;
         $.each($empty_fields, function(key, value){
-
+  
           var $this_field = $('[name="'+value+'[und][0][value]"]');
           $this_field.addClass('apr-mandatory-textarea');
           $this_field.parents(':eq(2)').prepend('<div class="apr-mandatory-field"><span>Mandatory</span></div>');
@@ -188,15 +188,11 @@
                       .addClass('apr-tab-required');
                     break;
                 case 'field_ef_ef_adherence_rating':
-                    $('#node_ef_annual_progress_report_form_group_additional_info_page .vertical-tabs-list li:eq(5) strong')
-                      .addClass('apr-tab-required');
-                    break;
-                case 'field_ef_yammer_rating':
-                    $('#node_ef_annual_progress_report_form_group_additional_info_page .vertical-tabs-list li:eq(6) strong')
+                    $('#node_ef_annual_progress_report_form_group_additional_info_page .vertical-tabs-list li:eq(4) strong')
                       .addClass('apr-tab-required');
                     break;
                 case 'field_ef_cms_system_rating':
-                    $('#node_ef_annual_progress_report_form_group_additional_info_page .vertical-tabs-list li:eq(7) strong')
+                    $('#node_ef_annual_progress_report_form_group_additional_info_page .vertical-tabs-list li:eq(4) strong')
                       .addClass('apr-tab-required');
                     break;
             }
