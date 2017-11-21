@@ -742,7 +742,7 @@
                     <?php if(isset($node->field_ef_general_kind_useful['und'][0]['value'])): ?>
                     <li>
                       <h4 class="list-label">
-                        <?php print t('Access to information of general kind like time schedules or contact information:'); ?>
+                        <?php print t('Usefulness of provided information of general kind like time schedules or contact information:'); ?>
                       </h4>
                       <div class="rating-wrapper">
                         <div><?php stars_rating($node->field_ef_general_kind_useful['und'][0]['value']); ?></div>
@@ -753,7 +753,7 @@
                     <?php if(isset($node->field_ef_related_deliv_useful['und'][0]['value'])): ?>
                     <li>
                       <h4 class="list-label">
-                        <?php print t('Access to information related to deliverables, like background notes, questionnaires or operating manuals'); ?>
+                        <?php print t('Usefulness of provided information related to deliverables, like background notes, questionnaires or operating manuals'); ?>
                       </h4>
                       <div class="rating-wrapper">
                         <div><?php stars_rating($node->field_ef_related_deliv_useful['und'][0]['value']); ?></div>
