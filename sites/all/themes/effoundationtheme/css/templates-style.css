@@ -624,10 +624,6 @@
     display: block;
 }
 
-.node-type-ef-factsheet .small-3 {
-    width: 28%;
-}
-
 .source_link{
     margin-left: -6px;
 }
@@ -725,12 +721,18 @@
   margin-right: 5px;
   color: #005baa;
  }
+
 .nc-source-documents  li:before{
   content:"\f1c2"!important;
   font-family: fontAwesome;
   margin-right: 5px;
   color: #005baa;
  }
-  .nc-source-documents {
-    margin-top: 20px;
-  }
+
+.nc-source-documents {
+  margin-top: 20px;
+}
+
+.node-type-ef-factsheet .content_factsheet .small-3.columns {
+    width: 28%;
+}
