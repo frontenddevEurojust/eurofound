@@ -13137,3 +13137,8 @@ p.view-empty.error-msg:before{
 #alertLocation .lead{
 	text-align: left;
 }
+
+/*erm-data-export , hide NutsID tr */
+#views-dynamic-fields-filters-table-sort tr:nth-child(1){
+	display:table-row !important;
+}
