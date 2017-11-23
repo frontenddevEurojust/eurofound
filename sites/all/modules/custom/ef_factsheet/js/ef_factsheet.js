@@ -26,6 +26,26 @@ jQuery( window ).load(function() {
 });
 
 
+//Geolocation
+(function ($) {
+  $(document).ready(function(){
+
+    //Append de message if the geographical coordinates hasn't value
+    if (!$(".field-type-getlocations-fields .description")[0]){
+      $(".form-item-field-address-und-0-street").once().prepend("<div id='message-location'>Please, make sure you click on the Save button to save the geographical coordinates related to this factsheet.</div>" );
+    }
+
+    //Click the button 'Geocode this address' to apply the geolocation in the map 
+    $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+
+
+  });
+})(jQuery);
+
+
+
+
+
 //Only when the node is moved to published and the Approved for payment field is empty, show a dialog box warning user about this situation.
 
 (function ($) {
