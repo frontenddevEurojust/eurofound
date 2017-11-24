@@ -61,24 +61,24 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		}
 
 		if (!empty($parent_terms[0]->name)){
-			$nuts_term_0 = $parent_terms[0]->name;
+			$nuts_term_0 = ' / ' . $parent_terms[0]->name;
 		}
 
 		if (!empty($parent_terms[1]->name)){
-			$nuts_term_1 = '/' . $parent_terms[1]->name;
+			$nuts_term_1 = ' / ' . $parent_terms[1]->name;
 		}
 
 		if (!empty($parent_terms[2]->name)){
-			$nuts_term_2 = '/' . $parent_terms[2]->name;
+			$nuts_term_2 = ' / ' . $parent_terms[2]->name;
 		}
 
 		if (!empty($parent_terms[3]->name)){
-			$nuts_term_3 = '/' . $parent_terms[3]->name;
+			$nuts_term_3 =  ' / ' . $parent_terms[3]->name;
 		}
 
 		//Set the value to the Province Geolocation Field, The value imports the Nuts taxonomy terms
 		$form['field_address']['und'][0]['additional']['#default_value'] = $location_term_0;
-		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_0 . $nuts_term_1 . $nuts_term_2 .$nuts_term_3 ;
+		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_3 . $nuts_term_2 . $nuts_term_1 . $nuts_term_0 ;
 
     }
 }

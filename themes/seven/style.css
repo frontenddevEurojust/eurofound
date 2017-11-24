@@ -1046,7 +1046,7 @@ div.add-or-remove-shortcuts {
 }
 
 .form-item-field-address-und-0-province label:before{
-  content:'Location/Province/State/????/County ';
+  content:'/ Country / Nuts-3 / Nuts-2 / Nuts-1';
   visibility: visible;
 }
 
