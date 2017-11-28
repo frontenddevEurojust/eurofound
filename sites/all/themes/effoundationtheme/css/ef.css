@@ -13196,3 +13196,14 @@ h4.title-tooltip-geolocation a:hover{
 	content: "\e61c";
 	font-family: 'ef-icon-font';
 }
+
+/* View factsheet */
+
+.view-ef-factsheet-geolocation .view-footer-wrapper{
+	display: none;
+}
+
+
+.view-display-id-default{
+	margin-top: 1em;
+}
