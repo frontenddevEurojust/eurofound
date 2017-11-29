@@ -171,7 +171,7 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
 	$other_database = array(
     'database' => 'drupal_archive',
     'username' => 'root',
-    'password' => 'culito', 
+    'password' => 'Geppett0', 
     'host' => 'localhost', 
     'driver' => 'mysql',
   );
