@@ -29,16 +29,12 @@ jQuery( window ).load(function() {
 //Geolocation
 (function ($) {
   $(document).ready(function(){
-
-    //Append de message if the geographical coordinates hasn't value
+    //Append de message if the geographical coordinates hasn't value - We verify that there is no value with the value "Check this box to delete this location."
     if (!$(".field-type-getlocations-fields .description")[0]){
       $(".form-item-field-address-und-0-street").once().prepend("<div id='message-location'>Please, make sure you click on the Save button to save the geographical coordinates related to this factsheet.</div>" );
+      //Click the button 'Geocode this address' to apply the geolocation in the map if we haven't value en Latitude y Long 
+      $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     }
-
-    //Click the button 'Geocode this address' to apply the geolocation in the map 
-    $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
-
-
   });
 })(jQuery);
 
