@@ -53,11 +53,13 @@ function ef_ckeditor_nodelinker_menu(){
 function _nodes_for_linking($text)
 {
 
-	$query = "SELECT a.title as label, CONCAT('node/', a.nid) as value  
+	$query = "SELECT a.title as label, CONCAT('node/', a.nid) as value 
 				FROM node a
-				INNER JOIN publication_date b ON a.nid = b.nid
-				WHERE a.`status` = 1
-				ORDER BY b.published_at DESC";
+				INNER JOIN workbench_moderation_node_history b on a.nid = b.nid
+				INNER JOIN publication_date c on a.nid = c.nid
+				WHERE b.current = 1
+				AND b.state IN ('published','forthcoming')
+				ORDER BY c.published_at DESC";
 
 	$result = db_query($query)->fetchAll();
 
