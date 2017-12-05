@@ -3,6 +3,7 @@
  * @file
  * Default theme file for d3 visualizations.
  */
+dpm($content);
 ?>
 
 <div  class="jm-charts-wrapper ">	
@@ -21,7 +22,7 @@
 			</section>
 		</div>
 	</div>
-
+	<?php if($content['field_ef_de_chart_id'][0]['#markup'] == 'EJM'): ?>
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
@@ -60,6 +61,12 @@
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
+	<?php else: ?>
+
+	<div class="chart-wrapper">
+		<div class="chart-filters"></div>
+	</div>
+	<?php endif; ?>
 	
 	<div class="jm-methodology-wrapper small-12 large-9  push-3">
 		<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
