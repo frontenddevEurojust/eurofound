@@ -221,7 +221,14 @@
     lollipops.select("path.lollipop-line")
       .data(filteredData) 
       .transition().duration(750)
-      .attr("d", overallFunctions.lollipopLinePath);
+      .attr("d", overallFunctions.lollipopLinePath)
+      .attr("class", function(d){
+        if (d.countryCode == countryCode){
+          return "lollipop-line highlighted"; 
+        } else{
+          return "lollipop-line";
+        }
+      });
 
   }
 
@@ -357,7 +364,14 @@
       
       lollipops.append("path")
         .attr("class", "lollipop-line")
-        .attr("d", overallFunctions.lollipopLinePath);
+        .attr("d", overallFunctions.lollipopLinePath)
+        .attr("class", function(d){
+          if (d.countryCode == countryCode){
+            return "lollipop-line highlighted"; 
+          } else{
+            return "lollipop-line";
+          }
+        });
       
 
       var circleRadio = 7;
