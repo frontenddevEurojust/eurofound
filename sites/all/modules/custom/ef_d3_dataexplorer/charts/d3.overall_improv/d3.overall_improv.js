@@ -1,11 +1,13 @@
 (function ($) {
 
-  var arrayContains = function(array, variable)
+  overallFunctions = new Object();
+
+  overallFunctions.arrayContains = function(array, variable)
   {
     return (array.indexOf(variable) > -1);
   }
 
-  var filterData = function(data, modality)
+  overallFunctions.filterData = function(data, modality)
   {
 
     var filtered = data.filter(function(row){
@@ -15,11 +17,10 @@
     return filtered;
   }
 
-  
-  var createCountryFilter = function(data){
-    
-    var countries = buildCountryOptions(data);
-    
+  overallFunctions.createCountryFilter = function(data){
+
+    var countries = overallFunctions.buildCountryOptions(data);
+
     var select = d3.select('body .chart-filters').append('select').property('id', 'country-filter');
 
     var options = select
@@ -33,12 +34,11 @@
     d3.select("#country-filter").on("change", updateGraph);
   }
 
-
-  var createModalityFilter = function(data){
+  overallFunctions.createModalityFilter = function(data){
+      
+    var modalities = overallFunctions.buildModalityOptions(data);
     
-    var modalities = buildModalityOptions(data);
-    
-    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
+    var select = d3.select('body .chart-wrapper .chart-filters').append('select').property('id', 'modality-filter');
 
     var options = select
       .selectAll('option')
@@ -50,7 +50,7 @@
     d3.select("#modality-filter").on("change", updateGraph);
   }
 
-  var buildCountryOptions = function(data){
+  overallFunctions.buildCountryOptions = function(data){
 
     var passedCountries = [];
 
@@ -66,8 +66,8 @@
         countryName: row.countryName,
       
       };
-    
-      if (!arrayContains(passedCountries, row.countryName)){
+
+      if (!overallFunctions.arrayContains(passedCountries, row.countryName)){
         
         passedCountries.push(row.countryName);
         
@@ -75,13 +75,13 @@
       }
       
       return result;  
-    
+
     }, []);
 
     return countries;
   }
 
-  var buildModalityOptions = function(data){
+  overallFunctions.buildModalityOptions = function(data){
 
     var passedModalities = [];
 
@@ -89,9 +89,9 @@
 
     var modalities = data.reduce(function(result, row){
     
-      if (!arrayContains(passedModalities, row.modalityValue)){
+      if (!overallFunctions.arrayContains(passedModalities, row.modalityValue)){
 
-        // We only need modalityCode and modalityValue
+        // We only need countryCode and countryName
         var modality = {
           
           modalityCode: row.modalityCode,
@@ -112,7 +112,7 @@
     return modalities;
   }
 
-  var calculateMinValue = function (data){
+  overallFunctions.calculateMinValue = function (data){
     var minValue = 100;
    
     data.forEach(function(row, index){
@@ -123,11 +123,12 @@
     return minValue;
   }
 
-  var lollipopLinePath = function(d) {
-    return lineGenerator([[x(Math.round(d.dot1)), y(d.countryName) + (y.bandwidth() / 2) ], [x(Math.round(d.dot2)), y(d.countryName) + (y.bandwidth() / 2)]]);
+  overallFunctions.lollipopLinePath = function(d) {
+    return lineGenerator([[x(d.dot1), y(d.countryName) + (y.bandwidth() / 2) ], [x(d.dot2), y(d.countryName) + (y.bandwidth() / 2)]]);
   };
-  
-  var calculateMaxValue = function (data){
+    
+  overallFunctions.calculateMaxValue = function (data){
+      
     var maxValue = 0;
     
     var result = data.forEach(function(row, index){
@@ -138,12 +139,12 @@
     return maxValue;
   }
 
-  var buildGraphStructure = function(csv){
-    createCountryFilter(csv);
-    createModalityFilter(csv);
+  overallFunctions.buildGraphStructure = function(csv){
+    overallFunctions.createCountryFilter(csv);
+    overallFunctions.createModalityFilter(csv);
   };
 
-  var parseToFloat = function(csv){
+  overallFunctions.parseToFloat = function(csv){
 
     var data = csv.map(function(row){
 
@@ -162,11 +163,11 @@
     var countryCode = $('#country-filter').val();
     var modalityCode = $('#modality-filter').val();
 
-    var filteredData = filterData(data, modalityCode);
-    
-    var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-    var domainMin = Math.round(calculateMinValue(filteredData) - 1);
 
+    var filteredData = overallFunctions.filterData(data, modalityCode);
+      
+    var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
+    var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
 
     x.domain([domainMin, domainMax])
       .range([0, width])
@@ -179,10 +180,6 @@
           return d3.format(".2s")(d); 
         }
     });
-  
-
-    // Select the section we want to apply our changes to
-    var svg = d3.select("body .chart-wrapper");
 
     svg.select(".x-axis")
       .transition().duration(750)
@@ -200,13 +197,12 @@
       return 'tick ' + filteredData[i].countryCode;
     });
 
-    
       
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
       .transition().duration(750)
       .attr("cx", function(d) { 
-        return x(Math.round(d.dot1)); 
+        return x(d.dot1); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
@@ -216,17 +212,17 @@
       .data(filteredData)
       .transition().duration(750)
       .attr("cx", function(d) { 
-        return x(Math.round(d.dot2)); 
+        return x(d.dot2); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
       });
-      
-    // añadir duration a las transiciones
+      // añadir duration a las transiciones
     lollipops.select("path.lollipop-line")
       .data(filteredData) 
       .transition().duration(750)
-      .attr("d", lollipopLinePath);
+      .attr("d", overallFunctions.lollipopLinePath);
+
   }
 
   $(document).ready(function(){
@@ -238,14 +234,13 @@
     } else {
       console.log("Language is undefined. Data can't be loaded");
     }
-  
 
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/optimism/optimism_' + languageCode + '.csv', function(csv){
+    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/overall-improv/overall-improv_' + languageCode + '.csv', function(csv){
 
       if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/optimism/optimism_' + languageCode + '" was not found.');
+        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/overall-improv/overall-improv_' + languageCode + '.csv" was not found.');
       }
-
+      
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
@@ -256,11 +251,12 @@
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
       // temporarily
-      height = 675;
+      height = 800;
 
-      svg = d3.select(".chart-wrapper").append("svg")
+      svg = d3.select("body .chart-wrapper").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
+            .attr('class', 'overall-improv-chart')
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .call(tip);
@@ -271,26 +267,19 @@
         "lollipop-end": "max",
       }
       
-
-      var posToColour = {
-        min: "#00c100",
-        median: "white",
-        max: "#d700d7"
-      };
-      
       var padding = 0;
 
-      data = parseToFloat(csv);
-
-      buildGraphStructure(data);
+      data = overallFunctions.parseToFloat(csv);
+      
+      overallFunctions.buildGraphStructure(data);
 
       countryCode = $('#country-filter').val();
       modalityCode = $('#modality-filter').val();
-      
-      var filteredData = filterData(data, modalityCode);
 
-      var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-      var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+      filteredData = overallFunctions.filterData(data, modalityCode);
+
+      var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
+      var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
       
       y = d3.scaleBand()
         .domain(filteredData.map(function(d) { return d.countryName }))
@@ -330,7 +319,7 @@
         .attr("class", "x-title")
         .attr("x", 0)
         .attr("y",-margin.top/2)
-        .text("optimism")
+        .text("Overall improvement")
         .attr("fill", "black");
       
       lineGenerator = d3.line();
@@ -368,49 +357,49 @@
       
       lollipops.append("path")
         .attr("class", "lollipop-line")
-        .attr("d", lollipopLinePath);
+        .attr("d", overallFunctions.lollipopLinePath);
       
 
-      var circleRadio = 6;
+      var circleRadio = 7;
 
       var startCircles = lollipops.append("circle")
-        .data(filteredData)
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
-        .attr("cx", function(d) {
-          return x(Math.round(d.dot1));
+        .attr("cx", function(d) { 
+          return x(d.dot1); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot1) + " " + d.countryName);
+          tip.show(d.dot1 + " " + d.countryName);
           // Reset top for Firefox as onepage framework changes top values
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
+
       
-      var endCircles = lollipops.append("circle")
-        .data(filteredData)
+     var endCircles = lollipops.append("circle")
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
-        .on('mouseout', tip.hide)
-        .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
-          // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
-        })
-        .transition().duration(750)
-        .attr("cx", function(d) {
-          return x(Math.round(d.dot2));
+        .attr("cx", function(d) { 
+          return x(d.dot2); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
+        })    
+        .on('mouseout', tip.hide)    
+        .on('mouseover', function(d) {
+          tip.show(d.dot2 + " " + d.countryName);
+          // Reset top for Firefox as onepage framework changes top values
+          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
+
       
 
     });
+  
   });
 
 })(jQuery);

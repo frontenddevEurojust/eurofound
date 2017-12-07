@@ -225,14 +225,14 @@
     if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
       var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
     } else {
-    console.log("Language is undefined. Data can't be loaded");
+      console.log("Language is undefined. Data can't be loaded");
     }
 
 
     d3.csv('/sites/default/files/ejm/data/' + languageCode + '/happiness/happiness_' + languageCode + '.csv', function(csv) {
 
       if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/happiness/happiness_' + languageCode +  '" was not found.');
+        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/happiness/happiness_' + languageCode +  '.csv" was not found.');
       }
 
       // Initialize tooltip

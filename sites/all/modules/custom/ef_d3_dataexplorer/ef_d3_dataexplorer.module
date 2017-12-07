@@ -110,7 +110,11 @@ function d3_custom_libraries() {
     'd3.tip',
     'd3.ejm',
     'd3.happiness',
-    'd3.optimism'
+    'd3.optimism',
+    'd3.overall_improv',
+    'd3.social_excl',
+    'd3.tensions',
+    'd3.work_life'
   );
 }
 
@@ -125,9 +129,14 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
   global $language;
 
   if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
+
     drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
+
     $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
+
     d3_ejm();
+
+    return;
   }
 
   if ($node->field_ef_de_chart_id['und'][0]['value'] == 'happiness'){
@@ -144,6 +153,8 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     $settings['language'] = $language->language;
 
     drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
   }
 
   if ($node->field_ef_de_chart_id['und'][0]['value'] == 'optimism'){
@@ -160,7 +171,80 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     $settings['language'] = $language->language;
 
     drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
   }
 
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'overall_improv'){
+
+    $chart = [
+
+      'id' => 'overall-improv-chart',
+
+      'type' => 'overall_improv'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'social_excl'){
+
+    $chart = [
+
+      'id' => 'social-excl-chart',
+
+      'type' => 'social_excl'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'tensions'){
+
+    $chart = [
+
+      'id' => 'tensions-chart',
+
+      'type' => 'tensions'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'work_life'){
+
+    $chart = [
+
+      'id' => 'work-life-chart',
+
+      'type' => 'work_life'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
 
 }

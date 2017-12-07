@@ -1,15 +1,15 @@
 (function ($) {
 
-  var arrayContains = function(array, variable)
-  {
-    return (array.indexOf(variable) > -1);
+  var arrayContains = function(array, country)
+  { 
+    return (array.indexOf(country) > -1);
   }
 
-  var filterData = function(data, modality)
+  var filterData = function(data, modality, subgroup, gender)
   {
 
     var filtered = data.filter(function(row){
-      return row.modalityCode == modality;
+      return row.modalityCode == modality && row.subgroupCode == subgroup && row.genderCode == gender;
     });
 
     return filtered;
@@ -49,6 +49,39 @@
 
     d3.select("#modality-filter").on("change", updateGraph);
   }
+
+  var createSubgroupFilter = function(data){
+    
+    var subgroups = buildSubgroupOptions(data);
+    
+    var select = d3.select('body .chart-filters').append('select').property('id', 'subgroup-filter');
+
+    var options = select
+      .selectAll('option')
+      .data(subgroups).enter()
+      .append('option')
+        .text(function (c) { return c.subgroupValue; })
+        .property('value',function(c){ return c.subgroupCode; });
+
+    d3.select("#subgroup-filter").on("change", updateGraph);
+  }
+
+  var createGenderFilter = function(data){
+    
+    var genders = buildGenderOptions(data);
+    
+    var select = d3.select('body .chart-filters').append('select').property('id', 'gender-filter');
+
+    var options = select
+      .selectAll('option')
+      .data(genders).enter()
+      .append('option')
+        .text(function (c) { return c.genderValue; })
+        .property('value',function(c){ return c.genderCode; });
+
+    d3.select("#gender-filter").on("change", updateGraph);
+  }
+
 
   var buildCountryOptions = function(data){
 
@@ -91,7 +124,7 @@
     
       if (!arrayContains(passedModalities, row.modalityValue)){
 
-        // We only need modalityCode and modalityValue
+        // We only need modalityCode and modalityName
         var modality = {
           
           modalityCode: row.modalityCode,
@@ -112,7 +145,69 @@
     return modalities;
   }
 
+  var buildSubgroupOptions = function(data){
+
+    var passedSubgroups = [];
+
+    var result = [];
+
+    var subgroups = data.reduce(function(result, row){
+    
+      if (!arrayContains(passedSubgroups, row.subgroupValue)){
+
+        var subgroup = {
+          
+          subgroupCode: row.subgroupCode,
+
+          subgroupValue: row.subgroupValue,
+        
+        };
+        
+        passedSubgroups.push(row.subgroupValue);
+        
+        result.push(subgroup);        
+      }
+      
+      return result;  
+    
+    }, []);
+
+    return subgroups;
+  }
+
+  var buildGenderOptions = function(data){
+
+    var passedGenders = [];
+
+    var result = [];
+
+    var genders = data.reduce(function(result, row){
+    
+      if (!arrayContains(passedGenders, row.genderValue)){
+
+        // We only need genderCode and genderName
+        var gender = {
+          
+          genderCode: row.genderCode,
+
+          genderValue: row.genderValue,
+        
+        };
+          
+        passedGenders.push(row.genderValue);
+        
+        result.push(gender);        
+      }
+      
+      return result;  
+    
+    }, []);
+
+    return genders;
+  }
+  
   var calculateMinValue = function (data){
+
     var minValue = 100;
    
     data.forEach(function(row, index){
@@ -141,6 +236,8 @@
   var buildGraphStructure = function(csv){
     createCountryFilter(csv);
     createModalityFilter(csv);
+    createSubgroupFilter(csv);
+    createGenderFilter(csv);
   };
 
   var parseToFloat = function(csv){
@@ -161,8 +258,11 @@
 
     var countryCode = $('#country-filter').val();
     var modalityCode = $('#modality-filter').val();
+    var subgroupCode = $('#subgroup-filter').val();
+    var genderCode = $('#gender-filter').val();
 
-    var filteredData = filterData(data, modalityCode);
+
+    var filteredData = filterData(data, modalityCode, subgroupCode, genderCode);
     
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(calculateMinValue(filteredData) - 1);
@@ -227,10 +327,11 @@
       .data(filteredData) 
       .transition().duration(750)
       .attr("d", lollipopLinePath);
-  }
 
+  }
+  
   $(document).ready(function(){
-    
+
     data = [];
 
     if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
@@ -238,12 +339,11 @@
     } else {
       console.log("Language is undefined. Data can't be loaded");
     }
-  
 
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/optimism/optimism_' + languageCode + '.csv', function(csv){
+    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/work-life/work-life_' + languageCode + '.csv', function(csv){
 
       if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/optimism/optimism_' + languageCode + '" was not found.');
+        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/work-life/work-life_' + languageCode + '.csv" was not found.');
       }
 
       // Initialize tooltip
@@ -255,10 +355,10 @@
       width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
-      // temporarily
-      height = 675;
+      //temporarily
+      height = 800;
 
-      svg = d3.select(".chart-wrapper").append("svg")
+      svg = d3.select("body .chart-wrapper").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -271,23 +371,19 @@
         "lollipop-end": "max",
       }
       
-
-      var posToColour = {
-        min: "#00c100",
-        median: "white",
-        max: "#d700d7"
-      };
-      
       var padding = 0;
 
       data = parseToFloat(csv);
 
       buildGraphStructure(data);
 
-      countryCode = $('#country-filter').val();
-      modalityCode = $('#modality-filter').val();
+      var countryCode = $('#country-filter').val();
+      var modalityCode = $('#modality-filter').val();
+      var subgroupCode = $('#subgroup-filter').val();
+      var genderCode = $('#gender-filter').val();
       
-      var filteredData = filterData(data, modalityCode);
+      var filteredData = filterData(data, modalityCode, subgroupCode, genderCode);
+
 
       var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
       var domainMin = Math.round(calculateMinValue(filteredData) - 1);
@@ -330,7 +426,7 @@
         .attr("class", "x-title")
         .attr("x", 0)
         .attr("y",-margin.top/2)
-        .text("optimism")
+        .text("Social-exclusion")
         .attr("fill", "black");
       
       lineGenerator = d3.line();
@@ -374,43 +470,37 @@
       var circleRadio = 6;
 
       var startCircles = lollipops.append("circle")
-        .data(filteredData)
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
-        .attr("cx", function(d) {
-          return x(Math.round(d.dot1));
+        .attr("cx", function(d) { 
+          return x(Math.round(d.dot1)); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot1) + " " + d.countryName);
-          // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          tip.show(Math.round(d.dot1));
         });
 
       
-      var endCircles = lollipops.append("circle")
-        .data(filteredData)
+     var endCircles = lollipops.append("circle")
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
-        .on('mouseout', tip.hide)
-        .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
-          // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
-        })
-        .transition().duration(750)
-        .attr("cx", function(d) {
-          return x(Math.round(d.dot2));
+        .attr("cx", function(d) { 
+          return x(Math.round(d.dot2)); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
+        })    
+        .on('mouseout', tip.hide)    
+        .on('mouseover', function(d) {
+          tip.show(Math.round(d.dot2));
         });
       
 
     });
+
   });
 
 })(jQuery);
