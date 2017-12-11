@@ -128,14 +128,12 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
   //with their different
   global $language;
 
-  drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
-
   $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
   
 
   if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
 
-    //drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
+    drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/d3.ejm.js');
 
     //$css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
 
