@@ -17,23 +17,6 @@
     return filtered;
   }
 
-  overallFunctions.createCountryFilter = function(data){
-
-    var countries = overallFunctions.buildCountryOptions(data);
-
-    var select = d3.select('body .chart-filters').append('select').property('id', 'country-filter');
-
-    var options = select
-      .selectAll('option')
-      .data(countries).enter()
-      .append('option')
-        .text(function (c) { return c.countryName; })
-        .property('value',function(c){ return c.countryCode; });
-        
-
-    d3.select("#country-filter").on("change", updateGraph);
-  }
-
   overallFunctions.createModalityFilter = function(data){
       
     var modalities = overallFunctions.buildModalityOptions(data);
@@ -48,37 +31,6 @@
         .property('value',function(c){ return c.modalityCode; });
 
     d3.select("#modality-filter").on("change", updateGraph);
-  }
-
-  overallFunctions.buildCountryOptions = function(data){
-
-    var passedCountries = [];
-
-    var result = [];
-
-    var countries = data.reduce(function(result, row){
-
-      // We only need countryCode and countryName
-      var country = {
-        
-        countryCode: row.countryCode,
-
-        countryName: row.countryName,
-      
-      };
-
-      if (!overallFunctions.arrayContains(passedCountries, row.countryName)){
-        
-        passedCountries.push(row.countryName);
-        
-        result.push(country);        
-      }
-      
-      return result;  
-
-    }, []);
-
-    return countries;
   }
 
   overallFunctions.buildModalityOptions = function(data){
@@ -140,7 +92,6 @@
   }
 
   overallFunctions.buildGraphStructure = function(csv){
-    overallFunctions.createCountryFilter(csv);
     overallFunctions.createModalityFilter(csv);
   };
 
@@ -160,7 +111,6 @@
 
   function updateGraph() {
 
-    var countryCode = $('#country-filter').val();
     var modalityCode = $('#modality-filter').val();
 
 
@@ -184,19 +134,6 @@
     svg.select(".x-axis")
       .transition().duration(750)
       .call(xAxis);  
-
-    // SelectAll y-axis tick so that they can be highlighted when filtering by Country 
-    var yTicks = d3.selectAll(".y-axis .tick");
-
-    // Add countryCode class to each y-axis element
-    yTicks.attr("class", function(d,i){
-      if (filteredData[i].countryCode == countryCode){
-        return 'tick ' + filteredData[i].countryCode + ' ' + 'highlighted';
-      }
-
-      return 'tick ' + filteredData[i].countryCode;
-    });
-
       
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
@@ -223,11 +160,7 @@
       .transition().duration(750)
       .attr("d", overallFunctions.lollipopLinePath)
       .attr("class", function(d){
-        if (d.countryCode == countryCode){
-          return "lollipop-line highlighted"; 
-        } else{
-          return "lollipop-line";
-        }
+        return "lollipop-line";
       });
 
   }
@@ -280,7 +213,6 @@
       
       overallFunctions.buildGraphStructure(data);
 
-      countryCode = $('#country-filter').val();
       modalityCode = $('#modality-filter').val();
 
       filteredData = overallFunctions.filterData(data, modalityCode);
@@ -317,7 +249,7 @@
         .call(yAxis)
         .select(".domain").remove();    
       
-      var xAxisGroup = svg.append("g")
+      xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
         .call(xAxis);
@@ -339,20 +271,7 @@
         .data(x.ticks(10))
         .enter().append("path")
         .attr("class", "grid-line")
-        .attr("d", axisLinePath);
-      
-      // SelectAll y-axis tick so that they can be highlighted when filtering by Country 
-      var yTicks = d3.selectAll(".y-axis .tick");
-      
-      // Add countryCode class to each y-axis element
-      yTicks.attr("class", function(d,i){
-        if (filteredData[i].countryCode == countryCode){
-          return 'tick ' + filteredData[i].countryCode + ' ' + 'highlighted';
-        }
-
-        return 'tick ' + filteredData[i].countryCode;
-      });
-      
+        .attr("d", axisLinePath);      
       
       lollipopsGroup = svg.append("g").attr("class", "lollipops");
 
@@ -366,11 +285,7 @@
         .attr("class", "lollipop-line")
         .attr("d", overallFunctions.lollipopLinePath)
         .attr("class", function(d){
-          if (d.countryCode == countryCode){
-            return "lollipop-line highlighted"; 
-          } else{
-            return "lollipop-line";
-          }
+          return "lollipop-line";
         });
       
 
