@@ -42,12 +42,15 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		//drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
 		$form['#attached']['js'][] = drupal_get_path('module','ef_factsheet') . '/js/ef_factsheet.js';
 
-		//Link to view the PDF field_otheref_full_text_sources
-	    $form['link'] = array(
-	    	'#markup' => l(t('View Other full text sources'),file_create_url($form['field_otheref_full_text_sources']['und'][0]['#default_value']['uri']),array('attributes' => array('target'=>'_blank'))),
-	    	'#weight' => 14,
-	    	
-	    );
+		
+		if ($form['field_otheref_full_text_sources']['und'][0]['#default_value']['filename'] != ''){
+			//Link to view the PDF field_otheref_full_text_sources
+		    $form['link'] = array(
+		    	'#markup' => l(t('View Other full text sources'),file_create_url($form['field_otheref_full_text_sources']['und'][0]['#default_value']['uri']),array('attributes' => array('target'=>'_blank'))),
+		    	'#weight' => $form['field_otheref_full_text_sources']['#weight'] + 1,
+		    	
+		    );
+		}
     }
 }
 
