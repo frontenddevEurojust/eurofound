@@ -22,7 +22,9 @@ dpm($content);
 			</section>
 		</div>
 	</div>
+
 	<?php if($content['field_ef_de_chart_id'][0]['#markup'] == 'EJM'): ?>
+
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
@@ -61,11 +63,23 @@ dpm($content);
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
+
 	<?php else: ?>
 
-	<div class="chart-wrapper">
-		<div class="chart-filters"></div>
+	<div class="jm-filters-chart">
+		<div class="filters-jm-chart small-12 large-3">
+			<form>
+	  		<fieldset>
+	    		<legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
+					<div class="group-filters chart-filters"></div>	
+				</fieldset>
+			</form>		
+		</div>
+		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
+			<div class="chart-wrapper"></div>
+		</div>		
 	</div>
+
 	<?php endif; ?>
 	
 	<div class="jm-methodology-wrapper small-12 large-9  push-3">

@@ -142,6 +142,55 @@ g.ticks text {
   color: #212121 !important;
 }
 
+/** European Quality of Life Survey 2016 **/
+.chart-wrapper{
+
+}
+.chart-wrapper .tick text{
+  font-size: 12px;
+}
+.chart-wrapper .lollipop-line {
+  stroke: #e8e6e6;
+  stroke-width: 12px;
+  opacity: 0.75;
+}
+.chart-wrapper .lollipop-line.highlighted{
+    stroke: #b6b6b6  !important;
+}
+.chart-wrapper .highlighted{
+  font-weight: bold;
+}
+.chart-wrapper .highlighted  text {
+  font-size: 14px;
+  fill: #eb8b0b  !important;
+}
+
+.chart-wrapper circle.lollipop-start {
+  fill:#A4CA43;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.chart-wrapper .lollipop-end {
+  fill: #529DDA;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}    
+.chart-wrapper .lollipop-median {
+  fill:#BB1E8C;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.chart-wrapper .grid-line{
+  stroke: #b3b7bd;
+  stroke-width: 1px;
+}
+
+
+
+
+
+
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-charts {
