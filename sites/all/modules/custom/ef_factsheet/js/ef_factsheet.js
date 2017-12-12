@@ -29,17 +29,90 @@ jQuery( window ).load(function() {
 //Geolocation
 (function ($) {
   $(document).ready(function(){
+
+    
+
+    $( "#getlocations_geocodebutton_key_1" ).hover(function() {
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() != '- None -'){
+        var $select1 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() + " ";
+      }else{
+        var $select1 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(4) option:selected" ).text() != '- None -'){
+        var $select2 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(4) option:selected" ).text() + " ";
+      }else{
+        var $select2 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(5) option:selected" ).text() != '- None -'){
+        var $select3 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(5) option:selected" ).text() + " ";
+      }else{
+        var $select3 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(6) option:selected" ).text() != '- None -'){
+        var $select4 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(6) option:selected" ).text() + " ";
+      }else{
+        var $select4 = "";
+      }
+
+      $("#edit-field-address-und-0-province").val($select1 + $select2 + $select3 + $select4 );
+
+      var $location = $("#edit-field-ef-affected-units-und-0-value").val();
+      $("#edit-field-address-und-0-additional").val($location);
+
+    });
+
+    $( "#getlocations_geocodebutton_key_1" ).focus(function() {
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() != '- None -'){
+        var $select1 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() + " ";
+      }else{
+        var $select1 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(4) option:selected" ).text() != '- None -'){
+        var $select2 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(4) option:selected" ).text() + " ";
+      }else{
+        var $select2 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(5) option:selected" ).text() != '- None -'){
+        var $select3 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(5) option:selected" ).text() + " ";
+      }else{
+        var $select3 = "";
+      }
+
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(6) option:selected" ).text() != '- None -'){
+        var $select4 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(6) option:selected" ).text() + " ";
+      }else{
+        var $select4 = "";
+      }
+
+      $("#edit-field-address-und-0-province").val($select1 + $select2 + $select3 + $select4 );
+
+      var $location = $("#edit-field-ef-affected-units-und-0-value").val();
+      $("#edit-field-address-und-0-additional").val($location);
+
+    });
+
+
+
+
     //Append de message if the geographical coordinates hasn't value - We verify that there is no value with the value "Check this box to delete this location."
     if (!$(".field-type-getlocations-fields .description")[0]){
-      $(".form-item-field-address-und-0-street").once().prepend("<div id='message-location'>Please, make sure you click on the Save button to save the geographical coordinates related to this factsheet.</div>" );
+      $(".getlocations_fields_country_wrapper").once().prepend("<div id='message-location'>Please, make sure you click on the Save button to save the geographical coordinates related to this factsheet.</div>" );
       //Click the button 'Geocode this address' to apply the geolocation in the map if we haven't value en Latitude y Long 
       $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     }
+    
+    
+    
+      
+      
+    
   });
 })(jQuery);
-
-
-
 
 
 //Only when the node is moved to published and the Approved for payment field is empty, show a dialog box warning user about this situation.

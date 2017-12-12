@@ -146,7 +146,7 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	$nuts_replace = str_replace(" ","",$nuts_term_3.$nuts_term_2.$nuts_term_1.$nuts_term_0);
 
 	if($address_replace_v2 !=  $nuts_replace ) {
-		form_set_error('field_address][und][0][province',t('There are different values between Nuts and Geolocation') );
+		form_set_error('field_ef_nuts',t('There are different values between Geolocation Map and Nuts. Click "Geocode this address" button to Geolocate the Nuts') );
 	}
 	
 }
