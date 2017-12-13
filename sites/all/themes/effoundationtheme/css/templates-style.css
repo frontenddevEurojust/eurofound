@@ -620,7 +620,7 @@
 }
 
 .node-type-ef-factsheet .fs_data.plus {
-    padding-left: 22.8em;
+    padding-left: 23.8em;
     display: block;
 }
 
@@ -721,12 +721,18 @@
   margin-right: 5px;
   color: #005baa;
  }
+
 .nc-source-documents  li:before{
   content:"\f1c2"!important;
   font-family: fontAwesome;
   margin-right: 5px;
   color: #005baa;
  }
-  .nc-source-documents {
-    margin-top: 20px;
-  }
+
+.nc-source-documents {
+  margin-top: 20px;
+}
+
+.node-type-ef-factsheet .content_factsheet .small-3.columns {
+    width: 28%;
+}

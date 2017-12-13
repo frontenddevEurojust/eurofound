@@ -461,18 +461,27 @@
                     <?php endif; ?>
                 </div>
                 <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
-                   <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
-
-                  <div class="ef_fs_source_pdf fs_indoor row">
+                  <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
+                    <div class="ef_fs_source_pdf fs_indoor row">
                       <span class="small-3 columns">Other full text sources:</span>
                       <span class="fs_data">
                         <a target="_blank" href="<?php print ($content['field_otheref_full_text_sources'][0]['#markup']); ?>">
-                          <?php print render($node->field_otheref_full_text_sources['und'][0]['filename']); ?>
+                          <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
                         </a>
                       </span>
-                  </div>
+                    </div>
+                  <?php endif; ?>
                 <?php endif; ?>
-                 <?php endif; ?>
+                <?php if (isset($content['group_egf_year_code']['field_egf_code']['#items'][0]['value']) && isset($content['group_egf_year_code']['field_egf_year_date']['#items'][0] )): ?>
+                    <div class="ef_fs_source_pdf fs_indoor row">
+                        <span class="small-3 columns">European Globalisation Fund:</span>
+                        <span class="fs_data">
+                          <?php print substr($content['group_egf_year_code']['field_egf_year_date']['#items'][0]['value'], 0, 4); ?>
+                          /
+                          <?php print $content['group_egf_year_code']['field_egf_code']['#items'][0]['value']; ?>
+                        </span>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 
