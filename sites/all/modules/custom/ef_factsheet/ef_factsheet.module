@@ -109,8 +109,8 @@ function ef_factsheet_form_validate($form, &$form_state) {
 		form_set_error('field_egf_year_date',t('EGF date cannot be blank if EGF code has value'));
 	}
 
-	if (strlen($egf_code) > 6) {
-		form_set_error('field_egf_code',t('Only 6 numbers are allowed in EGF Code.'));
+	if (!is_numeric($egf_code)) {
+		form_set_error('field_egf_code',t('Only numbers are allowed in EGF Code,'));
 	}
 
 	
