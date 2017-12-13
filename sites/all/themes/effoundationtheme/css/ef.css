@@ -13197,4 +13197,12 @@ h4.title-tooltip-geolocation a:hover{
 	font-family: 'ef-icon-font';
 }
 
+.view-factsheet-geolocation-view{
+	padding-top: 1em;
+}
+
+.content-view-factsheets{
+	padding-top: 2em;
+}
+
 /* View factsheet */

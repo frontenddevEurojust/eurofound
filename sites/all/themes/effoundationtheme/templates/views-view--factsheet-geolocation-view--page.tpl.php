@@ -27,6 +27,7 @@
  * @ingroup views_templates
  */
 ?>
+
 <div class="<?php print $classes; ?>">
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
@@ -89,5 +90,6 @@
 
 </div><?php /* class view */ ?>
 
-<h2>pro</h2>
-  <?php print views_embed_view('factsheets', $display_id = 'page_2'); ?>
+<div class="content-view-factsheets">
+  <?php print views_embed_view('ef_factsheets_view', $display_id = 'page'); ?>
+</div>
