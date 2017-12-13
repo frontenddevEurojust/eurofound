@@ -173,7 +173,7 @@ function get_apr_mandatory_fields(){
     //'field_ef_ef_adherence_rating',
     //'field_ef_yammer_rating',
     'field_ef_cms_system_rating',
-    'field_ef_network_tend_main_area',
+    //'field_ef_network_tend_main_area',
     //'field_ef_completed_by',
   );
 
