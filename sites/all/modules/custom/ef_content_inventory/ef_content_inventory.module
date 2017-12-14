@@ -70,7 +70,7 @@ function dl_content_inventory() {
 
   //This is a very heavy task, can take over 5 hours when no breadcrumbs are saved in memory.
   ini_set('memory_limit','10G');
-  set_time_limit(18000);
+  set_time_limit(43200);
   global $base_url;
 
   //Let's initialise some vars
