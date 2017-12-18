@@ -46,19 +46,6 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 }
 
 /*
- * Implements HOOK_form_alter to change the values of Authors in Blog and Presentation
- */
-function ef_authors_as_metadata_form_node_form_alter(&$form, &$form_state, $form_id) {
-  // Find the content type of the node we are editing.
-  $content_type = $form['#node']->type;
-  	if (in_array($form['#node']->type, ['blog','presentation'])){
-		$form['field_ef_publ_contributors']['und']['#multiple'] = FALSE;
-	}
-}
-
-
-
-/*
  * Implements HOOK_form_alter(&$view,&$query)
  */
 function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
@@ -75,71 +62,70 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 	{	
 		
-		if (!in_array($form['#node']->type, ['blog','presentation'])){
+		
+		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
-			$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
+		$form['add_new_contributor_wrapper'] = [
 
-			$form['add_new_contributor_wrapper'] = [
+			'#type' => 'container',
 
-				'#type' => 'container',
+      		'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+    	];
 
-	      		'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
-	    	];
+    	
+		$form['add_new_contributor_wrapper']['add_new_contributor'] = [
 
-	    	
-			$form['add_new_contributor_wrapper']['add_new_contributor'] = [
+			'#type' => 'textfield',
 
-				'#type' => 'textfield',
+			'#title' => t('Add new authors'),
 
-				'#title' => t('Add new authors'),
+			'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values'),
 
-				'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values'),
+			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
-				'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
+			'#prefix' => '<div id="add-new-publ-contributor">',
 
-				'#prefix' => '<div id="add-new-publ-contributor">',
+			'#suffix' => '</div>',
 
-				'#suffix' => '</div>',
+			'#ajax' => [
 
-				'#ajax' => [
+				'callback' => 'submit_new_contributors',
 
-					'callback' => 'submit_new_contributors',
+				'wrapper' => 'add-new-contributor',
 
-					'wrapper' => 'add-new-contributor',
+      			'method' => 'replace',
 
-	      			'method' => 'replace',
+      			'effect' => 'fade',
 
-	      			'effect' => 'fade',
+      			'keypress' => TRUE,
 
-	      			'keypress' => TRUE,
+      			'event' => 'submit',
 
-	      			'event' => 'submit',
-
-				],
-			];
+			],
+		];
 	
 
-			$form['add_new_contributor_wrapper']['save'] = [
+		$form['add_new_contributor_wrapper']['save'] = [
 
-				'#type' => 'button',
+			'#type' => 'button',
 
-				'#value' => t('Add New Author'),
+			'#value' => t('Add New Author'),
 
-				'#weight' => $form['field_ef_publ_contributors']['#weight'] + 2,
+			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 2,
 
-				'#ajax' => [
+			'#ajax' => [
 
-					'callback' => 'submit_new_contributors',
+				'callback' => 'submit_new_contributors',
 
-					'wrapper' => 'add-new-contributor',
+				'wrapper' => 'add-new-contributor',
 
-	      			'method' => 'replace',
+      			'method' => 'replace',
 
-	      			'effect' => 'fade',
-				],
-			];
+      			'effect' => 'fade',
+			],
+		];
 
-		}
+		
 
 		// Add the new form item to the group authors fieldset
 		$form['#groups']['group_authors']->children[] = 'add_new_contributor_wrapper';
