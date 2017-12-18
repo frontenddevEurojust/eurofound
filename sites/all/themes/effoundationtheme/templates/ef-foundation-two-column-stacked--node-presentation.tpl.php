@@ -198,10 +198,10 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     <aside class="large-3 columns blog-presentation"> 
         <?php if ($count[0]->count > 1): ?>  
         <h2>
-            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></span>
+            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][0]['#title']; ?></span>
         </h2>
         <div class="author-view">
-            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][$key]['#title']); ?>
+            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#title']); ?>
         </div>
         <?php endif; ?>
         <div class="related-links-block">
