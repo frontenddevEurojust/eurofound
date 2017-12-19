@@ -54,7 +54,7 @@ $terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#t
 $term = $terms[key($terms)];
 $query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle IN ('ef_publication', 'blog', 'presentation')";
 $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
-    
+
 ?>
 
     <div class="email-blog">
@@ -85,44 +85,51 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
     <?php endif; ?>     
         <div class="row">
             <div class="ds-node-metadata">
-
-                    <div class="field field-name-published-on">
+                <div class="field field-name-published-on">
+                    <div class="label-inline">
+                        <?php print $content['published_on'][0]['#markup']; ?>
+                    </div>
+                </div>
+                <div class="field field-name-content-type">
+                    <div class="label-inline">
+                        <?php print  $node->type; ?>
+                    </div>
+                </div>
+                <div class="field field-name-field-ef-author">
+                    <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                    <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
+                    <?php endforeach; ?>
+                </div>
+                <?php if(($content['field_permalink']['#items'][0]['url']) != ''): ?>
+                     <div class="field field-permalink">
                         <div class="label-inline">
-                            <?php print $content['published_on'][0]['#markup']; ?>
+                            <?php print t("Permalink:") ?>&nbsp;
+                        </div>
+                        <div class="label-content">
+                            <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
+                                <?= $content['field_permalink']['#items'][0]['title']; ?>
+                            </a>
                         </div>
                     </div>
-                    <div class="field field-name-content-type">
-                        <div class="label-inline">
-                            <?php print  $node->type; ?>
-                        </div>
-                    </div>
-                    <div class="field field-name-field-ef-author">
-                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                            <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                    
-                        <?php if(count($content['field_ef_topic']['#items'])): ?>
-                            <div class="field field-name-field-ef-topic">
-                            <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
-                                    <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
-                                        <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
-                                        <?php if ($language->language != 'en'): ?> 
-                                        <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>
-                                        <?php else: ?>
-                                        <a href="/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>    
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
-                          
-                             </div>      
-                        <?php endif; ?>
-                          
-             
+                <?php endif; ?>
+                <?php if(count($content['field_ef_topic']['#items'])): ?>
+                    <div class="field field-name-field-ef-topic">
+                    <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
+                        <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
+                            <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
+                            <?php if ($language->language != 'en'): ?> 
+                            <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
+                                <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                            </a>
+                            <?php else: ?>
+                            <a href="/<?php print $result[0]->alias; ?>" >
+                                <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                            </a>    
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                     </div>      
+                <?php endif; ?>
             </div>
         </div>
         <div class="topic-abstract">
@@ -161,14 +168,13 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
     
     
     <aside class="large-3 columns blog-presentation">   
-        <?php dpm($content['field_ef_publ_contributors']); ?>
         <?php if ($count[0]->count > 1): ?>
-        <h2>
-            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][0]['#title']; ?></span>
-        </h2>
-        <div class="author-view">
-            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#title']); ?>
-        </div>
+            <h2>
+                <span class="author-name-right"><?= $content['field_ef_publ_contributors'][0]['#title']; ?></span>
+            </h2>
+            <div class="author-view">
+                <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#title']); ?>
+            </div>
         <?php endif; ?>
         <div class="related-links-block">
             <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>

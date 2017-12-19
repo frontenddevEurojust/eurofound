@@ -118,7 +118,6 @@
 }
 #node_ef_publication_full_group_ef_node_details .label-content {
     display: inline-block;
-    margin-left: 1px;
 }
 #node_ef_publication_full_group_ef_node_details a{
   margin-right:3px;
@@ -170,7 +169,8 @@ ul.metadata-publications > li{
     text-indent: 0 !important;
 }
 ul.metadata-publications li:before {
-    content: "" !important;
+    content: " " !important;
+
 }
 ul.metadata-publications > li > span.label-inline {
     width:20%;

@@ -79,11 +79,13 @@ function ef_publications_ct_node_view_alter(&$build)
 */
 function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 {
+	$form['actions']['submit']['#validate'][] = 'ef_publications_ct_form_validate';
 
 	if($form['#id'] == 'ef-publication-node-form')
 
 	{
-
+		
+		
 		// Hide publication date as it is no longer relevant
 		$form['field_ef_publication_date']['#access'] = FALSE;
 
@@ -128,9 +130,26 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 	        )
 	    );
 
+	    // Show Permalink checkbox
+	    $form['field_permalink']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_permalink[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
 	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
 	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_edit_mode.js');
 
+	}
+
+	if($form['#id'] == 'blog-node-form' || $form['#id'] == 'presentation-node-form'){
+
+		// Show Permalink checkbox
+	    $form['field_permalink']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_permalink[und]"]' => array('checked' => TRUE)
+	       )
+	    );
 	}
 
 
@@ -159,6 +178,20 @@ function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 
 	return $form;
 }
+
+
+function ef_publications_ct_form_validate($form, &$form_state) {
+	
+	$permalink = $form_state['values']['field_permalink']['und'][0]['url'];
+	$permalink_label = $form_state['values']['field_permalink']['und'][0]['title'];
+
+	if ( empty($permalink) && !empty($permalink_label) ){
+		form_set_error('field_permalink',t('Permalink URL cannot be blank if Permalink title has value'));
+	}
+	
+}
+
+
 /*
 * Implements hook_views_query_alter(&$view, &$query)
 */
