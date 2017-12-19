@@ -79,13 +79,13 @@ function ef_publications_ct_node_view_alter(&$build)
 */
 function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
 {
-	$form['actions']['submit']['#validate'][] = 'ef_publications_ct_form_validate';
+	
 
 	if($form['#id'] == 'ef-publication-node-form')
 
 	{
-		
-		
+		$form['actions']['submit']['#validate'][] = 'ef_publications_ct_form_validate';
+
 		// Hide publication date as it is no longer relevant
 		$form['field_ef_publication_date']['#access'] = FALSE;
 
