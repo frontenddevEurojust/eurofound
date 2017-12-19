@@ -137,24 +137,37 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                             <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
                         <?php endforeach; ?>
                     </div>
-                   
-                        <?php if(count($content['field_ef_topic']['#items'])): ?>
-                             <div class="field field-name-field-ef-topic">
-                            <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
-                                    <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
-                                        <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
-                                        <?php if ($language->language != 'en'): ?> 
-                                        <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>
-                                        <?php else: ?>
-                                        <a href="/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>    
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
+                    <?php if(($content['field_permalink']['#items'][0]['url']) != ''): ?>
+                        <div class="field field-permalink">
+                            <div class="label-inline">
+                                <?php print t("Permalink:") ?>&nbsp;
                             </div>
-                        <?php endif; ?>
+                            <div class="label-content">
+                                <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
+                                    <?= $content['field_permalink']['#items'][0]['title']; ?>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(count($content['field_ef_topic']['#items'])): ?>
+                        <div class="field field-name-field-ef-topic">
+                            <div class="label-inline">
+                                <?php print t("Topic:") ?>&nbsp;
+                            </div>
+                            <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
+                                <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
+                                <?php if ($language->language != 'en'): ?> 
+                                <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
+                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                </a>
+                                <?php else: ?>
+                                <a href="/<?php print $result[0]->alias; ?>" >
+                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                </a>    
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
                         
                 </div>
             </div>
