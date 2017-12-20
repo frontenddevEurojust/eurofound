@@ -52,8 +52,9 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
 
 $terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#title'], $vocabulary = 'ef_publication_contributors');
 $term = $terms[key($terms)];
-$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle IN ('ef_publication', 'blog', 'presentation')";
-$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
+
+$result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , $node->nid );
+$countview = count($result);
 
 ?>
 
@@ -78,7 +79,7 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($count[0]->count > 1)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($countview  > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -101,10 +102,10 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
                         <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
                     <?php endforeach; ?>
                 </div>
-                <?php if(($content['field_permalink']['#items'][0]['url']) != ''): ?>
+                <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
                      <div class="field field-permalink">
                         <div class="label-inline">
-                            <?php print t("Permalink:") ?>&nbsp;
+                            <?php print t("Permalink") ?>:&nbsp;
                         </div>
                         <div class="label-content">
                             <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
@@ -168,12 +169,14 @@ $count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
     
     
     <aside class="large-3 columns blog-presentation">   
-        <?php if ($count[0]->count > 1): ?>
+        <?php if ($countview > 0): ?>
             <h2>
                 <span class="author-name-right"><?= $content['field_ef_publ_contributors'][0]['#title']; ?></span>
             </h2>
             <div class="author-view">
-                <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][0]['#title']); ?>
+                <?php
+               
+                 print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); ?>
             </div>
         <?php endif; ?>
         <div class="related-links-block">
