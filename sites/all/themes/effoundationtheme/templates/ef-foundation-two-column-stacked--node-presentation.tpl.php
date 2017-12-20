@@ -143,7 +143,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                     <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
                         <div class="field field-permalink">
                             <div class="label-inline">
-                                <?php print t("Permalink:") ?>&nbsp;
+                                <?php print t("Permalink") ?>:&nbsp;
                             </div>
                             <div class="label-content">
                                 <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">

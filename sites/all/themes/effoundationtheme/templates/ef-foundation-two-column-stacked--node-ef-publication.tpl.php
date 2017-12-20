@@ -281,7 +281,7 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 					<?php if(($content['group_ef_node_details']['field_show_permalink']['#items'][0]['value']) != 0): ?>
 					<li>
 						<span class="label-inline">
-							 <?php print t("Permalink:") ?>
+							 <?php print t("Permalink") ?>:
 						</span>
 						<span class="label-content">
 							<a href="<?= url($content['group_ef_node_details']['field_permalink']['#items'][0]['url']); ?>">
