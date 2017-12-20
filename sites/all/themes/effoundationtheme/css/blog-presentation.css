@@ -13,6 +13,10 @@
 	color: #5A5A5A;
 }
 
+.node-type-presentation .ds-node-metadata .field div{
+    color: #5A5A5A;
+}
+
 .blog-presentation-content{
 	padding-left: 0 !important;
 }
