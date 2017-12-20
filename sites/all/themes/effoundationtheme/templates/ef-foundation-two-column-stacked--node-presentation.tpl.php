@@ -52,8 +52,6 @@ $term = $terms[key($terms)];
 $result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , $node->nid );
 $countview = count($result);
 
-dpm($countview);
-
 $bytes = $content['field_pdf_presentation']['#items'][0]['filesize'];
 
 function formatSizeUnits($bytes)
