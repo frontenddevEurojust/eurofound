@@ -424,6 +424,7 @@ nav .icon-ef_publications:before,
     font-family: fontawesome;
 }
 .icon-ef_about_eurofound:before, 
+.icon-ef_about_us:before, 
 .icon-ef_eurofound:before {
 	content: "\e614";
 }
@@ -7533,6 +7534,22 @@ h1.parent_fome ~ span.print_html{
 	top: 8.7rem;
 }
 
+.fome-home-block p{
+	margin: 0;
+}
+.fome-home-block p > a {
+  color: #FFF;
+  display: block;
+  font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+}
+.fome-home-block p > a:hover{
+  text-shadow: 1px 1px 1px #000;
+  color: #EBA03B;
+}
+.fome-home-block p > a > span{
+	font-size: 32px;
+}
 /*END FOMES*/
 
 
