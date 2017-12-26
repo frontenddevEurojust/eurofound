@@ -279,6 +279,7 @@
                   European Observatory on Quality of Life
                   </a>
                   </h1>
+                  <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
 
               <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
 
