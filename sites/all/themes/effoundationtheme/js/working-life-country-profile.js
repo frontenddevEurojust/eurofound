@@ -2,13 +2,14 @@
 (function ($) {
   $(document).ready(function(){
 
-      var form_pages=window.location.pathname.split("/");
-      var pathname_form=form_pages[form_pages.length-2];     
-     if(pathname_form =='country'){
+    var form_pages=window.location.pathname.split("/");
+    var pathname_form=form_pages[form_pages.length-2];     
+    
+    if(pathname_form =='country'){
       $('h1#page-title').addClass('no-pdf');
     }
-    if($('body.node-type-ef-working-life-country-profiles')){
 
+    if($('body.node-type-ef-working-life-country-profiles')){
 
       $('h1#page-title').addClass('no-pdf');
 
@@ -31,7 +32,6 @@
         $('.section-container').each(function( index ) {
 
           var currentSection = $('section',this);
-
 
           $('section',this).each(function( i ) {    
 
@@ -133,7 +133,7 @@
       });
 
       $("a[href='#up']").click(function () {
-        console.log($(this));
+        //console.log($(this));
         $('html, body').animate({
             scrollTop: $(".page").offset().top
         }, 800);
