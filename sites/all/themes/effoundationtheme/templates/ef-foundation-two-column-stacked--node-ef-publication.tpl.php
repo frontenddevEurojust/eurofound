@@ -87,28 +87,10 @@ if (isset($content['field_ef_document'][0]['#file']))
 	$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 }
 
-if ($state == 'forthcoming')
 
-{
-	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
-	
-	{
-		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
-		$publication_date = date_format($publication_date,"F Y");
-	}
-
-}
-
-else
-
-{
-	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
-	
-	{
-		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
-		$publication_date = date_format($publication_date,"d F Y");
-	}
-}
+//Remove the day when the content is forthcoming
+$publication_date_forthcoming = preg_split('#\s+#', $content['group_ef_node_details']['published_on'][0]['#markup'], 2);
+$state == 'forthcoming' ? $publication_date = $publication_date_forthcoming[1] : $publication_date = $content['group_ef_node_details']['published_on'][0]['#markup'];
 
 if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
