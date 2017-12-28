@@ -644,7 +644,14 @@ h1.title-working-life .fa{
   .section-working-life-country-profile section{
     clear: both;
   }
+  #content-tabs-living-working > section.survey-results >.content {
+    text-align: center;
+  }
   #content-tabs-living-working > section.active > .title {
+    background-color: #E9E9E9  !important;
+    width:100% !important;
+  }
+  #content-tabs-living-working > section.active > .title.active {
     background-color: #f2f2f2 !important;
     width:100% !important;
   }
@@ -736,6 +743,9 @@ h1.title-working-life .fa{
   }
   .section-container.vertical-tabs > section > h2.title.active:after {
      content: "\f106" !important; 
+  }
+  .section-country .print-pdf-wrapper {
+    display: none;
   }
   .eurostat-result {
     background: #f2f2f2;
