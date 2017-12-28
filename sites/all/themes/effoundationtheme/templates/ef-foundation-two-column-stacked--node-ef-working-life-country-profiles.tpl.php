@@ -196,7 +196,7 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 					$print_image = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/sites/all/modules/contrib/print/print_pdf/icons/pdf_icon.png";
 		?>
 		<div class="print-pdf-wrapper">
-			<a href="<?php echo  $print_link; ?>?section=1" class="print-pdf" target="_blank"><span>Print pdf</span></a>
+			<a href="<?php echo  $pdf_link; ?>?section=1" class="print-pdf" target="_blank"><span>Print pdf</span></a>
 		</div>
 	<?php endif; ?>
 
