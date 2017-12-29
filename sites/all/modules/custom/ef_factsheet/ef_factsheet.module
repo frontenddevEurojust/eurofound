@@ -79,7 +79,7 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		//Set the value to the Province Geolocation Field, The value imports the Nuts taxonomy terms
 		$form['field_address']['und'][0]['additional']['#default_value'] = $location_term_0;
 		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_3 . $nuts_term_2 . $nuts_term_1 . $nuts_term_0 ;
-		
+
     }
 }
 
@@ -125,29 +125,5 @@ function ef_factsheet_form_validate($form, &$form_state) {
 
  	if(intval($restructuring) ==1105 &&  $new_location == NULL) {
 		form_set_error('field_ef_new_location',t('New Location cannot be blank if “offshoring/ delocalisation” is selected in Type of Restructuring '));
-	}
-
-	//Load term Nuts and get de parents
-	$term_tid = $form_state['values']['field_ef_nuts']['und'][0]['tid'];
-	$parent_terms = taxonomy_get_parents_all($term_tid);
-
-	
-	//Search criteria
-	$location_term = $form_state['field_ef_affected_units']['und'][0]['value']['#default_value'];
-
-	$nuts_term_0 = $parent_terms[0]->name;
-	$nuts_term_1 = $parent_terms[1]->name;
-	$nuts_term_2 = $parent_terms[2]->name;
-	$nuts_term_3 = $parent_terms[3]->name;
-
-
-	$address_replace = str_replace(" / ","",$form['field_address']['und'][0]['province']['#value']);
-	$address_replace_v2 = str_replace(" ","",$address_replace);
-	$nuts_replace = str_replace(" / ","",$nuts_term_3.$nuts_term_2.$nuts_term_1.$nuts_term_0);
-	$nuts_replace_v2 = str_replace(" ","",$nuts_replace);
-
-	if($address_replace_v2 !=  $nuts_replace_v2 ) {
-		form_set_error('field_ef_nuts',t('There are different values between Geolocation Map and Nuts. Click "Geocode this address" button to Geolocate the Nuts') );
-	}
-	
+	}	
 }
