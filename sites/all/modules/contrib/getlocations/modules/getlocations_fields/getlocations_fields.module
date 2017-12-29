@@ -4695,8 +4695,10 @@ function theme_getlocations_fields_field_widget_form($variables) {
   }
 
   if ($mapid !== NULL && isset($form['geobutton']) ) {
-    $geobutton = '<p><input type="button" value="' . t('Geocode this address') . '" title="' . t('Get the latitude and longitude for this address') . '" id="getlocations_geocodebutton_' . $mapid . '" class="form-submit" /></p>';
+    $geobutton = '<p><input type="button" value="' . t('Geocode with Nuts values') . '" title="' . t('Get the latitude and longitude for this address') . '" id="getlocations_geocodebutton_' . $mapid . '" class="form-submit" /></p>';
     $form['geobutton']['#markup'] = $geobutton;
+    $latbutton = '<p><input type="button" value="' . t('Geocode with Coordinates') . '" title="' . t('Get the latitude and longitude for this address') . '" id="getlocations_geocodebutton_2" class="form-submit getlocations_geocodebutton_key_2" /></p>';
+    $form['latbutton']['#markup'] = $latbutton;
   }
 
   if ($mapid !== NULL && isset($form['smart_ip_button']) && module_exists('smart_ip')) {

@@ -30,8 +30,7 @@ jQuery( window ).load(function() {
 (function ($) {
   $(document).ready(function(){
 
-    
-
+    //When hover the button we change the value to display none field in the map to geolocate, we complete the field with the nuts values
     $( "#getlocations_geocodebutton_key_1" ).hover(function() {
       if($( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() != '- None -'){
         var $select1 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() + " ";
@@ -64,6 +63,7 @@ jQuery( window ).load(function() {
 
     });
 
+    //When focus the button "Geocode with Nuts values" we change the value to display none field in the map to geolocate, we complete the field with the nuts values
     $( "#getlocations_geocodebutton_key_1" ).focus(function() {
       if($( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() != '- None -'){
         var $select1 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() + " ";
@@ -94,6 +94,25 @@ jQuery( window ).load(function() {
       var $location = $("#edit-field-ef-affected-units-und-0-value").val();
       $("#edit-field-address-und-0-additional").val($location);
 
+    });
+
+
+    //When hover the button "Geocode with Coordenates"  we change the value to display none field in the map to geolocate, we complete the field with the latitude and longitude values
+    $( ".getlocations_geocodebutton_key_2" ).hover(function() {
+        var $latitude = $( "#edit-field-address-und-0-latitude" ).val() + " , ";
+        var $longitude = $( "#edit-field-address-und-0-longitude" ).val();
+        $("#edit-field-address-und-0-province").val($latitude + $longitude);
+    });
+
+    //When focus the button "Geocode with Coordenates"  we change the value to display none field in the map to geolocate, we complete the field with the latitude and longitude values
+    $( ".getlocations_geocodebutton_key_2" ).focus(function() {
+        var $latitude = $( "#edit-field-address-und-0-latitude" ).val() + " ";
+        var $longitude = $( "#edit-field-address-und-0-longitude" ).val();
+        $("#edit-field-address-und-0-province").val($latitude + $longitude);
+    });
+
+    $( ".getlocations_geocodebutton_key_2" ).click(function() {
+        $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     });
 
 

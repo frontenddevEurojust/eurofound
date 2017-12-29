@@ -79,7 +79,7 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		//Set the value to the Province Geolocation Field, The value imports the Nuts taxonomy terms
 		$form['field_address']['und'][0]['additional']['#default_value'] = $location_term_0;
 		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_3 . $nuts_term_2 . $nuts_term_1 . $nuts_term_0 ;
-
+		
     }
 }
 
