@@ -3,10 +3,9 @@
  * @file
  * Default theme file for d3 visualizations.
  */
-dpm($content);
 ?>
 
-<div  class="jm-charts-wrapper ">	
+<div  class="jm-charts-wrapper ">
 
 	<div class="row">
 		<div class="jm-abstract-wrapper small-12 large-9">
@@ -18,7 +17,7 @@ dpm($content);
 		</div>
 		<div class="jm-back-button large-3">
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
-				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>  
+				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>
 			</section>
 		</div>
 	</div>
@@ -54,7 +53,7 @@ dpm($content);
 				    	</select>
 			    	</div>
 			  </fieldset>
-			</form>		
+			</form>
 		</div>
 
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
@@ -71,17 +70,17 @@ dpm($content);
 			<form>
 	  		<fieldset>
 	    		<legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-					<div class="group-filters chart-filters"></div>	
+					<div class="group-filters chart-filters"></div>
 				</fieldset>
-			</form>		
+			</form>
 		</div>
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
 			<div class="chart-wrapper"></div>
-		</div>		
+		</div>
 	</div>
 
 	<?php endif; ?>
-	
+
 	<div class="jm-methodology-wrapper small-12 large-9  push-3">
 		<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
 		<div class="jm-methodology">
