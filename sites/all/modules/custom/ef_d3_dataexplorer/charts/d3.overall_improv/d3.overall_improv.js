@@ -21,14 +21,14 @@
       
     var modalities = overallFunctions.buildModalityOptions(data);
     
-    var select = d3.select('body .chart-wrapper .chart-filters').append('select').property('id', 'modality-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
 
     var options = select
       .selectAll('option')
       .data(modalities).enter()
       .append('option')
-        .text(function (c) { return c.modalityValue; })
-        .property('value',function(c){ return c.modalityCode; });
+        .text(function (c) { console.log(c.modalityValue); return c.modalityValue; })
+        .property('value',function(c){ console.log(c.modalityCode); return c.modalityCode; });
 
     d3.select("#modality-filter").on("change", updateGraph);
   }
@@ -80,7 +80,6 @@
   };
     
   overallFunctions.calculateMaxValue = function (data){
-      
     var maxValue = 0;
     
     var result = data.forEach(function(row, index){
@@ -210,7 +209,7 @@
       var padding = 0;
 
       data = overallFunctions.parseToFloat(csv);
-      
+
       overallFunctions.buildGraphStructure(data);
 
       modalityCode = $('#modality-filter').val();
@@ -224,7 +223,6 @@
         .domain(filteredData.map(function(d) { return d.countryName }))
         .range([0, height])
         .padding(padding);
-
 
       x = d3.scaleLinear()
         .domain([domainMin, domainMax])
