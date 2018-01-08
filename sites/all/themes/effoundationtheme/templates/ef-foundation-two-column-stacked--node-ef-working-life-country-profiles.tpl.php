@@ -202,17 +202,19 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 
 	<div class="section-container section-living-country vertical-tabs row" id="content-tabs-living-country" data-section="vertical-tabs">		
 		<?php for ($i=0; $i < count($content['field_ef_tabs_living_country']['#items']); $i++): ?>
-			<?php if($i == 0): ?>
-			<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?> active">
-			<?php else: ?>
-			<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?>">
+			<?php if(isset($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])): ?>
+				<?php if($i == 0): ?>
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?> active">
+					<?php else: ?>
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?>">
+					<?php endif; ?>
+						<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h2>
+						<div class="content" data-section-content>
+							<p class="subtitle"><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?><p>
+							<?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_body_living_tabs']['und'][0]['value']); ?>
+						</div>
+					</section>
 			<?php endif; ?>
-				<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h2>
-				<div class="content" data-section-content>
-					<p class="subtitle"><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?><p>
-					<?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_body_living_tabs']['und'][0]['value']); ?>
-				</div>
-			</section>
 		<?php endfor; ?>
 	</div>
 </div>

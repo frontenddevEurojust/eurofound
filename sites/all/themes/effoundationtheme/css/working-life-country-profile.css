@@ -34,6 +34,7 @@ h1.title-working-life {
   right: 5.6em;
   top: 2.35em;
 }
+
 .section-country .print-pdf-wrapper{
   width: 100%;
   text-align: right;
@@ -48,9 +49,10 @@ h1.title-working-life {
   top:0;
   z-index: 10;
 }
-a.print-pdf span{
+.content-living-country .print-pdf-wrapper .print-pdf > span{
   position: absolute;
-  top: -90000px;
+  top: -9999px;
+  left: -9999px;
 }
 
 ul.list-metadata{
@@ -486,6 +488,7 @@ h1.title-working-life .fa{
 #ef-working-life-country-profiles-node-form span.field-edit-link{
   display:none;
 }
+
 
 
 #content-tabs-living-working {
