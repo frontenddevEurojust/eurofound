@@ -1325,3 +1325,15 @@ $(document).ready(function(){
   });
 })(jQuery);
 /** END BREADCRUMBS FOR country profile **/
+
+
+/** DATA AND RESOURCES LANDING PAGE**/
+(function ($) {
+  $(document).ready(function(){
+    $('.vcard p a').parent().addClass('see-more');
+    $('.vcard-img p a').parent().addClass('see-more');
+    $('.hcard-img p a').parent().addClass('see-more');
+    
+  });
+})(jQuery);
+/** END DATA AND RESOURCES LANDING PAGE **/
