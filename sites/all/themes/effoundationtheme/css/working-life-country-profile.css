@@ -34,6 +34,7 @@ h1.title-working-life {
   right: 5.6em;
   top: 2.35em;
 }
+
 .section-country .print-pdf-wrapper{
   width: 100%;
   text-align: right;
@@ -48,7 +49,11 @@ h1.title-working-life {
   top:0;
   z-index: 10;
 }
-
+.content-living-country .print-pdf-wrapper .print-pdf > span{
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
 
 ul.list-metadata{
   font-size: 11px;
@@ -195,6 +200,9 @@ ul.list-metadata li > ul li:first-child:before{
   color: #F58020;
   margin-right: 5px;
   font-size: 22px;
+}
+.section-living-working h3 i{
+  display: none;
 }
 .section-living-working .active i {
   color:#005baa;
@@ -404,7 +412,7 @@ h1.title-working-life .fa{
     cursor: pointer;
     background-color: #fff!important;
     color: #005baa;
-    padding: 15px!important;
+    padding: 20px 10px!important;
     margin: 0 !important;
     width: 25% !important;
     text-align: left;
@@ -482,6 +490,7 @@ h1.title-working-life .fa{
 }
 
 
+
 #content-tabs-living-working {
   /*background-color: #E3E3E3 !important;
   border: 1px solid #ccc;*/
@@ -522,7 +531,22 @@ h1.title-working-life .fa{
 .news-and-quartely-country-updates i{
   margin-right: 9px;
 }
-
+  .quarterly-overviews {
+    width: 100%;
+  }
+  .quarterly-overviews h3 {
+    margin-top: 1rem !important;
+  }
+  .quarterly-overviews .view-content{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .quarterly-overviews .view-content > div{
+    display: inline-block;
+    float: left;
+    width: 46%;
+    margin-right: 2%;
+  }
 /** end working life country profiles **/
 
 
@@ -554,11 +578,16 @@ h1.title-working-life .fa{
     outline: 0 !important;
     border: 0px !important;
   }
+  #content-tabs-living-working > section.active > .title {
+    background-color: #f9f9f9 !important;
+    width: 25.2% !important;
+  }
+
   .section-living-working i {
     color: #F58020;
     margin-right: 5px;
     font-size: 22px;
-    height: 2.5rem;
+    height: 3.5rem;
     display: inline-block;
     float: left;
   }
@@ -576,6 +605,7 @@ h1.title-working-life .fa{
   .quarterly-overviews .view-content{
     column-count: 2;
   }
+
   section .small-12.large-6 {
     width: 100% !important;
     border-bottom: 1px dotted #ccc;
@@ -587,8 +617,14 @@ h1.title-working-life .fa{
   }
 }
 
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
-
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  #content-tabs-living-working .small-12.large-4.column{
+    width: 100%;
+    text-align: center;
+  }
+  .quarterly-overviews .view-content > div {
+    width: 100%;
+  }
 }
 @media only screen and (max-width : 767px) { 
 
@@ -611,7 +647,14 @@ h1.title-working-life .fa{
   .section-working-life-country-profile section{
     clear: both;
   }
+  #content-tabs-living-working > section.survey-results >.content {
+    text-align: center;
+  }
   #content-tabs-living-working > section.active > .title {
+    background-color: #E9E9E9  !important;
+    width:100% !important;
+  }
+  #content-tabs-living-working > section.active > .title.active {
     background-color: #f2f2f2 !important;
     width:100% !important;
   }
@@ -657,11 +700,27 @@ h1.title-working-life .fa{
   .section-living-working{
     border: 0;
   }
+  .quarterly-overviews .view-content > div {
+    width: 100%;
+  }
+  .section-container.accordion, .section-container.auto, .section-container.horizontal-nav, .section-container.vertical-nav, .section-container.vertical-tabs {
+    border-top: 0px solid #ccc;
+  }
   .section-container.vertical-tabs > section > .title {
     border:none !important;
-  }
+  }  
   #content-tabs-living-working > section > .title {
     border: 1px solid #ccc !important;
+  }
+  .section-container.vertical-tabs > section.active > .title {
+    background-color: #FFF !important;
+    -webkit-transition: all 0.8s; /* Safari */
+    transition: all 0.8s;
+  }
+  .section-container.vertical-tabs > section.active > .title.active {
+    background-color: #f2f2f2 !important;
+    -webkit-transition: all 0.8s; /* Safari */
+    transition: all 0.8s;
   }
   .section-container.vertical-tabs > section{
     position: relative;
@@ -687,6 +746,9 @@ h1.title-working-life .fa{
   }
   .section-container.vertical-tabs > section > h2.title.active:after {
      content: "\f106" !important; 
+  }
+  .section-country .print-pdf-wrapper {
+    display: none;
   }
   .eurostat-result {
     background: #f2f2f2;
@@ -718,6 +780,7 @@ h1.title-working-life .fa{
   section.l-featured.row {
     display: none;
   }
+
   h1.title.secundary {
   margin: 0 !important;
   padding: 0 !important;
@@ -730,9 +793,9 @@ h1.title-working-life .fa{
   margin: 0;
   padding:10px !important;
   border: 1px solid #ccc;
-  float: none;
-  margin: 4rem auto 1rem !important;
-  width: 90% !important;
+  float: left;
+  margin: 2rem auto 2rem !important;
+  width: 100% !important;
   clear: both !important;
 }
   .eurostat-result ul {
@@ -782,6 +845,20 @@ h1.title-working-life .fa{
 }
 .field-name-field-ef-country-main-figure img {
   width: auto;
+}
+#content-tabs-living-working>section {
+  padding-left: 0;
+}
+#content-tabs-living-working > section.active > .title, 
+#content-tabs-living-working > section > .title  {
+  background-color: #FFF !important;
+  width: 100% !important;
+  border: none;
+}
+#content-tabs-living-working>section>.content {
+  background-color: #FFF!important;
+  border: none;
+  width: 100%;
 }
 .section-container.vertical-tabs {
   border: none;
@@ -833,6 +910,7 @@ h1.title-working-life .fa{
     font-size: 0.9em;
 
   }
+  .section-living-country>section>.content, 
   .section-living-working>section>.content, 
   .section-working-life-country-profile>section>.content{
     display: block !important;
@@ -842,6 +920,7 @@ h1.title-working-life .fa{
   .latest-news-working-life {
     border-right:none;
   }
+  .section-living-country>section p.subtitle, 
   .section-living-working>section p.subtitle, 
   .section-working-life-country-profile>section p.subtitle{
     font-size: 22px !important;

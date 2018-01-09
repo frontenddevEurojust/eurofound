@@ -13,6 +13,19 @@
     <?php endif; ?>
     <?php //print $css; ?>
 
+<?php   $section = $_GET["section"];
+ if ($section == 1): ?>
+  <style>
+  .content-living-working, 
+  .content-working-life, 
+  h1.title, 
+  a.print-pdf, 
+  .intro-text{
+    display: none !important;
+  }
+  </style>
+<?php endif ?>
+
 
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/effoundationtheme.css" />
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/ef.css" />
@@ -23,9 +36,10 @@
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/responsive.css" />
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/print-browser.css" media="all"  />
 
+
+
   </head>
   <body>
-
     <?php if (!empty($message)): ?>
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>

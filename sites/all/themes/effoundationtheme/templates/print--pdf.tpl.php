@@ -660,6 +660,35 @@ word-break: break-all;
 /** end working life countri profile **/
 
 </style>
+<?php   $section = $_GET["section"];
+ if ($section == 1): ?>
+  <style>
+  .content-living-working, 
+  .content-working-life, 
+  h1.title, 
+  a.print-pdf{
+    display: none !important;
+  }
+  .section-living-country>section>.content, 
+  .section-living-working>section>.content, 
+  .section-working-life-country-profile>section>.content{
+    display: block !important;
+    border: 0 !important;
+    margin: 0 !important;
+  }
+  .section-living-country>section p.subtitle, 
+  .section-living-working>section p.subtitle, 
+  .section-working-life-country-profile>section p.subtitle{
+    font-size: 22px !important;
+    font-family: OpenSans-semibold-webfont;
+    margin-bottom: 15px;
+    clear: both !important;
+  }
+  .intro-text{
+    display: none !important;
+  }
+  </style>
+<?php endif ?>
   </head>
   <body>
 
