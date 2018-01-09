@@ -13,3 +13,69 @@ function ef_contract_install() {
     ->condition('name', 'ef_contract', '=')
     ->execute();
 }
+
+/**
+ * Implements hook_update_N()
+ *
+ * Performs all the needed changes for the new NEC framework
+ */
+function ef_contract_update_7001() {
+	//First, we need to create a new vocabulary
+	//for the Service Types with the following settings.
+  $service_types = array(
+    'name' => 'Service types',
+    'machine_name' => 'ef_service_types',
+    'description' => 'Service types for contracts',
+    'hierarchy' => 0,
+    'module' => 'ef_contract',
+  );
+  //Array to object
+  $vocabulary = (object) $service_types;
+  //Save object as a new vocabulary
+  taxonomy_vocabulary_save($vocabulary);
+
+  //Then we need the Vocabulary ID to save the new terms
+  $st_taxonomy = taxonomy_vocabulary_machine_name_load('ef_service_types');
+
+  echo $st_taxonomy->vid;
+
+  //And these are the terms we need to save
+  $service_types = array(
+    'Scheduled reporting service',
+    'On-request reporting service',
+  );
+
+  //Using taxonomy_term_save
+  foreach ($service_types as $key => $value) {
+  	$term = new stdClass();
+  	$term->name = $value;
+  	$term->vid = $st_taxonomy->vid;
+  	taxonomy_term_save($term);
+  }
+
+	//And we need to add the new deliverable kinds
+	$new_deliverable_kinds = array(
+		"Country update on latest developments in working life",
+		"Contribution to topical updates",
+		"Contribution to EurWORK'S annual review of working life",
+		"EurWORK'S Working life country profile - update",
+		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update",
+		"Update of a database of national contacts",
+		"Annual Progress Report",
+		"Questionnaire based national contribution to comparative work",
+		"Questionnaire based national contribution to sectoral representativeness studies",
+		"Provision of ERM factsheets",
+		"ERM database on support instruments - 1 instrument update",
+		"ERM database on restructuring related legislation - 1 regulation update",
+		"Update of the link collection of the national media sources used for identifying restructuring events",
+		"On-demand service",
+	);
+
+	//Using taxonomy_term_save again 
+  foreach ($new_deliverable_kinds as $key => $value) {
+  	$term = new stdClass();
+  	$term->name = $value;
+  	$term->vid = 53;
+  	taxonomy_term_save($term);
+  }
+}
