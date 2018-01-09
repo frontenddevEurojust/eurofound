@@ -51,6 +51,44 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		    	
 		    );
 		}
+
+
+		//Load term Nuts and get de parents
+		$term_tid = $form['field_ef_nuts']['und'][0]['tid']['#default_value'];
+		$parent_terms = taxonomy_get_parents_all($term_tid);
+
+		
+		//Search criteria
+		$location_term = $form['field_ef_affected_units']['und'][0]['value']['#default_value'];
+
+		$nuts_term_0 = $parent_terms[0]->name;
+		$nuts_term_1 = $parent_terms[1]->name;
+		$nuts_term_2 = $parent_terms[2]->name;
+		$nuts_term_3 = $parent_terms[3]->name;
+
+		if (!empty($location_term)){
+			$location_term_0 = $location_term;
+		}
+
+		if (!empty($parent_terms[0]->name)){
+			$nuts_term_0 = ' / ' . $parent_terms[0]->name;
+		}
+
+		if (!empty($parent_terms[1]->name)){
+			$nuts_term_1 = ' / ' . $parent_terms[1]->name;
+		}
+
+		if (!empty($parent_terms[2]->name)){
+			$nuts_term_2 = ' / ' . $parent_terms[2]->name;
+		}
+
+		if (!empty($parent_terms[3]->name)){
+			$nuts_term_3 =  ' / ' . $parent_terms[3]->name;
+		}
+
+		//Set the value to the Province Geolocation Field, The value imports the Nuts taxonomy terms
+		$form['field_address']['und'][0]['additional']['#default_value'] = $location_term_0;
+		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_3 . $nuts_term_2 . $nuts_term_1 . $nuts_term_0 ;
     }
 }
 
@@ -79,8 +117,7 @@ function ef_factsheet_form_validate($form, &$form_state) {
 				$form_state['rebuild'] = TRUE;
 
 			}
-
-	}
+		}
 	}
 
 	if(($min_jobs!=0)){
@@ -112,6 +149,4 @@ function ef_factsheet_form_validate($form, &$form_state) {
 	if (!is_numeric($egf_code) && !empty($egf_code)) {
 		form_set_error('field_egf_code',t('Only numbers are allowed in EGF Code,'));
 	}
-
-	
 }

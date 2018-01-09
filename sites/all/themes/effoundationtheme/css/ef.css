@@ -13159,3 +13159,72 @@ p.view-empty.error-msg:before{
 #views-dynamic-fields-filters-table-sort tr:nth-child(1){
 	display:table-row !important;
 }
+
+/*Geolocation tootip*/
+
+h4.title-tooltip-geolocation{
+    border-bottom: 1px dotted #999;
+    margin-bottom: 0;
+    padding-left: 12px;
+    padding-bottom: 1em;
+    background: url('../images/arrowRight.png') 0px 7px transparent no-repeat;
+
+}
+
+h4.title-tooltip-geolocation a{
+    color:#222;
+    font-size: 1.4375em;
+}
+
+h4.title-tooltip-geolocation a:hover{
+	text-decoration: underline;
+}
+
+.leaflet-popup-content{
+	color:black;
+	line-height: 20px;
+}
+
+.leaflet-popup-content-wrapper{
+	border-radius: 5px;
+}
+
+.ef-main .leaflet-container img{
+	outline-width: 0px!important;
+}
+
+.leaflet-container .creation{
+	background-color: #68A361;
+    color: #fff;
+    margin-left: 5px;
+    padding: 2px 10px;
+}
+
+.leaflet-container .creation:after{
+	content: "\e619";
+	font-family: 'ef-icon-font';
+}
+
+
+.leaflet-container .reductions{
+	background-color: #BA2B01;
+    color: #fff;
+    margin-left: 5px;
+    padding: 2px 10px;
+}
+
+.leaflet-container .reductions:after{
+	content: "\e61c";
+	font-family: 'ef-icon-font';
+}
+
+.view-factsheet-geolocation-view{
+	padding-top: 1em;
+}
+
+.content-view-factsheets{
+	padding-top: 2em;
+}
+
+/* View factsheet */
+>>>>>>> 2ea3ec13bb19c6494eba24083f80319c3e53d559

@@ -679,12 +679,14 @@
 		}
 
 		function applyFooterDiv(){
-			if ($(".pagination-centered").length) {
-				$(".ef-main .view-content").first().after("<div class='view-footer-wrapper'></div>");
-				$(".view-footer-wrapper").prepend($(".view-footer"));
-				$(".view-footer-wrapper").prepend($(".pagination-centered"));
-				//$(".view-footer-wrapper").prepend($(".view h2"));
-			}
+      if (!$(".page-observatories-emcc .view").hasClass("view-factsheet-geolocation-view")) {
+  			if ($(".pagination-centered").length) {
+  				$(".ef-main .view-content").first().after("<div class='view-footer-wrapper'></div>");
+  				$(".view-footer-wrapper").prepend($(".view-footer"));
+  				$(".view-footer-wrapper").prepend($(".pagination-centered"));
+  				//$(".view-footer-wrapper").prepend($(".view h2"));
+  			}
+      }
 		}
 
 		function addFlags(){

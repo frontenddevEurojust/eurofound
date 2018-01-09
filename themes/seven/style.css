@@ -1019,3 +1019,90 @@ div.add-or-remove-shortcuts {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
+
+
+/* Geolocation CSS backend - Two columns */
+
+.field-type-getlocations-fields fieldset .form-type-textfield{
+  float: left;
+  clear: both;
+}
+
+.field-type-getlocations-fields fieldset  .form-submit{
+  float: left;
+  clear: both;
+}
+
+.getlocations_fields_map_wrapper{
+    float: right;
+    clear: both;
+    position: absolute;
+    margin-left: 527px;
+    width: 50%;
+}
+
+.form-item-field-address-und-0-province label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-province label:before{
+  content:'/ Country / Nuts-3 / Nuts-2 / Nuts-1';
+  visibility: visible;
+}
+
+.form-item-field-address-und-0-additional label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-additional label:before{
+  content:'Additional Information';
+  visibility: visible;
+}
+
+.getlocations_fields_latlon_wrapper{
+  clear: both;
+}
+
+
+.getlocations_fields_marker_wrapper{
+  display: none;
+}
+
+#message-location{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    display: block;
+    padding: 1em;
+    width: 372px;
+    margin-bottom: 1.5em;
+    float: left;
+}
+
+.getlocations_fields_map_wrapper p{
+  margin: 0;
+}
+
+.getlocations_fields_map{
+  margin-top: 1em;
+}
+
+.form-item-field-address-und-0-delete-location{
+  float: left;
+}
+
+.form-item-field-address-und-0-delete-location .description{
+  margin-left: 0 !important;
+}
+
+.field-type-getlocations-fields .fieldset-wrapper{
+  height: 362px;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-additional{
+  display: none;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-province{
+  display: none;
+}
