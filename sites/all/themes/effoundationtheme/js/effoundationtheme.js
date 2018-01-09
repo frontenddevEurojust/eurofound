@@ -1302,9 +1302,8 @@ $(document).ready(function(){
     if($( '> ul',this ).attr('class') == undefined){
        var classLinkMenu = $( '> a',this ).attr('class');
        $( '> a',this ).attr('class',classLinkMenu + ' noSubmenu');
-    }
-  
-});
+    }  
+  });
 
   });
 })(jQuery);
@@ -1333,6 +1332,47 @@ $(document).ready(function(){
     $('.vcard p a').parent().addClass('see-more');
     $('.vcard-img p a').parent().addClass('see-more');
     $('.hcard-img p a').parent().addClass('see-more');
+
+
+  var longText = 400;
+  $('.vcard p').each(function( index ) {
+    if($(this).attr('class') != 'see-more'){
+      $(this).addClass('content-vcard');
+      var textEllipsis = $('.vcard .content-vcard').text().length;
+      if(textEllipsis >= longText){
+        $(this).text($(this).text().slice(0, longText) + '...'); 
+      }
+    }
+  });
+
+
+ $('.vcard.img-only').each(function( index ) {
+
+  var srcImg = $(this).find('img').attr('src');
+  $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
+  $('img', this).css('display','none');
+  //$('.content-vcard', this).css('display','none');
+
+ });
+
+
+
+
+
+
+    $( "p.see-more" ).hover(function() {
+      var contCard = $(this).parent().parent();      
+      if(contCard.find('img').length == 1){
+        contCard.addClass('showtitle');
+      }
+    });
+
+    $( "p.see-more" ).mouseout(function() {
+      var contCard = $(this).parent().parent();      
+      if(contCard.find('img').length == 1){
+        contCard.removeClass('showtitle');
+      }
+    });
     
   });
 })(jQuery);
