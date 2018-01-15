@@ -12,6 +12,55 @@
       return row.modalityCode == modality && row.subgroupCode == subgroup && row.genderCode == gender;
     });
 
+    var sort = d3.select('#sort-filter').property("value");
+
+    if (sort == 1 || sort == 2) {
+      sort == 1 ? order = d3.ascending : order = d3.descending;
+      var filteredKeyed = d3.nest()
+        .key(function(d) { return d.countryName; }).sortKeys(order)
+        .entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { return a.values[0];});
+    }
+
+    if (sort == 3) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
+        return Math.abs(Math.round(b.dot2)) < Math.abs(Math.round(d.dot2));
+      });
+      
+      filtered = byMinValue;
+    }
+
+    if (sort == 4) {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b) {
+        return Math.abs(Math.round(b.dot2)) > Math.abs(Math.round(d.dot2));
+      });
+      
+      filtered = byMaxValue;
+    }
+
+    if (sort == 5) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(Math.round(d.dot1) - Math.round(d.dot2)) - Math.abs(Math.round(b.dot1) - Math.round(b.dot2));
+      });
+      
+      filtered = byValueGap;
+    }
+
+    if (sort == 6) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(Math.round(b.dot1) - Math.round(b.dot2)) - Math.abs(Math.round(d.dot1) - Math.round(d.dot2));
+      });
+      
+      filtered = byValueGap;
+    }
+
+    console.log(filtered);
+
     return filtered;
   }
 
@@ -62,6 +111,23 @@
 
     d3.select("#gender-filter").on("change", updateGraph);
   }
+
+  var createOrderingFilter = function() {
+    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
+
+    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
+
+    var options = select
+      .selectAll('option')
+      .data(alphaSort)
+      .enter()
+      .append('option')
+        .text(function (d, i) { return d; })
+        .property('value',function(d, i){ return i; });
+
+    d3.select("#sort-filter").on("change", updateGraph);
+  }
+
 
   var buildModalityOptions = function(data){
 
@@ -189,6 +255,8 @@
     createSubgroupFilter(csv);
     $('.chart-filters').append('<label for="gender-filter">Gender:</label>');
     createGenderFilter(csv);
+    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    createOrderingFilter();
   };
 
   var axisLinePath = function(d) {
@@ -222,6 +290,18 @@
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(calculateMinValue(filteredData) - 1);
 
+    var padding = 0;
+
+    d3.selectAll("g.tick")
+      .remove();
+
+    y = d3.scaleBand()
+      .domain(filteredData.map(function(d) { return d.countryName }))
+      .range([0, height])
+      .padding(padding);
+
+    yAxis = d3.axisLeft().scale(y)
+      .tickSize(0);
 
     x.domain([domainMin, domainMax])
       .range([0, width])
@@ -235,13 +315,16 @@
         }
     });
   
-
     // Select the section we want to apply our changes to
     var svg = d3.select("body .chart-wrapper");
 
     svg.select(".x-axis")
       .transition().duration(750)
       .call(xAxis);
+
+    svg.select(".y-axis")
+      .transition().duration(750)
+      .call(yAxis)
 
     // Move x-axis lines
     d3.selectAll("path.grid-line")
@@ -327,6 +410,51 @@
         "lollipop-start": "min",
         "lollipop-end": "max",
       }
+
+      // Will be created using texts excel data
+      var legendLabels = [
+        {label: "At least several times a month (%) - 2007", class: "lollipop-start"},
+        {label: "At least several times a month (%) - 2016", class: "lollipop-end"},
+      ];
+      
+      var padding = 0;
+
+      // code for positioning legend
+      var legend = svg.append("g")
+        .attr("class","legend-group");
+
+
+      var legendX = -100;
+      var legendY = height + 50;
+      var spaceBetween = 320;
+      
+      var legendPosition = {
+        x: legendX + 70,
+        y: legendY - 4
+      };
+
+      // add labels
+      legend.selectAll("text")
+        .data(legendLabels)
+        .enter().append("text")
+        .attr("class","legend-text")
+        .attr("x", function(d, i) {
+          return legendPosition.x + spaceBetween * i + 10;
+        })  
+        .attr("y", legendPosition.y + 4)
+        .text(function(d) { return d.label });
+
+      // add circles
+      legend.selectAll("circle")
+        .data(legendLabels) 
+        .enter().append("circle")
+        .attr("class","legend-point")
+        .attr("cx", function(d, i) {
+          return legendPosition.x + spaceBetween * i;
+        })  
+        .attr("cy", legendPosition.y)
+        .attr("r", 5)
+        .attr("class", function(d) { return d.class });
       
       var padding = 0;
 
@@ -340,7 +468,6 @@
       
       var filteredData = filterData(data, modalityCode, subgroupCode, genderCode);
 
-
       var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
       var domainMin = Math.round(calculateMinValue(filteredData) - 1);
       
@@ -348,7 +475,6 @@
         .domain(filteredData.map(function(d) { return d.countryName }))
         .range([0, height])
         .padding(padding);
-
 
       x = d3.scaleLinear()
         .domain([domainMin, domainMax])
@@ -377,13 +503,6 @@
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
         .call(xAxis);
-      
-      xAxisGroup.append("text")
-        .attr("class", "x-title")
-        .attr("x", 0)
-        .attr("y",-margin.top/2)
-        .text("Work-life")
-        .attr("fill", "black");
       
       lineGenerator = d3.line();
 
@@ -422,7 +541,7 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
+          tip.show(Math.round(d.dot1) + " " + d.countryName);
           // Reset top for Firefox as onepage framework changes top values
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })

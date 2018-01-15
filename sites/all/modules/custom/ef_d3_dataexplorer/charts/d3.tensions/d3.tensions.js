@@ -12,6 +12,73 @@
       return row.modalityCode == modality && row.subgroupCode == subgroup;
     });
 
+    var sort = d3.select('#sort-filter').property("value");
+
+    if (sort == 1 || sort == 2) {
+      sort == 1 ? order = d3.ascending : order = d3.descending;
+      var filteredKeyed = d3.nest()
+        .key(function(d) { return d.countryName; }).sortKeys(order)
+        .entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { return a.values[0];});
+    }
+
+    if (sort == 3) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
+        return d.dot2 - b.dot2;
+      });
+      
+      filtered = byMinValue;
+    }
+
+    if (sort == 4) {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b) {
+        return b.dot2 - d.dot2;
+      });
+      
+      filtered = byMaxValue;
+    }
+
+    if (sort == 5) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(Math.round(d.dot1) - Math.round(d.dot3)) - Math.abs(Math.round(b.dot1) - Math.round(b.dot3));
+      });
+      
+      filtered = byValueGap;
+    }
+
+    if (sort == 6) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(Math.round(b.dot1) - Math.round(b.dot3)) - Math.abs(Math.round(d.dot1) - Math.round(d.dot3));
+      });
+      
+      filtered = byValueGap;
+    }
+
+    if (sort == 7) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return (d.dot2 - d.dot3) - (b.dot2 - b.dot3);
+      });
+      
+      filtered = byValueGap;
+    }
+
+    if (sort == 8) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return (b.dot2 - b.dot3) - (d.dot2 - d.dot3);
+      });
+      
+      filtered = byValueGap;
+    }
+
+    console.log(filtered);
+
     return filtered;
   }
 
@@ -45,6 +112,31 @@
         .property('value',function(c){ return c.subgroupCode; });
 
     d3.select("#subgroup-filter").on("change", updateGraph);
+  }
+
+  var createOrderingFilter = function() {
+    var alphaSort = ["- None -",
+    "Alphabetically ascending",
+    "Alphabetically descending",
+    "By value ascending",
+    "By value descending",
+    "By value gap (2007-2016) ascending",
+    "By value gap (2007-2016) descending",
+    "By value gap (2011-2016) ascending",
+    "By value gap (2011-2016) descending"
+    ];
+
+    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
+
+    var options = select
+      .selectAll('option')
+      .data(alphaSort)
+      .enter()
+      .append('option')
+        .text(function (d, i) { return d; })
+        .property('value',function(d, i){ return i; });
+
+    d3.select("#sort-filter").on("change", updateGraph);
   }
 
   var buildModalityOptions = function(data){
@@ -148,6 +240,8 @@
     createModalityFilters(csv);
     $('.chart-filters').append('<label for="subgroup-filter">Group:</label>');
     createSubgroupFilters(csv);
+    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    createOrderingFilter();
   };
 
   var axisLinePath = function(d) {
@@ -186,6 +280,19 @@
 
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
 
+    d3.selectAll("g.tick")
+      .remove();
+
+    padding = 0;
+
+    y = d3.scaleBand()
+      .domain(filteredData.map(function(d) { return d.countryName }))
+      .range([0, height])
+      .padding(padding);
+
+    yAxis = d3.axisLeft().scale(y)
+      .tickSize(0);
+
     x.domain([domainMin, domainMax])
       .range([0, width])
       .nice();
@@ -204,7 +311,11 @@
     
     svg.select(".x-axis")
       .transition().duration(750)
-      .call(xAxis);  
+      .call(xAxis);
+
+    svg.select(".y-axis")
+      .transition().duration(750)
+      .call(yAxis);
 
     // Move x-axis lines
     d3.selectAll("path.grid-line")
@@ -351,8 +462,8 @@
       // Will be created using texts excel data
       var legendLabels = [
         {label: "Perception of 'a lot' of tension (%) - 2007", class: "lollipop-start"},
-        {label: "Perception of 'a lot' of tension (%) - 2011", class: "lollipop-median"}, 
-        {label: "Perception of 'a lot' of tension (%) - 2016", class: "lollipop-end"},
+        {label: "Perception of 'a lot' of tension (%) - 2011", class: "lollipop-end"}, 
+        {label: "Perception of 'a lot' of tension (%) - 2016", class: "lollipop-median"},
       ];
       
       var padding = 0;
@@ -362,9 +473,9 @@
         .attr("class","legend-group");
 
 
-      var legendX = width / 2 - 180;
-      var legendY = -50;
-      var spaceBetween = 100;
+      var legendX = -200;
+      var legendY = height + 50;
+      var spaceBetween = 300;
       
       var legendPosition = {
         x: legendX + 70,
@@ -445,13 +556,6 @@
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
         .call(xAxis);
-      
-      xAxisGroup.append("text")
-        .attr("class", "x-title")
-        .attr("x", 0)
-        .attr("y",-margin.top/2)
-        .text("Tensions")
-        .attr("fill", "black");
       
       lineGenerator = d3.line();
        
@@ -536,10 +640,7 @@
             $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
           });
 
-        
-
-      
-      var endCircles = lollipops.append("circle")
+        var endCircles = lollipops.append("circle")
           .attr("r", function(d){
             return circleRadio;           
           })
@@ -566,7 +667,45 @@
             // Reset top for Firefox as onepage framework changes top values
             $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
           });
-        
+
+      //Recogemos las variables de la URL
+      $.get = function(key)   {  
+          key = key.replace(/[\[]/, '\\[');  
+          key = key.replace(/[\]]/, '\\]');  
+          var pattern = "[\\?&]" + key + "=([^&#]*)";  
+          var regex = new RegExp(pattern);  
+          var url = unescape(window.location.href);  
+          var results = regex.exec(url);  
+          if (results === null) {  
+              return null;  
+          } else {  
+              return results[1];  
+          }  
+      } 
+
+      $('select').on('change', function () {
+          var valOption = $(this).val();
+          var nameVar = $(this).attr('id');
+
+          if (valOption) { 
+            if(! document.location.search){
+              history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+                
+              }else{              
+
+                if(document.location.search.indexOf(nameVar) > 0){
+                  // reemplazamos la variable de la URL con la nueva
+                  var newVarString = document.location.search.replace(nameVar+'='+$.get(nameVar),nameVar +'=' + valOption )
+                  history.pushState(null, "",  window.location.pathname + newVarString );
+                }else{
+                  history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+                }
+
+              }              
+          }
+          return false;
+      });
+       
       
     });
   });
