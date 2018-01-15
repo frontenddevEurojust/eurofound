@@ -230,7 +230,9 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 	<!--<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>-->
 	<?php if(isset($subtitle)): ?>
 		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
-		<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
+		<div class="print-pdf-wrapper">
+			<a href="<?php echo  $pdf_link; ?>?section=2" class="print-pdf" target="_blank"><span>Print pdf</span></a>
+		</div>
 	<?php endif; ?>
 
 	<?php if(isset($author) || isset($publishedon) || isset($institution)): ?>
