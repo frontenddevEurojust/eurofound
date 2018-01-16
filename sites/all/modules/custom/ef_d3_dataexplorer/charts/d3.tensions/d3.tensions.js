@@ -5,14 +5,22 @@
     return (array.indexOf(variable) > -1);
   }
 
-  var filterData = function(data, modality, subgroup)
+  var getParameterByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  var filterData = function(data, modality, subgroup, sort)
   {
 
     var filtered = data.filter(function(row){
       return row.modalityCode == modality && row.subgroupCode == subgroup;
     });
-
-    var sort = d3.select('#sort-filter').property("value");
 
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
@@ -77,8 +85,6 @@
       filtered = byValueGap;
     }
 
-    console.log(filtered);
-
     return filtered;
   }
 
@@ -115,15 +121,16 @@
   }
 
   var createOrderingFilter = function() {
-    var alphaSort = ["- None -",
-    "Alphabetically ascending",
-    "Alphabetically descending",
-    "By value ascending",
-    "By value descending",
-    "By value gap (2007-2016) ascending",
-    "By value gap (2007-2016) descending",
-    "By value gap (2011-2016) ascending",
-    "By value gap (2011-2016) descending"
+    var alphaSort = [
+      "- None -",
+      "Alphabetically ascending",
+      "Alphabetically descending",
+      "By value ascending",
+      "By value descending",
+      "By value gap (2007-2016) ascending",
+      "By value gap (2007-2016) descending",
+      "By value gap (2011-2016) ascending",
+      "By value gap (2011-2016) descending"
     ];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
@@ -267,10 +274,11 @@
 
   function updateGraph(){
 
-    var modalityCode = $('#modality-filter').val();
-    var subgroupCode = $('#subgroup-filter').val();
+    var modalityCode = d3.select('#modality-filter').property("value");
+    var subgroupCode = d3.select('#subgroup-filter').property("value");
+    var order = d3.select('#sort-filter').property("value");
 
-    var filteredData = filterData(data, modalityCode, subgroupCode);
+    var filteredData = filterData(data, modalityCode, subgroupCode, order);
 
     if (calculateMinValue(filteredData) == 0){
       var domainMin = Math.round(calculateMinValue(filteredData));
@@ -510,10 +518,19 @@
 
       buildGraphStructure(data);
 
-      var modalityCode = $('#modality-filter').val();
-      var subgroupCode = $('#subgroup-filter').val();
-      
-      var filteredData = filterData(data, modalityCode, subgroupCode);
+      var modalityCode = getParameterByName('modality-filter');
+      var subgroupCode = subgroupCode = getParameterByName('subgroup-filter');
+      var order = getParameterByName('sort-filter');
+
+      if (modalityCode == null) modalityCode = 1;
+      if (subgroupCode == null) subgroupCode = 1;
+      if (order == null) order = 0;
+
+      d3.select('#modality-filter').property('value', modalityCode);
+      d3.select('#subgroup-filter').property('value', subgroupCode);
+      d3.select('#sort-filter').property('value', order);
+
+      var filteredData = filterData(data, modalityCode, subgroupCode, order);
 
       if (calculateMinValue(filteredData) == 0){
         var domainMin = Math.round(calculateMinValue(filteredData));
@@ -668,46 +685,27 @@
             $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
           });
 
-      //Recogemos las variables de la URL
-      $.get = function(key)   {  
-          key = key.replace(/[\[]/, '\\[');  
-          key = key.replace(/[\]]/, '\\]');  
-          var pattern = "[\\?&]" + key + "=([^&#]*)";  
-          var regex = new RegExp(pattern);  
-          var url = unescape(window.location.href);  
-          var results = regex.exec(url);  
-          if (results === null) {  
-              return null;  
-          } else {  
-              return results[1];  
-          }  
-      } 
-
       $('select').on('change', function () {
-          var valOption = $(this).val();
-          var nameVar = $(this).attr('id');
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('id');
 
-          if (valOption) { 
-            if(! document.location.search){
-              history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
-                
-              }else{              
-
-                if(document.location.search.indexOf(nameVar) > 0){
-                  // reemplazamos la variable de la URL con la nueva
-                  var newVarString = document.location.search.replace(nameVar+'='+$.get(nameVar),nameVar +'=' + valOption )
-                  history.pushState(null, "",  window.location.pathname + newVarString );
-                }else{
-                  history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
-                }
-
-              }              
+        if (valOption) { 
+          if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
           }
-          return false;
+          else {              
+            if(document.location.search.indexOf(nameVar) > 0){
+              // reemplazamos la variable de la URL con la nueva
+              var newVarString = document.location.search.replace(nameVar+'='+getParameterByName(nameVar),nameVar + '=' + valOption )
+              history.pushState(null, "",  window.location.pathname + newVarString );
+            }
+            else {
+              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+            }
+          }              
+        }
+        return false;
       });
-       
-      
     });
   });
-
 })(jQuery);

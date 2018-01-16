@@ -8,14 +8,21 @@
     return (array.indexOf(variable) > -1);
   }
 
-  overallFunctions.filterData = function(data, modality)
-  {
+  overallFunctions.getParameterByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  overallFunctions.filterData = function(data, modality, sort) {
 
     var filtered = data.filter(function(row){
       return row.modalityCode == modality;
     });
-
-    var sort = d3.select('#sort-filter').property("value");
 
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
@@ -176,9 +183,10 @@
 
   function updateGraph() {
 
-    var modalityCode = $('#modality-filter').val();
+    var modalityCode = d3.select('#modality-filter').property("value");
+    var order = d3.select('#sort-filter').property("value");
 
-    var filteredData = overallFunctions.filterData(data, modalityCode);
+    var filteredData = overallFunctions.filterData(data, modalityCode, order);
       
     var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
@@ -340,9 +348,16 @@
 
       overallFunctions.buildGraphStructure(data);
 
-      modalityCode = $('#modality-filter').val();
+      var modalityCode = overallFunctions.getParameterByName('modality-filter');
+      var order = overallFunctions.getParameterByName('sort-filter');
 
-      filteredData = overallFunctions.filterData(data, modalityCode);
+      if (modalityCode == null) modalityCode = 1;
+      if (order == null) order = 0;
+
+      d3.select('#modality-filter').property('value', modalityCode);
+      d3.select('#sort-filter').property('value', order);
+
+      filteredData = overallFunctions.filterData(data, modalityCode, order);
 
       var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
       var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
@@ -426,8 +441,6 @@
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
-
-      
      var endCircles = lollipops.append("circle")
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
@@ -444,10 +457,27 @@
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
-      
+      $('select').on('change', function () {
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('id');
 
+        if (valOption) { 
+          if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+          }
+          else {              
+            if(document.location.search.indexOf(nameVar) > 0){
+              // reemplazamos la variable de la URL con la nueva
+              var newVarString = document.location.search.replace(nameVar+'='+overallFunctions.getParameterByName(nameVar),nameVar + '=' + valOption )
+              history.pushState(null, "",  window.location.pathname + newVarString );
+            }
+            else {
+              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+            }
+          }              
+        }
+        return false;
+      }); 
     });
-  
   });
-
 })(jQuery);

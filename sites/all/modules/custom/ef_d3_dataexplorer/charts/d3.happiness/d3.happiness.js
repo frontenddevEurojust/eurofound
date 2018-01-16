@@ -6,14 +6,21 @@
     return (array.indexOf(country) > -1);
   }
 
-  var filterData = function(data, modality)
-  {
+  var getParameterByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  var filterData = function(data, modality, sort) {
 
     var filtered = data.filter(function(row){
         return row.modalityCode == modality;
     });
-
-    var sort = d3.select('#sort-filter').property("value");
 
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
@@ -59,8 +66,6 @@
       
       filtered = byValueGap;
     }
-
-    console.log(filtered);
 
     return filtered;
   }
@@ -181,9 +186,10 @@
 
   function updateGraph() {
 
-    var modalityCode = $('#modality-filter').val();
+    var modalityCode = d3.select('#modality-filter').property("value");
+    var order = d3.select('#sort-filter').property("value");
 
-    var filteredData = filterData(data, modalityCode);
+    var filteredData = filterData(data, modalityCode, order);
     
     domainMax = Math.round(calculateMaxValue(filteredData) + 1);
     domainMin = Math.round(calculateMinValue(filteredData) - 1);
@@ -372,9 +378,16 @@
 
       buildGraphStructure(data);
 
-      modalityCode = $('#modality-filter').val();
+      var modalityCode = getParameterByName('modality-filter');
+      var order = getParameterByName('sort-filter');
 
-      var filteredData = filterData(data, modalityCode);
+      if (modalityCode == null) modalityCode = 1;
+      if (order == null) order = 0;
+
+      d3.select('#modality-filter').property('value', modalityCode);
+      d3.select('#sort-filter').property('value', order);
+
+      var filteredData = filterData(data, modalityCode, order);
 
       domainMax = Math.round(calculateMaxValue(filteredData) + 1);
 
@@ -467,10 +480,29 @@
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
 
+      $('select').on('change', function () {
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('id');
+
+        if (valOption) { 
+          if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+          }
+          else {              
+            if(document.location.search.indexOf(nameVar) > 0){
+              // reemplazamos la variable de la URL con la nueva
+              var newVarString = document.location.search.replace(nameVar+'='+getParameterByName(nameVar),nameVar + '=' + valOption )
+              history.pushState(null, "",  window.location.pathname + newVarString );
+            }
+            else {
+              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+            }
+          }              
+        }
+        return false;
+      });
+    });
   });
-
-});
-
 })(jQuery);
 
 
