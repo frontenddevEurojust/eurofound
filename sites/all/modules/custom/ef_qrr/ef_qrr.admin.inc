@@ -52,6 +52,28 @@ function ef_qrr_ratings_table() {
       )
    );
 
+   $form_weight=0;
+   //Top Submit
+    $ratings_form['download_2'] = array(
+      '#id' => 'download',
+      '#type' => 'submit',
+      '#value' => t('Download report'),
+      '#weight' => $form_weight++,
+    );
+    
+     $ratings_form['bulk_2'] = array(
+        '#id' => 'bulk_rating',
+        '#type' => 'submit',
+        '#value' => t('Bulk rating'),
+        '#weight' => $form_weight++,
+     );
+     $ratings_form['update_2'] = array(
+        '#id' => 'update',
+        '#type' => 'submit',
+        '#value' => t('Update ratings'),
+        '#weight' => $form_weight++,
+     );
+
    foreach ($nids as $nid => $vid) {
 
     ?>
@@ -105,6 +127,8 @@ function ef_qrr_ratings_table() {
          'reviewer_comments' => array('data' => &$textfield),
       );
 
+      $ratings_form['table']['#weight']=$form_weight++;
+
       unset($fieldset);
       unset($checkbox);
       unset($textfield);
@@ -113,22 +137,25 @@ function ef_qrr_ratings_table() {
    $ratings_form['download'] = array(
       '#id' => 'download',
       '#type' => 'submit',
-      '#value' => t('Download report')
+      '#value' => t('Download report'),
+      '#weight' => $form_weight++
    );
 
    //link to pop up form
    $ratings_form['bulk'] = array(
       '#id' => 'bulk_rating',
       '#type' => 'submit',
-      '#value' => t('Bulk rating')
+      '#value' => t('Bulk rating'),
+      '#weight' => $form_weight++
    );
 
    $ratings_form['update'] = array(
       '#id' => 'update',
       '#type' => 'submit',
-      '#value' => t('Update ratings')
+      '#value' => t('Update ratings'),
+      '#weight' => $form_weight++
    );
-
+   
    $ratings_form['allnodes'] = array(
       '#id' => 'allnodes',
       '#type' => 'hidden',
@@ -1522,8 +1549,8 @@ function _ef_qrr_selected_nodes($mode, $pager = true) {
    $query->leftJoin('workbench_moderation_node_history', 'wmnh', 'wmnh.nid = n.nid AND current=1');
 
 
-   $query->leftJoin('qrr_revision', 'qrv', 'n.nid = qrv.nid');
-   $query->join('qrr_rating', 'qrr', 'qrv.rid = qrr.rid');
+   //$query->leftJoin('qrr_revision', 'qrv', 'n.nid = qrv.nid');
+   //$query->join('qrr_rating', 'qrr', 'qrv.rid = qrr.rid');
 
    $query->fields('wmnh',array('state','vid'));
 
