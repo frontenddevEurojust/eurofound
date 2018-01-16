@@ -4,7 +4,6 @@
 
   overallFunctions.arrayContains = function(array, variable)
   {
-    console.log(variable);
     return (array.indexOf(variable) > -1);
   }
 
