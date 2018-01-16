@@ -1396,7 +1396,7 @@ function _ef_qrr_filter_form($form_id) {
 
    
    $stars_array = array(
-     '0' => t('Sin Filtro'),
+     '0' => t('Choose some option'),
      '20' => t('1 Star'),
      '40' => t('2 Stars'),
      '60' => t('3 Stars'),
