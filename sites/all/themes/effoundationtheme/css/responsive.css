@@ -531,6 +531,15 @@ font-family: 'ef-icon-font';
 		padding: 0 1px 0 0px !important;
 		vertical-align: 0px !important;
 	}
+	.lang-el .ef-navigation-menus li a, 
+	.lang-nl .ef-navigation-menus li a, 
+	.lang-ga .ef-navigation-menus li a, 
+	.lang-mk .ef-navigation-menus li a, 
+	.lang-mt .ef-navigation-menus li a, 
+	.lang-lt .ef-navigation-menus li a{
+		padding: 16px 1px 16px 1px !important;
+		font-size: 0.88em !important;
+	}
  }
 
 /* Landscape phones and down */
@@ -1041,6 +1050,11 @@ width:100%;
 .block-lang-dropdown-language {
   margin: 0px 100px 0 0;
     padding: 0 0 0 0;
+}
+.lang-el .block-lang-dropdown-language, 
+.lang-nl .block-lang-dropdown-language, 
+.lang-ga .block-lang-dropdown-language{
+  margin: 0px 130px 0 0;
 }
 .block-menu-menu-ef-user-login-links-menu {
     float: right;
