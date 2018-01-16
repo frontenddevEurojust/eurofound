@@ -67,8 +67,6 @@
       filtered = byValueGap;
     }
 
-    console.log(filtered);
-
     return filtered;
   }
 
