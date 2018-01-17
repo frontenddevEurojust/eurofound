@@ -98,12 +98,14 @@ $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_
 $quartely_overviews = views_embed_view('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']); 
 $check_view_country_update = views_get_view_result('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']);
 $check_view_overview = views_get_view_result('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']);
-
+$print_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/print" . $_SERVER[REQUEST_URI];
+$pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/printpdf" . $_SERVER[REQUEST_URI]; 
 ?>
 <div class="content-living-working">
-	<div class="print-wrapper no-pdf"><?php if(!isset($subtitle)): ?><?php print print_pdf_insert_link();?><?php endif; ?><?php print print_insert_link();?></div>
+	<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
 	<p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
-
+	
+	<!-- INTRO TO LIVING AND WORKING SECTIONS-->
 	<?php if(isset($subtitle)): ?>
 		<?php if(isset($eurostatResult)): ?>
 		<div class="eurostat-result small-12 large-3 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
@@ -125,12 +127,25 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 		<?php if(isset($mainImagen)): ?>
 			<div class="eurostat-img small-12 large-3 columns no-pdf"><?php print render($mainImagen); ?></div>
 		<?php endif; ?>
+
 		<div class="clear"></div>
 
-		<?php 
-			$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
-			if($number_tabs != 0 ): 
-		?>
+
+		<!-- INTRO TEXT TO NEXT BOTH SECTIONS-->
+		<?php if(isset($content['field_ef_intro_text']['#items'][0]['value'])): ?>
+			<div class="intro-text">
+				<?php print $content['field_ef_intro_text']['#items'][0]['value']; ?>
+			</div>
+		<?php endif; ?>
+
+			<?php 
+				$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
+				if($number_tabs != 0 ): 
+			?>
+
+			<div class="clear"></div>
+
+			<!-- TABS LIVING AND WORKING AREA SECTIONS-->
 			<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
 				<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
 					<?php
@@ -177,24 +192,16 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 	<?php endif; ?>
 </div>
 
-
-<!-- INTRO TEXT TO NEXT BOTH SECTIONS-->
-<?php if(isset($content['field_ef_intro_text']['#items'][0]['value'])): ?>
-	<div class="intro-text">
-		<?php print $content['field_ef_intro_text']['#items'][0]['value']; ?>
-	</div>
-<?php endif; ?>
+	<div class="clear"></div>
 
 
-<!-- LIVING IN COUNTRY AREA-->
+
+<!-- LIVING IN COUNTRY AREA SECTION-->
 <?php if(count($content['field_ef_tabs_living_country']['#items']) && isset($subtitleLiving)): ?>
 <div class="content-living-country">
 	<?php if(isset($subtitleLiving)): ?>
 		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitleLiving ?></h1>
-		<?php $print_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/print" . $_SERVER[REQUEST_URI];
-					$pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/printpdf" . $_SERVER[REQUEST_URI]; 
-					$print_image = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/sites/all/modules/contrib/print/print_pdf/icons/pdf_icon.png";
-		?>
+		<?php $print_image = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/sites/all/modules/contrib/print/print_pdf/icons/pdf_icon.png";	?>
 		<div class="print-pdf-wrapper">
 			<a href="<?php echo  $pdf_link; ?>?section=1" class="print-pdf" target="_blank"><span>Print pdf</span></a>
 		</div>
@@ -222,10 +229,10 @@ $check_view_overview = views_get_view_result('latest_country_update','quarterly_
 
 
 
+<div class="clear"></div>
 
 
-
-<!-- WORKING LIFE IN COUNTRY AREA-->
+<!-- WORKING LIFE IN COUNTRY AREA SECTION-->
 <div class="content-working-life">
 	<!--<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>-->
 	<?php if(isset($subtitle)): ?>
