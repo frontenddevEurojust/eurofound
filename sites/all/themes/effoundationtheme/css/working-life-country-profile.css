@@ -42,17 +42,21 @@ h1.title-working-life {
   position: relative;
 }
 
-.section-country .print-pdf-wrapper span.print_pdf, .views-page .print_pdf {
+.section-country .print-pdf-wrapper span.print_pdf, .views-page .print_pdf, 
+.content-working-life .print-pdf-wrapper span.print_pdf{
   list-style: none;
   position: relative;
   right:0;
   top:0;
   z-index: 10;
+  display: none;
 }
-.content-living-country .print-pdf-wrapper .print-pdf > span{
+.content-living-country .print-pdf-wrapper .print-pdf > span, 
+.content-working-life  .print-pdf-wrapper .print-pdf > span{
   position: absolute;
   top: -9999px;
   left: -9999px;
+  display: none;
 }
 
 ul.list-metadata{
