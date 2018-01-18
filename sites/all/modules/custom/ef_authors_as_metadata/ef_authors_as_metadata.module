@@ -371,7 +371,7 @@ function check_term_exists($author){
 
 function ef_authors_as_metadata_node_presave($node){
 
-	$types = ['ef_report', 'ef_publication'];
+	$types = ['ef_report', 'ef_publication' , 'blog' , 'presentation'];
 
 	if (in_array($node->type, $types))
 
