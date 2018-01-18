@@ -13706,3 +13706,21 @@ h4.title-tooltip-geolocation a:hover{
 	}
 }
 /** end data and resources landing page **/
+
+
+/*View Restructuring related legislation change CSS to filters two lines and Node detail*/
+.view-id-erm_regulations .wrap-row-filters #edit-field-involved-actors-erm-reg-tid-selective-wrapper label{
+	text-align: left;
+}
+
+.view-id-erm_regulations .wrap-row-filters #edit-field-type-phase-erm-reg-tid-selective-wrapper label{
+	padding-bottom: 12px;
+}
+
+.view-id-erm_regulations .wrap-row-filters #edit-field-erm-fundings-erm-reg-tid-selective-wrapper label{
+	padding-bottom: 12px;
+}
+
+.node-ef-erm-regulation h5{
+	text-align: left;
+}
