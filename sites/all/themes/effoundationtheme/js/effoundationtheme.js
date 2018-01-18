@@ -1331,9 +1331,9 @@ $(document).ready(function(){
 /** DATA AND RESOURCES LANDING PAGE**/
 (function ($) {
   $(document).ready(function(){
-    $('.vcard p a').parent().addClass('see-more');
-    $('.vcard-img p a').parent().addClass('see-more');
-    $('.hcard-img p a').parent().addClass('see-more');
+    $('.vcard p:last-child a').parent().addClass('see-more');
+    $('.vcard-img p:last-child a').parent().addClass('see-more');
+    $('.hcard-img p:last-child a').parent().addClass('see-more');
 
 
   var longText = 400;
@@ -1348,18 +1348,14 @@ $(document).ready(function(){
   });
 
 
- $('.vcard.img-only').each(function( index ) {
+   $('.vcard.img-only').each(function( index ) {
 
-  var srcImg = $(this).find('img').attr('src');
-  $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
-  $('img', this).css('display','none');
-  //$('.content-vcard', this).css('display','none');
+    var srcImg = $(this).find('img').attr('src');
+    $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
+    $('img', this).css('display','none');
+    //$('.content-vcard', this).css('display','none');
 
- });
-
-
-
-
+   });
 
 
     $( "p.see-more" ).hover(function() {
