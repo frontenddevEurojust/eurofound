@@ -1076,6 +1076,7 @@ div.add-or-remove-shortcuts {
     padding: 1em;
     width: 372px;
     margin-bottom: 1.5em;
+    float: left;
 }
 
 .getlocations_fields_map_wrapper p{
@@ -1095,7 +1096,7 @@ div.add-or-remove-shortcuts {
 }
 
 .field-type-getlocations-fields .fieldset-wrapper{
-  height: 500px;
+  height: 368px;
 }
 
 .field-type-getlocations-fields .form-item-field-address-und-0-additional{
