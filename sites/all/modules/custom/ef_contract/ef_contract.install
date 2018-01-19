@@ -76,6 +76,128 @@ function ef_contract_update_7001() {
   	$term = new stdClass();
   	$term->name = $value;
   	$term->vid = 53;
+    $term->name_field['und'][0]['value'] = $value;
   	taxonomy_term_save($term);
+  }
+}
+
+/**
+ * Implements hook_update_N()
+ *
+ * Complete the taxonomies, create tables to save the administration settings and define variables for new NEC framework
+ */
+function ef_contract_update_7002() {
+  $schema['ef_contract_affected_cts'] = array(
+    'description' => t('Table to store content types affected by NEC'),
+    'fields' => array(
+      'ctid' => array(
+        'description' => 'ID of the content type',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'machine_name' => array(
+        'description' => 'Machine name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Human name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'enabled' => array(
+        'description' => 'Boolean, true (1) if the Content Type is managed under NEC',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'ctid' => array('ctid'),
+    ),
+    'primary key' => array('ctid'),
+  );
+  
+  db_create_table('ef_contract_affected_cts', $schema['ef_contract_affected_cts']);
+
+  $enabled_cts = array(
+    'ef_report',
+    'ef_comparative_analytical_report',
+    'ef_national_contribution',
+    'ef_ic_quarterly_report',
+    'ef_input_to_erm',
+    'ef_case_study',
+    'erm_support_instrument',
+    'ef_erm_regulation',
+    'ef_restructuring_in_smes',
+    'ef_factsheet',
+    'ef_ir_dictionary',
+    'ef_annual_progress_report',
+    'ef_network_quarterly_report',
+    'case_study_publication',
+    'ef_working_life_country_profiles',
+  );
+
+  $cts = node_type_get_types();
+
+  foreach($cts as $key => $ct) {
+    $query = db_insert('ef_contract_affected_cts');
+    $query->fields(
+      array(
+        'machine_name' => $ct->type,
+        'name' => $ct->name,
+        'enabled' => in_array($key, $enabled_cts) ? 1 : 0,
+      )
+    );
+
+    $query->execute();
+  }
+
+    //And we need to add the new deliverable kinds
+  $new_contracts = array(
+    '18-3030-01' => array('Network of correspondents - Austria', 'AT'),
+    '18-3030-02' => array('Network of correspondents - Belgium', 'BE'),
+    '18-3030-03' => array('Network of correspondents - Bulgaria', 'BG'),
+    '18-3030-04' => array('Network of correspondents - Croatia', 'HR'),
+    '18-3030-05' => array('Network of correspondents - Cyprus', 'CY'),
+    '18-3030-06' => array('Network of correspondents - Czech Republic', 'CZ'),
+    '18-3030-07' => array('Network of correspondents - Denmark', 'DK'),
+    '18-3030-08' => array('Network of correspondents - Estonia', 'EE'),
+    '18-3030-09' => array('Network of correspondents - Finland', 'FI'),
+    '18-3030-10' => array('Network of correspondents - France', 'FR'),
+    '18-3030-11' => array('Network of correspondents - Germany', 'DE'),
+    '18-3030-12' => array('Network of correspondents - Greece', 'GR'),
+    '18-3030-13' => array('Network of correspondents - Hungary', 'HU'),
+    '18-3030-14' => array('Network of correspondents - Ireland', 'IE'),
+    '18-3030-15' => array('Network of correspondents - Italy', 'IT'),
+    '18-3030-16' => array('Network of correspondents - Latvia', 'LV'),
+    '18-3030-17' => array('Network of correspondents - Lithuania', 'LT'),
+    '18-3030-18' => array('Network of correspondents - Luxembourg', 'LU'),
+    '18-3030-19' => array('Network of correspondents - Malta', 'MT'),
+    '18-3030-20' => array('Network of correspondents - the Netherlands', 'NL'),
+    '18-3030-21' => array('Network of correspondents - Poland', 'PL'),
+    '18-3030-22' => array('Network of correspondents - Portugal', 'PT'),
+    '18-3030-23' => array('Network of correspondents - Romania', 'RO'),
+    '18-3030-24' => array('Network of correspondents - Slovakia', 'SK'),
+    '18-3030-25' => array('Network of correspondents - Slovenia', 'SI'),
+    '18-3030-26' => array('Network of correspondents - Spain', 'ES'),
+    '18-3030-27' => array('Network of correspondents - Sweden', 'SE'),
+    '18-3030-28' => array('Network of correspondents - UK', 'GB'),
+  );
+
+  //Using taxonomy_term_save again 
+  foreach ($new_contracts as $key => $value) {
+    $term = new stdClass();
+    $term->name = $value[0];
+    $term->vid = 51;
+    $term->field_ef_contract_number['und'][0]['value'] = $key;
+    $term->field_ef_nec_period['und'][0]['value'] = '2018 - 2022';
+    $term->name_field['und'][0]['value'] = $value[0];
+    $term->field_ef_eu_related_countries['und'][0]['iso2'] = $value[1];
+    taxonomy_term_save($term);
   }
 }

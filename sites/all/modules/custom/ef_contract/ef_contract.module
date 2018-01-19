@@ -1,17 +1,56 @@
 <?php
 
 /*
- * Implements Help functions
+ * Help functions
  */
 include 'functions/ef_contract.auxiliar_functions.inc';
 include 'functions/ef_contract.functions.inc';
 include 'actions/ef_contract.bulk_actions.inc';
 
 /**
+ * Implements hook_menu().
+ */
+function ef_contract_menu() {
+  $items = array();
+  //Contract settings administration interface.
+  $items["admin/config/contracts/contract-administration"] = array(
+    'title' => 'EF Contract Administration',
+    'description' => 'Configure contract system.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_contract_general_admin_form'),
+    'access arguments' => array('administer contract system'),
+    'file' => 'ef_contract.admin.inc',
+  );
+
+  $items['admin/config/contracts/contract-administration/assignments'] = array(
+    'title' => 'Assignments',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_contract_assignments_form'),
+    'access arguments' => array('administer contract system'),
+    'file' => 'ef_contract.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ef_contract_permission() {
+  return array(
+    'administer contract system' => array(
+      'title' => t('Administer Contract System'),
+      'description' => t('Perform administration tasks regarding contracts, affected content types and users.'),
+    ),
+  );
+}
+
+/**
  * Implements hook_form_node_form_alter().
  */
 function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
-  dpm($form);
+
   $form_ids = content_type_forms_array();
 
   if (in_array($form_id, $form_ids)){
@@ -59,18 +98,15 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
  * Implements hook_form_alter().
  */
 function ef_contract_form_alter(&$form, &$form_state, $form_id) {
-
   global $user;
   global $base_url;
   $form_ids = content_type_forms_array();
 
   // NODE CREATE/EDIT FORM
   if (in_array($form_id, $form_ids)){
-
     /*
-    ** Variables which we need in order to load the form's items
+    * Variables which we need in order to load the form's items
     */
-
     // Node object
     $node = $form['#node'];
     if (!is_null($form['nid']['#value'])) {
@@ -1130,6 +1166,7 @@ function save_revision_log_message($form, &$form_state){
   drupal_goto($path);
 
 }
+
 function save_revision_log_message_validation($form, &$form_state) {
 
   $form_len = strlen($form['#default_value']);
@@ -1188,25 +1225,9 @@ function ef_contract_node_presave($node) {
 
   global $user;
 
-  $types = array(
-    'ef_report',
-    'ef_comparative_analytical_report',
-    'ef_national_contribution',
-    'ef_ic_quarterly_report',
-    'ef_input_to_erm',
-    'ef_case_study',
-    'erm_support_instrument',
-    'ef_erm_regulation',
-    'ef_restructuring_in_smes',
-    'ef_factsheet',
-    'ef_ir_dictionary',
-    'ef_annual_progress_report',
-    'ef_network_quarterly_report',
-    'case_study_publication',
-    'ef_working_life_country_profiles',
-  );
+  $types = ef_contract_get_affected_cts();
 
-  if( in_array($node->type, $types) ){
+  if (in_array($node->type, $types)) {
 
 
     // We create $node->group variable with the 'field_ef_assign_to_country_group' info
@@ -1316,5 +1337,37 @@ function ef_contract_implements_alter(&$implementations, $hook) {
     unset($implementations['ef_contract']);
     $implementations['ef_contract'] = $contract;
   }
+}
+
+/**
+ * Saves the affected content types to the settings table
+ */
+function ef_contract_save_affected_cts($values) {
+  if (isset($values)) {
+    $cts = node_type_get_types();
+    foreach ($cts as $key => $ct) {
+      $query = db_merge('ef_contract_affected_cts');
+      $query->key(array('machine_name' => $ct->type,));
+      $query->fields(array('enabled' => $values[$ct->type],));
+      $query->execute();
+    }
+  }
+}
+
+/**
+ * Returns an array containing the affected content types from the settings table
+ */
+function ef_contract_get_affected_cts() {
+  $query = db_select('ef_contract_affected_cts', 'cct');
+  $query->fields('cct', array('machine_name'));
+  $query->condition('cct.enabled', 1);
+
+  $result = $query->execute()->fetchAll();
+
+  foreach ($result as $key => $ct) {
+    $enabled_cts[] = $ct->machine_name;
+  }
+
+  return $enabled_cts;
 }
 
