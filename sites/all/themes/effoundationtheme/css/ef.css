@@ -13762,6 +13762,7 @@ h4.title-tooltip-geolocation a:hover{
     padding: 1em;
     width: 372px;
     margin-bottom: 1.5em;
+    float:left;
 }
 
 .getlocations_fields_map_wrapper p{
@@ -13781,7 +13782,7 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 .field-type-getlocations-fields .fieldset-wrapper{
-  height: 500px;
+  height: 400px;
 }
 
 .field-type-getlocations-fields .form-item-field-address-und-0-additional{

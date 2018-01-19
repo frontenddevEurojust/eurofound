@@ -101,6 +101,7 @@ jQuery( window ).load(function() {
     $( ".getlocations_geocodebutton_key_2" ).hover(function() {
         var $latitude = $( "#edit-field-address-und-0-latitude" ).val() + " , ";
         var $longitude = $( "#edit-field-address-und-0-longitude" ).val();
+        $("#edit-field-address-und-0-additional").val("");
         $("#edit-field-address-und-0-province").val($latitude + $longitude);
     });
 
@@ -108,6 +109,7 @@ jQuery( window ).load(function() {
     $( ".getlocations_geocodebutton_key_2" ).focus(function() {
         var $latitude = $( "#edit-field-address-und-0-latitude" ).val() + " ";
         var $longitude = $( "#edit-field-address-und-0-longitude" ).val();
+        $("#edit-field-address-und-0-additional").val("");
         $("#edit-field-address-und-0-province").val($latitude + $longitude);
     });
 
