@@ -124,7 +124,7 @@ jQuery( window ).load(function() {
     if (!$(".field-type-getlocations-fields .description")[0]){
       $(".getlocations_fields_country_wrapper").once().prepend("<div id='message-location'>Please, make sure you click on the Save button to save the geographical coordinates related to this factsheet.</div>" );
       //Click the button 'Geocode this address' to apply the geolocation in the map if we haven't value en Latitude y Long 
-      $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+      //$("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     }
     
     
