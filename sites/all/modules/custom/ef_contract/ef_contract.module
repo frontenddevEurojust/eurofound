@@ -531,7 +531,7 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
       '#default_value' => get_revision_log_message_by_default($user),
       '#element_validate' => array('save_revision_log_message_validation'),
     );
-    $form['#submit'][] = 'save_revision_log_message';
+    $form['#submit'][] = 'ef_workbench_moderation_state_access_field_attach_update';
 
     return $form;
 
