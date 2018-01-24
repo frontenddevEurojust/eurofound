@@ -1126,10 +1126,30 @@ function save_revision_log_message($form, &$form_state){
   $node->log = $log_message;
 
   node_save($node);
+  
+  if (isset($form["node"])) {
+    if ($form_state['values']['state'] == "unpublished" && $form['node']['#value']->status == 1) {
+      $query = db_update('node')
+        ->fields(array('status' => 0))
+        ->condition('nid', $form['node']['#value']->nid, "=")
+        ->execute();
+      $query = db_update('node_revision')
+        ->fields(array('status' => 0))
+        ->condition('nid', $form['node']['#value']->nid, "=")
+        ->execute();
+      $query = db_update('workbench_moderation_node_history')
+        ->fields(array('published' => 0))
+        ->condition('nid', $form['node']['#value']->nid, "=")
+        ->execute();
+    }
+  }
+
+  entity_get_controller('node')->resetCache(array($form['node']['#value']->nid));
+
   $path = '/node/' . $node->nid;
   drupal_goto($path);
-
 }
+
 function save_revision_log_message_validation($form, &$form_state) {
 
   $form_len = strlen($form['#default_value']);
