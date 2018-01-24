@@ -13249,7 +13249,7 @@ h4.title-tooltip-geolocation a:hover{
 	display: none;
 }
 .data-explorer-center, .other-resources-center {
-  display: flex;
+  /*display: flex;*/
 }
 .data-explorer-left, .data-explorer-center, .data-explorer-right, 
 .other-resources-left, .other-resources-center, .other-resources-right{
@@ -13268,7 +13268,9 @@ h4.title-tooltip-geolocation a:hover{
   position: relative;
 }
 .data-explorer-left .vcard, 
-.data-explorer-right .vcard{
+.data-explorer-right .vcard, 
+.other-resources-left .vcard, 
+.other-resources-right .vcard{
   width: 100%;
 }
 .data-explorer-center .vcard, 
@@ -13394,6 +13396,7 @@ h4.title-tooltip-geolocation a:hover{
 .vcard-img img{
 	width: 100%;
 	outline: 0;
+	margin: 0;
 }
 .vcard-img h3{
 	font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif;
@@ -13451,8 +13454,9 @@ h4.title-tooltip-geolocation a:hover{
 .hcard-img img{
   outline: 0;
   width: auto !important;
-  max-width: 310px !important;
-  height: 175px;
+  max-width: initial !important;
+  height: 180px;
+  margin: 0;
 }
 .hcard-img p{
 	display: block;
@@ -13706,6 +13710,7 @@ h4.title-tooltip-geolocation a:hover{
 	}
 }
 /** end data and resources landing page **/
+
 
 /* Geolocation CSS backend - Two columns */
 
