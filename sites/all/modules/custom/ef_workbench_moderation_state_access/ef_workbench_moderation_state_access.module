@@ -85,3 +85,23 @@ function ef_workbench_moderation_state_access_node_access($node, $op, $account) 
   return NODE_ACCESS_IGNORE;
 
 }
+
+function ef_workbench_moderation_state_access_field_attach_update($entity_type, $entity){
+  if ($entity_type == 'node' && isset($entity->workbench_moderation['current']->state)) {
+    if ($entity->workbench_moderation['current']->state == "unpublished" && $entity->status == 1) {
+      $query = db_update('node')
+        ->fields(array('status' => 0))
+        ->condition('nid', $entity->nid, "=")
+        ->execute();
+      $query = db_update('node_revision')
+        ->fields(array('status' => 0))
+        ->condition('nid', $entity->nid, "=")
+        ->execute();
+      $query = db_update('workbench_moderation_node_history')
+        ->fields(array('published' => 0))
+        ->condition('nid', $entity->nid, "=")
+        ->execute();
+    }
+  }
+  entity_get_controller('node')->resetCache(array($entity->nid));
+}
