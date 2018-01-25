@@ -4744,7 +4744,7 @@ function theme_getlocations_fields_field_widget_form($variables) {
   }
 
 
-  $msg = t('To use the map to find a location, drag the marker or click on the map.');
+  $msg = t('');
   if (isset($settings['map_settings_allow'])) {
     $map_settings_allow = $settings['map_settings_allow'];
   }
@@ -4760,7 +4760,7 @@ function theme_getlocations_fields_field_widget_form($variables) {
   $form['map']['#prefix'] = '<div class="getlocations_fields_map_wrapper">';
   $form['map']['#suffix'] = '</div>';
   if ($settings['use_address'] < 1) {
-    $form['map']['#markup'] = '<p>' . t('If you leave the address empty you can Geocode by moving the marker on the map') . '</p>';
+    $form['map']['#markup'] = '<p>' . t('You can change the coordinates by moving the marker on the map or by providing the coordinates directly in the Latitude/Longitude fields.') . '</p>';
   }
   else {
     $form['map']['#markup'] = '';
