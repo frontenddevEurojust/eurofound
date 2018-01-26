@@ -7,12 +7,66 @@
     return (array.indexOf(variable) > -1);
   }
 
-  overallFunctions.filterData = function(data, modality)
-  {
+  overallFunctions.getParameterByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  overallFunctions.filterData = function(data, modality, sort) {
 
     var filtered = data.filter(function(row){
       return row.modalityCode == modality;
     });
+
+    if (sort == 1 || sort == 2) {
+      sort == 1 ? order = d3.ascending : order = d3.descending;
+      var filteredKeyed = d3.nest()
+        .key(function(d) { return d.countryName; }).sortKeys(order)
+        .entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { return a.values[0];});
+    }
+
+    if (sort == 3) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
+        return d.dot2 - b.dot2;
+      });
+      
+      filtered = byMinValue;
+    }
+
+    if (sort == 4) {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b) {
+        return b.dot2 - d.dot2;
+      });
+      
+      filtered = byMaxValue;
+    }
+
+    if (sort == 5) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
+      });
+      
+      filtered = byValueGap;
+    }
+
+    if (sort == 6) {
+      var byValueGap = filtered.slice(0);
+      byValueGap.sort(function(d,b) {
+        return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
+      });
+      
+      filtered = byValueGap;
+    }
 
     return filtered;
   }
@@ -21,7 +75,7 @@
       
     var modalities = overallFunctions.buildModalityOptions(data);
     
-    var select = d3.select('body .chart-wrapper .chart-filters').append('select').property('id', 'modality-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
 
     var options = select
       .selectAll('option')
@@ -31,6 +85,22 @@
         .property('value',function(c){ return c.modalityCode; });
 
     d3.select("#modality-filter").on("change", updateGraph);
+  }
+
+  overallFunctions.createOrderingFilter = function() {
+    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
+
+    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
+
+    var options = select
+      .selectAll('option')
+      .data(alphaSort)
+      .enter()
+      .append('option')
+        .text(function (d, i) { return d; })
+        .property('value',function(d, i){ return i; });
+
+    d3.select("#sort-filter").on("change", updateGraph);
   }
 
   overallFunctions.buildModalityOptions = function(data){
@@ -80,7 +150,6 @@
   };
     
   overallFunctions.calculateMaxValue = function (data){
-      
     var maxValue = 0;
     
     var result = data.forEach(function(row, index){
@@ -93,6 +162,8 @@
 
   overallFunctions.buildGraphStructure = function(csv){
     overallFunctions.createModalityFilter(csv);
+    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    overallFunctions.createOrderingFilter();
   };
 
   overallFunctions.parseToFloat = function(csv){
@@ -111,13 +182,26 @@
 
   function updateGraph() {
 
-    var modalityCode = $('#modality-filter').val();
+    var modalityCode = d3.select('#modality-filter').property("value");
+    var order = d3.select('#sort-filter').property("value");
 
-
-    var filteredData = overallFunctions.filterData(data, modalityCode);
+    var filteredData = overallFunctions.filterData(data, modalityCode, order);
       
     var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
+
+    d3.selectAll("g.tick")
+      .remove();
+
+    padding = 0;
+
+    y = d3.scaleBand()
+      .domain(filteredData.map(function(d) { return d.countryName }))
+      .range([0, height])
+      .padding(padding);
+
+    yAxis = d3.axisLeft().scale(y)
+      .tickSize(0);
 
     x.domain([domainMin, domainMax])
       .range([0, width])
@@ -133,7 +217,11 @@
 
     svg.select(".x-axis")
       .transition().duration(750)
-      .call(xAxis);  
+      .call(xAxis); 
+
+    svg.select(".y-axis")
+      .transition().duration(750)
+      .call(yAxis); 
       
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
@@ -206,16 +294,69 @@
         "lollipop-start": "min",
         "lollipop-end": "max",
       }
+
+      var legendLabels = [
+        {label: "Average rating on scale 1-10, 2011", class: "lollipop-start"}, 
+        {label: "Average rating on scale 1-10, 2016", class: "lollipop-end"},
+      ];
       
       var padding = 0;
 
-      data = overallFunctions.parseToFloat(csv);
+      // code for positioning legend
+      var legend = svg.append("g")
+        .attr("class","legend-group");
+
+
+      var legendX = 0;
+      var legendY = height + 50;
+      var spaceBetween = 250;
       
+      var legendPosition = {
+        x: legendX + 70,
+        y: legendY - 4
+      };
+
+      // add labels
+      legend.selectAll("text")
+        .data(legendLabels)
+        .enter().append("text")
+        .attr("class","legend-text")
+        .attr("x", function(d, i) {
+          return legendPosition.x + spaceBetween * i + 10;
+        })  
+        .attr("y", legendPosition.y + 4)
+        .text(function(d) { return d.label });
+
+      // add circles
+      legend.selectAll("circle")
+        .data(legendLabels) 
+        .enter().append("circle")
+        .attr("class","legend-point")
+        .attr("cx", function(d, i) {
+          return legendPosition.x + spaceBetween * i;
+        })  
+        .attr("cy", legendPosition.y)
+        .attr("r", 5)
+        .attr("class", function(d) { return d.class });
+
+            // code for positioning legend
+      var legend = svg.append("g")
+        .attr("class","legend-group");
+
+      data = overallFunctions.parseToFloat(csv);
+
       overallFunctions.buildGraphStructure(data);
 
-      modalityCode = $('#modality-filter').val();
+      var modalityCode = overallFunctions.getParameterByName('modality-filter');
+      var order = overallFunctions.getParameterByName('sort-filter');
 
-      filteredData = overallFunctions.filterData(data, modalityCode);
+      if (modalityCode == null) modalityCode = 1;
+      if (order == null) order = 0;
+
+      d3.select('#modality-filter').property('value', modalityCode);
+      d3.select('#sort-filter').property('value', order);
+
+      filteredData = overallFunctions.filterData(data, modalityCode, order);
 
       var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
       var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
@@ -224,7 +365,6 @@
         .domain(filteredData.map(function(d) { return d.countryName }))
         .range([0, height])
         .padding(padding);
-
 
       x = d3.scaleLinear()
         .domain([domainMin, domainMax])
@@ -253,14 +393,7 @@
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
         .call(xAxis);
-      
-      xAxisGroup.append("text")
-        .attr("class", "x-title")
-        .attr("x", 0)
-        .attr("y",-margin.top/2)
-        .text("Overall improvement")
-        .attr("fill", "black");
-      
+
       lineGenerator = d3.line();
 
       var axisLinePath = function(d) {
@@ -307,8 +440,6 @@
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
-
-      
      var endCircles = lollipops.append("circle")
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
@@ -325,10 +456,27 @@
           $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
-      
+      $('select').on('change', function () {
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('id');
 
+        if (valOption) { 
+          if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+          }
+          else {              
+            if(document.location.search.indexOf(nameVar) > 0){
+              // reemplazamos la variable de la URL con la nueva
+              var newVarString = document.location.search.replace(nameVar+'='+overallFunctions.getParameterByName(nameVar),nameVar + '=' + valOption )
+              history.pushState(null, "",  window.location.pathname + newVarString );
+            }
+            else {
+              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+            }
+          }              
+        }
+        return false;
+      }); 
     });
-  
   });
-
 })(jQuery);
