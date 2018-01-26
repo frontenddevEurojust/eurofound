@@ -1037,8 +1037,9 @@ div.add-or-remove-shortcuts {
     float: right;
     clear: both;
     position: absolute;
-    margin-left: 527px;
+    margin-left: 479px;
     width: 50%;
+    top: -70px;
 }
 
 .form-item-field-address-und-0-province label{
@@ -1081,6 +1082,7 @@ div.add-or-remove-shortcuts {
 
 .getlocations_fields_map_wrapper p{
   margin: 0;
+  width: 67%;
 }
 
 .getlocations_fields_map{
@@ -1096,7 +1098,7 @@ div.add-or-remove-shortcuts {
 }
 
 .field-type-getlocations-fields .fieldset-wrapper{
-  height: 368px;
+  height: 250px;
 }
 
 .field-type-getlocations-fields .form-item-field-address-und-0-additional{
@@ -1105,4 +1107,27 @@ div.add-or-remove-shortcuts {
 
 .field-type-getlocations-fields .form-item-field-address-und-0-province{
   display: none;
+}
+
+#getlocations_geocodebutton_key_1{
+  display: none;
+}
+
+#field-address-add-more-wrapper .fieldset-wrapper .form-type-checkbox{
+  display: none;
+}
+
+
+#edit-field-address-und-0{
+  border:0px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#edit-field-address-und-0 > legend > span{
+  display: none;
+}
+
+#edit-field-address-und-0 > div{
+  padding-left: 0;
 }

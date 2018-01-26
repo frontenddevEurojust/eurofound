@@ -310,7 +310,9 @@
                 else {
                   var prm = {'!a': input_adrstmp, '!b': Drupal.getlocations.getGeoErrCode(status) };
                   var msg = Drupal.t('Geocode for (!a) was not successful for the following reason: !b', prm);
-                  alert(msg);
+                  //alert(msg);
+                  jQuery('#node_ef_factsheet_form_group_ef_factsheet_group1').prepend('<input type="hidden" id="wrong-location"/>');
+                  //$('<input>').attr('type','hidden').appendTo('#node_ef_factsheet_form_group_ef_factsheet_group1');
                 }
               });
             }
@@ -349,7 +351,7 @@
           }
           else {
             var msg = Drupal.t('You have not entered an address.');
-            alert(msg);
+            //alert(msg);
           }
         }
 

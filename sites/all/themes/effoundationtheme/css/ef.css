@@ -13167,12 +13167,12 @@ h4.title-tooltip-geolocation{
 }
 
 h4.title-tooltip-geolocation a{
-    color:#222;
+    color:#005BAA;
     font-size: 1.4375em;
 }
 
 h4.title-tooltip-geolocation a:hover{
-	text-decoration: underline;
+	color:#F58020;
 }
 
 .leaflet-popup-content{
@@ -13728,8 +13728,9 @@ h4.title-tooltip-geolocation a:hover{
     float: right;
     clear: both;
     position: absolute;
-    margin-left: 527px;
+    margin-left: 479px;
     width: 50%;
+    top: 0;
 }
 
 .form-item-field-address-und-0-province label{
@@ -13767,11 +13768,12 @@ h4.title-tooltip-geolocation a:hover{
     padding: 1em;
     width: 372px;
     margin-bottom: 1.5em;
-    float:left;
+    float: left;
 }
 
 .getlocations_fields_map_wrapper p{
   margin: 0;
+  width: 90%;
 }
 
 .getlocations_fields_map{
@@ -13787,7 +13789,8 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 .field-type-getlocations-fields .fieldset-wrapper{
-  height: 400px;
+  height: 365px;
+  background: #FFF;
 }
 
 .field-type-getlocations-fields .form-item-field-address-und-0-additional{
@@ -13796,5 +13799,31 @@ h4.title-tooltip-geolocation a:hover{
 
 .field-type-getlocations-fields .form-item-field-address-und-0-province{
   display: none;
+}
+
+#getlocations_geocodebutton_key_1{
+  display: none;
+}
+
+#field-address-add-more-wrapper .fieldset-wrapper .form-type-checkbox{
+  display: none;
+}
+
+#edit-field-address-und-0{
+  border:0px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#edit-field-address-und-0 > legend:nth-child(1){
+	display: none;
+}
+
+#edit-field-address-und-0 > legend > span{
+  display: none;
+}
+
+#edit-field-address-und-0 > div{
+  padding-left: 0;
 }
 
