@@ -13167,12 +13167,12 @@ h4.title-tooltip-geolocation{
 }
 
 h4.title-tooltip-geolocation a{
-    color:#222;
+    color:#005BAA;
     font-size: 1.4375em;
 }
 
 h4.title-tooltip-geolocation a:hover{
-	text-decoration: underline;
+	color:#F58020;
 }
 
 .leaflet-popup-content{

@@ -34,6 +34,10 @@ jQuery( window ).load(function() {
  
 (function ($) {
   $(document).ready(function(){
+
+    //Set de field null
+    $("#edit-field-address-und-0-province").val("");
+
     //Add input hidden to find what is the nut is working
     jQuery('#node_ef_factsheet_form_group_ef_factsheet_group1').prepend('<input type="hidden" id="max-working-nut" value="1"/>');
     

@@ -351,7 +351,7 @@
           }
           else {
             var msg = Drupal.t('You have not entered an address.');
-            alert(msg);
+            //alert(msg);
           }
         }
 
