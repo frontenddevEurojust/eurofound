@@ -368,6 +368,17 @@ jQuery( window ).load(function() {
    $("#edit-field-ef-affected-units-und-0-value").focusout(function(){
       var $location = $("#edit-field-ef-affected-units-und-0-value").val();
       $("#edit-field-address-und-0-additional").val($location);
+      if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() != '- None -'){
+            var $select1 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() + " ";
+          }else{
+            var $select1 = "";
+          }
+      if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() != '- None -'){
+            var $select4 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() + " ";
+          }else{
+            var $select4 = "";
+          }
+      $("#edit-field-address-und-0-province").val($select4 + $select1);
       $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     });
 
