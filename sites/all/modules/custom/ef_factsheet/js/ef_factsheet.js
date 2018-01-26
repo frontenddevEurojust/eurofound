@@ -198,7 +198,172 @@ jQuery( window ).load(function() {
     //End NUT 2 **********************************************************************************************************
     });
     //End NUT 1 **********************************************************************************************************
-  
+
+
+
+
+  //If select change
+
+  //NUT 1******************************************************************************************************************
+    //When change de select nut 1
+    $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0)" ).change(function() {
+      
+      if($( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() != '- None -'){
+        var $select1 = $( ".field-name-field-ef-nuts > div > div > select:nth-child(3) option:selected" ).text() + " ";
+      }else{
+        var $select1 = "";
+      }
+
+      //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
+      $("#edit-field-address-und-0-province").val($select1);
+      
+      //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+      $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+      
+      //Assing value 1 when nut 1 works
+      $("#max-working-nut").val("1");
+     });
+
+  //NUT 2******************************************************************************************************************
+    $("#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1)").change(function() {
+      
+      if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() != '- None -'){
+        var $select1 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() + " ";
+      }else{
+        var $select1 = "";
+      }
+      if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() != '- None -'){
+        var $select2 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() + " ";
+      }else{
+        var $select2 = "";
+      }
+
+      //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
+      $("#edit-field-address-und-0-province").val($select2 + $select1 );
+      
+      //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+      $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+
+      //In the module js getlocations_fields.js we create a input type hidden: #wrong-location
+      //If we have errors we remove de module alert 
+      //If the nut can't geolocate we remove the las nut and we fill the input #edit-field-address-und-0-province with the nut correct values
+      setTimeout(function(){ 
+          if ($("#wrong-location").length > 0){
+            $("#edit-field-address-und-0-province").val($select1);
+            //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+            $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+            $("#wrong-location").remove();
+        }else{
+           //Assing value 2 when nut 2 works
+          $("#max-working-nut").val("2");
+        }
+        }, 300);
+      });
+
+
+  //NUT 3******************************************************************************************************************
+      $("#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2)").change(function() {
+        
+        if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() != '- None -'){
+          var $select1 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() + " ";
+        }else{
+          var $select1 = "";
+        }
+        if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() != '- None -'){
+          var $select2 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() + " ";
+        }else{
+          var $select2 = "";
+        }
+        if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() != '- None -'){
+          var $select3 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() + " ";
+        }else{
+          var $select3 = "";
+        }
+
+        //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
+        $("#edit-field-address-und-0-province").val($select3 + $select1);
+
+        //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+        $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+
+        //In the module js getlocations_fields.js we create a input type hidden: #wrong-location
+        //If we have errors we remove de module alert 
+        //If the nut can't geolocate we remove the las nut and we fill the input #edit-field-address-und-0-province with the nut correct values
+        setTimeout(function(){ 
+          if ($("#wrong-location").length > 0){
+            if ($("#max-working-nut").val()==2){
+              $("#edit-field-address-und-0-province").val($select3 + $select1);
+            }else{
+              $("#edit-field-address-und-0-province").val($select1);
+            }
+            //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+            $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+            $("#wrong-location").remove();
+        }else{
+          //Assing value 3 when nut 3 works
+          $("#max-working-nut").val("3");
+        }
+        }, 300);
+    });
+
+
+
+
+  //NUT 4******************************************************************************************************************
+        $("#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3)").change(function() {
+          
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() != '- None -'){
+            var $select1 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(0) option:selected" ).text() + " ";
+          }else{
+            var $select1 = "";
+          }
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() != '- None -'){
+            var $select2 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(1) option:selected" ).text() + " ";
+          }else{
+            var $select2 = "";
+          }
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() != '- None -'){
+            var $select3 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() + " ";
+          }else{
+            var $select3 = "";
+          }
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() != '- None -'){
+            var $select4 = $( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() + " ";
+          }else{
+            var $select4 = "";
+          }
+
+          //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
+          $("#edit-field-address-und-0-province").val($select4 + $select1);
+
+          //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+          $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+
+          //In the module js getlocations_fields.js we create a input type hidden: #wrong-location
+          //If we have errors we remove de module alert 
+          //If the nut can't geolocate we remove the las nut and we fill the input #edit-field-address-und-0-province with the nut correct values
+          setTimeout(function(){ 
+          if ($("#wrong-location").length > 0){
+            if ($("#max-working-nut").val()==3){
+              $("#edit-field-address-und-0-province").val($select4 + $select1);
+            }else if ($("#max-working-nut").val()==2){
+              $("#edit-field-address-und-0-province").val($select3+ $select1);
+            }else{
+              $("#edit-field-address-und-0-province").val($select1);
+            }
+            //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
+            $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+            $("#wrong-location").remove();
+          }
+        }, 300);
+          
+        });
+        //End NUT 4 ******************************************************************************************************
+
+
+
+
+
     //Geolocation by Location of affected unit(s) field. When focus out, geolocalice the poi
    $("#edit-field-ef-affected-units-und-0-value").focusout(function(){
       var $location = $("#edit-field-ef-affected-units-und-0-value").val();
