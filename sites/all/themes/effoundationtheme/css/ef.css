@@ -13310,7 +13310,7 @@ h4.title-tooltip-geolocation a:hover{
 }
 .vcard p.see-more a:hover{
 	opacity: 1;
-		background: #666;
+	background: #737fa1;
 }
 .vcard img{
 	width: 100%;
@@ -13422,7 +13422,7 @@ h4.title-tooltip-geolocation a:hover{
 }
 .vcard-img p.see-more a:hover{
 	opacity: 1;
-	background: #666;
+	background: #737fa1;
 }
 
 .vcard .pane-content h3 ~ p, 
@@ -13444,7 +13444,7 @@ h4.title-tooltip-geolocation a:hover{
   position: relative;
 }
 .hcard-img .media {
-  width: 31%;
+  width: 52%;
   overflow: hidden;
   height: 220px;
   float: left;
@@ -13461,7 +13461,7 @@ h4.title-tooltip-geolocation a:hover{
 .hcard-img p{
 	display: block;
 	float: left;
-  width: 65%;
+  width: 43%;
 }
 .hcard-img p:empty{
 	display: none;
@@ -13472,17 +13472,13 @@ h4.title-tooltip-geolocation a:hover{
   margin: 10px 12px 10px 0 !important;
   border-bottom: 1px solid #DDD;
   float: left;
-  width: 64%;
-}
-.data-explorer-left .hcard-img h3, 
-.other-resources-left .hcard-img h3{
-  width: 59%;
+  width: 43%;
 }
 .hcard-img p.see-more{
 	position: absolute;
 	bottom: 0;
 	text-align: center;
-	width: 31%;
+	width: 100%;
 	margin: 0;
 }
 .hcard-img p.see-more a{
@@ -13493,7 +13489,50 @@ h4.title-tooltip-geolocation a:hover{
 }
 .hcard-img p.see-more a:hover{
 	opacity: 1;
-	background: #666;
+	background: #737fa1;
+}
+.data-explorer-left .hcard-img .media, 
+.other-resources-left  .hcard-img .media, 
+.data-explorer-right .hcard-img .media, 
+.other-resources-right  .hcard-img .media{
+  width: 100%;
+  height: auto;
+}
+
+.data-explorer-left .hcard-img p, 
+.other-resources-left .hcard-img p, 
+.data-explorer-left .hcard-img h3, 
+.other-resources-left .hcard-img h3, 
+.data-explorer-right .hcard-img p, 
+.other-resources-right .hcard-img p, 
+.data-explorer-right .hcard-img h3, 
+.other-resources-right .hcard-img h3{
+  width: 92%;
+  height: auto;
+}
+
+
+.data-explorer-left .hcard-img h3, 
+.other-resources-left .hcard-img h3, 
+.data-explorer-right .hcard-img h3, 
+.other-resources-right .hcard-img h3{
+	margin: 11px 12px 0 !important;
+}
+.data-explorer-left .hcard-img p, 
+.other-resources-left .hcard-img p, 
+.data-explorer-right .hcard-img p, 
+.other-resources-right .hcard-img p{
+	margin: 11px 12px !important;
+}
+
+.data-explorer-left .hcard-img p.see-more, 
+.other-resources-left .hcard-img p.see-more
+.data-explorer-right .hcard-img p.see-more, 
+.other-resources-right .hcard-img p.see-more {
+  position: relative;
+  margin: 0 !important;
+  width: 100% !important;
+  bottom: 0;
 }
 
 /*** ADITIONAL STYLE TO COMBINE ***/
@@ -13573,14 +13612,26 @@ h4.title-tooltip-geolocation a:hover{
 	  font-size: 14px;
 	}
 	.hcard-img .media {
-	  height: 260px;
+		height: 100px;
+		width: 42%;
 	}
 	.hcard-img img {
 	  max-width: 410px !important;
 	  height: 260px;
 	}
 	.hcard-img h3 {
-	  width: 63%;
+    width: 52%;
+	}
+	.hcard-img p.see-more {
+	  position: relative;
+	  bottom: 0;
+	  text-align: center;
+	  width: 100%;
+	  margin: 0;
+	}
+	.hcard-img img {
+	  max-width: 100% !important;
+	  height: auto;
 	}
 	.vcard-img {
 	  min-height: auto;
@@ -13593,6 +13644,10 @@ h4.title-tooltip-geolocation a:hover{
 	.data-explorer-left, .data-explorer-center, .data-explorer-right, 
 	.other-resources-left, .other-resources-center, .other-resources-right{
 		width: 100%;
+	}
+
+	.vcard-img .pane-content{
+	  display: initial;		
 	}
 	.vcard-img{
 		outline: 1px solid #CCC;
@@ -13620,23 +13675,29 @@ h4.title-tooltip-geolocation a:hover{
 		margin-right:2% !important;
 	}
 	.vcard-img .media, .vcard .media {
-	  width: 31%;
-	  overflow: hidden;
-	  height: 210px;
-	  float: left;
+		width: 50%;
+		overflow: hidden;
+		height: 235px;
+		float: left;
 		margin: 0 12px 0 0;
 	}
-
-	.vcard-img img, .vcard img{
-	  outline: 0;
-	  width: auto !important;
-	  max-width: 310px !important;
-	  height: 175px;
+	.hcard-img .media {
+		width: 50%;
+		overflow: hidden;
+		height: 235px;
+		float: left;
+		margin: 0 12px 0 0;
+	}
+	.vcard-img img, .vcard img, .hcard-img img{
+		outline: 0;
+		width: 102%!important;
+		max-width: 500px !important;
+		height: auto;
 	}
 	.vcard-img p{
 		display: block;
 		float: left;
-	  width: 63%;
+		width: 43%;
 	}
 	.vcard p{
 		display: block;
