@@ -425,6 +425,78 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   if ($form['#id'] =='user-profile-form') {
 		$form['account']['mail']['#weight'] = -8;
   }
+
+	//Validate, Rearrange and modify Default Value Taxonomies and Related Content
+  	$type_taxonomies_taxonomies = array();
+	if (isset($form['#node_edit_form'])) {
+		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
+		//Set Default Value
+		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
+			$tid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->field_related_taxonomy['und'][$key]['target_id'];
+			$nid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->nid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
+			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
+			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->nid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+	}
+}
+
+function ef_customised_forms_field_related_taxonomy_validate($form, &$form_state){
+	$i=0;
+	foreach ($form_state['values']['field_related_taxonomy']['und'] as $key ) {
+		if ($key["_weight"] < 0 ) {
+			$real_weight = ef_customised_forms_get_real_weight($form['und'][$i]['target_id']['#entity']->field_related_taxonomy['und'][$i]['target_id'], $form['und'][0]['target_id']['#entity']->nid);
+			if ($real_weight >= 0 || $real_weight===false) {
+				form_error($form, t("The weight must be possitive in RELATED TAXONOMY. Value: (".$key["_weight"].") in ID: ".$form['und'][$i]['target_id']['#entity']->field_related_taxonomy['und'][$i]['target_id']) );
+			}
+		}
+		$i++;
+	}
+}
+
+function ef_customised_forms_get_real_weight($id_contenido, $nid) {
+	$query = db_select('related_content_and_taxonomies', 'rc');
+    $query->fields('rc', array("rc_weight"));
+    $query->condition('rc.nid', $nid, "=");
+    $query->condition('rc.rc_id', $id_contenido, "=");
+    $result=$query->execute();
+
+    if ($result->rowCount()==1) {
+    	while($record = $result->fetchAssoc()) {
+            return $record["rc_weight"];
+        }
+    }else{
+    	return false;
+    }
 }
 
 function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id){
@@ -435,5 +507,78 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 	
   	$form['#attached']['js'][] = drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js';
 
+}
+
+function ef_customised_forms_node_submit($node, $form, &$form_state){
+	foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+		$tid = $taxonomy["target_id"];
+		$weight = $taxonomy["_weight"];
+		$nid = $form_state["build_info"]["args"][0]->nid;
+		//Check if exists
+		$query = db_select('related_content_and_taxonomies', 'rc');
+	    $query->fields('rc', array("rc_id"));
+	    $query->condition('rc.nid', $nid, "=");
+	    $query->condition('rc.rc_id', $tid, "=");
+	    $result=$query->execute();
+
+	    if ( is_numeric($weight) && is_numeric($tid) ) {
+	    	if ($result->rowCount()==1) {
+	    		$num_updated = db_update('related_content_and_taxonomies')
+								  ->fields(array(
+								    'rc_weight' => $weight
+								  ))
+								  ->condition('nid', $nid, '=')
+								  ->condition('rc_id', $tid, '=')
+								  ->execute();
+				if (!$num_updated) {
+					form_error(t("Have been a error. Please try again."));
+				}
+	    	}else{
+	    		db_insert('related_content_and_taxonomies') // Table name no longer needs {}
+						->fields(array(
+						  'nid' => $nid,
+						  'rc_type' => "tax",
+						  'rc_id' => $tid,
+						  'rc_weight' => $weight,
+						))
+						->execute();
+	    	}	    	
+	    }
+	}
+	foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+		$cid = $content["target_id"];
+		$weight = $content["_weight"];
+		$nid = $form_state["build_info"]["args"][0]->nid;
+		//Check if exists
+		$query = db_select('related_content_and_taxonomies', 'rc');
+	    $query->fields('rc', array("rc_id"));
+	    $query->condition('rc.nid', $nid, "=");
+	    $query->condition('rc.rc_id', $cid, "=");
+	    $result=$query->execute();
+
+	    if ( is_numeric($weight) && is_numeric($cid) ) {
+	    	if ($result->rowCount()==1) {
+	    		$num_updated = db_update('related_content_and_taxonomies')
+								  ->fields(array(
+								    'rc_weight' => $weight
+								  ))
+								  ->condition('nid', $nid, '=')
+								  ->condition('rc_id', $cid, '=')
+								  ->execute();
+				if (!$num_updated) {
+					form_error(t("Have been a error. Please try again."));
+				}
+	    	}else{
+	    		db_insert('related_content_and_taxonomies') // Table name no longer needs {}
+						->fields(array(
+						  'nid' => $nid,
+						  'rc_type' => "node",
+						  'rc_id' => $cid,
+						  'rc_weight' => $weight,
+						))
+						->execute();
+	    	}	    	
+	    }
+	}
 }
 
