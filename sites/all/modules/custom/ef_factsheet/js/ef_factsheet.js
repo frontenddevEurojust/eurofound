@@ -76,7 +76,7 @@ jQuery( window ).load(function() {
       }
 
       //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
-      $("#edit-field-address-und-0-province").val($select1 + $select2 );
+      $("#edit-field-address-und-0-province").val($select2 + $select1 );
       
       //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
       $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
@@ -117,7 +117,7 @@ jQuery( window ).load(function() {
         }
 
         //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
-        $("#edit-field-address-und-0-province").val($select1 + $select2 +$select3 );
+        $("#edit-field-address-und-0-province").val($select3 + $select1);
 
         //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
         $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
@@ -167,7 +167,7 @@ jQuery( window ).load(function() {
           }
 
           //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
-          $("#edit-field-address-und-0-province").val($select1 + $select2 +$select3 +$select4);
+          $("#edit-field-address-und-0-province").val($select4 + $select1);
 
           //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
           $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
