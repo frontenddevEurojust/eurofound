@@ -473,12 +473,15 @@ jQuery( window ).load(function() {
             $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
             $('#payment').show();
             $('.reveal-modal-bg').show();
-            $('#edit-save-edit').prop("disabled", false);
-            $('#edit-save-edit').addClass("form-submit");
-            $('#edit-save-edit').removeClass("form-submit-disabled");
-            $('#edit-submit').prop("disabled", false);
-            $('#edit-submit').addClass("form-submit primary");
-            $('#edit-submit').removeClass("form-submit-disabled");
+            
+            if ($(".front")[0]){
+              $('#edit-save-edit').prop("disabled", false);
+              $('#edit-save-edit').addClass("form-submit");
+              $('#edit-save-edit').removeClass("form-submit-disabled");
+              $('#edit-submit').prop("disabled", false);
+              $('#edit-submit').addClass("form-submit primary");
+              $('#edit-submit').removeClass("form-submit-disabled");
+            }
             
             $('#accept-button').click(function() {
               $('#payment').hide();

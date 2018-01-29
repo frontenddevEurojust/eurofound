@@ -1134,3 +1134,8 @@ div.add-or-remove-shortcuts {
 #edit-field-address-und-0 > div{
   padding-left: 0;
 }
+
+.btn-payment.disabled{
+  pointer-events: none;
+  opacity: 0.5;
+}
