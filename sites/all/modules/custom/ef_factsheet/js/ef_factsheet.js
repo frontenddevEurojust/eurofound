@@ -469,7 +469,7 @@ jQuery( window ).load(function() {
     if (isDirty) {
         if ($(this).val() == 'published'){
           if ($("#edit-field-ef-approved-for-payment-und-0-value-datepicker-popup-0").val() === "") {
-            $(".form-item-field-ef-moderation-state").once().append("<div id='payment' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>The 'Approved for payment' field is empty. Are you sure you want to publish this factsheet?</p><a id='accept-button' class='btn-payment'>Yes, I want to publish</a> <a id='go-to' class='btn-payment'>No, I want to fill-in the 'Approved for payment' field</a></div></div>" );
+            $(".form-item-field-ef-moderation-state").once().append("<div id='payment' class='reveal-modal' class='reveal-modal' data-reveal='' aria-labelledby='modalTitle' aria-hidden='false' role='dialog'><p class='lead'>The 'Approved for payment' field is empty. Are you sure you want to publish this factsheet?</p><a id='accept-button' class='btn-payment disabled'>Yes, I want to publish</a> <a id='go-to' class='btn-payment'>No, I want to fill-in the 'Approved for payment' field</a></div></div>" );
             $("body").once().append("<div class='reveal-modal-bg payment' style='display: block;'></div>");
             $('#payment').show();
             $('.reveal-modal-bg').show();
@@ -479,7 +479,6 @@ jQuery( window ).load(function() {
             $('#edit-submit').prop("disabled", false);
             $('#edit-submit').addClass("form-submit primary");
             $('#edit-submit').removeClass("form-submit-disabled");
-            
             
             $('#accept-button').click(function() {
               $('#payment').hide();

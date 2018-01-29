@@ -13127,6 +13127,11 @@ p.view-empty.error-msg:before{
     font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
 }
 
+.btn-payment.disabled{
+	pointer-events: none;
+	opacity: 0.5;
+}
+
 .btn-payment:hover{
 	background-color: #BAC9D8;
 	color:#37628E;
