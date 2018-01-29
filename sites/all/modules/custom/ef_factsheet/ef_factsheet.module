@@ -37,8 +37,13 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 			$form['field_ef_migration_factsheet_key']['#access']=FALSE;
 			$form['field_ef_migration_old_user']['#access']=FALSE;
 			$form['field_ef_factsheet_sources']['#access']=FALSE;
-
+			$form['field_address']['#attributes']['class']=array("field-type-getlocations-fields field-name-field-address field-widget-getlocations-fields form-wrapper hide-authors-map");
 		}
+
+		if (in_array('Author +', $user->roles)) {
+			$form['field_address']['#attributes']['class']=array("field-type-getlocations-fields field-name-field-address field-widget-getlocations-fields form-wrapper hide-authors-map");
+		}
+
 		//drupal_add_js(drupal_get_path('module', 'ef_factsheet') . '/js/ef_factsheet.js');
 		$form['#attached']['js'][] = drupal_get_path('module','ef_factsheet') . '/js/ef_factsheet.js';
 

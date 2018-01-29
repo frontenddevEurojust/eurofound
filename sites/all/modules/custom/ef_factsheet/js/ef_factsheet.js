@@ -119,6 +119,10 @@ jQuery( window ).load(function() {
         //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
         $("#edit-field-address-und-0-province").val($select3 + $select1);
 
+        if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() == '- None -'){
+         $("#edit-field-address-und-0-province").val($select2 + $select1);
+        }
+
         //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
         $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
 
@@ -169,6 +173,10 @@ jQuery( window ).load(function() {
           //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
           $("#edit-field-address-und-0-province").val($select4 + $select1);
 
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() == '- None -'){
+            $("#edit-field-address-und-0-province").val($select3 + $select1);
+          }
+
           //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
           $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
 
@@ -179,6 +187,9 @@ jQuery( window ).load(function() {
           if ($("#wrong-location").length > 0){
             if ($("#max-working-nut").val()==3){
               $("#edit-field-address-und-0-province").val($select4 + $select1);
+              if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() == '- None -'){
+                $("#edit-field-address-und-0-province").val($select3 + $select1);
+              }
             }else if ($("#max-working-nut").val()==2){
               $("#edit-field-address-und-0-province").val($select3+ $select1);
             }else{
@@ -283,6 +294,10 @@ jQuery( window ).load(function() {
         //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
         $("#edit-field-address-und-0-province").val($select3 + $select1);
 
+        if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(2) option:selected" ).text() == '- None -'){
+         $("#edit-field-address-und-0-province").val($select2 + $select1);
+        }
+
         //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
         $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
 
@@ -335,6 +350,10 @@ jQuery( window ).load(function() {
 
           //Complete the field hidden to geolocate the map. #edit-field-address-und-0-province is hidden by CSS
           $("#edit-field-address-und-0-province").val($select4 + $select1);
+
+          if($( "#node_ef_factsheet_form_group_ef_factsheet_group1 select:eq(3) option:selected" ).text() == '- None -'){
+            $("#edit-field-address-und-0-province").val($select3 + $select1);
+          }
 
           //Triger the buton geolocate, the button #getlocations_geocodebutton_key_1 is hidden by CSS
           $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
@@ -391,7 +410,7 @@ jQuery( window ).load(function() {
       }else{
         var $select4 = "";
       }
-      
+
       $("#edit-field-address-und-0-province").val($select4 + $select3 + $select2 + $select1);
       $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     });
@@ -413,12 +432,23 @@ jQuery( window ).load(function() {
     });
 
     $( ".getlocations_geocodebutton_key_2" ).click(function() {
-        $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+        if($('#edit-field-address-und-0-latitude').val() == "") {
+            alert("The latitude must be has a value")
+        }else if($('#edit-field-address-und-0-longitude').val() == "") {
+            alert("The longitude must be has a value")
+        }else if(!$.isNumeric($('#edit-field-address-und-0-latitude').val())) {
+            alert("The latitude value must be numeric")
+        }else if(!$.isNumeric($('#edit-field-address-und-0-longitude').val())) {
+            alert("The longitude value must be numeric")
+        }else{
+          $("#getlocations_geocodebutton_key_1" ).trigger( "click" );
+        }
+       
     });
 
     //Append de message if the geographical coordinates hasn't value - We verify that there is no value with the value "Check this box to delete this location."
     if (!$(".field-type-getlocations-fields .description")[0]){
-      $(".getlocations_fields_country_wrapper").once().prepend("<div id='message-location'>Please, make sure to click on the 'Save' button at the bottom of the page to save the geographical coordinates of this facthseet.</div>" );
+      $(".getlocations_fields_country_wrapper").once().prepend("<div id='message-location'>Please, make sure to click on the 'Save' button at the bottom of the page to save the geographical coordinates of this factsheet.</div>" );
       //Click the button 'Geocode this address' to apply the geolocation in the map if we haven't value en Latitude y Long 
       //$("#getlocations_geocodebutton_key_1" ).trigger( "click" );
     }    
