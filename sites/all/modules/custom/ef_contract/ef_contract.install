@@ -51,32 +51,41 @@ function ef_contract_update_7001() {
   	$term->name = $value;
   	$term->vid = $st_taxonomy->vid;
   	taxonomy_term_save($term);
+    $service_type_tids[] = $term->tid;
   }
 
 	//And we need to add the new deliverable kinds
 	$new_deliverable_kinds = array(
-		"Country update on latest developments in working life",
-		"Contribution to topical updates",
-		"Contribution to EurWORK'S annual review of working life",
-		"EurWORK'S Working life country profile - update",
-		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update",
-		"Update of a database of national contacts",
-		"Annual Progress Report",
-		"Questionnaire based national contribution to comparative work",
-		"Questionnaire based national contribution to sectoral representativeness studies",
-		"Provision of ERM factsheets",
-		"ERM database on support instruments - 1 instrument update",
-		"ERM database on restructuring related legislation - 1 regulation update",
-		"Update of the link collection of the national media sources used for identifying restructuring events",
-		"On-demand service",
+		"Country update on latest developments in working life" => $service_type_tids[0],
+		"Contribution to topical updates"  => $service_type_tids[0],
+		"Contribution to EurWORK'S annual review of working life"  => $service_type_tids[0],
+		"EurWORK'S Working life country profile - update" => $service_type_tids[0],
+		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update" => $service_type_tids[0],
+		"Update of a database of national contacts" => $service_type_tids[0],
+		"Annual Progress Report" => $service_type_tids[0],
+		"Questionnaire based national contribution to comparative work" => 'both',
+		"Questionnaire based national contribution to sectoral representativeness studies" => 'both',
+		"Provision of ERM factsheets" => $service_type_tids[1],
+		"ERM database on support instruments - 1 instrument update" => $service_type_tids[1],
+		"ERM database on restructuring related legislation - 1 regulation update" => $service_type_tids[1],
+		"Update of the link collection of the national media sources used for identifying restructuring events" => $service_type_tids[1],
+		"On-demand service" => $service_type_tids[1],
 	);
 
 	//Using taxonomy_term_save again 
   foreach ($new_deliverable_kinds as $key => $value) {
-  	$term = new stdClass();
-  	$term->name = $value;
+   	$term = new stdClass();
+  	$term->name = $value[0];
   	$term->vid = 53;
-    $term->name_field['und'][0]['value'] = $value;
+    $term->name_field['und'][0]['value'] = $value[0];
+    $term->field_ef_nec_period['und'][0]['value'] = '2018 - 2022';
+    if ($value[1] == 'both') {
+      $term->field_ef_service_type['und'][0]['tid'] = $service_type_tids[0];
+      $term->field_ef_service_type['und'][1]['tid'] = $service_type_tids[1];
+    }
+    else {
+      $term->field_ef_service_type['und'][0]['tid'] = $value[1];
+    }
   	taxonomy_term_save($term);
   }
 }
@@ -157,7 +166,7 @@ function ef_contract_update_7002() {
     $query->execute();
   }
 
-    //And we need to add the new deliverable kinds
+  //And we need to add the new contracts
   $new_contracts = array(
     '18-3030-01' => array('Network of correspondents - Austria', 'AT'),
     '18-3030-02' => array('Network of correspondents - Belgium', 'BE'),
