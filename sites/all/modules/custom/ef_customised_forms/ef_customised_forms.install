@@ -1,0 +1,85 @@
+<?php
+	function ef_customised_forms_schema(){
+		$schema['related_content_and_taxonomies'] = array(
+		    'description' => 'This is a table for custom module ef_customised_forms',
+		    'fields' => array(
+		      'rcid' => array(
+		        'description' => 'The primary id.',
+		        'type' => 'serial',
+		        'length' => 20,
+		        'not null' => TRUE
+		      ),
+		      'nid' => array(
+		        'description' => 'The node id.',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      ),
+		      'rc_type' => array(
+		        'description' => 'Type of entity (related content)',
+		        'type' => 'varchar',
+		        'length' => 20,
+		        'not null' => TRUE,
+		        'not null' => TRUE,
+		      ),
+		      'rc_id' => array(
+		        'description' => 'Related Content Id',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      ),
+		      'rc_weight' => array(
+		        'description' => 'The real weight. Override to field_data_fiel_related_taxonomy',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      )
+		    ),
+		    'primary key' => array('rcid'),
+		    'auto_increment' => 1,
+		  );
+		  return $schema;
+	}
+
+	function ef_customised_forms_update_7003 () {
+	  $table = array(
+		    'description' => 'This is a table for custom module ef_customised_forms',
+		    'fields' => array(
+		      'rcid' => array(
+		        'description' => 'The primary id.',
+		        'type' => 'serial',
+		        'length' => 20,
+		        'not null' => TRUE
+		      ),
+		      'nid' => array(
+		        'description' => 'The node id.',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      ),
+		      'rc_type' => array(
+		        'description' => 'Type of entity (related content)',
+		        'type' => 'varchar',
+		        'length' => 20,
+		        'not null' => TRUE,
+		        'not null' => TRUE,
+		      ),
+		      'rc_id' => array(
+		        'description' => 'Related Content Id',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      ),
+		      'rc_weight' => array(
+		        'description' => 'The real weight. Override to field_data_fiel_related_taxonomy',
+		        'type' => 'int',
+		        'length' => 20,
+		        'not null' => TRUE,
+		      )
+		    ),
+		    'primary key' => array('rcid'),
+		    'auto_increment' => 1,
+		  );
+	  db_create_table('related_content_and_taxonomies', $table);
+	}
+?>
