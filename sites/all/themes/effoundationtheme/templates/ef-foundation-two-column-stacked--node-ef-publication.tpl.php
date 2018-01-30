@@ -87,28 +87,10 @@ if (isset($content['field_ef_document'][0]['#file']))
 	$imageurl = image_style_url('large', _pdfpreview_create_preview($content['field_ef_document'][0]['#file']));
 }
 
-if ($state == 'forthcoming')
 
-{
-	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
-	
-	{
-		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
-		$publication_date = date_format($publication_date,"F Y");
-	}
-
-}
-
-else
-
-{
-	if (isset($content['group_ef_node_details']['published_on'][0]['#markup']))
-	
-	{
-		$publication_date = date_create($content['group_ef_node_details']['published_on'][0]['#markup']);
-		$publication_date = date_format($publication_date,"d F Y");
-	}
-}
+//Remove the day when the content is forthcoming
+$publication_date_forthcoming = preg_split('#\s+#', $content['group_ef_node_details']['published_on'][0]['#markup'], 2);
+$state == 'forthcoming' ? $publication_date = $publication_date_forthcoming[1] : $publication_date = $content['group_ef_node_details']['published_on'][0]['#markup'];
 
 if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
@@ -253,13 +235,13 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 						</li>
 					<?php else: ?>
 						<li>
-							<span class="label-inline">Published on: </span><span><?= $publication_date; ?></span>
+							<span class="label-inline">Published on: </span><span class="label-content"><?= $publication_date; ?></span>
 						</li>
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_observatory'])): ?>
 					<li>
-						<span class="label-inline">Observatory: </span><span><a href="<?= $observatory_url ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
+						<span class="label-inline">Observatory: </span><span class="label-content"><a href="<?= $observatory_url ?>"><?= $content['group_ef_node_details']['field_ef_observatory'][0]['#title']; ?></a></span>
 					</li>
 					<?php endif; ?>
 
@@ -270,12 +252,24 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 					<?php endif; ?>
 
 					<?php if(isset($content['group_ef_node_details']['field_ef_topic'])): ?>
-					<li><span class="label-inline">Topics:</span>
+					<li><span class="label-inline">Topics: </span>
 						<ul class="topic-list">
 							<?php foreach ($content['group_ef_node_details']['field_ef_topic']['#items'] as $key => $topic): ?>
 							<li><a href="<?= url($content['group_ef_node_details']['field_ef_topic'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_topic'][$key]['#title']; ?></a></li>
 							<?php endforeach; ?>
 						</ul>
+					</li>
+					<?php endif; ?>
+					<?php if(($content['group_ef_node_details']['field_show_permalink']['#items'][0]['value']) != 0): ?>
+					<li>
+						<span class="label-inline">
+							 <?php print t("Permalink") ?>:
+						</span>
+						<span class="label-content">
+							<a href="<?= url($content['group_ef_node_details']['field_permalink']['#items'][0]['url']); ?>">
+								<?= $content['group_ef_node_details']['field_permalink']['#items'][0]['title']; ?>
+							</a>
+						</span>
 					</li>
 					<?php endif; ?>
 

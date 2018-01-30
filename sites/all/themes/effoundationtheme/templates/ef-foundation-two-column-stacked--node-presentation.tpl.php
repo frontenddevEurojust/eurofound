@@ -48,8 +48,9 @@ $blog_presentation_find = strpos($blog_presentation_author_view,'No results were
 
 $terms = taxonomy_get_term_by_name($content['field_ef_publ_contributors'][0]['#title'], $vocabulary = 'ef_publication_contributors');
 $term = $terms[key($terms)];
-$query_count = "SELECT COUNT(*) as count FROM field_data_field_ef_publ_contributors a WHERE a.field_ef_publ_contributors_tid = :tid AND a.bundle IN ('ef_publication', 'blog', 'presentation')";
-$count = db_query($query_count, array(':tid' => $term->tid))->fetchAll();
+
+$result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , $node->nid );
+$countview = count($result);
 
 $bytes = $content['field_pdf_presentation']['#items'][0]['filesize'];
 
@@ -113,7 +114,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ( $count[0]->count > 1)): ?>
+    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($countview  > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -137,24 +138,37 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                             <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
                         <?php endforeach; ?>
                     </div>
-                   
-                        <?php if(count($content['field_ef_topic']['#items'])): ?>
-                             <div class="field field-name-field-ef-topic">
-                            <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
-                                    <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
-                                        <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
-                                        <?php if ($language->language != 'en'): ?> 
-                                        <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>
-                                        <?php else: ?>
-                                        <a href="/<?php print $result[0]->alias; ?>" >
-                                            <?php print $content['field_ef_topic'][$i]['#title']; ?>
-                                        </a>    
-                                        <?php endif; ?>
-                                    <?php endfor; ?>
+                    <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
+                        <div class="field field-permalink">
+                            <div class="label-inline">
+                                <?php print t("Permalink") ?>:&nbsp;
                             </div>
-                        <?php endif; ?>
+                            <div class="label-content">
+                                <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
+                                    <?= $content['field_permalink']['#items'][0]['title']; ?>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(count($content['field_ef_topic']['#items'])): ?>
+                        <div class="field field-name-field-ef-topic">
+                            <div class="label-inline">
+                                <?php print t("Topic:") ?>&nbsp;
+                            </div>
+                            <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
+                                <?php $result = db_query("SELECT a.alias FROM url_alias a WHERE a.source ='" . $content['field_ef_topic'][$i]['#href'] . "'")->fetchAll(); ?>
+                                <?php if ($language->language != 'en'): ?> 
+                                <a href="/<?php print $language->language;?>/<?php print $result[0]->alias; ?>" >
+                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                </a>
+                                <?php else: ?>
+                                <a href="/<?php print $result[0]->alias; ?>" >
+                                    <?php print $content['field_ef_topic'][$i]['#title']; ?>
+                                </a>    
+                                <?php endif; ?>
+                            <?php endfor; ?>
+                        </div>
+                    <?php endif; ?>
                         
                 </div>
             </div>
@@ -196,12 +210,12 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
     
     
     <aside class="large-3 columns blog-presentation"> 
-        <?php if ($count[0]->count > 1): ?>  
+        <?php if ($countview  > 0): ?>  
         <h2>
-            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></span>
+            <span class="author-name-right"><?= $content['field_ef_publ_contributors'][0]['#title']; ?></span>
         </h2>
         <div class="author-view">
-            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors'][$key]['#title']); ?>
+            <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); ?>
         </div>
         <?php endif; ?>
         <div class="related-links-block">

@@ -89,251 +89,254 @@ $labelpublishedon = $content['field_ef_cp_update_day']['#title'];
 $publishedon = $content['field_ef_cp_update_day'][0]['#markup'];
 
 
+$subtitleLiving = $content['field_ef_title_living_in_country']['#items'][0]['safe_value'];
 $subtitle = $content['field_subtitle']['#items'][0]['safe_value'];
 $eurostatResult = $content['field_ef_eurostat_results']['#items'][0]['value'];
 $summary = $content['field_ef_summary_living_working']['#items'][0]['value'];
 $mainImagen = $content['field_ef_country_main_img'];
 $news_and_quartely_updates = views_embed_view('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']); 
 $quartely_overviews = views_embed_view('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']); 
-$check_view_country_update = views_get_view_result('latest_country_update','news_and_quartely_updates');
-$check_view_overview = views_get_view_result('latest_country_update','quarterly_overviews');
-
+$check_view_country_update = views_get_view_result('latest_country_update','news_and_quartely_updates', $content['field_ef_country']['#items'][0]['iso2']);
+$check_view_overview = views_get_view_result('latest_country_update','quarterly_overviews', $content['field_ef_country']['#items'][0]['iso2']);
+$print_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/print" . $_SERVER[REQUEST_URI];
+$pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/printpdf" . $_SERVER[REQUEST_URI]; 
 ?>
+<div class="content-living-working">
+	<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
+	<p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
+	
+	<!-- INTRO TO LIVING AND WORKING SECTIONS-->
+	<?php if(isset($subtitle)): ?>
+		<?php if(isset($eurostatResult)): ?>
+		<div class="eurostat-result small-12 large-3 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
+		<?php endif; ?>
 
-<div class="print-wrapper no-pdf"><?php if(!isset($subtitle)): ?><?php print print_pdf_insert_link();?><?php endif; ?><?php print print_insert_link();?></div>
-
-<p class="large-12 columns no-pdf"><?php print $content['published_on'][0]['#markup']; ?></p>
-
-
-<?php if(isset($subtitle)): ?>
-	<?php if(isset($eurostatResult)): ?>
-	<div class="eurostat-result small-12 large-3 columns no-pdf" id="top"><?php print $eurostatResult ?></div>
-	<?php endif; ?>
-
-	<?php if(isset($mainImagen)): ?>
-		<div class="summary-living-working small-12 large-6 columns no-pdf">
-	<?php else: ?>
-		<?php if(!isset($eurostatResult)): ?>
-			<div class="summary-living-working small-12 large-12 columns no-pdf">
+		<?php if(isset($mainImagen)): ?>
+			<div class="summary-living-working small-12 large-6 columns no-pdf">
 		<?php else: ?>
-			<div class="summary-living-working small-12 large-8 columns no-pdf">
-		<?php endif; ?>	
-	<?php endif; ?>
-
+			<?php if(!isset($eurostatResult)): ?>
+				<div class="summary-living-working small-12 large-12 columns no-pdf">
+			<?php else: ?>
+				<div class="summary-living-working small-12 large-8 columns no-pdf">
+			<?php endif; ?>	
+		<?php endif; ?>
 		<?php if(isset($summary)): ?>
 			<?php print $summary ?>
 		<?php endif; ?>
-	</div>
+		</div>
+		<?php if(isset($mainImagen)): ?>
+			<div class="eurostat-img small-12 large-3 columns no-pdf"><?php print render($mainImagen); ?></div>
+		<?php endif; ?>
 
-	<?php if(isset($mainImagen)): ?>
-		<div class="eurostat-img small-12 large-3 columns no-pdf"><?php print render($mainImagen); ?></div>
+		<div class="clear"></div>
+
+
+		<!-- INTRO TEXT TO NEXT BOTH SECTIONS-->
+		<?php if(isset($content['field_ef_intro_text']['#items'][0]['value'])): ?>
+			<div class="intro-text">
+				<?php print $content['field_ef_intro_text']['#items'][0]['value']; ?>
+			</div>
+		<?php endif; ?>
+
+			<?php 
+				$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
+				if($number_tabs != 0 ): 
+			?>
+
+			<div class="clear"></div>
+
+			<!-- TABS LIVING AND WORKING AREA SECTIONS-->
+			<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
+				<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
+					<?php
+						$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
+
+						$cadena = str_replace('&nbsp;', '', $cadena);		
+						$cadena = str_replace('/\s/', '', $cadena);
+						$cadena = str_replace('&amp;', '', $cadena);
+						$cadena = str_replace('&', '', $cadena);
+						$cadena = preg_replace('/\s+/','-', $cadena);
+						$cadena = str_replace(' ', '', $cadena);		
+				   ?>
+
+						<?php if($i == 1): ?>
+								<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
+			            
+			            <?php if(count($check_view_overview) > 0 ): ?>
+			              <section class="news-and-quartely-country-updates">		                
+			                <h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2>	
+				                  <div class="content" data-section-content>			                  	
+				                    <div class="small-12 large-12 column quarterly-overviews">
+				                      <!--<h3><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h3>-->
+				                      <?php print $quartely_overviews; ?>
+				                    </div>
+				                  </div>			                  
+			              </section>
+			            <?php endif; ?>
+								<?php endif; ?>
+						<?php else: ?>
+								<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
+									<section class="<?php print strtolower($cadena);?>">
+										<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+										<div class="content" data-section-content>
+											<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
+										</div>
+									</section>
+								<?php endif; ?>
+						<?php endif; ?>
+				<?php endfor; ?>
+			</div>
+			<div class="clear"></div>
+
+		<?php endif; ?>	
 	<?php endif; ?>
+</div>
 
 	<div class="clear"></div>
 
-	<?php 
-		$number_tabs = count($content['field_ef_tabs_living_working']['#items']);
-		if($number_tabs != 0 ): 
-	?>
-		<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">
-		<?php if(count($content['field_ef_tabs_living_working']['#items'])): ?>
-			<?php for ($i=0; $i < count($content['field_ef_tabs_living_working']['#items']); $i++): ?>
-				<?php
-					$cadena = trim(strip_tags($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']));
 
-					$cadena = str_replace('&nbsp;', '', $cadena);		
-					$cadena = str_replace('/\s/', '', $cadena);
-					$cadena = str_replace('&amp;', '', $cadena);
-					$cadena = str_replace('&', '', $cadena);
-					$cadena = preg_replace('/\s+/','-', $cadena);
-					$cadena = str_replace(' ', '', $cadena);		
-			   ?>
 
-				<?php if($i == 0): ?>
-						<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
-							<section class="<?php print strtolower($cadena);?> active">
-								<h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
-								<div class="content" data-section-content>
-									<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-								</div>
-							</section>
-						<?php endif; ?>
-						<?php	if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
-							<section class="news-and-quartely-country-updates">
-								<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
-								<?php if(count($check_view_country_update) > 0): ?>
-									<div class="content" data-section-content>
-										<div class="small-12 large-8 column latest-news-working-life">
-											<h3><?php print t('Latest news on ' . $country .' working life') ?></h3>
-											<!--<p class="subtitle">News and quarterly country updates</p>-->
-											<?php print $news_and_quartely_updates; ?>
-										</div>
-									<?php endif; ?>
-
-									<?php if(count($check_view_overview) > 0): ?>
-										<div class="small-12 large-4 column quarterly-overviews">
-											<h3><?php print t('Quaterly overwievs') ?></h3>
-											<?php print $quartely_overviews; ?>
-										</div>
-									</div>
-								<?php endif; ?>
-							</section>
-						<?php endif; ?>
-					<?php else: ?>
-						<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
-							<section class="<?php print strtolower($cadena);?>">
-							<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
-							<div class="content" data-section-content>
-								<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
-							</div>
-						</section>
-					<?php endif; ?>
-				<?php endif; ?>
-			<?php endfor; ?>
-		<?php endif; ?>
+<!-- LIVING IN COUNTRY AREA SECTION-->
+<?php if(count($content['field_ef_tabs_living_country']['#items']) && isset($subtitleLiving)): ?>
+<div class="content-living-country">
+	<?php if(isset($subtitleLiving)): ?>
+		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitleLiving ?></h1>
+		<?php $print_image = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/sites/all/modules/contrib/print/print_pdf/icons/pdf_icon.png";	?>
+		<div class="print-pdf-wrapper">
+			<a href="<?php echo  $pdf_link; ?>?section=1" class="print-pdf" target="_blank"><span>Print pdf</span></a>
 		</div>
-		<div class="clear"></div>
-	<?php else: ?>
-			<?php	if(count($check_view_country_update) > 0 || count($check_view_overview) > 0 ): ?>
-				<div class="section-container section-living-working vertical-tabs row no-pdf" id="content-tabs-living-working" data-section="vertical-tabs">				
-					<section class="news-and-quartely-country-updates active">
-						<?php if(count($check_view_country_update) > 0): ?>
-							<h2  class="title" data-section-title><i class="fa fa-refresh" aria-hidden="true"></i><?php  print t('News and quarterly country updates') ?></h2>
-							<div class="content" data-section-content>
-									<?php if(count($check_view_overview) > 0): ?>
-										<div class="small-12 large-8 column latest-news-working-life">
-									<?php else: ?>
-										<div class="small-12 large-12 column latest-news-working-life">
-									<?php endif; ?>
-									<h3><?php print t('Latest news on ' . $country .' working life') ?></h3>
-									<?php print $news_and_quartely_updates; ?>
-								</div>
-							<?php endif; ?>
-
-							<?php if(count($check_view_overview) > 0): ?>
-									<?php if(count($check_view_country_update) > 0): ?>
-										<div class="small-12 large-4 column quarterly-overviews">
-									<?php else: ?>
-										<div class="small-12 large-12 column quarterly-overviews">
-									<?php endif; ?>
-									<h3><?php print t('Quaterly overwievs') ?></h3>
-									<?php print $quartely_overviews; ?>
-								</div>
-							</div>
-						<?php endif; ?>
-					</section>
-				</div>
-			<?php endif; ?>
-			<div class="clear"></div>
-	<?php endif; ?>	
-<?php endif; ?>
-
-
-
-<?php if(isset($subtitle)): ?>
-	<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
-	<div class="print-pdf-wrapper"><?php print print_pdf_insert_link();?></div>
-<?php endif; ?>
-
-
-
-<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-
-<?php if(isset($author) || isset($publishedon) || isset($institution)): ?>
-	<div class="summary-group row">
-		<div class='wp_about right'>
-			<h2 class='wp_tit'>About</h2>
-	      <ul class="wp_body row">
-
-	    	<?php if(isset($author)): ?>
-	    	<li>
-	        	<span class='small-3 columns'><?php print t('Author') ?>: </span>
-		        <span class='small-9 columns'><?php print $author; ?></span>
-	        </li>
-	    	<?php endif; ?>
-
-
-	    	<?php if(isset($institution)): ?>
-	    	<li>
-	        	<span class='small-3 columns'><?php print t('Institution') ?>: </span>
-		        <span class='small-9 columns'><?php print $institution; ?></span>
-	        </li>
-	    	<?php endif; ?>
-
-
-	    	<?php if(isset($publishedon)): ?>
-	    	<li>
-	        	<span class='small-3 columns'><?php print $labelpublishedon; ?> </span>
-		        <span class='small-9 columns'><?php print $publishedon; ?></span>
-	        </li>
-	    	<?php endif; ?>
-
-	      </ul>
-		</div>
-
-		<div class="summary">
-			<p><?php print $content['body'][0]['#markup']; ?></p>
-		</div>
-
-	</div>
-<?php else: ?>
-
-		<div class="summary-12">
-			<p><?php print $content['body'][0]['#markup']; ?></p>
-		</div>
-
-<?php endif; ?>
-
-
-<?php if(count($content['field_ef_tabs']['#items'])): ?>
-<div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs-country-profile" data-section="vertical-tabs">
-<?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
-	<?php if($i == 0): ?>
-	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?> active">
-	<?php else: ?>
-	<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
 	<?php endif; ?>
-		<h2 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h2>
-		<div class="content" data-section-content>
-			<p class="subtitle"><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?><p>
-			<?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_body'][0]['#markup']); ?>
-		</div>
-	</section>
-<?php endfor; ?>
-</div>
-<?php endif; ?>
 
-
-
-
-<!-- RATINGS -->
-<?php if(in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles)):?>
-	<?php print render($content['qrr']);?>
-<?php endif; ?>
-<!-- end RATINGS -->
-
-<!--COMMENTS-->
-<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
-<div class="ds-node-comments no-pdf">
-	
-	<div class="ef-comment-toggler toggler">
-	    <span class="show-text"><?php print t('Useful? Interesting? Tell us what you think.') ?></span>
-	    <span class="hide-text"><?php print t('Hide comments') ?></span>
-	</div>  
-
-  <div id="comments" class="title comment-wrapper">
-			<?php print render($content['comments']);?>
+	<div class="section-container section-living-country vertical-tabs row" id="content-tabs-living-country" data-section="vertical-tabs">		
+		<?php for ($i=0; $i < count($content['field_ef_tabs_living_country']['#items']); $i++): ?>
+			<?php if(isset($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])): ?>
+				<?php if($i == 0): ?>
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?> active">
+					<?php else: ?>
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?>">
+					<?php endif; ?>
+						<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h2>
+						<div class="content" data-section-content>
+							<p class="subtitle"><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?><p>
+							<?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_body_living_tabs']['und'][0]['value']); ?>
+						</div>
+					</section>
+			<?php endif; ?>
+		<?php endfor; ?>
 	</div>
-
 </div>
 <?php endif; ?>
-<!-- end comments -->
 
-<div class="go-top-wrapper no-pdf">
-  <a class="go-top fa-stack fa-2x" href="#up">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fa fa-angle-up fa-stack-1x fa-inverse"></i>
-  </a>
+
+
+<div class="clear"></div>
+
+
+<!-- WORKING LIFE IN COUNTRY AREA SECTION-->
+<div class="content-working-life">
+	<!--<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>-->
+	<?php if(isset($subtitle)): ?>
+		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
+		<div class="print-pdf-wrapper">
+			<a href="<?php echo  $pdf_link; ?>?section=2" class="print-pdf" target="_blank"><span>Print pdf</span></a>
+		</div>
+	<?php endif; ?>
+
+	<?php if(isset($author) || isset($publishedon) || isset($institution)): ?>
+		<div class="summary-group row">
+			<div class='wp_about right'>
+				<h2 class='wp_tit'>About</h2>
+		      <ul class="wp_body row">
+
+		    	<?php if(isset($author)): ?>
+		    	<li>
+		        	<span class='small-3 columns'><?php print t('Author') ?>: </span>
+			        <span class='small-9 columns'><?php print $author; ?></span>
+		        </li>
+		    	<?php endif; ?>
+
+
+		    	<?php if(isset($institution)): ?>
+		    	<li>
+		        	<span class='small-3 columns'><?php print t('Institution') ?>: </span>
+			        <span class='small-9 columns'><?php print $institution; ?></span>
+		        </li>
+		    	<?php endif; ?>
+
+
+		    	<?php if(isset($publishedon)): ?>
+		    	<li>
+		        	<span class='small-3 columns'><?php print $labelpublishedon; ?> </span>
+			        <span class='small-9 columns'><?php print $publishedon; ?></span>
+		        </li>
+		    	<?php endif; ?>
+
+		      </ul>
+			</div>
+
+			<div class="summary">
+				<p><?php print $content['body'][0]['#markup']; ?></p>
+			</div>
+
+		</div>
+	<?php else: ?>
+
+			<div class="summary-12">
+				<p><?php print $content['body'][0]['#markup']; ?></p>
+			</div>
+
+	<?php endif; ?>
+
+
+	<?php if(count($content['field_ef_tabs']['#items'])): ?>
+	<div class="section-container section-working-life-country-profile vertical-tabs row" id="content-tabs-country-profile" data-section="vertical-tabs">
+	<?php for ($i=0; $i < count($content['field_ef_tabs']['#items']); $i++): ?>
+		<?php if($i == 0): ?>
+		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?> active">
+		<?php else: ?>
+		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
+		<?php endif; ?>
+			<h2 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h2>
+			<div class="content" data-section-content>
+				<p class="subtitle"><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?><p>
+				<?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_body'][0]['#markup']); ?>
+			</div>
+		</section>
+	<?php endfor; ?>
+	</div>
+	<?php endif; ?>
+
+
+
+
+	<!-- RATINGS -->
+	<?php if(in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles)):?>
+		<?php print render($content['qrr']);?>
+	<?php endif; ?>
+	<!-- end RATINGS -->
+
+	<!--COMMENTS-->
+	<?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
+	<div class="ds-node-comments no-pdf">
+		
+		<div class="ef-comment-toggler toggler">
+		    <span class="show-text"><?php print t('Useful? Interesting? Tell us what you think.') ?></span>
+		    <span class="hide-text"><?php print t('Hide comments') ?></span>
+		</div>  
+
+	  <div id="comments" class="title comment-wrapper">
+				<?php print render($content['comments']);?>
+		</div>
+
+	</div>
+	<?php endif; ?>
+	<!-- end comments -->
+
+	<div class="go-top-wrapper no-pdf">
+	  <a class="go-top fa-stack fa-2x" href="#up">
+	    <i class="fa fa-circle fa-stack-2x"></i>
+	    <i class="fa fa-angle-up fa-stack-1x fa-inverse"></i>
+	  </a>
+	</div>
+	<!--</article>-->
 </div>
-
-</article>
