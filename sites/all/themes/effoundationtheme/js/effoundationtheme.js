@@ -1337,18 +1337,66 @@ $(document).ready(function(){
     $('.hcard-img p:last-child a').parent().addClass('see-more');
 
 
-  var longText = 400;
-  $('.vcard p').each(function( index ) {
-    if($(this).attr('class') != 'see-more'){
-      $(this).addClass('content-vcard');
-      var textEllipsis = $('.vcard .content-vcard').text().length;
-      if(textEllipsis >= longText){
-        $(this).text($(this).text().slice(0, longText) + '...'); 
+  var longTextVcard = 290;
+  $('.vcard-img p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-vcard');      
+      var textEllipsis = $(this).text().length;
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextVcard){
+        $(this).html($(this).html().slice(0, Number(longTextVcard+difNumText)) + '...'); 
+      }
+    }
+  });
+
+var longTextHcard = 210;
+  $('.hcard-img p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-hcard');      
+      var textEllipsis = $(this).text().length;
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextHcard){
+        $(this).html($(this).html().slice(0, Number(longTextHcard+difNumText)) + '...'); 
       }
     }
   });
 
 
+/*
+  var longTextHcard = 210;
+  $('.hcard-img p').each(function( index ) {
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }
+    if($(this).attr('class') != 'see-more'){
+      $(this).addClass('content-hcard');
+      var textEllipsis = $('.hcard-img .content-hcard').text().length;
+      if(textEllipsis >= longTextHcard){
+        $(this).text($(this).html().slice(0, longTextHcard) + '...'); 
+      }
+    }
+  });
+*/
    $('.vcard.img-only').each(function( index ) {
     var srcImg = $(this).find('img').attr('src');
     $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
@@ -1360,7 +1408,6 @@ $(document).ready(function(){
       var contCard = $(this).parent().parent();      
       if(contCard.find('img').length == 1){
         contCard.addClass('showtitle');
-        console.log(contCard);
       }
     });
     $( "p.see-more" ).mouseout(function() {
