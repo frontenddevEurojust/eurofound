@@ -45,7 +45,7 @@ d3.tip = function() {
 
     nodel.html(content)
       .style('position', 'absolute')
-      .style('opacity', 1)
+      .style('opacity', '1')
       .style('pointer-events', 'all')
 
     while(i--) nodel.classed(directions[i], false)

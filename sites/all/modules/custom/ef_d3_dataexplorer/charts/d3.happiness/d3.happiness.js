@@ -196,6 +196,21 @@
 
     var padding = 0;
 
+      var margin = {top: 75, right:50, bottom: 75, left: 100};
+      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+      height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
+
+      // temporarily
+      height = 675;
+
+    d3.select("body .chart-wrapper svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+    
+    d3.select("body .chart-wrapper svg > g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
     d3.selectAll("g.tick")
       .remove();
 
@@ -220,7 +235,8 @@
     });
 
     // Select the section we want to apply our changes to
-    var svg = d3.select("body .chart-wrapper");
+    
+    var svg = d3.select("body .chart-wrapper")
 
     svg.select(".x-axis")
       .transition().duration(750)
@@ -228,7 +244,7 @@
 
     svg.select(".y-axis")
       .transition().duration(750)
-      .call(yAxis)
+      .call(yAxis);
 
     // Move x-axis lines
     d3.selectAll("path.grid-line")
@@ -247,9 +263,9 @@
       .data(filteredData)
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show(d.dot1 + " " + d.countryName);
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
         // Reset top for Firefox as onepage framework changes top values
-        $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+        //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
       })
       .transition().duration(750)
       .attr("cx", function(d) {
@@ -278,10 +294,16 @@
       });
   }       
 
-  
+
+
+  $( window ).on( "orientationchange, resize", function( event ) {
+      updateGraph();
+  });
+
 
   $(document).ready(function(){
     // Save complete csv data
+
     data = [];
 
     if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
@@ -300,9 +322,7 @@
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-      var margin = {top: 75, right:150, bottom: 75, left: 150};
-
-
+      var margin = {top: 75, right:50, bottom: 75, left: 125};
       width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
@@ -346,10 +366,14 @@
       };
 
       // add labels
+      var textLegend = ['start','end'];
+
       legend.selectAll("text")
         .data(legendLabels)
         .enter().append("text")
-        .attr("class","legend-text")
+        .attr("class", function(d, i) {
+          return 'legend-text-'+textLegend[i];
+        }) 
         .attr("x", function(d, i) {
           return legendPosition.x + spaceBetween * i + 10;
         })  
@@ -459,9 +483,9 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(d.dot1 + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         });
 
       var endCircles = lollipops.append("circle")
@@ -475,9 +499,9 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show(d.dot2 + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
 
       $('select').on('change', function () {

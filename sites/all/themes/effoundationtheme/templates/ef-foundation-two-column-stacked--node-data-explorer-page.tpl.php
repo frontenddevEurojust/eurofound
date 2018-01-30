@@ -3,7 +3,10 @@
  * @file
  * Default theme file for d3 visualizations.
  */
+drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejm.css');
+drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 ?>
+
 
 <div  class="jm-charts-wrapper ">
 
@@ -75,7 +78,7 @@
 			</form>
 		</div>
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
-			<div class="chart-wrapper"></div>
+			<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
 		</div>
 	</div>
 
