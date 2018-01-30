@@ -1336,7 +1336,7 @@ $(document).ready(function(){
     $('.vcard-img p:last-child a').parent().addClass('see-more');
     $('.hcard-img p:last-child a').parent().addClass('see-more');
 
-  var longTextVcard = 290;
+  var longTextVcard = 200;
   $('.vcard p').each(function( index ) {
 
     if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
@@ -1475,7 +1475,7 @@ $(document).ready(function(){
         contCard.addClass('showtitle');
       }
     });
-     
+
     $( ".vcard.img-only" ).mouseout(function() {
       var contCard = $(this);      
       if(contCard.find('img').length == 1){
