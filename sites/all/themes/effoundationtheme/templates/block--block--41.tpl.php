@@ -133,7 +133,8 @@
               if (in_array($node_ittem->type,$array)){
                 //ALIAS HREF
                   $path = 'node/'.$node_ittem->nid;
-                  $alias = drupal_get_path_alias($path); 
+                  $alias = url($path, array("absolute"=>TRUE));
+
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
@@ -170,7 +171,7 @@
                   $title = $sql->execute()->fetchAll(); 
                 //ALIAS HREF
                   $path = 'taxonomy/term/'.$value;
-                  $alias = drupal_get_path_alias($path); 
+                  $alias = url($path, array("absolute"=>TRUE));
                 //Paint HTML
                 ?>
                   <li class="views-row views-row-1 views-row-odd views-row-first">  
