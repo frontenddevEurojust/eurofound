@@ -40,6 +40,7 @@
       $('#edit-field-ef-assign-to-user-und').prop( "disabled", true );
       $('#edit-save-edit').prop( "disabled", true );
       $('#edit-save-edit').prop( "class", "form-submit-disabled" );
+      $('#accept-button').addClass("disabled");
       var checkExist = setInterval(function() {
         if ($("#edit-field-ef-assign-to-user-und--2").length || $("#edit-field-ef-assign-to-user-und--3").length) {
           $('#edit-submit').prop( "disabled", false );
@@ -49,6 +50,9 @@
           $('#edit-field-ef-assign-to-user-und--2').attr('id','edit-field-ef-assign-to-user-und');
           $('#edit-field-ef-assign-to-user-und--3').attr('id','edit-field-ef-assign-to-user-und');
           $('#edit-field-ef-assign-to-user-und').prop( "disabled", false );
+          
+          $('#accept-button').removeClass("disabled");
+
           clearInterval(checkExist);
         }
       }, 100);

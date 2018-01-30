@@ -182,7 +182,7 @@ a.popup-element-title.popup-title-active span:after,
 .light-style ul.quicktabs-tabs.quicktabs-style-basic a#quicktabs-tab-ef_block_latest_content-1:before,
 .surveys h2.pane-title:before,
 .page-index .view-ef-spotlight-on .view-content .item-list .views-field-nid:after,
-.node-ef-publication .field-name-field-ef-document .file a:after, 
+.node-ef-publication .field-name-field-ef-document .file a:after,
 .block-views-ef-countries-jump-block-block label:before,
 .pane-ef-latest-for-country-panel-pane-1 h2.pane-title:before,
 .country-specific-info .view-country:before,
@@ -422,8 +422,8 @@ nav .icon-ef_publications:before,
     content: "\f085";
     font-family: fontawesome;
 }
-.icon-ef_about_eurofound:before, 
-.icon-ef_about_us:before, 
+.icon-ef_about_eurofound:before,
+.icon-ef_about_us:before,
 .icon-ef_eurofound:before {
 	content: "\e614";
 }
@@ -1171,7 +1171,7 @@ height: 28px;
   /*display: flex;
   flex-wrap: wrap;	*/
   -webkit-column-count: 6;
-  -moz-column-count: 6; 
+  -moz-column-count: 6;
   column-count: 6;
 }
 .ef-navigation-menus #mini-panel-countries_mini_panel .countries-submenu-block ul > li > ul > li{
@@ -7500,7 +7500,7 @@ h1.parent_fome.title {
   background: #FFF url(../images/background-fome.png) no-repeat !important;
   background-size: 100% !important;
   padding: 24px 50px 30px 184px !important;
-  background-position-y: -10px !important;	
+  background-position-y: -10px !important;
 	border: none;
 	margin: -18px -0 40px 0;
 	-moz-box-shadow:none;
@@ -7520,7 +7520,7 @@ h1.parent_fome.title {
     margin-right: 15px;
     vertical-align: middle;
     letter-spacing: -0.03em;
-   
+
 }
 h1.parent_fome ~ span.print_pdf{
 	top: 10em;
@@ -13109,7 +13109,7 @@ p.view-empty.error-msg:before{
 
 #payment{
 	visibility: visible;
-	display: block; 
+	display: block;
 	opacity: 1;
 	margin-top:13em;
 	width:auto;
@@ -13127,6 +13127,11 @@ p.view-empty.error-msg:before{
     font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
 }
 
+.btn-payment.disabled{
+	pointer-events: none;
+	opacity: 0.5;
+}
+
 .btn-payment:hover{
 	background-color: #BAC9D8;
 	color:#37628E;
@@ -13138,7 +13143,7 @@ p.view-empty.error-msg:before{
 
 #alertLocation{
 	visibility: visible;
-	display: block; 
+	display: block;
 	opacity: 1;
 	margin-top:102em;
 	width:45%;
@@ -13167,12 +13172,12 @@ h4.title-tooltip-geolocation{
 }
 
 h4.title-tooltip-geolocation a{
-    color:#222;
+    color:#005BAA;
     font-size: 1.4375em;
 }
 
 h4.title-tooltip-geolocation a:hover{
-	text-decoration: underline;
+	color:#F58020;
 }
 
 .leaflet-popup-content{
@@ -13243,15 +13248,15 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /*** VERTICAL CARD WITHOUT IMAGE***/
-.vcard p:empty, 
-.vcard-img p:empty, 
+.vcard p:empty,
+.vcard-img p:empty,
 .hcard-img p:empty{
 	display: none;
 }
 .data-explorer-center, .other-resources-center {
-  display: flex;
+  /*display: flex;*/
 }
-.data-explorer-left, .data-explorer-center, .data-explorer-right, 
+.data-explorer-left, .data-explorer-center, .data-explorer-right,
 .other-resources-left, .other-resources-center, .other-resources-right{
 	min-height: 1vh;
 }
@@ -13267,11 +13272,13 @@ h4.title-tooltip-geolocation a:hover{
   text-overflow-multiline:ellipsis;
   position: relative;
 }
-.data-explorer-left .vcard, 
-.data-explorer-right .vcard{
+.data-explorer-left .vcard,
+.data-explorer-right .vcard,
+.other-resources-left .vcard,
+.other-resources-right .vcard{
   width: 100%;
 }
-.data-explorer-center .vcard, 
+.data-explorer-center .vcard,
 .other-resources-center .vcard{
   width: 49%;
 }
@@ -13308,7 +13315,7 @@ h4.title-tooltip-geolocation a:hover{
 }
 .vcard p.see-more a:hover{
 	opacity: 1;
-		background: #666;
+	background: #737fa1;
 }
 .vcard img{
 	width: 100%;
@@ -13386,7 +13393,7 @@ h4.title-tooltip-geolocation a:hover{
   text-overflow-multiline:ellipsis;
   position: relative;
 }
-.data-explorer-center .vcard-img, 
+.data-explorer-center .vcard-img,
 .other-resources-center .vcard-img{
   width: 49%;
   float: left;
@@ -13394,6 +13401,7 @@ h4.title-tooltip-geolocation a:hover{
 .vcard-img img{
 	width: 100%;
 	outline: 0;
+	margin: 0;
 }
 .vcard-img h3{
 	font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif;
@@ -13419,11 +13427,11 @@ h4.title-tooltip-geolocation a:hover{
 }
 .vcard-img p.see-more a:hover{
 	opacity: 1;
-	background: #666;
+	background: #737fa1;
 }
 
-.vcard .pane-content h3 ~ p, 
-.vcard-img .pane-content h3 ~ p, 
+.vcard .pane-content h3 ~ p,
+.vcard-img .pane-content h3 ~ p,
 .hcard-img  .pane-content h3 ~ p{
   /*background: #F00 !important;*/
 }
@@ -13441,7 +13449,7 @@ h4.title-tooltip-geolocation a:hover{
   position: relative;
 }
 .hcard-img .media {
-  width: 31%;
+  width: 52%;
   overflow: hidden;
   height: 220px;
   float: left;
@@ -13451,13 +13459,14 @@ h4.title-tooltip-geolocation a:hover{
 .hcard-img img{
   outline: 0;
   width: auto !important;
-  max-width: 310px !important;
-  height: 175px;
+  max-width: initial !important;
+  height: 180px;
+  margin: 0;
 }
 .hcard-img p{
 	display: block;
 	float: left;
-  width: 65%;
+  width: 43%;
 }
 .hcard-img p:empty{
 	display: none;
@@ -13468,17 +13477,13 @@ h4.title-tooltip-geolocation a:hover{
   margin: 10px 12px 10px 0 !important;
   border-bottom: 1px solid #DDD;
   float: left;
-  width: 64%;
-}
-.data-explorer-left .hcard-img h3, 
-.other-resources-left .hcard-img h3{
-  width: 59%;
+  width: 43%;
 }
 .hcard-img p.see-more{
 	position: absolute;
 	bottom: 0;
 	text-align: center;
-	width: 31%;
+	width: 100%;
 	margin: 0;
 }
 .hcard-img p.see-more a{
@@ -13489,7 +13494,50 @@ h4.title-tooltip-geolocation a:hover{
 }
 .hcard-img p.see-more a:hover{
 	opacity: 1;
-	background: #666;
+	background: #737fa1;
+}
+.data-explorer-left .hcard-img .media,
+.other-resources-left  .hcard-img .media,
+.data-explorer-right .hcard-img .media,
+.other-resources-right  .hcard-img .media{
+  width: 100%;
+  height: auto;
+}
+
+.data-explorer-left .hcard-img p,
+.other-resources-left .hcard-img p,
+.data-explorer-left .hcard-img h3,
+.other-resources-left .hcard-img h3,
+.data-explorer-right .hcard-img p,
+.other-resources-right .hcard-img p,
+.data-explorer-right .hcard-img h3,
+.other-resources-right .hcard-img h3{
+  width: 92%;
+  height: auto;
+}
+
+
+.data-explorer-left .hcard-img h3,
+.other-resources-left .hcard-img h3,
+.data-explorer-right .hcard-img h3,
+.other-resources-right .hcard-img h3{
+	margin: 11px 12px 0 !important;
+}
+.data-explorer-left .hcard-img p,
+.other-resources-left .hcard-img p,
+.data-explorer-right .hcard-img p,
+.other-resources-right .hcard-img p{
+	margin: 11px 12px !important;
+}
+
+.data-explorer-left .hcard-img p.see-more,
+.other-resources-left .hcard-img p.see-more
+.data-explorer-right .hcard-img p.see-more,
+.other-resources-right .hcard-img p.see-more {
+  position: relative;
+  margin: 0 !important;
+  width: 100% !important;
+  bottom: 0;
 }
 
 /*** ADITIONAL STYLE TO COMBINE ***/
@@ -13511,12 +13559,12 @@ h4.title-tooltip-geolocation a:hover{
   margin-right:3%;
 
 }
-.col-4x, 
+.col-4x,
 .full{
   width: 100% !important;
   display: flex;
 }
-.col-1x img, 
+.col-1x img,
 .col-2x img{
   width: 100%;
 }
@@ -13542,7 +13590,7 @@ h4.title-tooltip-geolocation a:hover{
   height: 210px;
 }
 
-.vcard.full .pane-content, 
+.vcard.full .pane-content,
 .vcard.full .pane-content img{
 	width: 100%;
 }
@@ -13569,14 +13617,26 @@ h4.title-tooltip-geolocation a:hover{
 	  font-size: 14px;
 	}
 	.hcard-img .media {
-	  height: 260px;
+		height: 100px;
+		width: 42%;
 	}
 	.hcard-img img {
 	  max-width: 410px !important;
 	  height: 260px;
 	}
 	.hcard-img h3 {
-	  width: 63%;
+    width: 52%;
+	}
+	.hcard-img p.see-more {
+	  position: relative;
+	  bottom: 0;
+	  text-align: center;
+	  width: 100%;
+	  margin: 0;
+	}
+	.hcard-img img {
+	  max-width: 100% !important;
+	  height: auto;
 	}
 	.vcard-img {
 	  min-height: auto;
@@ -13586,9 +13646,13 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 @media only screen and (max-device-width :1023px) {
-	.data-explorer-left, .data-explorer-center, .data-explorer-right, 
+	.data-explorer-left, .data-explorer-center, .data-explorer-right,
 	.other-resources-left, .other-resources-center, .other-resources-right{
 		width: 100%;
+	}
+
+	.vcard-img .pane-content{
+	  display: initial;
 	}
 	.vcard-img{
 		outline: 1px solid #CCC;
@@ -13607,7 +13671,7 @@ h4.title-tooltip-geolocation a:hover{
 		height: !important;
 		min-height: auto;
 		float: left;
-		/*clear: both;*/ 
+		/*clear: both;*/
 		margin-bottom: 15px !important;
 		overflow: hidden;
 	  text-overflow-multiline:ellipsis;
@@ -13616,23 +13680,29 @@ h4.title-tooltip-geolocation a:hover{
 		margin-right:2% !important;
 	}
 	.vcard-img .media, .vcard .media {
-	  width: 31%;
-	  overflow: hidden;
-	  height: 210px;
-	  float: left;
+		width: 50%;
+		overflow: hidden;
+		height: 235px;
+		float: left;
 		margin: 0 12px 0 0;
 	}
-
-	.vcard-img img, .vcard img{
-	  outline: 0;
-	  width: auto !important;
-	  max-width: 310px !important;
-	  height: 175px;
+	.hcard-img .media {
+		width: 50%;
+		overflow: hidden;
+		height: 235px;
+		float: left;
+		margin: 0 12px 0 0;
+	}
+	.vcard-img img, .vcard img, .hcard-img img{
+		outline: 0;
+		width: 102%!important;
+		max-width: 500px !important;
+		height: auto;
 	}
 	.vcard-img p{
 		display: block;
 		float: left;
-	  width: 63%;
+		width: 43%;
 	}
 	.vcard p{
 		display: block;
@@ -13647,7 +13717,7 @@ h4.title-tooltip-geolocation a:hover{
 		width: 100%;
 		float: none;
 	}
-	.data-explorer-center .vcard-img, 
+	.data-explorer-center .vcard-img,
 	.other-resources-center .vcard-img {
 	  width: 100%;
 	  float: left;
@@ -13723,4 +13793,122 @@ h4.title-tooltip-geolocation a:hover{
 
 .node-ef-erm-regulation h5{
 	text-align: left;
+}
+/* Geolocation CSS backend - Two columns */
+
+.field-type-getlocations-fields fieldset .form-type-textfield{
+  float: left;
+  clear: both;
+}
+
+.field-type-getlocations-fields fieldset  .form-submit{
+  float: left;
+  clear: both;
+}
+
+.getlocations_fields_map_wrapper{
+    float: right;
+    clear: both;
+    position: absolute;
+    margin-left: 479px;
+    width: 50%;
+    top: 0;
+}
+
+.form-item-field-address-und-0-province label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-province label:before{
+  content:'/ Country / Nuts-3 / Nuts-2 / Nuts-1';
+  visibility: visible;
+}
+
+.form-item-field-address-und-0-additional label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-additional label:before{
+  content:'Additional Information';
+  visibility: visible;
+}
+
+.getlocations_fields_latlon_wrapper{
+  clear: both;
+}
+
+
+.getlocations_fields_marker_wrapper{
+  display: none;
+}
+
+#message-location{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    display: block;
+    padding: 1em;
+    width: 372px;
+    margin-bottom: 1.5em;
+    float: left;
+}
+
+.getlocations_fields_map_wrapper p{
+  margin: 0;
+  width: 90%;
+}
+
+.getlocations_fields_map{
+  margin-top: 1em;
+}
+
+.form-item-field-address-und-0-delete-location{
+  float: left;
+}
+
+.form-item-field-address-und-0-delete-location .description{
+  margin-left: 0 !important;
+}
+
+.field-type-getlocations-fields .fieldset-wrapper{
+  height: 365px;
+  background: #FFF;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-additional{
+  display: none;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-province{
+  display: none;
+}
+
+#getlocations_geocodebutton_key_1{
+  display: none;
+}
+
+#field-address-add-more-wrapper .fieldset-wrapper .form-type-checkbox{
+  display: none;
+}
+
+.hide-authors-map{
+  display: none;
+}
+
+#edit-field-address-und-0{
+  border:0px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#edit-field-address-und-0 > legend:nth-child(1){
+	display: none;
+}
+
+#edit-field-address-und-0 > legend > span{
+  display: none;
+}
+
+#edit-field-address-und-0 > div{
+  padding-left: 0;
 }

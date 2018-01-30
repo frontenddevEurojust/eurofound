@@ -1328,12 +1328,13 @@ $(document).ready(function(){
 /** END BREADCRUMBS FOR country profile **/
 
 
+
 /** DATA AND RESOURCES LANDING PAGE**/
 (function ($) {
   $(document).ready(function(){
-    $('.vcard p a').parent().addClass('see-more');
-    $('.vcard-img p a').parent().addClass('see-more');
-    $('.hcard-img p a').parent().addClass('see-more');
+    $('.vcard p:last-child a').parent().addClass('see-more');
+    $('.vcard-img p:last-child a').parent().addClass('see-more');
+    $('.hcard-img p:last-child a').parent().addClass('see-more');
 
 
   var longText = 400;
@@ -1348,27 +1349,20 @@ $(document).ready(function(){
   });
 
 
- $('.vcard.img-only').each(function( index ) {
-
-  var srcImg = $(this).find('img').attr('src');
-  $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
-  $('img', this).css('display','none');
-  //$('.content-vcard', this).css('display','none');
-
- });
-
-
-
-
-
+   $('.vcard.img-only').each(function( index ) {
+    var srcImg = $(this).find('img').attr('src');
+    $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
+    $('img', this).css('display','none');
+    //$('.content-vcard', this).css('display','none');
+   });
 
     $( "p.see-more" ).hover(function() {
       var contCard = $(this).parent().parent();      
       if(contCard.find('img').length == 1){
         contCard.addClass('showtitle');
+        console.log(contCard);
       }
     });
-
     $( "p.see-more" ).mouseout(function() {
       var contCard = $(this).parent().parent();      
       if(contCard.find('img').length == 1){
@@ -1378,4 +1372,66 @@ $(document).ready(function(){
     
   });
 })(jQuery);
+
+/* image link */
+
+(function ($) {
+$(document).ready(function(){
+
+    $('.vcard-img').each(function( index ) {     
+
+        var linkButton = $('.see-more a', this).attr('href');
+        var titleButton = $('.see-more a', this).text();
+        var imgCard = $('.media .content', this).html();
+        if(linkButton != undefined){
+          $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+          $('.media .content img',this).remove();
+          //$('.media .content .link-card',this).attr('title',titleButton );
+          $('.media .content .link-card',this).append(imgCard);        
+        }
+
+    });
+
+    $('.vcard.img-only').each(function( index ) {     
+
+        var linkButton = $('.see-more a', this).attr('href');
+        var titleButton = $('.see-more a', this).text();
+        //$(this).attr('title', titleButton);
+
+        if(linkButton != undefined){
+           $(this).mouseover(function() {
+            $(this).css('cursor','pointer');
+           });
+           $(this).mouseout(function() {
+            $(this).css('cursor','');
+           });
+          $(this).click(function() {
+            window.location.href = linkButton;
+          });
+      
+        }
+
+    });
+
+    $('.hcard-img').each(function( index ) {     
+
+        var linkButton = $('.see-more a', this).attr('href');
+        var titleButton = $('.see-more a', this).text();
+        var imgCard = $('.media .content', this).html();
+        if(linkButton != undefined){
+          $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+          $('.media .content img',this).remove();
+          //$('.media .content .link-card',this).attr('title',titleButton );
+          $('.media .content .link-card',this).append(imgCard);        
+        }
+        
+    });
+
+
+  });
+})(jQuery);
+
+/* END image link */
+
 /** END DATA AND RESOURCES LANDING PAGE **/
+
