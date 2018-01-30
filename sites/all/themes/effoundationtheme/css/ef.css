@@ -13381,7 +13381,12 @@ h4.title-tooltip-geolocation a:hover{
   -o-transition: top 0.4s linear;
   transition: top 0.4s linear;
 }
-
+.vcard.img-only.showtitle .content-vcard a{
+	color: #FFF !important;
+}
+.vcard.img-only.showtitle .content-vcard a:hover{
+	opacity: 0.6 !important;
+}
 
 /*** VERTICAL CARD WITH IMAGE***/
 .vcard-img{
@@ -13609,7 +13614,7 @@ h4.title-tooltip-geolocation a:hover{
     transition: top 0.4s linear;
  }
 
-@media only screen and (min-device-width : 1024px) and (max-device-width : 1160px) {
+@media only screen and (min-width : 1024px) and (max-width : 1160px) {
 	.vcard {
 	  height: 260px;
 	}
@@ -13627,7 +13632,7 @@ h4.title-tooltip-geolocation a:hover{
 	.hcard-img h3 {
     width: 52%;
 	}
-	.hcard-img p.see-more {
+	.hcard-img p.see-more, .vcard-img p.see-more  {
 	  position: relative;
 	  bottom: 0;
 	  text-align: center;
@@ -13645,7 +13650,7 @@ h4.title-tooltip-geolocation a:hover{
 
 }
 
-@media only screen and (max-device-width :1023px) {
+@media only screen and (max-width :1023px) {
 	.data-explorer-left, .data-explorer-center, .data-explorer-right, 
 	.other-resources-left, .other-resources-center, .other-resources-right{
 		width: 100%;
@@ -13664,6 +13669,9 @@ h4.title-tooltip-geolocation a:hover{
 		margin-bottom: 15px;
 		overflow: hidden;
 	  text-overflow-multiline:ellipsis;
+	}
+	.vcard-img p.see-more  {
+	  position: relative !important;
 	}
 	.vcard{
 		outline: 1px solid #CCC;
@@ -13726,7 +13734,7 @@ h4.title-tooltip-geolocation a:hover{
 
 }
 
-@media only screen and (max-device-width :680px) {
+@media only screen and (max-width :680px) {
 	.vcard, .vcard-img, .hcard-img{
 		width: 100% !important;
 		padding-bottom: 2rem;
