@@ -1336,39 +1336,74 @@ $(document).ready(function(){
     $('.vcard-img p:last-child a').parent().addClass('see-more');
     $('.hcard-img p:last-child a').parent().addClass('see-more');
 
-
-  var longText = 400;
+  var longTextVcard = 290;
   $('.vcard p').each(function( index ) {
-    if($(this).attr('class') != 'see-more'){
-      $(this).addClass('content-vcard');
-      var textEllipsis = $('.vcard .content-vcard').text().length;
-      if(textEllipsis >= longText){
-        $(this).text($(this).text().slice(0, longText) + '...'); 
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-vcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextVcard){
+        $(this).html($(this).html().slice(0, Number(longTextVcard+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
       }
     }
   });
 
+  var longTextVcardImg = 290;
+  $('.vcard-img p').each(function( index ) {
 
-   $('.vcard.img-only').each(function( index ) {
-    var srcImg = $(this).find('img').attr('src');
-    $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
-    $('img', this).css('display','none');
-    //$('.content-vcard', this).css('display','none');
-   });
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-vcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
 
-    $( "p.see-more" ).hover(function() {
-      var contCard = $(this).parent().parent();      
-      if(contCard.find('img').length == 1){
-        contCard.addClass('showtitle');
-        console.log(contCard);
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextVcardImg){
+        $(this).html($(this).html().slice(0, Number(longTextVcardImg+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
       }
-    });
-    $( "p.see-more" ).mouseout(function() {
-      var contCard = $(this).parent().parent();      
-      if(contCard.find('img').length == 1){
-        contCard.removeClass('showtitle');
+    }
+  });
+
+var longTextHcard = 210;
+  $('.hcard-img p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-hcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextHcard){
+        $(this).html($(this).html().slice(0, Number(longTextHcard+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
       }
-    });
+    }
+  });
     
   });
 })(jQuery);
@@ -1378,53 +1413,74 @@ $(document).ready(function(){
 (function ($) {
 $(document).ready(function(){
 
-    $('.vcard-img').each(function( index ) {     
+      $('.vcard-img').each(function( index ) {     
 
-        var linkButton = $('.see-more a', this).attr('href');
-        var titleButton = $('.see-more a', this).text();
-        var imgCard = $('.media .content', this).html();
-        if(linkButton != undefined){
-          $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
-          $('.media .content img',this).remove();
-          //$('.media .content .link-card',this).attr('title',titleButton );
-          $('.media .content .link-card',this).append(imgCard);        
-        }
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          var imgCard = $('.media .content', this).html();
+          if(linkButton != undefined){
+            $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+            $('.media .content img',this).remove();
+            //$('.media .content .link-card',this).attr('title',titleButton );
+            $('.media .content .link-card',this).append(imgCard);        
+          }
 
-    });
+      });
 
-    $('.vcard.img-only').each(function( index ) {     
+      $('.vcard.img-only').each(function( index ) {     
 
-        var linkButton = $('.see-more a', this).attr('href');
-        var titleButton = $('.see-more a', this).text();
-        //$(this).attr('title', titleButton);
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          //$(this).attr('title', titleButton);
 
-        if(linkButton != undefined){
-           $(this).mouseover(function() {
-            $(this).css('cursor','pointer');
-           });
-           $(this).mouseout(function() {
-            $(this).css('cursor','');
-           });
-          $(this).click(function() {
-            window.location.href = linkButton;
-          });
-      
-        }
-
-    });
-
-    $('.hcard-img').each(function( index ) {     
-
-        var linkButton = $('.see-more a', this).attr('href');
-        var titleButton = $('.see-more a', this).text();
-        var imgCard = $('.media .content', this).html();
-        if(linkButton != undefined){
-          $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
-          $('.media .content img',this).remove();
-          //$('.media .content .link-card',this).attr('title',titleButton );
-          $('.media .content .link-card',this).append(imgCard);        
-        }
+          if(linkButton != undefined){
+             $(this).mouseover(function() {
+              $(this).css('cursor','pointer');
+             });
+             $(this).mouseout(function() {
+              $(this).css('cursor','');
+             });
+            $(this).click(function() {
+              window.location.href = linkButton;
+            });
         
+          }
+
+      });
+
+      $('.hcard-img').each(function( index ) {     
+
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          var imgCard = $('.media .content', this).html();
+          if(linkButton != undefined){
+            $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+            $('.media .content img',this).remove();
+            //$('.media .content .link-card',this).attr('title',titleButton );
+            $('.media .content .link-card',this).append(imgCard);        
+          }
+          
+      });
+
+     $('.vcard.img-only').each(function( index ) {
+      var srcImg = $(this).find('img').attr('src');
+      $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
+      $('img', this).css('display','none');
+      //$('.content-vcard', this).css('display','none');
+     });
+
+     $( "p.see-more" ).hover(function() {
+      var contCard = $(this).parent().parent();      
+      if(contCard.find('img').length == 1){
+        contCard.addClass('showtitle');
+      }
+    });
+     
+    $( ".vcard.img-only" ).mouseout(function() {
+      var contCard = $(this);      
+      if(contCard.find('img').length == 1){
+        contCard.removeClass('showtitle');
+      }
     });
 
 
