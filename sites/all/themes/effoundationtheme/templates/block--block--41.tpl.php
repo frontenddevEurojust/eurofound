@@ -50,8 +50,7 @@
             $name="";
             $date="";
             $node_ittem=node_load($value);
-            //Get Country
-              $array = array('ef_restructuring_in_smes','ef_report','ef_case_study','ef_emire_dictionary','ef_event','ef_news','ef_regulation','ef_national_contribution');
+            $array = array('ef_restructuring_in_smes','ef_report','ef_case_study','ef_emire_dictionary','ef_event','ef_news','ef_regulation','ef_national_contribution', 'page', 'ef_publication', 'ef_event', 'ef_case_study', 'ef_spotlight_entry', 'ef_photo_gallery', 'ef_video', 'ef_vacancy', 'ef_call_for_tender', 'ef_project', 'ef_survey', 'ef_comparative_analytical_report', 'ef_ir_dictionary', 'ef_input_to_erm', 'board_member_page', 'ef_factsheet', 'ef_network_extranet_page', 'ef_working_life_country_profiles');
               //Country 
                 if(($node_ittem->type == 'ef_comparative_analytical_report') || $node_ittem->type == 'ef_publication'){
                   $iso2 = $node_ittem->field_ef_eu_node_ittem_countries;
