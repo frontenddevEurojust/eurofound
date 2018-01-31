@@ -15,8 +15,7 @@
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
-  var filterData = function(data, modality, sort)
-  {
+  var filterData = function(data, modality, sort) {
 
     var filtered = data.filter(function(row){
       return row.modalityCode == modality;
@@ -194,10 +193,26 @@
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(calculateMinValue(filteredData) - 1);
 
-    d3.selectAll("g.tick")
-      .remove();
+
 
     padding = 0;
+
+      var margin = {top: 75, right:25, bottom: 75, left: 100};
+      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+      height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
+
+      // temporarily
+      height = 675;
+
+    d3.select("body .chart-wrapper svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+    
+    d3.select("body .chart-wrapper svg > g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.selectAll("g.tick")
+      .remove();
 
     y = d3.scaleBand()
       .domain(filteredData.map(function(d) { return d.countryName }))
@@ -244,19 +259,27 @@
       .transition().duration(750)
       .attr("stroke-opacity", "1");      
       
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    if(isChrome){
+     var transitionD = 0;
+    }else{
+      var transitionD = 750;
+    }
+
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
-      .transition().duration(750)
+      .transition().duration(transitionD)
       .attr("cx", function(d) { 
         return x(Math.round(d.dot1)); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
       });
-      
+
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
-      .transition().duration(750)
+      .transition().duration(transitionD)
       .attr("cx", function(d) { 
         return x(Math.round(d.dot2)); 
       })
@@ -273,6 +296,14 @@
         return "lollipop-line";
       });
   }
+
+
+
+  $( window ).on( "orientationchange, resize", function( event ) {
+      updateGraph();
+  });
+
+
 
   $(document).ready(function(){
     
@@ -294,8 +325,12 @@
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-      var margin = {top: 75, right:150, bottom: 75, left: 150};
 
+      if($(window).width()>=768){
+            var margin = {top: 75, right:25, bottom: 75, left: 125};
+      }else{
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+      }
 
       width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
@@ -306,6 +341,7 @@
       svg = d3.select(".chart-wrapper").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
+            .attr("id", "optimism")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .call(tip);
@@ -338,10 +374,14 @@
       };
 
       // add labels
+      var textLegend = ['start','end'];
+
       legend.selectAll("text")
         .data(legendLabels)
         .enter().append("text")
-        .attr("class","legend-text")
+        .attr("class", function(d, i) {
+          return 'legend-text-'+textLegend[i];
+        }) 
         .attr("x", function(d, i) {
           return legendPosition.x + spaceBetween * i + 10;
         })  
@@ -450,22 +490,31 @@
 
       var circleRadio = 6;
 
+      // Chrome 1+
+      var isChrome = !!window.chrome && !!window.chrome.webstore;
+      if(isChrome){
+       var transitionD = 0;
+      }else{
+        var transitionD = 0;
+      }
+
       var startCircles = lollipops.append("circle")
         .data(filteredData)
         .attr("class", "lollipop-start")
-        .attr("r", circleRadio)
+        .attr("r", circleRadio)       
+        .on('mouseout', tip.hide)
+        .on('mouseover', function(d) {
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
+          // Reset top for Firefox as onepage framework changes top values
+          //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+        })        
         .attr("cx", function(d) {
           return x(Math.round(d.dot1));
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
-        .on('mouseout', tip.hide)
-        .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot1) + " " + d.countryName);
-          // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
-        });
+        .transition().duration(transitionD); 
 
       
       var endCircles = lollipops.append("circle")
@@ -474,17 +523,17 @@
         .attr("r", circleRadio)
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) +"<p>");
           // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
-        })
-        .transition().duration(750)
+          //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+        })        
         .attr("cx", function(d) {
           return x(Math.round(d.dot2));
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
-        });
+        })
+        .transition().duration(transitionD);
 
       $('select').on('change', function () {
         var valOption = $(this).val();

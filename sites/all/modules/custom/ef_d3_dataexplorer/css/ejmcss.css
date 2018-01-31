@@ -64,6 +64,26 @@ g.ticks text {
 }
 
 
+ ul.legend-list {
+  list-style: none;
+  text-align: center;
+  width: auto;
+  margin: auto;
+}
+  ul.legend-list li{
+    width: auto;
+    margin: 0 15px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  ul.legend-list li.start i{
+    color:#A4CA43;
+  }
+  ul.legend-list li.end i{
+    color:#529DDA;
+  }
+
 .filters-jm-chart  legend{
   background-color: transparent !important;
   color: #212121 !important;
@@ -105,7 +125,9 @@ g.ticks text {
 .filters-jm-chart .group-filters  label {
     font-size:14.4px;
 }
-
+.filters-jm-chart .group-filters  label[for^="sort"]{
+    margin-top: 1.5rem;
+}
 .filters-jm-chart .group-filters  select {
     border: 1px solid #CCC;
     border-radius: 0;
@@ -210,6 +232,13 @@ g.ticks text {
   g.rule text {
       font-size: 10px !important;
   }
+
+  .back-to-results-block a {
+  font-size: 13px !important;
+  text-align: center;
+  display: block;
+  padding-left: 10px !important;
+  }
 }
 
 @media only screen and (max-width : 767px) {
@@ -237,8 +266,16 @@ g.ticks text {
     overflow:initial;
     -ms-overflow:hidden;
   }
+  ul.legend-list li {
+    width: 100%;
+    margin: 5px 0;
+    display:block;
+    font-size: 12px;
+    text-align: left;
+  }
   .jm-charts{
-    padding: 30px 15px 60px;
+    /*padding: 30px 15px 60px;*/
+    padding: 0px 0px 10px;
   } 
   .jm-charts-wrapper .row{
     overflow:auto;
@@ -288,6 +325,9 @@ g.ticks text {
   .jm-footnote {
     margin: 3rem 12px 0 12px;
     display: block;
+  }
+  .chart-wrapper .tick text{
+    font-size: 10px;
   }
 }
 @media only screen and (max-width: 414px){

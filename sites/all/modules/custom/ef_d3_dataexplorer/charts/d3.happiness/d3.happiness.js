@@ -1,6 +1,5 @@
 (function ($) {
 
-
   var arrayContains = function(array, country)
   {
     return (array.indexOf(country) > -1);
@@ -160,9 +159,9 @@
   }
 
   var buildGraphStructure = function(csv){
-    $('.chart-filters').append('<label for="#modality-filter">Data:</label>');
+    $('.chart-filters').append('<label for="#modality-filter class="first-filter"">Data:</label>');
     createModalityFilter(csv);
-    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    $('.chart-filters').append('<label for="sort-order" class="second-filter">Sort:</label>');
     createOrderingFilter();
   };
 
@@ -267,7 +266,7 @@
         // Reset top for Firefox as onepage framework changes top values
         //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
       })
-      .transition().duration(750)
+      .transition().duration(0)
       .attr("cx", function(d) {
         return x(d.dot1);
       })
@@ -277,7 +276,7 @@
 
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
-      .transition().duration(750)
+      .transition().duration(0)
       .attr("cx", function(d) { 
           return x(d.dot2); 
       })
