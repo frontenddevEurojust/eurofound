@@ -208,7 +208,6 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
   if ($form['#id'] == 'views-exposed-form-erm-regulations-page') {
     $types_array = $form['field_type_phase_erm_reg_tid_selective']['#options'];
     $types_with_opt = array();
-    dpm($form);
 
     foreach ($types_array as $key => $value) {
        $parent = taxonomy_get_parents($key);

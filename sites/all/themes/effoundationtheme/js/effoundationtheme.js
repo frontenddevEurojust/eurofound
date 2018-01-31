@@ -225,7 +225,7 @@
 
       for (var i = 0; i <= $filter_rows; i++) {
         if (pathname_form=='legislation' && i!=0) {
-          num_divisor=parseInt(3); console.log(num_divisor);
+          num_divisor=parseInt(3);
         }
         var first = num_divisor * i;
         var last = num_divisor * (i + 1);
