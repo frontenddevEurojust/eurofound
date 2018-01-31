@@ -3377,13 +3377,14 @@ ul.quicktabs-tabs.quicktabs-style-basic{border:none;}
 	width: 20%;
 }
 .form-support-instruments  .views-widget-filter-field_funding_erm_si_tid{
-	width: 40%;
+	width: 50%;
 }
 .form-support-instruments  .views-widget-filter-field_ef_involvement_types_tid{
 	width: 40%;
 }
 .form-support-instruments  .views-widget-filter-field_ef_involved_actors_tax_tid{
 	width: 40%;
+	margin-left: 10%;
 }
 
 .form-support-instruments .views-field.views-field-edit-node.persist.essential > a{
@@ -13789,6 +13790,7 @@ h4.title-tooltip-geolocation a:hover{
 /*View Restructuring related legislation change CSS to filters two lines and Node detail*/
 .view-id-erm_regulations .wrap-row-filters #edit-field-involved-actors-erm-reg-tid-selective-wrapper label{
 	text-align: left;
+	padding-bottom: 12px;
 }
 
 .view-id-erm_regulations .wrap-row-filters #edit-field-type-phase-erm-reg-tid-selective-wrapper label{

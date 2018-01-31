@@ -213,6 +213,8 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
+      }else if(pathname_form=='legislation'){
+        num_divisor=parseInt(2);
       }else{
         num_divisor=parseInt(3);
       }
@@ -222,9 +224,19 @@
       if( ($filter_rows % $num_filters) > 0 ){$filter_rows++;}
 
       for (var i = 0; i <= $filter_rows; i++) {
+        if (pathname_form=='legislation' && i!=0) {
+          num_divisor=parseInt(3); console.log(num_divisor);
+        }
         var first = num_divisor * i;
         var last = num_divisor * (i + 1);
+
+        if (pathname_form=='legislation' && i!=0) {
+         first--;
+         last--;
+        }
+
         $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
+      
       }
 
       $('.view-button').wrapAll('<div class="wrap-row-buttons"></div>');
