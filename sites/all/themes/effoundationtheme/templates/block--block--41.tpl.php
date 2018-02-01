@@ -1,39 +1,34 @@
 <section class="block block-views">
   <h2 class="block-title">Related content</h2>
-  <?php 
+  <?php
     $node = menu_get_object();
+
+    if (is_null($node)) {
+      if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
+        $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
+        $node=taxonomy_get_term_by_name($term);
+
+        foreach ($node as $key => $value) {
+          $nid=$key;
+        }
+      }
+    }else{
+      $nid=$node->nid;
+    }
+
+    dpm($node);
+
     $weight=array();
-    $weight_tax=array();
-    $weight_cont=array();
-    $all_weight_tax=array();
-    $all_weight_cont=array();
 
-    //Related Content
-    foreach( $node->field_ef_related_content['und'] as $content ){
-    	//Get the weight
-        $query = db_select('related_content_and_taxonomies', 'rc');
+    $query = db_select('related_content_and_taxonomies', 'rc');
         $query->fields('rc', array("rc_weight", "rc_id"));
-        $query->condition('rc.nid', $node->nid, "=");
-        $query->condition('rc.rc_id', $content['target_id'], "=");
+        $query->condition('rc.nid', $nid, "=");
         $result=$query->execute();
 
-        while($record = $result->fetchAssoc()) {
-          $weight[$record["rc_weight"]][$record["rc_id"]] = $record["rc_id"];
-        }
+    while($record = $result->fetchAssoc()) {
+      $weight[$record["rc_weight"]][$record["rc_id"]] = $record["rc_id"];
     }
-    //Related Taxonomy
-    foreach( $node->field_related_taxonomy['und'] as $taxonomy ){
-      	//Get the weight
-      	$query = db_select('related_content_and_taxonomies', 'rc');
-      	$query->fields('rc', array("rc_weight", "rc_id"));
-      	$query->condition('rc.nid', $node->nid, "=");
-      	$query->condition('rc.rc_id', $taxonomy['target_id'], "=");
-        $result=$query->execute();
-        
-        while($record = $result->fetchAssoc()) {
-          $weight[$record["rc_weight"]][$record["rc_id"]] = $record["rc_id"];
-        }
-    }
+
     //Format Weight
     ksort($weight);
     $weight_final=array();
@@ -50,7 +45,7 @@
             $name="";
             $date="";
             $node_ittem=node_load($value);
-            $array = array('ef_restructuring_in_smes','ef_report','ef_case_study','ef_emire_dictionary','ef_event','ef_news','ef_regulation','ef_national_contribution', 'page', 'ef_publication', 'ef_event', 'ef_case_study', 'ef_spotlight_entry', 'ef_photo_gallery', 'ef_video', 'ef_vacancy', 'ef_call_for_tender', 'ef_project', 'ef_survey', 'ef_comparative_analytical_report', 'ef_ir_dictionary', 'ef_input_to_erm', 'board_member_page', 'ef_factsheet', 'ef_network_extranet_page', 'ef_working_life_country_profiles');
+            $array = array("blog", "ef_news", "page", "ef_publication", "ef_event", "ef_case_study", "ef_spotlight_entry", "ef_photo_gallery", "ef_video", "ef_vacancy", "ef_call_for_tender", "ef_project", "ef_survey", "ef_comparative_analytical_report", "ef_national_contribution", "ef_report", "ef_ir_dictionary", "ef_input_to_erm", "board_member_page", "ef_emire_dictionary", "ef_factsheet", "ef_network_extranet_page", "ef_working_life_country_profiles", "presentation");
               //Country 
                 if(($node_ittem->type == 'ef_comparative_analytical_report') || $node_ittem->type == 'ef_publication'){
                   $iso2 = $node_ittem->field_ef_eu_node_ittem_countries;

@@ -427,8 +427,12 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   }
 
 	//Validate, Rearrange and modify Default Value Taxonomies and Related Content
-  	$type_taxonomies_taxonomies = array();
-	if (isset($form['#node_edit_form'])) {
+  	$type_taxonomies_taxonomies = array("blog", "ef_news", "page", "ef_publication", "ef_event", "ef_case_study", "ef_spotlight_entry", "ef_photo_gallery", "ef_video", "ef_vacancy", "ef_call_for_tender", "ef_project", "ef_survey", "ef_comparative_analytical_report", "ef_national_contribution", "ef_report", "ef_ir_dictionary", "ef_input_to_erm", "board_member_page", "ef_emire_dictionary", "ef_factsheet", "ef_network_extranet_page", "ef_working_life_country_profiles", "presentation");
+
+	if (isset($form['#node_edit_form']) && (
+			in_array($form['#bundle'], $type_taxonomies_taxonomies)
+			)
+		) {
 		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
 		//Set Default Value
 		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
@@ -452,6 +456,48 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
 			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
 			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->nid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+	}
+	if ($form['#form_id'] =='taxonomy_form_term' && $form["#term"]["vocabulary_machine_name"]=="ef_topics") {
+		$form['#submit'][] = "ef_customised_forms_related_content_taxonmy_submit";
+
+		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
+		//Set Default Value
+		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
+			$tid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->field_related_taxonomy['und'][$key]['target_id'];
+			$nid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->tid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
+			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
+			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->tid;
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
@@ -510,75 +556,87 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 }
 
 function ef_customised_forms_node_submit($node, $form, &$form_state){
-	foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
-		$tid = $taxonomy["target_id"];
-		$weight = $taxonomy["_weight"];
+	if (isset($form_state['values']['field_related_taxonomy']['und'])) {
 		$nid = $form_state["build_info"]["args"][0]->nid;
-		//Check if exists
-		$query = db_select('related_content_and_taxonomies', 'rc');
-	    $query->fields('rc', array("rc_id"));
-	    $query->condition('rc.nid', $nid, "=");
-	    $query->condition('rc.rc_id', $tid, "=");
-	    $result=$query->execute();
+		$num_deleted = db_delete('related_content_and_taxonomies')
+						  ->condition('nid', $nid)
+						  ->execute();
 
-	    if ( is_numeric($weight) && is_numeric($tid) ) {
-	    	if ($result->rowCount()==1) {
-	    		$num_updated = db_update('related_content_and_taxonomies')
-								  ->fields(array(
-								    'rc_weight' => $weight
-								  ))
-								  ->condition('nid', $nid, '=')
-								  ->condition('rc_id', $tid, '=')
-								  ->execute();
-				if (!$num_updated) {
-					form_error(t("Have been a error. Please try again."));
-				}
-	    	}else{
-	    		db_insert('related_content_and_taxonomies') // Table name no longer needs {}
-						->fields(array(
-						  'nid' => $nid,
-						  'rc_type' => "tax",
-						  'rc_id' => $tid,
-						  'rc_weight' => $weight,
-						))
-						->execute();
-	    	}	    	
-	    }
-	}
-	foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
-		$cid = $content["target_id"];
-		$weight = $content["_weight"];
-		$nid = $form_state["build_info"]["args"][0]->nid;
-		//Check if exists
-		$query = db_select('related_content_and_taxonomies', 'rc');
-	    $query->fields('rc', array("rc_id"));
-	    $query->condition('rc.nid', $nid, "=");
-	    $query->condition('rc.rc_id', $cid, "=");
-	    $result=$query->execute();
+		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+			$tid = $taxonomy["target_id"];
+			$weight = $taxonomy["_weight"];
 
-	    if ( is_numeric($weight) && is_numeric($cid) ) {
-	    	if ($result->rowCount()==1) {
-	    		$num_updated = db_update('related_content_and_taxonomies')
-								  ->fields(array(
-								    'rc_weight' => $weight
-								  ))
-								  ->condition('nid', $nid, '=')
-								  ->condition('rc_id', $cid, '=')
-								  ->execute();
-				if (!$num_updated) {
-					form_error(t("Have been a error. Please try again."));
-				}
-	    	}else{
-	    		db_insert('related_content_and_taxonomies') // Table name no longer needs {}
-						->fields(array(
-						  'nid' => $nid,
-						  'rc_type' => "node",
-						  'rc_id' => $cid,
-						  'rc_weight' => $weight,
-						))
-						->execute();
-	    	}	    	
-	    }
+		    if ( is_numeric($weight) && is_numeric($tid) ) {
+		    		
+				db_insert('related_content_and_taxonomies') 
+					->fields(array(
+					  'nid' => $nid,
+					  'rc_type' => "tax",
+					  'rc_id' => $tid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+
+		    }
+		}
+		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+			$cid = $content["target_id"];
+			$weight = $content["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies')
+					->fields(array(
+					  'nid' => $nid,
+					  'rc_type' => "node",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+				
+		    }
+		}
 	}
 }
+//Submit to modificate or insert taxonomies in Related Content and Taxonomies 
+function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state){
+	if ($form['#entity_type']=="taxonomy_term" && $form["#bundle"]=="ef_topics" ) {
+		$tid = $form_state["build_info"]["args"][0]->tid;
+		$num_deleted = db_delete('related_content_and_taxonomies')
+						  ->condition('nid', $tid)
+						  ->execute();
 
+		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+			$cid = $taxonomy["target_id"];
+			$weight = $taxonomy["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies') 
+					->fields(array(
+					  'nid' => $tid,
+					  'rc_type' => "tax",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+		    }
+		}
+		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+			$cid = $content["target_id"];
+			$weight = $content["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies')
+					->fields(array(
+					  'nid' => $tid,
+					  'rc_type' => "node",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();		
+		    }
+		}
+	}
+}
