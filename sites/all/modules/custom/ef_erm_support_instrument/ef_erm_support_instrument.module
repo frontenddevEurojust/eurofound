@@ -186,6 +186,7 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 
 	  //Alphabetical order for the following filters: Support of SMEs,Funding
 	   $types_array = $form['field_type_erm_si_tid_selective']['#options'];
+	   $types_with_opt = array();
 	   //natcasesort($types_array);
 
 		foreach ($types_array as $key => $value) {
@@ -195,9 +196,9 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		   //20933 tid for management
 		   //20932 tid for anticipation
 		   if($parent[20933]->name == 'Management'){
-		    $types_array[$key] = 'Management' . ' - ' . $value;
+		    $types_with_opt['Management'][$key] = $value;
 		   }else if($parent[20932]->name == 'Anticipation'){
-		    $types_array[$key] = 'Anticipation' . ' - ' . $value;
+		    $types_with_opt['Anticipation'][$key] =  $value;
 		   }
 		}
 
@@ -219,7 +220,7 @@ function ef_erm_support_instrument_form_alter(&$form, &$form_state, $form_id){
 		  }
 		}
 		//definitive assignments to the form
-		$form['field_type_erm_si_tid_selective']['#options'] = $types_array;
+		$form['field_type_erm_si_tid_selective']['#options'] = $types_with_opt;
 		$form['field_ef_involvement_types_tid']['#options'] = $involved_actors_array;
 		$form['field_funding_erm_si_tid']['#options'] = $fundings_no_dup;
 		$form['field_phase_erm_si_value']['#options'] = $phase_array;
