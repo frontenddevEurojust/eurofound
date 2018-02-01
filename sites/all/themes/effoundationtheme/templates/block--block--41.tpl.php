@@ -16,8 +16,6 @@
       $nid=$node->nid;
     }
 
-    dpm($node);
-
     $weight=array();
 
     $query = db_select('related_content_and_taxonomies', 'rc');
