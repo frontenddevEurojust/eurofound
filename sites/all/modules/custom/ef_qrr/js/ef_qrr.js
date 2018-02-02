@@ -122,6 +122,7 @@ jQuery(document).ready(function(){
       let realValue = jQuery("#hidden_nid_"+nid).val();
       textCut = cutWithDocs(realValue, 150);
       jQuery(this).val(textCut);
+      jQuery(this).attr("show_tooltip", "true")
 
       //To Edit
         jQuery(this).focus(function(){
@@ -129,21 +130,24 @@ jQuery(document).ready(function(){
           let nid = id.replace("show_coment_", "");
           let realValue = jQuery("#hidden_nid_"+nid).val();
           jQuery(this).val(realValue);
+          jQuery(this).attr("show_tooltip", "false")
         })
     //To Show  
       jQuery(this).hover(
         function(){
-          let id = jQuery(this).attr("id");
-          let nid = id.replace("show_coment_", "");
-          let realValue = jQuery("#hidden_nid_"+nid).val();
+          if (jQuery(this).attr("show_tooltip")=="true") {
+            let id = jQuery(this).attr("id");
+            let nid = id.replace("show_coment_", "");
+            let realValue = jQuery("#hidden_nid_"+nid).val();
 
-          if (realValue.length > 150) {
-            if (jQuery('#tool-tip-'+id).length > 0) {
-              jQuery('#tool-tip-'+id).show();
-            }else{
-              jQuery(this).parent().parent().parent().css("position", "relative");
-              let textToAdd = '<div class="tool-tip-textarea" id="tool-tip-'+id+'" style="position: absolute;background: grey;color: black;width: 80%;padding:  5px;border-radius:  5px;top: 20px; left: 10%; word-wrap: break-word;white-space: initial;">'+realValue+'</div>';
-              jQuery(this).parent().append(textToAdd);
+            if (realValue.length > 150) {
+              if (jQuery('#tool-tip-'+id).length > 0) {
+                jQuery('#tool-tip-'+id).show();
+              }else{
+                jQuery(this).parent().parent().parent().css("position", "relative");
+                let textToAdd = '<div class="tool-tip-textarea" id="tool-tip-'+id+'" style="position: absolute;background: rgba(0, 0, 0, 0.75);color: white;width: 80%;padding:  15px;border-radius:  5px;top: 20px; left: -95%; word-wrap: break-word;white-space: initial; z-index: 9; border: 2px solid #0c0c0c;">'+realValue+'</div>';
+                jQuery(this).parent().append(textToAdd);
+              }
             }
           }
         },
