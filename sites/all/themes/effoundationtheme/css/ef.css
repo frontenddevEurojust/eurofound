@@ -13922,3 +13922,6 @@ h4.title-tooltip-geolocation a:hover{
 #edit-field-address-und-0 > div{
   padding-left: 0;
 }
+.wrap-row-filters:nth-child(2) label {
+    min-height: 36px;
+}

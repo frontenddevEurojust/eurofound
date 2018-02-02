@@ -866,6 +866,16 @@ width:100%;
 		width: 48%;
 		margin-right: 2%;
 	}
+	#views-exposed-form-erm-regulations-page div#edit-field-country-erm-reg-tid-selective-wrapper.views-exposed-widget {
+	    width: 100%;
+	}
+	div#edit-field-ef-involved-actors-tax-tid-wrapper {
+	    width: 50%;
+    	margin-left: 0;
+	}
+	.wrap-row-filters:nth-child(2) #edit-field-type-phase-erm-reg-tid-selective-wrapper label {
+	    min-height: auto;
+	}
 
 
 	 /*END 3257 factsheet admin view */
@@ -1790,6 +1800,13 @@ html body.admin-menu {
       text-align: center;
   }
 
+	.wrap-row-filters:nth-child(2) #edit-field-erm-fundings-erm-reg-tid-selective-wrapper label {
+	    min-height: auto;
+	}
+	.wrap-row-filters:nth-child(2) label {
+	    min-height: 25px;
+	}
+
 }
 
 
@@ -2241,6 +2258,8 @@ html body.admin-menu {
 
 	}
 }
-
-
-
+@media only screen and (min-width: 800px) and (max-width: 877px){
+	.wrap-row-filters:nth-child(2) label {
+	    min-height: 48px;
+	}
+}
