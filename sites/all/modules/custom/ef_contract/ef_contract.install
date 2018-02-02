@@ -37,8 +37,6 @@ function ef_contract_update_7001() {
   //Then we need the Vocabulary ID to save the new terms
   $st_taxonomy = taxonomy_vocabulary_machine_name_load('ef_service_types');
 
-  echo $st_taxonomy->vid;
-
   //And these are the terms we need to save
   $service_types = array(
     'Scheduled reporting service',

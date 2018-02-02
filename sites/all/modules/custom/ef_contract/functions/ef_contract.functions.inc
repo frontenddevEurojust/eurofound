@@ -362,11 +362,41 @@ function update_node_group($gid, $nid) {
  *
  */
 function get_revision_log_message_by_default($user){
-
   $date = date('d-m-Y, h:i:s');
   $message = $date . ' by ' . $user->mail;
 
   return t($message);
 }
 
+function get_deliverable_kinds($period, $parent = 0) {
+  //taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
+  $load_entity = TRUE;
+  $max_depth = NULL;
+  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $level, $load_entity);
+  foreach ($terms as $tid => $term) {
+    if ($period == '2018 - 2022' && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+      $deliverable_kinds[$term->tid] = $term->name;
+    }
+    elseif ($period == '2014 - 2018' && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
+      $deliverable_kinds[$term->depth][$term->tid] = $term->name;
+    }
+  }
 
+  return $deliverable_kinds;
+}
+
+function get_contracts($period) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  foreach ($terms as $tid => $term) {
+    if ($period == '2018 - 2022' && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+      $contracts[$term->tid] = $term->name;
+    }
+    elseif ($period == '2014 - 2018' && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
+      $contracts[$term->tid] = $term->name;
+    }
+  }
+
+  return $contracts;
+}
