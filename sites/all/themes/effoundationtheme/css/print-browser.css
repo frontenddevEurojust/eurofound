@@ -407,7 +407,9 @@ table tr:nth-child(even){
       margin:0!important;
       background:#FFF!important;
    }
-
+    .print-pdf-wrapper{
+      display: none;
+    }
    .print-preview li img{
     display:none!important;
    }
@@ -881,9 +883,9 @@ ul.metadata-publications > li > ul li {
   margin: 0;
   padding: 25px 20px !important;
   border: 1px solid #ccc;
-  float: none;
-  margin: 45px auto !important;
-  width: 90% !important;
+  float: left;
+  margin: 25px auto !important;
+  width: 100% !important;
   clear: both !important;
 }
   .eurostat-result ul {
@@ -962,14 +964,20 @@ ul.metadata-publications > li > ul li {
   .section-living-working .metadata-type, .metadata-topics{
     color: #F7931E;
     font-size: 0.9em;
-
   }
+
+  .section-living-working .media.media-element-container.media-default {
+    display: inline-block;
+    margin-right: 45px;
+  }
+  .section-living-country>section>.content, 
   .section-living-working>section>.content, 
   .section-working-life-country-profile>section>.content{
     display: block !important;
     border: 0 !important;
     margin: 0 !important;
   }
+  .section-living-country>section p.subtitle, 
   .section-living-working>section p.subtitle, 
   .section-working-life-country-profile>section p.subtitle{
     font-size: 22px !important;
@@ -1002,6 +1010,9 @@ ul.metadata-publications > li > ul li {
   .go-top-wrapper{
     display: none;
   }
+
+
+
 @media print {
   html, body{margin:4%!important; }
   .node-ef-working-life-country-profiles .wp_about {

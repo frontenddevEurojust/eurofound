@@ -213,6 +213,8 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
+      }else if(pathname_form=='legislation'){
+        num_divisor=parseInt(2);
       }else{
         num_divisor=parseInt(3);
       }
@@ -222,9 +224,19 @@
       if( ($filter_rows % $num_filters) > 0 ){$filter_rows++;}
 
       for (var i = 0; i <= $filter_rows; i++) {
+        if (pathname_form=='legislation' && i!=0) {
+          num_divisor=parseInt(3);
+        }
         var first = num_divisor * i;
         var last = num_divisor * (i + 1);
+
+        if (pathname_form=='legislation' && i!=0) {
+         first--;
+         last--;
+        }
+
         $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
+      
       }
 
       $('.view-button').wrapAll('<div class="wrap-row-buttons"></div>');
@@ -679,12 +691,14 @@
 		}
 
 		function applyFooterDiv(){
-			if ($(".pagination-centered").length) {
-				$(".ef-main .view-content").first().after("<div class='view-footer-wrapper'></div>");
-				$(".view-footer-wrapper").prepend($(".view-footer"));
-				$(".view-footer-wrapper").prepend($(".pagination-centered"));
-				//$(".view-footer-wrapper").prepend($(".view h2"));
-			}
+      if (!$(".page-observatories-emcc .view").hasClass("view-factsheet-geolocation-view")) {
+  			if ($(".pagination-centered").length) {
+  				$(".ef-main .view-content").first().after("<div class='view-footer-wrapper'></div>");
+  				$(".view-footer-wrapper").prepend($(".view-footer"));
+  				$(".view-footer-wrapper").prepend($(".pagination-centered"));
+  				//$(".view-footer-wrapper").prepend($(".view h2"));
+  			}
+      }
 		}
 
 		function addFlags(){
@@ -1302,9 +1316,8 @@ $(document).ready(function(){
     if($( '> ul',this ).attr('class') == undefined){
        var classLinkMenu = $( '> a',this ).attr('class');
        $( '> a',this ).attr('class',classLinkMenu + ' noSubmenu');
-    }
-  
-});
+    }  
+  });
 
   });
 })(jQuery);
@@ -1325,3 +1338,168 @@ $(document).ready(function(){
   });
 })(jQuery);
 /** END BREADCRUMBS FOR country profile **/
+
+
+
+/** DATA AND RESOURCES LANDING PAGE**/
+(function ($) {
+  $(document).ready(function(){
+    $('.vcard p:last-child a').parent().addClass('see-more');
+    $('.vcard-img p:last-child a').parent().addClass('see-more');
+    $('.hcard-img p:last-child a').parent().addClass('see-more');
+
+  var longTextVcard = 200;
+  $('.vcard p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-vcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextVcard){
+        $(this).html($(this).html().slice(0, Number(longTextVcard+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
+      }
+    }
+  });
+
+  var longTextVcardImg = 290;
+  $('.vcard-img p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-vcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextVcardImg){
+        $(this).html($(this).html().slice(0, Number(longTextVcardImg+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
+      }
+    }
+  });
+
+var longTextHcard = 210;
+  $('.hcard-img p').each(function( index ) {
+
+    if($(this).text().length == 0 || $(this).html() == '&nbsp;'){
+      $(this).remove();
+    }   
+    
+    if($(this).attr('class') != 'see-more' && $(this).text().length != 0 && $(this).html() != '&nbsp;' ){
+       $(this).addClass('content-hcard');      
+      var textEllipsis = $(this).text().length;
+      var altText = $(this).text();
+
+      var htmlText = String($(this).html()).length;
+      var difNumText = htmlText - textEllipsis;
+      //htmlText = htmlText.slice(0, longTextHcard);
+      //console.log(index + '----------------' +textEllipsis +'----'+ String($(this).text()) + '---------- ['+htmlText+']' + String($(this).html()));
+
+      if(textEllipsis >= longTextHcard){
+        $(this).html($(this).html().slice(0, Number(longTextHcard+difNumText)) + '<span style="cursor:help;" title="'+altText+'"> ...</span>'); 
+      }
+    }
+  });
+    
+  });
+})(jQuery);
+
+/* image link */
+
+(function ($) {
+$(document).ready(function(){
+
+      $('.vcard-img').each(function( index ) {     
+
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          var imgCard = $('.media .content', this).html();
+          if(linkButton != undefined){
+            $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+            $('.media .content img',this).remove();
+            //$('.media .content .link-card',this).attr('title',titleButton );
+            $('.media .content .link-card',this).append(imgCard);        
+          }
+
+      });
+
+      $('.vcard.img-only').each(function( index ) {     
+
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          //$(this).attr('title', titleButton);
+
+          if(linkButton != undefined){
+             $(this).mouseover(function() {
+              $(this).css('cursor','pointer');
+             });
+             $(this).mouseout(function() {
+              $(this).css('cursor','');
+             });
+            $(this).click(function() {
+              window.location.href = linkButton;
+            });
+        
+          }
+
+      });
+
+      $('.hcard-img').each(function( index ) {     
+
+          var linkButton = $('.see-more a', this).attr('href');
+          var titleButton = $('.see-more a', this).text();
+          var imgCard = $('.media .content', this).html();
+          if(linkButton != undefined){
+            $('.media .content',this).prepend('<a href="'+linkButton+'" class="link-card" />');
+            $('.media .content img',this).remove();
+            //$('.media .content .link-card',this).attr('title',titleButton );
+            $('.media .content .link-card',this).append(imgCard);        
+          }
+          
+      });
+
+     $('.vcard.img-only').each(function( index ) {
+      var srcImg = $(this).find('img').attr('src');
+      $(this).css({'background':'no-repeat url('+ srcImg +')', 'background-size':'cover'});
+      $('img', this).css('display','none');
+      //$('.content-vcard', this).css('display','none');
+     });
+
+     $( "p.see-more" ).hover(function() {
+      var contCard = $(this).parent().parent();      
+      if(contCard.find('img').length == 1){
+        contCard.addClass('showtitle');
+      }
+    });
+
+    $( ".vcard.img-only" ).mouseout(function() {
+      var contCard = $(this);      
+      if(contCard.find('img').length == 1){
+        contCard.removeClass('showtitle');
+      }
+    });
+
+
+  });
+})(jQuery);
+
+/* END image link */
+
+/** END DATA AND RESOURCES LANDING PAGE **/
+

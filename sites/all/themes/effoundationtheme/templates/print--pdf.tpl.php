@@ -27,9 +27,7 @@
   width: 100% !important;
   float: none !important;
 }*/
-.no-pdf, .node-type-ef-working-life-country-profiles h1#page-title{
-  display: none !important;
-}
+
 #logo{
   display:block;
   width:3.5cm ;
@@ -416,8 +414,8 @@ width: 20%;
 
 .field.field-name-field-type-erm-si li{
   list-style-type: none;
-margin-top: -0.65cm;
-margin-left: 2cm;
+  margin-top: -0.65cm;
+  margin-left: 2cm;
   width:60%;
   text-align: left;
 }
@@ -638,6 +636,117 @@ word-break: break-all;
   page-break-inside:avoid; !important;
 }
 /** working life countri profile **/
+.no-pdf, .node-type-ef-working-life-country-profiles h1#page-title{
+  display: block !important;
+}
+.eurostat-result {
+  background: #f2f2f2 !important;
+  margin: 0;
+  padding: 25px 20px !important;
+  border: 1px solid #ccc;
+  float: left;
+  margin: 25px auto !important;
+  width: 100% !important;
+  clear: both !important;
+}
+.summary-living-working{
+  float: none !important;
+  width: 100% !important;
+  clear: both !important;
+}
+
+
+.section-living-working section{
+  clear: both;
+}
+.section-living-working section > .content{
+  overflow:auto;
+}
+.section-container.vertical-tabs > section > .title {
+  color: #005baa;
+  width: 100% !important;
+  font-size: 22px !important;
+  border-right: 0px solid #CCC !important;
+}
+.section-living-working.section-container.vertical-tabs > section > .title p {
+  margin-bottom: 0px !important;
+}
+.section-living-working h3.subtitle {
+  font-size: 2rem; 
+  margin:0;
+  font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+}
+.section-living-working section{
+  clear: both;
+}
+.section-living-working section > .content{
+  overflow:auto;
+}
+.section-living-country>section>.content, 
+.section-living-working>section>.content, 
+.section-working-life-country-profile>section>.content{
+  border:0 !important;
+  margin: 0 !important;
+  float: none !important;
+  width: 100% !important;
+
+}
+.section-living-working.section-container.vertical-tabs > section > .title {
+  position: static !important;
+  font-size: 22px !important;
+  font-family: OpenSans-semibold-webfont;
+  margin-bottom: 0px !important;
+  clear: both !important;
+  border: none !important;
+  width: 100%;
+}
+
+#content-tabs-living-working section .content{
+  border:0 !important;
+  margin: 0 !important;
+  float: none !important;
+  width: 100% !important;
+  clear: both !important;
+  overflow: auto !important;
+}
+#content-tabs-living-working  section  .title p {
+  margin: 0 !important;
+  font-size: 18px !important;
+  border-bottom: 1px dotted #CCC;
+}
+#content-tabs-living-working  section  .title p i {
+  color: #F58020;
+  display: block !important;
+  margin-right: 5px;
+  font-size: 22px;
+}
+#content-tabs-living-working section .content .large-6.column, 
+#content-tabs-living-working section .content .large-4.column{
+  border:0 !important;
+  margin: 0 !important;
+  float: none !important;
+  width: 100% !important;
+  clear: both !important;
+}
+.content-living-country{
+  float: none !important;
+  overflow: auto !important;
+}
+.section-living-country>section p.subtitle, 
+.section-living-working>section p.subtitle, 
+.section-working-life-country-profile>section p.subtitle{
+  font-size: 22px !important;
+  margin-bottom: 15px;
+  clear: both !important;
+  border: 1px solid #000 !important;
+}
+.element-invisible, .print-pdf-wrapper, .print_pdf img, .print_html img {
+  display: none !important;
+}
+
+
+
+
 .node-ef-working-life-country-profiles .wp_about h2{
    font-size: 12px !important;
 }
@@ -660,6 +769,55 @@ word-break: break-all;
 /** end working life countri profile **/
 
 </style>
+
+  <?php   $section = $_GET["section"];
+   if ($section == 1): ?>
+    <style>
+    .content-living-working, 
+    .content-working-life, 
+    h1.title, 
+    a.print-pdf{
+      display: none !important;
+    }
+    .section-living-country>section>.content, 
+    .section-living-working>section>.content, 
+    .section-working-life-country-profile>section>.content{
+      display: block !important;
+      border: 0 !important;
+      margin: 0 !important;
+    }
+    .section-living-country>section p.subtitle, 
+    .section-living-working>section p.subtitle, 
+    .section-working-life-country-profile>section p.subtitle{
+      font-size: 22px !important;
+      font-family: OpenSans-semibold-webfont;
+      margin-bottom: 15px;
+      clear: both !important;
+    }
+    .intro-text{
+      display: none !important;
+    }
+    </style>
+    <?php endif ?>
+
+   <?php 
+   if ($section == 2): ?>
+    <style>
+    .no-pdf, .node-type-ef-working-life-country-profiles h1#page-title{
+      display: none !important;
+    }
+    .content-living-country, 
+    .summary-living-working, 
+    .intro-text{
+      display: none !important;
+    }
+    .section-country .print-pdf-wrapper, 
+    .print-pdf-wrapper{
+      display: none !important;
+    }
+    </style>
+    <?php endif ?>
+
   </head>
   <body>
 
