@@ -19,14 +19,23 @@
     $weight=array();
 
     $query = db_select('related_content_and_taxonomies', 'rc');
-        $query->fields('rc', array("rc_weight", "rc_id"));
+        $query->fields('rc', array("rc_weight", "rc_id", "rc_type"));
         $query->condition('rc.nid', $nid, "=");
         $result=$query->execute();
-
+    //random numbers to dont match
+      $nt=1000;
+      $nc=5000;
     while($record = $result->fetchAssoc()) {
-      $weight[$record["rc_weight"]][$record["rc_id"]] = $record["rc_id"];
+      //Order first taxonmies
+      if ($record["rc_type"]=="tax") {
+        $nt++;
+        $order_type=$nt;
+      }else{
+        $nc++;
+        $order_type=$nc;
+      }
+      $weight[$record["rc_weight"]][$order_type] = $record["rc_id"];
     }
-
     //Format Weight
     ksort($weight);
     $weight_final=array();
