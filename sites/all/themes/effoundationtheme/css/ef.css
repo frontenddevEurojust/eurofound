@@ -6351,7 +6351,7 @@ ul.field-collection-view-links a {
 }
 .view-filters .views-exposed-form .views-exposed-widget {
 	padding: 0.2em 0.8em 0 0.8em;
-	min-height: 70px;
+	min-height: 88px;
 }
 .node-unpublished {
 	/*background-color: #FFF9F9;*/
@@ -13905,3 +13905,8 @@ h4.title-tooltip-geolocation a:hover{
   padding-left: 0;
 }
 
+/* View Factsheet filters */
+
+#edit-shs-term-node-tid-depth{
+	width: auto !important;
+}
