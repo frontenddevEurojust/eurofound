@@ -12,6 +12,7 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
   }
 
   if ($form_id == 'user_register_form' && in_array('OSU', $user->roles)) {
+    $country_group_roles = array('Country Group Leader', 'Country Group Member',);
     $form['field_ef_notification_settings']['und']['#default_value'] = 1;
     $form['field_ef_notification_settings']['#type'] = 'hidden';
     $form['country'] = array(
@@ -26,6 +27,30 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
       '#title' => t('Country Group'),
       '#options' => get_country_groups(),
     );
+
+    $group_roles = group_type_load('country_group')->getRoles(FALSE);
+    foreach ($group_roles as &$group_role) {
+      $group_role = $group_role->label();
+    }
+
+    unset($group_roles['country_group_creator']);
+    unset($group_roles['group_admin']);
+
+    //input: edit-ef-country-group-roles-country-group-leader
+    //$form['field_ef_service_type']['#states'] = array(
+    //  'checked' => $visibility,
+    //);
+    //$visibility[][':input[name="field_ef_author_contract[und]"]'] = array('value' => strval($key));
+
+    $form['country']['ef_country_group_roles'] = array(
+      '#type' => 'radios',
+      '#title' => t('Country Group role'),
+      '#description' => t('Select the roles the member will receive.'),
+      '#multiple' => FALSE,
+      '#options' => $group_roles,
+      '#default_value' => 'country_group_member',
+    );
+
     $form['#submit'][] = 'osu_new_author_register_submit';
   }
 }
@@ -45,8 +70,29 @@ function show_contract_numbers_in_selects(&$form, $field_name) {
 }
 
 function osu_new_author_register_submit($form, &$form_state) {
+  global $user;
+
+  if ($form_state['values']['ef_country_group_roles'] == 'country_group_member') {
+    $role = array(
+      'country_group_member' => 'country_group_member',
+      'country_group_leader' => 0,
+    );
+  }
+  else {
+    $role = array(
+      'country_group_leader' => 'country_group_leader',
+      'country_group_member' => 0,
+    );
+  }
+
+  $values = array(
+    'roles' => array_filter($role),
+    'added_on' => REQUEST_TIME,
+    'added_by' => $user->uid,
+  );
+
   if (isset($form_state['values']['uid']) && isset($form_state['values']['ef_country_group'])) {
     $group = group_load(intval($form_state['values']['ef_country_group']));
-    $group->addMember($form_state['values']['uid'], array('joined_on' => REQUEST_TIME));
+    $group->addMember($form_state['values']['uid'], $values);
   }
 }
