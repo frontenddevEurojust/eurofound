@@ -12,7 +12,10 @@ g.ticks text {
 .node-type-data-explorer-page svg:not(:root) {
     overflow: visible;
 }
-
+.bargroup > rect:hover{
+  fill:#f16000;
+  cursor: pointer;
+}
 
 /** CHARTSA JOBS MONITOR **/
 .node-type-data-explorer-page .ef-main{
@@ -131,6 +134,9 @@ g.ticks text {
 .filters-jm-chart .group-filters  label[for^="sort"]{
     margin-top: 1.5rem;
 }
+.filters-jm-chart .group-filters  label[for^="subg"]{
+    margin-top: 1.5rem;
+}
 .filters-jm-chart .group-filters  select {
     border: 1px solid #CCC;
     border-radius: 0;
@@ -189,7 +195,9 @@ g.ticks text {
   font-size: 14px;
   fill: #eb8b0b  !important;
 }
-
+.chart-wrapper circle:hover{
+  cursor: pointer;
+}
 .chart-wrapper circle.lollipop-start {
   fill:#A4CA43;
   -webkit-transition: all 1s;
@@ -205,6 +213,17 @@ g.ticks text {
   fill:#BB1E8C;
   -webkit-transition: all 1s;
   transition: all 1s;
+}
+.chart-wrapper .no-data {
+  fill: #d8dde4 !important;
+  color: #d8dde4 !important;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  stroke-width: xpx;
+  stroke: #CCC;
+}
+.chart-wrapper .no-data i{
+  color: #d8dde4 !important;
 }
 .chart-wrapper .grid-line{
   stroke: #b3b7bd;
@@ -419,6 +438,11 @@ g.ticks text {
   font-family: 'OpenSans-Semibold-webfont';
   color: #000;
   font-size: 12;
+}
+.d3-tip p.no-data{
+  font-family: 'OpenSans-Semibold-webfont';
+  color: #666;
+  font-size: 11px;
 }
 .d3-tip p.dot{
   font-family: 'OpenSans-bold-webfont';

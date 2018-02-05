@@ -256,8 +256,8 @@
           .attr('y', function (d,i) { d = Number(d); if (i == 0) {accp = accn = 0}; if (d >= 0) { accp = accp + d; return yStacked(accp);} else { accn = accn - Math.abs(d); return yStacked(Math.abs(d)) + chart.h - barYStacked(Math.abs(accn));}})
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
           .on('mouseover', function(d, i) {
-            tip.show(breakdownColumns[i][0] + " " + d);
-            $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
+            //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           })
           .on('mouseout', tip.hide);      }
       else {
@@ -276,8 +276,9 @@
           .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)) ; })
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
           .on('mouseover', function(d, i) {
-            tip.show(breakdownColumns[i][0] + " " + d);
-            $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+            //tip.show(breakdownColumns[i][0] + " " + d);
+            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
+            //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           })
           .on('mouseout', tip.hide);
       }

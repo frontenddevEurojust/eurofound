@@ -288,8 +288,6 @@
 
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
 
-
-
     padding = 0;
 
       if($(window).width()>=768){
@@ -375,12 +373,12 @@
     .data(filteredData)
     .on('mouseover', function(d) {
       if (d.dot1 == 0){
-        tip.show("No data available for " + d.countryName);
+        tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
       } else { 
-        tip.show(Math.round(d.dot1) + " " + d.countryName);
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
       }
       // Reset top for Firefox as onepage framework changes top values
-      $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
+      // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
     })
     .transition().duration(transitionD)
     .attr("cx", function(d) { 
@@ -403,10 +401,10 @@
         if (d.dot3 == 0){
           tip.show("No data available for " + d.countryName);
         } else { 
-          tip.show(Math.round(d.dot3) + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot3 +"<p>");
         }
         // Reset top for Firefox as onepage framework changes top values
-        $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
+        // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
       })
       .transition().duration(transitionD)
       .attr("cx", function(d) { 
@@ -429,10 +427,10 @@
         if (d.dot2 == 0){
           tip.show("No data available for " + d.countryName);
         } else { 
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
         }
         // Reset top for Firefox as onepage framework changes top values
-        $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
+        // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px'); 
       })
       .transition().duration(transitionD)
       .attr("cx", function(d) { 
