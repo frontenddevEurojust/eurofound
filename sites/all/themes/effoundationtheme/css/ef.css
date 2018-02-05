@@ -13905,3 +13905,8 @@ h4.title-tooltip-geolocation a:hover{
   padding-left: 0;
 }
 
+/* View Factsheet filters */
+
+#edit-shs-term-node-tid-depth{
+	width: auto !important;
+}

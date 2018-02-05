@@ -95,6 +95,21 @@ function ef_factsheet_form_alter(&$form, &$form_state, $form_id){
 		$form['field_address']['und'][0]['additional']['#default_value'] = $location_term_0;
 		$form['field_address']['und'][0]['province']['#default_value'] = $nuts_term_3 . $nuts_term_2 . $nuts_term_1 . $nuts_term_0 ;
     }
+
+   	
+	// Add an own reset button to all views exposed forms. The reason behind is,
+	// that the default Drupal reset button doesn't play nice with AJAX
+	// and jumps back to the front page because of URL problems. So it's unusable for us.
+	if($form['#id']=='views-exposed-form-ef-factsheets-view-page'){  
+      $form['submit']['#attributes'] = array('class' => array('my-views-filter-submit'));
+      $submit_btn_id = $form['submit']['#id'];
+      if (!empty($submit_btn_id) && !empty($form['reset'])) {
+        // Add own reset button
+        $form['submit']['#suffix'] = '<button id="edit-reset" onclick="javascript:jQuery(this.form).clearForm();jQuery(this.form).find(\'#' . $submit_btn_id . '\').trigger(\'click\');return false;" class="form-submit ico-remove form-reset my-views-filter-reset">' . t('Reset') . '</button>';
+        // Remove the original RESET button.
+        unset($form['reset']);
+      }
+    }
 }
 
 function ef_factsheet_form_validate($form, &$form_state) {
