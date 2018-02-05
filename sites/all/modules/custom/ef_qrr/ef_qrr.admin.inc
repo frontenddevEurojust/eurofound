@@ -83,7 +83,7 @@ function ef_qrr_ratings_table() {
 
               jQuery("#show_coment_<?php echo $nid; ?>").change(function(){
                 jQuery("#hidden_nid_<?php echo $nid; ?>").val(jQuery("#show_coment_<?php echo $nid; ?>").val())
-                console.log(jQuery("#show_coment_<?php echo $nid; ?>").val())
+                //console.log(jQuery("#show_coment_<?php echo $nid; ?>").val())
               });
 
             },
@@ -97,6 +97,9 @@ function ef_qrr_ratings_table() {
 
       $fieldset = _ef_qrr_rating_fieldset($node, false, false);
       $checkbox = array('#type' => 'checkbox', '#id' => 'select_'.$node->nid);
+
+      //Delete Reviewer Comment like Rating
+      unset($fieldset["qrr_rating_".$nid."_6"]);
 
       $textfield = array(
         '#type' => 'textarea',
