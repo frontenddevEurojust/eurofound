@@ -195,12 +195,19 @@
 
     var padding = 0;
 
-      var margin = {top: 75, right:50, bottom: 75, left: 100};
-      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+      if($(window).width()>=768){
+        var margin = {top: 75, right:50, bottom: 75, left: 125};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+      }else{
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
+      }
+     
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
-      // temporarily
+      //temporarily
       height = 675;
+
 
     d3.select("body .chart-wrapper svg")
     .attr("width", width + margin.left + margin.right)
@@ -208,7 +215,6 @@
     
     d3.select("body .chart-wrapper svg > g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
     d3.selectAll("g.tick")
       .remove();
@@ -246,6 +252,7 @@
       .call(yAxis);
 
     // Move x-axis lines
+
     d3.selectAll("path.grid-line")
       .remove();
     
@@ -295,8 +302,8 @@
 
 
 
-  $( window ).on( "orientationchange, resize", function( event ) {
-      updateGraph();
+  $(window).on("resize orientationchange",function(e){
+    updateGraph();
   });
 
 
@@ -321,11 +328,19 @@
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-      var margin = {top: 75, right:50, bottom: 75, left: 125};
-      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+
+      
+      if($(window).width()>=768){
+        var margin = {top: 75, right:50, bottom: 75, left: 125};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+      }else{
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
+      }
+     
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
-      // temporarily
+      //temporarily
       height = 675;
 
       var svg = d3.select("body .chart-wrapper").append("svg")

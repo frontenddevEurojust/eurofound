@@ -17,13 +17,42 @@
 	      $('svg .legend-text-start').click(function(){
 	      	$('.lollipops .lollipop-start').toggle('hide');
 	      });
+	      $('svg .legend-text-median').click(function(){
+	      	$('.lollipops .lollipop-median').toggle('hide');
+	      });
 	      $('svg .legend-text-end').click(function(){
 	      	$('.lollipops .lollipop-end').toggle('hide');
 	      });
 
+
 	      var textStart = $('svg .legend-text-start').text();
+	      var textMedian = $('svg .legend-text-median').text();
 	      var textEnd = $('svg .legend-text-end').text();
-	      $(".chart-wrapper").append('<ul class="legend-list"><li class="start"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textStart+'</li><li class="end"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textEnd+'</li></ul>');
+
+				var itemStart ="";
+				var itemMedian="";
+				var itemEnd="";
+
+				if(textStart != "" || textMedian != "" || textEnd != ""){
+				    if( textStart != ""){ 
+				    	var itemStart ='<li class="start"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;' + textStart + '</li>';
+				    }
+				    if( textMedian != ""){ 
+				    	var itemMedian = '<li class="median"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+ textMedian + '</li>';
+				    }
+				    if( textEnd != ""){ 
+				    	var itemEnd = '<li class="end"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;' + textEnd + '</li>';
+				  	}
+
+				    $(".chart-wrapper").append('<ul class="legend-list">'+itemStart+itemMedian+itemEnd+'</ul>');
+				}
+
+
+
+
+
+	      
+	      //$(".chart-wrapper").append('<ul class="legend-list"><li class="start"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textStart+'</li><li class="end"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textEnd+'</li></ul>');
 
 				/*** SHOW/HIDE CHART'S DOTS FROM LEGEND'S ITEMS ***/					
 				$('.legend-list li').click(function(){

@@ -296,7 +296,30 @@
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(calculateMinValue(filteredData) - 1);
 
-    var padding = 0;
+    padding = 0;
+
+      if($(window).width()>=768){
+        var margin = {top: 75, right:50, bottom: 75, left: 125};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+      }
+      else
+      {
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
+      }
+     
+      height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
+
+      //temporarily
+      height = 675;
+
+    d3.select("body .chart-wrapper svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+    
+    d3.select("body .chart-wrapper svg > g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
 
     d3.selectAll("g.tick")
       .remove();
@@ -343,11 +366,20 @@
       .attr("stroke-opacity", "0")
       .attr("d", axisLinePath)
       .transition().duration(750)
-      .attr("stroke-opacity", "1");     
+      .attr("stroke-opacity", "1");
+
+
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+    if(isChrome){
+     var transitionD = 0;
+    }else{
+      var transitionD = 750;
+    }    
       
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
-      .transition().duration(750)
+      .transition().duration(transitionD)
       .attr("cx", function(d) { 
         return x(Math.round(d.dot1)); 
       })
@@ -357,7 +389,7 @@
       
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
-      .transition().duration(750)
+      .transition().duration(transitionD)
       .attr("cx", function(d) { 
         return x(Math.round(d.dot2)); 
       })
@@ -373,9 +405,13 @@
       .attr("class", function(d){
         return "lollipop-line";
       });
-
   }
   
+  $(window).on("resize orientationchange",function(e){
+    updateGraph();
+  });
+
+
   $(document).ready(function(){
 
     data = [];
@@ -395,14 +431,18 @@
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-      var margin = {top: 75, right:150, bottom: 75, left: 150};
-
-
-      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+      if($(window).width()>=768){
+        var margin = {top: 75, right:50, bottom: 75, left: 125};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+      }else{
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
+      }
+     
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
       //temporarily
-      height = 800;
+      height = 675;
 
       svg = d3.select("body .chart-wrapper").append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -440,10 +480,15 @@
       };
 
       // add labels
+      var textLegend = ['start','end'];
+
+
       legend.selectAll("text")
         .data(legendLabels)
         .enter().append("text")
-        .attr("class","legend-text")
+        .attr("class", function(d, i) {
+          return 'legend-text-'+textLegend[i];
+        }) 
         .attr("x", function(d, i) {
           return legendPosition.x + spaceBetween * i + 10;
         })  
@@ -558,9 +603,9 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot1) + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
 
       
@@ -575,9 +620,9 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show(Math.round(d.dot2) + " " + d.countryName);
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
-          $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
       
       $('select').on('change', function () {

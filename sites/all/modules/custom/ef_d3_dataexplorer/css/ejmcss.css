@@ -80,6 +80,9 @@ g.ticks text {
   ul.legend-list li.start i{
     color:#A4CA43;
   }
+  ul.legend-list li.median i {
+    color: #BB1E8C;
+  }
   ul.legend-list li.end i{
     color:#529DDA;
   }
@@ -172,7 +175,7 @@ g.ticks text {
   font-size: 12px;
 }
 .chart-wrapper .lollipop-line {
-  stroke: #e8e6e6;
+  stroke:#d0d5dd;
   stroke-width: 12px;
   opacity: 0.75;
 }
@@ -250,8 +253,14 @@ g.ticks text {
     /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
     font-size: 9px;
   }
+  .chart-wrapper .tick text{
+    font-size: 11px;
+  }
   .jm-back-button {
     width: 100%;
+  }
+  .filters-jm-chart .group-filters {
+    padding: 15px;
   }
   .filters-jm-chart{
     width: 100%;
@@ -271,7 +280,7 @@ g.ticks text {
     margin: 5px 0;
     display:block;
     font-size: 12px;
-    text-align: left;
+    text-align: center;
   }
   .jm-charts{
     /*padding: 30px 15px 60px;*/
@@ -396,6 +405,10 @@ g.ticks text {
   background: #FFF;
   border-bottom: 3px solid #000;
 }
+.logged-in .d3-tip{
+  margin-top: -37px;
+}
+
 .d3-tip p{
   margin: 0;
 }

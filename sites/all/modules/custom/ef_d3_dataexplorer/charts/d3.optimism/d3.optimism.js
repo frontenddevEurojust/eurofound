@@ -197,12 +197,20 @@
 
     padding = 0;
 
-      var margin = {top: 75, right:25, bottom: 75, left: 100};
-      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+      
+      if($(window).width()>=768){
+        var margin = {top: 75, right:25, bottom: 75, left: 100};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+      }else{
+        var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
+      }
+     
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
-      // temporarily
+      //temporarily
       height = 675;
+
 
     d3.select("body .chart-wrapper svg")
     .attr("width", width + margin.left + margin.right)
@@ -299,8 +307,8 @@
 
 
 
-  $( window ).on( "orientationchange, resize", function( event ) {
-      updateGraph();
+  $(window).on("resize orientationchange",function(e){
+    updateGraph();
   });
 
 
@@ -325,17 +333,17 @@
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-
       if($(window).width()>=768){
-            var margin = {top: 75, right:25, bottom: 75, left: 125};
+        var margin = {top: 75, right:25, bottom: 75, left: 100};
+        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
       }else{
         var margin = {top: 25, right:10, bottom: 25, left: 100};
+        width = Number($(window).width()) - margin.left - margin.right;
       }
-
-      width = Number($('.chart-wrapper').width()) - margin.left - margin.right,
+     
       height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
 
-      // temporarily
+      //temporarily
       height = 675;
 
       svg = d3.select(".chart-wrapper").append("svg")
