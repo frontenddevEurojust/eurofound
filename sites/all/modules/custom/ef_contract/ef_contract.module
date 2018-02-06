@@ -803,7 +803,7 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
  * AJAX ASSIGN TO COUNTRY GROUP CALLBACK FUNCTION
  */
 function ajax_assign_to_country_group_callback($form, &$form_state){
-  $new_nec = varible_get('ef_contract_enabled_contracting_period');
+  $new_nec = variable_get('ef_contract_enabled_contracting_period');
 
   global $user;
   // pick up Country group (INPUT) and the needed variables
