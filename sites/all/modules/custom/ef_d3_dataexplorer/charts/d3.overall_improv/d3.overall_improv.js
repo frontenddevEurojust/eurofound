@@ -75,6 +75,7 @@
       
     var modalities = overallFunctions.buildModalityOptions(data);
     
+    var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text('Group');
     var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
 
     var options = select
@@ -162,7 +163,7 @@
 
   overallFunctions.buildGraphStructure = function(csv){
     overallFunctions.createModalityFilter(csv);
-    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    $('.chart-filters').append('<label for="sort-order" class="label-sort">Sort:</label>');
     overallFunctions.createOrderingFilter();
   };
 

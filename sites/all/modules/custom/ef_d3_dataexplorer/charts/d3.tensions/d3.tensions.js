@@ -243,11 +243,11 @@
   }
 
   var buildGraphStructure = function(csv){
-    $('.chart-filters').append('<label for="modality-filter">Data:</label>');
+    $('.chart-filters').append('<label for="modality-filter" class="label-data">Data:</label>');
     createModalityFilters(csv);
-    $('.chart-filters').append('<label for="subgroup-filter">Group:</label>');
+    $('.chart-filters').append('<label for="subgroup-filter" class="label-group">Group:</label>');
     createSubgroupFilters(csv);
-    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    $('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
     createOrderingFilter();
   };
 

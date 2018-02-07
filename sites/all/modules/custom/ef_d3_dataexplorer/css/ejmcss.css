@@ -80,6 +80,9 @@ g.ticks text {
     cursor: pointer;
     font-size: 12px;
   }
+  ul.legend-list li.active {
+    font-weight: bold !important;
+  }
   ul.legend-list li.start i{
     color:#A4CA43;
   }
@@ -131,7 +134,10 @@ g.ticks text {
 .filters-jm-chart .group-filters  label {
     font-size:14.4px;
 }
-.filters-jm-chart .group-filters  label[for^="sort"]{
+.filters-jm-chart .group-filters  label.label-group, 
+.filters-jm-chart .group-filters  label.label-subgroup, 
+.filters-jm-chart .group-filters  label.label-gender, 
+.filters-jm-chart .group-filters  label.label-sort{
     margin-top: 1.5rem;
 }
 .filters-jm-chart .group-filters  label[for^="subg"]{

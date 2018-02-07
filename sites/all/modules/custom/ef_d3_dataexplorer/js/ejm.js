@@ -52,6 +52,10 @@
 	      //$(".chart-wrapper").append('<ul class="legend-list"><li class="start"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textStart+'</li><li class="end"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+textEnd+'</li></ul>');
 
 				/*** SHOW/HIDE CHART'S DOTS FROM LEGEND'S ITEMS ***/					
+				
+
+				/* ///click and the legend and the circle hides itself
+
 				$('.legend-list li').click(function(){
 						var classDot = $(this).attr('class');
 						var IdParent = $(this).parent().parent().attr('id');			
@@ -61,15 +65,38 @@
 						$(this).css('text-decoration','line-through');
 
 						click = true;	
-						//$(this).click = true;
 					}else{
 						$('svg circle').removeClass('legend-highlight').removeClass('legend-opacity');
 						$('#'+ IdParent + ' circle..lollipop-'+classDot).css('opacity','1');
 						$(this).css('text-decoration','none');
 						click = false;
-						//$(this).click = false;
 					}
 					
+				});	
+				*/
+
+				$('.legend-list li').click(function(){
+					var classDot = $(this).attr('class');
+					var IdParent = $(this).parent().parent().attr('id');
+					$(this).toggleClass('active');
+					var activeOption = $(this).attr('class');
+
+
+					if(activeOption.indexOf('active') > 0){
+						$('.legend-list li').addClass('active');
+						//$(this).removeClass('active');
+						$('#'+ IdParent + ' circle').css('opacity','0.1');
+						$('#'+ IdParent + ' circle.lollipop-'+classDot).css('opacity','1');
+						$('.legend-list li').css('opacity','0.3');
+						$(this).css('opacity','1');		
+
+					}else{
+						$('.legend-list li').removeClass('active');
+						$('.legend-list li').removeClass('active');
+						$('.legend-list li').css('opacity','1');
+						$('#'+ IdParent + ' circle').css('opacity','1');
+					}
+				
 				});	
 
 

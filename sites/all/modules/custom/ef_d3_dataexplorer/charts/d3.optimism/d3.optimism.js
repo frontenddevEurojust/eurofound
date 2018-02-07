@@ -159,9 +159,9 @@
   }
 
   var buildGraphStructure = function(csv){
-    $('.chart-filters').append('<label for="#modality-filter">Group:</label>');
+    $('.chart-filters').append('<label for="modality-filter" class="label-group-optimism">Group:</label>');
     createModalityFilter(csv);
-    $('.chart-filters').append('<label for="sort-order">Sort:</label>');
+    $('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
     createOrderingFilter();
   };
 
