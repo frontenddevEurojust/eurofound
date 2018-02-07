@@ -7069,6 +7069,31 @@ html.js input.throbbing {
 	text-align: center;
 	display: block;
 }
+.img-float-right img, 
+img.img-float-right{
+	float: right !important;
+	margin:0px 0px 20px 20px !important;
+}
+.img-float-left img, 
+img.img-float-left{
+	float: left !important;
+	margin:0px 20px 20px 0px !important;
+}
+.img-no-float img, 
+img.img-no-float{
+	clear: both !important;
+	margin:20px 0px !important;
+  display: block !important;
+  float: none !important;
+}
+.img-center img, 
+img.img-center {
+	float: none !important;
+	clear:both !important;
+	margin:20px auto!important;
+	text-align:center !important;
+	display:block !important;
+}
 .source {
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
 	color: #666;
