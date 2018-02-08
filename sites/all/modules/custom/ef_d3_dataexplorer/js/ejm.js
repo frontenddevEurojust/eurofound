@@ -37,14 +37,13 @@
 				    if( textStart != ""){ 
 				    	var itemStart ='<li class="start"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;' + textStart + '</li>';
 				    }
-				    if( textMedian != ""){ 
-				    	var itemMedian = '<li class="median"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+ textMedian + '</li>';
-				    }
 				    if( textEnd != ""){ 
 				    	var itemEnd = '<li class="end"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;' + textEnd + '</li>';
 				  	}
-
-				    $(".chart-wrapper").append('<ul class="legend-list">'+itemStart+itemMedian+itemEnd+'</ul>');
+				    if( textMedian != ""){ 
+				    	var itemMedian = '<li class="median"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;'+ textMedian + '</li>';
+				    }
+				    $(".chart-wrapper").append('<ul class="legend-list">'+itemStart+itemEnd+itemMedian+'</ul>');
 				}
 
 

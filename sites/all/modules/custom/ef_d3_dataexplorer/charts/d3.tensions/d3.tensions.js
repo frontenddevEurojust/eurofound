@@ -532,7 +532,7 @@
       };
 
       // add labels
-      var textLegend = ['start','median','end'];
+      var textLegend = ['start','end','median'];
 
       legend.selectAll("text")
         .data(legendLabels)

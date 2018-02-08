@@ -409,8 +409,8 @@
       
       // Might need to be created with excel data
       var legendLabels = [
-        {label: "% level of feeling excluded - 2007", class: "lollipop-start"}, 
-        {label: "% level of feeling excluded - 2016", class: "lollipop-end"},
+        {label: "(%) - 2007", class: "lollipop-start"}, 
+        {label: "(%) - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;
