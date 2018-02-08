@@ -224,6 +224,16 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
     }
     $form['field_type_phase_erm_reg_tid_selective']['#options'] = $types_with_opt;
   }  
+  if ($form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-admin-view' && count($form['field_type_erm_si_tid_selective']['#options']) > 0 ) {
+    foreach ($form['field_type_erm_si_tid_selective']['#options'] as $key => $value) {
+      $parents=taxonomy_get_parents($key);
+      foreach ($parents as $parent) {
+        $id_parent=$parent;
+      }
+      $form['field_type_erm_si_tid_selective']['#options'][$id_parent->name][$key]=$value;
+      unset($form['field_type_erm_si_tid_selective']['#options'][$key]);
+    }
+  }
 }
 
 /**
