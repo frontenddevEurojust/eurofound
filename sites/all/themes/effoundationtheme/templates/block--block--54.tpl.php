@@ -60,7 +60,19 @@
             $date="";
             $node_ittem=node_load($value);
 
-            $is_nodo=$node_ittem;
+            $query = db_select('related_content_and_taxonomies', 'rc');
+            $query->fields('rc', array("rc_type"));
+            $query->condition('rc.nid', $nid, "=");
+            $query->condition('rc.rc_id', $value, "=");
+            $result_ex=$query->execute();
+
+            while($record = $result_ex->fetchAssoc()) {
+              if ($record["rc_type"]=="tax") {
+                $is_nodo=false;
+              }else{
+                $is_nodo=true;
+              }
+            }
 
               //Country 
                 if(($node_ittem->type == 'ef_comparative_analytical_report') || $node_ittem->type == 'ef_publication'){
