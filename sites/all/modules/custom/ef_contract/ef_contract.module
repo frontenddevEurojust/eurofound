@@ -392,15 +392,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
   global $user;
   global $base_url;
 
-  $nec = variable_get('ef_contract_enabled_contracting_period');
-  
   $form_ids = content_type_forms_array();
-
-  $curr_contract = $form['und'][0]['tid']['#default_value'];
-  $contract_term_object = taxonomy_term_load($form['field_ef_author_contract']['und']['#default_value'][0]);
-  $curr_contract_nec = $contract_term_object->field_ef_nec_period == '2018 - 2022' ? 'new' : 'old';
-
-  $_SESSION['current_nec'] = $curr_contract_nec;
 
   if (in_array($form_id, $form_ids)){
 
@@ -441,8 +433,34 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     }
   }
 
-    // NODE CREATE/EDIT FORM
-  if (in_array($form_id, $form_ids)){
+  // NODE CREATE/EDIT FORM
+  if (in_array($form_id, $form_ids)) {
+
+    $nec = variable_get('ef_contract_enabled_contracting_period');
+
+    $curr_contract = $form['und'][0]['tid']['#default_value'];
+
+    if (isset($form['field_ef_author_contract']['und']['#default_value'][0])) {
+      $contract_term_object = taxonomy_term_load($form['field_ef_author_contract']['und']['#default_value'][0]);
+      $curr_contract_nec = $contract_term_object->field_ef_nec_period == '2018 - 2022' ? 'new' : 'old';
+    }
+    else {
+      $curr_contract_nec = $nec ? 'new' : 'old';
+    }
+
+    if ($nec && $curr_contract_nec == 'new') {
+      $context = 1;
+    }
+    elseif ($nec && $curr_contract_nec == 'old') {
+      $context = 2;
+    }
+    else {
+      $context = 3;
+    }
+
+    $form['#prefix'] = '<div id="test-form-wrapper">';
+    $form['#suffix'] = '</div>';
+
     /*
     * Variables which we need in order to load the form's items
     */
@@ -459,16 +477,10 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       $group = group_load($gid);
     }
 
+    $_SESSION['NEC_context_' . $node->nid] = $context;
+
     // Current Workbench moderation state
     $current_state = get_current_state($node);
-
-    $contracts_new = get_contracts('2018 - 2022');
-    $contracts_old = get_contracts('2014 - 2018');
-
-    $deliverable_kinds_new = get_deliverable_kinds('2018 - 2022');
-    $deliverable_kinds_old = get_deliverable_kinds('2014 - 2018');
-
-    //drupal_alter('shs_term_get_children', $terms, $alter_options);
 
     // PATCH 1.0 - Updating new contracts by old contract information
     // Checking if old contract exists in old contents
@@ -535,28 +547,43 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     ** Form items definition
     */
 
+    // Author Contract FORM
+    $form['field_ef_author_contract']['und']['#prefix'] = '<div id="field-contract-wrapper">';
+    $form['field_ef_author_contract']['und']['#suffix'] = '</div>';
+
+    $form['field_ef_author_contract']['und']['#ajax'] = array(
+      'callback' => 'ajax_ef_contract_callback',
+      'wrapper' => 'test-form-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+
+    $form_state['context'] = $context;
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+
+    // We need a wrapper to hide the service type depending on the contract
     $form['field_ef_service_type']['und']['#prefix'] = '<div id="field-ef-service-type-wrapper">';
     $form['field_ef_service_type']['und']['#suffix'] = '</div>';
 
+    $contracts_old = get_contracts(4);
     foreach ($contracts_old as $key => $value) {
       $visibility[][':input[name="field_ef_author_contract[und]"]'] = array('value' => strval($key));
     }
 
-    //Service type should be hidden for all content under the previous Contract framework
+    //We use states to hide this field
     $form['field_ef_service_type']['#states'] = array(
       'invisible' => $visibility,
     );
+
     // Assign to Country Group FORM
+    // Wrapper for the country group field
     $form['field_ef_assign_to_country_group']['und']['#prefix'] = '<div id="field-assign-to-country-group-wrapper">';
     $form['field_ef_assign_to_country_group']['und']['#suffix'] = '</div>';
     // If Country Group exists, it's not possible to change it,
     // so this form doesn't need callback function
     $form['field_ef_assign_to_country_group']['und']['#ajax'] = array(
       'callback' => 'ajax_assign_to_country_group_callback',
-      'wrapper' => array(
-        'field_ef_assign_to_author',
-        'field_ef_author_contract',
-        'field_ef_assign_to_user'),
+      'wrapper' => 'field_ef_assign_to_author',
       'method' => 'replace',
       'effect' => 'fade',
     );
@@ -583,47 +610,6 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
         'method' => 'replace',
         'effect' => 'fade',
       );
-    }
-
-    // Author Contract FORM
-    $form['field_ef_author_contract']['und']['#prefix'] = '<div id="field-contract-wrapper">';
-    $form['field_ef_author_contract']['und']['#suffix'] = '</div>';
-
-    $form['field_ef_author_contract']['und']['#ajax'] = array(
-      'callback' => 'ajax_ef_contract_callback',
-      'wrapper' => 'field-ef-deliverable-kind-wrapper',
-      'method' => 'replace',
-      'effect' => 'fade',
-    );
-
-    if (!$nec) {
-      // If we're editting a node, the contract mustn't change
-      if (isset($nid) && isset($node->field_ef_author_contract['und'][0]['tid'])) {
-        $contract_key = $node->field_ef_author_contract['und'][0]['tid'];
-        $contract_name = $form['field_ef_author_contract']['und']['#options'][$contract_key];
-
-        $form['field_ef_author_contract']['und']['#options'] = array($contract_key => $contract_name);
-      }
-      // If we're editting a node that has been created by an author (see ef_proposal module)
-      // the contract's options are defined previously
-      elseif (isset($nid) && isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
-        $author_user = get_user_by_mid($node->field_ef_assign_to_author['und'][0]['target_id']);
-        /* PATCH 1.2. About contracts and groups */
-        if (isset($gid)) {
-          $contracts = get_contract_by_user_and_gid($author_user, $gid);
-        }
-        else {
-          $contracts = get_contract_by_user($author_user);
-        }
-        /* end PATCH 1.2 */
-        $form['field_ef_author_contract']['und']['#options'] = $contracts;
-      }
-    }
-
-    $dk_default = $node->field_ef_deliverable_kind['und'][0]['tid'];
-    $dk_parent = taxonomy_get_parents($dk_default);
-    if (!empty($dk_parent)) {
-      $dk_children = get_deliverable_kinds('2014 - 2018', key($dk_parent))[0];
     }
 
     // Update Contract posibility
@@ -778,15 +764,29 @@ function ajax_ef_contract_callback($form, &$form_state) {
   $contract_tid = $form_state['input']['field_ef_author_contract']['und'];
   $contract_term_object = taxonomy_term_load($contract_tid);
   $period = $contract_term_object->field_ef_nec_period['und'][0]['value'] == '2018 - 2022' ? '2018 - 2022' : '2014 - 2018';
-  $deliverable_kinds = get_deliverable_kinds($period);
-
+  
   if ($period == '2018 - 2022') {
-    $form['field_ef_deliverable_kind']['#options'] = $deliverable_kinds;
-    return $form['field_ef_deliverable_kind']['field_ef_deliverable_kind'];
+    $context = 1;
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+    $_SESSION['deliverable_kind_old'] = $form['field_ef_deliverable_kind']; 
+    unset($form['field_ef_deliverable_kind']);
+    $form['field_ef_deliverable_kind'] = array(
+      '#type' => 'select',
+      '#title' => 'Deliverable kind',
+      '#prefix' => '<div id="field-ef-deliverable-kind-wrapper">',
+      '#weight' => $form['field_ef_author_contract']['#weight'] + 1,
+    );
+
+    $form['field_ef_deliverable_kind']['#options'] = get_deliverable_kinds($context);
   }
   else {
-    return $form['field_ef_deliverable_kind'];
+    if (isset($_SESSION['deliverable_kind_old'])) {
+      $form['field_ef_deliverable_kind'] = $_SESSION['deliverable_kind_old'];
+      unset($_SESSION['deliverable_kind_old']);
+    }
   }
+
+  return $form;
 }
 
 function ajax_ef_deliverable_kind_callback($form, &$form_state) {
@@ -803,6 +803,7 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
  * AJAX ASSIGN TO COUNTRY GROUP CALLBACK FUNCTION
  */
 function ajax_assign_to_country_group_callback($form, &$form_state){
+  /*
   $new_nec = variable_get('ef_contract_enabled_contracting_period');
 
   global $user;
@@ -853,6 +854,7 @@ function ajax_assign_to_country_group_callback($form, &$form_state){
       ajax_command_replace( "#field-assign-to-user-wrapper", render($form['field_ef_assign_to_user']) )
     ),
   );
+  */
 }
 
 /**
@@ -1371,15 +1373,4 @@ function correct_bulk_contract_submit(&$form, $form_state) {
       entity_get_controller('node')->resetCache(array($current_node->nid));
     }
   }
-}
-
-/**
- * Implements hook_shs_term_get_children_alter()
- */
-function ef_contract_shs_term_get_children_alter(&$terms, &$alter_options) {
-
-}
-
-function hook_shs_json_callbacks_alter(&$callbacks) {
-
 }

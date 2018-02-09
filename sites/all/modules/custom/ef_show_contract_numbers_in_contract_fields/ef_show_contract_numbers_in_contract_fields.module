@@ -36,16 +36,10 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
     unset($group_roles['country_group_creator']);
     unset($group_roles['group_admin']);
 
-    //input: edit-ef-country-group-roles-country-group-leader
-    //$form['field_ef_service_type']['#states'] = array(
-    //  'checked' => $visibility,
-    //);
-    //$visibility[][':input[name="field_ef_author_contract[und]"]'] = array('value' => strval($key));
-
     $form['country']['ef_country_group_roles'] = array(
       '#type' => 'radios',
       '#title' => t('Country Group role'),
-      '#description' => t('Select the roles the member will receive.'),
+      '#description' => t('Select a role for the user in the Country Group'),
       '#multiple' => FALSE,
       '#options' => $group_roles,
       '#default_value' => 'country_group_member',

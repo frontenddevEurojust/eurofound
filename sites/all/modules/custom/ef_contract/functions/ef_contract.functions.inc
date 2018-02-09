@@ -368,33 +368,54 @@ function get_revision_log_message_by_default($user){
   return t($message);
 }
 
-function get_deliverable_kinds($period, $parent = 0) {
-  //taxonomy_get_tree($vid, $parent = 0, $max_depth = NULL, $load_entities = FALSE);
+function get_deliverable_kinds($context) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
   $load_entity = TRUE;
-  $max_depth = NULL;
-  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $level, $load_entity);
-  foreach ($terms as $tid => $term) {
-    if ($period == '2018 - 2022' && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+  $max_depth = 1;
+  $parent = 0;
+  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
+  foreach ($terms as $key => $term) {
+    if ($context == 1 && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
       $deliverable_kinds[$term->tid] = $term->name;
     }
-    elseif ($period == '2014 - 2018' && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
-      $deliverable_kinds[$term->depth][$term->tid] = $term->name;
+    elseif (($context == 2 || $context == 3) && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
+      $deliverable_kinds[$term->tid] = $term->name;
     }
   }
 
   return $deliverable_kinds;
 }
 
-function get_contracts($period) {
+function get_deliverable_kinds_level_2($context, $parent) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
+  $load_entity = TRUE;
+  $max_depth = 2;
+  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
+
+  return $deliverable_kinds;
+}
+
+function get_contracts($context) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   foreach ($terms as $tid => $term) {
-    if ($period == '2018 - 2022' && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-      $contracts[$term->tid] = $term->name;
+    if ($context == 2 || $context == 3) {
+      if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+        $contracts['NEC 2018-2022'][$term->tid] = $term->name;
+      }
+      else {
+        $contracts['NEC 2014-2018'][$term->tid] = $term->name;
+      }
     }
-    elseif ($period == '2014 - 2018' && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
-      $contracts[$term->tid] = $term->name;
+    if ($context == 4) {
+      if (empty($term->field_ef_nec_period['und'][0]['value']) || $term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018') {
+        $contracts[$term->tid] = $term->name;
+      }
+    }
+    if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022' && $context == 1) {
+      if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+        $contracts[$term->tid] = $term->name;
+      }
     }
   }
 
