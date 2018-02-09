@@ -367,6 +367,7 @@ function d3_default_libraries() {
  *   Rendered chart html
  */
 function d3_draw($vis) {
+
   // Type is required for correct processing.
   $type = !empty($vis['type']) ? strtolower($vis['type']) : FALSE;
   if (!$type) {
@@ -376,6 +377,7 @@ function d3_draw($vis) {
 
   // Ensure we have d3 installed, don't just show a blank screen.
   $d3 = libraries_load('d3');
+
   if (empty($d3['installed'])) {
     drupal_set_message(t('The d3 library is not correctly installed'), 'error');
     return;
@@ -413,6 +415,7 @@ function d3_draw($vis) {
       'data' => $js,
       'type' => 'setting',
     );
+
     // Renders the html - .tpl.php if specified or default d3.tpl.php.
     return render($output);
   }
@@ -449,7 +452,7 @@ function d3_get_libraries() {
       continue;
     }
     // Do not list these default extension libraries.
-    if (in_array($library_name, array('d3.extend', 'd3.tooltip', 'd3.drupal'))) {
+    if (in_array($library_name, array('d3.extend', 'd3.tip', 'd3.drupal'))) {
       continue;
     }
 

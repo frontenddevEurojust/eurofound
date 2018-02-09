@@ -1,6 +1,6 @@
-name = Tooltip
+name = Tip
 description = Tooltip functionality for any graph object.
-files[js][] = tooltip.js
+files[js][] = tip.js
 version = 0.1
 dependencies[] = d3
 

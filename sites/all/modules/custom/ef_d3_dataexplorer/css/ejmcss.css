@@ -12,7 +12,10 @@ g.ticks text {
 .node-type-data-explorer-page svg:not(:root) {
     overflow: visible;
 }
-
+.bargroup > rect:hover{
+  fill:#f16000;
+  cursor: pointer;
+}
 
 /** CHARTSA JOBS MONITOR **/
 .node-type-data-explorer-page .ef-main{
@@ -64,6 +67,32 @@ g.ticks text {
 }
 
 
+ ul.legend-list {
+  list-style: none;
+  text-align: center;
+  width: auto;
+  margin: auto;
+}
+  ul.legend-list li{
+    width: auto;
+    margin: 0 15px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  ul.legend-list li.active {
+    font-weight: bold !important;
+  }
+  ul.legend-list li.start i{
+    color:#A4CA43;
+  }
+  ul.legend-list li.median i {
+    color: #BB1E8C;
+  }
+  ul.legend-list li.end i{
+    color:#529DDA;
+  }
+
 .filters-jm-chart  legend{
   background-color: transparent !important;
   color: #212121 !important;
@@ -105,7 +134,15 @@ g.ticks text {
 .filters-jm-chart .group-filters  label {
     font-size:14.4px;
 }
-
+.filters-jm-chart .group-filters  label.label-group, 
+.filters-jm-chart .group-filters  label.label-subgroup, 
+.filters-jm-chart .group-filters  label.label-gender, 
+.filters-jm-chart .group-filters  label.label-sort{
+    margin-top: 1.5rem;
+}
+.filters-jm-chart .group-filters  label[for^="subg"]{
+    margin-top: 1.5rem;
+}
 .filters-jm-chart .group-filters  select {
     border: 1px solid #CCC;
     border-radius: 0;
@@ -142,6 +179,62 @@ g.ticks text {
   color: #212121 !important;
 }
 
+/** European Quality of Life Survey 2016 **/
+.chart-wrapper{
+
+}
+.chart-wrapper .tick text{
+  font-size: 12px;
+}
+.chart-wrapper .lollipop-line {
+  stroke:#d0d5dd;
+  stroke-width: 12px;
+  opacity: 0.75;
+}
+.chart-wrapper .lollipop-line.highlighted{
+    stroke: #b6b6b6  !important;
+}
+.chart-wrapper .highlighted{
+  font-weight: bold;
+}
+.chart-wrapper .highlighted  text {
+  font-size: 14px;
+  fill: #eb8b0b  !important;
+}
+.chart-wrapper circle:hover{
+  cursor: pointer;
+}
+.chart-wrapper circle.lollipop-start {
+  fill:#A4CA43;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.chart-wrapper .lollipop-end {
+  fill: #529DDA;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}    
+.chart-wrapper .lollipop-median {
+  fill:#BB1E8C;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.chart-wrapper .no-data {
+  fill: #d8dde4 !important;
+  color: #d8dde4 !important;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  stroke-width: xpx;
+  stroke: #CCC;
+}
+.chart-wrapper .no-data i{
+  color: #d8dde4 !important;
+}
+.chart-wrapper .grid-line{
+  stroke: #b3b7bd;
+  stroke-width: 1px;
+}
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-charts {
@@ -167,6 +260,13 @@ g.ticks text {
   g.rule text {
       font-size: 10px !important;
   }
+
+  .back-to-results-block a {
+  font-size: 13px !important;
+  text-align: center;
+  display: block;
+  padding-left: 10px !important;
+  }
 }
 
 @media only screen and (max-width : 767px) {
@@ -178,8 +278,14 @@ g.ticks text {
     /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
     font-size: 9px;
   }
+  .chart-wrapper .tick text{
+    font-size: 11px;
+  }
   .jm-back-button {
     width: 100%;
+  }
+  .filters-jm-chart .group-filters {
+    padding: 15px;
   }
   .filters-jm-chart{
     width: 100%;
@@ -194,8 +300,16 @@ g.ticks text {
     overflow:initial;
     -ms-overflow:hidden;
   }
+  ul.legend-list li {
+    width: 100%;
+    margin: 5px 0;
+    display:block;
+    font-size: 12px;
+    text-align: center;
+  }
   .jm-charts{
-    padding: 30px 15px 60px;
+    /*padding: 30px 15px 60px;*/
+    padding: 0px 0px 10px;
   } 
   .jm-charts-wrapper .row{
     overflow:auto;
@@ -245,6 +359,9 @@ g.ticks text {
   .jm-footnote {
     margin: 3rem 12px 0 12px;
     display: block;
+  }
+  .chart-wrapper .tick text{
+    font-size: 10px;
   }
 }
 @media only screen and (max-width: 414px){
@@ -297,4 +414,94 @@ g.ticks text {
   #ejm-chart > svg > g > text{
     transform: rotate(-90deg) translate(-110px,17px) !important;
   }
+}
+/**** D3 tooltips ***/
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #000;
+  padding: 5px 22px 2px;
+  margin-top: -9px;
+  border-radius: 2px;
+  pointer-events: none;
+  text-align: center;
+  background: #FFF;
+  border-bottom: 3px solid #000;
+}
+.logged-in .d3-tip{
+  margin-top: -37px;
+}
+
+.d3-tip p{
+  margin: 0;
+}
+.d3-tip p:empty{
+  display: none;
+}
+.d3-tip p.country-name{
+  font-family: 'OpenSans-Semibold-webfont';
+  color: #000;
+  font-size: 12;
+}
+.d3-tip p.no-data{
+  font-family: 'OpenSans-Semibold-webfont';
+  color: #666;
+  font-size: 11px;
+}
+.d3-tip p.dot{
+  font-family: 'OpenSans-bold-webfont';
+  color: #F28524;
+  font-size: 12;
+}
+svg text[class^='legend-text']{
+  cursor: pointer;
+}
+.d3-tip.showed{
+  opacity: 1 !important;
+}
+.legend-group, .y-axis path.domain{
+  display: none !important;
+}
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 14px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  pointer-events: none;
+}
+/* Northward tooltips */
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+/* Eastward tooltips */
+.d3-tip.e:after {
+  content: "\25C0";
+  margin: -4px 0 0 0;
+  top: 50%;
+  left: -8px;
+}
+/* Southward tooltips */
+.d3-tip.s:after {
+  content: "\25B2";
+  margin: 0 0 1px 0;
+  top: -8px;
+  left: 0;
+  text-align: center;
+}
+/* Westward tooltips */
+.d3-tip.w:after {
+  content: "\25B6";
+  margin: -4px 0 0 -1px;
+  top: 50%;
+  left: 100%;
 }

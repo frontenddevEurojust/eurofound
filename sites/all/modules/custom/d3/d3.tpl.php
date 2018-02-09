@@ -1,11 +1,3 @@
-<?php
-/**
- * @file
- * Default theme file for d3 visualizations.
- */
-drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.css');
-drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/charts/d3.ejm/ejm.js');
-?>
 
 
 <div  class="jm-charts-wrapper ">	

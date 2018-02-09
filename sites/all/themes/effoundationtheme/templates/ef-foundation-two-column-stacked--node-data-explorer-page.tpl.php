@@ -3,9 +3,12 @@
  * @file
  * Default theme file for d3 visualizations.
  */
+drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejm.css');
+drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 ?>
 
-<div  class="jm-charts-wrapper ">	
+
+<div  class="jm-charts-wrapper ">
 
 	<div class="row">
 		<div class="jm-abstract-wrapper small-12 large-9">
@@ -17,10 +20,12 @@
 		</div>
 		<div class="jm-back-button large-3">
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
-				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>  
+				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>
 			</section>
 		</div>
 	</div>
+
+	<?php if($content['field_ef_de_chart_id'][0]['#markup'] == 'EJM'): ?>
 
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
@@ -51,7 +56,7 @@
 				    	</select>
 			    	</div>
 			  </fieldset>
-			</form>		
+			</form>
 		</div>
 
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
@@ -60,7 +65,25 @@
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
-	
+
+	<?php else: ?>
+
+	<div class="jm-filters-chart">
+		<div class="filters-jm-chart small-12 large-3">
+			<form>
+	  		<fieldset>
+	    		<legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
+					<div class="group-filters chart-filters"></div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
+			<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
+		</div>
+	</div>
+
+	<?php endif; ?>
+
 	<div class="jm-methodology-wrapper small-12 large-9  push-3">
 		<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
 		<div class="jm-methodology">

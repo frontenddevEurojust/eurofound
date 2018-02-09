@@ -1,7 +1,6 @@
-name = EJM 
-description = D3 Chart for European Jobs Monitor
-files[js][] = d3.ejm.js
-files[css][] = ejm.css
+name = Optimism 
+description = D3 Optimism Chart 
+files[js][] = d3.optimism.js
 version = 0.1
 dependencies[] = d3.extend
 dependencies[] = d3.tip
