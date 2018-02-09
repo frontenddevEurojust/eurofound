@@ -68,9 +68,10 @@
     }
 
     if (sort == 7) {
+
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
-        return (d.dot2 - d.dot3) - (b.dot2 - b.dot3);
+        return Math.abs(Math.round(d.dot3) - Math.round(d.dot2)) - Math.abs(Math.round(b.dot3) - Math.round(b.dot2));
       });
       
       filtered = byValueGap;
@@ -79,13 +80,14 @@
     if (sort == 8) {
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
-        return (b.dot2 - b.dot3) - (d.dot2 - d.dot3);
+        return Math.abs(Math.round(b.dot3) - Math.round(b.dot2)) - Math.abs(Math.round(d.dot3) - Math.round(d.dot2));
       });
       
       filtered = byValueGap;
     }
 
     return filtered;
+
   }
 
   var createModalityFilters = function(data){
