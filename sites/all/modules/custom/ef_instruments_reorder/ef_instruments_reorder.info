@@ -1,0 +1,4 @@
+name = EF Support Instruments Reorder
+description = Reorders country column in the results table by country name, instead of by country term ID.
+core = 7.x
+package = EF modules
