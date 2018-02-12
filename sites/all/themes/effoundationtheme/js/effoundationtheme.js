@@ -1503,3 +1503,26 @@ $(document).ready(function(){
 
 /** END DATA AND RESOURCES LANDING PAGE **/
 
+/** Restructuring support instruments admin view */
+
+(function ($) {
+$(document).ready(function(){
+      var form_pages=window.location.pathname.split("/");
+      var pathname_form3=form_pages[form_pages.length-3];
+      var pathname_form2=form_pages[form_pages.length-2];
+      var pathname_form1=form_pages[form_pages.length-1];
+
+      if(pathname_form1 =='admin' && pathname_form2 =='support-instrument' && pathname_form3 =='erm'){
+        var feedIcon = $('div.feed-icon').html();
+        $('div.feed-icon').remove();
+
+        var wrapperFeedIcon = $( "<div class='feed-icon' title='Download data export'></div>" );
+        wrapperFeedIcon.html(feedIcon);
+        wrapperFeedIcon.appendTo($('#views-exposed-form-erm-support-instruments-support-instrument-admin-view div.views-exposed-widgets.clearfix'));
+
+      };
+  });
+})(jQuery);
+
+/** End Restructuring support instruments admin view */
+
