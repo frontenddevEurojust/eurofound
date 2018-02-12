@@ -15,6 +15,7 @@
   }
   .view-erm-support-instruments .views-exposed-widget{
   width:50%;
+  margin-left: 0%;
    }
   .view-filters .views-exposed-form label {
   font-size: 0.85em;
@@ -2259,7 +2260,7 @@ html body.admin-menu {
 	}
 }
 @media only screen and (min-width: 800px) and (max-width: 877px){
-	.wrap-row-filters:nth-child(2) label {
+	.view-erm-regulations  .wrap-row-filters:nth-child(2) label {
 	    min-height: 48px;
 	}
 }
