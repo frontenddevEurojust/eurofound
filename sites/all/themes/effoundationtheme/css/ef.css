@@ -9703,30 +9703,40 @@ background-image:none;
 	font-family: FontAwesome;
 	margin-right: 4px;
 }
-
-.page-erm-data-export .feed-icon > a{
+.view-erm-support-instruments .feed-icon{
+  width: auto;
+  float: right;
+  margin-top: 35px;
+}
+.page-erm-data-export .feed-icon > a, 
+.view-erm-support-instruments .feed-icon > a{
 	padding: 10px;
 }
-.page-erm-data-export .feed-icon > a:before{
+.page-erm-data-export .feed-icon > a:before, 
+.view-erm-support-instruments .feed-icon > a:before{
 	content: "\f019";
 	font-family: FontAwesome;
 	margin-right: 4px;
 	font-size: 1.5em;
 }
-.page-erm-data-export .feed-icon > a:after{
+.page-erm-data-export .feed-icon > a:after, 
+.view-erm-support-instruments .feed-icon > a:after{
 	font-size: 1.5em;
 	border: 1px solid;
 	padding: 4px;
 	font-weight: bold;
 	border-radius: 5px;
 }
-.page-erm-data-export .feed-icon > a:first-child:after{
+.page-erm-data-export .feed-icon > a:first-child:after, 
+.view-erm-support-instruments .feed-icon > a:first-child:after{
 	content: "CSV";
 }
-.page-erm-data-export .feed-icon > a:nth-child(2):after{
+.page-erm-data-export .feed-icon > a:nth-child(2):after, 
+.view-erm-support-instruments .feed-icon > a:nth-child(2):after{
 	content: "XLS";
 }
-.page-erm-data-export .feed-icon > a img{
+.page-erm-data-export .feed-icon > a img, 
+.view-erm-support-instruments .feed-icon > a img{
 	display: none;
 }
 .page-erm-data-export .view-footer{
