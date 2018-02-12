@@ -1513,12 +1513,18 @@ $(document).ready(function(){
       var pathname_form1=form_pages[form_pages.length-1];
 
       if(pathname_form1 =='admin' && pathname_form2 =='support-instrument' && pathname_form3 =='erm'){
+
+
+
         var feedIcon = $('div.feed-icon').html();
         $('div.feed-icon').remove();
 
         var wrapperFeedIcon = $( "<div class='feed-icon' title='Download data export'></div>" );
         wrapperFeedIcon.html(feedIcon);
-        wrapperFeedIcon.appendTo($('#views-exposed-form-erm-support-instruments-support-instrument-admin-view div.views-exposed-widgets.clearfix'));
+        
+        if(window.location.search != ''){
+          wrapperFeedIcon.appendTo($('#views-exposed-form-erm-support-instruments-support-instrument-admin-view div.views-exposed-widgets.clearfix'));
+        }
 
       };
   });
