@@ -13969,3 +13969,8 @@ h4.title-tooltip-geolocation a:hover{
 
 }
 
+/*View quality ratings*/
+
+#ef-qrr-quality-rating > div > table.sticky-enabled.tableheader-processed.sticky-table > thead > tr > th:nth-child(9){
+	width: 400px;
+}
