@@ -307,9 +307,14 @@ function _ef_qrr_rating_fieldset($node, $full = true, $info = true) {
    }
 
    $qrr_form['qrr_comments'] = array(
-      '#type' => 'hidden',
-      '#title' => t('Reviewer comments'),
-      '#description' => t('Type here a detailed description of your review.'),
+      '#type' => 'textarea',
+      '#attributes' => array(
+        'style' => array(
+          'display:none;',
+        ),
+      ),
+      '#resizable' => false,
+      '#id' => "hidden_nid_".$node->nid,
       '#default_value' => isset($node->qrr_comments) ?  $node->qrr_comments : '',
    );
 
