@@ -13948,7 +13948,7 @@ h4.title-tooltip-geolocation a:hover{
   padding-left: 0;
 }
 
-.wrap-row-filters:nth-child(2) label {
+.view-erm-regulations .wrap-row-filters:nth-child(2) label {
     min-height: 36px;
 }
 
