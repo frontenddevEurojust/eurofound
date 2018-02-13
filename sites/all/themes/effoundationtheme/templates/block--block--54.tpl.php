@@ -11,18 +11,29 @@
         foreach ($node as $key => $value) {
           $nid=$key;
         }
+
+        $weight=array();
+
+        $query = db_select('related_content_and_taxonomies', 'rc');
+            $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
+            $query->condition('rc.nid', $nid, "=");
+            $query->orderBy('rc.rc_weight', 'ASC');
+            $result=$query->execute();
       }
     }else{
       $nid=$node->nid;
-    }
+      $weight=array();
 
-    $weight=array();
+      $current_revision=$node->vid;
 
-    $query = db_select('related_content_and_taxonomies', 'rc');
-        $query->fields('rc', array("rc_weight", "rc_id", "rc_type"));
-        $query->condition('rc.nid', $nid, "=");
+      $query = db_select('related_content_and_taxonomies', 'rc');
+        $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
+        $query->leftJoin('workbench_moderation_node_history', 'wbm', 'rc.revision_id = wbm.vid');
+        $query->condition('rc.revision_id', $current_revision, "=");
         $query->orderBy('rc.rc_weight', 'ASC');
         $result=$query->execute();
+    }
+
     //random numbers to dont match
       $nt=1000;
       $nc=5000;

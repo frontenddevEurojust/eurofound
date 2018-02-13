@@ -569,8 +569,9 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 function ef_customised_forms_node_submit($node, $form, &$form_state){
 	if (isset($form_state['values']['field_related_taxonomy']['und'])) {
 		$nid = $form_state["build_info"]["args"][0]->nid;
+		$vid = $form_state["build_info"]["args"][0]->vid;
 		$num_deleted = db_delete('related_content_and_taxonomies')
-						  ->condition('nid', $nid)
+						  ->condition('revision_id', $vid)
 						  ->execute();
 
 		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
@@ -582,6 +583,7 @@ function ef_customised_forms_node_submit($node, $form, &$form_state){
 				db_insert('related_content_and_taxonomies') 
 					->fields(array(
 					  'nid' => $nid,
+					  'revision_id' => $vid,
 					  'rc_type' => "tax",
 					  'rc_id' => $tid,
 					  'rc_weight' => $weight,
@@ -599,6 +601,7 @@ function ef_customised_forms_node_submit($node, $form, &$form_state){
 				db_insert('related_content_and_taxonomies')
 					->fields(array(
 					  'nid' => $nid,
+					  'revision_id' => $vid,
 					  'rc_type' => "node",
 					  'rc_id' => $cid,
 					  'rc_weight' => $weight,
@@ -627,6 +630,7 @@ function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state)
 				db_insert('related_content_and_taxonomies') 
 					->fields(array(
 					  'nid' => $tid,
+					  'revision_id' => 0,
 					  'rc_type' => "tax",
 					  'rc_id' => $cid,
 					  'rc_weight' => $weight,
@@ -643,6 +647,7 @@ function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state)
 				db_insert('related_content_and_taxonomies')
 					->fields(array(
 					  'nid' => $tid,
+					  'revision_id' => 0,
 					  'rc_type' => "node",
 					  'rc_id' => $cid,
 					  'rc_weight' => $weight,
