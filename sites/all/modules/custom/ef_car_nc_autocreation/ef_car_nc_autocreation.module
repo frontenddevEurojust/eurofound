@@ -643,7 +643,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 
 
 
-function articles_autocreation_deliver_select_ajax($form, &$form_state){
+function car_autocreation_deliver_select_ajax($form, &$form_state){
 	$deliver_id = $form_state['complete form']['deliver']['#value'];
 	$tax_term = taxonomy_term_load($deliver_id);
 	$service_list = array("");
