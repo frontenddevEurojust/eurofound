@@ -1,0 +1,23 @@
+
+.page-articles-autocreation #edit-country .form-type-checkbox > input{
+	visibility: hidden;
+}
+
+.page-articles-autocreation #edit-country .form-type-checkbox label > i {
+    margin-right: 5px;
+}
+
+.page-articles-autocreation #edit-country .large-3.column.countries-col {
+    
+    min-height: 200px;
+}
+
+ /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+@media only screen and (max-width: 40.063em) { 
+
+	.page-articles-autocreation #edit-country .large-3.column.countries-col {
+	    
+	    min-height: 160px;
+	}
+
+}
