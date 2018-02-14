@@ -23,15 +23,19 @@
     }else{
       $nid=$node->nid;
       $weight=array();
+      
+      if (substr($_SERVER["REQUEST_URI"], -6, 6)=="/draft") {
+         $current_revision=$node->workbench_moderation["current"]->vid;
+      }else{
+         $current_revision=$node->vid;
+      }
 
-      $current_revision=$node->vid;
-
-      $query = db_select('related_content_and_taxonomies', 'rc');
+        $query = db_select('related_content_and_taxonomies', 'rc');
         $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
         $query->leftJoin('workbench_moderation_node_history', 'wbm', 'rc.revision_id = wbm.vid');
         $query->condition('rc.revision_id', $current_revision, "=");
         $query->orderBy('rc.rc_weight', 'ASC');
-        $result=$query->execute();
+        $result=$query->execute();  
     }
 
     //random numbers to dont match

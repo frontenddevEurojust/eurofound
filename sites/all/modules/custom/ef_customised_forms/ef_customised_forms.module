@@ -568,8 +568,18 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 
 function ef_customised_forms_node_submit($node, $form, &$form_state){
 	if (isset($form_state['values']['field_related_taxonomy']['und'])) {
+
 		$nid = $form_state["build_info"]["args"][0]->nid;
 		$vid = $form_state["build_info"]["args"][0]->vid;
+		
+		//If create a new revision
+			if ($node->revision_operation==1 || $node->workbench_moderation_state_new != "") {
+				$result = db_query("select MAX(vid) from node_revision");
+				while($record = $result->fetchAssoc()) {
+					$vid=$record["MAX(vid)"]+1;
+				}
+			}
+
 		$num_deleted = db_delete('related_content_and_taxonomies')
 						  ->condition('revision_id', $vid)
 						  ->execute();
@@ -589,7 +599,6 @@ function ef_customised_forms_node_submit($node, $form, &$form_state){
 					  'rc_weight' => $weight,
 					))
 					->execute();
-
 		    }
 		}
 		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
