@@ -248,7 +248,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
     '#type' => 'button',
     '#value' => t('Upload file'),
     '#ajax' => array(
-      'callback' => 'articles_autocreation_file_upload_ajax',
+      'callback' => 'car_autocreation_file_upload_ajax',
       'wrapper' => 'file-list-wrapper',
       'method' => 'replace',
       'effect' => 'fade',
@@ -538,7 +538,7 @@ function car_nc_autocreation_form_submit($form, &$form_state){
   	unset($_SESSION['documents']);
 }
 
-function articles_autocreation_file_upload_ajax($form, &$form_state) {
+function car_autocreation_file_upload_ajax($form, &$form_state) {
 	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
 	$doc_error = false;
 	global $user;
