@@ -162,7 +162,7 @@ function articles_autocreation_form($form, &$form_state) {
 		),
 		'#required' => TRUE,
 		'#ajax' => array(
-	      	'callback' => 'articles_autocreation_deliver_select_ajax',
+	      	'callback' => 'articles_auto_creation_deliver_select_ajax',
 	      	'wrapper' => 'service-wrap',
 	      	'method' => 'replace',
 	      	'effect' => 'fade',
