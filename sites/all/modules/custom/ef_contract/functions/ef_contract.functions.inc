@@ -63,7 +63,7 @@ function get_available_states($node, $account){
  * @param Integer $gid
  *
  */
-function get_assign_to_author_by_gid($gid){
+function get_assign_to_author_options_by_gid($gid){
 
   // View name
   $name = 'country_group_members';
@@ -85,6 +85,26 @@ function get_assign_to_author_by_gid($gid){
   }
 
   return $options;
+}
+
+function get_assign_to_author_value_by_nid($nid = NULL, $assign_to_author_options) {
+  if (isset($nid)) {
+    $query = db_select('field_revision_field_ef_assign_to_author', 'ata');
+    $query->fields('ata', array('revision_id', 'field_ef_assign_to_author_target_id'));
+    $query->condition('ata.entity_id', $nid);
+
+    $results = $query->execute()->fetchAll();
+  }
+
+  $options = array_keys($assign_to_author_options);
+
+  foreach ($results as $key => $value) {
+    if (in_array($value->field_ef_assign_to_author_target_id, $options)) {
+      return $value->field_ef_assign_to_author_target_id;
+    }
+  }
+  
+  return $options[0];
 }
 
 /**
@@ -371,26 +391,23 @@ function get_revision_log_message_by_default($user){
 function get_deliverable_kinds($context) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
   $load_entity = TRUE;
-  $max_depth = 1;
+  $max_depth = NULL;
   $parent = 0;
   $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
   foreach ($terms as $key => $term) {
     if ($context == 1 && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
       $deliverable_kinds[$term->tid] = $term->name;
     }
-    elseif (($context == 2 || $context == 3) && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
+    elseif ($context == 2 && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
+      $deliverable_kinds[$term->tid] = $term->name;
+    }
+    elseif ($context == 3 && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+      $deliverable_kinds[$term->tid] = $term->name;
+    }
+    elseif ($context == 4 && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
       $deliverable_kinds[$term->tid] = $term->name;
     }
   }
-
-  return $deliverable_kinds;
-}
-
-function get_deliverable_kinds_level_2($context, $parent) {
-  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
-  $load_entity = TRUE;
-  $max_depth = 2;
-  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
 
   return $deliverable_kinds;
 }
@@ -420,4 +437,66 @@ function get_contracts($context) {
   }
 
   return $contracts;
+}
+
+function get_contract_context($nec, $contract) {
+  $contract_obj = taxonomy_term_load($contract);
+  $period = $contract_obj->field_ef_nec_period['und'][0]['value'] == '2018 - 2022' ? '2018 - 2022' : '2014 - 2018' ;
+
+  if ($nec && $period == '2018 - 2022') {
+    return 1;
+  }
+  if ($nec && $period == '2014 - 2018') {
+    return 2;
+  }
+  if (!$nec && $period == '2018 - 2022') {
+    return 3;
+  }
+  if (!$nec && $period == '2014 - 2018') {
+    return 4;
+  }
+}
+
+function get_service_type($deliverable_kind_tid) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_service_types');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  $service_type_keys = array_keys($terms);
+  $deliverable_kind_obj = taxonomy_term_load($deliverable_kind_tid);
+  if (isset($deliverable_kind_obj->field_ef_service_type['und'][1]['tid'])) {
+    foreach ($service_type_keys as $key => $service_type_tid) {
+      $service_type[$service_type_tid] = 0;
+    }
+  }
+  else {
+    foreach ($service_type_keys as $key => $service_type_tid) {
+      if (isset($deliverable_kind_obj->field_ef_service_type['und'][0]['tid'])) {
+        $service_type[$service_type_tid] = $deliverable_kind_obj->field_ef_service_type['und'][0]['tid'];
+      }
+    }
+  }
+
+  return $service_type;
+}
+
+function get_default_deliverable_kind($deliverable_kind_tid = NULL, $deliverable_kind_options) {
+  if (isset($deliverable_kind_tid) && in_array($deliverable_kind_tid, $deliverable_kind_options)) {
+    return $deliverable_kind_tid;
+  }
+  else {
+    reset($deliverable_kind_options);
+    $deliverable_kind_tid = key($deliverable_kind_options);
+  }
+
+  return $deliverable_kind_tid;
+}
+
+function get_country_group_id_from_contract($contract_tid) {
+  $groups = entity_load('group');
+  foreach ($groups as $key => $group) {
+    if ($group->field_ef_contract['und'][0]['tid'] == $contract_tid) {
+      $country_gid = $group->gid;
+    }
+  }
+  
+  return $country_gid;  
 }
