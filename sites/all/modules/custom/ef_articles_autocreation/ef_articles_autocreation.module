@@ -231,7 +231,7 @@ $form['source_documents'] = array(
   			'#name' => 'remove_' . $key,
   			'#type' => 'submit',
   			'#value' => t('Remove'),
-  			'#submit' => array('remove_file_by_id'),
+  			'#submit' => array('articles_remove_file_by_id'),
   			'#attributes' => array('file-id' => $key),
   		);
 
@@ -318,7 +318,7 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	
 }
 
-function remove_file_by_id($form, &$form_state){
+function articles_remove_file_by_id($form, &$form_state){
 	$key = $form_state['clicked_button']['#attributes']['file-id'];
 	unset($_SESSION['source_documents'][$key]);
 	unset($_SESSION['documents'][$key]);
@@ -532,7 +532,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 		'#name' => 'remove_' . $key,
 		'#type' => 'submit',
 		'#value' => t('Remove'),
-		'#submit' => array('remove_file_by_id'),
+		'#submit' => array('articles_remove_file_by_id'),
 		'#attributes' => array('file-id' => $key),
 		);
 
