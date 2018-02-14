@@ -218,7 +218,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		),
 		'#required' => TRUE,
 		'#ajax' => array(
-	      	'callback' => 'articles_autocreation_deliver_select_ajax',
+	      	'callback' => 'car_autocreation_deliver_select_ajax',
 	      	'wrapper' => 'service-wrap',
 	      	'method' => 'replace',
 	      	'effect' => 'fade',
