@@ -26,6 +26,7 @@
       if(anchor_found != -1 && anchorUp != 'up'){
 
         var active = window.location.href.match(/#+[a-z\-]+/g);
+         
 
         active = active[0].substr(1);
 
@@ -51,7 +52,6 @@
 
               }
             }
-
           });  
         });
       }
@@ -68,18 +68,19 @@
        $('.section-container').each(function( index ) {
         $('section',this).each(function( i ) {
 
-          console.log($(this).attr('class'));
+         // console.log($(this).attr('class'));
           if($(this).attr('class').indexOf('news-and-quartely-country-updates')){
 
           }
 
-          $('> h2', this).click(function(){          
+          $('> h3', this).click(function(){          
             anchor_found = window.location.href.indexOf('#');
             active = $(this).parent().attr('class');
 
             if(anchor_found != -1){
               // Replace #title value for the clicked one
               window.location.href = window.location.href.replace(/#+[a-z\-]+/g,'#' + active).replace('active','');
+
             }else{
                window.location.href =  window.location.href + '#' + active.replace('active','');
             }
@@ -100,7 +101,7 @@
         // mobile resolutions
         if( $(window).width()<=screenWidth){              
 
-          $('.section-container section > h2').once().click(function(){
+          $('.section-container section > h3').once().click(function(){
             $(this).toggleClass('active');
             var sectionActive = $(this).parent();
             sectionActive.find(".content").toggleClass('inactive');
@@ -108,7 +109,7 @@
 
         }else{
 
-          $('.section-working-life-country-profile.vertical-tabs h2.title').click(function () {            
+          $('.section-working-life-country-profile.vertical-tabs h3.title').click(function () {            
             $('html, body').animate({
                 scrollTop: $("#content-tabs-country-profile").offset().top
             }, 0);            

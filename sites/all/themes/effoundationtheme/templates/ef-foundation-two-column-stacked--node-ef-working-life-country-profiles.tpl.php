@@ -164,7 +164,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 			            
 			            <?php if(count($check_view_overview) > 0 ): ?>
 			              <section class="news-and-quartely-country-updates">		                
-			                <h2 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2>	
+			                <h3 class="title first" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h3>	
 				                  <div class="content" data-section-content>			                  	
 				                    <div class="small-12 large-12 column quarterly-overviews">
 				                      <!--<h3><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h3>-->
@@ -177,7 +177,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 						<?php else: ?>
 								<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
 									<section class="<?php print strtolower($cadena);?>">
-										<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h2> 
+										<h3 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h3> 
 										<div class="content" data-section-content>
 											<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
 										</div>
@@ -200,7 +200,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 <?php if(count($content['field_ef_tabs_living_country']['#items']) && isset($subtitleLiving)): ?>
 <div class="content-living-country">
 	<?php if(isset($subtitleLiving)): ?>
-		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitleLiving ?></h1>
+		<h2 class="title-living-country" id="living-country" name="living-country"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitleLiving ?></h2>
 		<?php $print_image = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTTP_HOST] . "/sites/all/modules/contrib/print/print_pdf/icons/pdf_icon.png";	?>
 		<div class="print-pdf-wrapper">
 			<a href="<?php echo  $pdf_link; ?>?section=1" class="print-pdf" target="_blank"><span>Print pdf</span></a>
@@ -215,7 +215,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 					<?php else: ?>
 					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value'])))); ?>">
 					<?php endif; ?>
-						<h2 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h2>
+						<h3 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h3>
 						<div class="content" data-section-content>
 							<p class="subtitle"><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?><p>
 							<?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_body_living_tabs']['und'][0]['value']); ?>
@@ -236,7 +236,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 <div class="content-working-life">
 	<!--<article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>-->
 	<?php if(isset($subtitle)): ?>
-		<h1 class="title-working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h1>
+		<h2 class="title-working-life" id="working-life" name="working-life"><i class="fa fa-compass" aria-hidden="true"></i> <?php print $subtitle ?></h2>
 		<div class="print-pdf-wrapper">
 			<a href="<?php echo  $pdf_link; ?>?section=2" class="print-pdf" target="_blank"><span>Print pdf</span></a>
 		</div>
@@ -245,7 +245,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 	<?php if(isset($author) || isset($publishedon) || isset($institution)): ?>
 		<div class="summary-group row">
 			<div class='wp_about right'>
-				<h2 class='wp_tit'>About</h2>
+				<h3 class='wp_tit'>About</h3>
 		      <ul class="wp_body row">
 
 		    	<?php if(isset($author)): ?>
@@ -296,7 +296,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 		<?php else: ?>
 		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($content['field_ef_tabs'][$i]['field_ef_tabs_title']['#items'][0]['value'])))); ?>">
 		<?php endif; ?>
-			<h2 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h2>
+			<h3 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h3>
 			<div class="content" data-section-content>
 				<p class="subtitle"><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?><p>
 				<?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_body'][0]['#markup']); ?>
