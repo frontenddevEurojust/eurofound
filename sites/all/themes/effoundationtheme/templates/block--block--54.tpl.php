@@ -225,7 +225,7 @@
 
                           <?php if(isset($name)): ?>
                             <li class="list-delib-kind">
-                              <?php echo $name; //ucfirst($name); ?>
+                              <?php echo ucfirst($name); ?>
                             </li>
                           <?php endif; ?>
 
