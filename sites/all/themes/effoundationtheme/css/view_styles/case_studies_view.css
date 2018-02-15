@@ -76,6 +76,7 @@
   border-radius: 5px;
   margin: 0;
 }
+
 .view-id-ef_case_studies .view-content .fa-globe:before,
 .case-study-location-size .fa-globe:before{
     color: #004798;
@@ -84,7 +85,9 @@
 .case-study-location-size .cs-country{
   color: #004798;
 }
-
+.case-study-location-size .cs-country ul{
+  margin: 0;
+}
 .view-id-case_studies_emcc .view-content .cs-country,
 .cs-country{
     font-weight: bold;
@@ -101,6 +104,7 @@
 .cs-size-list .cs-org-size > p, .cs-size-list .cs-est-size > p{
     color: #5d97a2;
     font-size: 0.8em;
+    margin-bottom: 0;
 }
 .view-id-case_studies_emcc .view-content .cs-size-list li > i, .cs-size-list li > i{
   display: inline-block;
