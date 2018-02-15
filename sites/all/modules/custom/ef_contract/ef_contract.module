@@ -441,8 +441,8 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $curr_contract = $form['und'][0]['tid']['#default_value'];
 
     $context = get_contract_context($nec, $curr_contract);
-    $form['#prefix'] = '<div id="entire-form-wrapper">';
-    $form['#suffix'] = '</div>';
+    //$form['#prefix'] = '<div id="entire-form-wrapper">';
+    //$form['#suffix'] = '</div>';
 
     /*
     * Variables which we need in order to load the form's items
@@ -527,10 +527,11 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     /*
     ** Form items definition
     */
+    $form['field_ef_author_contract']['#prefix'] = '<div id=contract-form-wrapper>';
 
     $form['field_ef_author_contract']['und']['#ajax'] = array(
       'callback' => 'ajax_ef_contract_callback',
-      'wrapper' => 'entire-form-wrapper',
+      'wrapper' => 'contract-form-wrapper',
       'method' => 'replace',
       'effect' => 'fade',
     );
@@ -541,10 +542,9 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     $form['field_ef_service_type']['und']['#type'] = 'radios';
 
-
     $form['field_ef_deliverable_kind']['und']['#ajax'] = array(
       'callback' => 'ajax_ef_deliverable_kind_callback',
-      'wrapper' => 'entire-form-wrapper',
+      'wrapper' => 'contract-form-wrapper',
       'method' => 'replace',
       'effect' => 'fade',
     );
@@ -568,7 +568,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     // so this form doesn't need callback function
     $form['field_ef_assign_to_country_group']['und']['#ajax'] = array(
       'callback' => 'ajax_assign_to_country_group_callback',
-      'wrapper' => 'entire-form-wrapper',
+      'wrapper' => 'contract-form-wrapper',
       'method' => 'replace',
       'effect' => 'fade',
     );
@@ -582,23 +582,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       }
     }
 
-    // Update Contract posibility
-    // Issue 3494 about update contract if it is incorrect
-    if (isset($nid) && $current_state != 'published'
-      && (in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles) || in_array('administrator', $user->roles) || in_array('OSU', $user->roles))) {
-
-      $title = str_replace(' ', '+', $node->title);
-      $type = $node->type;
-      $correct_link_weight = $form['field_ef_ee_deadline']['#weight'];
-      $correct_link_href = $base_url . '/correct-groups-and-contracts?title='.$title.'&nid=' . $nid . '&type_1=' . $type;
-      $form['update_contract_option'] = array(
-        '#weight' => $correct_link_weight + 1,
-        '#markup' => '<a class="contract-correct-link" href="'.$correct_link_href.'">
-          <i class="fa fa-wrench"></i> ' . t('Review this contract and correct it') . '
-          </a>',
-      );
-    }
-
+    $form['field_ef_assign_to_author']['#suffix'] = '</div>';
     // end issue 3494 (see also Group Publishing definition)
     $assign_to_user_weight = $form['field_ef_assign_to_user']['#weight'];
     // Moderation State FORM
@@ -736,16 +720,26 @@ function ajax_ef_contract_callback($form, &$form_state) {
   $form['field_ef_deliverable_kind']['und']['#options'] = get_deliverable_kinds($context);
   $form['field_ef_deliverable_kind']['und']['#value'] = get_default_deliverable_kind($form['field_ef_deliverable_kind']['und']['#value'], $form['field_ef_deliverable_kind']['und']['#options']);
   $form['field_ef_deliverable_kind']['und']['#default_value'] = $form['field_ef_deliverable_kind']['und']['#value'];
+  $form['field_ef_deliverable_kind']['#validated'] = TRUE;
   $service_type = get_service_type($form['field_ef_deliverable_kind']['und']['#value']);
   foreach ($service_type as $tid => $value) {
     $form['field_ef_service_type']['und']['#value'] = $value;
     $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+    if ($value != 0) {
+      $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+    }
   }
   $form['field_ef_assign_to_country_group']['und']['#value'] = $country_gid;
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
 
-  return $form;
+  $form2['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $form2['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $form2['field_ef_service_type'] = $form['field_ef_service_type'];
+  $form2['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $form2['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
+
+  return $form2;
 }
 
 function ajax_ef_deliverable_kind_callback($form, &$form_state) {
@@ -756,36 +750,19 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
   foreach ($service_type as $tid => $value) {
     $form['field_ef_service_type']['und']['#value'] = $value;
     $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+    if ($value != 0){
+      $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+    }
   }
 
-  return $form;
+  $form2['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $form2['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $form2['field_ef_service_type'] = $form['field_ef_service_type'];
+  $form2['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $form2['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
+
+  return $form2;
 } 
-
-function ajax_assign_to_author_callback(&$form, $form_state){
-
-  $new_nec = varible_get('ef_contract_enabled_contracting_period');
-
-  $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
-
-  // pick up Assigned author group member ID in order to get his $user obj
-  $member_id = $form_state['input']['field_ef_assign_to_author']['und'];
-  $member_user = get_user_by_mid($member_id);
-  // getting the Author's contracts
-  if (!$new_nec) {
-    if (isset($gid)) {
-      $contracts = get_contract_by_user_and_gid($member_user, $gid);
-    }
-    else {
-      $contracts = get_contract_by_user($member_user);
-    }
-  }
-
-  // UPDATE Contracts
-  $form['field_ef_author_contract']['und']['#options'] = $contracts;
-
-  return $form['field_ef_author_contract'];
-
-}
 
 /**
  * AJAX MODERATION STATE CALLBACK FUNCTION

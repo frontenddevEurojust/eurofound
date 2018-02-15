@@ -55,7 +55,7 @@ function ef_contract_update_7001() {
 	//And we need to add the new deliverable kinds
 	$new_deliverable_kinds = array(
 		"Country update on latest developments in working life" => $service_type_tids[0],
-		"Contribution to topical updates"  => $service_type_tids[0],
+		"Contribution to topical updates" => $service_type_tids[0],
 		"Contribution to EurWORK'S annual review of working life"  => $service_type_tids[0],
 		"EurWORK'S Working life country profile - update" => $service_type_tids[0],
 		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update" => $service_type_tids[0],
@@ -73,16 +73,16 @@ function ef_contract_update_7001() {
 	//Using taxonomy_term_save again 
   foreach ($new_deliverable_kinds as $key => $value) {
    	$term = new stdClass();
-  	$term->name = $value[0];
+  	$term->name = $key;
   	$term->vid = 53;
-    $term->name_field['und'][0]['value'] = $value[0];
+    $term->name_field['und'][0]['value'] = $key;
     $term->field_ef_nec_period['und'][0]['value'] = '2018 - 2022';
     if ($value[1] == 'both') {
       $term->field_ef_service_type['und'][0]['tid'] = $service_type_tids[0];
       $term->field_ef_service_type['und'][1]['tid'] = $service_type_tids[1];
     }
     else {
-      $term->field_ef_service_type['und'][0]['tid'] = $value[1];
+      $term->field_ef_service_type['und'][0]['tid'] = $value;
     }
   	taxonomy_term_save($term);
   }
