@@ -164,9 +164,47 @@
               }elseif($tid == 13746){
                 $name = 'Representativeness Study';
               }
+            
+            //New Content Type Formats
+              if ($name=="Board member page" || $name=="EF network extranet page") {
+                $name="Page";
+              }elseif($name=="EF call for tender"){
+                $name="Call for tender";
+              }elseif($name=="Working life country profile update"){
+                $name="Country";
+              }elseif($name=="data explorer page" || $name=="dvs survey"){
+                $name="Data";
+              }elseif($name=="Other research services EF"){
+                $name="Article";
+              }elseif($name=="Legal database update"){
+                $name="Legislation";
+              }elseif($name=="Support instrument update"){
+                $name="Support instrument";
+              }elseif($name=="EF event"){
+                $name="Event";
+              }elseif($name=="Factsheet"){
+                $name="Restructuring event";
+              }elseif($name=="IR entry"){
+                $name="Dictionary";
+              }elseif($name=="EF news"){
+                $name="News";
+              }elseif($name=="EF publication"){
+                $name="Publication";
+              }elseif($name=="EF survey"){
+                $name="Survey";
+              }
+
             //Publication date
               $date_ts = $node_ittem->published_at;
               $date = date('d F Y', $date_ts);
+
+            //Delete date when the content type is in array
+              $delete_date_in=array("page", "board_member_page", "ef_working_life_country_profiles", "data_explorer_page", "dvs_survey", "ef_ir_dictionary", "ef_network_extranet_page", "ef_survey");
+              if (in_array($node_ittem->type, $delete_date_in)) {
+                $date="";
+              }
+
+
               if ($is_nodo){
                 //ALIAS HREF
                   $path = 'node/'.$node_ittem->nid;
@@ -187,7 +225,7 @@
 
                           <?php if(isset($name)): ?>
                             <li class="list-delib-kind">
-                              <?php echo $name; ?>
+                              <?php echo $name; //ucfirst($name); ?>
                             </li>
                           <?php endif; ?>
 
