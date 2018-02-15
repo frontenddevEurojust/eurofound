@@ -207,4 +207,5 @@ function ef_contract_update_7002() {
     $term->field_ef_eu_related_countries['und'][0]['iso2'] = $value[1];
     taxonomy_term_save($term);
   }
+  _populate_nec_period_old_terms();
 }

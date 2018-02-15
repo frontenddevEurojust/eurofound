@@ -396,16 +396,16 @@ function get_deliverable_kinds($context) {
   $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
   foreach ($terms as $key => $term) {
     if ($context == 1 && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-      $deliverable_kinds[$term->tid] = $term->name;
+      $term->depth == 1 ? $deliverable_kinds[$parent[0]][$term->tid] = $term->name : $deliverable_kinds[$term->tid] = $term->name;
     }
-    elseif ($context == 2 && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
-      $deliverable_kinds[$term->tid] = $term->name;
+    elseif ($context == 2 && $term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018') {
+      $term->depth == 1 ? $deliverable_kinds[$parent[0]][$term->tid] = $term->name : $deliverable_kinds[$term->tid] = $term->name;
     }
     elseif ($context == 3 && $term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-      $deliverable_kinds[$term->tid] = $term->name;
+      $term->depth == 1 ? $deliverable_kinds[$parent[0]][$term->tid] = $term->name : $deliverable_kinds[$term->tid] = $term->name;
     }
-    elseif ($context == 4 && ($term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018' || empty($term->field_ef_nec_period['und'][0]['value']))) {
-      $deliverable_kinds[$term->tid] = $term->name;
+    elseif ($context == 4 && $term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018') {
+      $term->depth == 1 ? $deliverable_kinds[$parent[0]][$term->tid] = $term->name : $deliverable_kinds[$term->tid] = $term->name;
     }
   }
 
@@ -499,4 +499,23 @@ function get_country_group_id_from_contract($contract_tid) {
   }
   
   return $country_gid;  
+}
+
+function _populate_nec_period_old_terms() {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  foreach ($terms as $key => $term) {
+    if ($term->field_ef_nec_period['und'][0]['value'] != '2018 - 2022') {
+      $term->field_ef_nec_period['und'][0]['value'] = '2014 - 2018';
+      taxonomy_term_save($term);
+    }
+  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
+  $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  foreach ($terms as $key => $term) {
+    if ($term->field_ef_nec_period['und'][0]['value'] != '2018 - 2022') {
+      $term->field_ef_nec_period['und'][0]['value'] = '2014 - 2018';
+      taxonomy_term_save($term);
+    }
+  }
 }
