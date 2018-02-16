@@ -454,6 +454,17 @@ function ef_find_content_form_views_exposed_form_alter(&$form, $form_state) {
       $form['created']['max']['#type'] = 'date_popup';
       $form['created']['max']['#date_format'] = 'd F Y';
       unset($form['created']['max']['#description']);
+
+      global $user;
+
+      if ( in_array("Author", $user->roles) ) {
+        if(!user_access('edit any board_member_page content')) {
+          unset($form['type']['#options']["board_member_page"]);
+        }
+        if(!user_access('edit any ef_network_extranet_page content')) {
+          unset($form['type']['#options']["ef_network_extranet_page"]);
+        }
+      }
     }
 }
 
