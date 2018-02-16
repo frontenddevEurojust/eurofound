@@ -538,11 +538,13 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     $service_type = get_service_type($deliverable_kind_tid);
 
-    foreach ($service_type as $tid => $value) {
-      $form['field_ef_service_type']['und']['#value'] = $value;
-      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
-      if ($value != 0){
-        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+    if(!empty($service_type)) {
+      foreach ($service_type as $tid => $value) {
+        $form['field_ef_service_type']['und']['#value'] = $value;
+        $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+        if ($value != 0){
+          $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        }
       }
     }
 
@@ -688,6 +690,10 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     }
 
     drupal_add_js(array('ef_contract' => $settings), 'setting');
+
+    // Assign to User FORM
+    $form['field_ef_assign_to_user']['#prefix'] = '<div id="field-assign-to-user-wrapper">';
+    $form['field_ef_assign_to_user']['#suffix'] = '</div>';
 
     return $form;
   }
