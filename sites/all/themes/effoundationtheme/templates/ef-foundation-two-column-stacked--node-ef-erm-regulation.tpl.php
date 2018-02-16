@@ -193,7 +193,7 @@
 		</div>
 
 		<div class="erm-reg-involved-actors large-4 columns">
-			<h5><?php print t("Involved actors next to the national government"); ?></h5>
+			<h5><?php print t("Involved actors other than national government"); ?></h5>
 		  <?php if(isset($content['field_involved_actors_erm_reg'])): ?>
 		  	<?php print render($content['field_involved_actors_erm_reg']); ?>
 		  	<?php if(isset($content['field_involvement_other_erm_reg'])): ?>
