@@ -74,7 +74,7 @@
     
     var modalities = buildModalityOptions(data);
     
-    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'data');
 
     var options = select
       .selectAll('option')
@@ -90,7 +90,7 @@
     
     var subgroups = buildSubgroupOptions(data);
     
-    var select = d3.select('body .chart-filters').append('select').property('id', 'subgroup-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'subgroup-filter').property('name', 'group');
 
     var options = select
       .selectAll('option')
@@ -105,7 +105,7 @@
   var createOrderingFilter = function() {
     var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
 
-    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
     var options = select
       .selectAll('option')
@@ -460,9 +460,9 @@
         
         buildGraphStructure(data);
 
-        var modalityCode = getParameterByName('modality-filter');
-        var subgroupCode = subgroupCode = getParameterByName('subgroup-filter');
-        var order = getParameterByName('sort-filter');
+        var modalityCode = getParameterByName('data');
+        var subgroupCode = subgroupCode = getParameterByName('group');
+        var order = getParameterByName('sort');
 
         if (modalityCode == null) modalityCode = 1;
         if (subgroupCode == null) subgroupCode = 1;
@@ -574,7 +574,7 @@
 
       $('select').on('change', function () {
         var valOption = $(this).val();
-        var nameVar = $(this).attr('id');
+        var nameVar = $(this).attr('name');
 
         if (valOption) { 
           if(!document.location.search) {
