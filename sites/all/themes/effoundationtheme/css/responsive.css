@@ -112,13 +112,6 @@
 		-webkit-box-shadow: -5px 7px 5px #000000;
 		box-shadow: 0px 1px 3px #000000;*/
 	}
-
-	.page-observatories-emcc-index h1.title,
-	.page-observatories-eurwork-index h1.title,
-	h1.parent_emcc.title, 
-	h1.parent_eurwork.title{
-		padding: 30px 10px 30px 40px !important; 
-	}
 	.page-observatories-emcc-index h1.title .abbreviation,
 	.page-observatories-eurwork-index h1.title .abbreviation,
 	h1.parent_emcc.title .abbrevation,
@@ -129,7 +122,6 @@
 		margin-bottom:10px;
 		border: none!important
 		*/
-
 	}
 
 	.top-bar .name {
@@ -550,12 +542,6 @@ font-family: 'ef-icon-font';
 	.lang-lt .ef-navigation-menus li a{
 		padding: 16px 1px 16px 1px !important;
 		font-size: 0.88em !important;
-	}
-	.page-observatories-emcc-index h1.title,
-	.page-observatories-eurwork-index h1.title,
-	h1.parent_emcc.title, 
-	h1.parent_eurwork.title{
-		padding: 30px 10px 30px 30px !important; 
 	}
  }
 
@@ -1413,24 +1399,29 @@ width:100%;
 	    float: none;
 	    margin: 0.5rem auto 1rem;
 	}
-	.page-observatories-emcc-index h1.title,
-	.page-observatories-eurwork-index h1.title,
-	h1.parent_emcc.title, 
-	h1.parent_eurwork.title{
-		background-size: auto;
-		background-position-y: 10px;
-		padding: 40px 10px 20px 40px !important; 
-	}
-	.page-observatories-emcc-index h1.title .abbreviation, 
-	.page-observatories-eurwork-index h1.title .abbreviation, 
-	h1.parent_emcc.title .abbrevation, 
-	h1.parent_eurwork.title .abbrevation {
-		display: block;
-		border: 0;
-		margin-bottom: 0.5rem;
-	}
 	.fome-home-block .pane-content a {
 	  padding: 12px 12px 12px 0px!important;
+	}
+	.page-observatories.panels-page h1.title.parent_emcc, .page-observatories.panels-page h1.title.parent_eurwork {
+		margin:0 !important;
+		padding-bottom: 2rem !important;
+		background-size: auto;
+		background-position: -1rem -0.5rem;
+	}
+	.page-observatories-eurwork-index h1.title, 
+	 h1.parent_eurwork.title, 
+	 .page-observatories-emcc-index h1.title, 
+	 h1.parent_emcc.title {
+	  padding: 20px 10px 10px 30px !important;
+	}
+	.page-observatories-emcc-index h1.title .abbreviation, 
+	.page-observatories-eurwork-index h1.title .abbreviation,
+	 h1.parent_emcc.title .abbrevation, 
+	 h1.parent_eurwork.title .abbrevation {
+	  float: none;
+	  display: block;
+	  border: 0;
+	  margin-bottom: 0.5rem;
 	}
 }
 
@@ -1532,12 +1523,10 @@ html body.admin-menu {
   font-size: 1.9em!important;
   text-indent: 0px!important
   }
-  h1.parent_emcc.title,
-  h1.parent_eurwork.title{
-  /*margin: 0px 0px 0 !important;
-  padding: 20px 30px 18px 30px;
-  margin-top:-20px!important;*/
-  }
+	h1.parent_emcc.title, 
+	h1.parent_eurwork.title {
+	  padding-left: 20px !important;
+	}
   .view-sector-landing-page .view-filters input,
   .view-topic-landing-page .view-filters input {
    width: 100%
@@ -1824,7 +1813,7 @@ html body.admin-menu {
   h1.parent_eurwork.title,
   .page-observatories-emcc-index h1.title,
   h1.parent_emcc.title {
-     /* padding: 20px 22px;*/
+      padding: 20px 22px;
   }
   .img-country-update {
       float: none;
@@ -2144,6 +2133,28 @@ html body.admin-menu {
   	height: auto;
     min-height:110px;
   }
+	.page-observatories-eurwork-index h1.title,
+	h1.parent_eurwork.title,
+	.page-observatories-emcc-index h1.title,
+	h1.parent_emcc.title {
+		padding: 25px 30px 25px 30px;
+	}
+  .page-observatories.panels-page h1.title.parent_emcc,
+   .page-observatories.panels-page h1.title.parent_eurwork {
+	  margin: -30px -13px 0px -13px;
+	}
+	.page-observatories-emcc-index h1.title .abbreviation,
+	 .page-observatories-eurwork-index h1.title .abbreviation,
+	  h1.parent_emcc.title .abbrevation,
+	   h1.parent_eurwork.title .abbrevation {
+	  display: block;
+	  width: auto;
+	  float: left;
+	  padding-bottom: 1rem;
+	  padding-top: 1rem;
+	  position: relative;
+	  top: -10px;
+	}
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation : landscape){
   .view-ef-key-topics-home .key-topics-list{

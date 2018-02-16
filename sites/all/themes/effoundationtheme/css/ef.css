@@ -7479,7 +7479,7 @@ h1.parent_emcc.title{
 }
 .page-observatories.panels-page h1.title.parent_emcc,
 .page-observatories.panels-page h1.title.parent_eurwork{
-	margin:-30px -14px 0px -14px;
+	margin:-30px -13px 0px -13px !important;
 }
 
 .page-observatories-emcc-index h1.title,
@@ -7508,7 +7508,7 @@ h1.parent_eurwork.title .abbrevation{
 	font-size: 2.2em;
 	padding-right: 20px;
 	margin-right: 15px;
-	border-right:2px solid #87B2B8;
+	border-right:2px solid #014898;
 	vertical-align: middle;
 	letter-spacing: -0.03em;
 }
@@ -12818,7 +12818,7 @@ p.view-empty.error-msg:before{
 .page-observatories-emcc-index h1.title, h1.parent_emcc.title {
   background: #FFF url(../images/background-observatories.jpg) no-repeat;
   background-size: 100% 86px;
-  padding: 30px 50px;
+  padding:30px 50px 35px !important;
   color:#005BAA;
 }
 .page-observatories-eurwork-index h1.title a, h1.parent_eurwork a,

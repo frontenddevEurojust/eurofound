@@ -29,10 +29,14 @@
 
     <?php if(in_array('anonymous user', $user->roles)): ?>
         <div class="back-erm-list-button-div">
-           <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+            <?php if($_SERVER['HTTP_REFERER'] != ''): ?>
+                <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+           <?php else: ?>
+                <a href="observatories/emcc/erm/restructuring-case-studies"><?php print t("Go back to list")?></a>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
-    
+
     <div class="case-study-result">
 
         <div class="case-study-subtitle row">
