@@ -707,6 +707,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 }
 // end CREATE/EDIT FORM
 
+
 function ajax_contract_callback(&$form, &$form_state) {
   $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
   if (!is_null($form['nid']['#value'])) {
@@ -715,17 +716,45 @@ function ajax_contract_callback(&$form, &$form_state) {
   
   $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
   $service_type = get_service_type($deliverable_kind_tid);
-  foreach ($service_type as $tid => $value) {
-    $form['field_ef_service_type']['und']['#value'] = $value;
-    $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
-    if ($value != 0){
-      $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+  if (isset($service_type) && !empty($service_type)) {
+    foreach ($service_type as $tid => $value) {
+      $form['field_ef_service_type']['und']['#value'] = $value;
+      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+      if ($value != 0){
+        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+      }
     }
   }
+
   $form['field_ef_assign_to_country_group']['und']['#value'] = $country_gid;
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
   
+  $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
+  $contract_form['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $contract_form['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
+
+  unset($form);
+  $form = $contract_form;
+
+  return $form;
+} 
+
+function ajax_ef_deliverable_kind_callback(&$form, &$form_state) {
+  $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
+  $service_type = get_service_type($deliverable_kind_tid);
+  if (isset($service_type) && !empty($service_type)) {
+    foreach ($service_type as $tid => $value) {
+      $form['field_ef_service_type']['und']['#value'] = $value;
+      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+      if ($value != 0){
+        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+      }
+    }
+  }
+
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
   $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];

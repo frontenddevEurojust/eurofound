@@ -394,6 +394,7 @@ function get_deliverable_kinds($context = NULL) {
   $max_depth = NULL;
   $parent = 0;
   $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
+  $deliverable_kinds[0] = '< none >';
   foreach ($terms as $key => $term) {
     $parent = taxonomy_term_load($term->parents[0]);
     if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
@@ -458,7 +459,9 @@ function get_service_type($deliverable_kind_tid) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_service_types');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
   $service_type_keys = array_keys($terms);
-  $deliverable_kind_obj = taxonomy_term_load($deliverable_kind_tid);
+  if ($deliverable_kind_tid != 0 || !empty($deliverable_kind_tid)) {
+    $deliverable_kind_obj = taxonomy_term_load($deliverable_kind_tid);
+  }
   if (isset($deliverable_kind_obj->field_ef_service_type['und'][1]['tid'])) {
     foreach ($service_type_keys as $key => $service_type_tid) {
       $service_type[$service_type_tid] = 0;
