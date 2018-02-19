@@ -264,6 +264,10 @@ h2.title, h1.title{
   margin-top: 1em !important;
   padding-left:0 !important;
 }
+h2.title-living-country, 
+h2.title-working-life{
+  font-size: 2.1em!important;
+}
 .boxed-block h1{
  margin-left:-0.5cm !important;
  }
@@ -930,6 +934,7 @@ ul.metadata-publications > li > ul li {
   overflow:auto;
 }
 .section-living-working.section-container.vertical-tabs > section > .title {
+  background: transparent !important;
   position: static !important;
   display: block !important;
   font-size: 22px !important;
@@ -941,6 +946,9 @@ ul.metadata-publications > li > ul li {
 }
 .section-living-working.section-container.vertical-tabs > section > .title p {
   margin-bottom: 0px !important;
+}
+.section-living-working .country-specific-info{
+  padding: 1rem 2rem 1rem 2rem;
 }
 .section-living-working h3.subtitle {
   font-size: 1rem; 
