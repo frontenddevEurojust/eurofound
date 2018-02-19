@@ -45,6 +45,9 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
       '#default_value' => 'country_group_member',
     );
 
+    $form['account']['roles_change']['#type'] = 'radios';
+    $form['account']['roles_change']['#default_value'] = 7; 
+
     $form['#submit'][] = 'osu_new_author_register_submit';
   }
 }
@@ -88,5 +91,13 @@ function osu_new_author_register_submit($form, &$form_state) {
   if (isset($form_state['values']['uid']) && isset($form_state['values']['ef_country_group'])) {
     $group = group_load(intval($form_state['values']['ef_country_group']));
     $group->addMember($form_state['values']['uid'], $values);
+  }
+}
+
+function ef_show_contract_numbers_in_contract_fields_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['ef_show_contract_numbers_in_contract_fields'];
+    unset($implementations['ef_show_contract_numbers_in_contract_fields']);
+    $implementations['ef_show_contract_numbers_in_contract_fields'] = $group;
   }
 }
