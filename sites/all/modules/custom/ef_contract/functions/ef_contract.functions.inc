@@ -501,6 +501,23 @@ function get_country_group_id_from_contract($contract_tid) {
   return $country_gid;  
 }
 
+function get_contract_from_country_group_id($gid) {
+  $country_group = group_load($gid);
+  $cg_contract = $country_group->field_ef_contract['und'][0]['tid'];
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
+  $contracts = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  foreach ($contracts as $tid => $contract) {
+    if ($cg_contract == $tid) {
+      $contract_tid[] = $cg_contract;
+    }
+  }
+  if (isset($contract_tid)) {
+    return $contract_tid[0];
+  }
+
+  return;
+}
+
 function _populate_nec_period_old_terms() {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));

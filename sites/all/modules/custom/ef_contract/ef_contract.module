@@ -722,6 +722,7 @@ function ajax_contract_callback(&$form, &$form_state) {
       $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
       if ($value != 0){
         $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
   }
@@ -751,10 +752,11 @@ function ajax_ef_deliverable_kind_callback(&$form, &$form_state) {
       $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
       if ($value != 0){
         $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
   }
-
+  
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
   $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
@@ -768,9 +770,14 @@ function ajax_ef_deliverable_kind_callback(&$form, &$form_state) {
 } 
 
 function ajax_assign_to_country_group_callback(&$form, &$form_state) {
-  $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
 
-  $form['field_ef_assign_to_country_group']['und']['#value'] = $country_gid;
+  $country_gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
+  $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+
+  if (!is_null($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
+  }
+  
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
 
