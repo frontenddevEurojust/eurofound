@@ -169,6 +169,15 @@ function ef_qrr_ratings_table() {
 }
 
 function ef_qrr_quality_rating_validate($form, &$form_state) {
+  if (  $form_state['clicked_button']['#id'] != 'reset' ) {
+    foreach ( $form_state['values']['table'] as $rating ) {
+      if (strlen($rating["qrr_comments"]) > 499 ) {
+        $nid = $rating['nid'];
+        unset($form_state['values']['table']["qrr_rating_fs_".$nid]);
+        drupal_set_message(t("The comment exceeds 500 characters - Nid: ".$nid), "error");
+      }
+    }
+  }
    return _ef_qrr_filter_form_validate($form, $form_state);
 }
 
@@ -196,8 +205,9 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
               $rated |= ($value != '-' && $value != 0 );
             }
           }
-          if ( $rated )
-          _ef_qrr_save_ratings( $nid, $user->uid, $ratings, $rating["qrr_comments"]);
+          if ( $rated || $rating["qrr_comments"] != "" ){
+            _ef_qrr_save_ratings( $nid, $user->uid, $ratings, $rating["qrr_comments"]);            
+          }
         }
       }
 
@@ -301,7 +311,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
 
       foreach ( $nids as $nid ) {
         $res = db_query(
-          "SELECT ur.name, n.type, n.title, n.nid, u.name AS author, ".
+          "SELECT n.type, n.title, n.nid, u.name AS author, ".
           "GROUP_CONCAT(DISTINCT ur.name SEPARATOR ',') AS raters, ".
           "GROUP_CONCAT(TRIM(rv.comments) SEPARATOR '|') AS reviewer_comments ".
           "FROM {qrr_revision} rv ".
@@ -400,12 +410,6 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
         $types = node_type_get_names();
         $ct_human_name = $types[$node->type];
 
-        if ($reviewer_comments!="") {
-          $format_rev_comment=ucfirst($rating_data["name"]) . ": " .$reviewer_comments;
-        }else{
-          $format_rev_comment="";
-        }
-
         $csvline = array(
           $ct_human_name,
           '"' . $node->title . '"',
@@ -419,7 +423,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
           '"' . format_date($delivery_date, 'short') . '"',
           '"' . format_date($revision_deadline, 'short') . '"',
           '"' . format_date($last_submitted, 'short') . '"',
-          '"' . $format_rev_comment . '"',
+          '"' . $reviewer_comments . '"',
         );
 
         unset($node);
@@ -1405,7 +1409,7 @@ function _ef_qrr_filter_form($form_id) {
 
    
    $stars_array = array(
-     '0' => t('Choose an option'),
+     '0' => t('Choose some option'),
      '20' => t('1 Star'),
      '40' => t('2 Stars'),
      '60' => t('3 Stars'),
@@ -1455,7 +1459,7 @@ function _ef_qrr_filter_form($form_id) {
    );
    $filter_form['container_filters']['producto_specific_criteria'] = array(
      '#type' => 'select',
-     '#title' => t('Timely delivery and responsiveness'),
+     '#title' => t('Product specific criteria'),
      '#options' => $stars_array,
      '#default_value' => $_SESSION['qrr_filters']['producto_specific_criteria'],
      //'#multiple' => true,
@@ -1611,7 +1615,7 @@ function _ef_qrr_selected_nodes($mode, $pager = true) {
             $query_node_star.=$ini_query_node_star;
             $query_node_star.='(qrrr.riid = 4 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['excellent_command_of_english']).") UNION ";
           }
-        //Timely delivery and responsiveness criteria - riid=5
+        //Product specific criteria - riid=5
           if (count($_SESSION['qrr_filters']['producto_specific_criteria']) AND $_SESSION['qrr_filters']['producto_specific_criteria']!=0) {
             $n_filters++;
             $query_node_star.=$ini_query_node_star;
