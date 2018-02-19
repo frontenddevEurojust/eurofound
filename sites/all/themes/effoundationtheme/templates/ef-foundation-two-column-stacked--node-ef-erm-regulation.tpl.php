@@ -225,6 +225,22 @@
 
 		<div class="erm-reg-thresholds large-4 columns">
 
+			<?php 
+				if( isset($content['field_company_size_erm_reg'] ) ){
+					$field_company_size_erm_reg=trim($content['field_company_size_erm_reg']["#object"]->field_company_size_erm_reg["und"][0]["value"]);
+					if ($field_company_size_erm_reg=="") {
+						unset($content["field_company_size_erm_reg"]);
+					}
+				}
+
+				if( isset($content['field_affected_employees_erm_reg']) ){
+					$field_affected_employees_erm_reg=trim($content["field_affected_employees_erm_reg"]["#object"]->field_affected_employees_erm_reg["und"][0]["value"]);
+					if ($field_affected_employees_erm_reg=="") {
+						unset($content["field_affected_employees_erm_reg"]);
+					}
+				}
+			 ?>
+
 			<?php if( isset($content['field_company_size_erm_reg']) && isset($content['field_affected_employees_erm_reg']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>
 				<div class="erm-reg-thresholds-item">
