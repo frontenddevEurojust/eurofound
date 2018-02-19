@@ -169,6 +169,15 @@ function ef_qrr_ratings_table() {
 }
 
 function ef_qrr_quality_rating_validate($form, &$form_state) {
+  if (  $form_state['clicked_button']['#id'] != 'reset' ) {
+    foreach ( $form_state['values']['table'] as $rating ) {
+      if (strlen($rating["qrr_comments"]) > 499 ) {
+        $nid = $rating['nid'];
+        unset($form_state['values']['table']["qrr_rating_fs_".$nid]);
+        drupal_set_message(t("The comment exceeds 500 characters - Nid: ".$nid), "error");
+      }
+    }
+  }
    return _ef_qrr_filter_form_validate($form, $form_state);
 }
 
@@ -196,8 +205,9 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
               $rated |= ($value != '-' && $value != 0 );
             }
           }
-          if ( $rated )
-          _ef_qrr_save_ratings( $nid, $user->uid, $ratings, $rating["qrr_comments"]);
+          if ( $rated || $rating["qrr_comments"] != "" ){
+            _ef_qrr_save_ratings( $nid, $user->uid, $ratings, $rating["qrr_comments"]);            
+          }
         }
       }
 

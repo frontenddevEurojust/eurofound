@@ -131,6 +131,7 @@ jQuery(document).ready(function(){
           let realValue = jQuery("#hidden_nid_"+nid).val();
           jQuery(this).val(realValue);
           jQuery(this).attr("show_tooltip", "false")
+          jQuery("#tool-tip-"+id).hide();
         })
     //To Show  
       jQuery(this).hover(
@@ -145,7 +146,7 @@ jQuery(document).ready(function(){
                 jQuery('#tool-tip-'+id).show();
               }else{
                 jQuery(this).parent().parent().parent().css("position", "relative");
-                let textToAdd = '<div class="tool-tip-textarea" id="tool-tip-'+id+'" style="position: absolute;background: rgba(0, 0, 0, 0.75);color: white;width: 80%;padding:  15px;border-radius:  5px;top: 20px; left: -95%; word-wrap: break-word;white-space: initial; z-index: 9; border: 2px solid #0c0c0c;">'+realValue+'</div>';
+                let textToAdd = '<div class="tool-tip-textarea" id="tool-tip-'+id+'" style="position: absolute;background: rgba(0, 0, 0, 0.75);color: white;width: 400px;padding:  15px;border-radius:  5px;top: 20px; left: -430px; word-wrap: break-word;white-space: initial; z-index: 9; border: 2px solid #0c0c0c;"><pre style>'+realValue+'</pre></div>';
                 jQuery(this).parent().append(textToAdd);
               }
             }
