@@ -311,7 +311,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
 
       foreach ( $nids as $nid ) {
         $res = db_query(
-          "SELECT n.type, n.title, n.nid, u.name AS author, ".
+          "SELECT ur.name, n.type, n.title, n.nid, u.name AS author, ".
           "GROUP_CONCAT(DISTINCT ur.name SEPARATOR ',') AS raters, ".
           "GROUP_CONCAT(TRIM(rv.comments) SEPARATOR '|') AS reviewer_comments ".
           "FROM {qrr_revision} rv ".
@@ -410,6 +410,12 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
         $types = node_type_get_names();
         $ct_human_name = $types[$node->type];
 
+        if ($reviewer_comments!="") {
+          $format_rev_comment=ucfirst($rating_data["name"]) . ": " .$reviewer_comments;
+        }else{
+          $format_rev_comment="";
+        }
+
         $csvline = array(
           $ct_human_name,
           '"' . $node->title . '"',
@@ -423,7 +429,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
           '"' . format_date($delivery_date, 'short') . '"',
           '"' . format_date($revision_deadline, 'short') . '"',
           '"' . format_date($last_submitted, 'short') . '"',
-          '"' . $reviewer_comments . '"',
+          '"' . $format_rev_comment . '"',
         );
 
         unset($node);
@@ -1409,7 +1415,7 @@ function _ef_qrr_filter_form($form_id) {
 
    
    $stars_array = array(
-     '0' => t('Choose some option'),
+     '0' => t('Choose an option'),
      '20' => t('1 Star'),
      '40' => t('2 Stars'),
      '60' => t('3 Stars'),
@@ -1459,7 +1465,7 @@ function _ef_qrr_filter_form($form_id) {
    );
    $filter_form['container_filters']['producto_specific_criteria'] = array(
      '#type' => 'select',
-     '#title' => t('Product specific criteria'),
+     '#title' => t('Timely delivery and responsiveness'),
      '#options' => $stars_array,
      '#default_value' => $_SESSION['qrr_filters']['producto_specific_criteria'],
      //'#multiple' => true,
@@ -1615,7 +1621,7 @@ function _ef_qrr_selected_nodes($mode, $pager = true) {
             $query_node_star.=$ini_query_node_star;
             $query_node_star.='(qrrr.riid = 4 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['excellent_command_of_english']).") UNION ";
           }
-        //Product specific criteria - riid=5
+        //Timely delivery and responsiveness criteria - riid=5
           if (count($_SESSION['qrr_filters']['producto_specific_criteria']) AND $_SESSION['qrr_filters']['producto_specific_criteria']!=0) {
             $n_filters++;
             $query_node_star.=$ini_query_node_star;
