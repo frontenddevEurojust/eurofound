@@ -101,12 +101,6 @@
 		        <li><a href="procurement-submissions" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Procurement Form Submissions</span></a></li>
 		      	<?php endif; ?>
 		      </ul>
-		      <?php 
-
-					$block = module_invoke('block', 'menu_block', '9');
-          print render($block['content']); 
-
-		      ?>
 		  	</nav>
 	  	</div>
   </section>
