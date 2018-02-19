@@ -88,19 +88,25 @@
 		      <h2><i class="fa fa-file-text-o" aria-hidden="true"></i> Add content</h2>
 		      <?php
 		      	$block = module_invoke('block', 'block_view', '28');
-				print render($block['content']);
+						print render($block['content']);
 			  ?>
 		    </nav>
 		    <nav class="extranets-nav  columns small-12  medium-6  large-4">
 		      <h2><i class="fa fa-external-link-square" aria-hidden="true"></i> Misc</h2>
 		      <ul>
-		        <li><a href="boardmemberpage/extranet-for-the-governing-board" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranet for the Governing Board</span></a></li>
-		        <li><a href="extranet-for-the-network-of-european-correspondents-nec" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranets for the Network of European Correspondents</span></a></li>
+		        <li><a href="node/55566" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranet for the Governing Board</span></a></li>
+		        <li><a href="node/58826" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranets for the Network of European Correspondents</span></a></li>
 		        <li><a href="reimbursement-webforms" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Reimbursement webforms</span></a></li>
 		        <?php if($observatory == 'EMCC'): ?>
 		        <li><a href="procurement-submissions" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Procurement Form Submissions</span></a></li>
 		      	<?php endif; ?>
 		      </ul>
+		      <?php 
+
+					$block = module_invoke('block', 'menu_block', '9');
+          print render($block['content']); 
+
+		      ?>
 		  	</nav>
 	  	</div>
   </section>
