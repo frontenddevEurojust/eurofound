@@ -14,6 +14,7 @@
 
 
 <!-- ARTICLE -->
+
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
     <?php if(!in_array('anonymous user', $user->roles) && isset($node->field_relation_identifier_csp['und'][0]['value'])): ?>
@@ -24,6 +25,16 @@
                 </a>
             </li>
         </ul>
+    <?php endif; ?>
+
+    <?php if(in_array('anonymous user', $user->roles)): ?>
+        <div class="back-erm-list-button-div">
+            <?php if($_SERVER['HTTP_REFERER'] != ''): ?>
+                <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+           <?php else: ?>
+                <a href="observatories/emcc/erm/restructuring-case-studies"><?php print t("Go back to list")?></a>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 
     <div class="case-study-result">
