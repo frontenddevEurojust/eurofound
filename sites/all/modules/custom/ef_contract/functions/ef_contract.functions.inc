@@ -438,8 +438,13 @@ function get_contracts($context = NULL) {
 }
 
 function get_contract_context($nec, $contract) {
-  $contract_obj = taxonomy_term_load($contract);
-  $period = $contract_obj->field_ef_nec_period['und'][0]['value'];
+  if (empty($contract)) {
+    $period = '2018 - 2022';
+  }
+  else {
+    $contract_obj = taxonomy_term_load($contract);
+    $period = $contract_obj->field_ef_nec_period['und'][0]['value'];
+  }
 
   if ($nec && $period == '2018 - 2022') {
     return 1;
