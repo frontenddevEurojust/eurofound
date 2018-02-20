@@ -47,7 +47,6 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
 
     $form['account']['roles_change']['#type'] = 'radios';
     $form['account']['roles_change']['#default_value'] = 7;
-    $form['account']['roles_change']['#value'] = 7; 
 
     $form['#submit'][] = 'osu_new_author_register_submit';
   }
