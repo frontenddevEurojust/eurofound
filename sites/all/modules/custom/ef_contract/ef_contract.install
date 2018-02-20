@@ -213,6 +213,9 @@ function ef_contract_update_7002() {
   //This is needed to add a NEC period value to previously existing
   //taxonomy terms.
   _populate_nec_period_old_terms();
+  //This is needed to add a NEC period value to previously existing
+  //taxonomy terms.
+  _populate_contracts_in_country_groups();
 }
 
 function hook_update_dependencies() {

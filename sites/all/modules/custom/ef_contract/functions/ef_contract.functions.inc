@@ -540,4 +540,32 @@ function _populate_nec_period_old_terms() {
       taxonomy_term_save($term);
     }
   }
+  return;
+}
+
+function _populate_contracts_in_country_groups() {
+  $groups = entity_load('group');
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
+  $contracts = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  foreach ($groups as $key => $group) {
+    $coincidence = FALSE;
+    foreach ($contracts as $key => $contract) {
+      if ($contract->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+        $coincidence = strpos($contract->name, $group->title);
+        if ($coincidence !== FALSE) {
+          $group->field_ef_contracts['und'][0]['tid'] = $contract->tid;
+          entity_save('group', $group);
+          break;
+        }
+        if ($group->title == 'United Kingdom' && strpos($contract->name, 'UK')) {
+          $group->field_ef_contracts['und'][0]['tid'] = $contract->tid;
+          entity_save('group', $group);
+          break;
+        }
+      }
+    }
+    if ($coincidence === FALSE) {
+      var_dump($group->title);
+    }
+  }
 }
