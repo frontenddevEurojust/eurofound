@@ -171,10 +171,10 @@ function ef_qrr_ratings_table() {
 function ef_qrr_quality_rating_validate($form, &$form_state) {
   if (  $form_state['clicked_button']['#id'] != 'reset' ) {
     foreach ( $form_state['values']['table'] as $rating ) {
-      if (strlen($rating["qrr_comments"]) > 499 ) {
+      if (strlen($rating["qrr_comments"]) > 999 ) {
         $nid = $rating['nid'];
         unset($form_state['values']['table']["qrr_rating_fs_".$nid]);
-        drupal_set_message(t("The comment exceeds 500 characters - Nid: ".$nid), "error");
+        drupal_set_message(t("The comment exceeds 1000 characters - Nid: ".$nid), "error");
       }
     }
   }
