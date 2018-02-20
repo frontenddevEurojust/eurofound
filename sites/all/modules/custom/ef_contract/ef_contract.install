@@ -86,86 +86,10 @@ function ef_contract_update_7001() {
     }
   	taxonomy_term_save($term);
   }
-}
-
-/**
- * Implements hook_update_N()
- *
- * Complete the taxonomies, create tables to save the administration settings and define variables for new NEC framework
- */
-function ef_contract_update_7002() {
-  $schema['ef_contract_affected_cts'] = array(
-    'description' => t('Table to store content types affected by NEC'),
-    'fields' => array(
-      'ctid' => array(
-        'description' => 'ID of the content type',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'machine_name' => array(
-        'description' => 'Machine name of the Content Type',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-      'name' => array(
-        'description' => 'Human name of the Content Type',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-      ),
-      'enabled' => array(
-        'description' => 'Boolean, true (1) if the Content Type is managed under NEC',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-    ),
-    'indexes' => array(
-      'ctid' => array('ctid'),
-    ),
-    'primary key' => array('ctid'),
-  );
-  
-  db_create_table('ef_contract_affected_cts', $schema['ef_contract_affected_cts']);
-
-  $enabled_cts = array(
-    'ef_report',
-    'ef_comparative_analytical_report',
-    'ef_national_contribution',
-    'ef_ic_quarterly_report',
-    'ef_input_to_erm',
-    'ef_case_study',
-    'erm_support_instrument',
-    'ef_erm_regulation',
-    'ef_restructuring_in_smes',
-    'ef_factsheet',
-    'ef_ir_dictionary',
-    'ef_annual_progress_report',
-    'ef_network_quarterly_report',
-    'case_study_publication',
-    'ef_working_life_country_profiles',
-  );
-
-  $cts = node_type_get_types();
-
-  foreach($cts as $key => $ct) {
-    $query = db_insert('ef_contract_affected_cts');
-    $query->fields(
-      array(
-        'machine_name' => $ct->type,
-        'name' => $ct->name,
-        'enabled' => in_array($key, $enabled_cts) ? 1 : 0,
-      )
-    );
-
-    $query->execute();
-  }
 
   //And we need to add the new contracts
   $new_contracts = array(
+    '18-3030-00' => array('1 - N/A', ''),
     '18-3030-01' => array('Network of correspondents - Austria', 'AT'),
     '18-3030-02' => array('Network of correspondents - Belgium', 'BE'),
     '18-3030-03' => array('Network of correspondents - Bulgaria', 'BG'),
@@ -207,8 +131,96 @@ function ef_contract_update_7002() {
     $term->field_ef_eu_related_countries['und'][0]['iso2'] = $value[1];
     taxonomy_term_save($term);
   }
+
+  $schema['ef_contract_affected_cts'] = array(
+    'description' => t('Table to store content types affected by NEC'),
+    'fields' => array(
+      'ctid' => array(
+        'description' => 'ID of the content type',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'machine_name' => array(
+        'description' => 'Machine name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Human name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'enabled' => array(
+        'description' => 'Boolean, true (1) if the Content Type is managed under NEC',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'ctid' => array('ctid'),
+    ),
+    'primary key' => array('ctid'),
+  );
   
+  db_create_table('ef_contract_affected_cts', $schema['ef_contract_affected_cts']);
+
+
+  $enabled_cts = array(
+    'ef_report',
+    'ef_comparative_analytical_report',
+    'ef_national_contribution',
+    'ef_ic_quarterly_report',
+    'ef_input_to_erm',
+    'ef_case_study',
+    'erm_support_instrument',
+    'ef_erm_regulation',
+    'ef_restructuring_in_smes',
+    'ef_factsheet',
+    'ef_ir_dictionary',
+    'ef_annual_progress_report',
+    'ef_network_quarterly_report',
+    'case_study_publication',
+    'ef_working_life_country_profiles',
+  );
+
+  $cts = node_type_get_types();
+
+  foreach($cts as $key => $ct) {
+    $query = db_insert('ef_contract_affected_cts');
+    $query->fields(
+      array(
+        'machine_name' => $ct->type,
+        'name' => $ct->name,
+        'enabled' => in_array($key, $enabled_cts) ? 1 : 0,
+      )
+    );
+
+    $query->execute();
+  }
+}
+
+/**
+ * Implements hook_update_N()
+ *
+ * Complete the taxonomies, create tables to save the administration settings and define variables for new NEC framework
+ */
+function ef_contract_update_7002() {
   //This is needed to add a NEC period value to previously existing
   //taxonomy terms.
   _populate_nec_period_old_terms();
+}
+
+function hook_update_dependencies() {
+  // Indicate that the 7002() function provided by this module
+  // must run after the 7001() function provided by the other module.
+  $dependencies['ef_contract'][7002] = array(
+    'ef_show_contract_numbers_in_contract_fields' => 7001,
+  );
+
+  return $dependencies;
 }

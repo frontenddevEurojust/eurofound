@@ -708,10 +708,16 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 // end CREATE/EDIT FORM
 
 
-function ajax_contract_callback(&$form, &$form_state) {
+function ajax_contract_callback($form, &$form_state) {
   $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
   if (!is_null($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
+  }
+
+  if (!empty($country_gid)) {
+    $deliverable_kinds = get_deliverable_kinds(1);
+    $form['field_ef_deliverable_kind']['und']['#options'] = $deliverable_kinds;
+    $form['field_ef_deliverable_kind']['und']['#value'] = '';
   }
   
   $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
@@ -772,7 +778,10 @@ function ajax_ef_deliverable_kind_callback(&$form, &$form_state) {
 function ajax_assign_to_country_group_callback(&$form, &$form_state) {
 
   $country_gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
-  $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+  $contract = taxonomy_term_load($form_state['input']['field_ef_author_contract']['und']);
+  if ($contract->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+    $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+  }
 
   if (!is_null($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
