@@ -133,6 +133,15 @@ jQuery(document).ready(function(){
           jQuery(this).attr("show_tooltip", "false")
           jQuery("#tool-tip-"+id).hide();
         })
+
+        jQuery(this).blur(function(){
+          let id = jQuery(this).attr("id");
+          let nid = id.replace("show_coment_", "");
+
+          jQuery(this).attr("show_tooltip", "true");
+          let newEditValue = jQuery("#show_coment_"+nid).val();
+          jQuery("#tool-tip-show_coment_"+nid).find("pre").html(newEditValue);
+        })
     //To Show  
       jQuery(this).hover(
         function(){
