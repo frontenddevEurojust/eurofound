@@ -394,7 +394,7 @@ function get_deliverable_kinds($context = NULL) {
   $max_depth = NULL;
   $parent = 0;
   $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
-  $deliverable_kinds[0] = '< none >';
+  $deliverable_kinds['_none'] = '- Select a value -';
   foreach ($terms as $key => $term) {
     $parent = taxonomy_term_load($term->parents[0]);
     if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
@@ -413,6 +413,7 @@ function get_deliverable_kinds($context = NULL) {
 function get_contracts($context = NULL) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_contracts');
   $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+  $contracts['_none'] = '- Select a value -';
   foreach ($terms as $tid => $term) {
     if ($context == 'old') {
       if (empty($term->field_ef_nec_period['und'][0]['value']) || $term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018') {
@@ -568,4 +569,16 @@ function _populate_contracts_in_country_groups() {
       var_dump($group->title);
     }
   }
+}
+
+function get_default_deliverable_kind_by_ct($ct) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
+  if ($ct == 'ef_factsheet') {
+    $deliverable_kind = taxonomy_get_term_by_name('Provision of ERM factsheets', $vocabulary->vid);
+    return $deliverable_kind->tid;
+  }
+  else {
+    return FALSE;
+  }
+
 }
