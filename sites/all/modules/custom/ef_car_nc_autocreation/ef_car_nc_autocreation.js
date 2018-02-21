@@ -4,7 +4,7 @@
     // Select all
     $('#edit-addallbutton').on('click', function(){
       
-      $('#edit-country .form-item input').each(function(i){
+      $('#edit-country2 .form-item input').each(function(i){
 
       	if($(this).is( ":checked" )){
       		//is checked
@@ -32,7 +32,7 @@
     // Diselect all
     $('#edit-quitallbutton').on('click', function(){
       
-      $('#edit-country .form-item input').each(function(i){
+      $('#edit-country2 .form-item input').each(function(i){
 
         if($(this).is( ":checked" )){
           //is checked
@@ -57,7 +57,7 @@
 
     });
     
-    $('#edit-country .form-item label').each(function(index, element){
+    $('#edit-country2 .form-item label').each(function(index, element){
 
     	$(element).on('click', function(e){
 
@@ -84,13 +84,13 @@
     	    	
 
 
-    $('.page-car-nc-autocreation #edit-country .form-type-checkbox').slice(0,8).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country .form-type-checkbox').slice(8,16).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country .form-type-checkbox').slice(16,24).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country .form-type-checkbox').slice(24,32).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(0,8).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(8,16).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(16,24).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(24,32).wrapAll('<div class="large-3 column countries-col"></div>');
 
 
-    $('.page-car-nc-autocreation #edit-country .form-type-checkbox > label').each(function(i){
+    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox > label').each(function(i){
     	$(this).prepend('<i class="fa fa-circle-thin"></i>');
     });
 

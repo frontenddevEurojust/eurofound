@@ -63,11 +63,23 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	$vid_deliver = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds')->vid;
 	$del_tree = taxonomy_get_tree($vid_deliver);
 
+
+
 	foreach ($del_tree as $key => $value) {
 		$tax_term = taxonomy_term_load($value->tid);
 		
 		if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
-			$deliver_list[$value->tid]=$value->name;
+			//Harcoded by bm WEM-856
+			if ($value->name =='N/A' 
+				||  $value->name =='Contribution to topical updates' 
+				||  $value->name =='Contribution to EurWORK’s annual review of working life'
+				||  $value->name =='EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update'
+				||  $value->name =='Questionnaire based national contribution to comparative work'
+				||  $value->name =='Questionnaire based national contribution to sectoral representativeness studies'
+				||  $value->name =='EurWORK’s Working life country profile - update'
+				||  $value->name =='On-demand service'){
+				$deliver_list[$value->tid]=$value->name;	
+			}
 		}
 	}
 
@@ -82,24 +94,33 @@ function car_nc_autocreation_form($form, &$form_submit) {
 			$contract_list[$value->tid]=$value->name;
 		}
 	}
-	
 
-	$result  = db_query('select c.iso2,name from {field_data_field_ef_eu_member} m inner join {countries_country} c on c.cid=m.entity_id');
-	foreach ($result as $record) {
-	  $countriesList[$record->iso2] = $record->name;
-	}
-	//Added by BM
-	//Remove EU Member States option
-	unset($countriesList['EM']);
-	unset($countriesList['TR']);
-
-	/*
 	$groups = entity_load('group');
-	$country->field_ef_contract['und'][0]['value'];
-	dpm($groups);
-	$countriesList2[$groups[2]->gid] = $groups[2]->title;
-	dpm($countriesList2);
-	*/
+	
+	//$new_array = array_search('EU level ', $groups);
+	//drupal_set_message($new_array);
+	//drupal_set_message($groups[$new_array]);
+	foreach ($groups as $record) {
+	  $countriesList2[$record->gid]= $record->title;
+	}
+
+	natsort($countriesList2);
+
+
+	foreach ($countriesList2 as $key => $value) {
+		if ($value == "EU level"){
+			$key_eu = $key;
+		}
+
+		if ($value == "Eurofound"){
+			$key_eurofound = $key;
+		}		
+	}
+
+
+	$countriesList2 = array_diff($countriesList2, ["Eurofound", "Overview Report" , "EU level"]);
+	$countriesList2[$key_eu] = "EU level";
+
 
 	$form['title'] = array(
 	 '#title' => t('Title'),
@@ -175,12 +196,10 @@ function car_nc_autocreation_form($form, &$form_submit) {
     '#base_type' => 'textarea',
 	);
 
-
-	/* --- Changed by Bilbomatica --- */
-	$form['country'] = array(
+	$form['country2'] = array(
 		'#type' => 'checkboxes',
 		'#title' => t('NCs/Countries'),
-		'#options' => $countriesList,
+		'#options' => $countriesList2,
 		'#required' => TRUE,
 		'#validated' => TRUE,
 		'#multiple' => TRUE,
@@ -194,17 +213,6 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	$form['quitAllButton'] = array(
 		'#type' => 'button',
 		'#value' => 'Remove all'
-	);
-
-	$form['contract'] = array(
-		'#type' => 'select',
-		'#title' => t('Contract'),
-		'#options' => $contract_list,
-		'#attributes' => array(
-			'class' => array('car-nc-creation'),
-		),
-		'#required' => TRUE,
-		'#validated' => TRUE,
 	);
 
 	$form['deliver']=array(
@@ -262,7 +270,9 @@ function car_nc_autocreation_form($form, &$form_submit) {
     'actions' => array('data' => t('Actions'))
   );
  	
- 	if (isset($_SESSION['source_documents_car']) && !empty($_SESSION['source_documents_car'])) {
+ 	$num_doc = 0;
+  	if (isset($_SESSION['source_documents']) && !empty($_SESSION['source_documents'])) {
+
 
   	$form['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
@@ -272,6 +282,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		);
 
  	 	foreach ($_SESSION['source_documents_car'] as $key => $value) {
+ 	 		$num_doc = $num_doc +1;
  	 		$remove_button = array(
   			'#id' => 'remove_' . $key,
   			'#name' => 'remove_' . $key,
@@ -302,6 +313,18 @@ function car_nc_autocreation_form($form, &$form_submit) {
     	'#empty' => 'No files attached',
     );
   }
+
+  //Add an extra remove button 
+  	$form['remove_'.$num_doc]= array(
+  		'#id' => 'remove_' . $num_doc,
+  		'#name' => 'remove_' . $num_doc,
+  		'#type' => 'submit',
+  		'#prefix' => '<div id="remove-back">',
+		'#suffix' => '</div>',
+  		'#value' => t('Remove'),
+  		'#submit' => array('remove_file_by_id'),
+  		'#attributes' => array('file-id' => $num_doc),
+	);
 
 	
 
@@ -336,10 +359,6 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 			form_set_error('scheduled_record_delivery_date', 'Scheduled record delivery date field is required');
 		}
 
-		if ($form_state['values']['contract']==""){
-			form_set_error('contract', 'Contract field is required');
-		}
-
 		if ($form_state['values']['deliver']==""){
 			form_set_error('deliver', 'Delivery field is required');
 		}
@@ -349,14 +368,14 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 		}
 
 		$selectedCountries = array();
-		foreach ($form_state['values']['country'] as $key => $value) {
+		foreach ($form_state['values']['country2'] as $key => $value) {
 			if($value != '0'){
 				$selectedCountries[] = $key;
 			}
 		}
 		
 		if (count($selectedCountries)==0){
-			form_set_error('country', 'NCs/Countries field is required');
+			form_set_error('country2', 'NCs/Countries field is required');
 		}
 
 		
@@ -374,90 +393,141 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 
 	/* --- check selected countries --- */
 	$selectedCountries = array();
-	foreach ($form_state['values']['country'] as $key => $value) {
-		if($value != '0'){
-			$selectedCountries[] = $key;
+	
+	$groups = entity_load('group');
+	$all_groups=$groups;
+
+	
+	foreach ($all_groups as $key => $value) {
+		if ($all_groups[$key]->title == "Eurofound"){ 
+			$key_eurofound = $key;
+		}	
+	}
+
+	
+	foreach ($form_state['values']['country2'] as $key => $value) {
+
+		if($value != 0){ 
+			
+			$node = new stdClass();
+			$node->language = "en";
+			$node->title = $groups[$key]->title.": ".$form_state['values']['title'];
+			
+			
+			$country_name = $groups[$key]->title;
+			$uid_leader = get_group_leader_uid($value);
+			
+			//Get country code
+			
+			$list_count = country_get_list();
+			foreach ($list_count as $ckey => $cvalue) {
+				if ($cvalue == $country_name){
+					$country_code = $ckey;
+					break;		
+				}
+			}
+
+			$name = 'country_group_members';
+			$display_id = 'group_membership_entity_reference';
+
+			$membership_view_results = views_get_view_result($name, $display_id, array($key));
+			
+			foreach ($membership_view_results as $mkey => $object) {
+			    if ($object->group_membership_uid == $uid_leader){
+			    	$leader_mid = $object->mid;
+			    	break;
+			    }
+			}
+			
+
+			$node->type = 'ef_national_contribution';
+			$node->language = "en";
+			node_object_prepare($node);
+			$node->uid = $user->uid;
+			
+			//asign the node to the group leader
+			$node->field_ef_assign_to_author['und'][]['target_id'] =$leader_mid;
+			$node->field_ef_assign_to_user['und'][]['target_id'] =$uid_leader;
+			$node->field_ef_country['und'][]['iso2']=$country_code;
+			
+		 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
+			$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
+			$node->field_ef_author_contract['und'][]['tid'] =  $groups[$key]->field_ef_contract['und'][0]['tid'];
+			$node->field_ef_assign_to_country_group['und'][]['target_id'] = $groups[$key]->gid;
+			
+			
+			if(isset($_SESSION['documents_car'])){
+				foreach ($_SESSION['documents_car'] as $file1) {
+					$file1->status = FILE_STATUS_PERMANENT;
+		    		// Save file status.
+		    		file_save($file1);
+		    		$file1->display = 1;
+		    		$file1->description = "";
+					$node->field_ef_source_documents[LANGUAGE_NONE][] = (array)$file1;
+				}	
+			}
+
+			$term_index = 0 ;
+			foreach ($form_state['values']['obseravory'] as $key => $value) {
+				$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
+				$term_index++;
+			}
+
+			$term_index = 0 ;
+			foreach ($form_state['values']['topic'] as $key => $value) {
+				$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
+				$term_index++;
+			}
+
+			$term_index = 0 ;
+			foreach ($form_state['values']['sector'] as $key => $value) {
+				$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
+				$term_index++;
+			}
+			
+			if (isset($form_state['values']['deliver'])){
+				$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
+			}
+
+			if (isset($form_state['values']['service'])){
+				$node->field_ef_service_type['und'][]['tid'] = $form_state['values']['service'];
+			}
+
+
+
+			$node->status = 0;
+			$node->promote = 0;
+
+			$select = "SELECT b.name
+								 FROM countries_country b
+								 WHERE b.iso2 = :country";
+			$country_name = db_query($select,array(':country' => $country))->fetchAll();
+
+			$group = group_load_by_name($country_name[0]->name);
+			//$node = nc_contract($node,$group,$form_state['values']['contract']);
+
+
+			$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+			$dsm_title = $node->title;
+			$node = node_submit($node); // Prepare node for saving
+			
+			node_save($node);
+
+			$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+
+			drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
+			drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
+
+			workbench_moderation_moderate($node, "requested");
+	   		field_attach_update('node', $node);
+	   		$created_nc_nids[] = $node->nid; 
+
+			$contributionsIds[] = $node->nid;
 		}
 	}
 	/* --- end --- */
 
 	$contributionsIds=array();
-
-	foreach($selectedCountries as $country){
-		//$groups = entity_load('group', $country);
-		//$country->field_ef_contract['und'][0]['value'];
-		$countryName = db_query('select name FROM {countries_country} WHERE iso2 = :code', array(':code' => $country))->fetchField();
-		$node = new stdClass();
-		$node->language = "en";
-		$node->title = $countryName.": ".$form_state['values']['title'];
-		$node->type = 'ef_national_contribution';
-		$node->language = "en";
-		node_object_prepare($node);
-		$node->uid = $user->uid;
-		$node->field_ef_country['und'][]['iso2']=$country;
-	 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
-		$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
-
-		$term_index = 0 ;
-		foreach ($form_state['values']['obseravory'] as $key => $value) {
-			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
-			$term_index++;
-		}
-
-		$term_index = 0 ;
-		foreach ($form_state['values']['topic'] as $key => $value) {
-			$node->field_ef_topic[LANGUAGE_NONE][$term_index]['tid'] = $value;
-			$term_index++;
-		}
-
-		$term_index = 0 ;
-		foreach ($form_state['values']['sector'] as $key => $value) {
-			$node->field_ef_sector[LANGUAGE_NONE][$term_index]['tid'] = $value;
-			$term_index++;
-		}
-		
-		if (isset($form_state['values']['deliver'])){
-			$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
-		}
-
-		if (isset($form_state['values']['service'])){
-			$node->field_ef_service_type['und'][]['tid'] = $form_state['values']['service'];
-		}
-
-		if (isset($form_state['values']['contract'])){
-			$node->field_ef_author_contract['und'][]['tid'] = $form_state['values']['contract'];
-		}
-
-		$node->status = 0;
-		$node->promote = 0;
-
-		$select = "SELECT b.name
-							 FROM countries_country b
-							 WHERE b.iso2 = :country";
-		$country_name = db_query($select,array(':country' => $country))->fetchAll();
-
-		$group = group_load_by_name($country_name[0]->name);
-		//$node = nc_contract($node,$group,$form_state['values']['contract']);
-
-
-		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
-		$dsm_title = $node->title;
-		$node = node_submit($node); // Prepare node for saving
-		
-		node_save($node);
-
-		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
-
-		drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
-		drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
-
-		workbench_moderation_moderate($node, "requested");
-   		field_attach_update('node', $node);
-   		$created_nc_nids[] = $node->nid; 
-
-		$contributionsIds[] = $node->nid;
-	}
-
 
 	$node = new stdClass();
 
@@ -468,6 +538,8 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	$node->uid = $user->uid;
 	$node->status = 0;
 	$node->promote = 0;
+
+
 	if (isset($form_state['values']['scheduled_record_delivery_date'])){
 		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
 		$node->field_ef_car_report_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
@@ -475,7 +547,62 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	if (isset($form_state['values']['national_contribution_deadline'])){
 		$node->field_ef_contribution_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
 	}
+	
 	$node->body['en'][0] = array('value' => $form_state['values']['body']['value'],'format' => $form_state['values']['body']['format']);
+
+	//Asociate Contract to CAR - 1- N/A
+	$term = taxonomy_get_term_by_name('1 - N/A', 'ef_contracts');
+	$term_contract = array_values($term)[0]->tid;
+	$node->field_ef_author_contract['und'][]['tid'] = $term_contract;
+
+	
+	//Asociate Country Gruop Eurofound to CAR
+	
+	$node->field_ef_assign_to_country_group['und'][]['target_id'] = $key_eurofound;
+	
+
+	$country_name = $key_eurofound;
+	$uid_leader = get_group_leader_uid($key_eurofound);
+
+	//Get country code
+
+	$list_count = country_get_list();
+	foreach ($list_count as $ckey => $cvalue) {
+		if ($cvalue == $country_name){
+			$country_code = $ckey;
+			break;		
+		}
+	}
+
+	$name = 'country_group_members';
+	$display_id = 'group_membership_entity_reference';
+
+	$membership_view_results = views_get_view_result($name, $display_id, array($key_eurofound));
+
+	foreach ($membership_view_results as $mkey => $object) {
+	    if ($object->group_membership_uid == $uid_leader){
+	    	$leader_mid = $object->mid;
+	    	break;
+	    }
+	}
+
+
+	$node->field_ef_assign_to_author['und'][]['target_id'] =$leader_mid;
+	$node->field_ef_assign_to_user['und'][]['target_id'] =$uid_leader;
+	$node->field_ef_country['und'][]['iso2']=$country_code;
+
+
+
+	if(isset($_SESSION['documents_car'])){
+				foreach ($_SESSION['documents_car'] as $file1) {
+					$file1->status = FILE_STATUS_PERMANENT;
+		    		// Save file status.
+		    		file_save($file1);
+		    		$file1->display = 1;
+		    		$file1->description = "";
+					$node->field_ef_source_documents[LANGUAGE_NONE][] = (array)$file1;
+				}	
+			}
 
 	$term_index = 0 ;
 	foreach ($form_state['values']['obseravory'] as $key => $value) {
@@ -645,8 +772,9 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
 function car_autocreation_deliver_select_ajax($form, &$form_state){
 	$deliver_id = $form_state['complete form']['deliver']['#value'];
 	$tax_term = taxonomy_term_load($deliver_id);
-	$service_list = array("");
-	
+	$service_list = array();
+	$service_list[0] = "N/A";
+
 	if (isset($tax_term->field_ef_service_type['und'][0]['tid'])){
 		$opt1 = taxonomy_term_load($tax_term->field_ef_service_type['und'][0]['tid']);
 		//$service_list = array($opt1->name);
@@ -654,16 +782,18 @@ function car_autocreation_deliver_select_ajax($form, &$form_state){
 	}else{
 		$service_list =array();
 	}
-
+	
 	if (isset($tax_term->field_ef_service_type['und'][1]['tid'])){
 		$opt2 = taxonomy_term_load($tax_term->field_ef_service_type['und'][1]['tid']);
 		//$service_list = array($opt1->name,$opt2->name);
 		$service_list[$tax_term->field_ef_service_type['und'][1]['tid']]=$opt2->name;
+	}else{
+
+		unset($service_list[0]);
 	}
-
 	
+	//$form['service']['#default_value'] ="Scheduled reporting service";
 	$form['service']['#options'] = $service_list;
-	return $form['service'];
-	
 
+	return $form['service'];
 }
