@@ -76,7 +76,7 @@
     var modalities = overallFunctions.buildModalityOptions(data);
     
     var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text('Group');
-    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'data');
 
     var options = select
       .selectAll('option')
@@ -91,7 +91,7 @@
   overallFunctions.createOrderingFilter = function() {
     var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
 
-    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
     var options = select
       .selectAll('option')
@@ -418,8 +418,8 @@
 
       overallFunctions.buildGraphStructure(data);
 
-      var modalityCode = overallFunctions.getParameterByName('modality-filter');
-      var order = overallFunctions.getParameterByName('sort-filter');
+      var modalityCode = overallFunctions.getParameterByName('data');
+      var order = overallFunctions.getParameterByName('sort');
 
       if (modalityCode == null) modalityCode = 1;
       if (order == null) order = 0;
@@ -539,7 +539,7 @@
 
       $('select').on('change', function () {
         var valOption = $(this).val();
-        var nameVar = $(this).attr('id');
+        var nameVar = $(this).attr('name');
 
         if (valOption) { 
           if(!document.location.search) {
