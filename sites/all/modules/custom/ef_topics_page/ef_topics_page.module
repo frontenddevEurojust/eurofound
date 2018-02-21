@@ -319,8 +319,3 @@ function ef_topics_page_entity_update($entity, $type) {
     $result = purge_urls($link);
   }
 }
-
-
-    function ef_topics_page_node_update() {
-
-    }
