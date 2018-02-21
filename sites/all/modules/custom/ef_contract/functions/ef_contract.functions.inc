@@ -573,12 +573,14 @@ function _populate_contracts_in_country_groups() {
 
 function get_default_deliverable_kind_by_ct($ct) {
   $vocabulary = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds');
-  if ($ct == 'ef_factsheet') {
-    $deliverable_kind = taxonomy_get_term_by_name('Provision of ERM factsheets', $vocabulary->vid);
-    return $deliverable_kind->tid;
+  $load_entity = TRUE;
+  $max_depth = NULL;
+  $parent = 0;
+  $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
+  foreach ($terms as $key => $term) {
+    if ($ct == 'ef_factsheet' && $term->name == 'Provision of ERM factsheets') {
+      return $term->tid;
+    }
   }
-  else {
-    return FALSE;
-  }
-
+  return;
 }

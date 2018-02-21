@@ -561,9 +561,9 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'effect' => 'fade',
     );
 
-    $form['field_ef_deliverable_kind']['und']['#value'] = get_default_deliverable_kind_by_ct($node->type);
+    $form['field_ef_deliverable_kind']['und']['#default_value'] = get_default_deliverable_kind_by_ct($type);
 
-    if (!empty($form['field_ef_deliverable_kind']['und']['#value'])) {
+    if (!empty($form['field_ef_deliverable_kind']['und']['#default_value'])) {
       $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
       $service_type = get_service_type($deliverable_kind_tid);
       if (isset($service_type) && !empty($service_type)) {
