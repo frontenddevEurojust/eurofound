@@ -585,7 +585,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     $form['field_ef_assign_to_country_group']['#prefix'] = '<div id=contract-form-wrapper>';
 
-    $form['field_ef_assign_to_author']['#suffix'] = '</div>';
+    $form['field_ef_service_type']['#suffix'] = '</div>';
     // end issue 3494 (see also Group Publishing definition)
     $assign_to_user_weight = $form['field_ef_assign_to_user']['#weight'];
     // Moderation State FORM
