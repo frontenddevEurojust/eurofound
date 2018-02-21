@@ -193,7 +193,7 @@
 		</div>
 
 		<div class="erm-reg-involved-actors large-4 columns">
-			<h5><?php print t("Involved actors"); ?></h5>
+			<h5><?php print t("Involved actors other than national government"); ?></h5>
 		  <?php if(isset($content['field_involved_actors_erm_reg'])): ?>
 		  	<?php print render($content['field_involved_actors_erm_reg']); ?>
 		  	<?php if(isset($content['field_involvement_other_erm_reg'])): ?>
@@ -224,6 +224,22 @@
 
 
 		<div class="erm-reg-thresholds large-4 columns">
+
+			<?php 
+				if( isset($content['field_company_size_erm_reg'] ) ){
+					$field_company_size_erm_reg=trim($content['field_company_size_erm_reg']["#object"]->field_company_size_erm_reg["und"][0]["value"]);
+					if ($field_company_size_erm_reg=="") {
+						unset($content["field_company_size_erm_reg"]);
+					}
+				}
+
+				if( isset($content['field_affected_employees_erm_reg']) ){
+					$field_affected_employees_erm_reg=trim($content["field_affected_employees_erm_reg"]["#object"]->field_affected_employees_erm_reg["und"][0]["value"]);
+					if ($field_affected_employees_erm_reg=="") {
+						unset($content["field_affected_employees_erm_reg"]);
+					}
+				}
+			 ?>
 
 			<?php if( isset($content['field_company_size_erm_reg']) && isset($content['field_affected_employees_erm_reg']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>

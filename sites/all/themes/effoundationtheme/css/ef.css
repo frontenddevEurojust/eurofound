@@ -182,7 +182,7 @@ a.popup-element-title.popup-title-active span:after,
 .light-style ul.quicktabs-tabs.quicktabs-style-basic a#quicktabs-tab-ef_block_latest_content-1:before,
 .surveys h2.pane-title:before,
 .page-index .view-ef-spotlight-on .view-content .item-list .views-field-nid:after,
-.node-ef-publication .field-name-field-ef-document .file a:after, 
+.node-ef-publication .field-name-field-ef-document .file a:after,
 .block-views-ef-countries-jump-block-block label:before,
 .pane-ef-latest-for-country-panel-pane-1 h2.pane-title:before,
 .country-specific-info .view-country:before,
@@ -422,8 +422,8 @@ nav .icon-ef_publications:before,
     content: "\f085";
     font-family: fontawesome;
 }
-.icon-ef_about_eurofound:before, 
-.icon-ef_about_us:before, 
+.icon-ef_about_eurofound:before,
+.icon-ef_about_us:before,
 .icon-ef_eurofound:before {
 	content: "\e614";
 }
@@ -1171,7 +1171,7 @@ height: 28px;
   /*display: flex;
   flex-wrap: wrap;	*/
   -webkit-column-count: 6;
-  -moz-column-count: 6; 
+  -moz-column-count: 6;
   column-count: 6;
 }
 .ef-navigation-menus #mini-panel-countries_mini_panel .countries-submenu-block ul > li > ul > li{
@@ -3377,13 +3377,14 @@ ul.quicktabs-tabs.quicktabs-style-basic{border:none;}
 	width: 20%;
 }
 .form-support-instruments  .views-widget-filter-field_funding_erm_si_tid{
-	width: 40%;
+	width: 50%;
 }
 .form-support-instruments  .views-widget-filter-field_ef_involvement_types_tid{
 	width: 40%;
 }
 .form-support-instruments  .views-widget-filter-field_ef_involved_actors_tax_tid{
 	width: 40%;
+	margin-left: 10%;
 }
 
 .form-support-instruments .views-field.views-field-edit-node.persist.essential > a{
@@ -7068,6 +7069,31 @@ html.js input.throbbing {
 	text-align: center;
 	display: block;
 }
+.img-float-right img, 
+img.img-float-right{
+	float: right !important;
+	margin:0px 0px 20px 20px !important;
+}
+.img-float-left img, 
+img.img-float-left{
+	float: left !important;
+	margin:0px 20px 20px 0px !important;
+}
+.img-no-float img, 
+img.img-no-float{
+	clear: both !important;
+	margin:20px 0px !important;
+  display: block !important;
+  float: none !important;
+}
+.img-center img, 
+img.img-center {
+	float: none !important;
+	clear:both !important;
+	margin:20px auto!important;
+	text-align:center !important;
+	display:block !important;
+}
 .source {
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
 	color: #666;
@@ -7500,7 +7526,7 @@ h1.parent_fome.title {
   background: #FFF url(../images/background-fome.png) no-repeat !important;
   background-size: 100% !important;
   padding: 24px 50px 30px 184px !important;
-  background-position-y: -10px !important;	
+  background-position-y: -10px !important;
 	border: none;
 	margin: -18px -0 40px 0;
 	-moz-box-shadow:none;
@@ -7520,7 +7546,7 @@ h1.parent_fome.title {
     margin-right: 15px;
     vertical-align: middle;
     letter-spacing: -0.03em;
-   
+
 }
 h1.parent_fome ~ span.print_pdf{
 	top: 10em;
@@ -9677,30 +9703,40 @@ background-image:none;
 	font-family: FontAwesome;
 	margin-right: 4px;
 }
-
-.page-erm-data-export .feed-icon > a{
+.view-erm-support-instruments .feed-icon{
+  width: auto;
+  float: right;
+  margin-top: 35px;
+}
+.page-erm-data-export .feed-icon > a, 
+.view-erm-support-instruments .feed-icon > a{
 	padding: 10px;
 }
-.page-erm-data-export .feed-icon > a:before{
+.page-erm-data-export .feed-icon > a:before, 
+.view-erm-support-instruments .feed-icon > a:before{
 	content: "\f019";
 	font-family: FontAwesome;
 	margin-right: 4px;
 	font-size: 1.5em;
 }
-.page-erm-data-export .feed-icon > a:after{
+.page-erm-data-export .feed-icon > a:after, 
+.view-erm-support-instruments .feed-icon > a:after{
 	font-size: 1.5em;
 	border: 1px solid;
 	padding: 4px;
 	font-weight: bold;
 	border-radius: 5px;
 }
-.page-erm-data-export .feed-icon > a:first-child:after{
+.page-erm-data-export .feed-icon > a:first-child:after, 
+.view-erm-support-instruments .feed-icon > a:first-child:after{
 	content: "CSV";
 }
-.page-erm-data-export .feed-icon > a:nth-child(2):after{
+.page-erm-data-export .feed-icon > a:nth-child(2):after, 
+.view-erm-support-instruments .feed-icon > a:nth-child(2):after{
 	content: "XLS";
 }
-.page-erm-data-export .feed-icon > a img{
+.page-erm-data-export .feed-icon > a img, 
+.view-erm-support-instruments .feed-icon > a img{
 	display: none;
 }
 .page-erm-data-export .view-footer{
@@ -13109,7 +13145,7 @@ p.view-empty.error-msg:before{
 
 #payment{
 	visibility: visible;
-	display: block; 
+	display: block;
 	opacity: 1;
 	margin-top:13em;
 	width:auto;
@@ -13143,7 +13179,7 @@ p.view-empty.error-msg:before{
 
 #alertLocation{
 	visibility: visible;
-	display: block; 
+	display: block;
 	opacity: 1;
 	margin-top:102em;
 	width:45%;
@@ -13248,15 +13284,15 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /*** VERTICAL CARD WITHOUT IMAGE***/
-.vcard p:empty, 
-.vcard-img p:empty, 
+.vcard p:empty,
+.vcard-img p:empty,
 .hcard-img p:empty{
 	display: none;
 }
 .data-explorer-center, .other-resources-center {
   /*display: flex;*/
 }
-.data-explorer-left, .data-explorer-center, .data-explorer-right, 
+.data-explorer-left, .data-explorer-center, .data-explorer-right,
 .other-resources-left, .other-resources-center, .other-resources-right{
 	min-height: 1vh;
 }
@@ -13272,13 +13308,13 @@ h4.title-tooltip-geolocation a:hover{
   text-overflow-multiline:ellipsis;
   position: relative;
 }
-.data-explorer-left .vcard, 
-.data-explorer-right .vcard, 
-.other-resources-left .vcard, 
+.data-explorer-left .vcard,
+.data-explorer-right .vcard,
+.other-resources-left .vcard,
 .other-resources-right .vcard{
   width: 100%;
 }
-.data-explorer-center .vcard, 
+.data-explorer-center .vcard,
 .other-resources-center .vcard{
   width: 49%;
 }
@@ -13398,7 +13434,7 @@ h4.title-tooltip-geolocation a:hover{
   text-overflow-multiline:ellipsis;
   position: relative;
 }
-.data-explorer-center .vcard-img, 
+.data-explorer-center .vcard-img,
 .other-resources-center .vcard-img{
   width: 49%;
   float: left;
@@ -13435,8 +13471,8 @@ h4.title-tooltip-geolocation a:hover{
 	background: #737fa1;
 }
 
-.vcard .pane-content h3 ~ p, 
-.vcard-img .pane-content h3 ~ p, 
+.vcard .pane-content h3 ~ p,
+.vcard-img .pane-content h3 ~ p,
 .hcard-img  .pane-content h3 ~ p{
   /*background: #F00 !important;*/
 }
@@ -13501,43 +13537,43 @@ h4.title-tooltip-geolocation a:hover{
 	opacity: 1;
 	background: #737fa1;
 }
-.data-explorer-left .hcard-img .media, 
-.other-resources-left  .hcard-img .media, 
-.data-explorer-right .hcard-img .media, 
+.data-explorer-left .hcard-img .media,
+.other-resources-left  .hcard-img .media,
+.data-explorer-right .hcard-img .media,
 .other-resources-right  .hcard-img .media{
   width: 100%;
   height: auto;
 }
 
-.data-explorer-left .hcard-img p, 
-.other-resources-left .hcard-img p, 
-.data-explorer-left .hcard-img h3, 
-.other-resources-left .hcard-img h3, 
-.data-explorer-right .hcard-img p, 
-.other-resources-right .hcard-img p, 
-.data-explorer-right .hcard-img h3, 
+.data-explorer-left .hcard-img p,
+.other-resources-left .hcard-img p,
+.data-explorer-left .hcard-img h3,
+.other-resources-left .hcard-img h3,
+.data-explorer-right .hcard-img p,
+.other-resources-right .hcard-img p,
+.data-explorer-right .hcard-img h3,
 .other-resources-right .hcard-img h3{
   width: 92%;
   height: auto;
 }
 
 
-.data-explorer-left .hcard-img h3, 
-.other-resources-left .hcard-img h3, 
-.data-explorer-right .hcard-img h3, 
+.data-explorer-left .hcard-img h3,
+.other-resources-left .hcard-img h3,
+.data-explorer-right .hcard-img h3,
 .other-resources-right .hcard-img h3{
 	margin: 11px 12px 0 !important;
 }
-.data-explorer-left .hcard-img p, 
-.other-resources-left .hcard-img p, 
-.data-explorer-right .hcard-img p, 
+.data-explorer-left .hcard-img p,
+.other-resources-left .hcard-img p,
+.data-explorer-right .hcard-img p,
 .other-resources-right .hcard-img p{
 	margin: 11px 12px !important;
 }
 
-.data-explorer-left .hcard-img p.see-more, 
+.data-explorer-left .hcard-img p.see-more,
 .other-resources-left .hcard-img p.see-more
-.data-explorer-right .hcard-img p.see-more, 
+.data-explorer-right .hcard-img p.see-more,
 .other-resources-right .hcard-img p.see-more {
   position: relative;
   margin: 0 !important;
@@ -13564,12 +13600,12 @@ h4.title-tooltip-geolocation a:hover{
   margin-right:3%;
 
 }
-.col-4x, 
+.col-4x,
 .full{
   width: 100% !important;
   display: flex;
 }
-.col-1x img, 
+.col-1x img,
 .col-2x img{
   width: 100%;
 }
@@ -13595,7 +13631,7 @@ h4.title-tooltip-geolocation a:hover{
   height: 210px;
 }
 
-.vcard.full .pane-content, 
+.vcard.full .pane-content,
 .vcard.full .pane-content img{
 	width: 100%;
 }
@@ -13657,7 +13693,7 @@ h4.title-tooltip-geolocation a:hover{
 	}
 
 	.vcard-img .pane-content{
-	  display: initial;		
+	  display: initial;
 	}
 	.vcard-img{
 		outline: 1px solid #CCC;
@@ -13679,7 +13715,7 @@ h4.title-tooltip-geolocation a:hover{
 		height: !important;
 		min-height: auto;
 		float: left;
-		/*clear: both;*/ 
+		/*clear: both;*/
 		margin-bottom: 15px !important;
 		overflow: hidden;
 	  text-overflow-multiline:ellipsis;
@@ -13725,7 +13761,7 @@ h4.title-tooltip-geolocation a:hover{
 		width: 100%;
 		float: none;
 	}
-	.data-explorer-center .vcard-img, 
+	.data-explorer-center .vcard-img,
 	.other-resources-center .vcard-img {
 	  width: 100%;
 	  float: left;
@@ -13786,6 +13822,23 @@ h4.title-tooltip-geolocation a:hover{
 /** end data and resources landing page **/
 
 
+/*View Restructuring related legislation change CSS to filters two lines and Node detail*/
+.view-id-erm_regulations .wrap-row-filters #edit-field-involved-actors-erm-reg-tid-selective-wrapper label{
+	text-align: left;
+	padding-bottom: 12px;
+}
+
+.view-id-erm_regulations .wrap-row-filters #edit-field-type-phase-erm-reg-tid-selective-wrapper label{
+	padding-bottom: 12px;
+}
+
+.view-id-erm_regulations .wrap-row-filters #edit-field-erm-fundings-erm-reg-tid-selective-wrapper label{
+	padding-bottom: 12px;
+}
+
+.node-ef-erm-regulation h5{
+	text-align: left;
+}
 /* Geolocation CSS backend - Two columns */
 
 .field-type-getlocations-fields fieldset .form-type-textfield{
@@ -13905,8 +13958,19 @@ h4.title-tooltip-geolocation a:hover{
   padding-left: 0;
 }
 
+.view-erm-regulations .wrap-row-filters:nth-child(2) label {
+    min-height: 36px;
+}
+
 /* View Factsheet filters */
 
 #edit-shs-term-node-tid-depth{
 	width: auto !important;
+
+}
+
+/*View quality ratings*/
+
+#ef-qrr-quality-rating > div > table.sticky-enabled.tableheader-processed.sticky-table > thead > tr > th:nth-child(9){
+	width: 400px;
 }

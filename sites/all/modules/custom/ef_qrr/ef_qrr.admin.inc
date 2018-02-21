@@ -40,7 +40,7 @@ function ef_qrr_ratings_table() {
 
    $info_icon = '<div class="qrr-info"><img src="/'.drupal_get_path('module', 'ef_qrr').'/images/info.png"></img></div>';
 
-   $header = array(array('data' => $hdr_checkbox), t('Title'), t('NID'),t('Type'), t('Author'), t('Revised by'), t('State'), t('Updated'), t('Rating').$info_icon);
+   $header = array(array('data' => $hdr_checkbox), t('Title'), t('NID'),t('Type'), t('Author'), t('Revised by'), t('State'), t('Updated'), t('Rating').$info_icon, t('Reviewer comments'));
 
    $nids = _ef_qrr_selected_nodes('rating');
 
@@ -52,15 +52,67 @@ function ef_qrr_ratings_table() {
       )
    );
 
+   $form_weight=0;
+   //Top Submit
+    $ratings_form['download_2'] = array(
+      '#id' => 'download',
+      '#type' => 'submit',
+      '#value' => t('Download report'),
+      '#weight' => $form_weight++,
+    );
+    
+     $ratings_form['bulk_2'] = array(
+        '#id' => 'bulk_rating',
+        '#type' => 'submit',
+        '#value' => t('Bulk rating'),
+        '#weight' => $form_weight++,
+     );
+     $ratings_form['update_2'] = array(
+        '#id' => 'update',
+        '#type' => 'submit',
+        '#value' => t('Update ratings'),
+        '#weight' => $form_weight++,
+     );
+
    foreach ($nids as $nid => $vid) {
+
+    ?>
+      <script>
+        window.addEventListener('load', 
+            function(){
+
+              jQuery("#show_coment_<?php echo $nid; ?>").change(function(){
+                jQuery("#hidden_nid_<?php echo $nid; ?>").val(jQuery("#show_coment_<?php echo $nid; ?>").val())
+                //console.log(jQuery("#show_coment_<?php echo $nid; ?>").val())
+              });
+
+            },
+             false )
+      </script>
+
+    
+    <?php
 
       $node = node_load($nid,$vid);
 
       $fieldset = _ef_qrr_rating_fieldset($node, false, false);
       $checkbox = array('#type' => 'checkbox', '#id' => 'select_'.$node->nid);
 
+      //Delete Reviewer Comment like Rating
+      unset($fieldset["qrr_rating_".$nid."_6"]);
+
+      $textfield = array(
+        '#type' => 'textarea',
+        '#value' =>  $node->qrr_comments, 
+        '#id' => 'show_coment_'.$node->nid,
+        '#attributes' => array (
+          'class' => array('reviewer_textarea'),
+        ),
+      );
+
       $ratings_form['table'][$fieldset['#id']] = &$fieldset;
       $ratings_form['table'][$checkbox['#id']] = &$checkbox;
+      $ratings_form['table'][$textfield['#id']] = &$textfield;
 
       $author = entity_load_single('user', array($node->uid));
       $reviewer = entity_load_single('user', array($node->workbench_moderation['current']->uid));
@@ -75,31 +127,38 @@ function ef_qrr_ratings_table() {
          'state' => _ef_qrr_moderation_state_label($node->workbench_moderation['current']->state),
          'changed' => format_date($node->changed, 'short'),
          'rating' => array('data' => &$fieldset),
+         'reviewer_comments' => array('data' => &$textfield),
       );
+
+      $ratings_form['table']['#weight']=$form_weight++;
 
       unset($fieldset);
       unset($checkbox);
+      unset($textfield);
    }
 
    $ratings_form['download'] = array(
       '#id' => 'download',
       '#type' => 'submit',
-      '#value' => t('Download report')
+      '#value' => t('Download report'),
+      '#weight' => $form_weight++
    );
 
    //link to pop up form
    $ratings_form['bulk'] = array(
       '#id' => 'bulk_rating',
       '#type' => 'submit',
-      '#value' => t('Bulk rating')
+      '#value' => t('Bulk rating'),
+      '#weight' => $form_weight++
    );
 
    $ratings_form['update'] = array(
       '#id' => 'update',
       '#type' => 'submit',
-      '#value' => t('Update ratings')
+      '#value' => t('Update ratings'),
+      '#weight' => $form_weight++
    );
-
+   
    $ratings_form['allnodes'] = array(
       '#id' => 'allnodes',
       '#type' => 'hidden',
@@ -110,6 +169,15 @@ function ef_qrr_ratings_table() {
 }
 
 function ef_qrr_quality_rating_validate($form, &$form_state) {
+  if (  $form_state['clicked_button']['#id'] != 'reset' ) {
+    foreach ( $form_state['values']['table'] as $rating ) {
+      if (strlen($rating["qrr_comments"]) > 999 ) {
+        $nid = $rating['nid'];
+        unset($form_state['values']['table']["qrr_rating_fs_".$nid]);
+        drupal_set_message(t("The comment exceeds 1000 characters - Nid: ".$nid), "error");
+      }
+    }
+  }
    return _ef_qrr_filter_form_validate($form, $form_state);
 }
 
@@ -137,8 +205,9 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
               $rated |= ($value != '-' && $value != 0 );
             }
           }
-          if ( $rated )
-          _ef_qrr_save_ratings( $nid, $user->uid, $ratings);
+          if ( $rated || $rating["qrr_comments"] != "" ){
+            _ef_qrr_save_ratings( $nid, $user->uid, $ratings, $rating["qrr_comments"]);            
+          }
         }
       }
 
@@ -158,6 +227,34 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
 
       if ( count($v['countries'] > 0 ) )
         $filters['countries'] = array_keys($v['countries']);
+
+
+      if ( $v['quality_of_contents'] != 'any'  ) {
+        $_SESSION['qrr_filters']['quality_of_contents']=$v['quality_of_contents'];
+        $filters['quality_of_contents'] = $v['quality_of_contents'];
+      }
+      if ( $v['balance_in_reporting'] != 'any'  ) { 
+        $_SESSION['qrr_filters']['field_stars_array']=$v['balance_in_reporting'];
+        $filters['balance_in_reporting'] = $v['balance_in_reporting'];
+      }
+      if ( $v['style_and_presentation'] != 'any'  ) { 
+        $_SESSION['qrr_filters']['field_stars_array']=$v['style_and_presentation'];
+        $filters['style_and_presentation'] = $v['style_and_presentation'];
+      }
+      if ( $v['excellent_command_of_english'] != 'any'  ) { 
+        $_SESSION['qrr_filters']['field_stars_array']=$v['excellent_command_of_english'];
+        $filters['excellent_command_of_english'] = $v['excellent_command_of_english'];
+      }
+      if ( $v['producto_specific_criteria'] != 'any'  ) { 
+        $_SESSION['qrr_filters']['field_stars_array']=$v['producto_specific_criteria'];
+        $filters['producto_specific_criteria'] = $v['producto_specific_criteria'];
+      }
+
+      if ( count($v['countries'] > 0 ) ){
+        $filters['countries'] = array_keys($v['countries']);
+      }
+
+
 
       $filters['date_from'] = $v['date_from'];
       // line added by Markel BM 09/12/2015
@@ -214,7 +311,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
 
       foreach ( $nids as $nid ) {
         $res = db_query(
-          "SELECT n.type, n.title, n.nid, u.name AS author, ".
+          "SELECT ur.name, n.type, n.title, n.nid, u.name AS author, ".
           "GROUP_CONCAT(DISTINCT ur.name SEPARATOR ',') AS raters, ".
           "GROUP_CONCAT(TRIM(rv.comments) SEPARATOR '|') AS reviewer_comments ".
           "FROM {qrr_revision} rv ".
@@ -313,6 +410,12 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
         $types = node_type_get_names();
         $ct_human_name = $types[$node->type];
 
+        if ($reviewer_comments!="") {
+          $format_rev_comment=ucfirst($rating_data["name"]) . ": " .$reviewer_comments;
+        }else{
+          $format_rev_comment="";
+        }
+
         $csvline = array(
           $ct_human_name,
           '"' . $node->title . '"',
@@ -326,7 +429,7 @@ function ef_qrr_quality_rating_submit($form, &$form_state) {
           '"' . format_date($delivery_date, 'short') . '"',
           '"' . format_date($revision_deadline, 'short') . '"',
           '"' . format_date($last_submitted, 'short') . '"',
-          '"' . $reviewer_comments . '"',
+          '"' . $format_rev_comment . '"',
         );
 
         unset($node);
@@ -1308,6 +1411,74 @@ function _ef_qrr_filter_form($form_id) {
       );
    }
 
+
+
+   
+   $stars_array = array(
+     '0' => t('Choose an option'),
+     '20' => t('1 Star'),
+     '40' => t('2 Stars'),
+     '60' => t('3 Stars'),
+     '80' => t('4 Stars'),
+     '100' => t('5 Stars')
+   );
+
+   $filter_form['container_filters']['quality_of_contents'] = array(
+       '#type' => 'select',
+       '#title' => t('Quality of contents'),
+       '#options' => $stars_array,
+       '#default_value' => $_SESSION['qrr_filters']['quality_of_contents'],
+       //'#multiple' => true,
+       '#attributes' => array(
+          'class' => array('chosen-widget'),
+       ),
+   );
+   $filter_form['container_filters']['balance_in_reporting'] = array(
+     '#type' => 'select',
+     '#title' => t('Balance in reporting'),
+     '#options' => $stars_array,
+     '#default_value' => $_SESSION['qrr_filters']['balance_in_reporting'],
+     //'#multiple' => true,
+     '#attributes' => array(
+        'class' => array('chosen-widget'),
+     ),
+   );
+   $filter_form['container_filters']['style_and_presentation'] = array(
+     '#type' => 'select',
+     '#title' => t('Style and presentation'),
+     '#options' => $stars_array,
+     '#default_value' => $_SESSION['qrr_filters']['style_and_presentation'],
+     //'#multiple' => true,
+     '#attributes' => array(
+        'class' => array('chosen-widget'),
+     ),
+   );
+   $filter_form['container_filters']['excellent_command_of_english'] = array(
+     '#type' => 'select',
+     '#title' => t('Excellent command of English'),
+     '#options' => $stars_array,
+     '#default_value' => $_SESSION['qrr_filters']['excellent_command_of_english'],
+     //'#multiple' => true,
+     '#attributes' => array(
+        'class' => array('chosen-widget'),
+     ),
+   );
+   $filter_form['container_filters']['producto_specific_criteria'] = array(
+     '#type' => 'select',
+     '#title' => t('Timely delivery and responsiveness'),
+     '#options' => $stars_array,
+     '#default_value' => $_SESSION['qrr_filters']['producto_specific_criteria'],
+     //'#multiple' => true,
+     '#attributes' => array(
+        'class' => array('chosen-widget'),
+     ),
+   );
+
+
+
+
+
+
    $filter_form['container_date'] = array(
       '#type' => 'container'
    );
@@ -1352,7 +1523,7 @@ function _ef_qrr_filter_form($form_id) {
 
    $filters = isset($_SESSION['qrr_filters']) ? $_SESSION['qrr_filters'] : array();
 
-   foreach ( array('title', 'states', 'countries', 'content_type', 'date_from', 'date_to') as $fname )
+   foreach ( array('title', 'states', 'countries', 'content_type', 'date_from', 'date_to', 'quality_of_contents', 'balance_in_reporting', 'style_and_presentation', 'excellent_command_of_english', 'producto_specific_criteria') as $fname )
       if ( isset($filters[$fname] ) )
          $filter_form[$fname]['#default_value'] = $filters[$fname];
 
@@ -1395,6 +1566,11 @@ function _ef_qrr_selected_nodes($mode, $pager = true) {
       ->condition('type', $allowed_types); // Redundant, also applied in _ef_qrr_apply_filters, but it doesn't hurt
 
    $query->leftJoin('workbench_moderation_node_history', 'wmnh', 'wmnh.nid = n.nid AND current=1');
+
+
+   //$query->leftJoin('qrr_revision', 'qrv', 'n.nid = qrv.nid');
+   //$query->join('qrr_rating', 'qrr', 'qrv.rid = qrr.rid');
+
    $query->fields('wmnh',array('state','vid'));
 
    if ( isset($_SESSION['qrr_filters']) )
@@ -1407,13 +1583,71 @@ function _ef_qrr_selected_nodes($mode, $pager = true) {
 
    $vid_results = $query
     ->execute()
-    ->fetchAll();
+    ->fetchAll(); 
 
    foreach ($vid_results as $key => $current) {
-      $nids[$current->nid] = $current->vid;
+      //Apply star filter
+      if (  ($_SESSION['qrr_filters']['quality_of_contents'])!=0 ||
+            ($_SESSION['qrr_filters']['balance_in_reporting'])!=0 ||
+            ($_SESSION['qrr_filters']['style_and_presentation'])!=0 ||
+            ($_SESSION['qrr_filters']['excellent_command_of_english'])!=0 ||
+            ($_SESSION['qrr_filters']['producto_specific_criteria'])!=0 ) {
+        //Get number of star filters apply*/
+        global $user;
+        $n_filters=0;
+        $query_node_star="";
+        $ini_query_node_star="SELECT * FROM qrr_rating qrrr LEFT JOIN qrr_revision qrrv ON qrrr.rid = qrrv.rid WHERE qrrv.uid = $user->uid AND qrrv.nid = ".$current->nid." AND ";
+        //Quality of contents - riid=1
+          if (count($_SESSION['qrr_filters']['quality_of_contents']) AND $_SESSION['qrr_filters']['quality_of_contents']!=0) {
+            $n_filters++;
+            $query_node_star.=$ini_query_node_star;
+            $query_node_star.='(qrrr.riid = 1 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['quality_of_contents']).") UNION ";
+          }
+        //Balance in reporting - riid=2
+          if (count($_SESSION['qrr_filters']['balance_in_reporting']) AND $_SESSION['qrr_filters']['balance_in_reporting']!=0) {
+            $n_filters++;
+            $query_node_star.=$ini_query_node_star;
+            $query_node_star.='(qrrr.riid = 2 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['balance_in_reporting']).") UNION ";
+          }    
+        //Style and presentation - riid=3
+          if (count($_SESSION['qrr_filters']['style_and_presentation']) AND $_SESSION['qrr_filters']['style_and_presentation']!=0) {
+            $n_filters++;
+            $query_node_star.=$ini_query_node_star;
+            $query_node_star.='(qrrr.riid = 3 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['style_and_presentation']).") UNION ";
+          }
+        //Excellent command of English - riid=4
+          if (count($_SESSION['qrr_filters']['excellent_command_of_english']) AND $_SESSION['qrr_filters']['excellent_command_of_english']!=0) {
+            $n_filters++;
+            $query_node_star.=$ini_query_node_star;
+            $query_node_star.='(qrrr.riid = 4 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['excellent_command_of_english']).") UNION ";
+          }
+        //Timely delivery and responsiveness criteria - riid=5
+          if (count($_SESSION['qrr_filters']['producto_specific_criteria']) AND $_SESSION['qrr_filters']['producto_specific_criteria']!=0) {
+            $n_filters++;
+            $query_node_star.=$ini_query_node_star;
+            $query_node_star.='(qrrr.riid = 5 AND qrrr.rating = '.strval($_SESSION['qrr_filters']['producto_specific_criteria']).") UNION ";
+          }
+
+
+        $query_node_star=substr($query_node_star, 0, -6);
+
+        $result_node_star = db_query($query_node_star);
+        $count_node_star=$result_node_star->rowCount();
+
+        if ($count_node_star == $n_filters) {
+          $nids[$current->nid] = $current->vid; 
+        }
+
+      }else{
+        $nids[$current->nid] = $current->vid;
+      }
    }
 
    return $nids;
+
+}
+
+function ef_qrr_after_filter(){
 
 }
 
@@ -1428,6 +1662,7 @@ function _ef_qrr_apply_filters(&$query, $filters) {
 
    if ( count($filters['content_type']) )
       $query->condition('n.type', $filters['content_type']);
+
 
    if ( !module_exists('date_popup')) {
       $date_from = $filters['date_from']['year'].'-'.$filters['date_from']['month'].'-'.$filters['date_from']['day'];

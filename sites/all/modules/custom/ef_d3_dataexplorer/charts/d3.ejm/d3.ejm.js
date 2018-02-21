@@ -74,9 +74,8 @@
       }
 
       if (country == 'NL' || country == 'SK') {
-        console.log(country);
         periodFilter.selectAll("option")
-          .property("disabled", function(d){ console.log(d); return d === "2011-2013" || d === "2011-2016"});
+          .property("disabled", function(d){ return d === "2011-2013" || d === "2011-2016"});
       } 
       else {
         periodFilter.selectAll("option")
@@ -132,12 +131,12 @@
         // space in between each set
         barSpacing = (.35 * chart.w) / rows.length,
 
-        x = d3.scale.linear().domain([0,rows.length]).range([0,chart.w]),
-        barY = d3.scale.linear().domain([0,range]).range([chart.h, 0]),
-        y = d3.scale.linear().domain([min,max]).range([chart.h, 0]),
-        barYStacked = d3.scale.linear().domain([0,rangeStacked]).range([chart.h, 0]),
-        yStacked = d3.scale.linear().domain([minStacked,maxStacked]).range([chart.h, 0]),
-        z = d3.scale.ordinal().range(settings.colors[breakdown]),
+        x = d3.scaleLinear().domain([0,rows.length]).range([0,chart.w]),
+        barY = d3.scaleLinear().domain([0,range]).range([chart.h, 0]),
+        y = d3.scaleLinear().domain([min,max]).range([chart.h, 0]),
+        barYStacked = d3.scaleLinear().domain([0,rangeStacked]).range([chart.h, 0]),
+        yStacked = d3.scaleLinear().domain([minStacked,maxStacked]).range([chart.h, 0]),
+        z = d3.scaleOrdinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
       breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("") ;
@@ -145,30 +144,28 @@
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion.toLowerCase());
 
-      //console.log('#' + div);
+      tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
       /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h + 90)
         .append("g")
-        .attr("transform", "translate(" + p[4] + "," + p[3] + ")");
-
-
+        .attr("transform", "translate(" + p[4] + "," + p[3] + ")")
+        .call(tip);
+      
       /* INITIAL SVG TRANSITION */
       svg.transition()
-          .each("start", function() { d3.select(this).style("opacity", 0); })
+          .on("start", function() { d3.select(this).style("opacity", 0); })
           .duration(850)
           .style("opacity", 1);
 
       /* GREY BACKGROUND */
-      
       svg.append("rect")
         .attr("width", chart.w)
         .attr("height",chart.h)
         .attr("y",0)
         .attr("fill", "#F9F9F9");
-
 
       svg.append("line")
         .attr("y2", chart.h)
@@ -258,9 +255,11 @@
           .attr('x', function (d,i) { return 25; })
           .attr('y', function (d,i) { d = Number(d); if (i == 0) {accp = accn = 0}; if (d >= 0) { accp = accp + d; return yStacked(accp);} else { accn = accn - Math.abs(d); return yStacked(Math.abs(d)) + chart.h - barYStacked(Math.abs(accn));}})
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
-          .on('mouseover', function(d, i) { showToolTip(d, i, this); })
-          .on('mouseout', function(d, i) { hideToolTip(d, i, this); });
-      }
+          .on('mouseover', function(d, i) {
+            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
+            //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          })
+          .on('mouseout', tip.hide);      }
       else {
         var bar = graph.selectAll('g.bars')
           .data(rows)
@@ -276,8 +275,12 @@
           .attr('x', function (d,i) { return i * barWidth + 25; })
           .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)) ; })
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
-          .on('mouseover', function(d, i) { showToolTip(d, i, this); })
-          .on('mouseout', function(d, i) { hideToolTip(d, i, this); });
+          .on('mouseover', function(d, i) {
+            //tip.show(breakdownColumns[i][0] + " " + d);
+            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
+            //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          })
+          .on('mouseout', tip.hide);
       }
 
       /* LEGEND */
@@ -370,46 +373,6 @@
         $.each(footNote, function(key, value) {
           divFootnotes.append("p").text(value);
         });
-      }
-    
-      function showToolTip(d, i, obj) {
-        // Change color and style of the bar.
-        var bar = d3.select(obj);
-        bar.attr('stroke', '#ccc')
-          .attr('stroke-width', '1')
-          .attr('fill', '#f16000');
-
-        var group = d3.select(obj.parentNode);
-        
-        if (stacked) {
-          var tooltip = graph.append('g')
-            .attr('class', 'tooltip-ejm')
-            // move to the x position of the parent group
-            .attr('transform', function(data) { return group.attr('transform'); })
-              .append('g')
-            // now move to the actual x and y of the bar within that group
-            .attr('transform', function(data) { return 'translate(' + (Number(bar.attr('x') - (barWidthStacked / 2)) + barWidthStacked-1.5) + ',' + Number(bar.attr('y')) + ')'; });
-        }
-        else {
-          var tooltip = graph.append('g')
-            .attr('class', 'tooltip-ejm')
-            // move to the x position of the parent group
-            .attr('transform', function(data) { return group.attr('transform'); })
-              .append('g')
-            // now move to the actual x and y of the bar within that group
-            .attr('transform', function(data) { d < 0 ? tooltipY = 0 : tooltipY = d; return 'translate(' + (Number(bar.attr('x') - (barWidth / 2)) + barWidth) + ',' + y(tooltipY) + ')'; });
-        }
-
-        d3.tooltip(tooltip, d, breakdownColumns, i, w);
-      }
-
-      function hideToolTip(d, i, obj) {
-        var group = d3.select(obj.parentNode);
-        var bar = d3.select(obj);
-        bar.attr('stroke-width', '0')
-          .attr('fill', function(d) { return d3.rgb(z(i)); })
-
-        graph.select('g.tooltip-ejm').remove();
       }
 
       function getColumnValues(json, breakdownColumns, datagrid) {

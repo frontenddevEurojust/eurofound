@@ -143,3 +143,22 @@ function ef_qrr_update_7100() {
 function ef_qrr_update_7120() {
    db_drop_table('qrr_attachment');
 }
+
+function ef_qrr_update_7200() {
+   db_update('qrr_rating_item')
+    ->fields(array(
+      'name' => "Timely delivery and responsiveness"
+    ))
+    ->condition('riid', "5", '=')
+    ->execute();
+}
+
+function ef_qrr_update_7201() {
+  db_change_field('qrr_revision', 'comments', 'comments', array(
+      'description' => 'Reviewer comments',
+      'type' => 'varchar',
+      'length' => '1000',
+      'not null' => FALSE,
+    ), array()
+  );
+}

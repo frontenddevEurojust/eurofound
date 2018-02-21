@@ -205,7 +205,35 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
     $form['#submit'][] = 'erm_regulation_user_session_variable_saving_function';
 
   }
-  
+  if ($form['#id'] == 'views-exposed-form-erm-regulations-page') {
+    $types_array = $form['field_type_phase_erm_reg_tid_selective']['#options'];
+    $types_with_opt = array();
+
+    foreach ($types_array as $key => $value) {
+       $parent = taxonomy_get_parents($key);
+
+       //20871 tid for management
+       //20864 tid for anticipation
+       if($parent[20871]->name == 'Management'){
+        $types_with_opt['Management'][$key] = $value;
+       }else if($parent[20864]->name == 'Anticipation'){
+        $types_with_opt['Anticipation'][$key] =  $value;
+       }else{
+        $types_with_opt['Not Found'][$key] =  $value;
+       }
+    }
+    $form['field_type_phase_erm_reg_tid_selective']['#options'] = $types_with_opt;
+  }  
+  if ($form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-admin-view' && count($form['field_type_erm_si_tid_selective']['#options']) > 0 ) {
+    foreach ($form['field_type_erm_si_tid_selective']['#options'] as $key => $value) {
+      $parents=taxonomy_get_parents($key);
+      foreach ($parents as $parent) {
+        $id_parent=$parent;
+      }
+      $form['field_type_erm_si_tid_selective']['#options'][$id_parent->name][$key]=$value;
+      unset($form['field_type_erm_si_tid_selective']['#options'][$key]);
+    }
+  }
 }
 
 /**
