@@ -22,6 +22,9 @@ function ef_customised_forms_views_pre_render(&$view){
 function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   global $user;
 
+  //Autocomplete input 100%
+  	drupal_add_css('.form-autocomplete { width: 100% !important; }', 'inline');
+
 	//Prevent Old token error in search forms
 	if ($form_id == 'views_exposed_form' ) {
 		unset($form['#token']);
