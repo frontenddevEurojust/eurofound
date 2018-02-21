@@ -118,6 +118,42 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
   }
 
+  if (isset($form["field_ef_topic"])) {
+    array_unshift($form["#submit"], "_ef_topics_page_update_last_modified_date_term");
+    dpm($form);
+  }
+}
+
+function _ef_topics_page_update_last_modified_date_term($form, &$form_state, $form_id){
+    $start_topics_node=$form['field_ef_topic']['und']['#default_value'];
+    $end_topics_node=array();
+    $new_topics=array();
+
+    foreach ($form_state["values"]["field_ef_topic"]["und"] as $value) {
+        $end_topics_node[]=$value["tid"]; 
+    }
+
+    $new_topics = array_diff($end_topics_node, $start_topics_node);
+    
+    if (count($new_topics) > 0) {
+        foreach ($new_topics as $topic) {
+            $term = taxonomy_term_load($topic);
+            if($term->vocabulary_machine_name == 'ef_topics'){
+                if($form_state["values"]["workbench_moderation_state_new"]=="published"){
+                    $date_publish_node = strtotime("now");//
+                }else{
+                    $date_publish_node = $form["#node"]->published_at;
+                }
+
+                $date_last_update_term=$term->field_term_last_updated['und'][0]['value'];
+
+                if ($date_publish_node > $date_last_update_term) {
+                    $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
+                    taxonomy_term_save($term);
+                }
+            }
+        }
+    }
 }
 
 function _update_topics_tab($tid, $content_type_name, $page){
@@ -283,3 +319,8 @@ function ef_topics_page_entity_update($entity, $type) {
     $result = purge_urls($link);
   }
 }
+
+
+    function ef_topics_page_node_update() {
+
+    }
