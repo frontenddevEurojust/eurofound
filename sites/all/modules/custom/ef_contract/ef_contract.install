@@ -39,6 +39,7 @@ function ef_contract_update_7001() {
 
   //And these are the terms we need to save
   $service_types = array(
+    'N/A',
     'Scheduled reporting service',
     'On-request reporting service',
   );
@@ -54,10 +55,11 @@ function ef_contract_update_7001() {
 
 	//And we need to add the new deliverable kinds
 	$new_deliverable_kinds = array(
+    "N/A" => '',
 		"Country update on latest developments in working life" => $service_type_tids[0],
 		"Contribution to topical updates" => $service_type_tids[0],
-		"Contribution to EurWORK'S annual review of working life"  => $service_type_tids[0],
-		"EurWORK'S Working life country profile - update" => $service_type_tids[0],
+		"Contribution to EurWORK’s annual review of working life"  => $service_type_tids[0],
+		"EurWORK’s Working life country profile - update" => $service_type_tids[0],
 		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update" => $service_type_tids[0],
 		"Update of a database of national contacts" => $service_type_tids[0],
 		"Annual Progress Report" => $service_type_tids[0],

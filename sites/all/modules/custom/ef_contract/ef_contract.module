@@ -524,7 +524,6 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     /*
     ** Form items definition
     */
-    $form['field_ef_author_contract']['#prefix'] = '<div id=contract-form-wrapper>';
 
     $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
 
@@ -583,6 +582,8 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'method' => 'replace',
       'effect' => 'fade',
     );
+
+    $form['field_ef_assign_to_country_group']['#prefix'] = '<div id=contract-form-wrapper>';
 
     $form['field_ef_assign_to_author']['#suffix'] = '</div>';
     // end issue 3494 (see also Group Publishing definition)
@@ -782,11 +783,10 @@ function ajax_assign_to_country_group_callback(&$form, &$form_state) {
   if ($contract->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
     $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
   }
-
   if (!is_null($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
   }
-  
+
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
 
