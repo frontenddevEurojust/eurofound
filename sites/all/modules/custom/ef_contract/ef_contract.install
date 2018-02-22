@@ -13,3 +13,219 @@ function ef_contract_install() {
     ->condition('name', 'ef_contract', '=')
     ->execute();
 }
+
+/**
+ * Implements hook_update_N()
+ *
+ * Performs all the needed changes for the new NEC framework
+ */
+function ef_contract_update_7001() {
+	//First, we need to create a new vocabulary
+	//for the Service Types with the following settings.
+  $service_types = array(
+    'name' => 'Service types',
+    'machine_name' => 'ef_service_types',
+    'description' => 'Service types for contracts',
+    'hierarchy' => 0,
+    'module' => 'ef_contract',
+  );
+  //Array to object
+  $vocabulary = (object) $service_types;
+  //Save object as a new vocabulary
+  taxonomy_vocabulary_save($vocabulary);
+
+  //Then we need the Vocabulary ID to save the new terms
+  $st_taxonomy = taxonomy_vocabulary_machine_name_load('ef_service_types');
+
+  //And these are the terms we need to save
+  $service_types = array(
+    'N/A',
+    'Scheduled reporting service',
+    'On-request reporting service',
+  );
+
+  //Using taxonomy_term_save
+  foreach ($service_types as $key => $value) {
+  	$term = new stdClass();
+  	$term->name = $value;
+  	$term->vid = $st_taxonomy->vid;
+  	taxonomy_term_save($term);
+    $service_type_tids[] = $term->tid;
+  }
+
+	//And we need to add the new deliverable kinds
+	$new_deliverable_kinds = array(
+    "N/A" => '',
+		"Country update on latest developments in working life" => $service_type_tids[0],
+		"Contribution to topical updates" => $service_type_tids[0],
+		"Contribution to EurWORK’s annual review of working life"  => $service_type_tids[0],
+		"EurWORK’s Working life country profile - update" => $service_type_tids[0],
+		"EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update" => $service_type_tids[0],
+		"Update of a database of national contacts" => $service_type_tids[0],
+		"Annual Progress Report" => $service_type_tids[0],
+		"Questionnaire based national contribution to comparative work" => 'both',
+		"Questionnaire based national contribution to sectoral representativeness studies" => 'both',
+		"Provision of ERM factsheets" => $service_type_tids[1],
+		"ERM database on support instruments - 1 instrument update" => $service_type_tids[1],
+		"ERM database on restructuring related legislation - 1 regulation update" => $service_type_tids[1],
+		"Update of the link collection of the national media sources used for identifying restructuring events" => $service_type_tids[1],
+		"On-demand service" => $service_type_tids[1],
+	);
+
+	//Using taxonomy_term_save again 
+  foreach ($new_deliverable_kinds as $key => $value) {
+   	$term = new stdClass();
+  	$term->name = $key;
+  	$term->vid = 53;
+    $term->name_field['und'][0]['value'] = $key;
+    $term->field_ef_nec_period['und'][0]['value'] = '2018 - 2022';
+    if ($value[1] == 'both') {
+      $term->field_ef_service_type['und'][0]['tid'] = $service_type_tids[0];
+      $term->field_ef_service_type['und'][1]['tid'] = $service_type_tids[1];
+    }
+    else {
+      $term->field_ef_service_type['und'][0]['tid'] = $value;
+    }
+  	taxonomy_term_save($term);
+  }
+
+  //And we need to add the new contracts
+  $new_contracts = array(
+    '18-3030-00' => array('1 - N/A', ''),
+    '18-3030-01' => array('Network of correspondents - Austria', 'AT'),
+    '18-3030-02' => array('Network of correspondents - Belgium', 'BE'),
+    '18-3030-03' => array('Network of correspondents - Bulgaria', 'BG'),
+    '18-3030-04' => array('Network of correspondents - Croatia', 'HR'),
+    '18-3030-05' => array('Network of correspondents - Cyprus', 'CY'),
+    '18-3030-06' => array('Network of correspondents - Czech Republic', 'CZ'),
+    '18-3030-07' => array('Network of correspondents - Denmark', 'DK'),
+    '18-3030-08' => array('Network of correspondents - Estonia', 'EE'),
+    '18-3030-09' => array('Network of correspondents - Finland', 'FI'),
+    '18-3030-10' => array('Network of correspondents - France', 'FR'),
+    '18-3030-11' => array('Network of correspondents - Germany', 'DE'),
+    '18-3030-12' => array('Network of correspondents - Greece', 'GR'),
+    '18-3030-13' => array('Network of correspondents - Hungary', 'HU'),
+    '18-3030-14' => array('Network of correspondents - Ireland', 'IE'),
+    '18-3030-15' => array('Network of correspondents - Italy', 'IT'),
+    '18-3030-16' => array('Network of correspondents - Latvia', 'LV'),
+    '18-3030-17' => array('Network of correspondents - Lithuania', 'LT'),
+    '18-3030-18' => array('Network of correspondents - Luxembourg', 'LU'),
+    '18-3030-19' => array('Network of correspondents - Malta', 'MT'),
+    '18-3030-20' => array('Network of correspondents - the Netherlands', 'NL'),
+    '18-3030-21' => array('Network of correspondents - Poland', 'PL'),
+    '18-3030-22' => array('Network of correspondents - Portugal', 'PT'),
+    '18-3030-23' => array('Network of correspondents - Romania', 'RO'),
+    '18-3030-24' => array('Network of correspondents - Slovakia', 'SK'),
+    '18-3030-25' => array('Network of correspondents - Slovenia', 'SI'),
+    '18-3030-26' => array('Network of correspondents - Spain', 'ES'),
+    '18-3030-27' => array('Network of correspondents - Sweden', 'SE'),
+    '18-3030-28' => array('Network of correspondents - UK', 'GB'),
+  );
+
+  //Using taxonomy_term_save again 
+  foreach ($new_contracts as $key => $value) {
+    $term = new stdClass();
+    $term->name = $value[0];
+    $term->vid = 51;
+    $term->field_ef_contract_number['und'][0]['value'] = $key;
+    $term->field_ef_nec_period['und'][0]['value'] = '2018 - 2022';
+    $term->name_field['und'][0]['value'] = $value[0];
+    $term->field_ef_eu_related_countries['und'][0]['iso2'] = $value[1];
+    taxonomy_term_save($term);
+  }
+
+  $schema['ef_contract_affected_cts'] = array(
+    'description' => t('Table to store content types affected by NEC'),
+    'fields' => array(
+      'ctid' => array(
+        'description' => 'ID of the content type',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'machine_name' => array(
+        'description' => 'Machine name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Human name of the Content Type',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'enabled' => array(
+        'description' => 'Boolean, true (1) if the Content Type is managed under NEC',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'ctid' => array('ctid'),
+    ),
+    'primary key' => array('ctid'),
+  );
+  
+  db_create_table('ef_contract_affected_cts', $schema['ef_contract_affected_cts']);
+
+
+  $enabled_cts = array(
+    'ef_report',
+    'ef_comparative_analytical_report',
+    'ef_national_contribution',
+    'ef_ic_quarterly_report',
+    'ef_input_to_erm',
+    'ef_case_study',
+    'erm_support_instrument',
+    'ef_erm_regulation',
+    'ef_restructuring_in_smes',
+    'ef_factsheet',
+    'ef_ir_dictionary',
+    'ef_annual_progress_report',
+    'ef_network_quarterly_report',
+    'case_study_publication',
+    'ef_working_life_country_profiles',
+  );
+
+  $cts = node_type_get_types();
+
+  foreach($cts as $key => $ct) {
+    $query = db_insert('ef_contract_affected_cts');
+    $query->fields(
+      array(
+        'machine_name' => $ct->type,
+        'name' => $ct->name,
+        'enabled' => in_array($key, $enabled_cts) ? 1 : 0,
+      )
+    );
+
+    $query->execute();
+  }
+}
+
+/**
+ * Implements hook_update_N()
+ *
+ * Complete the taxonomies, create tables to save the administration settings and define variables for new NEC framework
+ */
+function ef_contract_update_7002() {
+  //This is needed to add a NEC period value to previously existing
+  //taxonomy terms.
+  _populate_nec_period_old_terms();
+  //This is needed to add a NEC period value to previously existing
+  //taxonomy terms.
+  _populate_contracts_in_country_groups();
+}
+
+function hook_update_dependencies() {
+  // Indicate that the 7002() function provided by this module
+  // must run after the 7001() function provided by the other module.
+  $dependencies['ef_contract'][7002] = array(
+    'ef_show_contract_numbers_in_contract_fields' => 7001,
+  );
+
+  return $dependencies;
+}

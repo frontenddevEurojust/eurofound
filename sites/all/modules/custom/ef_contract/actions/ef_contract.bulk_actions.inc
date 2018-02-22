@@ -9,7 +9,6 @@ include 'functions/auxiliar_functions.inc';
  * Implements hook_action_info().
  */
 function ef_contract_action_info() {
-
   // UPDATE COUNTRY GROUP AND CONTRACT
   $actions['ef_contract_update_country_group_and_contract'] = array(
     'type' => 'node',
@@ -20,7 +19,6 @@ function ef_contract_action_info() {
     'vbo_configurable' => FALSE,
     'pass rows' => TRUE,
   );
-
   // UPDATE old contracts with real values (Authors and contracts)
   $actions['ef_contract_upload_contract'] = array(
     'type' => 'node', // Here come's the name of your custom entity type
@@ -31,7 +29,6 @@ function ef_contract_action_info() {
     'vbo_configurable' => FALSE,
     'pass rows' => TRUE,
   );
-
   // UPDATE old contracts with N/A contract
   $actions['ef_contract_upload_NA_contract'] = array(
     'type' => 'node', // Here come's the name of your custom entity type
@@ -42,7 +39,6 @@ function ef_contract_action_info() {
     'vbo_configurable' => FALSE,
     'pass rows' => TRUE,
   );
-
   // Change EF Article, CAR/REP,NC,IR Dictionary status
   // from Approved for Editing to On external Editing
   $actions['ef_editor_to_ee'] = array(
@@ -65,10 +61,9 @@ function ef_contract_action_info() {
     'pass rows' => TRUE,
   );
 
-
   return $actions;
-
 }
+
 function empty_network($entity,$context){
 
 
@@ -93,6 +88,7 @@ function empty_network($entity,$context){
   }
   entity_save('node', $entity);
 }
+
 function ef_editor_to_ee($entity,$context){
 
   if($entity->workbench_moderation['current']->state == 'approved_for_editing'){
@@ -192,11 +188,9 @@ function ef_contract_upload_contract($entity, $context) {
 
 }
 
-
 function ef_contract_upload_NA_contract($entity, $context){
 
   $country_name = get_country_name_by_content_type($entity);
-  dpm($country_name);
 
   // COUNTRY GROUP ASSIGNED
   $gid = get_gid_by_country_group_name($country_name);
@@ -208,32 +202,15 @@ function ef_contract_upload_NA_contract($entity, $context){
   $contract_tid = get_assigned_contract($gid, $entity->type);
 
   if (isset($entity->workbench_moderation['current']->state)) {
-
     $current_state = $entity->workbench_moderation['current']->state;
     $assigned_user = get_assign_to_user_by_default($current_state, $gid, $inputs = null, $entity);
-
-      if (isset($assigned_user)) {
-
-        // NEW CONTRACT assignation
-        //$entity->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
-        //$entity->field_ef_assign_to_author['und'][0]['target_id'] = $mid;
-        //$entity->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
-        // NEW ASSIGN TO USER
-        //$entity->field_ef_assign_to_user['und'][0]['target_id'] = $assigned_user;
-
-        //avoid_unique_changed_date($entity);
-
-        //field_attach_update('node', $entity);
-
-        $node_url = url(drupal_get_path_alias('node/'. $entity->nid),array('absolute' => TRUE));
-        drupal_set_message(l($entity->type . ', ' . $entity->title . ' NID: ' . $entity->nid, $node_url));
-
-      } else {
-        $message = 'Missing Assigned User. Revise node nid = '.$entity->nid. ' and "by default functions")';
-        drupal_set_message(t($message), $type = 'warning');
-      }
-
+    if (isset($assigned_user)) {
+      $node_url = url(drupal_get_path_alias('node/'. $entity->nid),array('absolute' => TRUE));
+      drupal_set_message(l($entity->type . ', ' . $entity->title . ' NID: ' . $entity->nid, $node_url));
+    }
+    else {
+      $message = 'Missing Assigned User. Revise node nid = '.$entity->nid. ' and "by default functions")';
+      drupal_set_message(t($message), $type = 'warning');
+    }
   }
-
 }
-
