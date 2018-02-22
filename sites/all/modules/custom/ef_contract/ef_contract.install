@@ -19,7 +19,7 @@ function ef_contract_install() {
  *
  * Performs all the needed changes for the new NEC framework
  */
-function ef_contract_update_7001() {
+function ef_contract_update_7002() {
 	//First, we need to create a new vocabulary
 	//for the Service Types with the following settings.
   $service_types = array(
@@ -204,28 +204,4 @@ function ef_contract_update_7001() {
 
     $query->execute();
   }
-}
-
-/**
- * Implements hook_update_N()
- *
- * Complete the taxonomies, create tables to save the administration settings and define variables for new NEC framework
- */
-function ef_contract_update_7002() {
-  //This is needed to add a NEC period value to previously existing
-  //taxonomy terms.
-  _populate_nec_period_old_terms();
-  //This is needed to add a NEC period value to previously existing
-  //taxonomy terms.
-  _populate_contracts_in_country_groups();
-}
-
-function hook_update_dependencies() {
-  // Indicate that the 7002() function provided by this module
-  // must run after the 7001() function provided by the other module.
-  $dependencies['ef_contract'][7002] = array(
-    'ef_show_contract_numbers_in_contract_fields' => 7001,
-  );
-
-  return $dependencies;
 }

@@ -563,6 +563,11 @@ function _populate_contracts_in_country_groups() {
           entity_save('group', $group);
           break;
         }
+        if ($group->title == 'Eurofound' && strpos($contract->name, 'N/A')) {
+          $group->field_ef_contracts['und'][0]['tid'] = $contract->tid;
+          entity_save('group', $group);
+          break;
+        }
       }
     }
     if ($coincidence === FALSE) {
