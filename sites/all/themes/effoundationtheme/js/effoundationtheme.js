@@ -1262,16 +1262,19 @@ $(document).ready(function(){
       var pathname_form=form_pages[form_pages.length-1];
 
 
-      if($('.pane-ef-key-topics-home') || pathname_form == 'topic'){
+      if($('.pane-ef-key-topics-home') || pathname_form == 'topic' || $('.view-key-topics-landing-page')){
 
         var importantKeyTopics = '<div class="important-key-topics-group"></div>';
         var notImportantKeyTopics = '<div class="not-important-key-topics-group"></div>';
+        
         $( ".view-id-ef_key_topics_home .view-content").prepend(notImportantKeyTopics);
         $( ".view-id-ef_key_topics_home .view-content").prepend(importantKeyTopics);
-
+        $( ".view-key-topics-landing-page .view-content").prepend(notImportantKeyTopics);
+        $( ".view-key-topics-landing-page .view-content").prepend(importantKeyTopics);
 
         $('.key-topics-list p.not-important-key-topics').parent().appendTo($('.not-important-key-topics-group'));
         $('.key-topics-list p.important-key-topics').parent().appendTo($('.important-key-topics-group'));
+
 
 
       };
