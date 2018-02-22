@@ -741,6 +741,15 @@ function ajax_contract_callback($form, &$form_state) {
     $form['field_ef_deliverable_kind']['und']['#options'] = $deliverable_kinds;
     $form['field_ef_deliverable_kind']['und']['#value'] = '';
   }
+
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
+
+  $deliverable_kind_default = get_default_deliverable_kind_by_ct($form['#entity']->type);
+  if (!empty($deliverable_kind_default) && $context == 1) {
+    $form['field_ef_deliverable_kind']['und']['#value'] = $deliverable_kind_default;
+    $form_state['input']['field_ef_deliverable_kind']['und'] = $deliverable_kind_default;
+  }
   
   $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
   $service_type = get_service_type($deliverable_kind_tid);
