@@ -561,7 +561,11 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'effect' => 'fade',
     );
 
-    $form['field_ef_deliverable_kind']['und']['#default_value'] = get_default_deliverable_kind_by_ct($type);
+    $deliverable_kind_default = get_default_deliverable_kind_by_ct($type);
+
+    if (empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default)) {
+      $form['field_ef_deliverable_kind']['und']['#default_value'] = $deliverable_kind_default;
+    }
 
     if (!empty($form['field_ef_deliverable_kind']['und']['#default_value'])) {
       $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
@@ -803,11 +807,10 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
 } 
 
 function ajax_assign_to_country_group_callback(&$form, &$form_state) {
-  $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
+  $country_gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
   if (!is_null($form['nid']['#value'])) {
     $nid = $form['nid']['#value'];
   }
-
   $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
   $service_type = get_service_type($deliverable_kind_tid);
   if (isset($service_type) && !empty($service_type)) {
@@ -821,14 +824,8 @@ function ajax_assign_to_country_group_callback(&$form, &$form_state) {
     }
   }
 
-  $contract = taxonomy_term_load($form_state['input']['field_ef_author_contract']['und']);
-  if ($contract->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-    $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
-  }
-  if (!is_null($form['nid']['#value'])) {
-    $nid = $form['nid']['#value'];
-  }
-
+  $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+  
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
 
@@ -873,11 +870,11 @@ function ajax_moderation_state_callback(&$form, $form_state){
 
   // Define $gid, if it's a group defined previously $node->group
   // if not, it should be on $form_state variable
-  if(isset($node->group)){
-    $gid = $node->group;
+  if(isset($node->group)) {
+    $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
   }
   elseif (isset($form_state['input']['field_ef_assign_to_country_group']['und'])) {
-    $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
+    $gid = $node->group;
   }
 
   // UPDATE Assign_to_user form
