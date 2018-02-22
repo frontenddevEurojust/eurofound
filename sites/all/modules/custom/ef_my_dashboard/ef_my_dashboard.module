@@ -78,7 +78,7 @@ function template_preprocess_ef_my_dashboard(&$variables){
                   'national-contributions-export' => 'National Contribution export',
                   'national-correspondents' => 'National Correspondents',
                   'car-nc-autocreation' => 'CAR and National Contribution autocreation',
-                  'articles-autocreation' => ' EF Artitcle autocreation'
+                  'articles-autocreation' => ' EF Article autocreation'
                   ),
                 'Quarterly Reports' => array(
                   'quarterly-reports' => 'Quarterly reports',

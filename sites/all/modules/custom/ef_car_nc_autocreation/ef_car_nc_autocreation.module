@@ -63,8 +63,6 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	$vid_deliver = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds')->vid;
 	$del_tree = taxonomy_get_tree($vid_deliver);
 
-
-
 	foreach ($del_tree as $key => $value) {
 		$tax_term = taxonomy_term_load($value->tid);
 		
@@ -121,6 +119,10 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	$countriesList2 = array_diff($countriesList2, ["Eurofound", "Overview Report" , "EU level"]);
 	$countriesList2[$key_eu] = "EU level";
 
+	$result  = db_query('select c.iso2,name from {field_data_field_ef_eu_member} m inner join {countries_country} c on c.cid=m.entity_id');
+	foreach ($result as $record) {
+	  $countriesList[$record->iso2] = $record->name;
+	}
 
 	$form['title'] = array(
 	 '#title' => t('Title'),
@@ -249,7 +251,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 
 	$form['source_documents'] = array(
   	'#type' => 'file',
-  	'#title' => t('Source_documents'),
+  	'#title' => t('Source documents'),
   );
 
   $form['upload'] = array(
@@ -404,11 +406,13 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 		}	
 	}
 
+	$contributionsIds=array();
 	
 	foreach ($form_state['values']['country2'] as $key => $value) {
 
 		if($value != 0){ 
-			
+			$countryName = db_query('select name FROM {countries_country} WHERE iso2 = :code', array(':code' => $country))->fetchField();
+		
 			$node = new stdClass();
 			$node->language = "en";
 			$node->title = $groups[$key]->title.": ".$form_state['values']['title'];
@@ -444,13 +448,17 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 			$node->language = "en";
 			node_object_prepare($node);
 			$node->uid = $user->uid;
-			
+			$node->field_ef_country['und'][]['iso2']=$country;
 			//asign the node to the group leader
 			$node->field_ef_assign_to_author['und'][]['target_id'] =$leader_mid;
 			$node->field_ef_assign_to_user['und'][]['target_id'] =$uid_leader;
 			$node->field_ef_country['und'][]['iso2']=$country_code;
 			
-		 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
+
+			//Dates
+		 	$node->field_ef_report_delivery_date['und'][]['value']=date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']['date']));
+		 	
+
 			$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
 			$node->field_ef_author_contract['und'][]['tid'] =  $groups[$key]->field_ef_contract['und'][0]['tid'];
 			$node->field_ef_assign_to_country_group['und'][]['target_id'] = $groups[$key]->gid;
@@ -499,14 +507,12 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 			$node->promote = 0;
 
 			$select = "SELECT b.name
-								 FROM countries_country b
-								 WHERE b.iso2 = :country";
+							 FROM countries_country b
+							 WHERE b.iso2 = :country";
 			$country_name = db_query($select,array(':country' => $country))->fetchAll();
 
 			$group = group_load_by_name($country_name[0]->name);
-			//$node = nc_contract($node,$group,$form_state['values']['contract']);
-
-
+			
 			$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
 			$dsm_title = $node->title;
 			$node = node_submit($node); // Prepare node for saving
@@ -527,8 +533,6 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	}
 	/* --- end --- */
 
-	$contributionsIds=array();
-
 	$node = new stdClass();
 
 	$node->language = "en";
@@ -538,16 +542,15 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 	$node->uid = $user->uid;
 	$node->status = 0;
 	$node->promote = 0;
-
-
+	
 	if (isset($form_state['values']['scheduled_record_delivery_date'])){
-		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
-		$node->field_ef_car_report_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']));
+		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']['date']));
+		$node->field_ef_car_report_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']['date']));
 	}
 	if (isset($form_state['values']['national_contribution_deadline'])){
-		$node->field_ef_contribution_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']));
+		$node->field_ef_contribution_deadline['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['national_contribution_deadline']['date']));
 	}
-	
+
 	$node->body['en'][0] = array('value' => $form_state['values']['body']['value'],'format' => $form_state['values']['body']['format']);
 
 	//Asociate Contract to CAR - 1- N/A
@@ -622,18 +625,19 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 		$term_index++;
 	}
 
+	$dk_na = taxonomy_get_term_by_name('N/A', 'ef_deliverable_kinds');
+	$deriverable_na = array_values($dk_na)[0]->tid;
+
 	if (isset($form_state['values']['deliver'])){
-		$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
+		$node->field_ef_deliverable_kind['und'][]['tid'] = $deriverable_na;
 	}
+
+	$service = taxonomy_get_term_by_name('N/A', 'ef_service_types');
+	$service_na = array_values($service)[0]->tid;
 
 	if (isset($form_state['values']['service'])){
-			$node->field_ef_service_type['und'][]['tid'] = $form_state['values']['service'];
-		}
-
-	if (isset($form_state['values']['contract'])){
-		$node->field_ef_author_contract['und'][]['tid'] = $form_state['values']['contract'];
+			$node->field_ef_service_type['und'][]['tid'] = $service_na;
 	}
-
 
 	$node = node_submit($node); // Prepare node for saving
 
