@@ -63,6 +63,8 @@ function removeTag(element, nid){
 
 		{
             jQuery('#' + nid + '-' + element.innerHTML).remove();
+            jQuery(".success-msg").hide();
+            jQuery('.form-item-add-new-contributor input').after('<span class="success-msg" style="background-color:red;">Author deleted.<a href="javascript:" class="success-msg-close" style="color: white;"><i class="fa fa-times" aria-hidden="true"></i></a></span>');
 		}
 
 	});
