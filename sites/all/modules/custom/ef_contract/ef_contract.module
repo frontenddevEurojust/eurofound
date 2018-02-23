@@ -563,7 +563,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     $deliverable_kind_default = get_default_deliverable_kind_by_ct($type);
 
-    if ((empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default)) || $context == 1) {
+    if (empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default) && $context == 1) {
       $form['field_ef_deliverable_kind']['und']['#default_value'] = $deliverable_kind_default;
     }
 

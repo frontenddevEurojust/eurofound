@@ -11,7 +11,7 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
     show_contract_numbers_in_selects($form, 'field_ef_contracts');
   }
 
-  if ($form_id == 'user_register_form' && in_array('OSU', $user->roles)) {
+  if (($form_id == 'user_register_form' || $form['#form_id'] == 'user_profile_form') && in_array('OSU', $user->roles)) {
     $country_group_roles = array('Country Group Leader', 'Country Group Member',);
     $form['field_ef_notification_settings']['und']['#default_value'] = 1;
     $form['field_ef_notification_settings']['#type'] = 'hidden';
@@ -22,10 +22,16 @@ function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_s
       '#collapsible' => FALSE, 
       '#collapsed' => FALSE,
     );
+
+    $author_groups = $form['#user']->uid == 0 ? array() : get_groups_by_author($form['#user']->uid);
+
     $form['country']['ef_country_group'] = array(
       '#type' => 'select',
       '#title' => t('Country Group'),
       '#options' => get_country_groups(),
+      '#chosen' => TRUE,
+      '#multiple' => TRUE,
+      '#default_value' => $author_groups,
     );
 
     $group_roles = group_type_load('country_group')->getRoles(FALSE);
@@ -89,8 +95,18 @@ function osu_new_author_register_submit($form, &$form_state) {
   );
 
   if (isset($form_state['values']['uid']) && isset($form_state['values']['ef_country_group'])) {
-    $group = group_load(intval($form_state['values']['ef_country_group']));
-    $group->addMember($form_state['values']['uid'], $values);
+    $author_groups = $form['#user']->uid == 0 ? array() : get_groups_by_author($form['#user']->uid);
+    $author_groups_to_remove = array_diff($author_groups, $form_state['values']['ef_country_group']);
+    foreach ($form_state['values']['ef_country_group'] as $key => $value) {
+      if (!in_array($value, $author_groups)) {
+        $group = group_load(intval($value));
+        $group->addMember($form_state['values']['uid'], $values);
+      }
+    }
+    foreach ($author_groups_to_remove as $key => $group) {
+      $group = group_load(intval($group));
+      $group->removeMember($form['#user']->uid);
+    }
   }
 }
 
@@ -100,4 +116,20 @@ function ef_show_contract_numbers_in_contract_fields_module_implements_alter(&$i
     unset($implementations['ef_show_contract_numbers_in_contract_fields']);
     $implementations['ef_show_contract_numbers_in_contract_fields'] = $group;
   }
+}
+
+function get_groups_by_author($uid) {
+  $groups = array();
+
+  $sql = db_select('group_membership', 'gm');
+  $sql->fields('gm', array('gid'));
+  $sql->condition('gm.uid', $uid, '=');
+
+  $results = $sql->execute()->fetchAll();
+
+  foreach ($results as $key => $value) {
+    $groups[] = $value->gid;
+  }
+
+  return $groups;
 }
