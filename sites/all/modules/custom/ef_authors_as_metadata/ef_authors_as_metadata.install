@@ -1,0 +1,74 @@
+<?php
+	/*
+	** Issue: WGS-256.
+	** Add the correct name
+	*/
+	function ef_publications_ct_update_7103(){
+		$vocabulary = taxonomy_vocabulary_machine_name_load('ef_publication_contributors ');
+		$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+		foreach ($terms as $term) {
+			if (!isset($term->name_field['und'][0]['value'])) {
+				$term->name_field['und'][0]['value']=$term->name;	
+				taxonomy_term_save($term);
+			}
+		}
+	}
+	/*
+	** Issue: WGS-256.
+	** Change the order of the first and last name
+	*/
+	function ef_publications_ct_update_7104(){
+		$vocabulary = taxonomy_vocabulary_machine_name_load('ef_publication_contributors ');
+		$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+		foreach ($terms as $term) {
+			if (isset($term->name_field['und'][0]['value'])) {
+
+				$nam=explode(',',$term->name_field['und'][0]['value']);
+				$fullname=$term->name_field['und'][0]['value'];
+
+				if (count($nam) == 2) {
+					$firstname=trim($nam[1]);
+					$lastname=trim($nam[0]);
+
+					$long_name= explode(" ", $firstname);
+
+					if (count($long_name)==1) {
+						$fullname=$firstname." ".$lastname;
+						//drupal_set_message("The new name: ".$term->name_field['und'][0]['value']." --- ".$fullname);
+					}else{
+						preg_match('#\((.*?)\)#', $firstname, $match);
+						if ( count($match[1]) > 0 ){ 
+							$fullname=str_replace($match, "", $firstname)." ".$lastname." (".$match[1].")";
+							//drupal_set_message("The name has more names than one (has parentheses): ".$term->name_field['und'][0]['value']." --- ".$fullname);
+						}else{
+							$fullname=$firstname." ".$lastname;
+							//drupal_set_message("The name has more names than one (no parentheses): ".$term->name_field['und'][0]['value']." --- ".$fullname);
+						}					
+					}
+				}elseif (count($nam) == 1) {
+					//drupal_set_message("The same name: ".$term->name_field['und'][0]['value']);
+				}else{
+					if ($term->name_field['und'][0]['value']=="Lloyd, Caroline (SKOPE, Warwick Business School)") {
+						$fullname="Caroline Lloyd (SKOPE, Warwick Business School)";
+						//drupal_set_message("Exception handling: ".$term->name_field['und'][0]['value']." --- ".$fullname);
+					}else{
+						drupal_set_message("Exception: ".$term->name_field['und'][0]['value']);
+					}
+				}
+				$term->name_field['und'][0]['value']=$fullname;	
+				$term->name=$fullname;	
+				$term->name_orginal=$fullname;
+
+				if (isset($term->name_field['en'][0]['value'])) {
+					$term->name_field['en'][0]['value']=$fullname;
+				}	
+
+				taxonomy_term_save($term);
+
+			}else{
+				drupal_set_message("No se ha encontrado el nombre en el tid: ".$term->tid);
+			}
+		}
+	} 
+
+?>
