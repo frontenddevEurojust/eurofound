@@ -215,36 +215,27 @@ function articles_autocreation_form($form, &$form_state) {
   	);
  
 	
-  	if (isset($_SESSION['source_documents']) && !empty($_SESSION['source_documents'])) {
+  	
+	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
+		$form['file_list'] = array(
+				'#prefix' => '<div id="file-list-wrapper">',
+				'#suffix' => '</div>',
+				'#theme' => 'table',
+				'#header' => $header,
+			);
 
-  		$form['file_list'] = array(
-			'#prefix' => '<div id="file-list-wrapper">',
-			'#suffix' => '</div>',
-			'#theme' => 'table',
-			'#header' => $header,
-		);
-
- 	 	foreach ($_SESSION['source_documents'] as $key => $value) {
- 	 		
- 	 	/*	$remove_button = array(
-  			'#name' => 'remove_' . $key,
-  			'#type' => 'submit',
-  			'#value' => t('Remove'),
-  			'#submit' => array('remove_article_file_by_id'),
-  			'#attributes' => array('file-id' => $key),
-  		);
-		*/
-		$remove_button = $form['remove_'.$key];
-	  	$form['file_list']['#rows'][$key] = array(
-  			'file' => $value['name'],
-  			'user' => $user->name,
-  			'submitted' => date("d F Y"),
-  			'actions' => array('data' => &$remove_button),
-  		);
-  		$form['remove_' . $key] = &$remove_button;
-  		unset($remove_button);
-  		}
-
+	 	foreach ($_SESSION['source_documents'] as $key => $value) {
+	 		$remove_button = $form['remove_'.$key];
+		  	$form['file_list']['#rows'][$key] = array(
+	  			'file' => $value['name'],
+	  			'user' => $user->name,
+	  			'submitted' => date("d F Y"),
+	  			'actions' => array('data' => &$remove_button),
+	  		);
+	  		$form['file_list']['remove_' . $key] = &$remove_button;
+	  		unset($remove_button);
+	  	}
+	  	
 	}
   	else {
   		$form['file_list'] = array(
@@ -252,11 +243,17 @@ function articles_autocreation_form($form, &$form_state) {
 			'#suffix' => '</div>',
 			'#theme' => 'table',
 			'#header' => $header,
-    	'#rows' => $rows,
-    	'#empty' => 'No files attached',
+    		'#rows' => $rows,
+    		'#empty' => 'No files attached',
     	);
+    	$form['file_list']['#rows']['0'] = array(
+	  			'file' => 'No file',
+	  			'user' => '',
+	  			'submitted' => '',
+	  			'actions' => '',
+	  	);
   	}
-  
+
 	/* --- Attached files (bilbomatica) --- */
 	$form['#attached']['js'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.js';
 	$form['#attached']['css'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.css';
@@ -277,7 +274,48 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	//   txt, pdf, doc, docx, xls, xlsx, ppt, pptx
 	//   10 MB.
 	// File validation
+	global $user;
+	//dpm($form_state);
+	//dpm($_SESSION);
 	
+	//validate if both arrays form state and session have the same elements
+	if (count($form_state['complete form']['file_list']['#rows']) > count($_SESSION['source_documents'])){
+
+		foreach ($form_state['complete form']['file_list']['#rows'] as $key => $value) {
+			if ($value['file']!=$_SESSION['source_documents'][$key]['name']){
+				unset ($form_state['complete form']['file_list']['#rows'][$key]);
+				break;
+			}
+		}
+	}
+	
+	if(count($form_state['complete form']['file_list']['#rows']) < count($_SESSION['source_documents'])){
+		unset($form_state['complete form']['file_list']['#rows']);
+		unset($form['file_list']['#rows']);
+		foreach ($_SESSION['source_documents'] as $key => $value) {
+			$remove_button = $form['remove_'.$key];
+	 	  	$form['file_list']['#rows'][$key] = array(
+	  			'file' => $value['name'],
+	  			'user' => $user->name,
+	  			'submitted' => date("d F Y"),
+	  			'actions' => array('data' => $remove_button),
+	  		);
+	  		$form['file_list']['remove_' . $key] = &$remove_button;
+
+			$form_state['complete form']['file_list']['#rows'][$key] = array(
+	  			'file' => $value['name'],
+	  			'user' => $user->name,
+	  			'submitted' => date("d F Y"),
+	  			'actions' => array('data' => $remove_button),
+	  		);
+	  		$form_state['complete form']['file_list']['remove_' . $key] = &$remove_button;
+
+	  		unset($remove_button);
+	  	}
+
+	}
+
+
 	if(!isset($form_state['clicked_button']['#attributes']['file-id']) && $form_state['clicked_button']['#value']=='Submit'){
 		//Is not the remove button
 		
@@ -318,8 +356,12 @@ function articles_autocreation_form_validate($form, &$form_state) {
 function remove_article_file_by_id($form, &$form_state){
 	global $user;
 	$key = $form_state['clicked_button']['#attributes']['file-id'];
+	
 	unset($_SESSION['source_documents'][$key]);
 	unset($_SESSION['documents'][$key]);
+	unset($form_state['file_list']['#rows'][$key]);
+	unset($form['file_list']['#rows'][$key]);
+	
 	$_SESSION['source_documents'] = array_values($_SESSION['source_documents']);
 	$_SESSION['documents'] = array_values($_SESSION['documents']);
 	
