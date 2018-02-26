@@ -841,16 +841,33 @@ function ajax_assign_to_country_group_callback(&$form, &$form_state) {
     }
   }
 
-  $nec = variable_get('ef_contract_enabled_contracting_period');
-  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
-  if ($context == 1 || $form_state['input']['field_ef_author_contract']['und'] == '_none') {
-    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
-    $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
-  }
-  
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
   $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
 
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
+  if ($nec == 1 && $form_state['input']['field_ef_author_contract']['und'] == '_none') {
+    $context = 1;
+  }
+  if ($context == 1) {
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+    $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+  }
+  else {
+    $author_user = get_user_by_mid($form['field_ef_assign_to_author']['und']['#value']);
+    $contracts = get_contract_by_user_and_gid($author_user, $country_gid);
+    foreach ($contracts as $key => $contract) {
+      if (strrpos($form['field_ef_author_contract']['und']['#value'], 'request')) {
+        if (strrpos($contract, 'request')) {
+          $form['field_ef_author_contract']['und']['#value'] = $key;
+        }
+      }
+      else {
+        $form['field_ef_author_contract']['und']['#value'] = $key;
+      }
+    }
+  }
+  
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
   $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
