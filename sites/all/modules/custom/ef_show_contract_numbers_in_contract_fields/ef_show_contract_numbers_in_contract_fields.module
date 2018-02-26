@@ -75,6 +75,8 @@ function show_contract_numbers_in_selects(&$form, $field_name) {
 function osu_new_author_register_submit($form, &$form_state) {
   global $user;
 
+  $overthrow = FALSE;
+
   if ($form_state['values']['ef_country_group_roles'] == 'country_group_member') {
     $role = array(
       'country_group_member' => 'country_group_member',
@@ -99,8 +101,12 @@ function osu_new_author_register_submit($form, &$form_state) {
     $author_groups_to_remove = array_diff($author_groups, $form_state['values']['ef_country_group']);
     foreach ($form_state['values']['ef_country_group'] as $key => $value) {
       if (!in_array($value, $author_groups)) {
-        $group = group_load(intval($value));
-        $group->addMember($form_state['values']['uid'], $values);
+        $gid = intval($value);
+        $uid = $form_state['values']['uid'];
+        $group = group_load($gid);
+        if (!group_membership_load($gid, $uid)) {
+          $group->addMember($uid, $values);
+        }
       }
     }
     foreach ($author_groups_to_remove as $key => $group) {
