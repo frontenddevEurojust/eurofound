@@ -87,7 +87,7 @@ function get_assign_to_author_options_by_gid($gid){
   return $options;
 }
 
-function get_assign_to_author_value_by_nid($nid = NULL, $assign_to_author_options) {
+function get_assign_to_author_value_by_nid($nid = NULL, $assign_to_author_options, $gid = NULL) {
   if (isset($nid)) {
     $query = db_select('field_revision_field_ef_assign_to_author', 'ata');
     $query->fields('ata', array('revision_id', 'field_ef_assign_to_author_target_id'));
@@ -103,7 +103,12 @@ function get_assign_to_author_value_by_nid($nid = NULL, $assign_to_author_option
       return $value->field_ef_assign_to_author_target_id;
     }
   }
-  
+
+  if (isset($gid)) {
+    $leader = get_leader_mid_by_gid($gid);
+    return $leader;
+  }
+
   return $options[0];
 }
 
