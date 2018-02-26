@@ -403,11 +403,11 @@ function get_deliverable_kinds($context = NULL) {
   foreach ($terms as $key => $term) {
     $parent = taxonomy_term_load($term->parents[0]);
     if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-      $deliverable_kinds['NEC 2018-2022'][$term->tid] = $term->name;
+      $deliverable_kinds['NEC 2018-2022'][$term->tid] = $term->name_field['und'][0]['value'];
     }
     else {
       if (isset($parent->name) && $context != 1) {
-        $deliverable_kinds['NEC 2014-2018'][$term->tid] = $parent->name . ' - ' . $term->name;
+        $deliverable_kinds['NEC 2014-2018'][$term->tid] = $parent->name . ' - ' . $term->name_field['und'][0]['value'];
       }
     }
   }
@@ -422,19 +422,19 @@ function get_contracts($context = NULL) {
   foreach ($terms as $tid => $term) {
     if ($context == 'old') {
       if (empty($term->field_ef_nec_period['und'][0]['value']) || $term->field_ef_nec_period['und'][0]['value'] == '2014 - 2018') {
-        $contracts[$term->tid] = $term->name;
+        $contracts[$term->tid] = $term->name_field['und'][0]['value'];
       }
     }
     else{
       if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022' && $context == 1) {
-        $contracts['NEC 2018-2022'][$term->tid] = $term->name;
+        $contracts['NEC 2018-2022'][$term->tid] = $term->name_field['und'][0]['value'];
       }
       else {
         if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
-          $contracts['NEC 2018-2022'][$term->tid] = $term->name;
+          $contracts['NEC 2018-2022'][$term->tid] = $term->name_field['und'][0]['value'];
         }
         elseif ($context != 1) {
-          $contracts['NEC 2014-2018'][$term->tid] = $term->name;
+          $contracts['NEC 2014-2018'][$term->tid] = $term->name_field['und'][0]['value'];
         }
       }
     }
@@ -537,7 +537,7 @@ function get_default_deliverable_kind_by_ct($ct) {
   $parent = 0;
   $terms = taxonomy_get_tree($vocabulary->vid, $parent, $max_depth, $load_entity);
   foreach ($terms as $key => $term) {
-    if ($ct == 'ef_factsheet' && $term->name == 'Provision of ERM factsheets') {
+    if ($ct == 'ef_factsheet' && $term->name_field['und'][0]['value'] == 'Provision of ERM factsheets') {
       return $term->tid;
     }
   }
