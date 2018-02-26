@@ -25,3 +25,7 @@
 #remove-back{
 	display: none;
 }
+
+table #remove-back{
+	display: block!important;
+}
