@@ -563,7 +563,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     $deliverable_kind_default = get_default_deliverable_kind_by_ct($type);
 
-    if (empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default) && $context == 1) {
+    if ((empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default) && $context == 1) || (empty($form['#node']->title) && $context == 1)) {
       $form['field_ef_deliverable_kind']['und']['#default_value'] = $deliverable_kind_default;
     }
 
@@ -729,6 +729,9 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 }
 // end CREATE/EDIT FORM
 
+function ef_contract_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+
+}
 
 function ajax_contract_callback($form, &$form_state) {
   $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
@@ -770,7 +773,7 @@ function ajax_contract_callback($form, &$form_state) {
 
   $form['field_ef_assign_to_country_group']['und']['#value'] = $country_gid;
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
-  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
+  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
   
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
@@ -805,7 +808,7 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
   }
   
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
-  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
+  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
 
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
@@ -845,7 +848,7 @@ function ajax_assign_to_country_group_callback(&$form, &$form_state) {
   }
   
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
-  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid));
+  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
 
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
