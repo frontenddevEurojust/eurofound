@@ -806,9 +806,10 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
       }
     }
   }
-  
   $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
-  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
+  if (!isset($form['field_ef_assign_to_author']['und']['#value'])) {
+    $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
+  }
 
   $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
   $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
