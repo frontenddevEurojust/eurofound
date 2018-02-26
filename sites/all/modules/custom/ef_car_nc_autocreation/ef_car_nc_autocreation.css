@@ -29,3 +29,20 @@
 table #remove-back{
 	display: block!important;
 }
+
+#edit-addallbutton{
+	clear: both;
+	display: block;
+	float: left;
+}
+
+#edit-quitallbutton{
+	display: block;
+    float: left;
+    margin-left: 1em;
+}
+
+.form-item-deliver{
+	clear: both;
+}
+
