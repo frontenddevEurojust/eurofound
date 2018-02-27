@@ -1532,3 +1532,25 @@ $(document).ready(function(){
 
 /** End Restructuring support instruments admin view */
 
+
+/* Show field Region filter when select Country */
+(function ($) {
+  $(document).ready(function(){
+
+    $("#edit-field-nuts-csp-tid-wrapper").hide()
+
+    $("#edit-field-country-csp-tid-selective-wrapper").change(function() {
+      $("#edit-field-nuts-csp-tid-wrapper").show();
+
+      if($("#edit-field-country-csp-tid-selective").val() == null ) {
+        $("#edit-field-nuts-csp-tid-wrapper").hide()
+      } 
+
+    });
+
+
+
+  });
+})(jQuery);
+
+

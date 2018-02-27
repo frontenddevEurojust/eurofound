@@ -17,16 +17,6 @@
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <?php if(!in_array('anonymous user', $user->roles) && isset($node->field_relation_identifier_csp['und'][0]['value'])): ?>
-        <ul class="cs-go-to-original">
-            <li>
-                <a href="<?php print $base_url; ?>/node/<?php print $node->field_relation_identifier_csp['und'][0]['value']; ?>">
-                    <?php print t('Go to original content'); ?>
-                </a>
-            </li>
-        </ul>
-    <?php endif; ?>
-
     <?php if(in_array('anonymous user', $user->roles)): ?>
         <div class="back-erm-list-button-div">
             <?php if($_SERVER['HTTP_REFERER'] != ''): ?>
@@ -43,6 +33,7 @@
             <div class="large-3-offset-9 columns text-right">
                 <i class="fa fa-calendar"></i>
                 <?php
+                    dpm($node);
                     $date = date('d M, Y', $node->published_at);
                     print $date;
                 ?>
@@ -141,6 +132,13 @@
                 <img alt="" src="<?php print $base_url; ?>/sites/default/files/pdfpreview/<?php print $fid; ?>-<?php print $img_name; ?>"
                 	typeof="foaf:Image">
             </a>
+        </div>
+        <div class="field field-name-field-ef-document">
+            <span class="file">
+                <a href="<?php print $base_url; ?>/sites/default/files/ef_publication/field_ef_document/<?php print $file_name; ?>">
+                    <?= $file_name; ?>
+                </a>
+            </span>
         </div>
         <div class="summary_body case-study-body">
             <?php $lang = $language->language; ?>
