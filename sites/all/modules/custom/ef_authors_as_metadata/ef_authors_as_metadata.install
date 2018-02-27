@@ -56,8 +56,8 @@
 					}
 				}
 				$term->name_field['und'][0]['value']=$fullname;	
-				$term->name=$fullname;	
-				$term->name_orginal=$fullname;
+				//$term->name=$fullname;	
+				//$term->name_orginal=$fullname;
 
 				if (isset($term->name_field['en'][0]['value'])) {
 					$term->name_field['en'][0]['value']=$fullname;
