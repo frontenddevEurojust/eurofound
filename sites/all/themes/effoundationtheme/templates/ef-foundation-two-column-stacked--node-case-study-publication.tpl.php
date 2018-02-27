@@ -33,8 +33,7 @@
             <div class="large-3-offset-9 columns text-right">
                 <i class="fa fa-calendar"></i>
                 <?php
-                    dpm($node);
-                    $date = date('d M, Y', $node->published_at);
+                    $date = date('d M, Y', $node->translations->data['en']['created']);
                     print $date;
                 ?>
             </div>
