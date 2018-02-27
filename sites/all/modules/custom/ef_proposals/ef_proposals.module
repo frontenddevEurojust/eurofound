@@ -31,6 +31,8 @@ function ef_proposals_node_presave($node){
 		'ef_ir_dictionary', 'ef_erm_regulation', 'erm_support_instrument'
 	);
 
+	$nec = variable_get('ef_contract_enabled_contracting_period');
+
 	if (in_array($node->type, $author_content_types)){
 
 		$author_user = user_load($node->uid);
@@ -44,7 +46,7 @@ function ef_proposals_node_presave($node){
 				$node->field_ef_assign_to_author['und'][0]['target_id'] = $author_membership->mid;
 				$node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
 				// issue 3506 - Automatic contracts
-				$contract_tid = get_assigned_contract($gid, $node->type);
+				$contract_tid = get_assigned_contract($gid, $node->type, $nec);
 				$node->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
 				// end 3506
 			}
@@ -62,7 +64,7 @@ function ef_proposals_node_presave($node){
 				$node->field_ef_assign_to_author['und'][0]['target_id'] = $author_membership->mid;
 				$node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
 				// issue 3506 - Automatic contracts
-				$contract_tid = get_assigned_contract($gid, $node->type);
+				$contract_tid = get_assigned_contract($gid, $node->type, $nec);
 				$node->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
 				// end 3506
 

@@ -4,15 +4,58 @@
  * Implements hook_form_alter().
  */
 function ef_show_contract_numbers_in_contract_fields_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
   // user create and edit forms
   if (($form['#form_id'] == 'user_register_form' || $form['#form_id'] == 'user_profile_form')
     && isset($form['field_ef_contracts']) && $form['field_ef_contracts']['#access']) {
     show_contract_numbers_in_selects($form, 'field_ef_contracts');
   }
-  // node edit forms
-  /*if (isset($form['#node']->type) && isset($form['#node_edit_form']) && isset($form['field_ef_contract'])) {
-    show_contract_numbers_in_selects($form, 'field_ef_contract');
-  }*/
+
+  if (($form_id == 'user_register_form' || $form['#form_id'] == 'user_profile_form') && in_array('OSU', $user->roles)) {
+    $country_group_roles = array('Country Group Leader', 'Country Group Member',);
+    $form['field_ef_notification_settings']['und']['#default_value'] = 1;
+    $form['field_ef_notification_settings']['#type'] = 'hidden';
+    $form['country'] = array(
+      '#type' => 'fieldset',
+      '#weight' => 5,
+      '#title' => t('Country group settings'), 
+      '#collapsible' => FALSE, 
+      '#collapsed' => FALSE,
+    );
+
+    $author_groups = $form['#user']->uid == 0 ? array() : get_groups_by_author($form['#user']->uid);
+
+    $form['country']['ef_country_group'] = array(
+      '#type' => 'select',
+      '#title' => t('Country Group'),
+      '#options' => get_country_groups(),
+      '#chosen' => TRUE,
+      '#multiple' => TRUE,
+      '#default_value' => $author_groups,
+    );
+
+    $group_roles = group_type_load('country_group')->getRoles(FALSE);
+    foreach ($group_roles as &$group_role) {
+      $group_role = $group_role->label();
+    }
+
+    unset($group_roles['country_group_creator']);
+    unset($group_roles['group_admin']);
+
+    $form['country']['ef_country_group_roles'] = array(
+      '#type' => 'radios',
+      '#title' => t('Country Group role'),
+      '#description' => t('Select a role for the user in the Country Group'),
+      '#multiple' => FALSE,
+      '#options' => $group_roles,
+      '#default_value' => 'country_group_member',
+    );
+
+    $form['account']['roles_change']['#type'] = 'radios';
+    $form['account']['roles_change']['#default_value'] = 7;
+
+    $form['#submit'][] = 'osu_new_author_register_submit';
+  }
 }
 
 function show_contract_numbers_in_selects(&$form, $field_name) {
@@ -27,4 +70,72 @@ function show_contract_numbers_in_selects(&$form, $field_name) {
     }
   }
   $form[$field_name][LANGUAGE_NONE]['#options'] = $contract_options_with_number;
+}
+
+function osu_new_author_register_submit($form, &$form_state) {
+  global $user;
+
+  $overthrow = FALSE;
+
+  if ($form_state['values']['ef_country_group_roles'] == 'country_group_member') {
+    $role = array(
+      'country_group_member' => 'country_group_member',
+      'country_group_leader' => 0,
+    );
+  }
+  else {
+    $role = array(
+      'country_group_leader' => 'country_group_leader',
+      'country_group_member' => 0,
+    );
+  }
+
+  $values = array(
+    'roles' => array_filter($role),
+    'added_on' => REQUEST_TIME,
+    'added_by' => $user->uid,
+  );
+
+  if (isset($form_state['values']['uid']) && isset($form_state['values']['ef_country_group'])) {
+    $author_groups = $form['#user']->uid == 0 ? array() : get_groups_by_author($form['#user']->uid);
+    $author_groups_to_remove = array_diff($author_groups, $form_state['values']['ef_country_group']);
+    foreach ($form_state['values']['ef_country_group'] as $key => $value) {
+      if (!in_array($value, $author_groups)) {
+        $gid = intval($value);
+        $uid = $form_state['values']['uid'];
+        $group = group_load($gid);
+        if (!group_membership_load($gid, $uid)) {
+          $group->addMember($uid, $values);
+        }
+      }
+    }
+    foreach ($author_groups_to_remove as $key => $group) {
+      $group = group_load(intval($group));
+      $group->removeMember($form['#user']->uid);
+    }
+  }
+}
+
+function ef_show_contract_numbers_in_contract_fields_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    $group = $implementations['ef_show_contract_numbers_in_contract_fields'];
+    unset($implementations['ef_show_contract_numbers_in_contract_fields']);
+    $implementations['ef_show_contract_numbers_in_contract_fields'] = $group;
+  }
+}
+
+function get_groups_by_author($uid) {
+  $groups = array();
+
+  $sql = db_select('group_membership', 'gm');
+  $sql->fields('gm', array('gid'));
+  $sql->condition('gm.uid', $uid, '=');
+
+  $results = $sql->execute()->fetchAll();
+
+  foreach ($results as $key => $value) {
+    $groups[] = $value->gid;
+  }
+
+  return $groups;
 }

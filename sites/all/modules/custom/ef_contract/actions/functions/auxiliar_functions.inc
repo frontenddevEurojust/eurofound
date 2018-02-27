@@ -157,45 +157,49 @@ function get_leader_mid_by_gid($gid){
 	return $assigned_author->mid;
 }
 
-function get_assigned_contract($gid, $type){
-
+function get_assigned_contract($gid, $type, $context = NULL){
 	$group_leader = get_group_leader($gid);
 	$group = group_load($gid);
-  $contracts = $group_leader->field_ef_contracts['und'];
+  $context == 1 ? $contract = $group->field_ef_contract['und'][0]['tid'] : $contracts = $group_leader->field_ef_contracts['und'];
   $request_types = array('ef_report', 'ef_factsheet');
   $scheduled_types = array('ef_ir_dictionary', 'ef_erm_regulation', 'erm_support_instrument',
   	'ef_ic_quarterly_report');
 
+  if ($context != 1) {
+  	foreach ($contracts as $key => $contract) {
+    	$contract_term = taxonomy_term_load($contract['tid']);
 
-  foreach ($contracts as $key => $contract) {
-    $contract_term = taxonomy_term_load($contract['tid']);
-
-    if ( in_array($type, $request_types) && strrpos($contract_term->name, 'request') ) {
-    	if ($group->title == 'EU level') {
-    		if (strrpos($contract_term->name, 'EU Level')) {
-    			$assigned_contract = $contract_term->tid;
+    	if ( in_array($type, $request_types) && strrpos($contract_term->name, 'request') ) {
+    		if ($group->title == 'EU level') {
+    			if (strrpos($contract_term->name, 'EU Level')) {
+    				$assigned_contract = $contract_term->tid;
+    			}
+    		} 
+    		else {
+    			if (strrpos($contract_term->name, $group->title)) {
+    				$assigned_contract = $contract_term->tid;
+    			}
     		}
-    	} else {
-    		if (strrpos($contract_term->name, $group->title)) {
-    			$assigned_contract = $contract_term->tid;
+    	}
+    	if ( in_array($type, $scheduled_types) && strrpos($contract_term->name, 'scheduled') ) {
+    		if ($group->title == 'EU level') {
+    			if (strrpos($contract_term->name, 'EU Level')) {
+    				$assigned_contract = $contract_term->tid;
+    			}
+    		} 
+    		else {
+    			if (strrpos($contract_term->name, $group->title)) {
+    				$assigned_contract = $contract_term->tid;
+    			}
     		}
     	}
     }
-    if ( in_array($type, $scheduled_types) && strrpos($contract_term->name, 'scheduled') ) {
-    	if ($group->title == 'EU level') {
-    		if (strrpos($contract_term->name, 'EU Level')) {
-    			$assigned_contract = $contract_term->tid;
-    		}
-    	} else {
-    		if (strrpos($contract_term->name, $group->title)) {
-    			$assigned_contract = $contract_term->tid;
-    		}
-    	}
-    }
-
+  }
+  else {
+    $assigned_contract = $contract;
   }
 
-  if(!isset($assigned_contract) && $group->title == 'Eurofound') {
+  if(!isset($assigned_contract) && $group->title == 'Eurofound' && $context != 1) {
   	$assigned_contract = 20220;
   }
 

@@ -39,6 +39,8 @@
   Drupal.behaviors.efcontract = {
   attach: function (context, settings) {
 
+    console.log(settings);
+
     $('#edit-group_ef_publishing_options select option').each(function(){
 
         if($(this).val() == 'Editor' || $(this).val() == 'External Editor' || $(this).val() == 'Author' || $(this).val() == 'Quality Manager'){
