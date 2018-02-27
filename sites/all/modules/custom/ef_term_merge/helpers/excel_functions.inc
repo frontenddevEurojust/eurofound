@@ -82,6 +82,7 @@ function _log_into_excel($objPHPExcel, $nodes_data, $field_name, $term_from, $te
 			unset($row);
 
 			$data['cell_number'] = $cell_number + 1;
+			$cell_number++;
 		}
 	}
 	else
