@@ -64,8 +64,13 @@ function prepare_template_content($term, $data_language, $navigation_language){
     $variables['total'] = retrieve_total_results_per_tab($term, $limit = 500000);
 
     // Additional variables sent to ef_topics_page.tpl.php
+    $variables['alternativeTerms'] =explode("<br />",check_markup($term->field_alternative_terms_topics['en'][0]['value']));
     $variables['summary'] = check_markup($term->field_term_summary[$data_language][0]['value'], 'filtered_html');
     $variables['description'] = check_markup($term->description, 'filtered_html');
+    $variables['titleongoing'] = check_markup($term->field_title_ongoing_work['und'][0]['safe_value'], 'filtered_html',true);
+    $variables['descriptionongoing'] = check_markup($term->field_description_ongoing_work['und'][0]['value'], 'filtered_html');
+
+
     $variables['show_menu'] = check_current_user();
     $variables['title'] = $term->field_term_title[$data_language][0]['value'];
 

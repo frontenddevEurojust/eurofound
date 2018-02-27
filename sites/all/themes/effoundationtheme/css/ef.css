@@ -12457,7 +12457,6 @@ p.view-empty.error-msg:before{
     display: none !important;
 }
 
-
 /* END European Industrial Relations Dictionary */
 
 /** highlight boosted terms **/
@@ -13069,7 +13068,174 @@ p.view-empty.error-msg:before{
   margin: 0px 20px 0px 0 !important;
   width: 170px;
 }
+
 /** END KEY TOPICS HOME **/
+
+
+/** TOPICS LANDING PAGE **/
+.terms-topics-index {
+ 
+}
+.terms-topics-index .view-content{
+	grid-column: auto;
+  /* column-count: 4; */
+  column-gap: 5rem;
+  height: 150px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 2rem;
+  margin: 2rem;
+  background: #CCC;
+}
+.terms-topics-index .view-content h3{
+  border-bottom: 1px solid;
+}
+
+.terms-topics-index .topics-terms-list {
+
+}
+.terms-topics-list{
+	 grid-column: auto;
+  column-count: 4;
+  column-gap: 1rem;
+  padding-top: 2rem;
+  list-style-type: none;
+}
+.terms-topics-list li.group-by{
+	background: url(none) no-repeat;
+  color: #161616;
+  padding: 0;
+  margin: 1rem 0;
+  -webkit-column-break-inside: avoid;
+  column-break-inside: avoid;
+}
+.terms-topics-list li.group-by h3{
+  border-bottom: 1px solid #ECEDF0;
+  font-size: 1.8rem;
+}
+.terms-topics-list li.group-by.first{
+  /*margin-top: -2rem;*/
+  margin-top: 0;
+}
+.terms-topics-list ul{ 
+  list-style-type: none;
+	margin: 0;
+  padding: 0;
+}
+.terms-topics-list ul li{
+	margin-left: 15px;
+  text-align: left;
+  background: url(../images/arrowRight-grey.png) no-repeat  0 8px;
+  padding-left: 9px;
+	font-size: 14.4px;
+}
+.terms-topics-list ul li a{
+	color:#666;
+}
+.terms-topics-list ul li a:hover{
+	color:#F7931E;
+}
+.go-top-wrapper.topics {
+  padding: 0px;
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 9000;
+  width: auto !important;
+  border-radius: 30px;
+}
+@media only screen and (min-width: 768px) and (max-width: 900px) {
+	.terms-topics-list{
+	  column-count:3;
+	  column-gap: 1rem;
+	}
+	.view-key-topics-landing-page .view-content{
+		display: flex;
+  	flex-direction: column;
+	}
+	.view-key-topics-landing-page .important-key-topics-group{
+		width: 100%;
+	  order: 1;
+	} 
+	.view-key-topics-landing-page .not-important-key-topics-group {
+  	width: 100%;
+  	order: 2;
+	}
+	.view-key-topics-landing-page .important-key-topics-group .key-topics-list {
+		width: 32%;
+	}
+	.not-important-key-topics-group .key-topics-list {
+	  width: 48.5%;
+	}
+}
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px) 
+and (orientation : portrait) { 
+	.terms-topics-list{
+	  column-count:2;
+	  column-gap: 1rem;
+	}
+}
+@media only screen 
+and (min-width : 1024px) 
+and (max-width : 1366px) 
+and (orientation : portrait) { 
+	.terms-topics-list{
+	  column-count:4;
+	  column-gap: 1rem;
+	}
+}
+@media only screen and (min-width:540px) and (max-width: 767px) {
+	.view-key-topics-landing-page .view-content{
+		display: flex;
+  	flex-direction: column;
+	}
+	.view-key-topics-landing-page .important-key-topics-group{
+		width: 100%;
+	  order: 1;
+	} 
+	.view-key-topics-landing-page .not-important-key-topics-group {
+  	width: 100%;
+  	order: 2;
+	}
+	.view-key-topics-landing-page .important-key-topics-group .key-topics-list {
+		width: 48% !important;
+  	min-height: auto !important;
+	}
+	.not-important-key-topics-group .key-topics-list {
+		width: 48% !important;
+		min-height: auto !important;
+	}
+	.terms-topics-list{
+	  column-count:2;
+	  column-gap: 1rem;
+	}
+}
+@media only screen and (max-width:540px){
+	.view-key-topics-landing-page .important-key-topics-group{
+		width: 100%;
+	  order: 1;
+	} 
+	.view-key-topics-landing-page .not-important-key-topics-group {
+  	width: 100%;
+  	order: 2;
+	}
+	.view-key-topics-landing-page .important-key-topics-group .key-topics-list {
+		width: 100% !important;
+  	min-height: auto !important;
+	}
+	.not-important-key-topics-group .key-topics-list {
+		width: 100% !important;
+		min-height: auto !important;
+	}
+	.terms-topics-list{
+	  column-count:1;
+	  column-gap: 0rem;
+	}
+}
+/** END TOPICS LANDING PAGE **/
 
 
 /** country update **/

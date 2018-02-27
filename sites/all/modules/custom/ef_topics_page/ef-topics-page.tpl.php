@@ -39,20 +39,36 @@ if(!empty($variables['ef_activities'])){
         <?php endif; ?>
             <?php if (isset($variables['summary']) || isset($variables['main_image'])): ?>
             <div class="topic-abstract">
-            <p>
-                <?php if (isset($variables['main_image'])): ?>
-                    <?= $main_image; ?>
-                <?php else: ?>
-                    <?php if(isset($variables['summary'])): ?>
-                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+
+
+                <?php if (count($variables['alternativeTerms'])): ?>
+                    <ul class="alternative-terms-topic">
+                        <li><?php  print t("Alternative terms") . ":" ?>
+                            <ul>
+                            <?php foreach ($variables['alternativeTerms'] as $alternative): ?>
+                                <li><?= strip_tags($alternative); ?></li>
+                            <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    </ul>
+                <?php endif; ?>
+
+
+
+                <p>
+                    <?php if (isset($variables['main_image'])): ?>
+                        <?= $main_image; ?>
+                    <?php else: ?>
+                        <?php if(isset($variables['summary'])): ?>
+                        <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
-            </p>
-            <p>
-                <?php if(isset($variables['summary'])): ?>
-                    <?= $summary; ?>
-                <?php endif; ?>
-            </p>
+                </p>
+                <p>
+                    <?php if(isset($variables['summary'])): ?>
+                        <?= $summary; ?>
+                    <?php endif; ?>
+                </p>
             </div>
             <?php endif; ?>
 
@@ -60,11 +76,28 @@ if(!empty($variables['ef_activities'])){
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
             <?= t("Subscribe now and receive updates on Eurofound's work in the area of @title", array("@title" => $term->name)); ?></a></p>
             <?php endif; ?>
+
+            <!-- DESCRIPTION AREA -->
             <?php if(isset($variables['description'])): ?>
             <div class="topic-description">
                 <?= $description; ?>
             </div>
             <?php endif; ?>
+            <!-- END DESCRIPTION AREA -->
+
+
+            <!-- ONGOING WORK AREA -->
+            <?php if(isset($variables['descriptionongoing'])): ?>
+                <h2 class="title-ongoing">
+                    <?= $titleongoing; ?>
+                </h2>
+
+                <div class="description-ongoing">
+                    <?= $descriptionongoing; ?>
+                </div>
+            <?php endif; ?>
+            <!-- END ONGOING WORK AREA -->
+
 
             <?php if (count($variables['topics'])): ?>
             <ul class="related-content-topic">
