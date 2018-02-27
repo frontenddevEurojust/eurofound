@@ -58,19 +58,19 @@
       }, 100);
     });
 
-    // Review and repair contracts
-    $('.contract-correct-link').on('click', function(e){
-
-      e.preventDefault();
-
-      var full_link = $(this).attr('href');
-      var contract_link = full_link.replace("correct-groups-and-contracts", "correct-contracts");
-
-      correct_dialog.data('full_link', full_link);
-      correct_dialog.data('contract_link', contract_link);
-      correct_dialog.dialog('open');
-
+    //CONTRACT select id: #edit-field-ef-author-contract-und
+    //DELIVERABLE KIND select id: #edit-field-ef-deliverable-kind-und
+    $('#edit-field-ef-author-contract-und').once().change(function() {
+      var selected = $(':selected', this);
+      var nec = selected.closest('optgroup').attr('label');
+      var removed_nec = '';
+      nec == 'NEC 2014-2018' ? removed_nec = 'NEC 2018-2022' : removed_nec = 'NEC 2014-2018';
+      var optgroup_count = $('#edit-field-ef-author-contract-und optgroup').length;
+      if (optgroup_count == 2) {
+        $("#edit-field-ef-deliverable-kind-und").children().remove("optgroup[label='" + removed_nec + "']");
+        $("#edit-field-ef-author-contract-und").children().remove("optgroup[label='" + removed_nec + "']");
+      }
     });
-
+  
   }};
 })(jQuery);

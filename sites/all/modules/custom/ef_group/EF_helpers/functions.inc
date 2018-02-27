@@ -164,7 +164,7 @@ function is_leader_in_other_group($uid, $out_gid){
   $group = group_load($out_gid);
   $author = user_load($uid);
 
-  $message = 'It is not possible to change the role, becasue the author "' . $author->name .
+  $message = 'It is not possible to change the role, because the author "' . $author->name .
     '" is already the leader in the Country group "'. $group->title .'". ';
 
   drupal_set_message($message, 'warning');

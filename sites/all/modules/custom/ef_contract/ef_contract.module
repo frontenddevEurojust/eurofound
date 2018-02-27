@@ -1,402 +1,75 @@
 <?php
 
 /*
- * Implements Help functions
+ * Help functions
  */
 include 'functions/ef_contract.auxiliar_functions.inc';
 include 'functions/ef_contract.functions.inc';
 include 'actions/ef_contract.bulk_actions.inc';
 
 /**
- * Implements hook_form_node_form_alter().
+ * Implements hook_menu().
  */
-function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
+function ef_contract_menu() {
+  $items = array();
+  //Contract settings administration interface.
+  $items["admin/config/contracts/contract-administration"] = array(
+    'title' => 'EF Contract Administration',
+    'description' => 'Configure contract system.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_contract_general_admin_form'),
+    'access arguments' => array('administer contract system'),
+    'file' => 'ef_contract.admin.inc',
+  );
 
-  $form_ids = content_type_forms_array();
+  $items['admin/config/contracts/contract-administration/assignments'] = array(
+    'title' => 'Assignments',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_contract_assignments_form'),
+    'access arguments' => array('administer contract system'),
+    'file' => 'ef_contract.admin.inc',
+  );
 
-  if (in_array($form_id, $form_ids)){
+  $items['admin/config/contracts/contract-administration/contracting-period'] = array(
+    'title' => 'Contracting Period',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_contract_contracting_period_form'),
+    'access arguments' => array('administer contract system'),
+    'file' => 'ef_contract.admin.inc',
+  );
 
-    global $user;
+  return $items;
+}
 
-    // Workbench moderation FORM
-    $form['revision_information']['workbench_moderation_state_new']['#type'] = 'hidden';
-    $form['options']['workbench_moderation_state_new']['#type'] = 'hidden';
-
-    if (!in_array('administrator', $user->roles)){
-      $form['group_settings']['#type'] = 'hidden';
-    }
-
-    // Users with 'Publishing Options' tab have this field available in that section
-    // Now the most important section is 'Moderation & Assignment'
-    // So we must change it...
-    if ($form['options']['#access']) {
-      $form['#group_children']['revision_log'] = 'group_ef_publishing_options';
-      $form['revision_log']['log'] = $form['options']['log'];
-      $form['revision_log']['#group'] = 'group_ef_publishing_options';
-      $form['revision_log']['#weight'] = 53;
-      $form['revision_log']['#element_validate'] = array('ef_contract_validate');
-
-      // Unset the old placement of the Revision log.
-      unset($form['options']['log']);
-    }
-    // Users without 'Publishing Options' tab have this field available in 'Revision Information'
-    // tab, so we must change it too...
-    else {
-      $form['revision_log']['log'] = $form['revision_information']['log'];
-      $form['#group_children']['revision_log'] = 'group_ef_publishing_options';
-      $form['revision_log']['#group'] = 'group_ef_publishing_options';
-      $form['revision_log']['#weight'] = 53;
-      $form['revision_log']['#element_validate'] = array('ef_contract_validate');
-
-      // Unset the old placement of the Revision log.
-      unset($form['revision_information']);
-    }
-  }
-
+/**
+ * Implements hook_menu().
+ */
+function ef_contract_permission() {
+  return array(
+    'administer contract system' => array(
+      'title' => t('Administer Contract System'),
+      'description' => t('Perform administration tasks regarding contracts, affected content types and users.'),
+    ),
+  );
 }
 
 /**
  * Implements hook_form_alter().
  */
 function ef_contract_form_alter(&$form, &$form_state, $form_id) {
-
   global $user;
   global $base_url;
+
+  $new_nec = variable_get('ef_contract_enabled_contracting_period');
+  
+  $contract_period = variable_get('ef_contract_enabled_contracting_period');
+
   $form_ids = content_type_forms_array();
-
-  // NODE CREATE/EDIT FORM
-  if (in_array($form_id, $form_ids)){
-
-    /*
-    ** Variables which we need in order to load the form's items
-    */
-
-    // Node object
-    $node = $form['#node'];
-    if (!is_null($form['nid']['#value'])) {
-      $nid = $form['nid']['#value'];
-    }
-    $type = $node->type;
-
-    // Group object
-    if (isset($node->group)) {
-      $gid = $node->group;
-      $group = group_load($gid);
-    }
-
-    // Current Workbench moderation state
-    $current_state = get_current_state($node);
-
-    // PATCH 1.0 - Updating new contracts by old contract information
-    // Checkking if old contract exists in old contents
-    // Only on 'Edit' mode
-    if (isset($nid) &&
-      (isset($form['field_ef_assign_to']['und']['#default_value'])
-        || isset($form['field_assign_to_erm_si']['und']['#default_value'])
-        || isset($form['field_assign_to_erm_reg']['und']['#default_value']))
-      ) {
-
-      // Be careful, because ERM REGULATIONS & ERM SUPPORT INSTRUMENTS
-      // have different machine names for these fields
-      if ($type == 'ef_erm_regulation') {
-        $old_assigned_contract_uid = $form['field_assign_to_erm_reg']['und']['#default_value'];
-        $old_contract_tid = $form['field_contract_erm_reg']['und']['#default_value'];
-      } elseif ($type == 'erm_support_instrument') {
-        $old_assigned_contract_uid = $form['field_assign_to_erm_si']['und']['#default_value'];
-        $old_contract_tid = $form['field_contract_erm_si']['und']['#default_value'];
-      } else {
-        $old_assigned_contract_uid = $form['field_ef_assign_to']['und']['#default_value'];
-        $old_contract_tid = $form['field_ef_contract']['und']['#default_value'];
-      }
-
-      // Assign to: EF user --> UID = 403 / N/A Contract --> TID = 20220
-      if ($old_assigned_contract_uid != 403 && $old_contract_tid != 20220
-            && $old_assigned_contract_uid != 2019) {
-
-        // 1. Old contract = New contract
-        $new_contract = $old_contract_tid;
-        $new_contract_term = taxonomy_term_load($new_contract);
-        $new_contract_name = $new_contract_term->name;
-        // 2. Search Country Group on the Contract
-        $old_assigned_contract_user = user_load($old_assigned_contract_uid);
-        $old_gids = get_group_by_user($old_assigned_contract_user);
-        foreach ($old_gids as $this_gid => $country) {
-          $pos = strpos(strtolower($new_contract_name), strtolower($country));
-          if ($pos !== false) {
-            $new_gid = $this_gid;
-          }
-        }
-
-        // 3. Assign to Author (mid) = Assign to (uid)
-        $new_author_member = group_membership_load($new_gid, $old_assigned_contract_uid);
-
-        // Assigned Country Group
-        if (empty($form['field_ef_assign_to_country_group']['und']['#default_value'])) {
-          $form['field_ef_assign_to_country_group']['und']['#options'] = $old_gids;
-          $form['field_ef_assign_to_country_group']['und']['#default_value'] = $new_gid;
-        }
-        // Assigned Author
-        if (empty($form['field_ef_assign_to_author']['und']['#default_value'])) {
-          $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_by_gid($new_gid);
-          $form['field_ef_assign_to_author']['und']['#default_value'] = $new_author_member->mid;
-        }
-        // Assigned Contract
-        if (empty($form['field_ef_author_contract']['und']['#default_value'])) {
-          $form['field_ef_author_contract']['und']['#options'] = get_contract_by_user($old_assigned_contract_user);
-          $form['field_ef_author_contract']['und']['#default_value'] = $new_contract;
-        }
-
-        $new_assigned_user = get_assign_to_user_by_default($current_state, $new_gid, $inputs = null, $node);
-        $form['field_ef_assign_to_user']['und']['#default_value'] = $new_assigned_user;
-
-      }
-
-    }
-    // end PATCH 1.0
-
-    /*
-    ** Form items definition
-    */
-
-    // Assign to Country Group FORM
-    $form['field_ef_assign_to_country_group']['und']['#prefix'] = '<div id="field-assign-to-country-group-wrapper">';
-    $form['field_ef_assign_to_country_group']['und']['#suffix'] = '</div>';
-    // If Country Group exists, it's not possible to change it,
-    // so this form doesn't need callback function
-    if (isset($gid)) {
-      $group = group_load($gid);
-      $form['field_ef_assign_to_country_group']['und']['#options'] = array($group->gid => $group->title);
-    } else {
-      $form['field_ef_assign_to_country_group']['und']['#ajax'] = array(
-        'callback' => 'ajax_assign_to_country_group_callback',
-        'wrapper' => array(
-          'field_ef_assign_to_author',
-          'field_ef_author_contract',
-          'field_ef_assign_to_user'),
-        'method' => 'replace',
-        'effect' => 'fade',
-      );
-    }
-
-
-    // Assign to Author FORM
-    // --- requires MID (Group membership ID)
-    $form['field_ef_assign_to_author']['und']['#prefix'] = '<div id="field-assign-to-author-wrapper">';
-    $form['field_ef_assign_to_author']['und']['#suffix'] = '</div>';
-
-    // If Country group exists, we need to display just this Group's Authors,
-    // If not, we still need to select the contract, and it's neccesary a callback function
-    if (isset($gid)) {
-      $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_by_gid($gid);
-      // If the node has been created by an Author (see ef_proposal module)
-      // the field Assign_to_author already has value
-      if (isset($nid) && isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
-        $form['field_ef_assign_to_author']['und']['#default_value'] = $node->field_ef_assign_to_author['und'][0]['target_id'];
-      }
-    }else{
-      $form['field_ef_assign_to_author']['und']['#ajax'] = array(
-        'callback' => 'ajax_assign_to_author_callback',
-        'wrapper' => 'field-contract-wrapper',
-        'method' => 'replace',
-        'effect' => 'fade',
-      );
-    }
-
-
-    // Author Contract FORM
-    $form['field_ef_author_contract']['und']['#prefix'] = '<div id="field-contract-wrapper">';
-    $form['field_ef_author_contract']['und']['#suffix'] = '</div>';
-    // If we're editting a node, the contract mustn't change
-    if (isset($nid) && isset($node->field_ef_author_contract['und'][0]['tid'])) {
-      $contract_key = $node->field_ef_author_contract['und'][0]['tid'];
-      $contract_name = $form['field_ef_author_contract']['und']['#options'][$contract_key];
-
-      $form['field_ef_author_contract']['und']['#options'] = array($contract_key => $contract_name);
-    }
-    // If we're editting a node that has been created by an author (see ef_proposal module)
-    // the contract's options are defined previously
-    elseif (isset($nid) && isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
-      $author_user = get_user_by_mid($node->field_ef_assign_to_author['und'][0]['target_id']);
-      /* PATCH 1.2. About contracts and groups */
-      if (isset($gid)) {
-        $contracts = get_contract_by_user_and_gid($author_user, $gid);
-      } else {
-        $contracts = get_contract_by_user($author_user);
-      }
-      /* end PATCH 1.2 */
-      $form['field_ef_author_contract']['und']['#options'] = $contracts;
-    }
-
-    // Update Contract posibility
-    // Issue 3494 about update contract if it is incorrect
-    if (isset($nid) && $current_state != 'published'
-      && (in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles) || in_array('administrator', $user->roles) || in_array('OSU', $user->roles))) {
-
-      $title = str_replace(' ', '+', $node->title);
-      $type = $node->type;
-      $correct_link_weight = $form['field_ef_ee_deadline']['#weight'];
-      $correct_link_href = $base_url . '/correct-groups-and-contracts?title='.$title.'&nid=' . $nid . '&type_1=' . $type;
-      $form['update_contract_option'] = array(
-        '#weight' => $correct_link_weight + 1,
-        '#markup' => '<a class="contract-correct-link" href="'.$correct_link_href.'">
-            <i class="fa fa-wrench"></i> ' . t('Review this contract and correct it') . '
-          </a>',
-      );
-    }
-    // end issue 3494 (see also Group Publishing definition)
-
-    $assign_to_user_weight = $form['field_ef_assign_to_user']['#weight'];
-    // Moderation State FORM
-    $form['field_ef_moderation_state'] = array(
-      '#title' => t('Moderation state'),
-      '#type' => 'select',
-      '#options' => get_available_states($node, $user),
-      '#group' => 'group_ef_publishing_options',
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE,
-      '#weight' => $assign_to_user_weight - 1,
-      '#default_value' => get_current_state($node),
-      '#ajax' => array(
-        'callback' => 'ajax_moderation_state_callback',
-        'wrapper' => 'field-assign-to-user-wrapper',
-        'method' => 'replace',
-        'effect' => 'fade'
-      ),
-    );
-
-
-    // Assign to User FORM
-    // --- requires UID (User ID)
-    $form['field_ef_assign_to_user']['und']['#prefix'] = '<div id="field-assign-to-user-wrapper">';
-    $form['field_ef_assign_to_user']['und']['#suffix'] = '</div>';
-    // If the current state has been changed or not
-    if (isset($form_state['input']['field_ef_moderation_state'])) {
-      if ($current_state != $form_state['input']['field_ef_moderation_state']) {
-        $form['field_ef_assign_to_user']['und']['#options']
-          = get_assign_to_user_list($type, $gid, $form_state['input']['field_ef_moderation_state']);
-      }
-    }else {
-      $form['field_ef_assign_to_user']['und']['#options'] = get_assign_to_user_list($type, $gid, $current_state);
-
-      if (isset($form['field_ef_assign_to_user']['und']['#entity']->field_ef_assign_to_user['und'][0]['target_id'])
-        && empty($form_state['input'])){
-
-        // Be careful, Author + should not be on down condition!!!!
-        if (($type == 'ef_ir_dictionary' || $type == 'ef_factsheet')
-          && $current_state == 'published' && in_array('Author', $user->roles) ) {
-
-          $form['field_ef_assign_to_user']['und']['#default_value']
-            = get_assign_to_user_by_default($state = 'submitted', $gid, $inputs, $node);
-
-        } else {
-
-          $form['field_ef_assign_to_user']['und']['#default_value']
-            = $form['field_ef_assign_to_user']['und']['#entity']->field_ef_assign_to_user['und'][0]['target_id'];
-
-        }
-
-      }
-    }
-    // If we're editting this node, assign_to_user form should have AJAX callback function
-    if (isset($nid)) {
-      $form['field_ef_assign_to_user']['und']['#ajax'] = array(
-        'callback' => 'ajax_assign_to_user_callback',
-        'wrapper' => 'field-assign-to-author-wrapper',
-      );
-    }
-    // When we're creating a new node (state draft),
-    // the assigned user should be the creator by default
-    elseif ($current_state == 'draft' && (in_array('Author', $user->roles) || in_array('Quality Manager', $user->roles)
-      || in_array('OSU', $user->roles)) || in_array('Author +', $user->roles) || in_array('Quality Manager +', $user->roles)) {
-      $form['field_ef_assign_to_user']['und']['#default_value'] = $user->uid;
-
-      // PATCH 1.1 (In order to avoid user don't select apropiated QM)
-      if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
-        $form['moderation_warning'] = array(
-          '#group' => 'group_ef_publishing_options',
-          '#markup' => '<p><span class="proposal-warning element-invisible">Please, check if selected QM is correct</span></p>',
-          '#weight' => 43,
-        );
-        $form['#groups']['group_ef_publishing_options']->children[2] = 'moderation_warning';
-        $form['#group_children']['moderation_warning'] = 'group_ef_publishing_options';
-      }
-      // end PATCH 1.1
-
-
-    }
-
-    // Group Publishing definition
-    $content_type_label = node_type_get_name($node);
-    $form['#groups']['group_ef_contract']->children[3] = 'update_contract_option';
-    $form['#groups']['group_ef_publishing_options']->children[1] = 'field_ef_moderation_state';
-    $form['#group_children']['update_contract_option'] = 'group_ef_contract';
-    $form['#group_children']['field_ef_moderation_state'] = 'group_ef_publishing_options';
-    $form['#groups']['group_ef_publishing_options']->weight = -50;
-    $form['#groups']['group_ef_publishing_options']->format_settings['instance_settings']['description'] =
-      t('Set the moderation state for this "') . $content_type_label . t('" and assigned user. ') .
-      t("After saving, this content will appear in the assigned user's 'My To-do list'.");
-
-    // Revision deadline FORM
-    // Just displaying when the state is 'UNDER REVISION REQUEST'
-    $form['field_ef_revision_deadline']['#states'] = array(
-      'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'under_revision_request'))
-    );
-
-    // External Editing Deadline FORM
-    // Just displaying when the state is "ON SECOND EDITING"
-    $form['field_ef_ee_deadline']['#states'] = array(
-      'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'on_external_editing'))
-    );
-
-
-    /*
-    ** JS and CSS attached files
-    */
-    /*
-    $form['#attached']['js'] = array(
-      drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js',
-    );
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
-    */
-    drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
-    if($form['#node_edit_form'] === TRUE){
-      drupal_add_js(drupal_get_path('module','ef_contract') . '/js/ef_contract_edit_mode.js');
-
-      if(isset($form['field_ef_source_documents']) && (in_array('Author', $user->roles) || in_array('Author +', $user->roles))){
-        drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract_Author.css');
-      }
-    }
-
-    drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
-
-    // We pass to JS the 'current state' variable and Assigned user name,
-    // in order to show it in the vertical tab description
-    if (isset($current_state)) {
-      $current_state_label = workbench_moderation_state_label($current_state);
-      $settings['current_state'] = variable_get('ef_contract', $current_state_label);
-    }
-    if (isset($node->field_ef_assign_to_user['und'][0]['target_id'])) {
-      $assigned_user = user_load($node->field_ef_assign_to_user['und'][0]['target_id']);
-      $assigned_user_name = $assigned_user->name;
-      $settings['assigned_user_name'] = variable_get('ef_contract', $assigned_user_name);
-    }
-
-    drupal_add_js(array('ef_contract' => $settings), 'setting');
-
-
-
-    /*
-    ** RETURN ALTER FORM
-    */
-    return $form;
-
-  }// end CREATE/EDIT FORM
 
   // node VIEW FORM
   if($form_id == 'workbench_moderation_moderate_form'){
-
     $type = $form['node']['#value']->type;
     if (isset($form['node']['#value']->group)) {
       $gid = $form['node']['#value']->group;
@@ -422,13 +95,13 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
         // There is NOT empty pseudo-mandatory fields
         unset($moderate_options['submitted']);
         $apr_mandatory_warning = TRUE;
-      } else {
+      }
+      else {
         $apr_mandatory_warning = FALSE;
       }
       $settings['apr_mandatory_warning'] = variable_get('ef_contract', $apr_mandatory_warning);
     }
     /* APR - end Annual Progress Report requirement */
-
 
     // Moderation State FORM
     $form['state']['#weight'] = -2;
@@ -459,19 +132,10 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
         $form['field_ef_assign_to_user']['#options']
           = get_assign_to_user_list($type, $gid, $form_state['input']['state']);
       }
-    }else {
+    }
+    else {
       $form['field_ef_assign_to_user']['#options'] = get_assign_to_user_list($type, $gid, $current_state);
     }
-
-    // JS and CSS attached files
-    /*
-    $form['#attached']['js'] = array(
-      drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js',
-    );
-    $form['#attached']['css'] = array(
-      drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css',
-    );
-    */
 
     drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
     drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
@@ -488,10 +152,11 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
       && isset($form['node']['#value']->field_ef_ee_deadline['und'][0]['value'])
       && isset($current_state) ) {
 
-      if ($current_state != 'on_external_editing'){
+      if ($current_state != 'on_external_editing') {
         $revision_deadline = $form['node']['#value']->field_ef_revision_deadline['und'][0]['value'];
         $rd_label = 'Revision deadline';
-      }else{
+      }
+      else {
         $revision_deadline = $form['node']['#value']->field_ef_ee_deadline['und'][0]['value'];
         $rd_label = 'External editing Deadline';
       }
@@ -501,7 +166,6 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
 
       $settings['revision_deadline'] = variable_get('ef_contract', $rd_date);
       $settings['rd_label'] = variable_get('ef_contract', $rd_label);
-
     }
     // Only to avoid JS error ($current_state == NULL)
     if (isset($current_state)) {
@@ -511,19 +175,16 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
 
     drupal_add_js(array('ef_contract' => $settings), 'setting');
 
-
     $form['button']['#submit'][] = 'ef_contract_form_submit';
     //$form['#submit'][0] = $workbench_moderation_submit_function;
     unset($form['#submit']);
 
     return $form;
-
   }
   // end view mode
 
   // unpublish menu
   if ($form_id == 'workbench_moderation_node_unpublish_form') {
-
     $form['log'] = array(
       '#type' => 'textarea',
       '#title' => 'Revision log message',
@@ -534,7 +195,6 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     $form['#submit'][] = 'save_revision_log_message';
 
     return $form;
-
   }
   // end unpublish menu
 
@@ -549,34 +209,29 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
       $country_groups = get_group_by_user($user);
 
       foreach ($form['title_selective']['#options'] as $key => $value) {
-
         if($value == '- Any -' || in_array($value, $country_groups)){
-
           $user_country_groups[$value] = $value;
         }
       }
 
       $form['title_selective']['#options'] = $user_country_groups;
-
-
     }
-
   }// end VIEWS
 
   // My Group To-Do list VIEW
-  if ($form_id == 'views_form_my_group_to_do_list_block' || $form_id == 'views_form_group_content_page'){
-
+  if ($form_id == 'views_form_my_group_to_do_list_block' || $form_id == 'views_form_group_content_page') {
     if(isset($form['field_ef_assign_to_user_editable_1'])){
       $num_elem = count($form['field_ef_assign_to_user_editable_1']);
-    }elseif (isset($form['field_ef_assign_to_user'])) {
+    }
+    elseif (isset($form['field_ef_assign_to_user'])) {
       $num_elem = count($form['field_ef_assign_to_user']);
     }
 
     for($key = 0; $key < $num_elem; $key++){
-
       if(isset($form['field_ef_assign_to_user_editable_1'])){
         $nid = $form['field_ef_assign_to_user_editable_1'][$key]['#entity_id'];
-      }elseif (isset($form['field_ef_assign_to_user'][$key]['#entity_id'])) {
+      }
+      elseif (isset($form['field_ef_assign_to_user'][$key]['#entity_id'])) {
         $nid = $form['field_ef_assign_to_user'][$key]['#entity_id'];
         if ($form['field_ef_assign_to_user'][$key]['vid']['#value']) {
           $vid = $form['field_ef_assign_to_user'][$key]['vid']['#value'];
@@ -595,13 +250,13 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
       if (isset($form['field_ef_assign_to_user_editable_1'])) {
         $form['field_ef_assign_to_user_editable_1'][$key]['field_ef_assign_to_user']['und']['#options']
           = get_assign_to_user_list($type, $gid, $current_state);
-      }elseif (isset($form['field_ef_assign_to_user'])) {
+      }
+      elseif (isset($form['field_ef_assign_to_user'])) {
         $form['field_ef_assign_to_user'][$key]['field_ef_assign_to_user']['und']['#options']
           = get_assign_to_user_list($type, $gid, $current_state);
         $form['field_ef_assign_to_user'][$key]['field_ef_assign_to_user']['und']['#default_value']
           = $node->field_ef_assign_to_user['und'][0]['target_id'];
       }
-
     }
 
     // Erase non-functional 'save' button
@@ -610,20 +265,15 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
-
   }
-
 
   // My To-do list VIEW
   if ($form_id == 'views_form_my_to_do_list_page') {
-
     // Erase non-functional 'save' button
     unset($form['actions']['submit']);
-
     $form['#attached']['css'] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
-
   }
 
   // VIEW: Needs review
@@ -634,7 +284,6 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     $form['select']['submit']['#value'] = 'Send to External Editing';
 
     return $form;
-
   }
 
   // VIEW: Correct groups and contracts
@@ -686,9 +335,9 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     );
 
     $form['new_contract_options']['space'] = array(
-        '#prefix' => '<div style="clear:both">',
-        '#suffix' => '</div>',
-        '#weight' => 3,
+      '#prefix' => '<div style="clear:both">',
+      '#suffix' => '</div>',
+      '#weight' => 3,
     );
 
     $form['new_contract_options']['submit'] = array(
@@ -701,18 +350,14 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
     );
 
     $form['select']['#type'] = 'hidden';
-
     $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     return $form;
-
   }
 
   // In order to correct just contracts
   if ($form_id == 'views_form_update_groups_and_contracts_correct_contracts') {
-
     foreach ($form['field_ef_author_contract_editable'] as $key => $form_item) {
-
       $this_node = node_load($form_item['nid']['#value']);
       if (isset($this_node->workbench_moderation['current']->vid)) {
         $this_node = node_load($form_item['nid']['#value'], $this_node->workbench_moderation['current']->vid);
@@ -722,135 +367,523 @@ function ef_contract_form_alter(&$form, &$form_state, $form_id) {
       if (isset($this_node->field_ef_assign_to_country_group['und'][0]['target_id'])
         && $this_node->field_ef_assign_to_country_group['und'][0]['target_id'] != $this_node->group) {
         $this_gid = $this_node->field_ef_assign_to_country_group['und'][0]['target_id'];
-      } else {
+      }
+      else {
         $this_gid = $this_node->group;
       }
 
       $contracts = get_contract_by_user_and_gid($this_user, $this_gid);
-
       $form['field_ef_author_contract_editable'][$key]['field_ef_author_contract']['und']['#options'] = $contracts;
-
     }
 
     $form['field_ef_author_contract_editable'][0]['actions']['submit']['#submit'][0] = 'correct_bulk_contract_submit';
-
     $form['actions']['submit']['#value'] = 'Save all items';
     $form['#submit'][] = 'correct_bulk_contract_submit';
-
     $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
+
+  return $form;
+  }
+}
+
+/**
+ * Implements hook_form_node_form_alter().
+ */
+function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
+  global $user;
+  global $base_url;
+
+  $form_ids = content_type_forms_array();
+
+  if (in_array($form_id, $form_ids)){
+
+    global $user;
+
+    // Workbench moderation FORM
+    $form['revision_information']['workbench_moderation_state_new']['#type'] = 'hidden';
+    $form['options']['workbench_moderation_state_new']['#type'] = 'hidden';
+
+    if (!in_array('administrator', $user->roles)){
+      $form['group_settings']['#type'] = 'hidden';
+    }
+
+    // Users with 'Publishing Options' tab have this field available in that section
+    // Now the most important section is 'Moderation & Assignment'
+    // So we must change it...
+    if ($form['options']['#access']) {
+      $form['#group_children']['revision_log'] = 'group_ef_publishing_options';
+      $form['revision_log']['log'] = $form['options']['log'];
+      $form['revision_log']['#group'] = 'group_ef_publishing_options';
+      $form['revision_log']['#weight'] = 53;
+      $form['revision_log']['#element_validate'] = array('ef_contract_validate');
+
+      // Unset the old placement of the Revision log.
+      unset($form['options']['log']);
+    }
+    // Users without 'Publishing Options' tab have this field available in 'Revision Information'
+    // tab, so we must change it too...
+    else {
+      $form['revision_log']['log'] = $form['revision_information']['log'];
+      $form['#group_children']['revision_log'] = 'group_ef_publishing_options';
+      $form['revision_log']['#group'] = 'group_ef_publishing_options';
+      $form['revision_log']['#weight'] = 53;
+      $form['revision_log']['#element_validate'] = array('ef_contract_validate');
+
+      // Unset the old placement of the Revision log.
+      unset($form['revision_information']);
+    }
+  }
+
+  // NODE CREATE/EDIT FORM
+  if (in_array($form_id, $form_ids)) {
+
+    $nec = variable_get('ef_contract_enabled_contracting_period');
+
+    $curr_contract = $form['field_ef_author_contract']['und']['#default_value'][0];
+
+    $context = get_contract_context($nec, $curr_contract);
+
+    // Node object
+    $node = $form['#node'];
+    if (!is_null($form['nid']['#value'])) {
+      $nid = $form['nid']['#value'];
+    }
+    $type = $node->type;
+
+    // Group object
+    if (isset($node->group)) {
+      $gid = $node->group;
+      $group = group_load($gid);
+    }
+
+    //'#limit_validation_errors' => array()
+
+    // Current Workbench moderation state
+    $current_state = get_current_state($node);
+
+    // PATCH 1.0 - Updating new contracts by old contract information
+    // Checking if old contract exists in old contents
+    // Only on 'Edit' mode
+    if (isset($nid) && (isset($form['field_ef_assign_to']['und']['#default_value']) || isset($form['field_assign_to_erm_si']['und']['#default_value'])
+      || isset($form['field_assign_to_erm_reg']['und']['#default_value']))) {
+
+      // Be careful, because ERM REGULATIONS & ERM SUPPORT INSTRUMENTS
+      // have different machine names for these fields
+      if ($type == 'ef_erm_regulation') {
+        $old_assigned_contract_uid = $form['field_assign_to_erm_reg']['und']['#default_value'];
+        $old_contract_tid = $form['field_contract_erm_reg']['und']['#default_value'];
+      }
+      elseif ($type == 'erm_support_instrument') {
+        $old_assigned_contract_uid = $form['field_assign_to_erm_si']['und']['#default_value'];
+        $old_contract_tid = $form['field_contract_erm_si']['und']['#default_value'];
+      }
+      else {
+        $old_assigned_contract_uid = $form['field_ef_assign_to']['und']['#default_value'];
+        $old_contract_tid = $form['field_ef_contract']['und']['#default_value'];
+      }
+
+      // Assign to: EF user --> UID = 403 / N/A Contract --> TID = 20220
+      if ($old_assigned_contract_uid != 403 && $old_contract_tid != 20220 && $old_assigned_contract_uid != 2019) {
+        // 1. Old contract = New contract
+        $new_contract = $old_contract_tid;
+        $new_contract_term = taxonomy_term_load($new_contract);
+        $new_contract_name = $new_contract_term->name;
+        // 2. Search Country Group on the Contract
+        $old_assigned_contract_user = user_load($old_assigned_contract_uid);
+        $old_gids = get_group_by_user($old_assigned_contract_user);
+        foreach ($old_gids as $this_gid => $country) {
+          $pos = strpos(strtolower($new_contract_name), strtolower($country));
+          if ($pos !== false) {
+            $new_gid = $this_gid;
+          }
+        }
+        // 3. Assign to Author (mid) = Assign to (uid)
+        $new_author_member = group_membership_load($new_gid, $old_assigned_contract_uid);
+
+        // Assigned Country Group
+        if (empty($form['field_ef_assign_to_country_group']['und']['#default_value'])) {
+          $form['field_ef_assign_to_country_group']['und']['#options'] = $old_gids;
+          $form['field_ef_assign_to_country_group']['und']['#default_value'] = $new_gid;
+        }
+        // Assigned Author
+        if (empty($form['field_ef_assign_to_author']['und']['#default_value'])) {
+          $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_by_gid($new_gid);
+          $form['field_ef_assign_to_author']['und']['#default_value'] = $new_author_member->mid;
+        }
+        // Assigned Contract
+        if (empty($form['field_ef_author_contract']['und']['#default_value'])) {
+          $form['field_ef_author_contract']['und']['#options'] = get_contract_by_user($old_assigned_contract_user);
+          $form['field_ef_author_contract']['und']['#default_value'] = $new_contract;
+        }
+
+        $new_assigned_user = get_assign_to_user_by_default($current_state, $new_gid, $inputs = null, $node);
+        $form['field_ef_assign_to_user']['und']['#default_value'] = $new_assigned_user;
+      }
+    }
+    // end PATCH 1.0
+
+    /*
+    ** Form items definition
+    */
+
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+
+    $form['field_ef_author_contract']['und']['#ajax'] = array(
+      'callback' => 'ajax_contract_callback',
+      'wrapper' => 'contract-form-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+
+    $form['field_ef_deliverable_kind']['und']['#options'] = get_deliverable_kinds($context);
+    $form['field_ef_deliverable_kind']['und']['#required'] = FALSE;
+
+    $form['field_ef_service_type']['und']['#type'] = 'radios';
+    $form['field_ef_service_type']['und']['#required'] = FALSE;
+
+    $deliverable_kind_tid = $form['field_ef_deliverable_kind']['und']['#default_value'][0];
+
+    $service_type = get_service_type($deliverable_kind_tid);
+
+    if(!empty($service_type)) {
+      foreach ($service_type as $tid => $value) {
+        $form['field_ef_service_type']['und']['#value'] = $value;
+        $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+        if ($value != 0){
+          $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        }
+      }
+    }
+
+    $form['field_ef_deliverable_kind']['und']['#ajax'] = array(
+      'callback' => 'ajax_ef_deliverable_kind_callback',
+      'wrapper' => 'contract-form-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+
+    $deliverable_kind_default = get_default_deliverable_kind_by_ct($type);
+
+    if ((empty($form['field_ef_deliverable_kind']['und']['#default_value']) && !empty($deliverable_kind_default) && $context == 1) || (empty($form['#node']->title) && $context == 1)) {
+      $form['field_ef_deliverable_kind']['und']['#default_value'] = $deliverable_kind_default;
+    }
+
+    if (!empty($form['field_ef_deliverable_kind']['und']['#default_value'])) {
+      $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
+      $service_type = get_service_type($deliverable_kind_tid);
+      if (isset($service_type) && !empty($service_type)) {
+        foreach ($service_type as $tid => $value) {
+          $form['field_ef_service_type']['und']['#value'] = $value;
+          $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+          if ($value != 0){
+            $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+            $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
+          }
+        }
+      }
+    }
+
+    $contracts_old = get_contracts('old');
+
+    foreach ($contracts_old as $key => $value) {
+      $visibility[':input[name="field_ef_author_contract[und]"]'][]['value'] = $key;
+    }
+
+    //We use states to hide this field
+    $form['field_ef_service_type']['#states'] = array(
+      'invisible' => $visibility,
+    );
+
+    // Assign to Country Group FORM
+    // Wrapper for the country group field
+    // If Country Group exists, it's not possible to change it,
+    // so this form doesn't need callback function
+    $form['field_ef_assign_to_country_group']['und']['#ajax'] = array(
+      'callback' => 'ajax_assign_to_country_group_callback',
+      'wrapper' => 'contract-form-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+
+    $form['field_ef_assign_to_country_group']['#prefix'] = '<div id=contract-form-wrapper>';
+
+    $form['field_ef_service_type']['#suffix'] = '</div>';
+    // end issue 3494 (see also Group Publishing definition)
+    $assign_to_user_weight = $form['field_ef_assign_to_user']['#weight'];
+    // Moderation State FORM
+    $form['field_ef_moderation_state'] = array(
+      '#title' => t('Moderation state'),
+      '#type' => 'select',
+      '#options' => get_available_states($node, $user),
+      '#group' => 'group_ef_publishing_options',
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#weight' => $assign_to_user_weight - 1,
+      '#default_value' => get_current_state($node),
+      '#ajax' => array(
+        'callback' => 'ajax_moderation_state_callback',
+        'wrapper' => 'field-assign-to-user-wrapper',
+        'method' => 'replace',
+        'effect' => 'fade'
+      ),
+    );
+
+    // If the current state has been changed or not
+    if (isset($form_state['input']['field_ef_moderation_state'])) {
+      if ($current_state != $form_state['input']['field_ef_moderation_state']) {
+        $form['field_ef_assign_to_user']['und']['#options']
+          = get_assign_to_user_list($type, $gid, $form_state['input']['field_ef_moderation_state']);
+      }
+    }
+    else {
+      $form['field_ef_assign_to_user']['und']['#options'] = get_assign_to_user_list($type, $gid, $current_state);
+
+      if (isset($form['field_ef_assign_to_user']['und']['#entity']->field_ef_assign_to_user['und'][0]['target_id'])
+        && empty($form_state['input'])){
+        // Be careful, Author + should not be on down condition!!!!
+        if (($type == 'ef_ir_dictionary' || $type == 'ef_factsheet')
+          && $current_state == 'published' && in_array('Author', $user->roles) ) {
+
+          $form['field_ef_assign_to_user']['und']['#default_value']
+            = get_assign_to_user_by_default($state = 'submitted', $gid, $inputs, $node);
+        }
+        else {
+          $form['field_ef_assign_to_user']['und']['#default_value']
+            = $form['field_ef_assign_to_user']['und']['#entity']->field_ef_assign_to_user['und'][0]['target_id'];
+        }
+      }
+    }
+    
+    // When we're creating a new node (state draft),
+    // the assigned user should be the creator by default
+    if ($current_state == 'draft' && (in_array('Author', $user->roles) || in_array('Quality Manager', $user->roles)
+      || in_array('OSU', $user->roles)) || in_array('Author +', $user->roles) || in_array('Quality Manager +', $user->roles)) {
+      $form['field_ef_assign_to_user']['und']['#default_value'] = $user->uid;
+
+      // PATCH 1.1 (In order to avoid user don't select apropiated QM)
+      if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
+        $form['moderation_warning'] = array(
+          '#group' => 'group_ef_publishing_options',
+          '#markup' => '<p><span class="proposal-warning element-invisible">Please, check if selected QM is correct</span></p>',
+          '#weight' => 43,
+        );
+        $form['#groups']['group_ef_publishing_options']->children[2] = 'moderation_warning';
+        $form['#group_children']['moderation_warning'] = 'group_ef_publishing_options';
+      }
+      // end PATCH 1.1
+    }
+
+    // Group Publishing definition
+    $content_type_label = node_type_get_name($node);
+    $form['#groups']['group_ef_contract']->children[3] = 'update_contract_option';
+    $form['#groups']['group_ef_publishing_options']->children[1] = 'field_ef_moderation_state';
+    $form['#group_children']['update_contract_option'] = 'group_ef_contract';
+    $form['#group_children']['field_ef_moderation_state'] = 'group_ef_publishing_options';
+    $form['#groups']['group_ef_publishing_options']->weight = -50;
+    $form['#groups']['group_ef_publishing_options']->format_settings['instance_settings']['description'] =
+      t('Set the moderation state for this "') . $content_type_label . t('" and assigned user. ') .
+      t("After saving, this content will appear in the assigned user's 'My To-do list'.");
+
+    // Revision deadline FORM
+    // Just displaying when the state is 'UNDER REVISION REQUEST'
+    $form['field_ef_revision_deadline']['#states'] = array(
+      'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'under_revision_request'))
+    );
+
+    // External Editing Deadline FORM
+    // Just displaying when the state is "ON SECOND EDITING"
+    $form['field_ef_ee_deadline']['#states'] = array(
+      'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'on_external_editing'))
+    );
+
+    drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
+
+    if($form['#node_edit_form'] === TRUE){
+      drupal_add_js(drupal_get_path('module','ef_contract') . '/js/ef_contract_edit_mode.js');
+      if(isset($form['field_ef_source_documents']) && (in_array('Author', $user->roles) || in_array('Author +', $user->roles))){
+        drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract_Author.css');
+      }
+    }
+
+    drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
+
+    // We pass to JS the 'current state' variable and Assigned user name,
+    // in order to show it in the vertical tab description
+    if (isset($current_state)) {
+      $current_state_label = workbench_moderation_state_label($current_state);
+      $settings['current_state'] = variable_get('ef_contract', $current_state_label);
+    }
+    if (isset($node->field_ef_assign_to_user['und'][0]['target_id'])) {
+      $assigned_user = user_load($node->field_ef_assign_to_user['und'][0]['target_id']);
+      $assigned_user_name = $assigned_user->name;
+      $settings['assigned_user_name'] = variable_get('ef_contract', $assigned_user_name);
+    }
+
+    drupal_add_js(array('ef_contract' => $settings), 'setting');
+
+    // Assign to User FORM
+    $form['field_ef_assign_to_user']['#prefix'] = '<div id="field-assign-to-user-wrapper">';
+    $form['field_ef_assign_to_user']['#suffix'] = '</div>';
 
     return $form;
   }
 }
+// end CREATE/EDIT FORM
 
+function ef_contract_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
 
-// Correct contract: Submit function
-function correct_bulk_contract_submit(&$form, $form_state) {
+}
 
-  global $base_url;
+function ajax_contract_callback($form, &$form_state) {
+  $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
+  if (!is_null($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
+  }
 
-    $results = $form_state['values']['field_ef_author_contract_editable'];
+  if (!empty($country_gid)) {
+    $deliverable_kinds = get_deliverable_kinds(1);
+    $form['field_ef_deliverable_kind']['und']['#options'] = $deliverable_kinds;
+    $form['field_ef_deliverable_kind']['und']['#value'] = '';
+  }
 
-    foreach ($results as $key => $value) {
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
 
-      if (isset($value['nid'])) {
+  if ($context == 1) {
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+  }
 
-        $current_node = node_load($value['nid'],$value['vid']);
-
-        $current_node->field_ef_author_contract['und'][0]['tid'] = $value['field_ef_author_contract']['und'][0]['tid'];
-        field_attach_update('node', $current_node);
-        $node_url = $base_url . '/node/' . $value['nid'];
-        $node_edit_url = $base_url . '/node/' . $value['nid'] . '/edit';
-        drupal_set_message('This content (NID: '.$value['nid'].') has been updated.
-          Go back to ' . l('its page', $node_url) . ' or go back to  '. l('edit mode', $node_edit_url));
-        entity_get_controller('node')->resetCache(array($current_node->nid));
+  $deliverable_kind_default = get_default_deliverable_kind_by_ct($form['#entity']->type);
+  if (!empty($deliverable_kind_default) && $context == 1) {
+    $form['field_ef_deliverable_kind']['und']['#value'] = $deliverable_kind_default;
+    $form_state['input']['field_ef_deliverable_kind']['und'] = $deliverable_kind_default;
+  }
+  
+  $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
+  $service_type = get_service_type($deliverable_kind_tid);
+  if (isset($service_type) && !empty($service_type)) {
+    foreach ($service_type as $tid => $value) {
+      $form['field_ef_service_type']['und']['#value'] = $value;
+      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+      if ($value != 0){
+        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
-
-
-}
-
-/**
- * AJAX ASSIGN TO COUNTRY GROUP CALLBACK FUNCTION
- */
-function ajax_assign_to_country_group_callback(&$form, $form_state){
-
-  global $user;
-  // pick up Country group (INPUT) and the needed variables
-  $node = $form['#node'];
-  $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
-  $type = $form['type']['#value'];
-  $state = get_current_state($node);
-
-
-  // Getting default leader and his contracts
-  $leader_uid = get_group_leader_uid($gid);
-  $default_leader = group_membership_load($gid, $leader_uid);
-  $leader_user = user_load($leader_uid);
-
-  if (isset($gid)) {
-    $contracts = get_contract_by_user_and_gid($leader_user, $gid);
-  } else {
-    $contracts = get_contract_by_user($leader_user);
   }
 
-  // If the user who is creating the new content has not yet changed the state,
-  // the assigned user by default should be himself
-  if ( $state == 'draft' && (in_array('Quality Manager', $user->roles) || in_array('OSU', $user->roles)) ){
-    $assigned_user_uid = $user->uid;
-  } else{
-    $assigned_user_uid = $leader_uid;
+  $form['field_ef_assign_to_country_group']['und']['#value'] = $country_gid;
+  $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
+  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
+  
+  $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
+  $contract_form['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $contract_form['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
+
+  unset($form);
+  $form = $contract_form;
+
+  return $form;
+} 
+
+function ajax_ef_deliverable_kind_callback($form, &$form_state) {
+  $country_gid = get_country_group_id_from_contract($form_state['input']['field_ef_author_contract']['und']);
+  if (!is_null($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
   }
 
-  // UPDATE Assigned Author
-  $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_by_gid($gid);
-  $form['field_ef_assign_to_author']['und']['#value'] = $default_leader->mid;
-  // UPDATE Contract
-  $form['field_ef_author_contract']['und']['#options'] = $contracts;
-  // UPDATE Assigned User
-  $form['field_ef_assign_to_user']['und']['#options'] = get_assign_to_user_list($type, $gid, $state);
-  $form['field_ef_assign_to_user']['und']['#value'] = $assigned_user_uid;
-
-  return array(
-    '#type' => 'ajax',
-    '#commands' => array(
-      ajax_command_replace( "#field-assign-to-author-wrapper", render($form['field_ef_assign_to_author']) ),
-      ajax_command_replace( "#field-contract-wrapper", render($form['field_ef_author_contract']) ),
-      ajax_command_replace( "#field-assign-to-user-wrapper", render($form['field_ef_assign_to_user']) )
-    ),
-  );
-
-}
-
-/**
- * AJAX ASSIGN TO AUTHOR CALLBACK FUNCTION
- */
-function ajax_assign_to_author_callback(&$form, $form_state){
-
-  $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
-
-  // pick up Assigned author group member ID in order to get his $user obj
-  $member_id = $form_state['input']['field_ef_assign_to_author']['und'];
-  $member_user = get_user_by_mid($member_id);
-  // getting the Author's contracts
-  if (isset($gid)) {
-    $contracts = get_contract_by_user_and_gid($member_user, $gid);
-  } else {
-    $contracts = get_contract_by_user($member_user);
+  $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
+  $form['field_ef_deliverable_kind']['und']['#value'] = $deliverable_kind_tid;
+  $service_type = get_service_type($deliverable_kind_tid);
+  if (isset($service_type) && !empty($service_type)) {
+    foreach ($service_type as $tid => $value) {
+      $form['field_ef_service_type']['und']['#value'] = $value;
+      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+      if ($value != 0){
+        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
+      }
+    }
+  }
+  $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
+  if (!isset($form['field_ef_assign_to_author']['und']['#value'])) {
+    $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
   }
 
-  // UPDATE Contracts
-  $form['field_ef_author_contract']['und']['#options'] = $contracts;
+  $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
+  $contract_form['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $contract_form['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
 
-  return $form['field_ef_author_contract'];
+  unset($form);
+  $form = $contract_form;
 
+  return $form;
+} 
+
+function ajax_assign_to_country_group_callback(&$form, &$form_state) {
+  $country_gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
+  if (!is_null($form['nid']['#value'])) {
+    $nid = $form['nid']['#value'];
+  }
+  $deliverable_kind_tid = $form_state['input']['field_ef_deliverable_kind']['und'];
+  $service_type = get_service_type($deliverable_kind_tid);
+  if (isset($service_type) && !empty($service_type)) {
+    foreach ($service_type as $tid => $value) {
+      $form['field_ef_service_type']['und']['#value'] = $value;
+      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+      if ($value != 0){
+        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
+        $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
+      }
+    }
+  }
+
+  $form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_options_by_gid($country_gid);
+  $form['field_ef_assign_to_author']['und']['#value'] = get_assign_to_author_value_by_nid($nid, get_assign_to_author_options_by_gid($country_gid), $country_gid);
+
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
+  if ($nec == 1 && $form_state['input']['field_ef_author_contract']['und'] == '_none') {
+    $context = 1;
+  }
+  if ($context == 1) {
+    $form['field_ef_author_contract']['und']['#options'] = get_contracts($context);
+    $form['field_ef_author_contract']['und']['#value'] = get_contract_from_country_group_id($country_gid);
+  }
+  else {
+    $author_user = get_user_by_mid($form['field_ef_assign_to_author']['und']['#value']);
+    $contracts = get_contract_by_user_and_gid($author_user, $country_gid);
+    foreach ($contracts as $key => $contract) {
+      if (strrpos($form['field_ef_author_contract']['und']['#value'], 'request')) {
+        if (strrpos($contract, 'request')) {
+          $form['field_ef_author_contract']['und']['#value'] = $key;
+        }
+      }
+      else {
+        $form['field_ef_author_contract']['und']['#value'] = $key;
+      }
+    }
+  }
+  
+  $contract_form['field_ef_author_contract'] = $form['field_ef_author_contract'];
+  $contract_form['field_ef_deliverable_kind'] = $form['field_ef_deliverable_kind'];
+  $contract_form['field_ef_service_type'] = $form['field_ef_service_type'];
+  $contract_form['field_ef_assign_to_country_group'] = $form['field_ef_assign_to_country_group'];
+  $contract_form['field_ef_assign_to_author'] = $form['field_ef_assign_to_author'];
+
+  unset($form);
+  $form = $contract_form;
+
+  return $form;
 }
 
 /**
  * AJAX MODERATION STATE CALLBACK FUNCTION
  */
 function ajax_moderation_state_callback(&$form, $form_state){
-
   $inputs = $form_state['input'];
 
   // pick up the workbench state selected
@@ -859,26 +892,28 @@ function ajax_moderation_state_callback(&$form, $form_state){
     $next_state = $form_state['input']['field_ef_moderation_state'];
   }
   elseif (isset($form_state['input']['state'])) {
-
     $next_state = $form_state['input']['state'];
   }
 
   // define $node object in order to get $type
   if (isset($form['#node'])) {
     $node = $form['#node'];
-  }elseif (isset($form['nid']['#value'])) {
+  }
+  elseif (isset($form['nid']['#value'])) {
     $node = node_load($form['nid']['#value']);
-  }elseif (isset($form['node']['#value'])) {
+  }
+  elseif (isset($form['node']['#value'])) {
     $node = $form['node']['#value'];
   }
   $type = $node->type;
 
   // Define $gid, if it's a group defined previously $node->group
   // if not, it should be on $form_state variable
-  if(isset($node->group)){
-    $gid = $node->group;
-  }elseif (isset($form_state['input']['field_ef_assign_to_country_group']['und'])) {
+  if(isset($node->group)) {
     $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
+  }
+  elseif (isset($form_state['input']['field_ef_assign_to_country_group']['und'])) {
+    $gid = $node->group;
   }
 
   // UPDATE Assign_to_user form
@@ -890,69 +925,14 @@ function ajax_moderation_state_callback(&$form, $form_state){
     $form['field_ef_assign_to_user']['#options'] = get_assign_to_user_list($type, $gid, $next_state);
     $form['field_ef_assign_to_user']['#value'] = get_assign_to_user_by_default($next_state, $gid, $inputs, $node);
   }
-  /*
-  if($form_state['input']['field_ef_moderation_state'] != 'unpublished'){
-    $form['field_moderation_cause']['#type'] = 'hidden';
-  }
-  */
+
   return $form['field_ef_assign_to_user'];
-
-}
-
-/**
- * AJAX ASSIGN_TO USER CALLBACK FUNCTION
- */
-function ajax_assign_to_user_callback(&$form, $form_state){
-
-  if (isset($form['#node'])) {
-    $node = $form['#node'];
-  }
-
-  // pick up Assigned User
-  $assigned_user_uid = $form_state['input']['field_ef_assign_to_user']['und'];
-  $assigned_user = user_load($assigned_user_uid);
-
-  // Define $gid, if it's a group defined previously $node->group
-  // if not, it should be on $form_state variable
-  if(isset($node->group)){
-    $gid = $node->group;
-  }elseif (isset($form_state['input']['field_ef_assign_to_country_group']['und'])) {
-    $gid = $form_state['input']['field_ef_assign_to_country_group']['und'];
-  }
-
-  // If Assigned user has QM, E, EE or OSU role, the contract mustn't change
-  if (in_array('Quality Manager', $assigned_user->roles)
-      || in_array('Editor', $assigned_user->roles)
-      || in_array('External Editor', $assigned_user->roles)
-      || in_array('OSU', $assigned_user->roles)) {
-    $update = false;
-  }else {
-    $update = true;
-  }
-  // Contract UPDATE
-  if ($update) {
-
-    $author_membership = group_membership_load($gid, $assigned_user_uid);
-    $author = user_load($author_membership->uid);
-    $author_option = $author->field_ef_last_name['und'][0]['value'] .
-      ', ' . $author->field_ef_first_name['und'][0]['value'] . ' - '. $author->name . ' -';
-
-    // UPDATE Assigned Author
-    $form['field_ef_assign_to_author']['und']['#options'] = array($author_membership->mid => $author_option);
-    //$form['field_ef_assign_to_author']['und']['#options'] = get_assign_to_author_by_gid($gid);
-    //$form['field_ef_assign_to_author']['und']['#value'] = $author_membership->mid;
-
-  }
-
-  return $form['field_ef_assign_to_author'];
-
 }
 
 /**
  * SUBMIT State FUNCTION
  */
 function ef_contract_form_submit($form, &$form_state){
-
   // pick up Input values
   $new_assigned_user = $form_state['input']['field_ef_assign_to_user'];
   $new_workbench_moderation_state = $form_state['input']['state'];
@@ -960,18 +940,18 @@ function ef_contract_form_submit($form, &$form_state){
   $nid = $form['node']['#value']->nid;
   $old_assigned_user = $form['node']['#value']->field_ef_assign_to_user['und'][0]['target_id'];
 
-  $old_workbench_modaration_state = $form['node']['#value']->workbench_moderation['current']->state;
+  $old_workbench_moderation_state = $form['node']['#value']->workbench_moderation['current']->state;
   $node = $form['node']['#value'];
   if (isset($node->group)) {
     $gid = $node->group;
   }
 
-  if ($old_workbench_modaration_state != $new_workbench_moderation_state
+  if ($old_workbench_moderation_state != $new_workbench_moderation_state
       || $old_assigned_user != $new_assigned_user) {
 
     node_object_prepare($node);
 
-    if ($old_workbench_modaration_state != $new_workbench_moderation_state){
+    if ($old_workbench_moderation_state != $new_workbench_moderation_state){
       workbench_moderation_moderate($node, $new_workbench_moderation_state);
     }
 
@@ -1000,7 +980,7 @@ function ef_contract_form_submit($form, &$form_state){
     $node = node_submit($node);
 
     // Notifications
-    ef_notifications_save_transition_records($node, $old_workbench_modaration_state, $new_workbench_moderation_state);
+    ef_notifications_save_transition_records($node, $old_workbench_moderation_state, $new_workbench_moderation_state);
 
     if (isset($node->field_ef_document)) {
       unset($node->field_ef_document);
@@ -1022,32 +1002,13 @@ function ef_contract_form_submit($form, &$form_state){
     field_attach_update('node', $node);
     // Clear the static loading cache
     entity_get_controller('node')->resetCache(array($node->nid));
-
   }
-
-
 }
-
-function ajax_new_contract_callback($form, &$form_state) {
-
-  $new_gid = $form_state['values']['new_country_group'];
-  $new_author_uid = get_group_leader_uid($new_gid);
-  $new_author_user = group_membership_load($new_gid, $new_author_uid);
-  $new_author = user_load($new_author_user->uid);
-  $contracts = get_contract_by_user_and_gid($new_author, $new_gid);
-
-  $form['new_contract_options']['new_contract']['#options'] = $contracts;
-
-  return $form['new_contract_options']['new_contract'];
-
-}
-
 
 /**
  * SUBMIT Update Country Group and Contract FUNCTION
  */
 function new_contract_options_submit($form, &$form_state) {
-
   $selected_nids = array();
   $items = $form_state['values']['views_bulk_operations'];
   foreach ($items as $key => $item) {
@@ -1096,7 +1057,6 @@ function new_contract_options_submit($form, &$form_state) {
       if ($user_is_author ) {
         $this_node->field_ef_assign_to_user['und'][0]['target_id'] = $default_leader->uid;
       } else {
-        //dpm('Remember to change this (line 1103)');
         $this_node->field_ef_assign_to_user['und'][0]['target_id'] = $default_leader->uid;
       }
     }
@@ -1114,13 +1074,10 @@ function new_contract_options_submit($form, &$form_state) {
     $node_edit_url = url(drupal_get_path_alias('node/'. $this_node->nid . '/edit'),array('absolute' => TRUE));
     drupal_set_message('This content (NID: '.$this_node->nid.') has been updated.
       Go back to ' . l('its page', $node_url) . ' or go back to  '. l('edit mode', $node_edit_url));
-
   }
-
 }
 
 function save_revision_log_message($form, &$form_state){
-
   $log_message = $form_state['values']['log'];
   $node = node_load($form['node']['#value']->nid, $form['node']['#value']->vid);
   $node->log = $log_message;
@@ -1151,14 +1108,12 @@ function save_revision_log_message($form, &$form_state){
 }
 
 function save_revision_log_message_validation($form, &$form_state) {
-
   $form_len = strlen($form['#default_value']);
   $state_len = strlen($form_state['values']['log']);
 
   if ($form_len == $state_len) {
     form_set_error("log",t("You need to fill in 'Revision Log message' before submitting this content to unpublished"));
   }
-
 }
 
 
@@ -1205,58 +1160,33 @@ function ef_contract_validate($node, $form, &$form_state){
  * Implements hook_node_presave().
  */
 function ef_contract_node_presave($node) {
-
   global $user;
 
-  $types = array(
-    'ef_report',
-    'ef_comparative_analytical_report',
-    'ef_national_contribution',
-    'ef_ic_quarterly_report',
-    'ef_input_to_erm',
-    'ef_case_study',
-    'erm_support_instrument',
-    'ef_erm_regulation',
-    'ef_restructuring_in_smes',
-    'ef_factsheet',
-    'ef_ir_dictionary',
-    'ef_annual_progress_report',
-    'ef_network_quarterly_report',
-    'case_study_publication',
-    'ef_working_life_country_profiles',
-  );
+  $types = ef_contract_get_affected_cts();
 
-  if( in_array($node->type, $types) ){
-
-
+  if (in_array($node->type, $types)) {
     // We create $node->group variable with the 'field_ef_assign_to_country_group' info
     // because the QM, who create the nodes, are not members in any Country Group,
     // so they can't choose any group in Group field
     if ( isset($node->field_ef_assign_to_country_group['und'][0]['target_id']) ){
-
       //if(is_null(var)$node->group_settings['group'])
       $gid = $node->field_ef_assign_to_country_group['und'][0]['target_id'];
       $node->group = $gid;
-
-    }elseif (!isset($node->field_ef_assign_to_country_group['und'][0]['target_id'])
+    }
+    elseif (!isset($node->field_ef_assign_to_country_group['und'][0]['target_id'])
       && isset($node->group_settings['group'])) {
-
       preg_match_all('/\d+/', $node->group_settings['group'], $matches_gid);
       foreach ($matches_gid as $key => $value) {
         $gid = $value[0];
       }
       $node->group = $gid;
-
     }
 
     // issue 3554: IR dictionary's contract should update from Eurofound to EU level
     if ($node->type == 'ef_ir_dictionary') {
-
       if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
-
         $user_gids = get_group_by_user($user);
         if (in_array('EU level', $user_gids)/* && isset($form['nid']['#value'])*/) {
-
           $new_gid = array_search('EU level', $user_gids);
           $new_author_member = group_membership_load($new_gid, $user->uid);
           $contract_tid = get_assigned_contract($new_gid, $node->type);
@@ -1267,16 +1197,13 @@ function ef_contract_node_presave($node) {
           $node->field_ef_author_contract['und'][0]['tid'] = $contract_tid;
           $node->field_ef_assign_to_user['und'][0]['target_id'] =
             get_assign_to_user_by_default($node->field_ef_moderation_state, $new_gid, $inputs = null, $node);
-
         }
       }
-
     }
     // end issue 3554
 
     // The workbench moderation state has been changed
     if(isset($node->field_ef_moderation_state)){
-
       // Notifications
       if ($node->workbench_moderation['current']->state != $node->field_ef_moderation_state) {
         ef_notifications_save_transition_records($node, $node->workbench_moderation['current']->state, $node->field_ef_moderation_state);
@@ -1286,26 +1213,16 @@ function ef_contract_node_presave($node) {
 
       //revisions BUG 2016/01/22
       //$node->workbench_moderation['current']->state = $node->field_ef_moderation_state;
-
-
       if ($node->field_ef_moderation_state == $node->workbench_moderation['current']->state) {
-
         if ($node->field_ef_moderation_state == 'published') {
-
           $node->workbench_moderation_state_new = 'draft';
-
-        } else {
-
-          $node->workbench_moderation_state_new = $node->field_ef_moderation_state;
-
         }
-
+        else {
+          $node->workbench_moderation_state_new = $node->field_ef_moderation_state;
+        }
       }
-
     }
-
   }
-
 }
 
 /**
@@ -1337,4 +1254,58 @@ function ef_contract_implements_alter(&$implementations, $hook) {
     $implementations['ef_contract'] = $contract;
   }
 }
+
+/**
+ * Saves the affected content types to the settings table
+ */
+function ef_contract_save_affected_cts($values) {
+  if (isset($values)) {
+    $cts = node_type_get_types();
+    foreach ($cts as $key => $ct) {
+      $query = db_merge('ef_contract_affected_cts');
+      $query->key(array('machine_name' => $ct->type,));
+      $query->fields(array('enabled' => $values[$ct->type],));
+      $query->execute();
+    }
+  }
+}
+
+/**
+ * Returns an array containing the affected content types from the settings table
+ */
+function ef_contract_get_affected_cts() {
+  $query = db_select('ef_contract_affected_cts', 'cct');
+  $query->fields('cct', array('machine_name'));
+  $query->condition('cct.enabled', 1);
+
+  $result = $query->execute()->fetchAll();
+
+  foreach ($result as $key => $ct) {
+    $enabled_cts[] = $ct->machine_name;
+  }
+
+  return $enabled_cts;
+}
+
+// Correct contract: Submit function
+function correct_bulk_contract_submit(&$form, $form_state) {
+  global $base_url;
+
+  $results = $form_state['values']['field_ef_author_contract_editable'];
+
+  foreach ($results as $key => $value) {
+    if (isset($value['nid'])) {
+      $current_node = node_load($value['nid'],$value['vid']);
+
+      $current_node->field_ef_author_contract['und'][0]['tid'] = $value['field_ef_author_contract']['und'][0]['tid'];
+      field_attach_update('node', $current_node);
+      $node_url = $base_url . '/node/' . $value['nid'];
+      $node_edit_url = $base_url . '/node/' . $value['nid'] . '/edit';
+      drupal_set_message('This content (NID: '.$value['nid'].') has been updated.
+        Go back to ' . l('its page', $node_url) . ' or go back to  '. l('edit mode', $node_edit_url));
+      entity_get_controller('node')->resetCache(array($current_node->nid));
+    }
+  }
+}
+
 

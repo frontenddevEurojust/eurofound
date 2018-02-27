@@ -2,13 +2,11 @@
 
 function content_type_forms_array(){
 
-	$form_ids = array(
-    'ef_report_node_form', 'ef_comparative_analytical_report_node_form', 'ef_national_contribution_node_form',
-    'ef_ic_quarterly_report_node_form', 'ef_input_to_erm_node_form', 'ef_case_study_node_form',
-    'erm_support_instrument_node_form', 'ef_erm_regulation_node_form', 'ef_restructuring_in_smes_node_form',
-    'ef_factsheet_node_form', 'ef_ir_dictionary_node_form', 'ef_annual_progress_report_node_form',
-    'ef_network_quarterly_report_node_form', 'case_study_publication_node_form','ef_working_life_country_profiles_node_form',
-  );
+	$enabled_types = ef_contract_get_affected_cts();
+
+	foreach ($enabled_types as $key => $ct) {
+		$form_ids[] = $ct . '_node_form';
+	}
 
   return $form_ids;
 
