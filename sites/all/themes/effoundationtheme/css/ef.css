@@ -8830,7 +8830,7 @@ body.page-node-edit.node-type-ef-factsheet .nojs {
 /* --- forms --- */
 
 .view-id-case_studies_emcc .views-exposed-widget {
-	width:25%;
+	width:33%;
 }
 .view-id-ef_case_studies .views-exposed-widget,
 .form-support-instruments .views-exposed-widge{
@@ -8876,16 +8876,14 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 	clear: both;
 }
 .view-id-case_studies_emcc .views-widget-filter-title_field_value{
-	width: 75%;
+	width: 66%;
 }
 .view-id-case_studies_emcc .views-widget-filter-field_ant_change_activ_csp_tid_selective,
 .view-id-case_studies_emcc .views-widget-filter-field_man_change_activ_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_keywords_csp_tid_selective{
-	width: 50%;
+	width: 49.5%;
 }
-.view-id-case_studies_emcc .views-widget-filter-field_man_change_activ_csp_tid_selective{
-	clear: both;
-}
+
 .view-id-case_studies_emcc  .views-widget-filter-field_organisation_size_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_affected_est_size_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_type_of_restructuring_csp_tid_selective{
