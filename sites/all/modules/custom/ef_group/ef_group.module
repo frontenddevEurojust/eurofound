@@ -102,17 +102,6 @@ function ef_group_form_alter(&$form, &$form_state, $form_id){
     $actions = split('/', $action);
 
     // Edit form
-    if (in_array('add', $actions)) {
-      $form['title'] = array(
-        '#type' => 'select',
-        '#title' => 'Country Group Name',
-        '#description' => 'The name of the Country group',
-        '#required' => TRUE,
-        '#options' => get_country_name_list()
-      );
-    }
-
-
     // Fieldset 'UPDATE Group creator' for Admins
     if(in_array('administrator', $user->roles)){
 
