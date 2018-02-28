@@ -213,8 +213,10 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
+
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
+      
       }else{
         num_divisor=parseInt(3);
       }
