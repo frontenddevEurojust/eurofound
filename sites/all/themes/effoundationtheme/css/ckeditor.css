@@ -321,6 +321,9 @@ img.img-align-center {
  right: -5px !important;
  left: auto !important;
 }
+.img-align-center figcaption{
+	text-align: center;
+}
 figure {
 	margin:0rem 25px;
 }
