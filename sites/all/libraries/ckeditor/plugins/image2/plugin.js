@@ -1614,6 +1614,7 @@
  * @member CKEDITOR.config
  */
 CKEDITOR.config.image2_captionedClass = 'image';
+CKEDITOR.config.image2_alignClasses = [ 'img-align-left', 'img-align-center', 'img-align-right' ];
 
 /**
  * Determines whether dimension inputs should be automatically filled when the image URL changes in the Enhanced Image

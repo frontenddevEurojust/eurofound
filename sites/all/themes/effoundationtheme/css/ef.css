@@ -7058,24 +7058,20 @@ html.js input.throbbing {
 
 /* @group FCK EDITOR CLASSES----------------*/
 /*---classes on fck editor dropdown list---*/
-.float-right {
-	float: right;
-	margin: 0px 0px 20px 20px;
-}
 .no-float {
-	float: none;
-	clear: both;
+	float: none !important;
+	clear: both !important;
 	margin: 20px auto!important;
-	text-align: center;
-	display: block;
+	text-align: center !important;
+	display: block !important;
 }
-.img-float-right img, 
-img.img-float-right{
+.img-align-right img, 
+img.img-align-right{
 	float: right !important;
 	margin:0px 0px 20px 20px !important;
 }
-.img-float-left img, 
-img.img-float-left{
+.img-align-left img, 
+img.img-align-left{
 	float: left !important;
 	margin:0px 20px 20px 0px !important;
 }
@@ -7086,14 +7082,16 @@ img.img-no-float{
   display: block !important;
   float: none !important;
 }
-.img-center img, 
-img.img-center {
-	float: none !important;
-	clear:both !important;
-	margin:20px auto!important;
-	text-align:center !important;
-	display:block !important;
+.img-align-center img, 
+img.img-align-center {
+	float: none ;
+	clear:both ;
+	margin:20px auto !important;
+	text-align:center;
+	display:block;
 }
+
+
 .source {
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
 	color: #666;
