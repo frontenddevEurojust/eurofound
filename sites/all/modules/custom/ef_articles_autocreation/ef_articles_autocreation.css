@@ -1,13 +1,13 @@
 
-.page-car-nc-autocreation #edit-country2 .form-type-checkbox > input{
+.page-articles-autocreation #edit-country .form-type-checkbox > input{
 	visibility: hidden;
 }
 
-.page-car-nc-autocreation #edit-country2 .form-type-checkbox label > i {
+.page-articles-autocreation #edit-country .form-type-checkbox label > i {
     margin-right: 5px;
 }
 
-.page-car-nc-autocreation #edit-country2 .large-3.column.countries-col {
+.page-articles-autocreation #edit-country .large-3.column.countries-col {
     
     min-height: 200px;
 }
@@ -15,7 +15,7 @@
  /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (max-width: 40.063em) { 
 
-	.page-car-nc-autocreation #edit-country2 .large-3.column.countries-col {
+	.page-articles-autocreation #edit-country .large-3.column.countries-col {
 	    
 	    min-height: 160px;
 	}
@@ -45,4 +45,3 @@ table #remove-back{
 .form-item-deliver{
 	clear: both;
 }
-
