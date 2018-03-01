@@ -91,6 +91,7 @@ if (isset($content['field_ef_document'][0]['#file']))
 //Remove the day when the content is forthcoming
 $publication_date_forthcoming = preg_split('#\s+#', $content['group_ef_node_details']['published_on'][0]['#markup'], 2);
 $state == 'forthcoming' ? $publication_date = $publication_date_forthcoming[1] : $publication_date = $content['group_ef_node_details']['published_on'][0]['#markup'];
+$overwrite_thumbnail = $node->field_overwrite_thumbnail['und'][0]['value'];
 
 if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
@@ -116,7 +117,11 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 		<div class="ds-node-side-info large-4 columns">
 							
 			<div class="field field-name-publication-preview">
-				<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a> 
+				<?php if($overwrite_thumbnail == 1): ?>
+					<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?php print render($content['field_ef_main_image']); ?></a>
+				<?php else: ?>
+					<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+				<?php endif; ?>
 			</div>
 			
 			<div class="field field-name-field-ef-document">
