@@ -193,6 +193,7 @@ function ef_osu_contract_form_alter(&$form, $form_state, $form_id, $account) {
 
 function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
 
+
   if ($form['#id'] == 'views-exposed-form-ef-osu-contract-reporting-page-1' || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1' )  {
     $form['field_ef_requested_on_value']['min']['#date_format'] = 'd F Y';
     $form['field_ef_requested_on_value']['max']['#date_format'] = 'd F Y';
@@ -205,6 +206,53 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
     $end_date = $form_state['view']->exposed_input['field_ef_requested_on_value']['max']['date']; */
     $form['field_ef_requested_on_value']['min']['#date_format'] = 'Y-m-d';
     $form['field_ef_requested_on_value']['max']['#date_format'] = 'Y-m-d';
+  }
+
+  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1'){
+    $form['field_ef_report_delivery_date_value']['min']['#date_format'] = 'd/m/Y';
+    $form['field_ef_report_delivery_date_value']['max']['#date_format'] = 'd/m/Y';
+    $form['field_ef_report_delivery_date_value']['min']['#title'] = 'From';
+    $form['field_ef_report_delivery_date_value']['max']['#title'] = 'To';
+    $form['field_ef_approved_for_payment_value']['min']['#date_format'] = 'd/m/Y';
+    $form['field_ef_approved_for_payment_value']['max']['#date_format'] = 'd/m/Y';
+    $form['field_ef_approved_for_payment_value']['min']['#title'] = 'From';
+    $form['field_ef_approved_for_payment_value']['max']['#title'] = 'To';
+    
+    //Change the field contract year comp to a Select. 
+    //We Fill the select with the sql table of the years values.
+    $field_id = 'field_ef_contract_year_comp';
+
+      // Only alter forms with the necessary field
+      if (isset($form[$field_id .'_value'])) {    
+        // Build a query to get grouped by values of the field
+        $query = db_select('field_data_' . $field_id, 'fd');
+        $query->addField('fd', $field_id . '_value', 'field');
+        $query->groupBy($field_id . '_value');
+
+        // Execute query
+        try {
+          $result = $query->execute();
+        }
+        catch (Exception $e) {
+          // Error handling: Just a message and no change of the field
+          drupal_set_message(t('SQL Query failed when rewriting field %field from TEXT field to SELECT field.', array('%field' => $field_id)), 'warning');
+          return;
+        }
+
+        // Start with a default so the filter is optional
+        $options = array("" => t('- Any -'));
+
+        // Build the options array based on the grouped field values
+        foreach($result as $row) {
+          $options[$row->field] = $row->field;
+        }
+        
+        // Alter the field
+        $form[$field_id .'_value']['#type'] = 'select';
+        $form[$field_id .'_value']['#options'] = $options;
+        $form[$field_id .'_value']['#size'] = 1;
+      }
+        
   }
 }
 
