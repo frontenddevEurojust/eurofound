@@ -78,6 +78,13 @@ function articles_autocreation_form($form, &$form_state) {
 	
 	
 	$countriesList[$key_eu] = "EU level";
+
+	foreach ($countriesList as $key => $value) {
+		if (strpos($value, '2014') == true) {
+		    $countriesList = array_diff($countriesList, [$value]);
+		}
+	}
+
   	$form['title'] = array(
 		'#title' => t('Title'),
 		'#type' => 'textfield',
@@ -166,25 +173,8 @@ function articles_autocreation_form($form, &$form_state) {
 		'#validated' => TRUE,
 		
 	);
-	
-	$form['source_documents'] = array(
-  		'#type' => 'file',
-  		'#title' => t('Source_documents'),
-  	);
 
-  	$form['upload'] = array(
-    	'#type' => 'button',
-    	'#value' => t('Upload file'),
-    	'#name' => 'upload',
-    	'#ajax' => array(
-      		'callback' => 'articles_autocreation_file_upload_ajax',
-      		'wrapper' => 'file-list-wrapper',
-      		'method' => 'replace',
-      		'effect' => 'fade',
-  		),
-	);
-
-  		//Add extra remove buttons 
+	//Add extra remove buttons 
   	for($cont==0; $cont < 20; $cont++){
   		$i =  (int)$cont;
 
@@ -207,6 +197,37 @@ function articles_autocreation_form($form, &$form_state) {
   	}
 
 
+	$form['con_file'] = array(
+      '#type' => 'container',
+      '#prefix' => '<div id="container_file">',
+	  '#suffix' => '</div>',
+      '#attributes' => array(
+        'class' => array(
+            'container_file',
+        ),
+      ),
+      '#weight' => $instance['widget']['weight'],
+    );
+	
+	$form['con_file']['source_documents'] = array(
+  		'#type' => 'file',
+  		'#title' => t('Source_documents'),
+  	);
+
+  	$form['con_file']['upload'] = array(
+    	'#type' => 'button',
+    	'#value' => t('Upload file'),
+    	'#name' => 'upload',
+    	'#ajax' => array(
+      		'callback' => 'articles_autocreation_file_upload_ajax',
+      		'wrapper' => 'container_file',
+      		'method' => 'replace',
+      		'effect' => 'fade',
+  		),
+	);
+
+  	
+
 	$header = $header = array(
     	'file' => array('data' => t('File')),
     	'user' => t('User'),
@@ -217,7 +238,7 @@ function articles_autocreation_form($form, &$form_state) {
 	
   	
 	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
-		$form['file_list'] = array(
+		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
 				'#suffix' => '</div>',
 				'#theme' => 'table',
@@ -226,19 +247,19 @@ function articles_autocreation_form($form, &$form_state) {
 
 	 	foreach ($_SESSION['source_documents'] as $key => $value) {
 	 		$remove_button = $form['remove_'.$key];
-		  	$form['file_list']['#rows'][$key] = array(
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
 	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => &$remove_button),
 	  		);
-	  		$form['file_list']['remove_' . $key] = &$remove_button;
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 	  		unset($remove_button);
 	  	}
 	  	
 	}
   	else {
-  		$form['file_list'] = array(
+  		$form['con_file']['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
 			'#suffix' => '</div>',
 			'#theme' => 'table',
@@ -246,7 +267,7 @@ function articles_autocreation_form($form, &$form_state) {
     		'#rows' => $rows,
     		'#empty' => 'No files attached',
     	);
-    	$form['file_list']['#rows']['0'] = array(
+    	$form['con_file']['file_list']['#rows']['0'] = array(
 	  			'file' => 'No file',
 	  			'user' => '',
 	  			'submitted' => '',
@@ -275,43 +296,38 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	//   10 MB.
 	// File validation
 	global $user;
-	//dpm($form_state);
-	//dpm($_SESSION);
 	
 	//validate if both arrays form state and session have the same elements
-	if (count($form_state['complete form']['file_list']['#rows']) > count($_SESSION['source_documents'])){
+	if (count($form_state['complete form']['con_file']['file_list']['#rows']) > count($_SESSION['source_documents'])){
 
-		foreach ($form_state['complete form']['file_list']['#rows'] as $key => $value) {
+		foreach ($form_state['complete form']['con_file']['file_list']['#rows'] as $key => $value) {
 			if ($value['file']!=$_SESSION['source_documents'][$key]['name']){
-				unset ($form_state['complete form']['file_list']['#rows'][$key]);
+				unset ($form_state['complete form']['con_file']['file_list']['#rows'][$key]);
 				break;
 			}
 		}
 	}
 	
-	if(count($form_state['complete form']['file_list']['#rows']) < count($_SESSION['source_documents'])){
-		unset($form_state['complete form']['file_list']['#rows']);
-		unset($form['file_list']['#rows']);
-		foreach ($_SESSION['source_documents'] as $key => $value) {
-			$remove_button = $form['remove_'.$key];
-	 	  	$form['file_list']['#rows'][$key] = array(
-	  			'file' => $value['name'],
-	  			'user' => $user->name,
-	  			'submitted' => date("d F Y"),
-	  			'actions' => array('data' => $remove_button),
-	  		);
-	  		$form['file_list']['remove_' . $key] = &$remove_button;
+	if(count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents'])){
 
-			$form_state['complete form']['file_list']['#rows'][$key] = array(
-	  			'file' => $value['name'],
-	  			'user' => $user->name,
-	  			'submitted' => date("d F Y"),
-	  			'actions' => array('data' => $remove_button),
-	  		);
-	  		$form_state['complete form']['file_list']['remove_' . $key] = &$remove_button;
+		$key = 	count($_SESSION['source_documents']) - 1;
+		$remove_button = $form['remove_'.$key];
+	 	$form[$con_file]['file_list']['#rows'][$key] = array(
+	  		'file' => $_SESSION['source_documents'][$key]['name'],
+	  		'user' => $user->name,
+	  		'submitted' => date("d F Y"),
+	  		'actions' => array('data' => $remove_button),
+	  	);
+	  	$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
 
-	  		unset($remove_button);
-	  	}
+
+	  	$form_state['complete form']['con_file']['file_list']['#rows'][$key] = array(
+	  		'file' => $_SESSION['source_documents'][$key]['name'],
+	  		'user' => $user->name,
+	  		'submitted' => date("d F Y"),
+	  		'actions' => array('data' => $remove_button),
+	  	);
+	  	$form_state['complete form']['con_file']['file_list']['remove_' . $key] = &$remove_button;
 
 	}
 
@@ -360,7 +376,7 @@ function remove_article_file_by_id($form, &$form_state){
 	unset($_SESSION['source_documents'][$key]);
 	unset($_SESSION['documents'][$key]);
 	unset($form_state['file_list']['#rows'][$key]);
-	unset($form['file_list']['#rows'][$key]);
+	unset($form['con_file']['file_list']['#rows'][$key]);
 	
 	$_SESSION['source_documents'] = array_values($_SESSION['source_documents']);
 	$_SESSION['documents'] = array_values($_SESSION['documents']);
@@ -373,7 +389,7 @@ function remove_article_file_by_id($form, &$form_state){
   	);
 
 	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
-		$form['file_list'] = array(
+		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
 				'#suffix' => '</div>',
 				'#theme' => 'table',
@@ -383,19 +399,19 @@ function remove_article_file_by_id($form, &$form_state){
 	 	foreach ($_SESSION['source_documents'] as $key => $value) {
 	
 	 		$remove_button = $form['remove_'.$key];
-		  	$form['file_list']['#rows'][$key] = array(
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
 	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => &$remove_button),
 	  		);
-	  		$form['file_list']['remove_' . $key] = &$remove_button;
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 	  		unset($remove_button);
 	  	}
 	  	
 	}
   	else {
-  		$form['file_list'] = array(
+  		$form['con_file']['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
 			'#suffix' => '</div>',
 			'#theme' => 'table',
@@ -403,7 +419,7 @@ function remove_article_file_by_id($form, &$form_state){
     		'#rows' => $rows,
     		'#empty' => 'No files attached',
     	);
-    	$form['file_list']['#rows']['0'] = array(
+    	$form['con_file']['file_list']['#rows']['0'] = array(
 	  			'file' => 'No file',
 	  			'user' => '',
 	  			'submitted' => '',
@@ -412,7 +428,7 @@ function remove_article_file_by_id($form, &$form_state){
 	  
   	}
 
-	return $form['file_list'];
+	return $form['con_file']['file_list'];
 
 }
 
@@ -534,6 +550,15 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 		form_set_error ('source_documents',"No more than 20 documents are allowed.");
 		$doc_error = true;
 	}
+	//Validate that we don't choose the same document twice
+	foreach ($_SESSION['source_documents'] as $key => $value) {
+		$att_doc[] = $value['name'];
+	}
+	$new_doc = $form_state['values']['source_documents']['name'];
+	if (in_array($new_doc,$att_doc)){
+		form_set_error ('source_documents',"The file: " .$new_doc. " had been already uploaded");
+		$doc_error = true;	
+	}
 
 	$header = $header = array(
     'file' => t('File'),
@@ -542,8 +567,8 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
     'actions' => t('Actions'),
   	);
 
-	if (isset($form['file_list']['files'])) {
-  		$files = $form['file_list']['files']['#value'];
+	if (isset($form['con_file']['file_list']['files'])) {
+  		$files = $form['con_file']['file_list']['files']['#value'];
 	}
 
 	if (isset($form_state['values']['source_documents']) && !empty($form_state['values']['source_documents'])) {
@@ -597,7 +622,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 	/**********************************************************SAVE THE DOCUMENTS******************************************/
 	}
 
-  	$form['file_list'] = array(
+  	$form['con_file']['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
 			'#suffix' => '</div>',
 			'#theme' => 'table',
@@ -608,18 +633,18 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
  		
  		$remove_button = $form['remove_'.$key];
 
-	  	$form['file_list']['#rows'][$key] = array(
+	  	$form['con_file']['file_list']['#rows'][$key] = array(
   			'file' => $value['name'],
   			'user' => $user->name,
   			'submitted' => date("d F Y"),
   			'actions' => array('data' => $remove_button),
   		);
-  		//$form['file_list']['remove_' . $key] = &$remove_button;
+  		//$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
   		unset($remove_button);
   	}
 
   }
-  return $form['file_list'];
+  return $form['con_file'];
 }
 
 
