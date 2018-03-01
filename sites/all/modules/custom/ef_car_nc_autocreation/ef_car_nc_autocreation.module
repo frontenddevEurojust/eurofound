@@ -423,6 +423,10 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 			form_set_error('scheduled_record_delivery_date', 'Scheduled record delivery date field is required');
 		}
 
+		if ($form_state['values']['national_contribution_deadline']['date']==""){
+			form_set_error('national_contribution_deadline', 'National contribution deadline date field is required');
+		}
+
 		if ($form_state['values']['deliver']==""){
 			form_set_error('deliver', 'Delivery field is required');
 		}
