@@ -879,7 +879,7 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
 
 		  	$form[$con_file]['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
-	  			'user' => $user->name ."ass",
+	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => $remove_button),
 	  		);
