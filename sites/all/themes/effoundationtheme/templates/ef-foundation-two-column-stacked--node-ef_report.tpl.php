@@ -276,8 +276,3 @@ $countview = count($result);
             <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>
         </div>
     </aside>
-<?php 
-    /*echo "<pre>";
-    var_dump($node);
-    echo "</pre>";*/
- ?>
