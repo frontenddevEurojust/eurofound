@@ -222,12 +222,14 @@
 
           <?php
               $trail_holder = menu_set_active_trail();
+
               if(sizeof($trail_holder)>2){
                 $link_path = $trail_holder[2]['link_path'];
               }
               else{
                 $link_path="none";
               }
+
               if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe (FOME)' ) :?>
                <h1 id="page-title" class="title parent_emcc">
                  <a href="<?php print $base_url?>/observatories/emcc">
@@ -358,6 +360,9 @@
                   <?php print $title ?>
                  </h1>
 
+              <?php elseif($node->type == 'board_member_page'): ?>
+                <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>            
+
              <?php else : ?>
                 
                  
@@ -408,7 +413,8 @@
           }else if(
                     $node->type == 'blog' || 
                     $node->type == 'presentation' || 
-                    $node->type == 'ef_working_life_country_profiles'
+                    $node->type == 'ef_working_life_country_profiles' || 
+                    $node->type == 'board_member_page'
                   ) {
            $hide_print  = true;
            $hide_pdf = true;

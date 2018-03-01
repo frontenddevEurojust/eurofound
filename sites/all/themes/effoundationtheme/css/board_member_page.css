@@ -1,0 +1,67 @@
+h1#page-title.title-governing-board{
+  background: #FFF url(../images/background-observatories.jpg) no-repeat;
+  background-size: 100% 86px;
+	padding: 20px 50px 40px !important;
+  color: #005BAA;
+
+  text-align: left;
+  border: 0;
+	font-family: 'OpenSans-Bold-webfont',Arial,Helvetica,sans-serif;
+  font-size: 2.6em;
+  vertical-align: middle;
+  letter-spacing: -0.03em;
+}
+h2.board-member-h2{
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif !important;
+  font-size: 2.1em !important;
+  margin-bottom: 0.2em !important;
+  margin-top: 0px !important;
+  letter-spacing: -0.05em !important;
+  line-height: 1.1em !important;
+  border-bottom: 1px solid #ccc !important;
+  padding-bottom: 10px !important;
+  text-align: left !important;
+}
+.block-menu-menu-extranet-menu .menu{
+	margin: 0;
+	padding: 0;
+}
+
+.block-menu-menu-extranet-menu .menu li a{
+	font-family: inherit;
+	font-weight: 400;
+	font-size: 1em;
+	line-height: 1.6;
+	padding: 0.75em 0;
+	text-rendering: optimizeLegibility;
+	display: block;
+}
+
+.block-menu-menu-extranet-menu .menu li:first-child a{
+	padding-top: 0;
+}
+.block-menu-menu-extranet-menu .menu li:last-child a{
+	padding-bottom: 0;
+}
+.ef-main.board-member-main {
+  padding: 0;
+}
+.ef-main.board-member-main .button-group, 
+.ef-main.board-member-main .action-links{
+  padding: 0px 25px;
+}
+section.board-member-page {
+  padding: 0px 25px 40px 25px;
+  position: relative;
+}
+span.print_pdf, .views-page .print_pdf {
+  top: 0.8em  !important;
+  z-index: 10;
+}
+span.print_html, .views-page .print_html {
+  top: 0.5em !important;
+  z-index: 10;
+}
+.block-menu-menu-extranet-menu .menu li a.active{
+	color: #F58020 !important;
+}
