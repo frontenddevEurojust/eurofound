@@ -3,6 +3,132 @@
 
 	var run_once = 0;
 
+  //View New OSU contract - Validate the filters Service type and Deliverable kind           
+  Drupal.behaviors.NewOsuView = {
+    attach: function (context, settings) {
+
+      $("#edit-field-ef-deliverable-kind-tid").chosen().change(function() {
+
+        if($("#edit_field_ef_service_type_tid_chosen .chosen-single span").text() == "On-request reporting service"){
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Country update on latest developments in working life")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Contribution to topical updates")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("annual review of working life")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Working life country profile - update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Update of a database of national contacts")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Annual Progress Report")').remove();
+        }
+        
+        if($("#edit_field_ef_service_type_tid_chosen .chosen-single span").text() == "Scheduled reporting service"){
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Provision of ERM factsheets")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("ERM database on support instruments - 1 instrument update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("ERM database on restructuring related legislation - 1 regulation update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Update of the link collection of the national media sources used for identifying restructuring events")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("On-demand service")').remove();
+        }
+      });
+            
+      //Desactivate the label pointer event because the label open the select and remove filters doesn't works
+      $('#edit-field-ef-deliverable-kind-tid-wrapper > label').css("pointer-events" , "none")
+
+      $('#edit-field-ef-deliverable-kind-tid-wrapper').click(function () {
+        
+        if($("#edit_field_ef_service_type_tid_chosen .chosen-single span").text() == "On-request reporting service"){
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Country update on latest developments in working life")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Contribution to topical updates")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("annual review of working life")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Working life country profile - update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Update of a database of national contacts")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Annual Progress Report")').remove();
+        }
+        
+        if($("#edit_field_ef_service_type_tid_chosen .chosen-single span").text() == "Scheduled reporting service"){
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Provision of ERM factsheets")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("ERM database on support instruments - 1 instrument update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("ERM database on restructuring related legislation - 1 regulation update")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("Update of the link collection of the national media sources used for identifying restructuring events")').remove();
+          $('#edit_field_ef_deliverable_kind_tid_chosen .chosen-drop li:contains("On-demand service")').remove();
+        }
+      });
+
+      $('#edit-field-ef-service-type-tid-wrapper').click(function () {
+        var $request_hide = 0;
+        var $scheduled_hide = 0;
+        
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Country update on latest developments in working life")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+           var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Contribution to topical updates")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Contribution to EurWORK’s annual review of working life")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("EurWORK’s Working life country profile - update")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("EurWORK database on wages/working time, dispute and dispute resolution mechanisms - update")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Update of a database of national contacts")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Annual Progress Report")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').hide();
+          var $request_hide = 1;
+        }
+
+
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Provision of ERM factsheets")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').hide();
+          var $scheduled_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("ERM database on support instruments – 1 instrument update")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').hide();
+          var $scheduled_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("ERM database on restructuring related legislation – 1 regulation update")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').hide();
+          var $scheduled_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("Update of the link collection of the national media sources used for identifying restructuring events")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').hide();
+          var $scheduled_hide = 1;
+        }
+
+        if($('#edit-field-ef-deliverable-kind-tid-wrapper .search-choice span:contains("On-demand service")').length == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').hide();
+          var $scheduled_hide = 1;
+        }
+
+        //When we have Scheduled Service type and On-request reporting service type , show the two options
+        if($scheduled_hide == 1 && $request_hide == 1){
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("Scheduled reporting service")').show();
+          $('#edit_field_ef_service_type_tid_chosen .chosen-results li:contains("On-request reporting service")').show();
+        } 
+      });
+
+    }
+  };
+
+
   Drupal.behaviors.effoundationtheme = {
     attach: function(context, settings) {
       // Get your Yeti started.
@@ -213,10 +339,17 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
+      }else if(pathname_form=='new-osu-contracts-reporting'){
+        num_divisor=parseInt(8);  
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
       }else{
         num_divisor=parseInt(3);
+      }
+
+      if ( $(".view-new-osu-contract-reporting").length > "0" ){
+        //Append Help text
+        $( "#edit-field-ef-contract-year-comp-value-wrapper" ).append( $( "<div class='description'> <span  class='' title='Contract year starts 1 March and ends on 28/9 February the following year.'>More information?</span></div>" ) );
       }
 
       var $filter_rows = Math.floor($num_filters/num_divisor);
