@@ -339,12 +339,8 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
-<<<<<<< HEAD
       }else if(pathname_form=='new-osu-contracts-reporting'){
         num_divisor=parseInt(8);  
-=======
-
->>>>>>> WEM-932-merge-js
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
       
