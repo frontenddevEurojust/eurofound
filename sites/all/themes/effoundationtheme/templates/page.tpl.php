@@ -181,7 +181,19 @@
   <?php if ($breadcrumb && $is_front != 1): ?>
     <section class="ef-breadcrumb row">
       <div class="large-12 columns">
-        <?php print $breadcrumb; ?>
+		<?php
+		/*
+		 * This code is used to create the extranet home page breadcrumb, as it is different from other cases (page title cannot be used).
+		 */
+		if('extranet' === drupal_lookup_path('alias',current_path()))
+		{
+			print ('<ul class="breadcrumbs"><li><a href="/">'.t('Home').'</a></li><li class="current"><a href="#">'.t('Extranet').'</a></li></ul>');
+		}
+		else
+		{
+			print $breadcrumb;
+		}
+		?>
       </div>
     </section>
   <?php endif; ?>

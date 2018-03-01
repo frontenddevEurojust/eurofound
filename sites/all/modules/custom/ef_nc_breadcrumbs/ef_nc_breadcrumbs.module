@@ -31,7 +31,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
       $node = current($array_nodes);
 
       $content_type = $node['#bundle'];
-
+	  
       switch ($content_type) {
         //It's fine
         case 'ef_annual_progress_report':
@@ -209,13 +209,31 @@ function ef_nc_breadcrumbs_page_build(&$page) {
         case 'webform':
           # code...
           break;
-
+		  
+		//Used to create the Extranet content types breadcrumb.
+		case 'board_member_page':
+			if(isset($trail[1]))
+			{
+				$trail[1] = "<a href='/extranet'>Extranet</a>";
+			}
+		break;
+		  
         default:
           # code...
           break;
       }
+	  
+	  
     }
-
+	//Used to create the governing board view breadcrumb.
+	else if('_extranet_for_the_governing_board' === views_get_page_view()->name)
+	{
+		if(isset($trail[1]))
+		{
+			$trail[1] = "<a href='/extranet'>Extranet</a>";
+		}
+	}
+	
   $current_URL = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   //collective wage bargaing exception #issue 3522. They show blocks instead of nodes, hence, URL approach
   $cwb = '/observatories/eurwork/collective-wage-bargaining/';
