@@ -56,6 +56,40 @@ $term = $terms[key($terms)];
 $result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , $node->nid );
 $countview = count($result);
 
+    function format_author_name($author_name){
+        $nam=explode(',',$author_name);
+        $fullname=$author_name;
+
+        if (count($nam) == 2) {
+            $firstname=trim($nam[1]);
+            $lastname=trim($nam[0]);
+
+            $long_name= explode(" ", $firstname);
+
+            if (count($long_name)==1) {
+                $fullname=$firstname." ".$lastname;
+                //drupal_set_message("The new name: ".$author_name." --- ".$fullname);
+            }else{
+                preg_match('#\((.*?)\)#', $firstname, $match);
+                if ( count($match[1]) > 0 ){ 
+                    $fullname=str_replace($match, "", $firstname)." ".$lastname." (".$match[1].")";
+                }else{
+                    $fullname=$firstname." ".$lastname;
+                }                   
+            }
+        }elseif (count($nam) == 1) {
+            //drupal_set_message("The same name: ".$author_name);
+        }else{
+            if ($author_name=="Lloyd, Caroline (SKOPE, Warwick Business School)") {
+                $fullname="Caroline Lloyd (SKOPE, Warwick Business School)";
+                //drupal_set_message("Exception handling: ".$author_name." --- ".$fullname);
+            }else{
+                //drupal_set_message("Exception: ".$author_name);
+            }
+        }
+        return $fullname;
+    }
+
 ?>
 
     <div class="email-blog">
@@ -204,7 +238,7 @@ $countview = count($result);
                 <div class="field field-name-field-ef-author">
                     <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                     <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
+                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
                     <?php endforeach; ?>
                 </div>
                 <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
