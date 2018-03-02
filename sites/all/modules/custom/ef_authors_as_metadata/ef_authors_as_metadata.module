@@ -79,7 +79,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 			'#title' => t('Add new authors'),
 
-			'#description' => t('New authors should follow the convention:"First Name Last Name". Use a semicolon to separate multiple values'),
+			'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values.'),
 
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
