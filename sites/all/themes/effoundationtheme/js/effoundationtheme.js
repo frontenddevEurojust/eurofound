@@ -209,12 +209,13 @@
         || pathname_form=='osu-contracts-reporting'
         || pathname_form=='osu-contract-reporting'
         || pathname_form=='quarterly-reports'
-        || pathname_form=='restructuring-case-studies'
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
+      }else if(pathname_form=='restructuring-case-studies'){
+        num_divisor=parseInt(12);
       }else{
         num_divisor=parseInt(3);
       }
@@ -1540,6 +1541,7 @@ $(document).ready(function(){
     $("#edit-field-nuts-csp-tid-wrapper").hide()
 
     $("#edit-field-country-csp-tid-selective-wrapper").change(function() {
+      $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
       $("#edit-field-nuts-csp-tid-wrapper").show();
 
       if($("#edit-field-country-csp-tid-selective").val() == null ) {
@@ -1547,6 +1549,11 @@ $(document).ready(function(){
       } 
 
     });
+
+    if($("#edit-field-country-csp-tid-selective").val() != null ) {
+      $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
+      $("#edit-field-nuts-csp-tid-wrapper").show();
+    } 
 
 
 
