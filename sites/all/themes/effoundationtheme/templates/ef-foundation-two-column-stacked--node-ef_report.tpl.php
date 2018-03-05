@@ -56,40 +56,6 @@ $term = $terms[key($terms)];
 $result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , $node->nid );
 $countview = count($result);
 
-    function format_author_name($author_name){
-        $nam=explode(',',$author_name);
-        $fullname=$author_name;
-
-        if (count($nam) == 2) {
-            $firstname=trim($nam[1]);
-            $lastname=trim($nam[0]);
-
-            $long_name= explode(" ", $firstname);
-
-            if (count($long_name)==1) {
-                $fullname=$firstname." ".$lastname;
-                //drupal_set_message("The new name: ".$author_name." --- ".$fullname);
-            }else{
-                preg_match('#\((.*?)\)#', $firstname, $match);
-                if ( count($match[1]) > 0 ){ 
-                    $fullname=str_replace($match, "", $firstname)." ".$lastname." (".$match[1].")";
-                }else{
-                    $fullname=$firstname." ".$lastname;
-                }                   
-            }
-        }elseif (count($nam) == 1) {
-            //drupal_set_message("The same name: ".$author_name);
-        }else{
-            if ($author_name=="Lloyd, Caroline (SKOPE, Warwick Business School)") {
-                $fullname="Caroline Lloyd (SKOPE, Warwick Business School)";
-                //drupal_set_message("Exception handling: ".$author_name." --- ".$fullname);
-            }else{
-                //drupal_set_message("Exception: ".$author_name);
-            }
-        }
-        return $fullname;
-    }
-
 ?>
 
     <div class="email-blog">
@@ -117,17 +83,22 @@ $countview = count($result);
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
-    <?php endif; ?>     
+    <?php endif; ?>
+
         <div class="row">
             <div class="ds-node-metadata">
 
-                <div class="field field-name-published-on">
-                    <div class="label-inline">
-                        <?php print t("Scheduled record delivery date: ").$content['published_on'][0]['#markup']; ?>
-                    </div>
-                </div>
+                <?php if ( user_access("view field_ef_report_delivery_date") && isset($content['published_on'][0]['#markup']) ) {
+                    ?>
+                        <div class="field field-name-published-on">
+                            <div class="label-inline">
+                                <?php print t("Scheduled record delivery date: ").$content['published_on'][0]['#markup']; ?>
+                            </div>
+                        </div>
+                    <?php
+                } ?>
 
-                <?php if (isset($node->field_ef_approved_for_payment["und"][0]["value"])) : ?>
+                <?php if (isset($node->field_ef_approved_for_payment["und"][0]["value"]) && user_access("view field_ef_approved_for_payment") ) : ?>
                     <div class="field field_ef_approved_for_payment">
                         <div class="label-inline">
                             <?php 
@@ -139,7 +110,7 @@ $countview = count($result);
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($node->field_ef_topic["und"][0]["tid"])) : ?>
+                <?php if (isset($node->field_ef_topic["und"][0]["tid"]) ) : ?>
                     <div class="field field_ef_topic">
                         <div class="label-inline">
                             <?php 
@@ -166,7 +137,7 @@ $countview = count($result);
                     </div>
                 <?php endif; ?>
 
-                 <?php if (isset($node->uid)) : ?>
+                 <?php if (isset($node->uid) && user_access("view field_ef_author") ) : ?>
                     <div class="field uid">
                         <div class="label-inline">
                             <?php 
@@ -177,7 +148,7 @@ $countview = count($result);
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($node->field_ef_author_contract["und"][0]["taxonomy_term"]->name)) : ?>
+                <?php if (isset($node->field_ef_author_contract["und"][0]["taxonomy_term"]->name) && user_access("view field_ef_contract") ) : ?>
                     <div class="field field_ef_author_contract">
                         <div class="label-inline">
                             <?php 
@@ -211,7 +182,7 @@ $countview = count($result);
                      </div>      
                 <?php endif; */ ?>
 
-                <?php if (isset($node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"])) : ?>
+                <?php if (isset($node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"]) && !in_array('anonymous user', $user->roles)) : ?>
                     <div class="field field_term_last_updated">
                         <div class="label-inline">
                             <?php 
@@ -234,13 +205,24 @@ $countview = count($result);
                         </div>
                     </div>
                 <?php endif; ?>
+                
+                <?php if (isset($content['field_ef_publ_contributors']['#items']) && user_access("view field_ef_author") ) : ?>
+                    <div class="field field-name-field-ef-author">
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {
+                                ?>
+                                    <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
+                                <?php
+                            }else{
+                                ?>
+                                    <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>
+                                <?php
+                            } ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
 
-                <div class="field field-name-field-ef-author">
-                    <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                    <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
-                    <?php endforeach; ?>
-                </div>
                 <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
                      <div class="field field-permalink">
                         <div class="label-inline">
@@ -255,10 +237,12 @@ $countview = count($result);
                 <?php endif; ?>
             </div>
         </div>
-
-        <?php 
-            print drupal_render($content["qrr"]);
-        ?>
+        <div class="row">
+            <?= drupal_render($content["links"]); ?>
+        </div>
+        <div class="row">
+            <?= drupal_render($content["qrr"]); ?>        
+        </div>
 
         <div class="topic-abstract">
             <?php if (isset($content['field_ef_main_image'][0]['#item']['filename'])): ?>
