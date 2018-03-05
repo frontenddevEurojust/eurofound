@@ -277,7 +277,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		);
   	}
 
-  	$form[$con_file] = array(
+  	$form['con_file'] = array(
       '#type' => 'container',
       '#prefix' => '<div id="container_file">',
 	  '#suffix' => '</div>',
@@ -290,12 +290,12 @@ function car_nc_autocreation_form($form, &$form_submit) {
     );
 
 
-	$form[$con_file]['source_documents_car'] = array(
+	$form['con_file']['source_documents_car'] = array(
   	'#type' => 'file',
   	'#title' => t('Source documents'),
   	);
 
-  	$form[$con_file]['upload'] = array(
+  	$form['con_file']['upload'] = array(
 	    '#type' => 'button',
 	    '#value' => t('Upload file'),
 	    '#prefix' => '<div id="file-up">',
@@ -319,7 +319,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	
   	
 	if (isset($_SESSION['source_documents_car']) && count($_SESSION['source_documents_car'])>0) {
-		$form[$con_file]['file_list'] = array(
+		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
 				'#suffix' => '</div>',
 				'#theme' => 'table',
@@ -328,19 +328,19 @@ function car_nc_autocreation_form($form, &$form_submit) {
 
 	 	foreach ($_SESSION['source_documents_car'] as $key => $value) {
 	 		$remove_button = $form['remove_'.$key];
-		  	$form[$con_file]['file_list']['#rows'][$key] = array(
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
 	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => &$remove_button),
 	  		);
-	  		$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 	  		unset($remove_button);
 	  	}
 	  	
 	}
   	else {
-  		$form[$con_file]['file_list'] = array(
+  		$form['con_file']['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
 			'#suffix' => '</div>',
 			'#theme' => 'table',
@@ -348,7 +348,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
     		'#rows' => $rows,
     		'#empty' => 'No files attached',
     	);
-    	$form[$con_file]['file_list']['#rows']['0'] = array(
+    	$form['con_file']['file_list']['#rows']['0'] = array(
 	  			'file' => 'No files attached',
 	  			'user' => '',
 	  			'submitted' => '',
@@ -389,13 +389,13 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 
 		$key = 	count($_SESSION['source_documents_car']) - 1;
 		$remove_button = $form['remove_'.$key];
-	 	$form[$con_file]['file_list']['#rows'][$key] = array(
+	 	$form['con_file']['file_list']['#rows'][$key] = array(
 	  		'file' => $_SESSION['source_documents_car'][$key]['name'],
 	  		'user' => $user->name,
 	  		'submitted' => date("d F Y"),
 	  		'actions' => array('data' => $remove_button),
 	  	);
-	  	$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
+	  	$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 
 
 	  	$form_state['complete form']['']['file_list']['#rows'][$key] = array(
@@ -428,11 +428,11 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 		}
 
 		if ($form_state['values']['deliver']==""){
-			form_set_error('deliver', 'Delivery field is required');
+			form_set_error('deliver', 'Deliverable kind field is required');
 		}
 
 		if ($form_state['values']['service']==""){
-			form_set_error('service', 'Service field is required');
+			form_set_error('service', 'Service type field is required');
 		}
 
 		$selectedCountries = array();
@@ -457,7 +457,7 @@ function remove_file_by_id($form, &$form_state){
 	unset($_SESSION['source_documents_car'][$key]);
 	unset($_SESSION['documents_car'][$key]);
 	unset($form_state['file_list']['#rows'][$key]);
-	unset($form[$con_file]['file_list']['#rows'][$key]);
+	unset($form['con_file']['file_list']['#rows'][$key]);
 	
 	$_SESSION['source_documents_car'] = array_values($_SESSION['source_documents_car']);
 	$_SESSION['documents_car'] = array_values($_SESSION['documents_car']);
@@ -470,7 +470,7 @@ function remove_file_by_id($form, &$form_state){
   	);
 
 	if (isset($_SESSION['source_documents_car']) && count($_SESSION['source_documents_car'])>0) {
-		$form[$con_file]['file_list'] = array(
+		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
 				'#suffix' => '</div>',
 				'#theme' => 'table',
@@ -480,19 +480,19 @@ function remove_file_by_id($form, &$form_state){
 	 	foreach ($_SESSION['source_documents_car'] as $key => $value) {
 	
 	 		$remove_button = $form['remove_'.$key];
-		  	$form[$con_file]['file_list']['#rows'][$key] = array(
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
 	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => &$remove_button),
 	  		);
-	  		$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 	  		unset($remove_button);
 	  	}
 	  	
 	}
   	else {
-  		$form[$con_file]['file_list'] = array(
+  		$form['con_file']['file_list'] = array(
 			'#prefix' => '<div id="file-list-wrapper">',
 			'#suffix' => '</div>',
 			'#theme' => 'table',
@@ -500,7 +500,7 @@ function remove_file_by_id($form, &$form_state){
     		'#rows' => $rows,
     		'#empty' => 'No files attached',
     	);
-    	$form[$con_file]['file_list']['#rows']['0'] = array(
+    	$form['con_file']['file_list']['#rows']['0'] = array(
 	  			'file' => 'No files attached',
 	  			'user' => '',
 	  			'submitted' => '',
@@ -509,7 +509,7 @@ function remove_file_by_id($form, &$form_state){
 	  
   	}
 
-	return $form[$con_file]['file_list'];
+	return $form['con_file']['file_list'];
 }
 
 function car_nc_autocreation_form_submit($form, &$form_state){
@@ -618,6 +618,7 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 			if (isset($form_state['values']['deliver'])){
 				$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
 			}
+
 
 			if (isset($form_state['values']['service'])){
 				$node->field_ef_service_type['und'][]['tid'] = $form_state['values']['service'];
@@ -789,7 +790,6 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 }
 
 function car_autocreation_file_upload_ajax($form, &$form_state) {
-	//dpm($form_state);
 	
 	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
 	$doc_error = false;
@@ -817,8 +817,8 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
     'actions' => t('Actions'),
   );
 
-  if (isset($form[$con_file]['file_list']['files'])) {
-  	$files = $form[$con_file]['file_list']['files']['#value'];
+  if (isset($form['con_file']['file_list']['files'])) {
+  	$files = $form['con_file']['file_list']['files']['#value'];
   }
   
   if (isset($form_state['values']['source_documents_car']) && !empty($form_state['values']['source_documents_car'])) {
@@ -845,15 +845,17 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
 /**********************************************************SAVE THE DOCUMENTS****************************************/
 	
 		$file = file_save_upload('source_documents_car', array(
-	    'file_validate_extensions' => array('pdf xls html doc txt'),
+	    'file_validate_extensions' => array('pdf xls html doc txt docx xlsx'),
 	    // 'file_validate_is_image' => array(),
 	  	));
 		// If the file passed validation:
 	  	if (isset($file->filename)) {
+	  		$file->filename = $form_state['values']['source_documents_car']['name'];
 	      // Move the file, into the Drupal file system
 		  // $newpath = variable_get('file_directory_path');
-	  		if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_source_documents_car', FILE_EXISTS_RENAME)) {
+	  		if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_source_documents', FILE_EXISTS_RENAME)) {
 			// Update the new file location in the database.
+	  			//$file->filename = $form_state['values']['source_documents_car']['name'];
 		    	drupal_write_record('files', $file, 'fid');
 		      // Save the file for use in the submit handler.
 		    	$form_state['storage']['file'][] = $file;
@@ -870,7 +872,7 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
 	  
 	  
 /**********************************************************SAVE THE DOCUMENTS******************************************/
-	  	$form[$con_file]['file_list'] = array(
+	  	$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
 				'#suffix' => '</div>',
 				'#theme' => 'table',
@@ -881,13 +883,13 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
 	 		
 	 		$remove_button = $form['remove_'.$key];
 
-		  	$form[$con_file]['file_list']['#rows'][$key] = array(
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
 	  			'file' => $value['name'],
 	  			'user' => $user->name,
 	  			'submitted' => date("d F Y"),
 	  			'actions' => array('data' => $remove_button),
 	  		);
-	  		$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 	  		unset($remove_button);
 
 	  		$form_state['complete form']['']['file_list']['#rows'][$key] = array(
@@ -905,7 +907,7 @@ function car_autocreation_file_upload_ajax($form, &$form_state) {
   }
   
 
-return $form[$con_file];
+return $form['con_file'];
 
 
 }
@@ -915,7 +917,7 @@ function car_autocreation_deliver_select_ajax($form, &$form_state){
 	$deliver_id = $form_state['complete form']['deliver']['#value'];
 	$tax_term = taxonomy_term_load($deliver_id);
 	$service_list = array();
-	$service_list[0] = "N/A";
+	$service_list[0] = "- Select -";
 
 	if (isset($tax_term->field_ef_service_type['und'][0]['tid'])){
 		$opt1 = taxonomy_term_load($tax_term->field_ef_service_type['und'][0]['tid']);
