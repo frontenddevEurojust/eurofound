@@ -548,9 +548,6 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
         foreach ($service_type as $tid => $value) {
           $form['field_ef_service_type']['und']['#value'] = $value;
           $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
-          if ($value != 0){
-            $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
-          }
         }
       }
     }
@@ -560,9 +557,6 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       foreach ($service_types as $tid => $value) {
         $form['field_ef_service_type']['und']['#value'] = $service_type;
         $form['field_ef_service_type']['und'][$tid]['#value'] = $service_type;
-        if ($service_type != 0){
-          $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
-        }
       }
     }
 
@@ -777,7 +771,6 @@ function ajax_contract_callback($form, &$form_state) {
       $form['field_ef_service_type']['und']['#value'] = $value;
       $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
       if ($value != 0){
-        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
         $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
@@ -813,7 +806,6 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
       $form['field_ef_service_type']['und']['#value'] = $value;
       $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
       if ($value != 0){
-        $form['field_ef_service_type']['und'][$tid]['#attributes'] = array('disabled' => 'disabled');
         $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
