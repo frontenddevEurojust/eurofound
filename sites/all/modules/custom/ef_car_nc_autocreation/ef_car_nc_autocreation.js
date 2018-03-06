@@ -1,18 +1,20 @@
 (function ($) {
   $(document).ready(function(){
 
-    $(document).ajaxStop(function () {
-      //When deliverable king provides two options to service type, unselect the Select
-      if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
-        $(".form-item-service select option:selected").prop("selected", false);
-        $(".form-item-service select option:nth-child(1)").prop("selected", true);
-      }
+    $('#edit-deliver').on('change', function() {
+      $(document).ajaxStop(function () {
+          //When deliverable king provides two options to service type, unselect the Select
+          if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
+            $(".form-item-service select option:selected").prop("selected", false);
+            $(".form-item-service select option:nth-child(1)").prop("selected", true);
+          }
 
-      if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
-        $(".form-item-service select option:selected").prop("selected", false);
-        $(".form-item-service select option:nth-child(1)").prop("selected", true);
-      }
-  });
+          if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
+            $(".form-item-service select option:selected").prop("selected", false);
+            $(".form-item-service select option:nth-child(1)").prop("selected", true);
+          }
+        })
+      });
 
     // Select all
     $('#edit-addallbutton').on('click', function(){
