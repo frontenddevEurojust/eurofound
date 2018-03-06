@@ -935,8 +935,7 @@ function car_autocreation_deliver_select_ajax($form, &$form_state){
 
 		unset($service_list[0]);
 	}
-	
-	//$form['service']['#default_value'] ="Scheduled reporting service";
+
 	$form['service']['#options'] = $service_list;
 
 	return $form['service'];
