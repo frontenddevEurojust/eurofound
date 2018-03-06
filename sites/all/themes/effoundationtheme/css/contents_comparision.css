@@ -1,0 +1,8 @@
+.contents-comparision-list  {
+
+}
+.contents-comparision-list .content-comparision-item {
+		height: 450px;
+		overflow: auto;
+		display: none;
+}
