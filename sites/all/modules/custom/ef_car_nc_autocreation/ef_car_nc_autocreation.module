@@ -435,6 +435,10 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 			form_set_error('service', 'Service type field is required');
 		}
 
+		if ($form_state['values']['service'] == "0"){
+			form_set_error('service', 'Service type field is required');
+		}
+
 		$selectedCountries = array();
 		foreach ($form_state['values']['country2'] as $key => $value) {
 			if($value != '0'){
