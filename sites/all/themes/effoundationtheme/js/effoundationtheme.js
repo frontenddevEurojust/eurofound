@@ -1534,29 +1534,10 @@ $(document).ready(function(){
 /** End Restructuring support instruments admin view */
 
 
-/* Show field Region filter when select Country */
+/* Move the field Region filter when select Country - View Case Studies Publications */
 (function ($) {
   $(document).ready(function(){
-
-    $("#edit-field-nuts-csp-tid-wrapper").hide()
-
-    $("#edit-field-country-csp-tid-selective-wrapper").change(function() {
-      $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
-      $("#edit-field-nuts-csp-tid-wrapper").show();
-
-      if($("#edit-field-country-csp-tid-selective").val() == null ) {
-        $("#edit-field-nuts-csp-tid-wrapper").hide()
-      } 
-
-    });
-
-    if($("#edit-field-country-csp-tid-selective").val() != null ) {
-      $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
-      $("#edit-field-nuts-csp-tid-wrapper").show();
-    } 
-
-
-
+    $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
   });
 })(jQuery);
 
