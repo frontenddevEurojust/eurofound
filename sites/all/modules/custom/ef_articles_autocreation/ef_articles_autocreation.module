@@ -211,7 +211,7 @@ function articles_autocreation_form($form, &$form_state) {
 	
 	$form['con_file']['source_documents'] = array(
   		'#type' => 'file',
-  		'#title' => t('Source_documents'),
+  		'#title' => t('Source documents'),
   	);
 
   	$form['con_file']['upload'] = array(
@@ -312,13 +312,13 @@ function articles_autocreation_form_validate($form, &$form_state) {
 
 		$key = 	count($_SESSION['source_documents']) - 1;
 		$remove_button = $form['remove_'.$key];
-	 	$form[$con_file]['file_list']['#rows'][$key] = array(
+	 	$form['con_file']['file_list']['#rows'][$key] = array(
 	  		'file' => $_SESSION['source_documents'][$key]['name'],
 	  		'user' => $user->name,
 	  		'submitted' => date("d F Y"),
 	  		'actions' => array('data' => $remove_button),
 	  	);
-	  	$form[$con_file]['file_list']['remove_' . $key] = &$remove_button;
+	  	$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
 
 
 	  	$form_state['complete form']['con_file']['file_list']['#rows'][$key] = array(
@@ -346,11 +346,11 @@ function articles_autocreation_form_validate($form, &$form_state) {
 
 
 		if ($form_state['values']['deliver']==""){
-			form_set_error('deliver', 'Delivery field is required');
+			form_set_error('deliver', 'Deliverable kind field is required');
 		}
 
 		if ($form_state['values']['service']==""){
-			form_set_error('service', 'Service field is required');
+			form_set_error('service', 'Service type field is required');
 		}
 
 		$selectedCountries = array();
@@ -594,7 +594,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 	
 	/**********************************************************SAVE THE DOCUMENTS****************************************/
 	 $file = file_save_upload('source_documents', array(
-	    'file_validate_extensions' => array('pdf xls html doc txt'),
+	    'file_validate_extensions' => array('pdf xls html doc txt docx xlsx'),
 	    // 'file_validate_is_image' => array(),
 	  ));
 	// If the file passed validation:
