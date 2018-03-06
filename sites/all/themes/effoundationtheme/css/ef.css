@@ -13106,8 +13106,9 @@ p.view-empty.error-msg:before{
   color: #161616;
   padding: 0;
   margin: 1rem 0;
-  -webkit-column-break-inside: avoid;
-  column-break-inside: avoid;
+	-webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+             break-inside: avoid;
 }
 .terms-topics-list li.group-by h3{
   border-bottom: 1px solid #ECEDF0;

@@ -241,6 +241,7 @@
 							$group_letter = strtoupper(substr($all_topic_term->name,0,1));
 							print '</ul>';
               print '<li class="group-by"><h3>' . $group_letter .'</h3><ul class="sublist-topics">';
+              print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $all_topic_term->name . "</a></li>";
 							$start = false;
 						} else {
               print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $all_topic_term->name . "</a></li>";
