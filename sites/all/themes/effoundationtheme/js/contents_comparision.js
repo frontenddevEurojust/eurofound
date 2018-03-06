@@ -1,31 +1,34 @@
 
 (function ($) {
-$(document).ready(function(){
+$(document).ready(function(){  
 
-
-
-
-
-
-    $('.contents-comparision-list .content-comparision-item').each(function( index ) {
-          $(".pagination").append("<li><h1>"+index+"</h1></li>");
-
-      if(index == 0){
-       
-      }else{
-
+      function resetCurrent(){
+        $('.page-list li').removeClass('current');
       }
-    });
-     
-     $('.pagination li').click(function(){
-      var numberPag = $('a',this).text();
+      function currentPage(a,b){
+        $('.current-instrument').text(a);
+        $('.total-instrument').text(b);
+      }
+
+      $('.contents-comparision-list .content-comparision-item').each(function( index ) {
+        if(index == 0){
+          $(".page-list").append("<li class='current'><a href='javascript:'>"+Number(index+1)+"</a></li>");       
+        }else{
+          $(".page-list").append("<li><a href='javascript:'>"+Number(index+1)+"</a></li>");
+        }
+      });
+
+    var totalPage = $('.page-list li').size();
+    currentPage(1, totalPage);
+       
+     $('.page-list li').click(function(){
+      var numberPag = Number($('a',this).text());
+      currentPage(numberPag, totalPage);
+      resetCurrent();
+      $(this).addClass('current');
       $('.contents-comparision-list .content-comparision-item').css('display','none');
-      $('.contents-comparision-list .content-comparision-item:nth-child('+numberPag+')').css('display','block');  
-
-
+      $('.contents-comparision-list .content-comparision-item:nth-child('+numberPag+')').css('display','block');        
      });
-
-
 
   });
 })(jQuery);

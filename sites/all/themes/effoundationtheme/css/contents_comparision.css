@@ -1,8 +1,25 @@
 .contents-comparision-list  {
-
+  clear: both;
 }
 .contents-comparision-list .content-comparision-item {
-		height: 450px;
-		overflow: auto;
 		display: none;
+}
+.contents-comparision-list .content-comparision-item:nth-child(1) {
+		display: block;
+}
+.page-list-wrapper{
+	border-bottom: 2px solid #ccc;
+	margin:2rem 0; 
+  padding: 0.3rem 0;
+}
+.current-total{
+	display: inline-block;
+  float: left;
+  font-family: 'OpenSans-Semibold-webfont';
+  margin-bottom: 0;
+}
+.page-list{
+	width: auto;
+  float: left;
+  margin: 0 0 0 1rem !important;
 }

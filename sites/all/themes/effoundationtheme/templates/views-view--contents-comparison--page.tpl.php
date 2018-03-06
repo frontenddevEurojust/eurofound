@@ -35,7 +35,21 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 
 ?>
+
+
+
+
+    <div class="page-list-wrapper clearfix">
+      <p class="current-total">Showing instrument: <span class="current-instrument"></span> of <span class="total-instrument"></span></p>
+      <ul class="page-list pagination">
+        <!-- pagination item jquery -->
+      </ul>
+    </div>
+
+<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
+
 <div class="<?php print $classes; ?>">
+
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <?php print $title; ?>
@@ -75,14 +89,10 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 
 
-<div class="pagination-centered">
-  <ul class="pagination">
 
-  </ul>
-</div>
 
   <?php if ($pager): ?>
-    <?php print $pager; ?>
+    <?php //print $pager; ?>
   <?php endif; ?>
 
 
