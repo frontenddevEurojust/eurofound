@@ -41,7 +41,7 @@ if(!empty($variables['ef_activities'])){
             <div class="topic-abstract">
 
 
-                <?php if (count($variables['alternativeTerms'])): ?>
+                <?php if ($variables['alternativeTerms'][0] != ""): ?>
                     <ul class="alternative-terms-topic">
                         <li><?php  print t("Alternative terms") . ":" ?>
                             <ul>
@@ -78,6 +78,7 @@ if(!empty($variables['ef_activities'])){
             <?php endif; ?>
 
             <!-- DESCRIPTION AREA -->
+
             <?php if(isset($variables['description'])): ?>
             <div class="topic-description">
                 <?= $description; ?>
@@ -87,7 +88,7 @@ if(!empty($variables['ef_activities'])){
 
 
             <!-- ONGOING WORK AREA -->
-            <?php if(isset($variables['descriptionongoing'])): ?>
+            <?php if($variables['descriptionongoing'] != ""): ?>
                 <h2 class="title-ongoing">
                     <?= $titleongoing; ?>
                 </h2>

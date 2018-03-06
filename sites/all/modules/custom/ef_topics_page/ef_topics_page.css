@@ -259,7 +259,9 @@
     top: 30%;
     position: absolute;
 }
-
+#edit-field-term-key-topic{
+  display: block !important;
+}
 
 /** responsive **/
 @media only screen  and (min-width: 768px) and (max-width: 1024px){
