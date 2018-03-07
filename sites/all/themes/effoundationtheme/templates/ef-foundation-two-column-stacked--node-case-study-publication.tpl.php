@@ -135,7 +135,7 @@
         <div class="field field-name-field-ef-document">
             <span class="file">
                 <a href="<?php print $base_url; ?>/sites/default/files/ef_publication/field_ef_document/<?php print $file_name; ?>">
-                    <?= $content['field_ef_document'][0]['#file']->filename; ?>
+                   <?php echo t("Download PDF") ?>
                 </a>
             </span>
         </div>
