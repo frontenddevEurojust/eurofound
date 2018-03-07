@@ -1,3 +1,8 @@
+.cover-print{
+  height: 29.7cm;
+  width: 21cm;
+  display: none;
+}
 .contents-comparision-list  {
   clear: both;
 }
