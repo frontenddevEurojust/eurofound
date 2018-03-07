@@ -1,23 +1,11 @@
 (function ($) {
   $(document).ready(function(){
 
-    $(document).ajaxStop(function () {
-      //When deliverable king provides two options to service type, unselect the Select
-      if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
-        $(".form-item-service select option:selected").prop("selected", false);
-        $(".form-item-service select option:nth-child(1)").prop("selected", true);
-      }
-
-      if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
-        $(".form-item-service select option:selected").prop("selected", false);
-        $(".form-item-service select option:nth-child(1)").prop("selected", true);
-      }
-  });
-
+   
     // Select all
     $('#edit-addallbutton').on('click', function(){
       
-      $('#edit-country2 .form-item input').each(function(i){
+      $('#edit-country .form-item input').each(function(i){
 
       	if($(this).is( ":checked" )){
       		//is checked
@@ -45,7 +33,7 @@
     // Diselect all
     $('#edit-quitallbutton').on('click', function(){
       
-      $('#edit-country2 .form-item input').each(function(i){
+      $('#edit-country .form-item input').each(function(i){
 
         if($(this).is( ":checked" )){
           //is checked
@@ -70,7 +58,7 @@
 
     });
     
-    $('#edit-country2 .form-item label').each(function(index, element){
+    $('#edit-country .form-item label').each(function(index, element){
 
     	$(element).on('click', function(e){
 
@@ -97,15 +85,17 @@
     	    	
 
 
-    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(0,8).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(8,16).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(16,24).wrapAll('<div class="large-3 column countries-col"></div>');
-    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(24,32).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-articles-autocreation #edit-country .form-type-checkbox').slice(0,8).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-articles-autocreation #edit-country .form-type-checkbox').slice(8,16).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-articles-autocreation #edit-country .form-type-checkbox').slice(16,24).wrapAll('<div class="large-3 column countries-col"></div>');
+    $('.page-articles-autocreation #edit-country .form-type-checkbox').slice(24,32).wrapAll('<div class="large-3 column countries-col"></div>');
 
 
-    $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox > label').each(function(i){
+    $('.page-articles-autocreation #edit-country .form-type-checkbox > label').each(function(i){
     	$(this).prepend('<i class="fa fa-circle-thin"></i>');
     });
 
   });
 })(jQuery);
+
+

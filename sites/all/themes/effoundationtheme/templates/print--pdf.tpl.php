@@ -22,11 +22,6 @@
   src: url('../fonts/OpenSans-Regular-webfont.eot');
   src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), local('OpenSans-Regular-webfont'), local('OpenSans-Regular-webfont'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.svg') format('svg');
 }
-/*
-.row {
-  width: 100% !important;
-  float: none !important;
-}*/
 
 #logo{
   display:block;
@@ -429,20 +424,6 @@ margin-top: 2cm;
 position: absolute;
 bottom: 0;
 }
-/*
-.info ul{
-  list-style-type: none !important;
-  float: left !important;
-  margin: 0 !important;
-  padding: 0!important;
-  width: 100%;
-
-}
-.info ul li.nc-lis{
-  float: left !important;
-
-}
-*/
 .ds-node-content{
 font-size: 10px !important;
 }
@@ -576,11 +557,6 @@ margin: 0 ;
   border: 1px solid #B6CBDE;
   padding: 10px;
 }
-/*
-.group-ef-node-details .field {
-  padding: 12px 0px!important;
-  border-bottom: 1px dotted #ccc;
-}*/
 .filter-description-more, .view-id-erm_regulations .filter-description{
 display: none !important;
 }
@@ -743,10 +719,6 @@ word-break: break-all;
 .element-invisible, .print-pdf-wrapper, .print_pdf img, .print_html img {
   display: none !important;
 }
-
-
-
-
 .node-ef-working-life-country-profiles .wp_about h2{
    font-size: 12px !important;
 }
@@ -817,6 +789,15 @@ word-break: break-all;
     }
     </style>
     <?php endif ?>
+
+
+  <!-- Print css stylesheet for contents comparision page  -->
+  <?php 
+  if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
+     print '<link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/contents_comparision_print.css" media="all"  />';
+  }
+  ?>
+
 
   </head>
   <body>

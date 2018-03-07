@@ -13972,3 +13972,208 @@ h4.title-tooltip-geolocation a:hover{
 #ef-qrr-quality-rating > div > table.sticky-enabled.tableheader-processed.sticky-table > thead > tr > th:nth-child(9){
 	width: 400px;
 }
+
+/*New OSU Contract Reporting*/
+
+.view-new-osu-contract-reporting #edit-field-ef-contract-tid-wrapper{
+	width:98.5%;
+}
+.page-osu-contracts-view-new-osu-contract-reporting  #edit-title-wrapper{
+	width:38%;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-deliverable-kind-tid-wrapper{
+	width:100%;
+}
+
+.view-new-osu-contract-reporting  #edit-field-ef-requested-on-value-wrapper{
+	width:33%;
+	padding-right: 0;
+ }
+
+.view-new-osu-contract-reporting #edit-field-ef-requested-on-value-min-wrapper,
+.view-new-osu-contract-reporting #edit-field-ef-requested-on-value-max-wrapper{
+	width: 50%;
+	float: left;
+}
+
+.view-new-osu-contract-reporting  #edit-field-ef-requested-on-value-wrapper .description ,
+.view-new-osu-contract-reporting  #edit-field-ef-approved-for-payment-value-min .description ,
+.view-new-osu-contract-reporting  #edit-field-ef-approved-for-payment-value-max .description{
+	display: none;
+}
+
+.view-new-osu-contract-reporting #form-item-field-ef-requested-on-value-min,
+.view-new-osu-contract-reporting #form-item-field-ef-requested-on-value-max{
+	width:50%;
+ }
+
+.view-new-osu-contract-reporting .form-item-field-ef-requested-on-value-min label,
+.view-new-osu-contract-reporting .form-item-field-ef-requested-on-value-max label{
+	width:20%;
+	text-align: center;
+	float: left;
+    padding-top:7px;
+ }
+
+.view-new-osu-contract-reporting  #edit-field-ef-requested-on-value-min,
+.view-new-osu-contract-reporting  #edit-field-ef-requested-on-value-max{
+	width:73% !important;
+	float: left;
+}
+
+.view-new-osu-contract-reporting .form-item input.bef-datepicker{
+	width:70% !important;
+	text-align: center;
+}
+
+.view-new-osu-contract-reporting .views-widget-filter-field_ef_author_contract_tid{
+	width: 61.5%;
+}
+
+.view-new-osu-contract-reporting  #edit-field-ef-service-type-tid-wrapper{
+	width: 38.5%;
+}
+
+.view-filter.unvisible, .view-new-osu-contract-reporting  #edit-ir-entry{
+	width: 31%;
+	margin-left: 37%;
+	padding: 1em;
+	display: none;
+}
+
+.view-filter.visible{
+	width: 33%;
+	margin-left: 33%;
+	padding: 0em;
+	display: block !important;
+	background: url(../images/shadow_IREntry.png) no-repeat top center;
+}
+
+.view-new-osu-contract-reporting .form-item.form-type-radios.form-item-active .form-radios{
+	border-radius: 9px;
+	background: #FCFCFC!important;
+	float: left;
+	border: 1px dotted #CCC;
+	width: 100%;
+}
+
+.view-new-osu-contract-reporting .form-type-radio.form-item-active{
+	width: 30%;
+	float:left;
+	font-size: 0.8rem;
+	background: none !important;
+	padding-top: 10px !important;
+}
+
+.view-new-osu-contract-reporting .form-type-radio.form-item-active:last-child{
+	width: 40%;
+ }
+
+.form-item.form-type-radio.form-item-active input{
+	width: auto !important;
+	float: left;
+	margin-left: 0.5em;
+}
+
+.form-item.form-type-radio.form-item-active label{
+	float: left;
+	margin-left: 0.5em;
+	padding-top: 1em;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-contract-tid-wrapper #edit-field-ef-contract-tid{
+	width:100%;
+	word-break: keep-all;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-contract-tid-wrapper #autocomplete{
+	width:100%;
+	word-wrap:break-word;
+	word-break: keep-all;
+	padding:0.5em;
+	font-size:12px;
+	background:#FFF;
+}
+
+.view-new-osu-contract-reporting .view-id-osu_contract_reporting .button.primary{
+ 	display: none;
+}
+
+.view-new-osu-contract-reporting .form-item select,
+.view-new-osu-contract-reporting .form-item option{
+	width:100%;
+}
+
+.view-new-osu-contract-reporting .view-footer-wrapper{
+	float: left;
+	width:95%;
+	margin-top:-10px;
+	border:0;
+}
+
+.view-new-osu-contract-reporting .feed-icon{
+	float: right;
+	width:4%;
+	text-align:center;
+}
+
+.view-new-osu-contract-reporting .feed-icon > a img{
+	display:none;
+}
+
+.view-new-osu-contract-reporting .feed-icon > a:before{
+	content: "\f0f6";
+	font-family: FontAwesome;
+	margin-right: 4px;
+	font-size: 1.5em;
+ }
+
+.view-new-osu-contract-reporting .feed-icon > a:after{
+	content: "XLS";
+	display: block;
+	font-size: 0.75em;
+	margin-top: 0.3em;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-report-delivery-date-value-wrapper .views-widget .form-item label,
+.view-new-osu-contract-reporting #edit-field-ef-approved-for-payment-value-wrapper .views-widget .form-item label{
+	display: block;
+    float: left;
+    padding-top: 12px;
+    padding-right: 10px;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-report-delivery-date-value-min-wrapper{
+	float: left;
+}
+
+.view-new-osu-contract-reporting #edit-field-ef-report-delivery-date-value-wrapper > div > div,
+.view-new-osu-contract-reporting #edit-field-ef-approved-for-payment-value-wrapper > div > div{
+	float: left;
+}
+
+.view-new-osu-contract-reporting #edit-title-wrapper{
+	clear: both;
+	width: 446px;
+    margin-right: 9px;
+}
+
+.view-new-osu-contract-reporting #edit-nid-wrapper{
+	width: 168px;
+}
+
+.view-new-osu-contract-reporting #views-aggregator-datatable > thead > tr > th.views-field.views-field-field-ef-author-contract{
+	width: 88px;
+}
+
+.view-new-osu-contract-reporting #views-aggregator-datatable > thead > tr > th.views-field.views-field-field-ef-requested-on{
+	width: 133px;
+}
+
+.view-new-osu-contract-reporting #views-aggregator-datatable > thead > tr > th.views-field.views-field-field-ef-approved-for-payment{
+	width: 133px;
+}
+
+
+/* end New OSU Contract Reporting */

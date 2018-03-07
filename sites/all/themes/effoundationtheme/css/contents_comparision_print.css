@@ -1,0 +1,38 @@
+	.cover-print{
+		height: 29.7cm;
+		width: 21cm;
+		display: none;
+	}
+
+
+	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
+	  font-size: 1.5rem !important;
+	}
+	.erm-nat-title span, .erm-en-title span {
+	  padding-left: 0 !important;
+	  width: auto !important;
+	}
+	.erm-nat-title h2, .erm-titles h2 {
+    border-bottom: 0;
+	  padding-bottom: 10px;
+	  float: left !important;
+	  margin: -8px 0 0 0 !important;
+	}
+ @media only print{
+	.cover-print{
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+
+	}
+	h1.title {
+		page-break-before:always !important;
+	}
+	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
+	  font-size: 1.5rem !important;
+	}
+	.erm-nat-title h2, .erm-titles h2 {
+	  margin: 0px 0 0 0 !important;
+	}
+}

@@ -69,7 +69,7 @@ function prepare_template_content($term, $data_language, $navigation_language){
     $variables['show_menu'] = check_current_user();
     $variables['title'] = $term->field_term_title[$data_language][0]['value'];
 
-
+    $variables['ongoing'] = $term->field_ef_ongoing_work['und'][0];
 
     if ($term->field_term_last_updated)
     {

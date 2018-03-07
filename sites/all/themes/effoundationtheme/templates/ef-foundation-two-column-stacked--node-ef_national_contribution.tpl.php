@@ -147,7 +147,7 @@
            //****** Assign To & Contract**********
             $assign_to_user = $content['field_ef_assign_to_user'][0]['#markup'];
             $contract = taxonomy_term_load($content['field_ef_author_contract']['#items'][0]['tid']);
-            $contract_name = $contract->name;
+            $contract_name = $contract->name_field['und'][0]['value'];
             $country_group = $content['field_ef_assign_to_country_group'][0]['#markup'];
 
 

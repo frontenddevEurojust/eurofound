@@ -36,6 +36,12 @@
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/responsive.css" />
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/print-browser.css" media="all"  />
 
+<!-- Print css stylesheet for contents comparision page  -->
+<?php 
+if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
+   print '<link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/contents_comparision_print.css" media="all"  />';
+}
+?>
 
 
   </head>
