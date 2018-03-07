@@ -857,8 +857,13 @@ function _collect_breadcrumbs() {
   return;
 }
 
-function _ci_test() {
-
+function _check_ci() {
+  if ($waiting_cron = variable_get('ef_content_inventory_generate_on_cron')) {
+    print_r('Waiting cron');
+  }
+  if (variable_get('ef_content_inventory_cron_working')) {
+    print_r('Running');
+  }
 }
 
 /**
