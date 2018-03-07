@@ -26,26 +26,19 @@
     });
 
     $('select#edit-deliver').change(function() {
-      
-      var checkExist2 = setInterval(function() {
-
         if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
           if($('.form-item-service select option:selected').val() != 0 ){
               $(".form-item-service select option:selected").prop("selected", false);
-              $(".form-item-service select option:nth-child(1)").prop("selected", true);
-            clearInterval(checkExist2);
+              
           }
         }
 
         if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
           if($('.form-item-service select option:selected').val() != 0 ){
               $(".form-item-service select option:selected").prop("selected", false);
-              $(".form-item-service select option:nth-child(1)").prop("selected", true);
-            clearInterval(checkExist2);
+              
           }
         }
-
-      }, 100);
     });
 
     // Select all
