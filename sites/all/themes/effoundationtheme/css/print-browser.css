@@ -41,7 +41,7 @@ ul,ol{
 a:before, a:after, .icon-ef_surveys:before{
 content:'' !important;
  }
-.element-invisible, .pagination-centered, .view-footer, .l-messages,.ef-home-page .l-main, .ds-node-comments, #adminboardlist{
+.no-print, .element-invisible, .pagination-centered, .view-footer, .l-messages,.ef-home-page .l-main, .ds-node-comments, #adminboardlist{
  display:none !important;
  }
  .ef-tagline-logo, .ef-logo-legend{

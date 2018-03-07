@@ -31,22 +31,21 @@ global $user;
 
 
 drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision.css', array ('weight' => 201,'group' => CSS_THEME));
+drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision_print.css', array ('weight' => 202,'media' => 'print','group' => CSS_THEME));
 drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 
 ?>
 
+  <div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.jpg"></div>
+  <div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
 
-
-
-    <div class="page-list-wrapper clearfix">
-      <p class="current-total">Showing instrument: <span class="current-instrument"></span> of <span class="total-instrument"></span></p>
-      <ul class="page-list pagination">
-        <!-- pagination item jquery -->
-      </ul>
-    </div>
-
-<div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
+  <div class="page-list-wrapper clearfix no-pdf no-print">
+    <p class="current-total">Showing instrument: <span class="current-instrument"></span> of <span class="total-instrument"></span></p>
+    <ul class="page-list pagination">
+      <!-- pagination item jquery -->
+    </ul>
+  </div>
 
 <div class="<?php print $classes; ?>">
 
