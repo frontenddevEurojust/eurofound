@@ -192,22 +192,27 @@
       <div class="ef-main">
 			<?php
 			  global $language;
+        global $user;
 			  $key_topics = views_embed_view('key_topics_landing_page','key_topics_block'); 
-			  $topics_terms_index =views_embed_view('key_topics_landing_page','block_2'); 
+			  //$topics_terms_index =views_embed_view('key_topics_landing_page','block_2'); 
 			    
 			 	print $key_topics;
-			  print '<h2>Browse A-Z</h2>';
+			  print '<h2>' . t('Browse A-Z') . '</h2>';
 			 	//print $topics_terms_index;
 
 
 			  $term_vocabulary_topics = taxonomy_vocabulary_machine_name_load('ef_topics');
 			  $tree = taxonomy_get_tree($term_vocabulary_topics->vid);
 
-				//dpm($tree);
 
 			  foreach ($tree as $key  => $topic_term) {
 		  		$taxonomy_term = taxonomy_term_load($topic_term->tid);
-		  		$alternative_terms = $taxonomy_term->field_alternative_terms_topics['en'][0]['value'];  	
+          // dont translate if the user not login
+          if(!user_is_logged_in()){
+            $topic_term->name = trim($taxonomy_term->name);
+          }  
+		  		$alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];  	
+
 
 					if ($alternative_terms != '') {	
 						$alternative = explode("<br />",check_markup($alternative_terms));            
@@ -229,7 +234,7 @@
 
 				print "<ul class='terms-topics-list'>";
 				$start = true;
-				foreach ($tree as $key  => $all_topic_term) {						
+				foreach ($tree as $key  => $all_topic_term) {
 					if ($start == true) {
 						$group_letter = strtoupper(substr($all_topic_term->name,0,1));
 						print '<li class="group-by first"><h3>'. $group_letter .'</h3><ul class="sublist-topics">';
