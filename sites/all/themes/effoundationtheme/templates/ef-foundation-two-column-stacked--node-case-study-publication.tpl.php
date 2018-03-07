@@ -97,10 +97,12 @@
             	<?php endif; ?>
             </ul>
             <ul class="cs-features-list-right large-6 columns">
+                <?php if(isset($content['field_ant_change_activ_csp'])): ?>
                 <li class="cs-ant-changes">
                     <span><?php print t('Anticipation of change activities'); ?></span>
                     <?php print render($content['field_ant_change_activ_csp']); ?>
                 </li>
+                <?php endif; ?>
                 <li class="cs-mng-changes">
                     <span><?php print t('Management of change activities'); ?></span>
                     <?php print render($content['field_man_change_activ_csp']); ?>
