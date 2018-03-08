@@ -792,12 +792,83 @@ word-break: break-all;
 
 
   <!-- Print css stylesheet for contents comparision page  -->
-  <?php 
-  if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
-     print '<link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/contents_comparision_print.css" media="all"  />';
-  }
-  ?>
-
+  <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true): ?>
+    <style>
+      .page-list-wrapper, 
+      .back-erm-list-button-div{
+        display: none !important;
+      }
+      .cover-print{
+        position: absolute !important;
+        top: 0cm;
+        left:0;
+        width: 18cm !important;
+        height: 28cm !important;
+        display: none;
+        z-index: 9;
+        background: #FFF !important;
+      }
+      .cover-print img{
+        position: absolute;
+        width: 100% !important;
+        z-index: 9;
+        left:-2cm;
+      }
+      .title-cover{
+        position: absolute;
+        top:8cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+      }
+      .subtitle-cover{
+        position: absolute;
+        top:11cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+      }
+      .description-cover{
+        position: absolute;
+        top: 12cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+      }
+      .disclaimer-cover{
+        position: absolute;
+        border-top: 1px solid #666;
+        font-size: 10px !important;
+        text-align: center !important;
+        top:100%;
+        left: 0%;
+        width: 100%;
+        z-index: 10;
+      }
+      .print-date-cover{
+        position: absolute;
+        text-align: right !important;
+        top: 28.5cm;
+        right:5cm;
+        width: 30% !important;
+        display: block;
+        z-index: 10;
+      }
+      h1.title, .content-comparision-item {
+        page-break-before:always !important;
+      }
+      .erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
+        font-size: 1.2rem !important;
+      }
+      .erm-nat-title h2, .erm-titles h2 {
+        margin: 0px 0 0 0 !important;
+      }
+      .field.field-name-field-type-erm-si{
+        display: inline-block;
+        text-align: left
+      }
+    </style>
+  <?php endif ?>
 
   </head>
   <body>
@@ -806,28 +877,49 @@ word-break: break-all;
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>
     <?php if ($print_logo): ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
       <div class="logo"><?php print $print_logo; ?></div>
+      <?php endif; ?>
     <?php endif; ?>
     <!--<div class="site_name"><?php print theme('print_published'); ?></div>-->
     <!--<div class="breadcrumbs"><?php // print theme('print_breadcrumb', array('node' => $node)); ?></div> -->
     <div class="columns">
 
-      <?php 
-        $url = explode('/', $_SERVER['REQUEST_URI']);
-        $pathCountry = $url[count($url)-2];
-         if ($pathCountry == 'country'):
-      ?>
-        <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
-      <?php else : ?>
+    <!-- Print cover PDF for support instruments-->
+    <?php 
+      if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
+        //print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+        print '<h1 class="title-cover">EMCC | European Monitoring Centre on Change</h1>';
+        print '<h2 class="subtitle-cover">Restructuring support instruments</h2>';
+        print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
+        print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+        print '<p class="print-date-cover">' . date('d \ F \ Y') .'</p>';
+        print '</div>';
+          
+      }else{
+        print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+      }
+    ?>
+    <!-- End Print cover PDF -->
+
+    <?php
+       $url = explode('/', $_SERVER['REQUEST_URI']);
+      $pathCountry = $url[count($url)-2];
+    ?>
+    <?php if ($pathCountry == 'country'): ?>
+      <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
+    <?php else : ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
         <h1 id="page-title" class="title"><?php print $print_title;?></h1>
       <?php endif; ?>
+    <?php endif; ?>
 
-      <?php
-        $contentBefore = urlencode($content);
-        $contentAfter = str_replace("%E2%80%8B", "", $contentBefore);
-        //print $contentBefore;
-        print urldecode($contentAfter);
-      ?>
+    <?php
+      $contentBefore = urlencode($content);
+      $contentAfter = str_replace("%E2%80%8B", "", $contentBefore);
+      //print $contentBefore;
+      print urldecode($contentAfter);
+    ?>
     <br class="clear">
     <div class="footer-pdf">
     <p class="print-source_url"><?php print theme('print_sourceurl', array('url' => $source_url, 'node' => $node, 'cid' => $cid)); ?></p>
