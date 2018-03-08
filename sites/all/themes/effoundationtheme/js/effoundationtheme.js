@@ -1675,3 +1675,29 @@ $(document).ready(function(){
 })(jQuery);
 
 
+//Desactivate the button "Display selected cases"
+(function ($) {
+  $(document).ready(function(){
+    $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+    
+    
+
+    $(".vbo-table-select-all").click(function() {
+      if($(".vbo-table-select-all:checked").length > 0){
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);
+      }else{
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+      }
+    });
+
+    $(".vbo-select").click(function() {
+      if($(".vbo-select:checked").length > 1){
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);
+      }else{
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+      }
+    });
+      
+  });
+})(jQuery);
+  
