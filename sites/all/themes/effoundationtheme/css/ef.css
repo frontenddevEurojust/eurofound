@@ -14179,6 +14179,7 @@ h4.title-tooltip-geolocation a:hover{
 /* end New OSU Contract Reporting */
 
 
+/* Button to compare Nodes in case studies and support instrument "Display selected cases" */
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main legend,
 .page-observatories-emcc-erm-support-instrument .ef-main legend{
 	background: transparent;
@@ -14187,6 +14188,7 @@ h4.title-tooltip-geolocation a:hover{
 .page-observatories-emcc-erm-restructuring-case-studies fieldset,
 .page-observatories-emcc-erm-support-instrument fieldset{
 	border:0;
+	margin-bottom: 0;
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies legend,
@@ -14202,4 +14204,13 @@ h4.title-tooltip-geolocation a:hover{
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main .fieldset-wrapper,
 .page-observatories-emcc-erm-support-instrument .ef-main .fieldset-wrapper{
 	padding-right: 0;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main table,
+.page-observatories-emcc-erm-support-instrument .ef-main table{
+	margin-top: 10px;
+}
+
+.page-observatories-emcc-erm-support-instrument .mediaTableWrapperWithMenu{
+	padding-top: 0;
 }
