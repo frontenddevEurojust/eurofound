@@ -73,7 +73,7 @@
 		display: block;
 		z-index: 10;
 	}
-	h1.title, .content-comparision-item {
+	.content-comparision-item {
 		page-break-before:always !important;
 	}
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
