@@ -5,8 +5,8 @@
 
 @page {
   size: A4 portrait !important;
-  font-size:9pt !important;
-  margin:2.5cm !important;
+  //font-size:9pt !important;
+  //margin:2.5cm !important;
   page-break-inside: avoid !important;
   page-break-after:always !important;
 }
@@ -17,7 +17,7 @@ html, body{
   background: #FFF url(none) repeat !important;
   font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
   margin:0%!important;
-  [; margin:4%!important; ];
+ // [; margin:4%!important; ];
   font-size:10pt !important;
   text-align:left!important;
   color: #000 !important;

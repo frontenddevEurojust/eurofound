@@ -55,15 +55,15 @@ if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
     <!--<div class="site_name"><?php print theme('print_published'); ?></div>-->
     <!--<div class="breadcrumbs"><?php // print theme('print_breadcrumb', array('node' => $node)); ?></div> -->
 
-<?php
-  $resultado = substr($_SERVER['REQUEST_URI'], 6);
-if (strpos($resultado,'?') == true) {
-    $contPdf='&';
-}else{
-  $contPdf='?';
-}
+    <?php
+      $resultado = substr($_SERVER['REQUEST_URI'], 6);
+    if (strpos($resultado,'?') == true) {
+        $contPdf='&';
+    }else{
+      $contPdf='?';
+    }
 
-?>
+    ?>
     <ul  class="print-preview">
     <li><a href="#" title="Print this page." onclick="window.print(); return false" class="print-page" >
     <img class="print-icon" typeof="foaf:Image" src="/sites/all/modules/contrib/print/icons/print_icon.png" width="16px" height="16px" alt="print icon" ></a>
@@ -74,7 +74,24 @@ if (strpos($resultado,'?') == true) {
   </ul>
 
   <div class="content">
-  <h1 id="page-title" class="title"><?php print $print_title;?></h1>
+
+  <!-- Print cover PDF for support instruments-->
+  <?php 
+    if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
+      print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+      print '<h1 class="title-cover">EMCC | European Monitoring Centre on Change</h1>';
+      print '<h2 class="subtitle-cover">Restructuring support instruments</h2>';
+      print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
+      print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+      print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+      print '</div>';
+        
+    }else{
+      print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+    }
+  ?>
+  <!-- End Print cover PDF -->
+ 
   <?php print $content; ?>
   </div>
     <p class="print-source_url">

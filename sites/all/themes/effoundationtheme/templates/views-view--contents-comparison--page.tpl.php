@@ -37,7 +37,7 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 ?>
 
-  <div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.jpg"></div>
+
   <div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
 
   <div class="page-list-wrapper clearfix no-pdf no-print">

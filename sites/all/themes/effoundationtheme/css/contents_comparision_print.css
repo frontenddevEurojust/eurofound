@@ -1,6 +1,4 @@
 	.cover-print{
-		height: 29.7cm;
-		width: 21cm;
 		display: none;
 	}
 
@@ -21,12 +19,61 @@
  @media only print{
 	.cover-print{
 		position: absolute;
-		top: 0;
-		left: 0;
+		top: 0cm;
+		left:0;
+		width: 21cm !important;
+		height: 29cm !important;
 		display: block;
-
+		z-index: 9;
+		background: #FFF !important;
 	}
-	h1.title {
+	.cover-print img{
+		position: absolute;
+		width: 100% !important;
+		z-index: 9;
+		left:-2cm;
+	}
+	.title-cover{
+		position: absolute;
+		top:8cm;
+		left: 30%;
+		width: 65%;
+		z-index: 10;
+	}
+	.subtitle-cover{
+		position: absolute;
+		top:10cm;
+		left: 30%;
+		width: 65%;
+		z-index: 10;
+	}
+	.description-cover{
+		position: absolute;
+		top: 11cm;
+		left: 30%;
+		width: 65%;
+		z-index: 10;
+	}
+	.disclaimer-cover{
+		position: absolute;
+		border-top: 1px solid #666;
+		font-size: 10px !important;
+		text-align: center !important;
+		top:100%;
+		left: 0%;
+		width: 100%;
+		z-index: 10;
+	}
+	.print-date-cover{
+		position: absolute;
+		text-align: right !important;
+		top: 28.5cm;
+		right:5%;
+		width: 30% !important;
+		display: block;
+		z-index: 10;
+	}
+	h1.title, .content-comparision-item {
 		page-break-before:always !important;
 	}
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
