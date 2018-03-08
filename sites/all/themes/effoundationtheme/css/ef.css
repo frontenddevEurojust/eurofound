@@ -14177,3 +14177,29 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /* end New OSU Contract Reporting */
+
+
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main legend,
+.page-observatories-emcc-erm-support-instrument .ef-main legend{
+	background: transparent;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies fieldset,
+.page-observatories-emcc-erm-support-instrument fieldset{
+	border:0;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies legend,
+.page-observatories-emcc-erm-support-instrument legend{
+	display: none
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies fieldset button,
+.page-observatories-emcc-erm-support-instrument fieldset button{
+	float: right;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main .fieldset-wrapper,
+.page-observatories-emcc-erm-support-instrument .ef-main .fieldset-wrapper{
+	padding-right: 0;
+}
