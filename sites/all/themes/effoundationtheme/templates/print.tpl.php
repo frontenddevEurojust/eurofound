@@ -38,9 +38,13 @@
 
 <!-- Print css stylesheet for contents comparision page  -->
 <?php 
-if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
-   print '<link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/contents_comparision_print.css" media="all"  />';
-}
+  session_start();
+ if(strpos($_SESSION["back_search"],'/support-instrument') == true || 
+    strpos($_SESSION["back_search"],'/legislation') == true || 
+    strpos($_SESSION["back_search"],'/restructuring-case-studies') == true 
+    ){
+     print '<link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/contents_comparision_print.css" media="all"  />';
+  }
 ?>
 
 
@@ -75,22 +79,35 @@ if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
 
   <div class="content">
 
-  <!-- Print cover PDF for support instruments-->
+  <!-- Print cover PDF for support instruments, case studies and legilations-->
   <?php 
+     
 
-      if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true ){
-      print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
-      print '<h1 class="title-cover">Restructuring support instruments</h1>';
-      print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
-      print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
-      print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
-      print '</div>';
-        
-    }else{
-      print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
-    }
+      if(strpos($_SESSION["back_search"],'/support-instrument') == true ){
+        print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+        print '<h1 class="title-cover">Restructuring support instruments</h1>';
+        print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
+        print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+        print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+        print '</div>';
+      }elseif (strpos($_SESSION["back_search"],'/legislation') == true ) {
+        print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+        print '<h1 class="title-cover">Restructuring related legislation</h1>';
+        print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.</p>';
+        print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+        print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+        print '</div>';
+      }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true ) {
+        print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+        print '<h1 class="title-cover">Restructuring case studies</h1>';
+        print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
+        print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+        print '</div>';     
+      }else{
+        print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+      }
   ?>
-  <!-- End Print cover PDF -->
+  <!-- End  Print cover PDF for support instruments, case studies and legilations -->
  
   <?php print $content; ?>
   </div>
