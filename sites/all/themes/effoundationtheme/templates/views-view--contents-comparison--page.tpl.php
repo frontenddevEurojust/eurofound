@@ -28,14 +28,12 @@
  */
 
 global $user;
-global $referer_comparision;
 
-$referer_comparision = $_SERVER['HTTP_REFERER'];
+session_start();
 
 drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision.css', array ('weight' => 201,'group' => CSS_THEME));
 drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision_print.css', array ('weight' => 202,'media' => 'print','group' => CSS_THEME));
 drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
-
 
 ?>
 
