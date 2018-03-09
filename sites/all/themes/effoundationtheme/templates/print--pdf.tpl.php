@@ -952,10 +952,105 @@ word-break: break-all;
 
     </style>  
     <!-- CASE STUDIES -->
-
+    
     
     <style>
+    
+    .cs-country ul li{
+      font-size: 12pt!important;
+    }
 
+    .case-study-subtitle.row{
+      padding-top: 2.5em!important;
+      padding-bottom: 0!important;
+      margin-bottom: 0!important;
+      display: block!important;
+    }
+
+    .row.case-study-location-size{
+      padding-top: 0!important;
+      margin-top: 0!important;
+    }
+
+    .row.case-study-location-size{
+      clear: both!important;
+      float: none!important;
+    } 
+    .case-study-features.row{
+      float: none!important;
+      height: auto!important;
+    }
+
+    .column, .columns{
+      float: none!important;
+    }
+
+    .cs-features-list-left li ul{
+      text-align: left!important;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+    }
+
+    .cs-features-list-left li ul li{
+      text-align: left!important;
+      padding-left: 0rem!important;
+      margin-left: 0rem!important;
+    }
+
+    .cs-features-list-right li ul{
+      text-align: left!important;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+    }
+
+    .cs-features-list-right li ul li{
+      text-align: left!important;
+      padding-left: 0rem!important;
+      margin-left: 0rem!important;
+    }
+
+    .cs-features-list-left.large-6.columns{
+      width:100%!important;
+      float: none!important;
+      clear: both!important;
+      height: auto!important;
+    }
+
+    .cs-features-list-right.large-6.columns{
+      width:100%!important;
+      clear: both!important;
+      display: block!important;
+      height: auto!important;
+    }
+
+    .column, .columns{
+      float: none!important;
+    }
+
+    .cs-keywords{
+      display: block!important;
+      clear: both!important;
+      float: none!important;
+      height: auto!important;
+      border:1px dotted #CCC!important;
+      padding: 1em!important;
+      margin-bottom: 1em!important;
+      width:100%!important;
+      margin-left: 5px!important;
+      margin-right: 5px!important;
+    }
+
+    .cs-keywords ul{
+      list-style: none;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+    }
+
+    .cs-keywords ul li{
+      list-style: none;
+      padding-left: 0!important;
+      margin-left: 0!important;
+    }
 
     </style>
 
