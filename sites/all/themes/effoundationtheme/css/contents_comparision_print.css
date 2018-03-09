@@ -108,4 +108,16 @@
 	.erm-nat-title h2, .erm-titles h2 {
 	  margin: 0px 0 0 0 !important;
 	}
+
+	.field.field-name-field-country-erm-reg{
+		padding-bottom: 1em!important;
+	}
+
+	.erm-phase{
+		text-align: left!important
+	}
+
+	.field.field-name-field-type-erm-si, .field.field-name-field-type-phase-erm-reg{
+		text-align: left!important
+	}
 }
