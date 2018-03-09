@@ -14181,36 +14181,43 @@ h4.title-tooltip-geolocation a:hover{
 
 /* Button to compare Nodes in case studies and support instrument "Display selected cases" */
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main legend,
-.page-observatories-emcc-erm-support-instrument .ef-main legend{
+.page-observatories-emcc-erm-support-instrument .ef-main legend,
+.page-observatories-emcc-erm-legislation .ef-main legend{
 	background: transparent;
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies fieldset,
-.page-observatories-emcc-erm-support-instrument fieldset{
+.page-observatories-emcc-erm-support-instrument fieldset,
+.page-observatories-emcc-erm-legislation fieldset{
 	border:0;
 	margin-bottom: 0;
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies legend,
-.page-observatories-emcc-erm-support-instrument legend{
+.page-observatories-emcc-erm-support-instrument legend,
+.page-observatories-emcc-erm-legislation legend{
 	display: none
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies fieldset button,
-.page-observatories-emcc-erm-support-instrument fieldset button{
+.page-observatories-emcc-erm-support-instrument fieldset button,
+.page-observatories-emcc-erm-legislation fieldset button{
 	float: right;
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main .fieldset-wrapper,
-.page-observatories-emcc-erm-support-instrument .ef-main .fieldset-wrapper{
+.page-observatories-emcc-erm-support-instrument .ef-main .fieldset-wrapper,
+.page-observatories-emcc-erm-legislation .ef-main .fieldset-wrapper{
 	padding-right: 0;
 }
 
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main table,
-.page-observatories-emcc-erm-support-instrument .ef-main table{
+.page-observatories-emcc-erm-support-instrument .ef-main table,
+.page-observatories-emcc-erm-legislation .ef-main table{
 	margin-top: 10px;
 }
 
-.page-observatories-emcc-erm-support-instrument .mediaTableWrapperWithMenu{
+.page-observatories-emcc-erm-support-instrument .mediaTableWrapperWithMenu,
+.page-observatories-emcc-erm-legislation .mediaTableWrapperWithMenu{
 	padding-top: 0;
 }
