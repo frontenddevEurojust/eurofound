@@ -1,6 +1,8 @@
 	.cover-print{
 		display: none;
 	}
+
+
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
@@ -14,32 +16,6 @@
 	  float: left !important;
 	  margin: -8px 0 0 0 !important;
 	}
-
-	.node-case-study-publication ul{
-		padding-left: 1em !important;
-	}
-
-	.node-case-study-publication .cs-org-size{
-		margin-left: 0 !important;
-	}
-
-	.case-study-location.large-6.columns .cs-location-list > li:nth-child(1){
-		padding-top: 1em;
-	}
-	
-	.case-study-location-size .cs-country{
-		margin-left: 0.5em !important;
-	}
-
-	.case-study-location-size .cs-country ul{
-		padding: 1em 0 0 0 !important;;
-		margin: 0 !important;;
-	}
-
-	.node-case-study-publication .cs-keywords{
-		margin-left: 2em !important;
-	}
-
  @media only print{
 	.cover-print{
 		position: absolute;
@@ -59,7 +35,7 @@
 	}
 	.title-cover{
 		position: absolute;
-		top:8cm;
+		top:12cm;
 		left: 30%;
 		width: 65%;
 		z-index: 10;
@@ -73,9 +49,9 @@
 	}
 	.description-cover{
 		position: absolute;
-		top: 11cm;
+		top: 13.5cm;
 		left: 30%;
-		width: 65%;
+		width: 60%;
 		z-index: 10;
 	}
 	.disclaimer-cover{
