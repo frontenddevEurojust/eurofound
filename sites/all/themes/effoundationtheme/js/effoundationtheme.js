@@ -1396,23 +1396,77 @@ $(document).ready(function(){
       var pathname_form=form_pages[form_pages.length-1];
 
 
-      if($('.pane-ef-key-topics-home') || pathname_form == 'topic'){
+      if($('.pane-ef-key-topics-home') || pathname_form == 'topic' || $('.view-key-topics-landing-page')){
 
         var importantKeyTopics = '<div class="important-key-topics-group"></div>';
         var notImportantKeyTopics = '<div class="not-important-key-topics-group"></div>';
+
         $( ".view-id-ef_key_topics_home .view-content").prepend(notImportantKeyTopics);
         $( ".view-id-ef_key_topics_home .view-content").prepend(importantKeyTopics);
-
+        $( ".view-display-id-key_topics_block .view-content").prepend(notImportantKeyTopics);
+        $( ".view-display-id-key_topics_block .view-content").prepend(importantKeyTopics);
 
         $('.key-topics-list p.not-important-key-topics').parent().appendTo($('.not-important-key-topics-group'));
         $('.key-topics-list p.important-key-topics').parent().appendTo($('.important-key-topics-group'));
 
 
+
       };
   });
 })(jQuery);
-
 /** END IMPORTANT KEY TOPCIS HOME **/
+
+/** INDEX TOPICS LANDING PAGE */
+(function ($) {
+  $(document).ready(function(){
+    var form_pages=window.location.pathname.split("/");
+    var pathname_form=form_pages[form_pages.length-1];
+
+    if(pathname_form =='topic'){
+
+      $(window).on("load resize", function(event) {
+        var screenWidth;
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+         screenWidth = 540;
+        } else {
+          screenWidth = 530;
+        }
+
+        if( $(window).width()<=screenWidth){ 
+          $(".terms-topics-list li.group-by").once().click(function(){
+            $("ul.sublist-topics",this).slideToggle();
+          });
+
+          $(window).scroll(function () {
+            if ($(this).scrollTop() >1300) {
+               $(".go-top-wrapper").css('display','block');
+               $(".go-top-wrapper").fadeIn();
+               $(".ef-to-top-nav").css('display','none');
+            } else {
+                $(".go-top-wrapper").fadeOut();
+                $(".go-top-wrapper").css('display','none');
+                $(".ef-to-top-nav").css('display','block');
+            }
+          });
+
+        }else{
+          $("ul.sublist-topics").attr('style','');
+          $(".go-top-wrapper").fadeOut();
+          $(".go-top-wrapper").css('display','none');
+          $(".ef-to-top-nav").css('display','block');
+        }
+      });
+
+      $("a[href='#up']").click(function () {
+        //console.log($(this));
+        $('html, body').animate({
+            scrollTop: $(".page").offset().top
+        }, 800);
+      });
+    }
+  });
+})(jQuery);
+/** END INDEX TOPICS LANDING PAGE */
 
 /** QRR ADMIN  **/
 (function ($) {

@@ -243,6 +243,7 @@ function effoundationtheme_preprocess_page(&$variables) {
 
 }
 
+
 function effoundationtheme_preprocess_html(&$variables) {
 	$status = drupal_get_http_header("status");
 	if($status == '403 Forbidden') {
