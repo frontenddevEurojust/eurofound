@@ -34,19 +34,19 @@
     if (sort == 3) {
       var byMinValue = filtered.slice(0);
       byMinValue.sort(function(d,b) {
-        return Math.abs(Math.round(b.dot2)) < Math.abs(Math.round(d.dot2));
+        return b.dot1 - d.dot1;
       });
       
       filtered = byMinValue;
     }
 
     if (sort == 4) {
-      var byMaxValue = filtered.slice(0);
-      byMaxValue.sort(function(d,b) {
-        return Math.abs(Math.round(b.dot2)) > Math.abs(Math.round(d.dot2));
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
+        return b.dot2 - d.dot2;
       });
       
-      filtered = byMaxValue;
+      filtered = byMinValue;
     }
 
     if (sort == 5) {
@@ -119,7 +119,7 @@
   }
 
   var createOrderingFilter = function() {
-    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
+	var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 

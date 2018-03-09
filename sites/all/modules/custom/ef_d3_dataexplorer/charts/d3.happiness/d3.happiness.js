@@ -19,8 +19,8 @@
 
     var filtered = data.filter(function(row){
         return row.modalityCode == modality;
-    });
-
+    });	
+	
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
       var filteredKeyed = d3.nest()
@@ -33,19 +33,19 @@
     if (sort == 3) {
       var byMinValue = filtered.slice(0);
       byMinValue.sort(function(d,b) {
-        return d.dot2 - b.dot2;
+        return b.dot1 - d.dot1;
       });
       
       filtered = byMinValue;
     }
 
     if (sort == 4) {
-      var byMaxValue = filtered.slice(0);
-      byMaxValue.sort(function(d,b) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
         return b.dot2 - d.dot2;
       });
       
-      filtered = byMaxValue;
+      filtered = byMinValue;
     }
 
     if (sort == 5) {
@@ -85,8 +85,8 @@
     d3.select("#modality-filter").on("change", updateGraph);
   }
 
-  var createOrderingFilter = function() {
-    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
+  var createOrderingFilter = function() {    
+	var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2011 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 

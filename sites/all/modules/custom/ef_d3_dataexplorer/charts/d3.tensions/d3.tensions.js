@@ -34,22 +34,31 @@
     if (sort == 3) {
       var byMinValue = filtered.slice(0);
       byMinValue.sort(function(d,b) {
-        return d.dot2 - b.dot2;
+        return b.dot1 - d.dot1;
       });
       
       filtered = byMinValue;
     }
 
     if (sort == 4) {
-      var byMaxValue = filtered.slice(0);
-      byMaxValue.sort(function(d,b) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
         return b.dot2 - d.dot2;
       });
       
-      filtered = byMaxValue;
+      filtered = byMinValue;
     }
 
     if (sort == 5) {
+      var byMinValue = filtered.slice(0);
+      byMinValue.sort(function(d,b) {
+        return b.dot3 - d.dot3;
+      });
+      
+      filtered = byMinValue;
+    }
+
+    if (sort == 6) {
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
         return Math.abs(Math.round(d.dot1) - Math.round(d.dot3)) - Math.abs(Math.round(b.dot1) - Math.round(b.dot3));
@@ -58,7 +67,7 @@
       filtered = byValueGap;
     }
 
-    if (sort == 6) {
+    if (sort == 7) {
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
         return Math.abs(Math.round(b.dot1) - Math.round(b.dot3)) - Math.abs(Math.round(d.dot1) - Math.round(d.dot3));
@@ -67,7 +76,7 @@
       filtered = byValueGap;
     }
 
-    if (sort == 7) {
+    if (sort == 8) {
 
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
@@ -77,7 +86,7 @@
       filtered = byValueGap;
     }
 
-    if (sort == 8) {
+    if (sort == 9) {
       var byValueGap = filtered.slice(0);
       byValueGap.sort(function(d,b) {
         return Math.abs(Math.round(b.dot3) - Math.round(b.dot2)) - Math.abs(Math.round(d.dot3) - Math.round(d.dot2));
@@ -123,7 +132,7 @@
   }
 
   var createOrderingFilter = function() {
-    var alphaSort = [
+    /*var alphaSort = [
       "- None -",
       "Alphabetically ascending",
       "Alphabetically descending",
@@ -133,7 +142,21 @@
       "By value gap (2007-2016) descending",
       "By value gap (2011-2016) ascending",
       "By value gap (2011-2016) descending"
-    ];
+    ];*/
+	
+	
+	var alphaSort = [
+		"- None -", 
+		"Alphabetically ascending", 
+		"Alphabetically descending", 
+		"By 2007 value descending",  
+		"By 2011 value descending",  
+		"By 2016 value descending",  
+		"By value gap (2007-2016) ascending",
+		"By value gap (2007-2016) descending",
+		"By value gap (2011-2016) ascending",
+		"By value gap (2011-2016) descending"
+	];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
