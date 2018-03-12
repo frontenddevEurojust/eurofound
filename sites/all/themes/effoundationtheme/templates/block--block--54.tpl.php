@@ -166,7 +166,7 @@
               }
             
             //New Content Type Formats
-              if ($name=="Board member page" || $name=="EF network extranet page") {
+              if ($name=="board member page" || $name=="EF network extranet page") {
                 $name="Page";
               }elseif($name=="EF call for tender"){
                 $name="Call for tender";
