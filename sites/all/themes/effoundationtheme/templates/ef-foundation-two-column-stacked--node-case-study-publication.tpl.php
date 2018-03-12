@@ -17,13 +17,22 @@
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <?php if(in_array('anonymous user', $user->roles)): ?>
+    <!-- go back button FRONT END-->
+    <?php elseif(in_array('anonymous user', $user->roles)): ?>
         <div class="back-erm-list-button-div">
-            <?php if($_SERVER['HTTP_REFERER'] != ''): ?>
+
+            <?php 
+                $prev_url = $_SERVER['HTTP_REFERER'];
+                $findme = 'observatories/emcc/erm/restructuring-case-studies';
+                $pos = strpos($prev_url, $findme);
+            ?>
+
+            <?php if($pos === false): ?>
+                <a href="<?php echo $base_url . '/' . $findme; ?>"><?php print t("Go to list page")?></a>   
+            <?php else: ?>  
                 <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
-           <?php else: ?>
-                <a href="observatories/emcc/erm/restructuring-case-studies"><?php print t("Go back to list")?></a>
             <?php endif; ?>
+
         </div>
     <?php endif; ?>
 
