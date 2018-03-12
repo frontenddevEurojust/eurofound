@@ -9,7 +9,8 @@
 
   $nid_rel = $node->field_relation_identifier_csp['und'][0]['value'];
   $node_rel = node_load($nid_rel);
-
+  $filters = get_support_instrument_user_variable_url_parameters();
+  $url = "/observatories/emcc/erm/support-instrument/admin" . $filters;
 ?>
 
 
@@ -17,19 +18,11 @@
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <!-- go back button BACK END -->
-<?php if(in_array('authenticated user', $user->roles)): ?>
-    <div class="back-erm-list-button-div">
-        <a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>      
-    </div>
 
-<!-- go back button FRONT END-->
-<?php elseif(in_array('anonymous user', $user->roles)): ?>
     <div class="back-erm-list-button-div">
-
         <?php 
             $prev_url = $_SERVER['HTTP_REFERER'];
-            $findme = 'observatories/emcc/erm/support-instrument';
+            $findme = 'observatories/emcc/erm/restructuring-case-studies';
             $pos = strpos($prev_url, $findme);
         ?>
 
@@ -40,7 +33,7 @@
         <?php endif; ?>
 
     </div>
-<?php endif; ?>
+
 
     <div class="case-study-result">
 
