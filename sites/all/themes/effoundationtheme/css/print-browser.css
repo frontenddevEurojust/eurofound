@@ -5,8 +5,8 @@
 
 @page {
   size: A4 portrait !important;
-  font-size:9pt !important;
-  margin:2.5cm !important;
+  //font-size:9pt !important;
+  //margin:2.5cm !important;
   page-break-inside: avoid !important;
   page-break-after:always !important;
 }
@@ -17,7 +17,7 @@ html, body{
   background: #FFF url(none) repeat !important;
   font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
   margin:0%!important;
-  [; margin:4%!important; ];
+ // [; margin:4%!important; ];
   font-size:10pt !important;
   text-align:left!important;
   color: #000 !important;
@@ -41,7 +41,7 @@ ul,ol{
 a:before, a:after, .icon-ef_surveys:before{
 content:'' !important;
  }
-.element-invisible, .pagination-centered, .view-footer, .l-messages,.ef-home-page .l-main, .ds-node-comments, #adminboardlist{
+.no-print, .element-invisible, .pagination-centered, .view-footer, .l-messages,.ef-home-page .l-main, .ds-node-comments, #adminboardlist{
  display:none !important;
  }
  .ef-tagline-logo, .ef-logo-legend{
@@ -263,6 +263,10 @@ h2.title, h1.title{
   border-bottom: 1px solid #ccc!important;
   margin-top: 1em !important;
   padding-left:0 !important;
+}
+h2.title-living-country, 
+h2.title-working-life{
+  font-size: 2.1em!important;
 }
 .boxed-block h1{
  margin-left:-0.5cm !important;
@@ -930,6 +934,7 @@ ul.metadata-publications > li > ul li {
   overflow:auto;
 }
 .section-living-working.section-container.vertical-tabs > section > .title {
+  background: transparent !important;
   position: static !important;
   display: block !important;
   font-size: 22px !important;
@@ -941,6 +946,9 @@ ul.metadata-publications > li > ul li {
 }
 .section-living-working.section-container.vertical-tabs > section > .title p {
   margin-bottom: 0px !important;
+}
+.section-living-working .country-specific-info{
+  padding: 1rem 2rem 1rem 2rem;
 }
 .section-living-working h3.subtitle {
   font-size: 1rem; 

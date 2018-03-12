@@ -83,38 +83,88 @@ $countview = count($result);
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
-    <?php endif; ?>     
+    <?php endif; ?>
+
         <div class="row">
             <div class="ds-node-metadata">
-                <div class="field field-name-published-on">
-                    <div class="label-inline">
-                        <?php print $content['published_on'][0]['#markup']; ?>
-                    </div>
-                </div>
-                <div class="field field-name-content-type">
-                    <div class="label-inline">
-                        <?php print  $node->type; ?>
-                    </div>
-                </div>
-                <div class="field field-name-field-ef-author">
-                    <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                    <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
-                    <?php endforeach; ?>
-                </div>
-                <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
-                     <div class="field field-permalink">
-                        <div class="label-inline">
-                            <?php print t("Permalink") ?>:&nbsp;
+
+                <?php if ( user_access("view field_ef_report_delivery_date") && isset($content['published_on'][0]['#markup']) ) {
+                    ?>
+                        <div class="field field-name-published-on">
+                            <div class="label-inline">
+                                <?php print t("Scheduled record delivery date: ").$content['published_on'][0]['#markup']; ?>
+                            </div>
                         </div>
-                        <div class="label-content">
-                            <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
-                                <?= $content['field_permalink']['#items'][0]['title']; ?>
-                            </a>
+                    <?php
+                } ?>
+
+                <?php if (isset($node->field_ef_approved_for_payment["und"][0]["value"]) && user_access("view field_ef_approved_for_payment") ) : ?>
+                    <div class="field field_ef_approved_for_payment">
+                        <div class="label-inline">
+                            <?php 
+                                 $date = new DateTime($node->field_ef_approved_for_payment["und"][0]["value"]);
+                                 $date_format=$date->format('l, F j, o');
+                                 print t("Approved for payment: ").$date_format; 
+                            ?>
                         </div>
                     </div>
                 <?php endif; ?>
-                <?php if(count($content['field_ef_topic']['#items'])): ?>
+
+                <?php if (isset($node->field_ef_topic["und"][0]["tid"]) ) : ?>
+                    <div class="field field_ef_topic">
+                        <div class="label-inline">
+                            <?php 
+                                print t("Topic: ");
+                                if (isset($node->field_ef_topic[$language->language])) {
+                                    foreach ($node->field_ef_topic[$language->language] as $key => $topic){
+                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
+                                        $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                        ?>
+                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                        <?php
+                                    }
+                                }else{
+                                    foreach ( $node->field_ef_topic["und"] as $key => $topic ){ 
+                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
+                                        $taxonomy_path=drupal_lookup_path('alias', $path);
+                                        ?>
+                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                        <?php
+                                    } 
+                                }
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                 <?php if (isset($node->uid) && user_access("view field_ef_author") ) : ?>
+                    <div class="field uid">
+                        <div class="label-inline">
+                            <?php 
+                                 $user_load=user_load($node->uid);
+                                 print t("Assign to User: ".$user_load->name); 
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($node->field_ef_author_contract["und"][0]["taxonomy_term"]->name) && user_access("view field_ef_contract") ) : ?>
+                    <div class="field field_ef_author_contract">
+                        <div class="label-inline">
+                            <?php 
+                                 $contract_name=$node->field_ef_author_contract["und"][0]["taxonomy_term"]->name;
+                                 $path=taxonomy_term_uri($node->field_ef_author_contract["und"][0]["taxonomy_term"]);
+                                 $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                 print t("Contract: "); 
+                                 ?>
+                                    <a href="<?php echo $taxonomy_path; ?>"><?php echo $contract_name; ?></a>
+                                <?php
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <?php /*if(count($content['field_ef_topic']['#items'])): ?>
                     <div class="field field-name-field-ef-topic">
                     <div class="label-inline"><?php print t("Topic:") ?>&nbsp;</div>
                         <?php for($i=0; $i < count($content['field_ef_topic']['#items']); $i++): ?>
@@ -130,32 +180,70 @@ $countview = count($result);
                             <?php endif; ?>
                         <?php endfor; ?>
                      </div>      
+                <?php endif; */ ?>
+
+                <?php if (isset($node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"]) && !in_array('anonymous user', $user->roles)) : ?>
+                    <div class="field field_term_last_updated">
+                        <div class="label-inline">
+                            <?php 
+                                $timestamp=$node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"];
+                                $date=date("Y-m-d", $timestamp);
+                                print t("Date of last submission: ").$date;
+                            ?>
+                        </div>
+                    </div>
                 <?php endif; ?>
 
-                <?php if( isset($content['field_ef_reference_no']) && !empty($content['field_ef_reference_no']) ){ ?>
-                    <div class="field field-permalink">
+                <?php if (isset($node->workbench_moderation["current"]->stamp)) : ?>
+                    <div class="field field_term_last_updated">
                         <div class="label-inline">
-                            <?php print t("Reference nº") ?>:&nbsp;
-                        </div>
-                        <div class="label-content">
-                                <?= $content['field_ef_reference_no']["#items"][0]["value"]; ?>
+                            <?php 
+                                $publish_on=$node->workbench_moderation["current"]->stamp;
+                                $publish_on=date("Y-m-d", $publish_on);
+                                print t("Published on: ").$publish_on;
+                            ?>
                         </div>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
+                
+                <?php if (isset($content['field_ef_publ_contributors']['#items']) && user_access("view field_ef_author") ) : ?>
+                    <div class="field field-name-field-ef-author">
+                        <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {
+                                ?>
+                                    <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
+                                <?php
+                            }else{
+                                ?>
+                                    <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>
+                                <?php
+                            } ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
 
-                <?php if( isset($content['field_ef_doi']) && !empty($content['field_ef_doi']) ){ ?>
-                    <div class="field field-permalink">
+                <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
+                     <div class="field field-permalink">
                         <div class="label-inline">
-                            <?php print t("DOI") ?>:&nbsp;
+                            <?php print t("Permalink") ?>:&nbsp;
                         </div>
                         <div class="label-content">
-                                <?= $content['field_ef_doi']["#items"][0]["value"];  ?>
+                            <a href="<?= url($content['field_permalink']['#items'][0]['url']); ?>">
+                                <?= $content['field_permalink']['#items'][0]['title']; ?>
+                            </a>
                         </div>
                     </div>
-                <?php } ?>
-                    
+                <?php endif; ?>
             </div>
         </div>
+        <div class="row">
+            <?= drupal_render($content["links"]); ?>
+        </div>
+        <div class="row">
+            <?= drupal_render($content["qrr"]); ?>        
+        </div>
+
         <div class="topic-abstract">
             <?php if (isset($content['field_ef_main_image'][0]['#item']['filename'])): ?>
                <p>

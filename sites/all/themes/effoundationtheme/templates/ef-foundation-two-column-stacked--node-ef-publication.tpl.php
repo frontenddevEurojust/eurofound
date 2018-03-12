@@ -91,6 +91,7 @@ if (isset($content['field_ef_document'][0]['#file']))
 //Remove the day when the content is forthcoming
 $publication_date_forthcoming = preg_split('#\s+#', $content['group_ef_node_details']['published_on'][0]['#markup'], 2);
 $state == 'forthcoming' ? $publication_date = $publication_date_forthcoming[1] : $publication_date = $content['group_ef_node_details']['published_on'][0]['#markup'];
+$overwrite_thumbnail = $node->field_overwrite_thumbnail['und'][0]['value'];
 
 if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
@@ -112,55 +113,57 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
 	<?php if($state != 'forthcoming'): ?>
 			
-		<?php if(isset($content['field_ef_document'][0]['#file'])): ?>
-		<div class="ds-node-side-info large-4 columns">
-							
-			<div class="field field-name-publication-preview">
-				<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a> 
-			</div>
-			
-			<div class="field field-name-field-ef-document">
-				
-				<span class="file">
-					<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
-				</span>
-			
-			</div>
+		<?php if(isset($content['field_ef_document'][0]['#file']) || isset($content['field_ef_main_image'])): ?>
+			<div class="ds-node-side-info large-4 columns">			
+				<div class="field field-name-publication-preview">
+					<?php if($overwrite_thumbnail == 1): ?>
+						<?php if (is_null($content['field_ef_main_image'])): ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+						<?php else: ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?php print render($content['field_ef_main_image']); ?></a>
+						<?php endif; ?>
 
-			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-			<div class="field-order-label">
-					<?= $content['field_order_label'][0]['#markup']; ?>
+
+					<?php else: ?>
+						<?php if (is_null($content['field_ef_document'][0]['#file']->uri)): ?>
+							<?php print render($content['field_ef_main_image']); ?>
+						<?php else: ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+						<?php endif; ?>					
+					<?php endif; ?>
+				</div>			
+				<div class="field field-name-field-ef-document">				
+					<span class="file">
+						<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
+					</span>			
+				</div>
+				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+					<div class="field-order-label">
+						<?= $content['field_order_label'][0]['#markup']; ?>
+					</div>
+				<?php endif; ?>		
 			</div>
-			<?php endif; ?>
-		
-		</div>
-
-		<div class="ds-node-content large-8 columns">
-
+			<div class="ds-node-content large-8 columns">
 		<?php else: ?>
-		<div class="ds-node-content large-12 columns">
+			<div class="ds-node-content large-12 columns">
 		<?php endif; ?>
-					
+
 	<?php else: ?>
 
 		<?php if (isset($content['field_ef_main_image'])): ?>
-		<div class="ds-node-side-info large-4 columns">
-			<div class="field field-name-publication-preview">
-				<?php print render($content['field_ef_main_image']); ?>
-			</div>
-		
-
-			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-			<div class="field-order-label">
-				<?= $content['field_order_label'][0]['#markup']; ?>
-			</div>
-			<?php endif; ?>
-		</div>
-		
-		<div class="ds-node-content large-8 columns">
-		<?php else: ?>
-		
-		<div class="ds-node-content large-12 columns">
+			<div class="ds-node-side-info large-4 columns">
+				<div class="field field-name-publication-preview">
+					<?php print render($content['field_ef_main_image']); ?>
+				</div>
+				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+					<div class="field-order-label">
+						<?= $content['field_order_label'][0]['#markup']; ?>
+					</div>
+				<?php endif; ?>
+			</div>			
+			<div class="ds-node-content large-8 columns">
+		<?php else: ?>			
+				<div class="ds-node-content large-12 columns">
 		<?php endif; ?>
 
 	<?php endif; ?>

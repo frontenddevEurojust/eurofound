@@ -243,6 +243,7 @@ function effoundationtheme_preprocess_page(&$variables) {
 
 }
 
+
 function effoundationtheme_preprocess_html(&$variables) {
 	$status = drupal_get_http_header("status");
 	if($status == '403 Forbidden') {
@@ -416,6 +417,53 @@ function getNationalContributionCountry($iso2)
       return $result;
 
 
+  }
+
+  function format_author_name($author_name){
+      $nam=explode(',',$author_name);
+      $fullname=$author_name;
+
+      if (count($nam) == 2) {
+          $firstname=trim($nam[1]);
+          $lastname=trim($nam[0]);
+
+          $long_name= explode(" ", $firstname);
+
+          if (count($long_name)==1) {
+              $fullname=$firstname." ".$lastname;
+              //drupal_set_message("The new name: ".$author_name." --- ".$fullname);
+          }else{
+              preg_match('#\((.*?)\)#', $firstname, $match);
+              if ( count($match[1]) > 0 ){ 
+                  $fullname=str_replace($match, "", $firstname)." ".$lastname." (".$match[1].")";
+              }else{
+                  $fullname=$firstname." ".$lastname;
+              }                   
+          }
+      }elseif (count($nam) == 1) {
+          //drupal_set_message("The same name: ".$author_name);
+      }else{
+          if ($author_name=="Lloyd, Caroline (SKOPE, Warwick Business School)") {
+              $fullname="Caroline Lloyd (SKOPE, Warwick Business School)";
+              //drupal_set_message("Exception handling: ".$author_name." --- ".$fullname);
+          }else{
+              //drupal_set_message("Exception: ".$author_name);
+          }
+      }
+      return $fullname;
+  }
+
+  function check_if_author_has_publications($author){
+    $query=db_query(" select n.nid, t.tid, n.type, n.title, n.status, state
+                      from taxonomy_index t
+                      left join node n on t.nid = n.nid
+                      left join workbench_moderation_node_history w on n.vid = w.vid
+                      where t.tid = ".$author->tid." AND n.type='ef_publication'");
+
+    if ($query->rowCount() == 0) {
+      return false;
+    }
+    return true;
   }
 
 

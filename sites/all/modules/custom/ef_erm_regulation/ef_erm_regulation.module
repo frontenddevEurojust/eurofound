@@ -222,6 +222,7 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
         $types_with_opt['Not Found'][$key] =  $value;
        }
     }
+    ksort($types_with_opt);
     $form['field_type_phase_erm_reg_tid_selective']['#options'] = $types_with_opt;
   }  
   if ($form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-admin-view' && count($form['field_type_erm_si_tid_selective']['#options']) > 0 ) {

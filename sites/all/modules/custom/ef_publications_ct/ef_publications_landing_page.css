@@ -15,6 +15,14 @@ ul.view-list-pdfpreview .item-content{
   width: 80%;
   float: left;
 }
+ul.view-list-pdfpreview .img-publications-list img {
+  width: 100%;
+}
+ul.view-list-pdfpreview .img-publications-list {
+  float: left;
+  margin-right: 1rem;
+  width: 18%;
+}
 ul.view-list-pdfpreview .item-content.without-image{
   width: 100% !important;
 }
