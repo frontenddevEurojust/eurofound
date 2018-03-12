@@ -44,6 +44,16 @@
 	.node-case-study-publication .cs-keywords{
 		margin-left: 2em !important;
 	}
+	.erm-phase-type{
+		width: auto !important;
+	}
+	.erm-phase{
+		text-align: left;
+	}
+	.field.field-name-field-type-erm-si, .field.field-name-field-type-phase-erm-reg {
+    text-align: left;
+    padding-left: 33px !important;
+	}
 
  @media only print{
 	.cover-print{
@@ -89,7 +99,7 @@
 	}
 	.disclaimer-cover{
 		position: absolute;
-		border-top: 1px solid #666;
+		border-top: 1px solid #666 !important;
 		font-size: 10px !important;
 		text-align: center !important;
 		top:100%;
@@ -126,5 +136,9 @@
 
 	.field.field-name-field-type-erm-si, .field.field-name-field-type-phase-erm-reg{
 		text-align: left!important
+	}
+	.erm-country {
+    font-size: 1.4em;
+    margin: 2rem 0;
 	}
 }
