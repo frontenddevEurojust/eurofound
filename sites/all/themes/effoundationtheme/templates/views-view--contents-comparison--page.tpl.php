@@ -37,16 +37,12 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 ?>
 
-
+<?php if(!strrpos($_SERVER['REQUEST_URI'], "print")): ?>
   <div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
-
   <div class="page-list-wrapper clearfix no-pdf no-print">
-    <p class="current-total">Showing instrument: <span class="current-instrument"></span> of <span class="total-instrument"></span></p>
-    <ul class="page-list pagination">
-      <!-- pagination item jquery -->
-    </ul>
+    <div class="turn-page page-list pagination" id="pager"></div>
   </div>
-
+<?php endif ?>
 <div class="<?php print $classes; ?>">
 
   <?php print render($title_prefix); ?>
@@ -86,18 +82,6 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
 
 
-
-
-
-
-  <?php if ($pager): ?>
-    <?php //print $pager; ?>
-  <?php endif; ?>
-
-
-
-
-
   <?php if ($attachment_after): ?>
     <div class="attachment attachment-after">
       <?php print $attachment_after; ?>
@@ -121,3 +105,17 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
   <?php endif; ?>
 
 </div><?php /* class view */ ?>
+
+<?php if(!strrpos($_SERVER['REQUEST_URI'], "print")): ?>
+    <script type="text/javascript">
+    (function ($) {
+      $(document).ready(function() {
+          $(this).cPager({
+              pageSize: 1, 
+              pageid: "pager", 
+              itemClass: "content-comparision-item" 
+          });
+      });
+    })(jQuery);
+    </script>
+<?php endif ?>

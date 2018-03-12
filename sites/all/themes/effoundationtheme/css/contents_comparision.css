@@ -1,8 +1,8 @@
-.cover-print{
-  height: 29.7cm;
-  width: 21cm;
-  display: none;
-}
+	.cover-print{
+		height: 29.7cm;
+		width: 21cm;
+		display: none;
+	}
 .contents-comparision-list  {
   clear: both;
 }
@@ -23,8 +23,84 @@
   font-family: 'OpenSans-Semibold-webfont';
   margin-bottom: 0;
 }
-.page-list{
-	width: auto;
-  float: left;
-  margin: 0 0 0 1rem !important;
+
+
+.turn-page {
+  float: none !important;
+  margin-top: 10px;
+  font-size: 1em;
+  color: #404040;
+  padding-bottom: 10px;
 }
+
+.turn-page .turn-num {
+  float: left;
+  color: #8c8c8c;
+  margin-top: 4px;
+  line-height: 20px;
+}
+
+.turn-page .turn-ul {
+  float: left;
+  margin: 0 30px 0 20px;
+}
+
+.turn-page .turn-ul li {
+  list-style: none;
+  float: left;
+  width: 28px;
+  height: 26px;
+  font-size: 0.8em;
+  line-height: 26px;
+  text-align: center;
+  border: 1px solid #e6eaeb;
+  margin-left: -1px;
+  cursor: pointer;
+}
+
+.turn-page .turn-ul i {
+  font-style: normal;
+  display: inline-block;
+  float: left;
+  width: 25px;
+}
+
+.turn-page .turn-ul li.tz {
+  color: #333;
+  font-family: simsun;
+}
+
+.turn-page .turn-ul li:hover, .turn-page .turn-ul li:active {
+  background: #4a93e8;
+  color: #fff;
+}
+
+.turn-page .turn-ul li.on {
+  background: #4a93e8;
+  color: #fff;
+}
+
+.turn-page .turn-ul li.inp {
+  width: 36px;
+  margin: 0 10px 0 20px;
+}
+
+.turn-page .turn-ul li.slh {
+  border: none;
+  font-size: 16px;
+  margin-top: -3px;
+}
+
+.turn-page .turn-ul li.slh:active { background: none; }
+
+.turn-page .turn-ul li.inp:active { background: none; }
+
+.turn-page .turn-ul .li-inp {
+  width: 36px;
+  height: 24px;
+  outline: none;
+  border: none;
+  text-align: center;
+}
+
+
