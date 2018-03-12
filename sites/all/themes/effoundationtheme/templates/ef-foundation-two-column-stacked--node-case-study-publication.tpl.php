@@ -41,7 +41,7 @@
             <div class="large-3-offset-9 columns text-right">
                 <i class="fa fa-calendar"></i>
                 <?php
-                    $date = date('d M, Y', $node->translations->data['en']['created']);
+                    $date = date('d M, Y', $node->created);
                     print $date;
                 ?>
             </div>
