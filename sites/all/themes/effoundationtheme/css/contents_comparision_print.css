@@ -1,7 +1,10 @@
 	.cover-print{
 		display: none;
 	}
-
+  .page-break{
+    page-break-before:always !important;
+    background: #FFF !important;
+  }
 
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
@@ -53,6 +56,10 @@
 		z-index: 9;
 		background: #FFF !important;
 	}
+  .page-break{
+    page-break-before:always !important;
+    background: #FFF !important;
+  }
 	.cover-print img{
 		position: absolute;
 		width: 100% !important;
