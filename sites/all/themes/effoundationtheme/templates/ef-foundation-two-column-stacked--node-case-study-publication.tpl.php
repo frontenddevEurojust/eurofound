@@ -17,24 +17,30 @@
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <!-- go back button FRONT END-->
-    <?php elseif(in_array('anonymous user', $user->roles)): ?>
-        <div class="back-erm-list-button-div">
+    <!-- go back button BACK END -->
+<?php if(in_array('authenticated user', $user->roles)): ?>
+    <div class="back-erm-list-button-div">
+        <a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>      
+    </div>
 
-            <?php 
-                $prev_url = $_SERVER['HTTP_REFERER'];
-                $findme = 'observatories/emcc/erm/restructuring-case-studies';
-                $pos = strpos($prev_url, $findme);
-            ?>
+<!-- go back button FRONT END-->
+<?php elseif(in_array('anonymous user', $user->roles)): ?>
+    <div class="back-erm-list-button-div">
 
-            <?php if($pos === false): ?>
-                <a href="<?php echo $base_url . '/' . $findme; ?>"><?php print t("Go to list page")?></a>   
-            <?php else: ?>  
-                <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
-            <?php endif; ?>
+        <?php 
+            $prev_url = $_SERVER['HTTP_REFERER'];
+            $findme = 'observatories/emcc/erm/support-instrument';
+            $pos = strpos($prev_url, $findme);
+        ?>
 
-        </div>
-    <?php endif; ?>
+        <?php if($pos === false): ?>
+            <a href="<?php echo $base_url . '/' . $findme; ?>"><?php print t("Go to list page")?></a>   
+        <?php else: ?>  
+            <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+        <?php endif; ?>
+
+    </div>
+<?php endif; ?>
 
     <div class="case-study-result">
 
@@ -53,7 +59,6 @@
                 <ul class="cs-location-list inline-list">
                     <li><i class="fa fa-globe"></i></li>
                     <li class="cs-country"><?php print render($content['field_country_csp']); ?></li>
-                    <!--<li class="cs-study-region"><?php print render($content['field_country_csp']); ?></li>-->
                 </ul>
             </div>
             <div class="case-study-size large-6 columns">
