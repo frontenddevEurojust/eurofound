@@ -8835,7 +8835,7 @@ body.page-node-edit.node-type-ef-factsheet .nojs {
 /* --- forms --- */
 
 .view-id-case_studies_emcc .views-exposed-widget {
-	width:25%;
+	width:33%;
 }
 .view-id-ef_case_studies .views-exposed-widget,
 .form-support-instruments .views-exposed-widge{
@@ -8881,16 +8881,14 @@ form#views-exposed-form-erm-regulations-page .wrap-row-buttons .view-button,
 	clear: both;
 }
 .view-id-case_studies_emcc .views-widget-filter-title_field_value{
-	width: 75%;
+	width: 66%;
 }
 .view-id-case_studies_emcc .views-widget-filter-field_ant_change_activ_csp_tid_selective,
 .view-id-case_studies_emcc .views-widget-filter-field_man_change_activ_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_keywords_csp_tid_selective{
-	width: 50%;
+	width: 49.5%;
 }
-.view-id-case_studies_emcc .views-widget-filter-field_man_change_activ_csp_tid_selective{
-	clear: both;
-}
+
 .view-id-case_studies_emcc  .views-widget-filter-field_organisation_size_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_affected_est_size_csp_tid_selective,
 .view-id-case_studies_emcc  .views-widget-filter-field_type_of_restructuring_csp_tid_selective{
@@ -14368,3 +14366,89 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /* end New OSU Contract Reporting */
+
+
+/* Button to compare Nodes in case studies and support instrument "Display selected cases" */
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main legend,
+.page-observatories-emcc-erm-support-instrument .ef-main legend,
+.page-observatories-emcc-erm-legislation .ef-main legend{
+	background: transparent;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies fieldset,
+.page-observatories-emcc-erm-support-instrument fieldset,
+.page-observatories-emcc-erm-legislation fieldset{
+	border:0;
+	margin-bottom: 0;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies legend,
+.page-observatories-emcc-erm-support-instrument legend,
+.page-observatories-emcc-erm-legislation legend{
+	display: none
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies fieldset button,
+.page-observatories-emcc-erm-support-instrument fieldset button,
+.page-observatories-emcc-erm-legislation fieldset button{
+	float: right;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main .fieldset-wrapper,
+.page-observatories-emcc-erm-support-instrument .ef-main .fieldset-wrapper,
+.page-observatories-emcc-erm-legislation .ef-main .fieldset-wrapper{
+	padding-right: 0;
+}
+
+.page-observatories-emcc-erm-restructuring-case-studies .ef-main table,
+.page-observatories-emcc-erm-support-instrument .ef-main table,
+.page-observatories-emcc-erm-legislation .ef-main table{
+	margin-top: 10px;
+}
+
+.page-observatories-emcc-erm-support-instrument .mediaTableWrapperWithMenu,
+.page-observatories-emcc-erm-legislation .mediaTableWrapperWithMenu{
+	padding-top: 0;
+}
+
+.page-contents-comparison .pub-pdf-img {
+    margin-top: 25px;
+    max-width: 25%;
+}
+
+.page-contents-comparison .field-name-field-ef-document .file{
+  display: block;
+  background-color: #F99E35;
+  text-align: left;
+  clear: both;
+  position: relative;
+  font-size: 1.2em;
+  margin-bottom:20px;
+  width: 315px;
+}
+
+.page-contents-comparison .field-name-field-ef-document .file a {
+    padding: 18px 30px 18px 15px !important;
+    color: #fff;
+    margin: 0px;
+    padding-right: 0px;
+    display: block;
+}
+
+.page-contents-comparison .field-name-field-ef-document .file a:after {
+    font-family: 'ef-icon-font';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e62a";
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+}

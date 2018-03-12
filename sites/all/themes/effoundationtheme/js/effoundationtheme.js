@@ -335,7 +335,6 @@
         || pathname_form=='osu-contracts-reporting'
         || pathname_form=='osu-contract-reporting'
         || pathname_form=='quarterly-reports'
-        || pathname_form=='restructuring-case-studies'
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
@@ -343,7 +342,8 @@
         num_divisor=parseInt(8);  
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
-      
+      }else if(pathname_form=='restructuring-case-studies'){
+        num_divisor=parseInt(12);
       }else{
         num_divisor=parseInt(3);
       }
@@ -1720,3 +1720,41 @@ $(document).ready(function(){
 
 /** End Restructuring support instruments admin view */
 
+
+/* Move the field Region filter when select Country - View Case Studies Publications */
+(function ($) {
+  $(document).ready(function(){
+    $("#edit-field-nuts-csp-tid-wrapper").insertAfter("#edit-field-country-csp-tid-selective-wrapper");
+  });
+})(jQuery);
+
+
+//Desactivate the button "Display selected cases"
+(function ($) {
+  $(document).ready(function(){
+    
+    if($(".vbo-select:checked").length > 1){
+      $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);
+    }else{
+      $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+    }
+    
+    $(".vbo-table-select-all").click(function() {
+      if($(".vbo-table-select-all:checked").length > 0){
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);
+      }else{
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+      }
+    });
+
+    $(".vbo-select").click(function() {
+      if($(".vbo-select:checked").length > 1){
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);
+      }else{
+        $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",true);
+      }
+    });
+      
+  });
+})(jQuery);
+  

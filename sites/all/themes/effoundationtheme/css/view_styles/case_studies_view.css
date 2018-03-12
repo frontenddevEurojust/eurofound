@@ -44,7 +44,6 @@
 .view-id-ef_case_studies .view-content,
 .view-id-case_studies_emcc .view-content{
   border-top: 1px solid #1858A2;
-  padding: 10px 20px 10px;
 }
 
 /* --- content --- */
@@ -257,3 +256,42 @@
     margin-top: 25px;
     max-width: 25%;
 }
+
+.node-type-case-study-publication .field-name-field-ef-document .file{
+  display: block;
+  background-color: #F99E35;
+  text-align: left;
+  clear: both;
+  position: relative;
+  font-size: 1.2em;
+  margin-bottom:20px;
+  width: 232px;
+}
+
+.node-type-case-study-publication .field-name-field-ef-document .file a {
+    padding: 18px 30px 18px 15px !important;
+    color: #fff;
+    margin: 0px;
+    padding-right: 0px;
+    display: block;
+}
+
+.node-type-case-study-publication .field-name-field-ef-document .file a:after {
+    font-family: 'ef-icon-font';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e62a";
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+}
+
+    

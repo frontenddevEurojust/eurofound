@@ -20,9 +20,12 @@
 <!-- go back button BACK END -->
 <?php if(in_array('authenticated user', $user->roles)): ?>
 	<div class="back-erm-list-button-div">
+	<?php if(strpos($_SERVER['HTTP_REFERER'], 'admin')): ?>	
 		<a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>		
+	<?php else: ?>
+		<a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+	<?php endif; ?>
 	</div>
-
 <!-- go back button FRONT END-->
 <?php elseif(in_array('anonymous user', $user->roles)): ?>
 	<div class="back-erm-list-button-div">
