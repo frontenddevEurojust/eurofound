@@ -120,7 +120,7 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 						<?php if (is_null($content['field_ef_main_image'])): ?>
 							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
 						<?php else: ?>
-							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?php print render($content['field_ef_main_image']); ?></a>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?php print '<img src="' . $content['field_ef_main_image'][0]['#path']['path'] . '" >' ?></a>
 						<?php endif; ?>
 
 
