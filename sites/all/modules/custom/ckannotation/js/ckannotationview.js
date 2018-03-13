@@ -49,9 +49,9 @@ function scramble(plain) {
       });
 
       $('body.not-logged-in .annotation').each(function(index) {
-        $(this).removeAttribute('annotation');
-        $(this).removeAttribute('created');
-        $(this).removeAttribute('username');
+        $(this).removeAttr('annotation');
+        $(this).removeAttr('created');
+        $(this).removeAttr('username');
       });
     }
   };
