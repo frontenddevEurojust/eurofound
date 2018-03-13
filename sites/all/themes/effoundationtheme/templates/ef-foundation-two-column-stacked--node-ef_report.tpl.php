@@ -235,6 +235,27 @@ $countview = count($result);
                         </div>
                     </div>
                 <?php endif; ?>
+                <?php if( isset($content['field_ef_reference_no']) && !empty($content['field_ef_reference_no']) ){ ?>
+                        <div class="field field-permalink">
+                            <div class="label-inline">
+                                <?php print t("Reference nº") ?>:&nbsp;
+                            </div>
+                            <div class="label-content">
+                                    <?= $content['field_ef_reference_no']["#items"][0]["value"]; ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if( isset($content['field_ef_doi']) && !empty($content['field_ef_doi']) ){ ?>
+                        <div class="field field-permalink">
+                            <div class="label-inline">
+                                <?php print t("DOI") ?>:&nbsp;
+                            </div>
+                            <div class="label-content">
+                                    <?= $content['field_ef_doi']["#items"][0]["value"];  ?>
+                            </div>
+                        </div>
+                    <?php } ?>
             </div>
         </div>
         <div class="row">
