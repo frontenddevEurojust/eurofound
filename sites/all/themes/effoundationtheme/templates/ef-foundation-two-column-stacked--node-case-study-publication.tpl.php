@@ -9,7 +9,8 @@
 
   $nid_rel = $node->field_relation_identifier_csp['und'][0]['value'];
   $node_rel = node_load($nid_rel);
-
+  $filters = get_support_instrument_user_variable_url_parameters();
+  $url = "/observatories/emcc/erm/support-instrument/admin" . $filters;
 ?>
 
 
@@ -17,25 +18,22 @@
 
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <?php if(!in_array('anonymous user', $user->roles) && isset($node->field_relation_identifier_csp['und'][0]['value'])): ?>
-        <ul class="cs-go-to-original">
-            <li>
-                <a href="<?php print $base_url; ?>/node/<?php print $node->field_relation_identifier_csp['und'][0]['value']; ?>">
-                    <?php print t('Go to original content'); ?>
-                </a>
-            </li>
-        </ul>
-    <?php endif; ?>
 
-    <?php if(in_array('anonymous user', $user->roles)): ?>
-        <div class="back-erm-list-button-div">
-            <?php if($_SERVER['HTTP_REFERER'] != ''): ?>
-                <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
-           <?php else: ?>
-                <a href="observatories/emcc/erm/restructuring-case-studies"><?php print t("Go back to list")?></a>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
+    <div class="back-erm-list-button-div">
+        <?php 
+            $prev_url = $_SERVER['HTTP_REFERER'];
+            $findme = 'observatories/emcc/erm/restructuring-case-studies';
+            $pos = strpos($prev_url, $findme);
+        ?>
+
+        <?php if($pos === false): ?>
+            <a href="<?php echo $base_url . '/' . $findme; ?>"><?php print t("Go to list page")?></a>   
+        <?php else: ?>  
+            <a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+        <?php endif; ?>
+
+    </div>
+
 
     <div class="case-study-result">
 
@@ -43,7 +41,7 @@
             <div class="large-3-offset-9 columns text-right">
                 <i class="fa fa-calendar"></i>
                 <?php
-                    $date = date('d M, Y', $node->published_at);
+                    $date = date('d M, Y', $node->created);
                     print $date;
                 ?>
             </div>
@@ -54,7 +52,6 @@
                 <ul class="cs-location-list inline-list">
                     <li><i class="fa fa-globe"></i></li>
                     <li class="cs-country"><?php print render($content['field_country_csp']); ?></li>
-                    <!--<li class="cs-study-region"><?php print render($content['field_country_csp']); ?></li>-->
                 </ul>
             </div>
             <div class="case-study-size large-6 columns">
@@ -107,14 +104,18 @@
             	<?php endif; ?>
             </ul>
             <ul class="cs-features-list-right large-6 columns">
-                <li class="cs-ant-changes">
-                    <span><?php print t('Anticipation of change activities'); ?></span>
-                    <?php print render($content['field_ant_change_activ_csp']); ?>
-                </li>
-                <li class="cs-mng-changes">
-                    <span><?php print t('Management of change activities'); ?></span>
-                    <?php print render($content['field_man_change_activ_csp']); ?>
-                </li>
+                <?php if(isset($content['field_ant_change_activ_csp'])): ?>
+                    <li class="cs-ant-changes">
+                        <span><?php print t('Anticipation of change activities'); ?></span>
+                        <?php print render($content['field_ant_change_activ_csp']); ?>
+                    </li>
+                <?php endif; ?>
+                <?php if(isset($content['field_man_change_activ_csp'])): ?>
+                    <li class="cs-mng-changes">
+                        <span><?php print t('Management of change activities'); ?></span>
+                        <?php print render($content['field_man_change_activ_csp']); ?>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
@@ -141,6 +142,13 @@
                 <img alt="" src="<?php print $base_url; ?>/sites/default/files/pdfpreview/<?php print $fid; ?>-<?php print $img_name; ?>"
                 	typeof="foaf:Image">
             </a>
+        </div>
+        <div class="field field-name-field-ef-document">
+            <span class="file">
+                <a href="<?php print $base_url; ?>/sites/default/files/ef_publication/field_ef_document/<?php print $file_name; ?>">
+                   <?php echo t("Download PDF") ?>
+                </a>
+            </span>
         </div>
         <div class="summary_body case-study-body">
             <?php $lang = $language->language; ?>

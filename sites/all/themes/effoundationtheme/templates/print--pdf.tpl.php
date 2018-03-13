@@ -22,11 +22,6 @@
   src: url('../fonts/OpenSans-Regular-webfont.eot');
   src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), local('OpenSans-Regular-webfont'), local('OpenSans-Regular-webfont'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.svg') format('svg');
 }
-/*
-.row {
-  width: 100% !important;
-  float: none !important;
-}*/
 
 #logo{
   display:block;
@@ -317,12 +312,17 @@ display: inline;
 }
 .cs-keywords{
   width:16cm !important;
-clear: both !important;
-display: none;
+  clear: both !important;
+  display: none;
 }
 .cs-keywords:after{
 
   }
+.page-list-wrapper, 
+.back-erm-list-button-div, 
+.ds-node-comments{
+  display: none !important;
+}
 .erm-content{
   margin: 0!important;
 }
@@ -429,20 +429,6 @@ margin-top: 2cm;
 position: absolute;
 bottom: 0;
 }
-/*
-.info ul{
-  list-style-type: none !important;
-  float: left !important;
-  margin: 0 !important;
-  padding: 0!important;
-  width: 100%;
-
-}
-.info ul li.nc-lis{
-  float: left !important;
-
-}
-*/
 .ds-node-content{
 font-size: 10px !important;
 }
@@ -576,11 +562,6 @@ margin: 0 ;
   border: 1px solid #B6CBDE;
   padding: 10px;
 }
-/*
-.group-ef-node-details .field {
-  padding: 12px 0px!important;
-  border-bottom: 1px dotted #ccc;
-}*/
 .filter-description-more, .view-id-erm_regulations .filter-description{
 display: none !important;
 }
@@ -743,10 +724,6 @@ word-break: break-all;
 .element-invisible, .print-pdf-wrapper, .print_pdf img, .print_html img {
   display: none !important;
 }
-
-
-
-
 .node-ef-working-life-country-profiles .wp_about h2{
    font-size: 12px !important;
 }
@@ -818,6 +795,267 @@ word-break: break-all;
     </style>
     <?php endif ?>
 
+
+  <!-- Print css stylesheet for contents comparision page  -->
+  <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true): ?>
+    <style>
+      .cover-print{
+        position: absolute !important;
+        top: 0cm;
+        left:0;
+        width: 18cm !important;
+        height: 27cm !important;
+        display: block;
+        z-index: 9;
+        background: #FFF !important;
+       
+      }
+      .page-break{
+        page-break-before:always !important;
+        background: #FFF !important;
+      }
+      .cover-print img{
+        position: absolute;
+        width: 100% !important;
+        z-index: 9;
+        left:-1cm;
+      }
+      .title-cover{
+        position: absolute;
+        top:12cm;
+        left: 30%;
+        width: 70%;
+        z-index: 10;
+      }
+      .subtitle-cover{
+        position: absolute;
+        top:11cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+      }
+      .description-cover{
+        position: absolute;
+        top: 14.5cm;
+        left: 30%;
+        width: 70%;
+        z-index: 10;
+      }
+      .disclaimer-cover{
+        position: absolute;
+        border-top: 1px solid #666;
+        padding-top: 5px !important;
+        font-size: 8px !important;
+        text-align: center !important;
+        top:27cm;
+        left: 0%;
+        width: 100%;
+        z-index: 10;
+      }
+      .print-date-cover{
+        position: absolute;
+        text-align: right !important;
+        top: 26.5cm;
+        left:12cm;
+        width: 30% !important;
+        display: block;
+        z-index: 10;
+      }
+      .page-list-wrapper, 
+      .back-erm-list-button-div,  
+      .ds-node-comments, 
+      .current-total{
+        display: none !important;
+      }
+      .erm-content{
+        margin: 0!important;
+      }
+      .erm-country {
+        margin-top: 0.5cm !important;
+        font-size: 1.6rem !important;
+      }
+      .erm-titles{
+        margin-top: 0.2cm !important;
+      }
+      .erm-titles .row{
+        margin: 0.2cm 0 !important;
+      }
+      
+      .erm-nat-title h2 .field-type-text-long, .erm-en-title  h2 .field-type-text-long{
+        font-size:12px !important;
+        margin: 0px 0 0 0 !important;
+        font-weight: bold !important;
+      }
+      
+      .erm-phase, .erm-type, .erm-edit-date{
+        font-size: 0.8em;
+        margin-top: 10px !important;
+      }
+      .erm-phase, 
+      .erm-type {
+        margin: 20px 0 !important;
+        text-align: left !important; 
+      }
+      .erm-info-label {
+        margin: 5px 5px 5px 0 !important;
+        display: block !important;
+        font-weight: bold !important;
+      }
+      .field.field-name-field-type-erm-si, 
+      .field.field-name-field-type-phase-erm-reg {
+        text-align: left;
+        margin: 10px 0 0 !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      .erm-features{
+      margin: 0;
+      }
+      .qtip, .erm-reg-cost-covered-by-notes{
+      display: none;
+      }
+      .erm-sources{
+      float: none !important;
+
+      }
+      .erm-features .large-4 {
+          float: none!important;
+          width:100% !important;
+      }
+      h3.erm-content-title{
+        margin-top: 1cm;
+        background: #f2f2f2;
+      }
+      .erm-features  h5{
+        font-size: 10px !important;
+        font-weight: bold!important;
+        border-bottom: 1px dotted #ccc;
+      }
+       .node-ef-erm-regulation  h5{
+        font-size: 10px !important;
+        font-weight: bold!important;
+        border-bottom: 1px dotted #ccc;
+      }
+      .node-ef-erm-regulation  h6{
+        font-size: 10px !important;
+        font-weight: bold !important;
+        color: #000;
+        border-bottom: 1px dotted #ccc;
+      }
+      .erm-reg-thresholds-item label, .erm-reg-thresholds-item div{
+        display: inline;
+      }
+
+    </style>  
+    <!-- CASE STUDIES -->
+    
+    
+    <style>
+    
+    .cs-country ul li{
+      font-size: 12pt!important;
+    }
+
+    .case-study-subtitle.row{
+      padding-top: 2.5em!important;
+      padding-bottom: 0!important;
+      margin-bottom: 0!important;
+      display: block!important;
+    }
+
+    .row.case-study-location-size{
+      padding-top: 0!important;
+      margin-top: 0!important;
+    }
+
+    .row.case-study-location-size{
+      clear: both!important;
+      float: none!important;
+    } 
+    .case-study-features.row{
+      float: none!important;
+      height: auto!important;
+    }
+
+    .column, .columns{
+      float: none!important;
+    }
+
+    .cs-features-list-left li ul{
+      text-align: left!important;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+      padding-bottom: 0.5rem!important;
+    }
+
+    .cs-features-list-left li ul li{
+      text-align: left!important;
+      padding-left: 0rem!important;
+      margin-left: 0rem!important;
+    }
+
+    .cs-features-list-right li ul{
+      text-align: left!important;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+      padding-bottom: 0.5rem!important;
+    }
+
+    .cs-features-list-right li ul li{
+      text-align: left!important;
+      padding-left: 0rem!important;
+      margin-left: 0rem!important;
+    }
+
+    .cs-features-list-left.large-6.columns{
+      width:100%!important;
+      float: none!important;
+      clear: both!important;
+      height: auto!important;
+      float: none !important;
+    }
+
+    .cs-features-list-right.large-6.columns{
+      width:100%!important;
+      clear: both!important;
+      display: block!important;
+      height: auto!important;
+      float: none !important;
+    }
+
+    .column, .columns{
+      float: none!important;
+    }
+
+    .cs-keywords{
+      display: block!important;
+      clear: both!important;
+      float: none!important;
+      height: auto!important;
+      border:1px dotted #CCC!important;
+      padding: 1em!important;
+      margin-bottom: 1em!important;
+      width:100%!important;
+      margin-left: 5px!important;
+      margin-right: 5px!important;
+    }
+
+    .cs-keywords ul{
+      list-style: none;
+      padding-left: 0.5rem!important;
+      margin-left: 0.5rem!important;
+    }
+
+    .cs-keywords ul li{
+      list-style: none;
+      padding-left: 0!important;
+      margin-left: 0!important;
+    }
+
+    </style>
+
+  <?php endif ?>
+
   </head>
   <body>
 
@@ -825,28 +1063,66 @@ word-break: break-all;
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>
     <?php if ($print_logo): ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
       <div class="logo"><?php print $print_logo; ?></div>
+      <?php endif; ?>
     <?php endif; ?>
     <!--<div class="site_name"><?php print theme('print_published'); ?></div>-->
     <!--<div class="breadcrumbs"><?php // print theme('print_breadcrumb', array('node' => $node)); ?></div> -->
     <div class="columns">
+  <!-- Print cover PDF for support instruments, case studies and legilations-->
+    <?php 
+       
 
-      <?php 
-        $url = explode('/', $_SERVER['REQUEST_URI']);
-        $pathCountry = $url[count($url)-2];
-         if ($pathCountry == 'country'):
-      ?>
-        <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
-      <?php else : ?>
+        if(strpos($_SESSION["back_search"],'/support-instrument') == true ){
+          print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+          print '<h1 class="title-cover">Restructuring support instruments</h1>';
+          print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
+          print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+          print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+          print '</div>';
+          print '<div class="page-break"></div>';
+        }elseif (strpos($_SESSION["back_search"],'/legislation') == true ) {
+          print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+          print '<h1 class="title-cover">Restructuring related legislation</h1>';
+          print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.</p>';
+          print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+          print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+          print '</div>';
+          print '<div class="page-break"></div>';
+        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true ) {
+          print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
+          print '<h1 class="title-cover">Restructuring case studies</h1>';
+          print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
+          print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
+          print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
+          print '</div>'; 
+          print '<div class="page-break"></div>';    
+        }else{
+          // print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+        }
+    ?>
+  <!-- End  Print cover PDF for support instruments, case studies and legilations -->
+
+
+    <?php
+       $url = explode('/', $_SERVER['REQUEST_URI']);
+      $pathCountry = $url[count($url)-2];
+    ?>
+    <?php if ($pathCountry == 'country'): ?>
+      <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
+    <?php else : ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
         <h1 id="page-title" class="title"><?php print $print_title;?></h1>
       <?php endif; ?>
+    <?php endif; ?>
 
-      <?php
-        $contentBefore = urlencode($content);
-        $contentAfter = str_replace("%E2%80%8B", "", $contentBefore);
-        //print $contentBefore;
-        print urldecode($contentAfter);
-      ?>
+    <?php
+      $contentBefore = urlencode($content);
+      $contentAfter = str_replace("%E2%80%8B", "", $contentBefore);
+      //print $contentBefore;
+      print urldecode($contentAfter);
+    ?>
     <br class="clear">
     <div class="footer-pdf">
     <p class="print-source_url"><?php print theme('print_sourceurl', array('url' => $source_url, 'node' => $node, 'cid' => $cid)); ?></p>

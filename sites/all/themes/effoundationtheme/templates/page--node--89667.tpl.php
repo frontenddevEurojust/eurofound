@@ -190,9 +190,11 @@
   <main role="main" class="row l-main">
     <div class="<?php print $main_grid; ?> main columns">
       <div class="ef-main">
+        <h1 id="page-title" class="title secundary"><?php print $node->title; ?></h1>
 			<?php
 			  global $language;
         global $user;
+
 			  $key_topics = views_embed_view('key_topics_landing_page','key_topics_block'); 
 			  //$topics_terms_index =views_embed_view('key_topics_landing_page','block_2'); 
 			    
