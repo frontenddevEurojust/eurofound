@@ -235,12 +235,12 @@ td, th {
 	padding: 0.5625em 0.625em;
 }
 .figure-title {
-      color: #000;
-      font-weight: bold;
-      /*font-size: 1.3em;*/
-       font-size: 1.1em;
-      text-align: left;
-      line-height: 1.3em;
+  color: #000;
+  font-weight: bold;
+  /*font-size: 1.3em;*/
+   font-size: 1.1em;
+  text-align: left;
+  line-height: 1.3em;
 }
 
 .source {
@@ -279,17 +279,17 @@ p.clear{
 	float: none;
 	clear:both;
 	margin:20px auto!important;
-	text-align:center;
+	text-align:left;
 	display:block;
 }
-.img-float-right img, 
-img.img-float-right{
+.img-align-right img, 
+img.img-align-right{
 	float: right !important;
 	margin:0px 0px 20px 20px !important;
 	clear: none !important;
 }
-.img-float-left img, 
-img.img-float-left{
+.img-align-left img, 
+img.img-align-left{
 	float: left !important;
 	margin:0px 20px 20px 0px !important;
 	clear: none !important;
@@ -301,13 +301,55 @@ img.img-no-float{
 	display: block !important;
   float: none !important;
 }
-.img-center img, 
-img.img-center {
+.img-align-center img, 
+img.img-align-center {
 	float: none !important;
 	clear:both !important;
 	margin:20px auto!important;
 	text-align:center !important;
 	display:block !important;
+}
+.cke_widget_inline, .cke_image_resizer_wrapper {
+ display: block !important;
+
+}
+.img-align-left .cke_image_resizer{
+ left: -5px !important;
+	right: auto !important;
+}
+.img-align-right .cke_image_resizer{
+ right: -5px !important;
+ left: auto !important;
+}
+.img-align-center figcaption{
+	text-align: center;
+}
+figure {
+	margin:0rem 25px;
+}
+figure[data-cke-widget-data*="left"]{
+	margin: 0px 25px 20px 0px;
+}
+figure[data-cke-widget-data*="right"]{
+	margin: 0rem 0rem 25px 20px;
+}
+figure[data-cke-widget-data*="center"]{
+	margin: 2rem;
+}
+.cke_image_nocaption[style*="left"] {
+	 margin: 0px 25px 20px 0px;
+}
+.cke_image_nocaption[style*="left"] img{
+	margin: 0rem;
+}
+.cke_image_nocaption[style*="right"] {
+	margin: 0rem 0rem 25px 20px;
+}
+.cke_image_nocaption[style*="right"] img{
+	margin: 0rem;
+}
+figure img{
+	margin:0rem !important;
 }
 .source{
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
