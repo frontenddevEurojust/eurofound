@@ -41,19 +41,6 @@ if(!empty($variables['ef_activities'])){
             <div class="topic-abstract">
 
 
-                <?php if ($variables['alternativeTerms'][0] != ""): ?>
-                    <ul class="alternative-terms-topic">
-                        <li><?php  print t("Alternative terms") . ":" ?>
-                            <ul>
-                            <?php foreach ($variables['alternativeTerms'] as $alternative): ?>
-                                <li><?= strip_tags($alternative); ?></li>
-                            <?php endforeach; ?>
-                            </ul>
-                        </li>
-                    </ul>
-                <?php endif; ?>
-
-
 
                 <p>
                     <?php if (isset($variables['main_image'])): ?>
@@ -89,13 +76,14 @@ if(!empty($variables['ef_activities'])){
 
             <!-- ONGOING WORK AREA -->
             <?php if($variables['descriptionongoing'] != ""): ?>
-                <h2 class="title-ongoing">
-                    <?= $titleongoing; ?>
-                </h2>
-
-                <div class="description-ongoing">
-                    <?= $descriptionongoing; ?>
-                </div>
+                <section class="section-ongoing-work" lang="en">
+                    <h2 class="title-ongoing" >
+                        <?= strip_tags($titleongoing); ?>
+                    </h2>
+                    <div class="description-ongoing">
+                        <?= $descriptionongoing; ?>
+                    </div>
+                </section>
             <?php endif; ?>
             <!-- END ONGOING WORK AREA -->
 
