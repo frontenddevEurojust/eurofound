@@ -57,12 +57,6 @@ $result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , 
 $countview = count($result);
 
 ?>
-
-    <div class="email-blog">
-        <a href="mailto:?subject=<?= $email_subjet; ?>&body=<?php  print t(""); ?>%0D%0A%0D%0A<?php  print $email_link; ?>">
-            <i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>
-        </a>
-    </div>
     <?php if (isset($last_updated)): ?>
     <span class="last-updated"><?= $last_updated; ?></span>
     <?php endif; ?>
@@ -159,7 +153,7 @@ $countview = count($result);
                         </div>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php if (isset($node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"]) && !in_array('anonymous user', $user->roles)) : ?>
                     <div class="field field_term_last_updated">
                         <div class="label-inline">
