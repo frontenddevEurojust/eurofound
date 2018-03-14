@@ -213,21 +213,30 @@
           if(!user_is_logged_in()){
             $topic_term->name = trim($taxonomy_term->name);
           }
-          
-		  		$alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];  
+          $topic_term->name = trim($taxonomy_term->name);
+          $alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];
+		  		 
 
 
-
-					if ($alternative_terms != '') {	
+					if ($alternative_terms_translate  != '') {	
+            $alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value']; 
 						$alternative = explode("<br />",check_markup($alternative_terms));            
 						foreach ($alternative as $key => $alternative_item) {
 							$alternative_obj = new stdClass();
 							$alternative_obj->name = trim(strip_tags($alternative_item));
 							$alternative_obj->tid = $topic_term->tid;								
-							//$tree[] = $alternative_obj;
 							array_push($tree, $alternative_obj);								
 						}								
-					}					
+					}else{
+            $alternative_terms = $taxonomy_term->field_alternative_terms_topics['en'][0]['value']; 
+            $alternative = explode("<br />",check_markup($alternative_terms));            
+            foreach ($alternative as $key => $alternative_item) {
+              $alternative_obj = new stdClass();
+              $alternative_obj->name = trim(strip_tags($alternative_item));
+              $alternative_obj->tid = $topic_term->tid;               
+              array_push($tree, $alternative_obj);                
+            } 
+          }				
 			  }
 
 				function orderString($a, $b) {
