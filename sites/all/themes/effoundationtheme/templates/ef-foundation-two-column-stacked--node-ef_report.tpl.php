@@ -233,19 +233,20 @@ $countview = count($result);
         <div class="row">
             <?= drupal_render($content["links"]); ?>
         </div>
-        <div class="row">
-            <div class="ds-node-content large-12 columns float-img-render">
-                <?= drupal_render($content["field_ef_main_image"]); ?> 
-                <?php if(isset($variables['summary'])): ?>
-                    <p>
-                     <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
-                    </p>
-                <?php endif; ?>         
-                <?= drupal_render($content["qrr"]); ?>
-                <?php print $content['field_abstract'][0]['#markup']?>
-                <?php print $content['body'][0]['#markup'] ?>
-            </div>
-        </div> 
+        
+        <div class="float-img-render">
+            <?= drupal_render($content["field_ef_main_image"]); ?> 
+            <?php if(isset($variables['summary'])): ?>
+                <p>
+                 <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+                </p>
+            <?php endif; ?>         
+            <?= drupal_render($content["qrr"]); ?>
+            
+            <?php print $content['field_abstract'][0]['#markup']?>
+            <?php print $content['body'][0]['#markup'] ?>
+        </div>
+     
         <!-- FREE COMMENTS -->
         <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
             <div class="ds-node-comments">
