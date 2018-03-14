@@ -235,23 +235,17 @@ $countview = count($result);
         </div>
         <div class="row">
             <div class="ds-node-content large-12 columns float-img-render">
-                <?= drupal_render($content["field_ef_main_image"]); ?>        
+                <?= drupal_render($content["field_ef_main_image"]); ?> 
+                <?php if(isset($variables['summary'])): ?>
+                    <p>
+                     <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+                    </p>
+                <?php endif; ?>         
                 <?= drupal_render($content["qrr"]); ?>
+                <?php print $content['field_abstract'][0]['#markup']?>
+                <?php print $content['body'][0]['#markup'] ?>
             </div>
-        </div>
-
-        <div class="topic-abstract">
-            <?php if(isset($variables['summary'])): ?>
-                <p>
-                 <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
-                </p>
-            <?php endif; ?>  
-            <?php print $content['field_abstract'][0]['#markup']?>
-        </div>
-        <div>
-            <?php print $content['body'][0]['#markup'] ?>
-        </div>
-        
+        </div> 
         <!-- FREE COMMENTS -->
         <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
             <div class="ds-node-comments">
