@@ -178,7 +178,7 @@ $countview = count($result);
                     </div>
                 <?php endif; ?>
                 
-                <?php if (isset($content['field_ef_publ_contributors']['#items']) && user_access("view field_ef_author") ) : ?>
+                <?php if (isset($content['field_ef_publ_contributors']['#items'])) : ?>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                         <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
