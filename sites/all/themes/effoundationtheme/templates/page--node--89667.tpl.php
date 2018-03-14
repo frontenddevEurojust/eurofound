@@ -213,7 +213,6 @@
           if(!user_is_logged_in()){
             $topic_term->name = trim($taxonomy_term->name);
           }
-          $topic_term->name = trim($taxonomy_term->name);
           $alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];
 		  		 
 
