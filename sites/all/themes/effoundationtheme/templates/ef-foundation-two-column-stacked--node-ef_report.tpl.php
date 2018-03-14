@@ -234,21 +234,18 @@ $countview = count($result);
             <?= drupal_render($content["links"]); ?>
         </div>
         <div class="row">
-            <?= drupal_render($content["qrr"]); ?>        
+            <div class="ds-node-content large-12 columns float-img-render">
+                <?= drupal_render($content["field_ef_main_image"]); ?>        
+                <?= drupal_render($content["qrr"]); ?>
+            </div>
         </div>
 
         <div class="topic-abstract">
-            <?php if (isset($content['field_ef_main_image'][0]['#item']['filename'])): ?>
-               <p>
-                <img width="250" src="/sites/default/files/<?php print $content['field_ef_main_image'][0]['#item']['filename'] ?>">
-               </p>
-            <?php else: ?>
-                <?php if(isset($variables['summary'])): ?>
+            <?php if(isset($variables['summary'])): ?>
                 <p>
                  <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                 </p>
-                <?php endif; ?>  
-            <?php endif; ?>
+            <?php endif; ?>  
             <?php print $content['field_abstract'][0]['#markup']?>
         </div>
         <div>
