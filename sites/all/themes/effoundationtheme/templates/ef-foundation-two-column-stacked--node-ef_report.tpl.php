@@ -10,9 +10,6 @@
 global $language;
 global $base_url; 
 
-drupal_add_css('sites/all/themes/effoundationtheme/css/blog-presentation.css');
-drupal_add_js('sites/all/themes/effoundationtheme/js/blog-presentation.js');
-
 $author = $content['field_ef_publ_contributors'][0]['#markup'];
 $link = str_replace(', ', '_', $author);
 $author = explode('_', $link);
@@ -233,28 +230,20 @@ $countview = count($result);
         <div class="row">
             <?= drupal_render($content["links"]); ?>
         </div>
-        <div class="row">
-            <?= drupal_render($content["qrr"]); ?>        
-        </div>
-
-        <div class="topic-abstract">
-            <?php if (isset($content['field_ef_main_image'][0]['#item']['filename'])): ?>
-               <p>
-                <img width="250" src="/sites/default/files/<?php print $content['field_ef_main_image'][0]['#item']['filename'] ?>">
-               </p>
-            <?php else: ?>
-                <?php if(isset($variables['summary'])): ?>
+        
+        <div class="float-img-render">
+            <?= drupal_render($content["field_ef_main_image"]); ?> 
+            <?php if(isset($variables['summary'])): ?>
                 <p>
                  <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
                 </p>
-                <?php endif; ?>  
-            <?php endif; ?>
+            <?php endif; ?>         
+            <?= drupal_render($content["qrr"]); ?>
+            
             <?php print $content['field_abstract'][0]['#markup']?>
-        </div>
-        <div>
             <?php print $content['body'][0]['#markup'] ?>
         </div>
-        
+     
         <!-- FREE COMMENTS -->
         <?php if(in_array('anonymous user', $user->roles) || in_array('administrator', $user->roles)): ?>
             <div class="ds-node-comments">

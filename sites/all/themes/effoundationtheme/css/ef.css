@@ -3563,7 +3563,16 @@ form#views-exposed-form-ef-quarterly-reports-page .date-year{
     -webkit-box-shadow:none!important;
     box-shadow:none!important;
 }
-.featured.panel-pane img{float: none; border: none; margin:0px; /*width: 55%;*/}
+.featured.panel-pane img{
+	float: none;
+	border:none;
+	margin:0px;
+	/*width: 55%;*/
+}
+.nodequeue-panel img{
+	border:1px solid #CCC !important;
+	outline: 0;
+}
 .featured.panel-pane .pdfpreview{
 	width: 120%;
 	height: 219px;
@@ -12814,13 +12823,18 @@ p.view-empty.error-msg:before{
 
 
 /** EURWORK INTRO **/
-.page-observatories-eurwork-index h1.title, h1.parent_eurwork.title,
+.page-observatories-eurwork-index h1.title,
 .page-observatories-emcc-index h1.title, h1.parent_emcc.title {
   background: #FFF url(../images/background-observatories.jpg) no-repeat;
   background-size: 100% 86px;
   padding:30px 50px 35px !important;
   color:#005BAA;
 }
+
+h1.parent_eurwork.title{
+ padding:30px 50px!important;
+}
+
 .page-observatories-eurwork-index h1.title a, h1.parent_eurwork a,
 .page-observatories-emcc-index h1.title a, h1.parent_emcc.title a{
     color:#005BAA;
@@ -14449,4 +14463,9 @@ h4.title-tooltip-geolocation a:hover{
     top: 10px;
     right: 10px;
     font-size: 1.8em;
+}
+
+.float-img-render img{
+	float: left;
+	margin: 0px 25px 20px 0px;
 }

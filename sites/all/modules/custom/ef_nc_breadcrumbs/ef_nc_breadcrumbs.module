@@ -12,6 +12,7 @@
 function ef_nc_breadcrumbs_page_build(&$page) {
   global $user;
   global $base_url;
+  global $language;
   // Start with getting the current URL
   $path = current_path();
   $uri = drupal_get_path_alias($path);
@@ -312,12 +313,21 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     $trail[1] = '<a href="/news">News</a>';
   }elseif ($pos_topics > 0){
 
-    $trail[1] = '<a href="/topic">Topics</a>';
+    $langUrl = substr($_SERVER['REQUEST_URI'],0,6);
+    if($langUrl == '/topic'){
+      $langUrl = '';
+    }else{
+      $langUrl = substr($_SERVER['REQUEST_URI'],0,3);
+    }
+
+    $trail[1] = '<a href="' .  $langUrl . '/topic">Topics</a>';
+
     //unset($trail[2]);
     $request = $_SERVER['REQUEST_URI'];
-    $term = str_replace("/topic/", "", $request);
+    $term = str_replace("topic/", "", $request);
     $term =  str_replace("-", " ", $term);
     $term = ucfirst($term);
+
   }
   //Out of if .. else as we want to override spotlight on cases. Conflict with news
   if ($pos_spotlight_on > 0){
