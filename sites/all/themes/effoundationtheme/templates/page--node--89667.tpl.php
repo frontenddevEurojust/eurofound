@@ -213,46 +213,59 @@
           if(!user_is_logged_in()){
             $topic_term->name = trim($taxonomy_term->name);
           }
+          
           $alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];
-		  		 
+
+          // test translate alternative terms with login user
+          // $topic_term->name = trim($taxonomy_term->name);
+          //$alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[substr($_SERVER['REQUEST_URI'],1,2)][0]['value'];
 
 
-					if ($alternative_terms_translate  != '') {	
+
+
+					if ($alternative_terms_translate  != NULL) {	            
+            // $alternative_terms = $taxonomy_term->field_alternative_terms_topics[substr($_SERVER['REQUEST_URI'],1,2)][0]['value']; 
             $alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value']; 
 						$alternative = explode("<br />",check_markup($alternative_terms));            
 						foreach ($alternative as $key => $alternative_item) {
 							$alternative_obj = new stdClass();
 							$alternative_obj->name = trim(strip_tags($alternative_item));
 							$alternative_obj->tid = $topic_term->tid;								
-							array_push($tree, $alternative_obj);								
+							array_push($tree, $alternative_obj);
+							
 						}								
 					}else{
             $alternative_terms = $taxonomy_term->field_alternative_terms_topics['en'][0]['value']; 
-            $alternative = explode("<br />",check_markup($alternative_terms));            
-            foreach ($alternative as $key => $alternative_item) {
-              $alternative_obj = new stdClass();
-              $alternative_obj->name = trim(strip_tags($alternative_item));
-              $alternative_obj->tid = $topic_term->tid;               
-              array_push($tree, $alternative_obj);                
-            } 
-          }				
-			  }
+            if($alternative_terms != NULL){            
+              $alternative = explode("<br />",check_markup($alternative_terms));            
+              foreach ($alternative as $key => $alternative_item) {
+                $alternative_obj = new stdClass();
+                $alternative_obj->name = trim(strip_tags($alternative_item));
+                $alternative_obj->tid = $topic_term->tid;               
+                array_push($tree, $alternative_obj);
+              }
+            }
+          }		
 
+			  }
+        
 				function orderString($a, $b) {
 			    return strcasecmp($a->name, $b->name);
 				}
 				usort($tree, "orderString");
 				//natcasesort($tree);
+      
 
 				print "<ul class='terms-topics-list'>";
-				$start = true;
+				$start = true;        
 				foreach ($tree as $key  => $all_topic_term) {
           $entity_name = $all_topic_term->name;
 
 					if ($start == true) {
-						$group_letter = strtoupper(mb_substr($all_topic_term->name,0,1));
+						$group_letter = strtoupper(substr($all_topic_term->name,0,1));
 						print '<li class="group-by first"><h3>'. $group_letter .'</h3><ul class="sublist-topics">';
             print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $entity_name  . "</a></li>";
+           // krumo($all_topic_term->name);
 						$start = false;
 					}
           else {
