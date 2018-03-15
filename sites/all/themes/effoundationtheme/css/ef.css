@@ -12832,7 +12832,10 @@ p.view-empty.error-msg:before{
 }
 
 h1.parent_eurwork.title{
- padding:30px 50px!important;
+	background: #FFF url(../images/background-observatories.jpg) no-repeat;
+	background-size: 100% 86px;
+	color:#005BAA;
+	padding:30px 50px!important;
 }
 
 .page-observatories-eurwork-index h1.title a, h1.parent_eurwork a,
