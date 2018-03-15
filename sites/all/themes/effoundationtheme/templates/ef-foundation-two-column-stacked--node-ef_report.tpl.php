@@ -10,9 +10,6 @@
 global $language;
 global $base_url; 
 
-drupal_add_css('sites/all/themes/effoundationtheme/css/blog-presentation.css');
-drupal_add_js('sites/all/themes/effoundationtheme/js/blog-presentation.js');
-
 $author = $content['field_ef_publ_contributors'][0]['#markup'];
 $link = str_replace(', ', '_', $author);
 $author = explode('_', $link);
