@@ -12823,13 +12823,18 @@ p.view-empty.error-msg:before{
 
 
 /** EURWORK INTRO **/
-.page-observatories-eurwork-index h1.title, h1.parent_eurwork.title,
+.page-observatories-eurwork-index h1.title,
 .page-observatories-emcc-index h1.title, h1.parent_emcc.title {
   background: #FFF url(../images/background-observatories.jpg) no-repeat;
   background-size: 100% 86px;
   padding:30px 50px 35px !important;
   color:#005BAA;
 }
+
+h1.parent_eurwork.title{
+ padding:30px 50px!important;
+}
+
 .page-observatories-eurwork-index h1.title a, h1.parent_eurwork a,
 .page-observatories-emcc-index h1.title a, h1.parent_emcc.title a{
     color:#005BAA;
