@@ -58,6 +58,36 @@
       }, 100);
     });
 
+    $('#edit-field-ef-deliverable-kind-und').once().change(function() {
+      $('#edit-field-ef-service-type-und').removeClass("form-disabled");
+      var selectedOld = $("input[type='radio'][name='field_ef_service_type[und]']:checked").val();
+      var checks = 0;
+      var checkSTChange = setInterval(function() {
+        var selected = $("input[type='radio'][name='field_ef_service_type[und]']:checked").val();
+        if (selected != selectedOld) {
+          if (selected === 'undefined') {
+            $('#edit-field-ef-service-type-und--2').prop("disabled", false);
+            $('#edit-field-ef-service-type-und--3').prop("disabled", false);
+            $('#edit-field-ef-service-type-und--2').attr('id','edit-field-ef-service-type-und');
+            $('#edit-field-ef-service-type-und--3').attr('id','edit-field-ef-service-type-und');
+          }
+          else {
+            $('#edit-field-ef-service-type-und--2').prop("disabled", true);
+            $('#edit-field-ef-service-type-und--3').prop("disabled", true);
+            $('#edit-field-ef-service-type-und--2').attr('id','edit-field-ef-service-type-und');
+            $('#edit-field-ef-service-type-und--3').attr('id','edit-field-ef-service-type-und');
+          }
+          clearInterval(checkSTChange);
+        } 
+        else {
+          checks ++;
+          if (checks == 150) {
+            clearInterval(checkSTChange);
+          }
+        }
+      }, 100);
+    });
+
     //CONTRACT select id: #edit-field-ef-author-contract-und
     //DELIVERABLE KIND select id: #edit-field-ef-deliverable-kind-und
     $('#edit-field-ef-author-contract-und').once().change(function() {
@@ -73,4 +103,18 @@
     });
   
   }};
+})(jQuery);
+
+
+// First time only
+(function ($) {
+  $(document).ready(function(){
+    var selected = $("input[type='radio'][name='field_ef_service_type[und]']:checked").val();
+    if (selected > 0) {
+      $('#edit-field-ef-service-type-und input').prop("disabled", true);
+    }
+    else {
+      $('#edit-field-ef-service-type-und input').prop("disabled", false);
+    }
+  });
 })(jQuery);
