@@ -3,6 +3,7 @@
   <?php
     $node = menu_get_object();
 
+    
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
         $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
@@ -140,14 +141,15 @@
               //Content type
               $type = $node_ittem->type;
 
-              // deliverable kinds
+            // deliverable kinds
               $tid = $node_ittem->field_ef_deliverable_kind['und'][0]['tid'];
               $term = taxonomy_term_load($tid);
-
+            
               if(!empty($tid)){
                 $name = $term->name;
               }else{
                 $name = $type;
+
                 if($name == 'page'){
                   $name = 'Page';
                 }
@@ -165,6 +167,7 @@
                 $name = 'Representativeness Study';
               }
             
+           
             //New Content Type Formats
               if ($name=="board member page" || $name=="EF network extranet page") {
                 $name="Page";
@@ -194,6 +197,7 @@
                 $name="Survey";
               }
 
+
             //Publication date
               $date_ts = $node_ittem->published_at;
               $date = date('d F Y', $date_ts);
@@ -218,11 +222,11 @@
                         </a>    
                             
                         <ul class="metadata-items inline-list">
-
-                          <li class="list-country">
-                            <?php echo $country; ?>
-                          </li>
-
+                          <?php if(isset($country)): ?>
+                            <li class="list-country">
+                              <?php echo $country; ?>
+                            </li>
+                          <?php endif; ?>
                           <?php if(isset($name)): ?>
                             <li class="list-delib-kind">
                               <?php echo ucfirst($name); ?>
@@ -241,22 +245,41 @@
               }else{
                 //Get Taxonmy name
                   $sql = db_select('taxonomy_term_data','t');
-                  $sql->fields('t',array('name'));
+                  $sql->fields('t',array('name','tid', 'vid'));
+                 
                   $sql->condition('t.tid', $value, '=');
                   $title = $sql->execute()->fetchAll(); 
                 //ALIAS HREF
                   $path = 'taxonomy/term/'.$value;
                   $alias = url($path, array("absolute"=>TRUE));
+
+                  $vocabulary_name = taxonomy_vocabulary_load($title[0]->vid);
+
+                  if($vocabulary_name->name ==  'Authors'){
+                    $alias = str_replace('authors', 'author', $alias);
+                  }
+
+                  if($vocabulary_name->name ==  'Observatories'){
+                    $alias = str_replace('default/', '', $alias);
+                  }
+                  
                 //Paint HTML
                 ?>
-                  <li class="views-row views-row-1 views-row-odd views-row-first">  
+                  <li class="views-row views-row-1 views-row-odd views-row-first"> 
                     <a href="<?php echo $alias; ?>">
                       <?php echo $title[0]->name; ?>
-                    </a>    
+                    </a> 
+                    <ul class="metadata-items inline-list">
+                      <li class="list-delib-kind">
+                        <?php
+                          print $vocabulary_name->name;
+                        ?>
+                      </li>
+                    </ul>
                   </li>
                 <?php 
               }
         } 
     ?>
-  </ul> 
+ 
 </section>
