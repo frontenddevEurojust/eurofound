@@ -257,6 +257,7 @@
 
                   if($vocabulary_name->name ==  'Authors'){
                     $alias = str_replace('authors', 'author', $alias);
+                    $vocabulary_name->name = "Author";
                   }
 
                   if($vocabulary_name->name ==  'Observatories'){
