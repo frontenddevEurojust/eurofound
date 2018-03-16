@@ -34,10 +34,10 @@ function ef_webform_limited_list_form_alter(&$form, $form_state, $form_id) {
     }
   }
   //WEM-950
-  drupal_add_js(drupal_get_path('module', 'ef_webform_limited_list') . '/js/ef_webform_limited_list.js');
-  drupal_add_css(drupal_get_path('module', 'ef_webform_limited_list') . '/css/ef_webform_limited_list.css');
-
   if ($form['#id'] == 'views-exposed-form-webform-submissions2-procurement-submissions-view') {
+    drupal_add_js(drupal_get_path('module', 'ef_webform_limited_list') . '/js/ef_webform_limited_list.js');
+    drupal_add_css(drupal_get_path('module', 'ef_webform_limited_list') . '/css/ef_webform_limited_list.css');
+
     $options = _ef_webform_limited_list_get_negotiated_procedures_options();
     $form['negotiated_procedures'] = array(
       '#type' => 'select',
