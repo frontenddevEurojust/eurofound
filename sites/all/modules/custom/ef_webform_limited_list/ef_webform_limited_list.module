@@ -86,6 +86,7 @@ function _ef_webform_limited_list_get_relevant_webforms() {
 function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
   //We could use keys to prevent duplicates but at this point
   //we thought it was better to use string comparison  $check_duplicates = array();
+  $check_duplicates = array();
   //Now we get the negociated procedures
   foreach ($nids as $key => $nid) {
     //Query to get the involved webform components for each webform
