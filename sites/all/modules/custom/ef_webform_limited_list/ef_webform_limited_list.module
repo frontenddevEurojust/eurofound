@@ -110,10 +110,14 @@ function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
         $procedure = preg_split('/\| /', $string_procedure);
         $procedure[1] = trim($procedure[1]);
         //Save an array with all the values, duplicated values too
-        $procedures_all[$nid . '-' . $procedure[0] . '-' . $obj->cid] = $procedure[1];
+        if (!empty($procedure[0])) {
+          $procedures_all[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
+        }
         //An another array removing the duplicates
         if (!in_array($procedure[1], $check_duplicates)) {
-          $procedures[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
+          if (!empty($procedure[0])) {
+            $procedures[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
+          }
           $check_duplicates[] = $procedure[1];
         }
       }
