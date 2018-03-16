@@ -84,6 +84,8 @@ function _ef_webform_limited_list_get_relevant_webforms() {
 }
 
 function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
+  //We could use keys to prevent duplicates but at this point
+  //we thought it was better to use string comparison  $check_duplicates = array();
   //Now we get the negociated procedures
   foreach ($nids as $key => $nid) {
     //Query to get the involved webform components for each webform
@@ -105,11 +107,9 @@ function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
       foreach ($explode_procedure as $key => $string_procedure) {
         //Then split the values and the literals
         $procedure = preg_split('/\| /', $string_procedure);
-        //We could use keys to prevent duplicates but at this point
-        //we thought it was better to use string comparison
-        $check_duplicates = array();
+        $procedure[1] = trim($procedure[1]);
         //Save an array with all the values, duplicated values too
-        $procedures_all[$nid . '-' . $procedure[0]] = $procedure[1];
+        $procedures_all[$nid . '-' . $procedure[0] . '-' . $obj->cid] = $procedure[1];
         //An another array removing the duplicates
         if (!in_array($procedure[1], $check_duplicates)) {
           $procedures[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
@@ -122,7 +122,6 @@ function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
   //a relationship between nids, cids and literals, so we need
   //to store it. Not the best approach for performance.
   variable_set('ef_webform_limited_list_negotiated_procedures', $procedures_all);
-
   //This will be used to populate the dropdown. No duplicates.
   return $procedures;
 }
@@ -141,7 +140,7 @@ function view_php_filter_setup_code() {
     $codes[] = $selected_procedure;
 
     foreach ($all_procedures as $code => $procedure) {
-      if ($procedure == $string_procedure) {
+      if (trim($procedure) == trim($string_procedure)) {
         $codes[] = $code;
       }
     }
@@ -163,7 +162,7 @@ function view_php_filter_setup_code() {
 }
 
 function view_php_filter_filter_code() {
-  //Hide all sids not matching the selected produre
+  //Hide all sids not matching the selected procedure
   if (isset($static)) {
     if (!in_array($row->sid, $static)) {
       return TRUE;
