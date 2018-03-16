@@ -151,50 +151,50 @@
                 $name = $type;
 
                 if($name == 'page'){
-                  $name = 'Page';
+                  $name = t('Page');
                 }
                 $name = str_replace("ef_","EF ",$name);
                 $name = str_replace("_"," ",$name);
               }
 
               if($tid == 13742 || $tid == 13743 || $tid  == 13770 || $tid == 20209 || $tid == 13159 ){
-                $name = 'Research in Focus';
+                $name = t('Research in Focus');
               }elseif($tid == 13744){
-                $name = 'Comparative Analytical Report';
+                $name = t('Comparative Analytical Report');
               }elseif($tid == 13745){
-                $name = 'Annual Update';
+                $name = t('Annual Update');
               }elseif($tid == 13746){
-                $name = 'Representativeness Study';
+                $name = t('Representativeness Study');
               }
             
            
             //New Content Type Formats
               if ($name=="board member page" || $name=="EF network extranet page") {
-                $name="Page";
+                $name=t("Page");
               }elseif($name=="EF call for tender"){
-                $name="Call for tender";
+                $name=t("Call for tender");
               }elseif($name=="Working life country profile update"){
-                $name="Country";
+                $name=t("Country");
               }elseif($name=="data explorer page" || $name=="dvs survey"){
-                $name="Data";
+                $name=t("Data");
               }elseif($name=="Other research services EF"){
-                $name="Article";
+                $name=t("Article");
               }elseif($name=="Legal database update"){
-                $name="Legislation";
+                $name=t("Legislation");
               }elseif($name=="Support instrument update"){
-                $name="Support instrument";
+                $name=t("Support instrument");
               }elseif($name=="EF event"){
-                $name="Event";
+                $name=t("Event");
               }elseif($name=="Factsheet"){
-                $name="Restructuring event";
+                $name=t("Restructuring event");
               }elseif($name=="IR entry"){
-                $name="Dictionary";
+                $name=t("Dictionary");
               }elseif($name=="EF news"){
-                $name="News";
+                $name=t("News");
               }elseif($name=="EF publication"){
-                $name="Publication";
+                $name=t("Publication");
               }elseif($name=="EF survey"){
-                $name="Survey";
+                $name=t("Survey");
               }
 
 
