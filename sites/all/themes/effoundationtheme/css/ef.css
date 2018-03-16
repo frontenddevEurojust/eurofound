@@ -14472,3 +14472,48 @@ h4.title-tooltip-geolocation a:hover{
 	float: left;
 	margin: 0px 25px 20px 0px;
 }
+
+/** BOARD MEMBER PAGE VIEW **/
+
+.block-menu-menu-extranet-menu .menu{
+	margin: 0;
+	padding: 0;
+}
+
+.block-menu-menu-extranet-menu .menu li a{
+	font-family: inherit;
+	font-weight: 400;
+	font-size: 1em;
+	line-height: 1.6;
+	padding: 0.75em 0;
+	text-rendering: optimizeLegibility;
+	display: block;
+}
+.page-extranet-board-members-extranet h1#page-title{
+  background: #FFF url(../images/background-observatories.jpg) no-repeat;
+  background-size: 100% 86px;
+	padding: 20px 50px 40px !important;
+  color: #005BAA;
+
+  text-align: left;
+  border: 0;
+	font-family: 'OpenSans-Bold-webfont',Arial,Helvetica,sans-serif;
+  font-size: 2.6em;
+  vertical-align: middle;
+  letter-spacing: -0.03em;
+}
+.page-extranet-board-members-extranet .main .ef-main{
+	padding: 0;
+}
+.board-member-h2{
+  padding-right: 9%;
+}
+.page-extranet-board-members-extranet .main .ef-main h2{
+  font-size: 1.2em;
+}
+.page-extranet-board-members-extranet .view-id-_extranet_for_the_governing_board{
+  padding: 30px 25px 40px 25px;
+}
+
+
+/** END BOARD MEMBER PAGE VIEW **/
