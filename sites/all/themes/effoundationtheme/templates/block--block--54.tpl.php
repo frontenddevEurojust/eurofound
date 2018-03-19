@@ -262,6 +262,15 @@
 
                   if($vocabulary_name->name ==  'Observatories'){
                     $alias = str_replace('default/', '', $alias);
+                    $vocabulary_name->name = "Observatory";
+                  }
+
+                  if($vocabulary_name->name ==  'Sectors'){
+                    $vocabulary_name->name = "Sector";
+                  }
+
+                  if($vocabulary_name->name ==  'Topics'){
+                    $vocabulary_name->name = "Topic";
                   }
                   
                 //Paint HTML
