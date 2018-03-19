@@ -14514,3 +14514,48 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /** END BOARD MEMBER PAGE VIEW **/
+/** COMMUNICATIONS CALENDAR **/
+
+.communication-calendar .content-type{
+	position: absolute;
+	top: -999999px;
+	left:-999999px
+}
+
+.communication-calendar .icon-publications:before, 
+.communication-calendar .icon-events:before{
+	font-family: 'ef-icon-font';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  color: #F7931E;
+  padding: 0px 15px 0px 10px;
+	font-size: 1.5rem;
+  vertical-align: -15%;
+} 
+.communication-calendar .icon-publications:before{
+  content: "\e607";
+}
+.communication-calendar .icon-blog{
+  background: url(../images/icon-blog-orange.png);
+  width: 25px;
+  height: 24px;
+  display: inline-block;
+  background-size: cover;
+  margin: 0px 15px 0px 11px;
+}
+.communication-calendar .icon-events:before{
+	content: "\e610";
+}
+.communication-calendar th.views-field.views-field-php-1, 
+.communication-calendar td.views-field.views-field-php-1{
+  width: 4rem;
+  text-align: center;
+}
+
+/** END COMMUNICATIONS CALENDAR **/
