@@ -797,7 +797,9 @@ word-break: break-all;
 
 
   <!-- Print css stylesheet for contents comparision page  -->
-  <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true): ?>
+  <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true 
+        || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true
+        || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true): ?>
     <style>
       .cover-print{
         position: absolute !important;
@@ -946,6 +948,10 @@ word-break: break-all;
         display: inline;
       }
 
+      .view-grouping .view-grouping-header{
+        display: none !important;
+      }
+
     </style>  
     <!-- CASE STUDIES -->
     
@@ -1063,7 +1069,9 @@ word-break: break-all;
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>
     <?php if ($print_logo): ?>
-      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true 
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true): ?>
       <div class="logo"><?php print $print_logo; ?></div>
       <?php endif; ?>
     <?php endif; ?>
@@ -1112,7 +1120,9 @@ word-break: break-all;
     <?php if ($pathCountry == 'country'): ?>
       <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
     <?php else : ?>
-      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
+            <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') != true 
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') != true
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') != true): ?>
         <h1 id="page-title" class="title"><?php print $print_title;?></h1>
       <?php endif; ?>
     <?php endif; ?>
