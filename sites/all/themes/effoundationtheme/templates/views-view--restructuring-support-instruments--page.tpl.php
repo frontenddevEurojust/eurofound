@@ -113,8 +113,10 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
               pageid: "pager", 
               itemClass: "view-grouping-content" 
           });
-          /* Case studies view . Hide view-grouping */
-          $('.page-observatories-emcc-erm-support-instrument .view-grouping .view-grouping-header').remove();
+          /* Support instruments . Hide view-grouping */
+          $('.page-restructuring-support-instruments .view-grouping .view-grouping-header').remove();
+          $('.page-restructuring-support-instruments .view-grouping .view-grouping-content h3').replaceWith('<h2>' + $('.page-restructuring-support-instruments .view-grouping .view-grouping-content h3').html() +'</h2>')
+
       });
     })(jQuery);
     </script>

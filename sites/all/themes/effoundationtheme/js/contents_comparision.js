@@ -1,7 +1,17 @@
 (function ($) {
 
     "use strict";
+    
+    var pathname = window.location.pathname.split("/");
+    var textPager;
 
+    if(pathname[1] == 'restructuring-case-studies'){
+      textPager = 'Showing case';
+    }else if(pathname[1] == 'restructuring-related-legislation'){
+      textPager = 'Showing case';
+    }else if(pathname[1] == 'restructuring-support-instruments'){
+      textPager = 'Showing instruments';
+    }
 
     $.fn.cPager = function (config) {
         var defaultConfig = {            
@@ -46,7 +56,7 @@
                {
                   $("#" + config.pageid).css({"float":"right","text-align":"center"});
                }
-               var html = '<div class="turn-num"> Showing instrument: '+ config.pageIndex +' of '+ config.total +'</div>';
+               var html = '<div class="turn-num">' + textPager + ': '+ config.pageIndex +' of '+ config.total +'</div>';
                html += '<ul class="turn-ul">';
 
                html += '<li class="tz first" title="First"> << </li>';

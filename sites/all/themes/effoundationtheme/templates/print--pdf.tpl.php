@@ -1082,7 +1082,7 @@ word-break: break-all;
     <?php 
        
 
-        if(strpos($_SESSION["back_search"],'/support-instrument') == true ){
+        if(strpos($_SESSION["back_search"],'/support-instrument') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true  ){
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring support instruments</h1>';
           print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
@@ -1090,7 +1090,7 @@ word-break: break-all;
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
           print '<div class="page-break"></div>';
-        }elseif (strpos($_SESSION["back_search"],'/legislation') == true ) {
+        }elseif (strpos($_SESSION["back_search"],'/legislation') == true &&  strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring related legislation</h1>';
           print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.</p>';
@@ -1098,7 +1098,7 @@ word-break: break-all;
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
           print '<div class="page-break"></div>';
-        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true ) {
+        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true  ) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring case studies</h1>';
           print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
