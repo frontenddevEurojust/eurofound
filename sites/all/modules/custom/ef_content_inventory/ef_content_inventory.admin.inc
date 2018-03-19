@@ -157,19 +157,19 @@ function ef_content_inventory_download_form($form, &$form_state) {
   if ($generate) {
     $form['file_will_be_created'] = array(
       '#type' => 'item',
-      '#markup' => '<p style="color:red">Currently there is a request to create a new content inventory file. This button will be disabled until the task is finished.</p>',
+      '#markup' => "<p class='ci-message'>Currently there is a request to create a new content inventory file. No new request can be submitted as long as this process is running. Alternatively, the current request can be dropped using the 'Stop process' button.</p>",
     );
   }
   elseif ($generating) {
     $form['file_is_being_created'] = array(
       '#type' => 'item',
-      '#markup' => '<p style="color:red">A new report is being generated. If this process has been running for too long you can unlock this feature pressing the "unlock" button.</p>',
+      '#markup' => "<p class='ci-message'>Currently, a content inventory is being compiled. No new request can be submitted as long as this process is running. Alternatively, the current process can be stopped using the 'Stop process' button.</p>",
     );
   }
 
   $form['unlock'] = array(
     '#type' => 'submit',
-    '#value' => t('Unlock'),
+    '#value' => t('Stop process'),
     '#disabled' => !$generate && !$generating,
     '#attributes' => array('class' => array('form-submit-inventory')),
   );
