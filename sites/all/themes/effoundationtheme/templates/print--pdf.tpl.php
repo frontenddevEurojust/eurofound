@@ -959,6 +959,15 @@ word-break: break-all;
         display: none !important;
       }
 
+      .field-name-field-ef-document{
+        display: none !important;
+      }
+
+      .view-restructuring-case-studies .pub-pdf-img {
+          margin-top: 25px !important;
+          max-width: 25% !important;
+      }
+
     </style>  
     <!-- CASE STUDIES -->
     
