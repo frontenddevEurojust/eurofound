@@ -10,7 +10,10 @@
   	.view-grouping .view-grouping-header{
         display: none !important;
     }
-
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
@@ -82,7 +85,7 @@
    	display: none !important;
   }
 	.cover-print img{
-		position: fixed;
+		position: absolute;
 		width: 92% !important;
 		z-index: 9;
 		left:0cm;
@@ -106,7 +109,7 @@
 	}
 	.description-cover{
 		position: absolute;
-		top: 14cm;
+		top: 12cm;
 		left: 30%;
 		width: 60%;
 		z-index: 10;
@@ -125,7 +128,7 @@
 	.print-date-cover{
 		position: absolute;
 		text-align: right !important;
-		top: 28.5cm;
+		top: 25.2cm;
 		right:5%;
 		width: 30% !important;
 		display: block;
@@ -134,13 +137,19 @@
 	.content-comparision-item {
 		page-break-before:always !important;
 	}
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
 	.erm-nat-title h2, .erm-titles h2 {
 	  margin: 0px 0 0 0 !important;
 	}
-
+	.erm-title-info.row{
+	  margin: 0 !important;
+	}
 	.field.field-name-field-country-erm-reg{
 		padding-bottom: 1em!important;
 	}

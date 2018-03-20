@@ -861,7 +861,7 @@ word-break: break-all;
       .print-date-cover{
         position: absolute;
         text-align: right !important;
-        top: 26.5cm;
+        top: 25.2cm;
         left:12cm;
         width: 30% !important;
         display: block;
