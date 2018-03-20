@@ -190,6 +190,17 @@
   <main role="main" class="row l-main">
     <div class="<?php print $main_grid; ?> main columns">
       <div class="ef-main">
+
+      <ul class="button-group">
+        <?php foreach ($variables['tabs']['#primary'] as $item_name => $key): ?>
+        <?php if($key['#link']['title'] == 'View'): ?>
+        <li class="active"><a href="<?= $variables['tabs']['#primary'][$item_name]['#link']['href']; ?>" class="active small button secondary" ><?= $variables['tabs']['#primary'][$item_name]['#link']['title']; ?></a></li>
+        <?php else: ?>
+        <li><a href="<?= $variables['tabs']['#primary'][$item_name]['#link']['href']; ?>" class="small button secondary" ><?= $variables['tabs']['#primary'][$item_name]['#link']['title']; ?></a></li>
+        <?php endif; ?>
+        <?php endforeach; ?>
+      </ul>
+
         <h1 id="page-title" class="title secundary"><?php print $node->title; ?></h1>
 			<?php
 			  global $language;
