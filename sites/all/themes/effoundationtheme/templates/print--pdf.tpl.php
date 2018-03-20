@@ -919,14 +919,13 @@ word-break: break-all;
         display: block !important;
       }
       .erm-features{
-      margin: 0;
+        margin: 0;
       }
       .qtip, .erm-reg-cost-covered-by-notes{
-      display: none;
+        display: none;
       }
       .erm-sources{
-      float: none !important;
-      page-break-before: always;
+        float: none !important;
       }
 
       .erm-features .large-4 {
