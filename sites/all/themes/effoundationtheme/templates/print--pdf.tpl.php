@@ -414,10 +414,6 @@ width: 20%;
 
 .field.field-name-field-type-erm-si li{
   list-style-type: none;
-  margin-top: -0.65cm;
-  margin-left: 2cm;
-  width:60%;
-  text-align: left;
 }
 
 
@@ -903,21 +899,26 @@ word-break: break-all;
       }
       .erm-phase, 
       .erm-type {
-        margin: 20px 0 !important;
         text-align: left !important; 
       }
       .erm-info-label {
-        margin: 5px 5px 5px 0 !important;
+        margin: 5px 5px 0px 0 !important;
         display: block !important;
         font-weight: bold !important;
+        padding-top: 10px!important;
       }
       .field.field-name-field-type-erm-si, 
       .field.field-name-field-type-phase-erm-reg {
         text-align: left;
-        margin: 10px 0 0 !important;
+        margin:  2px 5px 0px 0 !important;
         padding: 0 !important;
         display: block !important;
       }
+
+      .erm-phase{
+        padding-bottom: 20px !important;
+      }
+
       .erm-features{
         margin: 0;
       }
