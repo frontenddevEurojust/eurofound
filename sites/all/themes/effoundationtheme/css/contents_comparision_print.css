@@ -11,6 +11,10 @@
         display: none !important;
     }
 
+    .statistics_counter{
+        display: none !important;
+    }
+
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
@@ -71,12 +75,17 @@
 		z-index: 9;
 		background: #FFF !important;
 	}
-  .page-break{
-    page-break-before:always !important;
-    background: #FFF !important;
-  }
+
+	.page-break{
+	    page-break-before:always !important;
+	    background: #FFF !important;
+	}
 
   	.view-grouping .view-grouping-header{
+        display: none !important;
+    }
+
+    .statistics_counter{
         display: none !important;
     }
 
