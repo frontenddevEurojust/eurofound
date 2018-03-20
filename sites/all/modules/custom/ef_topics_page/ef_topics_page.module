@@ -95,27 +95,24 @@ function ef_topics_page_theme(){
  */
 function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
     
-  if($form['#id'] == 'taxonomy-form-term')
-  {
-    
+  if($form['#id'] == 'taxonomy-form-term') {
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
-        'visible' => array(
-            'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
-        )
+      'visible' => array(
+        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+      )
     );
 
     $form['field_term_key_topic']['#states'] = array(
-        'visible' => array(
-            'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
-        )
+      'visible' => array(
+        'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
+      )
     );
 
     // Hide last updated field as it is populated automatically
     $form['field_term_last_updated']['#type'] = 'hidden';
     
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_edit_form.js');
-
   }
 
   if (isset($form["field_ef_topic"])) {
@@ -123,7 +120,7 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
   }
 }
 
-function _ef_topics_page_update_last_modified_date_term($form, &$form_state, $form_id){
+function _ef_topics_page_update_last_modified_date_term($form, &$form_state){
   $start_topics_node=$form['field_ef_topic']['und']['#default_value'];
   $end_topics_node=array();
   $new_topics=array();
@@ -134,11 +131,11 @@ function _ef_topics_page_update_last_modified_date_term($form, &$form_state, $fo
   if (count($new_topics) > 0) {
     foreach ($new_topics as $topic) {
       $term = taxonomy_term_load($topic);
-      if($term->vocabulary_machine_name == 'ef_topics'){
-        $date_publish_node = $form["#node"]->published_at;
-        $date_last_update_term=$term->field_term_last_updated['und'][0]['value'];
-        if ($date_publish_node > $date_last_update_term) {
-          $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
+      if ($term->vocabulary_machine_name == 'ef_topics') {
+        $node_publication_date = $form["#node"]->published_at;
+        $term_last_updated_date = $term->field_term_last_updated['und'][0]['value'];
+        if ($node_publication_date > $term_last_updated_date) {
+          $term->field_term_last_updated['und'][0]['value'] = $node_publication_date;
           taxonomy_term_save($term);
         }
       }
@@ -201,46 +198,6 @@ function _update_topics_tab($tid, $content_type_name, $page){
         drupal_json_output(array('status' => 500, 'data' => 'There was an error processing your request'));
     }
  
-}
-/*
- * Implements hook_node_presave($node)
- *
- * Act on a node being inserted or updated.  
- *
- * @param  $node. 
-*/
-function ef_topics_page_node_presave($node){
-  // Force save for a taxonomic term when it's added so that last_updated field is updated
-  $topics_types = array('ef_publication','ef_report','ef_news','ef_event');
-  if(in_array($node->type, $topics_types)) {
-    $input_array = [];
-    $original_array = [];
-    if( isset($node->field_ef_topic['und']) ) {
-      $input_array = $node->field_ef_topic['und']; 
-    }
-    if( isset($node->original->field_ef_topic['und']) ) {
-      $original_array = $node->original->field_ef_topic['und'];
-    }
-    $difference = array_diff_assoc($input_array, $original_array);
-    if(count($difference)) {       
-      foreach ($difference as $key => $element) {
-        taxonomy_term_save(taxonomy_term_load($element['tid']));
-      }
-    }    
-  }  
-}
-
-/*
- * Implements hook_taxonomy_term_presave($term)
- *
- * Act on taxonomy terms before they are saved.
- *
- * @param $term
-*/
-function ef_topics_page_taxonomy_term_presave($term){
-  if($term->vocabulary_machine_name == 'ef_topics') {
-     $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
-  }
 }
 
 /**
