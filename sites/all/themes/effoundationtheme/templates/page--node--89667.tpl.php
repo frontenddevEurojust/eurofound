@@ -271,11 +271,13 @@
 				$start = true;        
 				foreach ($tree as $key  => $all_topic_term) {
           $entity_name = $all_topic_term->name;
+          $topic_url = drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid);
+          $fixed_topic_url = str_replace('topics' , 'topic' , $topic_url);
 
 					if ($start == true) {
-						$group_letter = strtoupper(substr($all_topic_term->name,0,1));
+						$group_letter = strtoupper(mb_substr($all_topic_term->name,0,1));
 						print '<li class="group-by first"><h3>'. $group_letter .'</h3><ul class="sublist-topics">';
-            print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $entity_name  . "</a></li>";
+            print "<li class='term-topic-item'><a href='". $fixed_topic_url ."' >" . $entity_name  . "</a></li>";
            // krumo($all_topic_term->name);
 						$start = false;
 					}
@@ -285,10 +287,10 @@
 							$group_letter = strtoupper(mb_substr($entity_name,0,1));
 							print '</ul>';
               print '<li class="group-by"><h3>' . $group_letter .'</h3><ul class="sublist-topics">';
-              print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $entity_name . "</a></li>";
+              print "<li class='term-topic-item'><a href='".  $fixed_topic_url ."' >" . $entity_name . "</a></li>";
 							$start = false;
 						} else {
-              print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $entity_name . "</a></li>";
+              print "<li class='term-topic-item'><a href='".  $fixed_topic_url ."' >" . $entity_name . "</a></li>";
             }
 					}				
 					
