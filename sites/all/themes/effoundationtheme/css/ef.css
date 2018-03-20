@@ -5442,6 +5442,10 @@ ul.metadata-items li:last-child{
   padding: 0px 0px 0px 4px !important;
   margin-right: 0;
 }
+ul.metadata-items li.fix-padding{
+  padding: 0!important;
+  margin-right: 0;
+}
 ul.metadata-items li a{
   padding: 0px 8px 0px 0px !important;
   display: inline-block;

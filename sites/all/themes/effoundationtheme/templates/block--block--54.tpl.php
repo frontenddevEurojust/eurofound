@@ -280,7 +280,7 @@
                       <?php echo $title[0]->name; ?>
                     </a> 
                     <ul class="metadata-items inline-list">
-                      <li class="list-delib-kind">
+                      <li class="list-delib-kind fix-padding">
                         <?php
                           print $vocabulary_name->name;
                         ?>
