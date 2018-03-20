@@ -892,9 +892,9 @@ word-break: break-all;
       }
       
       .erm-nat-title h2 .field-type-text-long, .erm-en-title  h2 .field-type-text-long{
-        font-size:12px !important;
+        font-size:8px !important;
         margin: 0px 0 0 0 !important;
-        font-weight: bold !important;
+        font-weight: normal !important;
       }
       
       .erm-phase, .erm-type, .erm-edit-date{
@@ -973,7 +973,6 @@ word-break: break-all;
           margin-top: 25px !important;
           max-width: 25% !important;
       }
-
 
     </style>  
     <!-- CASE STUDIES -->
