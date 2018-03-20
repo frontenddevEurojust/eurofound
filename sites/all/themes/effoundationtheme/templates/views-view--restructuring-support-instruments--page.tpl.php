@@ -115,6 +115,13 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
           });
           /* Support instruments . Hide view-grouping */
           $('.page-restructuring-support-instruments .view-grouping .view-grouping-header').remove();
+
+          var wrapper = $('.page-restructuring-support-instruments .view-grouping');         
+          $(wrapper).each(function( index ) {
+            $('.view-grouping-content > h3', this).replaceWith('<h2>' + $('.view-grouping-content > h3', this).html() +'</h2>')
+          });
+
+
       });
     })(jQuery);
     </script>

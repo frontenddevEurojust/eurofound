@@ -88,24 +88,27 @@
 	}
 	.title-cover{
 		position: absolute;
-		top:12cm;
+		top:6cm;
 		left: 30%;
 		width: 65%;
 		z-index: 10;
+		font-size: 32pt;
 	}
 	.subtitle-cover{
 		position: absolute;
-		top:10cm;
+		top:8cm;
 		left: 30%;
 		width: 65%;
 		z-index: 10;
+		font-size: 22pt;
 	}
 	.description-cover{
 		position: absolute;
-		top: 13.5cm;
+		top: 14cm;
 		left: 30%;
 		width: 60%;
 		z-index: 10;
+		font-size: 14pt;
 	}
 	.disclaimer-cover{
 		position: absolute;
