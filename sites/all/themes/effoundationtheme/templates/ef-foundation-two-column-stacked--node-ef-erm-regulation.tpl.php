@@ -18,7 +18,8 @@
 <!-- go back button BACK END -->
 <?php if(in_array('authenticated user', $user->roles)): ?>
 	<div class="back-erm-list-button-div">
-		<a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>		
+		<!--<a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>	-->
+		<a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>	
 	</div>
 <!-- go back button FRONT END-->
 <?php elseif(in_array('anonymous user', $user->roles)): ?>

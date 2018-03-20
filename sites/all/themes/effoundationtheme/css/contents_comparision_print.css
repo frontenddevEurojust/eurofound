@@ -11,10 +11,6 @@
         display: none !important;
     }
 
-    .statistics_counter{
-        display: none !important;
-    }
-
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
@@ -65,35 +61,32 @@
 	}
 
  @media only print{
+ 	html, body{
+ 		overflow: auto !important;
+ 	}
 	.cover-print{
 		position: absolute;
 		top: 0cm;
 		left:0;
-		width: 21cm !important;
-		height: 29cm !important;
+		width: 100% !important;
+		height: 90vh !important;
 		display: block;
 		z-index: 9;
 		background: #FFF !important;
 	}
-
-	.page-break{
-	    page-break-before:always !important;
-	    background: #FFF !important;
-	}
-
-  	.view-grouping .view-grouping-header{
-        display: none !important;
-    }
-
-    .statistics_counter{
-        display: none !important;
-    }
-
+  .page-break{
+    page-break-before:always !important;
+    background: #FFF !important;
+  }
+	.view-grouping .view-grouping-header{
+   	display: none !important;
+  }
 	.cover-print img{
-		position: absolute;
-		width: 100% !important;
+		position: fixed;
+		width: 92% !important;
 		z-index: 9;
-		left:-2cm;
+		left:0cm;
+		top: 1cm;
 	}
 	.title-cover{
 		position: absolute;
@@ -101,7 +94,7 @@
 		left: 30%;
 		width: 65%;
 		z-index: 10;
-		font-size: 32pt;
+		font-size:26pt;
 	}
 	.subtitle-cover{
 		position: absolute;
@@ -109,7 +102,7 @@
 		left: 30%;
 		width: 65%;
 		z-index: 10;
-		font-size: 22pt;
+		font-size:18pt;
 	}
 	.description-cover{
 		position: absolute;
@@ -117,7 +110,7 @@
 		left: 30%;
 		width: 60%;
 		z-index: 10;
-		font-size: 14pt;
+		font-size: 12pt;
 	}
 	.disclaimer-cover{
 		position: absolute;
@@ -151,7 +144,10 @@
 	.field.field-name-field-country-erm-reg{
 		padding-bottom: 1em!important;
 	}
-
+  .erm-sources{
+  float: none !important;
+  page-break-before: auto;
+  }
 	.erm-phase{
 		text-align: left!important
 	}

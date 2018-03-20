@@ -817,10 +817,11 @@ word-break: break-all;
         background: #FFF !important;
       }
       .cover-print img{
-        position: absolute;
-        width: 100% !important;
+        position: fixed;
+        width: 92% !important;
         z-index: 9;
-        left:-1cm;
+        left:0cm;
+        top: 1cm;
       }
       .title-cover{
         position: absolute;
@@ -828,7 +829,7 @@ word-break: break-all;
         left: 30%;
         width: 65%;
         z-index: 10;
-        font-size: 32pt;
+        font-size:26pt;
       }
       .subtitle-cover{
         position: absolute;
@@ -836,7 +837,7 @@ word-break: break-all;
         left: 30%;
         width: 65%;
         z-index: 10;
-        font-size: 22pt;
+        font-size:18pt;
       }
       .description-cover{
         position: absolute;
@@ -844,7 +845,7 @@ word-break: break-all;
         left: 30%;
         width: 60%;
         z-index: 10;
-        font-size: 14pt;
+        font-size: 12pt;
       }
       .disclaimer-cover{
         position: absolute;
@@ -865,6 +866,10 @@ word-break: break-all;
         width: 30% !important;
         display: block;
         z-index: 10;
+      }
+      .view-grouping-content > h3{
+        font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+        font-size: 1.5em !important;
       }
       .page-list-wrapper, 
       .back-erm-list-button-div,  
@@ -921,8 +926,9 @@ word-break: break-all;
       }
       .erm-sources{
       float: none !important;
-
+      page-break-before: always;
       }
+
       .erm-features .large-4 {
           float: none!important;
           width:100% !important;
@@ -952,10 +958,6 @@ word-break: break-all;
       }
 
       .view-grouping .view-grouping-header{
-        display: none !important;
-      }
-
-      .statistics_counter{
         display: none !important;
       }
 
@@ -1105,7 +1107,7 @@ word-break: break-all;
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
           print '<div class="page-break"></div>';
-        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/observatories/emcc/erm/restructuring-case-studies/') == false  ) {
+        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true  ) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring case studies</h1>';
           print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
