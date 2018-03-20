@@ -824,24 +824,27 @@ word-break: break-all;
       }
       .title-cover{
         position: absolute;
-        top:12cm;
-        left: 30%;
-        width: 70%;
-        z-index: 10;
-      }
-      .subtitle-cover{
-        position: absolute;
-        top:11cm;
+        top:6cm;
         left: 30%;
         width: 65%;
         z-index: 10;
+        font-size: 32pt;
+      }
+      .subtitle-cover{
+        position: absolute;
+        top:8cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+        font-size: 22pt;
       }
       .description-cover{
         position: absolute;
-        top: 14.5cm;
+        top: 14cm;
         left: 30%;
-        width: 70%;
+        width: 60%;
         z-index: 10;
+        font-size: 14pt;
       }
       .disclaimer-cover{
         position: absolute;
