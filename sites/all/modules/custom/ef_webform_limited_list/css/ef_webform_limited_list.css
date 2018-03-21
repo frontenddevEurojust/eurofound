@@ -21,7 +21,7 @@
 }
 #views-exposed-form-webform-submissions2-procurement-submissions-view .form-item-negotiated-procedures{
   float: left;
-  width: 45%;
+  width: 43%;
 }
 #views-exposed-form-webform-submissions2-procurement-submissions-view .form-item-negotiated-procedures label:before{
 	content: "\f1b3";
@@ -34,4 +34,18 @@
   font-family: 'OpenSans-regular-webfont';
   font-size: 1.2em;	
   margin-bottom: 0.5em;
+}
+
+@media only screen and (max-width: 1280px) {
+  #views-exposed-form-webform-submissions2-procurement-submissions-view .form-item-negotiated-procedures{
+    float: left;
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 1175px) {
+  #views-exposed-form-webform-submissions2-procurement-submissions-view .form-item-negotiated-procedures{
+    float: left;
+    width: 100%;
+    padding: 0em 0.8em;
+  }
 }
