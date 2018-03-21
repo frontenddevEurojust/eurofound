@@ -138,14 +138,13 @@ function view_php_filter_setup_code() {
   parse_str($parts['query'], $query);
   $selected_procedure = $query['negotiated_procedures'];
   if (!empty($selected_procedure)) {
+    $sids=array(0);
     //Get all procedures
     $all_procedures = variable_get('ef_webform_limited_list_negotiated_procedures');
     $string_procedure = $all_procedures[$selected_procedure];
-
     $codes[] = $selected_procedure;
-
     foreach ($all_procedures as $code => $procedure) {
-      if (trim($procedure) == trim($string_procedure)) {
+      if ($procedure == $string_procedure) {
         $codes[] = $code;
       }
     }
@@ -157,12 +156,11 @@ function view_php_filter_setup_code() {
       $query->condition('wsd.cid', $formatted_codes[2]);
       $query->condition('wsd.data', $formatted_codes[1]);
       $results = $query->execute()->fetchCol();
-
       foreach ($results as $key => $sid) {
         $sids[] = $sid;
       }
-      $static = $sids;
     }
+    $static = $sids;
   }
 }
 
