@@ -103,4 +103,6 @@
   text-align: center;
 }
 
-
+.view-grouping .view-grouping-content .views-row-1 {
+  padding-top: 0;
+}
