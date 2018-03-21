@@ -414,10 +414,6 @@ width: 20%;
 
 .field.field-name-field-type-erm-si li{
   list-style-type: none;
-  margin-top: -0.65cm;
-  margin-left: 2cm;
-  width:60%;
-  text-align: left;
 }
 
 
@@ -797,7 +793,9 @@ word-break: break-all;
 
 
   <!-- Print css stylesheet for contents comparision page  -->
-  <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') == true): ?>
+  <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true 
+        || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true
+        || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true): ?>
     <style>
       .cover-print{
         position: absolute !important;
@@ -815,31 +813,35 @@ word-break: break-all;
         background: #FFF !important;
       }
       .cover-print img{
-        position: absolute;
-        width: 100% !important;
+        position: fixed;
+        width: 92% !important;
         z-index: 9;
-        left:-1cm;
+        left:0cm;
+        top: 1cm;
       }
       .title-cover{
         position: absolute;
-        top:12cm;
-        left: 30%;
-        width: 70%;
-        z-index: 10;
-      }
-      .subtitle-cover{
-        position: absolute;
-        top:11cm;
+        top:6cm;
         left: 30%;
         width: 65%;
         z-index: 10;
+        font-size:26pt;
+      }
+      .subtitle-cover{
+        position: absolute;
+        top:8cm;
+        left: 30%;
+        width: 65%;
+        z-index: 10;
+        font-size:18pt;
       }
       .description-cover{
         position: absolute;
-        top: 14.5cm;
+        top: 14cm;
         left: 30%;
-        width: 70%;
+        width: 60%;
         z-index: 10;
+        font-size: 12pt;
       }
       .disclaimer-cover{
         position: absolute;
@@ -855,11 +857,15 @@ word-break: break-all;
       .print-date-cover{
         position: absolute;
         text-align: right !important;
-        top: 26.5cm;
+        top: 25.2cm;
         left:12cm;
         width: 30% !important;
         display: block;
         z-index: 10;
+      }
+      .view-grouping-content > h3{
+        font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+        font-size: 1.5em !important;
       }
       .page-list-wrapper, 
       .back-erm-list-button-div,  
@@ -882,9 +888,9 @@ word-break: break-all;
       }
       
       .erm-nat-title h2 .field-type-text-long, .erm-en-title  h2 .field-type-text-long{
-        font-size:12px !important;
+        font-size:8px !important;
         margin: 0px 0 0 0 !important;
-        font-weight: bold !important;
+        font-weight: normal !important;
       }
       
       .erm-phase, .erm-type, .erm-edit-date{
@@ -893,31 +899,36 @@ word-break: break-all;
       }
       .erm-phase, 
       .erm-type {
-        margin: 20px 0 !important;
         text-align: left !important; 
       }
       .erm-info-label {
-        margin: 5px 5px 5px 0 !important;
+        margin: 5px 5px 0px 0 !important;
         display: block !important;
         font-weight: bold !important;
+        padding-top: 10px!important;
       }
       .field.field-name-field-type-erm-si, 
       .field.field-name-field-type-phase-erm-reg {
         text-align: left;
-        margin: 10px 0 0 !important;
+        margin:  2px 5px 0px 0 !important;
         padding: 0 !important;
         display: block !important;
       }
+
+      .erm-phase{
+        padding-bottom: 20px !important;
+      }
+
       .erm-features{
-      margin: 0;
+        margin: 0;
       }
       .qtip, .erm-reg-cost-covered-by-notes{
-      display: none;
+        display: none;
       }
       .erm-sources{
-      float: none !important;
-
+        float: none !important;
       }
+
       .erm-features .large-4 {
           float: none!important;
           width:100% !important;
@@ -944,6 +955,24 @@ word-break: break-all;
       }
       .erm-reg-thresholds-item label, .erm-reg-thresholds-item div{
         display: inline;
+      }
+
+      .view-grouping .view-grouping-header{
+        display: none !important;
+      }
+
+
+      .statistics_counter{
+        display: none !important;
+      }
+
+      .field-name-field-ef-document{
+        display: none !important;
+      }
+
+      .view-restructuring-case-studies .pub-pdf-img {
+          margin-top: 25px !important;
+          max-width: 25% !important;
       }
 
     </style>  
@@ -1063,7 +1092,9 @@ word-break: break-all;
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>
     <?php if ($print_logo): ?>
-      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
+      <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true 
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true): ?>
       <div class="logo"><?php print $print_logo; ?></div>
       <?php endif; ?>
     <?php endif; ?>
@@ -1074,7 +1105,7 @@ word-break: break-all;
     <?php 
        
 
-        if(strpos($_SESSION["back_search"],'/support-instrument') == true ){
+        if(strpos($_SESSION["back_search"],'/support-instrument') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true  ){
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring support instruments</h1>';
           print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
@@ -1082,7 +1113,7 @@ word-break: break-all;
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
           print '<div class="page-break"></div>';
-        }elseif (strpos($_SESSION["back_search"],'/legislation') == true ) {
+        }elseif (strpos($_SESSION["back_search"],'/legislation') == true &&  strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring related legislation</h1>';
           print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.</p>';
@@ -1090,7 +1121,7 @@ word-break: break-all;
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
           print '<div class="page-break"></div>';
-        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true ) {
+        }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true  ) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring case studies</h1>';
           print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
@@ -1112,7 +1143,9 @@ word-break: break-all;
     <?php if ($pathCountry == 'country'): ?>
       <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
     <?php else : ?>
-      <?php if(strpos($_SERVER['REQUEST_URI'],'contents-comparison/') != true): ?>
+            <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') != true 
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') != true
+            || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') != true): ?>
         <h1 id="page-title" class="title"><?php print $print_title;?></h1>
       <?php endif; ?>
     <?php endif; ?>
