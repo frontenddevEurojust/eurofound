@@ -1,16 +1,15 @@
 
 
-#views-exposed-form-webform-submissions2-procurement-submissions-view .views-widget-filter-field_webform_type_tid {
+#views-exposed-form-webform-submissions2-procurement-submissions-view .views-widget-filter-field_webform_type_tid_selective {
   width: 20%;
 }
-#views-exposed-form-webform-submissions2-procurement-submissions-view .views-widget-filter-field_webform_type_tid label:before{
+#views-exposed-form-webform-submissions2-procurement-submissions-view .views-widget-filter-field_webform_type_tid_selective label:before{
   content: "\f022";	
   font-family: 'fontawesome';
   font-size: 1.2rem;
   margin-right: 0.5rem;
   color: #12559e;
 }
-
 #views-exposed-form-webform-submissions2-procurement-submissions-view #edit-date-filter-wrapper label:before, 
 #views-exposed-form-webform-submissions2-procurement-submissions-view #edit-date-filter-1-wrapper label:before{
 	font-family: 'fontawesome';
