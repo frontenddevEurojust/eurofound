@@ -12827,7 +12827,7 @@ p.view-empty.error-msg:before{
 .page-observatories-emcc-index h1.title, h1.parent_emcc.title {
   background: #FFF url(../images/background-observatories.jpg) no-repeat;
   background-size: 100% 86px;
-  padding:30px 50px 35px !important;
+  padding:30px 50px 30px !important;
   color:#005BAA;
 }
 
