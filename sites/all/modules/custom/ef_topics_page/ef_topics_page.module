@@ -132,7 +132,12 @@ function _ef_topics_page_update_last_modified_date_term($form, &$form_state){
     foreach ($new_topics as $topic) {
       $term = taxonomy_term_load($topic);
       if ($term->vocabulary_machine_name == 'ef_topics') {
-        $node_publication_date = $form["#node"]->published_at;
+        if (!isset($form["#node"]->published_at)) {
+          $node_publication_date = strtotime('now');
+        }
+        else {
+          $node_publication_date = $form["#node"]->published_at;
+        }
         $term_last_updated_date = $term->field_term_last_updated['und'][0]['value'];
         if ($node_publication_date > $term_last_updated_date) {
           $term->field_term_last_updated['und'][0]['value'] = $node_publication_date;
