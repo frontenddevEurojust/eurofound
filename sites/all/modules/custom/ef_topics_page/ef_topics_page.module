@@ -122,11 +122,15 @@ function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
 
 function _ef_topics_page_update_last_modified_date_term($form, &$form_state){
   if ((!isset($form['#node']->published_at) || $form['#node']->published_at == 0) && $form_state['values']['workbench_moderation_state_new'] == 'published') {
-    $node_publication_date = strtotime('now');
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
+    $new_publication = TRUE;
+  }
+  elseif ($form_state['values']['workbench_moderation_state_new'] == 'published' && $form_state['values']['workbench_moderation_state_current'] == 'forthcoming') {
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
     $new_publication = TRUE;
   }
   else {
-    $node_publication_date = $form["#node"]->published_at;
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
   }
   $node_topics = $form['field_ef_topic']['und']['#default_value'];
   $form_state_topics = array();
