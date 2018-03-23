@@ -38,6 +38,12 @@
   display: inline-block;
 }
 
+span.restructuring-view-title::after{
+    content: '>';
+    font-size: 22px;
+    padding-left: 10px;
+}
+
 .turn-page {
   float: none !important;
   margin-top: 10px;

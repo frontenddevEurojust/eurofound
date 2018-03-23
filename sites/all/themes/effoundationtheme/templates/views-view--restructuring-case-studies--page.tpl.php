@@ -63,7 +63,7 @@ if(split('[/]', $_SERVER['REQUEST_URI'])[1] == 'print' || split('[/]', $_SERVER[
      $titulo = $nodo->title;
      $contenido = drupal_render(node_view($nodo));
      print '<div class="view-grouping-node">';
-     print'<h1 class="title-general-comparison"><span class="restructuring-view-title">Restructuring case studies: </span> ' . $titulo . '</h1>';
+     print'<h1 class="title-general-comparison"><span class="restructuring-view-title">Restructuring case studies</span> ' . $titulo . '</h1>';
      print '<section>' . $contenido . '</section></div>';
    }
   }
