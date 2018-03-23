@@ -816,7 +816,7 @@ word-break: break-all;
         position: fixed;
         width: 92% !important;
         z-index: 9;
-        left:0cm;
+        left:-1cm;
         top: 1cm;
       }
       .title-cover{
@@ -849,7 +849,7 @@ word-break: break-all;
         padding-top: 5px !important;
         font-size: 8px !important;
         text-align: center !important;
-        top:27cm;
+        top:25.7cm;
         left: 0%;
         width: 100%;
         z-index: 10;
@@ -863,9 +863,9 @@ word-break: break-all;
         display: block;
         z-index: 10;
       }
-      .view-grouping-content > h3{
+      .view-grouping-content > h3{ /*This the h2 in the previous view. We put the h2 by jQuery, here is h3*/
         font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
-        font-size: 1.5em !important;
+        font-size: 1.8em !important;
       }
       .page-list-wrapper, 
       .back-erm-list-button-div,  
@@ -980,6 +980,10 @@ word-break: break-all;
     
     
     <style>
+
+    .restructuring-view-title{
+      display: none!important;
+    }
     
     .cs-country ul li{
       font-size: 12pt!important;
@@ -1146,7 +1150,6 @@ word-break: break-all;
             <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') != true 
             || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') != true
             || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') != true): ?>
-        <h1 id="page-title" class="title"><?php print $print_title;?></h1>
       <?php endif; ?>
     <?php endif; ?>
 

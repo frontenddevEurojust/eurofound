@@ -245,6 +245,11 @@ h4{
 font-size: 1.1em !important;
 margin: 0.5em 0 !important;
  }
+
+h1.print-h1{
+  font-size: 21.6px;
+}
+
 h1.title, h2.title{
 background:transparent !important;
   -moz-box-shadow:none !important;
