@@ -35,6 +35,9 @@
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/view_styles/case_studies_view.css" />
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/responsive.css" />
 <link rel="stylesheet" type="text/css" href="/sites/all/themes/effoundationtheme/css/print-browser.css" media="all"  />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type = "text/javascript" src="/sites/all/themes/effoundationtheme/js/print.js"></script>
+
 
 <!-- Print css stylesheet for contents comparision page  -->
 <?php 
