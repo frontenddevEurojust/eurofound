@@ -980,6 +980,10 @@ word-break: break-all;
     
     
     <style>
+
+    .restructuring-view-title{
+      display: none!important;
+    }
     
     .cs-country ul li{
       font-size: 12pt!important;

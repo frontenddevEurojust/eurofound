@@ -35,8 +35,11 @@ drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision.css'
 drupal_add_css('sites/all/themes/effoundationtheme/css/contents_comparision_print.css', array ('weight' => 202,'media' => 'print','group' => CSS_THEME));
 drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
-?>
+// dpm($view->result[0]->field_title_field[0]['rendered']['#markup']);
+// dpm($view->result[1]->field_title_field[0]['rendered']['#markup']);
+// dpm($view->result[2]->field_title_field[0]['rendered']['#markup']);
 
+?>
 <?php if(!strrpos($_SERVER['REQUEST_URI'], "print")): ?>
   <div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
   <div class="page-list-wrapper clearfix no-pdf no-print">
@@ -45,62 +48,27 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 <?php endif ?>
 <div class="<?php print $classes; ?>">
 
-  <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <?php print $title; ?>
-  <?php endif; ?>
-  <?php print render($title_suffix); ?>
-  <?php if ($header): ?>
-    <div class="view-header">
-      <?php print $header; ?>
-    </div>
-  <?php endif; ?>
+ <?php 
 
-  <?php if ($exposed): ?>
-    <div class="view-filters">
-      <?php print $exposed; ?>
-    </div>
-  <?php endif; ?>
+if(split('[/]', $_SERVER['REQUEST_URI'])[1] == 'print' || split('[/]', $_SERVER['REQUEST_URI'])[1] == 'printpdf'){
+ $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[3]);
+}else{
+ $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[2]);
+}
 
-  <?php if ($attachment_before): ?>
-    <div class="attachment attachment-before">
-      <?php print $attachment_before; ?>
-    </div>
-  <?php endif; ?>
-  
-  <?php if ($rows): ?>
-    <div class="view-content">
-      <?php print $rows; ?>
-    </div>
-  <?php elseif ($empty): ?>
-    <div class="view-empty">
-      <?php print $empty; ?>
-    </div>
-  <?php endif; ?>
+ 
+ for ($i = 0; $i < sizeof($content_total_array); $i++) {
+   $nodo = node_load($content_total_array[$i]); 
+   if($nodo){
+     $titulo = $nodo->title;
+     $contenido = drupal_render(node_view($nodo));
+     print '<div class="view-grouping-node">';
+     print'<h1 class="title-general-comparison"><span class="restructuring-view-title">Restructuring case studies: </span> ' . $titulo . '</h1>';
+     print '<section>' . $contenido . '</section></div>';
+   }
+  }
 
-
-
-  <?php if ($attachment_after): ?>
-    <div class="attachment attachment-after">
-      <?php print $attachment_after; ?>
-    </div>
-  <?php endif; ?>
-
-  <?php if ($more): ?>
-    <?php print $more; ?>
-  <?php endif; ?>
-
-  <?php if ($footer): ?>
-    <div class="view-footer">
-      <?php print $footer; ?>
-    </div>
-  <?php endif; ?>
-
-  <?php if ($feed_icon): ?>
-    <div class="feed-icon">
-      <?php print $feed_icon; ?>
-    </div>
-  <?php endif; ?>
+ ?>
 
 </div><?php /* class view */ ?>
 
@@ -111,18 +79,18 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
           $(this).cPager({
               pageSize: 1, 
               pageid: "pager", 
-              itemClass: "view-grouping-content" 
+              itemClass: "view-grouping-node" 
           });
-          /* Support instruments . Hide view-grouping */
-          $('.page-restructuring-support-instruments .view-grouping .view-grouping-header').remove();
+          /* Restructuring support instruments view . Hide view-grouping */
+          $('.page-restructuring-support-instruments h1#page-title').remove();
 
-          var wrapper = $('.page-restructuring-support-instruments .view-grouping');         
+          var wrapper = $('.page-restructuring-support-instruments .view-grouping-node');         
           $(wrapper).each(function( index ) {
-            $('.view-grouping-content > h3', this).replaceWith('<h2>' + $('.view-grouping-content > h3', this).html() +'</h2>')
+            var titleGeneral = $('h1.title-general-comparison', this).html();
           });
-
 
       });
     })(jQuery);
     </script>
 <?php endif ?>
+
