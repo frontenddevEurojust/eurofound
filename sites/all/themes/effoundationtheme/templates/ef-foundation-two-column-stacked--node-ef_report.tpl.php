@@ -178,17 +178,18 @@ $countview = count($result);
                 <?php if (isset($content['field_ef_publ_contributors']['#items'])) : ?>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
+                        <ul class="links inline-list authors-list">
                         <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {
-                                ?>
-                                    <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
-                                <?php
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {  ?>
+                                <li class="author"><a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>; </a></li>
+                            <?php
                             }else{
-                                ?>
-                                    <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>
+                            ?>
+                                    <li class="author"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></li>
                                 <?php
                             } ?>
                         <?php endforeach; ?>
+                        </ul>
                     </div>
                 <?php endif; ?>
 

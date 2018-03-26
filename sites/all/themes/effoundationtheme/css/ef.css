@@ -14563,3 +14563,17 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 /** END COMMUNICATIONS CALENDAR **/
+/** authors articles **/
+.field-name-field-ef-author > .label-inline{
+	float: left;
+}
+ul.links.inline-list.authors-list {
+	display: inline-block;
+	line-height: 1.1em;
+}
+ul.links.inline-list.authors-list li{
+	line-height: 1.2em;
+	 margin: 0px 6px 0 0px;
+}
+
+/** authors articles **/
