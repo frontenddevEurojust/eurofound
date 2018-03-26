@@ -129,8 +129,11 @@ function _ef_topics_page_update_last_modified_date_term($form, &$form_state){
     $node_publication_date = strtotime($form_state['values']['pubdate']);
     $new_publication = TRUE;
   }
-  else {
+  elseif ($form_state['values']['workbench_moderation_state_new'] == 'published') {
     $node_publication_date = strtotime($form_state['values']['pubdate']);
+  }
+  else {
+    return;
   }
   $node_topics = $form['field_ef_topic']['und']['#default_value'];
   $form_state_topics = array();
