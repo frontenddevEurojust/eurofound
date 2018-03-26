@@ -7,7 +7,9 @@
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
         $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
-        $node=taxonomy_get_term_by_name($term);
+        $termname = str_replace("-", " ", $term);
+        
+        $node=taxonomy_get_term_by_name($termname);
 
         foreach ($node as $key => $value) {
           $nid=$key;
