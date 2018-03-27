@@ -28,6 +28,7 @@
  */
 
 global $user;
+global $language;
 
 session_start();
 
@@ -57,10 +58,18 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 
  <?php 
 
-if(split('[/]', $_SERVER['REQUEST_URI'])[1] == 'print' || split('[/]', $_SERVER['REQUEST_URI'])[1] == 'printpdf'){
- $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[3]);
+if(split('[/]', $_SERVER['REQUEST_URI'])[1] == $language->language){
+  if(split('[/]', $_SERVER['REQUEST_URI'])[2] == 'print' || split('[/]', $_SERVER['REQUEST_URI'])[2] == 'printpdf'){
+    $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[4]);
+  }else{
+    $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[3]);
+  }
 }else{
- $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[2]);
+  if(split('[/]', $_SERVER['REQUEST_URI'])[1] == 'print' || split('[/]', $_SERVER['REQUEST_URI'])[1] == 'printpdf'){
+    $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[3]);
+  }else{
+    $content_total_array = split('%2C',split('[/]', $_SERVER['REQUEST_URI'])[2]);
+  }
 }
 
  for ($i = 0; $i < sizeof($content_total_array); $i++) {

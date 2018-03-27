@@ -3,13 +3,18 @@
 	}
 
 	#overlay-eurofound{
-      display: none!important
+      display: none;
     }
 
   	.page-break{
     	page-break-before:always !important;
     	background: #FFF !important;
   	}
+	
+	.title-general-comparison{
+		display: block;
+	}
+
 span.restructuring-view-title {
     display: none;
 }

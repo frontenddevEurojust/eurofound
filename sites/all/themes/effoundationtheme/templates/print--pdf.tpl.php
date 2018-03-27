@@ -982,7 +982,7 @@ word-break: break-all;
     <style>
     
     #overlay-eurofound{
-      display: none!important
+      display: none;
     }
 
     .restructuring-view-title{
