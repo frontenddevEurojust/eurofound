@@ -40,6 +40,13 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/contents_comparision.js');
 // dpm($view->result[2]->field_title_field[0]['rendered']['#markup']);
 
 ?>
+<div id="overlay-eurofound">
+    <div class="loading-position">
+        <img src="/sites/all/themes/effoundationtheme/images/loading-eurofound.gif" alt="Loading" />
+        <br>
+        <span>Loading...</span>
+    </div>
+</div>
 <?php if(!strrpos($_SERVER['REQUEST_URI'], "print")): ?>
   <div class="print-wrapper no-pdf"><?php print print_pdf_insert_link();?><?php print print_insert_link();?></div>
   <div class="page-list-wrapper clearfix no-pdf no-print">

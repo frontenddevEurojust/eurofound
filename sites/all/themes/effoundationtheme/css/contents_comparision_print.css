@@ -2,6 +2,10 @@
 		display: none;
 	}
 
+	#overlay-eurofound{
+      display: none!important
+    }
+
   	.page-break{
     	page-break-before:always !important;
     	background: #FFF !important;

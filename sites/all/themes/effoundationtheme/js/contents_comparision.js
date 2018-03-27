@@ -182,3 +182,12 @@
         });
     };
 })(jQuery);
+
+
+//Loading when the comparison load
+jQuery(window).load(function(){
+  setTimeout(function() {
+      jQuery('#overlay-eurofound').fadeOut();
+      jQuery('.title-general-comparison').show();
+    }, 2000);
+});
