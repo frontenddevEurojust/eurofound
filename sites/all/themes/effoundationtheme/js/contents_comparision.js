@@ -189,6 +189,7 @@ jQuery(window).load(function(){
 
   if ( jQuery('#pager').attr('data-pagecount') > 20 ) {
       jQuery('.print-pdf').removeAttr("href");
+      jQuery('.print-pdf').removeAttr("onclick");
       jQuery('.print-pdf').prop('title', 'It is not possible to export more than 20 elements to PDF');
       jQuery('.print-pdf').addClass('disable-print-pdf');  
   }
