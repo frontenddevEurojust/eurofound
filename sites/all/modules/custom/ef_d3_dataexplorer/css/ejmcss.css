@@ -67,20 +67,23 @@ g.ticks text {
 }
 
 
- ul.legend-list {
+ ul.legend-list, 
+ ul.legend-list-butterfly{
   list-style: none;
   text-align: center;
   width: auto;
   margin: auto;
 }
-  ul.legend-list li{
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: auto;
     margin: 0 15px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
   }
-  ul.legend-list li.active {
+  ul.legend-list li.active, 
+  ul.legend-list-butterfly li.active {
     font-weight: bold !important;
   }
   ul.legend-list li.start i{
@@ -236,6 +239,31 @@ g.ticks text {
   stroke-width: 1px;
 }
 
+
+/** HAPPINESS PIRAMID **/
+.right11, .start-R .fa-circle{
+  fill: #B7D1EB;
+  color:#B7D1EB;
+}
+.right16, .end-R .fa-circle{
+  fill: #4D9DD5;
+  color:#4D9DD5;
+}
+.left11, .start-L .fa-circle{
+  fill:#CCDFB9;
+  color:#CCDFB9;
+}
+.left16, .end-L .fa-circle{
+  fill: #92C856;
+  color: #92C856;
+}
+.name{
+  font-size: 12px;
+}
+.score, .leftscore{
+  font-size: 11px;
+}
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-charts {
       background: #F1F4F8;
@@ -300,7 +328,8 @@ g.ticks text {
     overflow:initial;
     -ms-overflow:hidden;
   }
-  ul.legend-list li {
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: 100%;
     margin: 5px 0;
     display:block;

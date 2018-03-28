@@ -183,7 +183,7 @@
 	
 	var axisLinePath = function(d)
 	{
-		return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
+		return lineGenerator([[x(d) + 0.9, 0], [x(d) + 0.9, height]]);
 	};
 
 	function reloadOnSort()
@@ -295,8 +295,17 @@
 			return (width-labelArea)*d/maxLeft;
 		}*/
 		
-		chart = d3.select(".chart-wrapper").append("svg").attr('class', 'chart').attr('width', labelArea + 2*width).attr('height', height);
+		chart = d3.select(".chart-wrapper")
+			.append("svg")
+			.attr('class', 'chart')
+			.attr('width', labelArea + 2*width)
+			.attr('height', height);
 
+
+			chart.style("opacity", 0)
+			.transition()
+			.duration(1500)
+			.style("opacity", 1);		
 		/*xLeft.domain(d3.extent(data, function (d)
 		{
 			return d[leftBar11];
@@ -337,7 +346,7 @@
 			{
 				return xLeft(d[leftBar11]);
 			})
-			.attr("height", y.bandwidth()*0.3);
+			.attr("height", y.bandwidth()*0.2);
 				
 		chart.selectAll("rect.left_L")
 			.data(data)
@@ -352,7 +361,7 @@
 			{
 				return xLeft(d[leftBar16]);
 			})
-			.attr("height", y.bandwidth()*0.3);
+			.attr("height", y.bandwidth()*0.2);
 
 		chart.selectAll("text.leftscore_H")
 			.data(data)
@@ -408,7 +417,7 @@
 			.attr("width", function (d) {
 				return xRight(d[rightBar11]);
 			})
-			.attr("height", y.bandwidth()*0.3);
+			.attr("height", y.bandwidth()*0.2);
 
 		chart.selectAll("rect.right_L")
 			.data(data)
@@ -419,7 +428,7 @@
 			.attr("width", function (d) {
 				return xRight(d[rightBar16]);
 			})
-			.attr("height", y.bandwidth()*0.3);
+			.attr("height", y.bandwidth()*0.2);
 
 		chart.selectAll("text.score_H")
 			.data(data)
@@ -460,10 +469,10 @@
 
 		// Will be created using texts excel data
 		var legendLabels = [
-			{label: "Happiness - 2011", class: "lollipop-start"},
-			{label: "Happiness - 2016", class: "lollipop-end"},
-			{label: "Life satisfaction - 2011", class: "lollipop-start"},
-			{label: "Life satisfaction - 2017", class: "lollipop-end"},
+			{label: "Happiness - 2011", class: "lollipop-start-l"},
+			{label: "Happiness - 2016", class: "lollipop-end-l"},
+			{label: "Life satisfaction - 2011", class: "lollipop-start-r"},
+			{label: "Life satisfaction - 2016", class: "lollipop-end-r"},
 		];
 
 		var padding = 0;
@@ -481,10 +490,10 @@
 		};
 
 		// add labels
-		var textLegend = ['start','end','median','median'];
+		var textLegend = ['start-l','end-l','start-r','end-r'];
 		legend.selectAll("text").data(legendLabels).enter().append("text").attr("class", function(d, i)
 		{
-alert(i);
+//alert(i);
 			return 'legend-text-'+textLegend[i];
 		}).attr("x", function(d, i)
 		{
