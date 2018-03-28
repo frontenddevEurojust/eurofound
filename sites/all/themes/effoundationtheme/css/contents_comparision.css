@@ -4,6 +4,10 @@
   width: 96%;
   padding-right: 85px;
 } 
+
+.disable-print-pdf{
+  cursor: not-allowed!important;
+}
     
 .cover-print{
 		height: 29.7cm;
