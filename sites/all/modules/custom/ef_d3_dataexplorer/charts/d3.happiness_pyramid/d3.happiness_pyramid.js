@@ -294,12 +294,17 @@
 		{
 			return (width-labelArea)*d/maxLeft;
 		}*/
-		
+
+    // Initialize tooltip
+    tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
+
+
 		chart = d3.select(".chart-wrapper")
 			.append("svg")
 			.attr('class', 'chart')
 			.attr('width', labelArea + 2*width)
-			.attr('height', height);
+			.attr('height', height)
+			.call(tip);
 
 
 			chart.style("opacity", 0)
@@ -332,36 +337,63 @@
 		{
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
+
 		
-		chart.selectAll("rect.left_H")
+		chart.selectAll("rect.left_L")
 			.data(data)
 			.enter().append("rect")
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar11]);
 			})
-			.attr("y", yPosByIndex)
+			.attr("y", yPosByIndexDown)
 			.attr("class", "left11")
+      .on('mouseout', tip.hide)
+      .on('mouseover', function(d) {
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar16] +"<p>");
+      })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
 			})
 			.attr("height", y.bandwidth()*0.2);
-				
-		chart.selectAll("rect.left_L")
+
+		chart.selectAll("rect.left_H")
 			.data(data)
 			.enter().append("rect")
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar16]);
 			})
-			.attr("y", yPosByIndexDown)
+			.attr("y", yPosByIndex)
 			.attr("class", "left16")
+      .on('mouseout', tip.hide)
+      .on('mouseover', function(d) {
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar11] +"<p>");
+      })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
 			})
 			.attr("height", y.bandwidth()*0.2);
+	
+/*	
+		chart.selectAll("text.leftscore_L")
+			.data(data)
+			.enter().append("text")
+			.attr("x", function (d) {
+				return width - xLeft(d[leftBar16])-40;
+			})
+			.attr("y", function (d) {
+				return y(d.countryName) + y.bandwidth();
+			})
+			.attr("dx", "20")
+			//.attr("dy", ".36em")
+			//.attr("dy", "-1em")
+			.attr("y", yPosByIndexDownText)
+			.attr("text-anchor", "end")
+			.attr('class', 'leftscore')
+			.text(function(d){return d[leftBar16];});			
 
 		chart.selectAll("text.leftscore_H")
 			.data(data)
@@ -378,23 +410,8 @@
 			.attr("text-anchor", "end")
 			.attr('class', 'leftscore')
 			.text(function(d){return d[leftBar11];});
+*/
 
-		chart.selectAll("text.leftscore_L")
-			.data(data)
-			.enter().append("text")
-			.attr("x", function (d) {
-				return width - xLeft(d[leftBar16])-40;
-			})
-			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth();
-			})
-			.attr("dx", "20")
-			//.attr("dy", ".36em")
-			//.attr("dy", "-1em")
-			.attr("y", yPosByIndexDownText)
-			.attr("text-anchor", "end")
-			.attr('class', 'leftscore')
-			.text(function(d){return d[leftBar16];});
 
 		chart.selectAll("text.name")
 			.data(data)
@@ -413,9 +430,13 @@
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndex)
-			.attr("class", "right11")
+			.attr("class", "right16")
+      .on('mouseout', tip.hide)
+      .on('mouseover', function(d) {
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar11] +"<p>");
+      })
 			.attr("width", function (d) {
-				return xRight(d[rightBar11]);
+				return xRight(d[rightBar16]);
 			})
 			.attr("height", y.bandwidth()*0.2);
 
@@ -424,12 +445,16 @@
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndexDown)
-			.attr("class", "right16")
+			.attr("class", "right11")
+      .on('mouseout', tip.hide)
+      .on('mouseover', function(d) {
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar16] +"<p>");
+      })
 			.attr("width", function (d) {
-				return xRight(d[rightBar16]);
+				return xRight(d[rightBar11]);
 			})
 			.attr("height", y.bandwidth()*0.2);
-
+/*
 		chart.selectAll("text.score_H")
 			.data(data)
 			.enter().append("text")
@@ -463,16 +488,16 @@
 			.attr("text-anchor", "end")
 			.attr('class', 'score')
 			.text(function(d){return d[rightBar16];});
-			
+*/
 		
 		
 
 		// Will be created using texts excel data
-		var legendLabels = [
-			{label: "Happiness - 2011", class: "lollipop-start-l"},
-			{label: "Happiness - 2016", class: "lollipop-end-l"},
-			{label: "Life satisfaction - 2011", class: "lollipop-start-r"},
-			{label: "Life satisfaction - 2016", class: "lollipop-end-r"},
+		var legendLabels = [			
+			{label: "Happiness - 2016", class: "lollipop-start-l"},
+			{label: "Happiness - 2011", class: "lollipop-end-l"},
+			{label: "Life satisfaction - 2016", class: "lollipop-start-r"},
+			{label: "Life satisfaction - 2011", class: "lollipop-end-r"},
 		];
 
 		var padding = 0;

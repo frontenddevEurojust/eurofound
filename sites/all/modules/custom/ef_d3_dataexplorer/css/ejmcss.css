@@ -67,12 +67,18 @@ g.ticks text {
 }
 
 
- ul.legend-list, 
- ul.legend-list-butterfly{
+ ul.legend-list{
   list-style: none;
   text-align: center;
   width: auto;
   margin: auto;
+ }
+ ul.legend-list-butterfly{
+  list-style: none;
+  text-align: left;
+  width: auto;
+  margin: 2rem auto 0 !important;
+  padding-left:9%;
 }
   ul.legend-list li, 
   ul.legend-list-butterfly li{
@@ -240,28 +246,37 @@ g.ticks text {
 }
 
 
-/** HAPPINESS PIRAMID **/
-.right11, .start-R .fa-circle{
-  fill: #B7D1EB;
-  color:#B7D1EB;
-}
-.right16, .end-R .fa-circle{
+/** HAPPINESS PYRAMID **/
+.right16, .start-R .fa-circle{
   fill: #4D9DD5;
   color:#4D9DD5;
 }
-.left11, .start-L .fa-circle{
-  fill:#CCDFB9;
-  color:#CCDFB9;
+.right11, .end-R .fa-circle{
+  fill: #B7D1EB;
+  color:#B7D1EB;
 }
-.left16, .end-L .fa-circle{
+.left16, .start-L .fa-circle{
   fill: #92C856;
   color: #92C856;
+}
+.left11, .end-L .fa-circle{
+  fill:#CCDFB9;
+  color:#CCDFB9;
 }
 .name{
   font-size: 12px;
 }
 .score, .leftscore{
   font-size: 11px;
+}
+rect.left11:hover, 
+rect.left16:hover, 
+rect.right11:hover, 
+rect.right16:hover{
+  cursor: pointer;
+  fill: #000;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 

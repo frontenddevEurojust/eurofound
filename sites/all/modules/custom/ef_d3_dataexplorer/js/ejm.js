@@ -102,25 +102,25 @@
 
 				$('.legend-list-butterfly li').click(function(){
 					var classItem = $(this).attr('class');
-					var IdParent = $(this).parent().parent().parent().attr('id');
+					var IdParent = $('.chart-wrapper').attr('id');
+
 					$(this).toggleClass('active');
 					var activeOption = $(this).attr('class');
 
-//alert(classItem.indexOf('start-L') + '------------->' + classItem);
 					if(classItem.indexOf('start-L') == 0){
-						hightlightRect('left11','start-L');
+						hightlightRect('left16','start-L');
 					}
 					else if(classItem.indexOf('end-L') == 0)
 					{
-						hightlightRect('left16','end-L');
+						hightlightRect('left11','end-L');
 					}
 					else if(classItem.indexOf('start-R') == 0)
 					{
-						hightlightRect('right11','start-R');			
+						hightlightRect('right16','start-R');			
 					}
 					else if(classItem.indexOf('end-R') == 0)
 					{
-						hightlightRect('right16','end-R');	
+						hightlightRect('right11','end-R');	
 					}
 
 
