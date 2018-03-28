@@ -53,6 +53,13 @@
 
   </head>
   <body>
+    <div id="overlay-eurofound-print" class="overlay-print">
+      <div class="loading-position">
+          <img src="/sites/all/themes/effoundationtheme/images/loading-eurofound.gif" alt="Loading" />
+          <br>
+          <span>Loading...</span>
+    </div>
+    </div>
     <?php if (!empty($message)): ?>
       <div class="message"><?php print $message; ?></div><p />
     <?php endif; ?>

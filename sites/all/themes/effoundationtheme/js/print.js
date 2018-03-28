@@ -1,11 +1,12 @@
 //Change h3 to h1
 (function ($) {
-  $(document).ready(function(){
-
-    var wrapper = $('.view-grouping');         
-    $(wrapper).each(function( index ) {
-      $('.view-grouping-content > h3', this).replaceWith('<h1 class="print-h1">' + $('.view-grouping-content > h3', this).html() +'</h1>')
-    });
-      
-  });
+  //Loading when the comparison load
+$(window).on('load', function(){
+	$('#overlay-eurofound-print').addClass('hide-overlay');
+  setTimeout(function() {
+      $('.title-general-comparison').show();
+    }, 0);
+});
 })(jQuery);
+
+

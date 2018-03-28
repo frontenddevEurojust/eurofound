@@ -980,6 +980,10 @@ word-break: break-all;
     
     
     <style>
+    
+    #overlay-eurofound{
+      display: none;
+    }
 
     .restructuring-view-title{
       display: none!important;
