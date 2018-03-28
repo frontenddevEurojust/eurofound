@@ -5,11 +5,11 @@
     var pathname = window.location.pathname.split("/");
     var textPager;
 
-    if(pathname[1] == 'restructuring-case-studies'){
+    if(pathname[1] == 'restructuring-case-studies' || pathname[2] == 'restructuring-case-studies'){
       textPager = 'Showing case';
-    }else if(pathname[1] == 'restructuring-related-legislation'){
+    }else if(pathname[1] == 'restructuring-related-legislation' || pathname[2] == 'restructuring-related-legislation'){
       textPager = 'Showing case';
-    }else if(pathname[1] == 'restructuring-support-instruments'){
+    }else if(pathname[1] == 'restructuring-support-instruments' || pathname[2] == 'restructuring-support-instruments'){
       textPager = 'Showing instruments';
     }
 
