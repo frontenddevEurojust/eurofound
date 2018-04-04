@@ -30,23 +30,65 @@
 	{
 		var filtered = data;
 
-		if (sort == 1 || sort == 2)
+		if (sort == 0){
+
+      var byValueSum = filtered.slice(0);
+
+      byValueSum.sort(function(d,b) {
+      	var sum1 = Math.abs(Number(d.dot2) + Number(d.dot4));
+      	var sum2 = Math.abs(Number(b.dot2) + Number(b.dot4));
+      	
+        return d3.descending(+sum1,+sum2);
+
+      });
+      filtered = byValueSum;
+		}
+
+		if (sort == 1)
 		{
-			sort == 1 ? order = d3.ascending : order = d3.descending;
-			var filteredKeyed = d3.nest().key(function(d) { return d.countryName; }).sortKeys(order).entries(filtered);
-			filtered = filteredKeyed.map(function(a) { return a.values[0];});
+			// sort == 1 ? order = d3.ascending : order = d3.descending;
+			order = d3.ascending;
+			var filteredKeyed = d3.nest().key(function(d) { 
+				if(d.countryName != 'EU28'){
+
+					return d.countryName;
+
+				}else{
+
+					// firts element in the order
+					return 'AAAA'+d.countryName;
+				}; 
+			}).sortKeys(order).entries(filtered);
+
+			filtered = filteredKeyed.map(function(a) { 
+					return a.values[0];			
+			});
+
+		}
+
+		if (sort == 2)
+		{
+			var byMaxValue = filtered.slice(0);
+			byMaxValue.sort(function(d,b)
+			{
+				return d3.descending(+d.dot2,+b.dot2);
+			});      
+			filtered = byMaxValue;
 		}
 
 		if (sort == 3)
 		{
-			var byMinValue = filtered.slice(0);
-			byMinValue.sort(function(d,b)
+			var byMaxValue = filtered.slice(0);
+			byMaxValue.sort(function(d,b)
 			{
-				return d.dot1 - b.dot1;
-			});      
-			filtered = byMinValue;
+				return d3.descending(+d.dot4,+b.dot4);
+			}); 
+
+			filtered = byMaxValue;
+
 		}
 
+/*
 		if (sort == 4)
 		{
 			var byMaxValue = filtered.slice(0);
@@ -116,13 +158,14 @@
 			});      
 			filtered = byValueGap;
 		}
+		*/
 
 		return filtered;
 	}
 
 	var createOrderingFilter = function()
 	{
-		var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By Happiness 2011 value descending", "By Happiness 2016 value descending", "By Life Satisfaction 2011 value descending", "By Life Satisfaction 2016 value descending", "By value Happiness gap ascending", "By Happiness value gap descending", "By value Life Satisfaction gap ascending", "By Life Satisfaction value gap descending"];
+		var alphaSort = ["- None -", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 

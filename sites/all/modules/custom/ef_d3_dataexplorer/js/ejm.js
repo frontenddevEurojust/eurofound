@@ -127,7 +127,9 @@
 					function hightlightRect(c,c2){
 						if(activeOption.indexOf('active') > 0){
 							$('#'+ IdParent + ' rect').css('opacity','0.1');
+							$('#'+ IdParent + ' rect').css('display','none');
 							$('#'+ IdParent + ' rect.'+c+'').css('opacity','1');
+							$('#'+ IdParent + ' rect.'+c+'').css('display','block');
 
 							$('.legend-list-butterfly li').css('opacity','0.4');
 							$('.legend-list-butterfly li.'+c2+'').css('opacity','1');	
@@ -135,6 +137,7 @@
 
 						}else{
 							$('#'+ IdParent + ' rect').css('opacity','1');
+							$('#'+ IdParent + ' rect').css('display','block');
 							$('.legend-list-butterfly li').removeClass('active').css('opacity','1');
 						}
 					}
