@@ -249,10 +249,7 @@
 		{
 			return +d[leftBar11];
 		});
-		var maxRight = d3.max(data, function(d)
-		{
-			return +d[rightBar];
-		});
+
 
 		var xLeft = function(d)
 		{
