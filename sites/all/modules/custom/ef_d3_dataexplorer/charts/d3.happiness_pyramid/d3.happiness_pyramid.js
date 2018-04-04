@@ -26,9 +26,6 @@
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	/**
-	 * TODO Ver qué ordenación es necesaria.
-	 */
 	var filterData = function(data, sort)
 	{
 		var filtered = data;
@@ -140,37 +137,6 @@
 		d3.select("#sort-filter").on("change", reloadOnSort);
 	}
 
-	/**
-	 * TODO Ver si es necesario incluir puntos 3 y 4.
-	 */
-	/*var calculateMinValue = function (data)
-	{
-		var minValue = 100;
-		data.forEach(function(row, index)
-		{
-			minValue = Math.min(minValue, row.dot1, row.dot2);
-		});
-		return minValue;
-	}*/
-
-	/*var lollipopLinePath = function(d)
-	{
-		return lineGenerator([[x(d.dot1), y(d.countryName) + (y.bandwidth() / 2) ], [x(d.dot2), y(d.countryName) + (y.bandwidth() / 2)]]);
-	};*/
-    
-	/**
-	 * TODO Ver si es necesario incluir puntos 3 y 4.
-	 */
-	/*var calculateMaxValue = function (data)
-	{
-		var maxValue = 0;    
-		var result = data.forEach(function(row, index)
-		{
-			maxValue = Math.max(maxValue, row.dot1, row.dot2);
-		});
-		return maxValue;
-	}*/
-
 	function buildGraphStructure (csv)
 	{
 		if ($(".label-sort").parents(".chart-filters").length === 0)
@@ -257,7 +223,6 @@
 		var xLeft = d3.scaleLinear().range([0,width]);
 		var xRight = d3.scaleLinear().range([0,width]);
 		
-		//var y = d3.scale.ordinal().rangeBands([20,height]);
 		var y = d3.scaleBand().range([20,height]);
 
 		buildGraphStructure(data);
@@ -284,10 +249,10 @@
 		{
 			return +d[leftBar11];
 		});
-		/*var maxRight = d3.max(data, function(d)
+		var maxRight = d3.max(data, function(d)
 		{
-			return d[rightBar];
-		});*/
+			return +d[rightBar];
+		});
 
 		var xLeft = function(d)
 		{
@@ -299,12 +264,6 @@
 		{
 			return (width)*d/d3.max(maxArray);
 		}
-
-		// var xRight = xLeft;
-		/*var xRight = function(d)
-		{
-			return (width-labelArea)*d/maxLeft;
-		}*/
 
     // Initialize tooltip
     tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
@@ -380,7 +339,6 @@
 
 
 
-
 		y.domain(data.map(function (d)
 		{
 			return d.countryName;
@@ -398,7 +356,6 @@
 		{
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
-
 
 
 		chart.selectAll("rect.left_L")
@@ -439,7 +396,8 @@
 			})
 			.attr("height", y.bandwidth()*0.4);
 	
-/*	
+/*	DATA OF EACH COUNTRY LEFT
+
 		chart.selectAll("text.leftscore_L")
 			.data(data)
 			.enter().append("text")
@@ -516,7 +474,8 @@
 				return xRight(d[rightBar11]);
 			})
 			.attr("height", y.bandwidth()*0.4);
-/*
+
+/* DATA OF EACH COUNTRY LEFT
 		chart.selectAll("text.score_H")
 			.data(data)
 			.enter().append("text")
@@ -552,7 +511,6 @@
 			.text(function(d){return d[rightBar16];});
 */
 		
-		
 
 		// Will be created using texts excel data
 		var legendLabels = [			
@@ -578,9 +536,9 @@
 
 		// add labels
 		var textLegend = ['start-l','end-l','start-r','end-r'];
+		
 		legend.selectAll("text").data(legendLabels).enter().append("text").attr("class", function(d, i)
 		{
-//alert(i);
 			return 'legend-text-'+textLegend[i];
 		}).attr("x", function(d, i)
 		{
