@@ -244,17 +244,22 @@
 		var labelArea = 120;
 		var chart = '';//500;
 		var width = jQuery('.chart-wrapper').width()/3;
-		//var height = 2*700;
-		//var height = 700;
-		var height = jQuery('.chart-wrapper').height();
-		var height = $(window).height()*.8;
+		var height = $(window).height()*.65;
+
+		if(height < 450){
+			height = 650;
+		}
+
 		var rightOffset = width + labelArea;
-		
-		var xLeft = d3.scaleLinear().range([0,width]).domain([0,width]);
+
+
+		// var xLeft = d3.scaleLinear().range([0,width]).domain([0,width]);
+		var xLeft = d3.scaleLinear().range([0,width]);
 		var xRight = d3.scaleLinear().range([0,width]);
+		
 		//var y = d3.scale.ordinal().rangeBands([20,height]);
 		var y = d3.scaleBand().range([20,height]);
-		
+
 		buildGraphStructure(data);
 		var order = d3.select('#sort-filter').property("value");
 		var data = filterData(data, order);
@@ -277,7 +282,7 @@
 		
 		var maxLeft = d3.max(data, function(d)
 		{
-			return d[leftBar11];
+			return +d[leftBar11];
 		});
 		/*var maxRight = d3.max(data, function(d)
 		{
@@ -286,10 +291,16 @@
 
 		var xLeft = function(d)
 		{
-			return (width-labelArea)*d/maxLeft;
+			// return (width-labelArea)*d/maxLeft;
+			return (width)*d/d3.max(maxArray);
 		}
 		
-		var xRight = xLeft;
+		var xRight = function(d)
+		{
+			return (width)*d/d3.max(maxArray);
+		}
+
+		// var xRight = xLeft;
 		/*var xRight = function(d)
 		{
 			return (width-labelArea)*d/maxLeft;
@@ -299,7 +310,7 @@
     tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
 
-		chart = d3.select(".chart-wrapper")
+		var chart = d3.select(".chart-wrapper")
 			.append("svg")
 			.attr('class', 'chart')
 			.attr('width', labelArea + 2*width)
@@ -311,14 +322,64 @@
 			.transition()
 			.duration(1500)
 			.style("opacity", 1);		
-		/*xLeft.domain(d3.extent(data, function (d)
+
+		/** MAX DATA VAR**/
+		var maxLeft11 = d3.max(data, function(d)
 		{
-			return d[leftBar11];
-		}));*/		
-		/*xRight.domain(d3.extent(data, function (d)
+			return +d[leftBar11];
+		});
+
+		var maxLeft16 = d3.max(data, function(d)
 		{
-			return d[rightBar];
-		}));*/
+			return +d[leftBar16];
+		});
+
+		var maxRight11 = d3.max(data, function(d)
+		{			
+			return +d[rightBar11];
+		});
+		var maxRight16 = d3.max(data, function(d)
+		{
+			return +d[rightBar16];
+		});
+
+
+		/** MAX DATA **/
+		var maxArray = [maxLeft11,maxLeft16,maxRight11,maxRight16];
+		var maxDataAxis =  Math.round(d3.max(maxArray)) + 1;
+		var stepAxisScale = Number(width * 1/maxDataAxis);
+
+		/** AXIS LEFT **/
+		var axisScaleLeft = d3.scaleLinear()
+			.domain ([ maxDataAxis , 0 ])
+			.range ([ 0 , width + stepAxisScale ]);
+
+		var xAxisLeft = d3.axisBottom()
+		    .scale(axisScaleLeft);
+
+	 var xAxisGroupLeft = chart.append ('g')
+	 			.attr('class', 'group-ticks-left')
+	 			.attr("x", width - xLeft(maxLeft11))
+	 			.attr("transform", "translate(" + Number(0 - stepAxisScale) + "," + height + ")")
+	 			.call (xAxisLeft);
+
+		/** AXIS RIGHT **/
+		var axisScaleRight = d3.scaleLinear()
+			.domain ([ 0 , maxDataAxis ])
+			.range ([ 0 , width + (width * 1/maxDataAxis) ]);
+
+		var xAxisRight = d3.axisBottom()
+		    .scale(axisScaleRight);
+
+	 var xAxisGroupRight = chart.append ('g')
+	 			.attr('class', 'group-ticks-right')
+	 			.attr("x", width - xRight(maxRight11))
+	 			.attr("transform", "translate(" + Number(rightOffset) + "," + height + ")")
+	 			.call (xAxisRight);
+
+
+
+
 
 		y.domain(data.map(function (d)
 		{
@@ -338,7 +399,8 @@
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
 
-		
+
+
 		chart.selectAll("rect.left_L")
 			.data(data)
 			.enter().append("rect")
@@ -350,13 +412,13 @@
 			.attr("class", "left11")
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar11] +"<p>");
       })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
 			})
-			.attr("height", y.bandwidth()*0.2);
+			.attr("height", y.bandwidth()*0.4);
 
 		chart.selectAll("rect.left_H")
 			.data(data)
@@ -369,13 +431,13 @@
 			.attr("class", "left16")
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar16] +"<p>");
       })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
 			})
-			.attr("height", y.bandwidth()*0.2);
+			.attr("height", y.bandwidth()*0.4);
 	
 /*	
 		chart.selectAll("text.leftscore_L")
@@ -433,12 +495,12 @@
 			.attr("class", "right16")
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar16] +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar16]);
 			})
-			.attr("height", y.bandwidth()*0.2);
+			.attr("height", y.bandwidth()*0.4);
 
 		chart.selectAll("rect.right_L")
 			.data(data)
@@ -448,12 +510,12 @@
 			.attr("class", "right11")
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar11] +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar11]);
 			})
-			.attr("height", y.bandwidth()*0.2);
+			.attr("height", y.bandwidth()*0.4);
 /*
 		chart.selectAll("text.score_H")
 			.data(data)

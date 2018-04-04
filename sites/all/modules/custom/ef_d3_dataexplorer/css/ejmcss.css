@@ -75,10 +75,9 @@ g.ticks text {
  }
  ul.legend-list-butterfly{
   list-style: none;
-  text-align: left;
+  text-align: center;
   width: auto;
   margin: 2rem auto 0 !important;
-  padding-left:9%;
 }
   ul.legend-list li, 
   ul.legend-list-butterfly li{
@@ -149,6 +148,9 @@ g.ticks text {
 .filters-jm-chart .group-filters  label.label-sort{
     margin-top: 1.5rem;
 }
+.filters-jm-chart .group-filters  label.label-sort:first-child{
+    margin-top: 0rem;
+}
 .filters-jm-chart .group-filters  label[for^="subg"]{
     margin-top: 1.5rem;
 }
@@ -190,7 +192,7 @@ g.ticks text {
 
 /** European Quality of Life Survey 2016 **/
 .chart-wrapper{
-
+  text-align: center;
 }
 .chart-wrapper .tick text{
   font-size: 12px;
@@ -548,4 +550,7 @@ svg text[class^='legend-text']{
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
+}
+svg{
+  //border: 1px solid #000 !important;
 }
