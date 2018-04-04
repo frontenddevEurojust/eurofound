@@ -1,45 +1,103 @@
 (function($) {
 
+  var getParameterByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
   Drupal.d3.ejm = function (select, settings) {
 
     var ejm = [];
     var stacked = 0;
 
+	var countryPar = getParameterByName('country');
     var countryFilter = d3.select("#country");
-
+	
+	$("#country").attr("multiple","multiple");
+	
     countryFilter.selectAll("option")
-      .data(settings.countries)
-      .enter().append("option")
-      .attr("value", function (d) { return d[0]; })
-      .text(function (d) { return d[1]; })
-      .property("selected", function(d){ return d[0] === "EU"; });
+		.data(settings.countries)
+		.enter().append("option")
+		.attr("value", function (d) { return d[0]; })
+		.text(function (d) { return d[1]; })		
+		.property("selected", function(d)
+		{
+			if(countryPar != null && countryPar.length > 0)
+			{
+				return d[0] === countryPar; 
+			}
+			else
+			{
+				return d[0] === "EU"; 
+			}
+		});
 
+	var periodFilterPar = getParameterByName('period');
     var periodFilter = d3.select("#period");
 
     periodFilter.selectAll("option")
-      .data(settings.period)
-      .enter().append("option")
-      .attr("value", function (d) { return d; })
-      .text(function (d) { return d; })
-      .property("selected", function(d){ return d === "2013-2016"; });;
+		.data(settings.period)
+		.enter().append("option")
+		.attr("value", function (d) { return d; })
+		.text(function (d) { return d; })
+		.property("selected", function(d)
+		{
+			if(periodFilterPar != null && periodFilterPar.length > 0)
+			{
+				return d === periodFilterPar; 
+			}
+			else
+			{
+				return d === "2013-2016"; 
+			}
+		});
 
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
+	var breakdownFilterPar = getParameterByName('breakdown');
     var breakdownFilter = d3.select("#breakdown");
 
     breakdownFilter.selectAll("option")
-      .data(breakdownKeys)
-      .enter().append("option")
-      .attr("value", function (d) { return d; })
-      .text(function (d) { return d; });
+		.data(breakdownKeys)
+		.enter().append("option")
+		.attr("value", function (d) { return d; })
+		.text(function (d) { return d; })
+		.property("selected", function(d)
+		{
+			if(breakdownFilterPar != null && breakdownFilterPar.length > 0)
+			{
+				return d === breakdownFilterPar; 
+			}
+			/*else
+			{
+				return d === "2013-2016"; 
+			}*/
+		});
 
-    var criterionFilter = d3.select("#criterion");
-
+    var criterionFilter = d3.select("#criterion");	
+	var criterionFilterPar = getParameterByName('criterion');
+	
     criterionFilter.selectAll("option")
-      .data(settings.criterion)
-      .enter().append("option")
-      .attr("value", function (d) { return d; })
-      .text(function (d) { return d; });
+		.data(settings.criterion)
+		.enter().append("option")
+		.attr("value", function (d) { return d; })
+		.text(function (d) { return d; })
+		.property("selected", function(d)
+		{
+			if(criterionFilterPar != null && criterionFilterPar.length > 0)
+			{
+				return d === criterionFilterPar; 
+			}
+			/*else
+			{
+				return d === "2013-2016"; 
+			}*/
+		});
 
     var stackedInput = 0;
 
@@ -63,6 +121,7 @@
       period = d3.select("#period").property('value');
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
+//alert(country);
 
       if (period == '2011-2013' || period == '2011-2016') {
         countryFilter.selectAll("option")
@@ -100,6 +159,9 @@
 
       var footNote = getFootnote(selection, settings.footnote);
 
+	  //this is the fraction of the maximum value which is added as a top and bottom margin.
+	  var topMargin = 0.05;
+	  var bottomMargin = 0.05;
       var rows = columnValues.map(function(d, i) { return d; }),
         // Use first value in each row as the label.
         xLabels = ['Low', 'Mid-low', 'Mid', 'Mid-high', 'High'],
@@ -110,8 +172,13 @@
         // - Return the highest (numeric) value from flat array.
         min = d3.min(d3.merge(columnValues).map(function(d) { (d > 0) ? minY = 0 : minY = d; return + minY; })),
         minStacked = getMinStackedValue(columnValues),
-        max = d3.max(d3.merge(columnValues).map(function(d) { (d <= 0) ? maxY = 0 : maxY = d; return + maxY; })),
-        maxStacked = getMaxStackedValue(columnValues),
+        max = d3.max(d3.merge(columnValues).map(function(d) { (d <= 0) ? maxY = 0 : maxY = d; return + maxY; }));
+		
+		//Adding a margin to the top of the graph.
+		max = max + max * topMargin;
+		min = min + min * bottomMargin;
+		
+        var maxStacked = getMaxStackedValue(columnValues),
         range = (min >= 0) ? max : max - min,
         rangeStacked = (minStacked >= 0) ? maxStacked : maxStacked - minStacked,
 
@@ -421,6 +488,40 @@
         return maxRange;
       }
 
+	  $('select').on('change', function () {
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('id');
+
+        if (valOption)
+		{ 
+			if(!document.location.search)
+			{
+				history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
+			}
+			else
+			{
+				if(document.location.search.indexOf(nameVar) > 0)
+				{
+alert(valOption);
+					if(nameVar == 'country' && (getParameterByName(nameVar).split(",")).length >= 4)
+					{
+						alert('Please choose a maximum of 4 four countries');
+					}
+					else
+					{
+						var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+						var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
+						history.pushState(null, "",  window.location.pathname + newVarString );
+					}
+				}
+				else
+				{
+					history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+				}
+			}
+        }
+        return false;
+      });
     }
   }
 })(jQuery);
