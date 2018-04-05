@@ -23,49 +23,43 @@
       return row.modalityCode == modality;
     });
 
-    if (sort == 1 || sort == 2) {
-      sort == 1 ? order = d3.ascending : order = d3.descending;
-      var filteredKeyed = d3.nest()
-        .key(function(d) { return d.countryName; }).sortKeys(order)
-        .entries(filtered);
+    if (sort == 0 ) {
+      // sort == 1 ? order = d3.ascending : order = d3.descending;
+      order = d3.ascending;
+      var filteredKeyed = d3.nest().key(function(d) { 
+        if(d.countryName != 'EU28'){
 
-      filtered = filteredKeyed.map(function(a) { return a.values[0];});
+          return d.countryName;
+
+        }else{
+
+          // firts element in the order
+          return 'AAAA'+d.countryName;
+        }; 
+      }).sortKeys(order).entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { 
+          return a.values[0];     
+      });
+
     }
 
-    if (sort == 3) {
+    if (sort == 1) {
       var byMinValue = filtered.slice(0);
       byMinValue.sort(function(d,b) {
-        return b.dot1 - d.dot1;
+        return d3.descending(+d.dot1,+b.dot1);
       });
       
       filtered = byMinValue;
     }
 
-    if (sort == 4) {
+    if (sort == 2) {
       var byMaxValue = filtered.slice(0);
       byMaxValue.sort(function(d,b) {
-        return b.dot2 - d.dot2;
+        return d3.descending(+d.dot2,+b.dot2);
       });
       
       filtered = byMaxValue;
-    }
-
-    if (sort == 5) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-
-    if (sort == 6) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
-      });
-      
-      filtered = byValueGap;
     }
 
     return filtered;
@@ -89,7 +83,9 @@
   }
 
   overallFunctions.createOrderingFilter = function() {
-    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
+    // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
+
+    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By own future 2016 value descending", "By (grand)children future 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -195,6 +191,8 @@
     var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
     var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
     
+
+
     padding = 0;
 
 
@@ -233,11 +231,15 @@
       .range([0, width])
       .nice();
 
+
+//console.log(domainMin + '------------->' +domainMax );
+
     xAxis.tickFormat(function(d,i) {
         if (i == 0) {
-          return domainMin;
+          var domainMinRound = x.domain()[0];
+          return d3.format(".0%")(domainMinRound/100);
         } else {
-          return d3.format(".2s")(d); 
+          return d3.format(".0%")(d/100); 
         }
     });
 
@@ -364,8 +366,8 @@
       }
 
       var legendLabels = [
-        {label: "(%) - 2007", class: "lollipop-start"}, 
-        {label: "(%) - 2016", class: "lollipop-end"},
+        {label: "% optimistic about future value", class: "lollipop-start"}, 
+        {label: "% optimistic about children's/grandchildren's future value", class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -430,8 +432,10 @@
       filteredData = overallFunctions.filterData(data, modalityCode, order);
 
       var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
-      var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
+      var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData)- 1);
       
+
+
       y = d3.scaleBand()
         .domain(filteredData.map(function(d) { return d.countryName }))
         .range([0, height])
@@ -441,6 +445,8 @@
         .domain([domainMin, domainMax])
         .range([0, width])
         .nice();
+
+  
       
       yAxis = d3.axisLeft().scale(y)
         .tickSize(0);
@@ -448,9 +454,10 @@
       xAxis = d3.axisTop().scale(x)
         .tickFormat(function(d,i) {
           if (i == 0) {
-            return domainMin;
+            var domainMinRound = x.domain()[0];
+            return d3.format(".0%")(domainMinRound/100);
           } else {
-            return d3.format(".2s")(d); 
+            return d3.format(".0%")(d/100); 
           }
         });
       
@@ -472,7 +479,7 @@
       };
 */       
       var axisLines = xAxisGroup.selectAll("path")
-        .data(x.ticks(10))
+        .data(x.ticks(0))
         .enter().append("path")
         .attr("class", "grid-line")
         .attr("d", axisLinePath);      
@@ -514,7 +521,7 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 + ' %' + "<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -531,7 +538,7 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 + ' %' + "<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
