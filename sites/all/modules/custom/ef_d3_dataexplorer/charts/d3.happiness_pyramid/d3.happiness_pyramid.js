@@ -406,7 +406,7 @@
 				return width - xLeft(d[leftBar11]);
 			})
 			.attr("y", yPosByIndexDown)
-			.attr("class", "left11")
+			.attr("class", function(d){return "left11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
         tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar11] +"<p>");
@@ -425,7 +425,7 @@
 				return width - xLeft(d[leftBar16]);
 			})
 			.attr("y", yPosByIndex)
-			.attr("class", "left16")
+			.attr("class", function(d){return "left16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
         tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar16] +"<p>");
@@ -475,14 +475,14 @@
 
 		chart.selectAll("text.name")
 			.data(data)
-			.enter().append("text")
+			.enter().append("text")			
 			.attr("x", (labelArea / 2) + width)
 			.attr("y", function (d) {
 				return y(d.countryName) + y.bandwidth() / 2;
 			})
 			.attr("dy", ".20em")
 			.attr("text-anchor", "middle")
-			.attr('class', 'name')
+			.attr("class", function(d){return "name "+d.countryCode;})
 			.text(function(d){return d.countryName;});
 
 		chart.selectAll("rect.right_H")
@@ -490,7 +490,7 @@
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndex)
-			.attr("class", "right16")
+			.attr("class", function(d){return "right16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
         tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar16] +"<p>");
@@ -505,7 +505,7 @@
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndexDown)
-			.attr("class", "right11")
+			.attr("class", function(d){return "right11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
         tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar11] +"<p>");

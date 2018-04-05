@@ -276,7 +276,7 @@ rect.left16:hover,
 rect.right11:hover, 
 rect.right16:hover{
   cursor: pointer;
-  fill: #000;
+  fill: #f16000;
   -webkit-transition: all 0.6s;
   transition: all 0.6s;
 }
