@@ -183,7 +183,7 @@ function ef_contract_update_7003() {
   //ERM Regulations
   $query = db_select('node', 'n');
   $query->fields('n', array('nid'));
-  $query->condition('n.type', 'erm_regulation');
+  $query->condition('n.type', 'ef_erm_regulation');
 
   $results = $query->execute()->fetchCol();
 
