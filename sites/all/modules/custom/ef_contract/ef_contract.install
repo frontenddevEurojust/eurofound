@@ -126,21 +126,23 @@ function ef_contract_update_7003() {
 
   $type = 'erm_support_instrument';
   $dk_tid = get_default_deliverable_kind_by_ct($type);
+  $service_type = get_service_type($dk_tid);
+  $service_type = reset($service_type);
+  
   foreach ($results as $nid) {
     $vid = get_node_current_vid($nid);
     $node = node_load($nid, $vid);
     $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
-    $service_type = get_service_type($dk_tid);
-    $node->field_ef_service_type['und'][0]['tid'] = reset($service_type);
+    $node->field_ef_service_type['und'][0]['tid'] = $service_type;
     $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
     if (in_array($node->field_ef_assign_to_country_group['und'][0]['target_id'], array_keys($removed_country_groups))) {
       $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
       $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
     }
     field_attach_update('node', $node);
-    print_r('values updated');
+    print_r('values updated || ');
     entity_get_controller('node')->resetCache(array($node->nid));
-    print_r('cache updated');
+    print_r('cache updated || ');
   }
 
   //Factsheets
@@ -155,6 +157,8 @@ function ef_contract_update_7003() {
   $cut_date = strtotime('2018-01-01');
   $type = 'ef_factsheet';
   $dk_tid = get_default_deliverable_kind_by_ct($type);
+  $service_type = get_service_type($dk_tid);
+  $service_type = reset($service_type);
 
   foreach ($results as $key => $value) {
     $announcement_date = strtotime($value->field_ef_announcement_date_value);
@@ -163,17 +167,16 @@ function ef_contract_update_7003() {
       $vid = get_node_current_vid($nid);
       $node = node_load($nid, $vid);
       $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
-      $service_type = get_service_type($dk_tid);
-      $node->field_ef_service_type['und'][0]['tid'] = reset($service_type);
+      $node->field_ef_service_type['und'][0]['tid'] = $service_type;
       $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
       if (in_array($node->field_ef_assign_to_country_group['und'][0]['target_id'], array_keys($removed_country_groups))) {
         $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
         $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
       }
       field_attach_update('node', $node);
-      print_r('guardado');
+      print_r('values updated || ');
       entity_get_controller('node')->resetCache(array($node->nid));
-      print_r('cache updated');
+      print_r('cache updated || ');
     }
   }
 
@@ -186,21 +189,22 @@ function ef_contract_update_7003() {
 
   $type = 'ef_erm_regulation';
   $dk_tid = get_default_deliverable_kind_by_ct($type);
+  $service_type = get_service_type($dk_tid);
+  $service_type = reset($service_type);
 
   foreach ($results as $nid) {
     $vid = get_node_current_vid($nid);
     $node = node_load($nid, $vid);
     $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
-    $service_type = get_service_type($dk_tid);
-    $node->field_ef_service_type['und'][0]['tid'] = reset($service_type);
+    $node->field_ef_service_type['und'][0]['tid'] = $service_type;
     $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
     if (in_array($node->field_ef_assign_to_country_group['und'][0]['target_id'], array_keys($removed_country_groups))) {
       $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
       $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
     }
     field_attach_update('node', $node);
-    print_r('values updated');
+    print_r('values updated || ');
     entity_get_controller('node')->resetCache(array($node->nid));
-    print_r('cache updated');
+    print_r('cache updated || ');
   }
 }
