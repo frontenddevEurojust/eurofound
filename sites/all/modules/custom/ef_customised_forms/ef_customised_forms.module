@@ -448,7 +448,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		            $real_weight = $record["rc_weight"];
 		        }
 				//Delta
-				$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
 			}
 		}
 		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
@@ -466,7 +466,7 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		            $real_weight = $record["rc_weight"];
 		        }
 				//Delta
-				$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+				//$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
 			}
 		}
 	}
@@ -491,7 +491,8 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		            $real_weight = $record["rc_weight"];
 		        }
 				//Delta
-				$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+				
 			}
 		}
 		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
@@ -509,7 +510,8 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		            $real_weight = $record["rc_weight"];
 		        }
 				//Delta
-				$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+				//$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+				
 			}
 		}
 	}
@@ -549,7 +551,7 @@ function ef_customised_forms_get_real_weight($id_contenido, $nid) {
 
     if ($result->rowCount()==1) {
     	while($record = $result->fetchAssoc()) {
-            return $record["rc_weight"];
+    		return $record["rc_weight"];
         }
     }else{
     	return false;
