@@ -319,6 +319,7 @@
       .attr("stroke-opacity", "1"); 
 
 
+
     // Chrome 1+
     var isChrome = !!window.chrome && !!window.chrome.webstore;
     if(isChrome){
@@ -481,7 +482,6 @@
         var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
         var domainMin = Math.round(calculateMinValue(filteredData) - 1);
 
-        console.log( filteredData );
         
         y = d3.scaleBand()
           .domain(filteredData.map(function(d) { return d.countryName }))
@@ -510,8 +510,8 @@
         var yAxisGroup = svg.append("g")
           .attr("transform", "translate(-10, 0)")
           .attr("class", "y-axis")
-          .call(yAxis)
-          .select(".domain").remove();    
+          .call(yAxis);
+          //.select(".domain").remove();    
         
         xAxisGroup = svg.append("g")
           .attr("class", "x-axis")
@@ -555,7 +555,7 @@
           })
           .on('mouseout', tip.hide)
           .on('mouseover', function(d) {
-            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1)+"<p>");
+            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) + "%" +"<p>");
             // Reset top for Firefox as onepage framework changes top values
             // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           });
@@ -573,7 +573,7 @@
           })    
           .on('mouseout', tip.hide)    
           .on('mouseover', function(d) {
-            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) +"<p>");
+            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) + "%" +"<p>");
             // Reset top for Firefox as onepage framework changes top values
             // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           });

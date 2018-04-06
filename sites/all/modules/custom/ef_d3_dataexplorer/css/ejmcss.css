@@ -516,6 +516,9 @@ svg text[class^='legend-text']{
 .legend-group, .y-axis path.domain{
   display: none !important;
 }
+.y-axis .tick line {
+  display: none;
+}
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
