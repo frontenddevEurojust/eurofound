@@ -32,6 +32,11 @@ drupal_add_js('sites/all/themes/effoundationtheme/js/board_member_page.js');
 
   <?php print $aux; ?>
 	<?php 
-		print $node->body['en'][0]['value'];
+
+    if(isset($content['field_ef_main_image'])){
+      print '<p class="main_image_goberningboard"><img src="' . $content['field_ef_main_image'][0]['#path']['path'] . '" ></p>';
+     } 
+
+		print $content['body'][0]['#markup'];
 	?>
 </section>

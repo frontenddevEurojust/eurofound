@@ -73,7 +73,7 @@
     
     var modalities = buildModalityOptions(data);
     
-    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'data');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'group');
 
     var options = select
       .selectAll('option')
@@ -425,7 +425,7 @@
 
       buildGraphStructure(data);
 
-      var modalityCode = getParameterByName('data');
+      var modalityCode = getParameterByName('group');
       var order = getParameterByName('sort');
 
       if (modalityCode == null) modalityCode = 1;

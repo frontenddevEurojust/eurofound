@@ -1,11 +1,61 @@
 	.cover-print{
 		display: none;
 	}
-  .page-break{
-    page-break-before:always !important;
-    background: #FFF !important;
-  }
 
+  	.page-break{
+    	page-break-before:always !important;
+    	background: #FFF !important;
+  	}
+	
+	.title-general-comparison{
+		display: none;
+	}
+
+	.hide-overlay{
+		display: none;
+	}
+
+	#overlay-eurofound{
+		display: none!important;
+	}
+
+	#overlay-eurofound-print{
+	  position:fixed;
+	  z-index:99999;
+	  top:0;
+	  left:0;
+	  bottom:0;
+	  right:0;
+	  background: rgba(255,255,255,0.8);
+	  transition: 1s 0.4s;
+	}
+
+	#overlay-eurofound-print .loading-position{
+		position: absolute;
+	    top: 50%;
+	    left: 45%;
+	    
+	}
+
+	#overlay-eurofound-print .loading-position img{
+		border: 0px;
+	    outline-width: 0px;
+	}
+
+	#overlay-eurofound-print .loading-position span{
+		padding-left: 0.5em;
+	}
+
+span.restructuring-view-title {
+    display: none;
+}
+  	.view-grouping .view-grouping-header{
+        display: none !important;
+    }
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
@@ -56,12 +106,18 @@
 	}
 
  @media only print{
+ 	html, body{
+ 		overflow: auto !important;
+ 	}
+span.restructuring-view-title {
+    display: none;
+}
 	.cover-print{
 		position: absolute;
 		top: 0cm;
 		left:0;
-		width: 21cm !important;
-		height: 29cm !important;
+		width: 100% !important;
+		height: 90vh !important;
 		display: block;
 		z-index: 9;
 		background: #FFF !important;
@@ -70,32 +126,39 @@
     page-break-before:always !important;
     background: #FFF !important;
   }
+	.view-grouping .view-grouping-header{
+   	display: none !important;
+  }
 	.cover-print img{
 		position: absolute;
-		width: 100% !important;
+		width: 92% !important;
 		z-index: 9;
-		left:-2cm;
+		left:0cm;
+		top: 1cm;
 	}
 	.title-cover{
 		position: absolute;
-		top:12cm;
+		top:6cm;
 		left: 30%;
 		width: 65%;
 		z-index: 10;
+		font-size:26pt;
 	}
 	.subtitle-cover{
 		position: absolute;
-		top:10cm;
+		top:8cm;
 		left: 30%;
 		width: 65%;
 		z-index: 10;
+		font-size:18pt;
 	}
 	.description-cover{
 		position: absolute;
-		top: 13.5cm;
+		top: 12cm;
 		left: 30%;
 		width: 60%;
 		z-index: 10;
+		font-size: 12pt;
 	}
 	.disclaimer-cover{
 		position: absolute;
@@ -110,7 +173,7 @@
 	.print-date-cover{
 		position: absolute;
 		text-align: right !important;
-		top: 28.5cm;
+		top: 25.2cm;
 		right:5%;
 		width: 30% !important;
 		display: block;
@@ -119,17 +182,26 @@
 	.content-comparision-item {
 		page-break-before:always !important;
 	}
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
 	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
 	  font-size: 1.5rem !important;
 	}
 	.erm-nat-title h2, .erm-titles h2 {
 	  margin: 0px 0 0 0 !important;
 	}
-
+	.erm-title-info.row{
+	  margin: 0 !important;
+	}
 	.field.field-name-field-country-erm-reg{
 		padding-bottom: 1em!important;
 	}
-
+  .erm-sources{
+  float: none !important;
+  page-break-before: auto;
+  }
 	.erm-phase{
 		text-align: left!important
 	}
