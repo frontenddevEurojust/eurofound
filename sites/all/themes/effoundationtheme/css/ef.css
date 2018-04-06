@@ -2522,7 +2522,7 @@ ul.pagination li:before,
 
 .sidebar .block .item-list a{
 	display: block!important;
-	padding: 8px 20px 8px 0px;
+	padding: 8px 20px 0px 0px;
 	width: 100%;
 	margin: 0px 0px 0px 0px;
 	letter-spacing: -0.04em;
@@ -5455,6 +5455,10 @@ ul.metadata-items li:first-child{
 }
 ul.metadata-items li:last-child{
   padding: 0px 0px 0px 4px !important;
+  margin-right: 0;
+}
+ul.metadata-items li.fix-padding{
+  padding: 0!important;
   margin-right: 0;
 }
 ul.metadata-items li a{
