@@ -176,6 +176,7 @@
 			.append('option')
 			.text(function (d, i) { return d; })
 			.property('value',function(d, i){ return i; });
+
 			
 		d3.select("#sort-filter").on("change", reloadOnSort);
 	}
@@ -590,6 +591,34 @@
 		{
 			return legendPosition.x + spaceBetween * i;
 		}).attr("cy", legendPosition.y).attr("r", 5).attr("class", function(d) { return d.class });
+
+
+			$('select').on('change', function () {
+        var valOption = $(this).val();
+        var nameVar = $(this).attr('name');
+
+        if (valOption) { 
+
+          if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+          }
+          else {    
+                        
+            if(document.location.search.indexOf(nameVar) > 0){  
+              // reemplazamos la variable de la URL con la nueva
+              var newVarString = document.location.search.replace(nameVar+'='+getParameterByName(nameVar),nameVar + '=' + valOption )
+              history.pushState(null, "",  window.location.pathname + newVarString );              
+            }
+            else {
+              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+
+            }
+          }              
+        }
+        return false;
+      }); 
+
+
 	}
 	
 })(jQuery);
