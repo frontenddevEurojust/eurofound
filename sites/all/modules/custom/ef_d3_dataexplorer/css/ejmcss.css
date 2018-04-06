@@ -160,7 +160,7 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.5em !important;
+    padding: 0.5em 1.5em 0.5em 0.7em !important;
     height: auto;
     color: #222;
 }

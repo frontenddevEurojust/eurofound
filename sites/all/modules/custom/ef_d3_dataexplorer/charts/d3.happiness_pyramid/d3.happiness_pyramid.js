@@ -165,7 +165,7 @@
 
 	var createOrderingFilter = function()
 	{
-		var alphaSort = ["- None -", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
+		var alphaSort = ["Ordered by sum of Happiness and Life Satisfaction for 2016", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
