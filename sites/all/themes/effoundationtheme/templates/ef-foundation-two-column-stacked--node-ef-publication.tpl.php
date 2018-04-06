@@ -110,33 +110,40 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 	</div> 
 	<div class="row">
 
-
-	<?php if($state != 'forthcoming'): ?>
-			
+	<!-- publication state is not forthcoming -->
+	<?php if($state != 'forthcoming'): ?>			
 		<?php if(isset($content['field_ef_document'][0]['#file']) || isset($content['field_ef_main_image'])): ?>
 			<div class="ds-node-side-info large-4 columns">			
 				<div class="field field-name-publication-preview">
+					<!-- checkbox ovwewrite is active -->
 					<?php if($overwrite_thumbnail == 1): ?>
+						<!-- If main image dont exits the pdf cover will be displayed  -->
 						<?php if (is_null($content['field_ef_main_image'])): ?>
 							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+						<!-- If main image exits it will be displayed  -->
 						<?php else: ?>
-							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?php print '<img src="' . $content['field_ef_main_image'][0]['#path']['path'] . '" >' ?></a>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>">
+								<?php print '<img src="' . image_style_url('publications_detail_339x480',$content['field_ef_main_image'][0]['#item']['uri']) . '" >' ?>
+							</a>
 						<?php endif; ?>
-
-
+					<!-- checkbox ovwewrite is false -->
 					<?php else: ?>
+						<!-- If pdf file dont exits the main image will be displayed  -->
 						<?php if (is_null($content['field_ef_document'][0]['#file']->uri)): ?>
 							<?php print render($content['field_ef_main_image']); ?>
+						<!-- If pdf file exits the cover pdf will be displayed  -->
 						<?php else: ?>
 							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
 						<?php endif; ?>					
 					<?php endif; ?>
-				</div>			
+				</div>	
+				<?php if($content['field_ef_document'][0]['#file']->uri): ?>		
 				<div class="field field-name-field-ef-document">				
-					<span class="file">
+					<span class="file">						
 						<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
 					</span>			
 				</div>
+				<?php endif ?>
 				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
 					<div class="field-order-label">
 						<?= $content['field_order_label'][0]['#markup']; ?>
@@ -147,13 +154,14 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 		<?php else: ?>
 			<div class="ds-node-content large-12 columns">
 		<?php endif; ?>
-
+	<!-- publication state is forthcoming -->
 	<?php else: ?>
 
 		<?php if (isset($content['field_ef_main_image'])): ?>
 			<div class="ds-node-side-info large-4 columns">
 				<div class="field field-name-publication-preview">
-					<?php print render($content['field_ef_main_image']); ?>
+					<?php print '<img src="' . image_style_url('publications_detail_339x480',$content['field_ef_main_image'][0]['#item']['uri']) . '" >' ?>
+					<?php //print render($content['field_ef_main_image']); ?>
 				</div>
 				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
 					<div class="field-order-label">

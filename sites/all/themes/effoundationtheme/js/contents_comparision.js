@@ -1,7 +1,17 @@
 (function ($) {
 
     "use strict";
+    
+    var pathname = window.location.pathname.split("/");
+    var textPager;
 
+    if(pathname[1] == 'restructuring-case-studies' || pathname[2] == 'restructuring-case-studies'){
+      textPager = 'Showing case';
+    }else if(pathname[1] == 'restructuring-related-legislation' || pathname[2] == 'restructuring-related-legislation'){
+      textPager = 'Showing case';
+    }else if(pathname[1] == 'restructuring-support-instruments' || pathname[2] == 'restructuring-support-instruments'){
+      textPager = 'Showing instruments';
+    }
 
     $.fn.cPager = function (config) {
         var defaultConfig = {            
@@ -46,7 +56,7 @@
                {
                   $("#" + config.pageid).css({"float":"right","text-align":"center"});
                }
-               var html = '<div class="turn-num"> Showing instrument: '+ config.pageIndex +' of '+ config.total +'</div>';
+               var html = '<div class="turn-num">' + textPager + ': '+ config.pageIndex +' of '+ config.total +'</div>';
                html += '<ul class="turn-ul">';
 
                html += '<li class="tz first" title="First"> << </li>';
@@ -172,3 +182,20 @@
         });
     };
 })(jQuery);
+
+
+//Loading when the comparison load
+jQuery(window).load(function(){
+
+  if ( jQuery('#pager').attr('data-pagecount') > 20 ) {
+      jQuery('.print-pdf').removeAttr("href");
+      jQuery('.print-pdf').removeAttr("onclick");
+      jQuery('.print-pdf').prop('title', 'It is not possible to export more than 20 elements to PDF');
+      jQuery('.print-pdf').addClass('disable-print-pdf');  
+  }
+
+  setTimeout(function() {
+      jQuery('#overlay-eurofound').fadeOut();
+      jQuery('.title-general-comparison').show();
+    }, 2000);
+});

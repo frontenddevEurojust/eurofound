@@ -535,10 +535,10 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     );
 
     $form['field_ef_deliverable_kind']['und']['#options'] = get_deliverable_kinds($context);
-    $form['field_ef_deliverable_kind']['und']['#required'] = FALSE;
+    $form['field_ef_deliverable_kind']['und']['#required'] = TRUE;
 
     $form['field_ef_service_type']['und']['#type'] = 'radios';
-    $form['field_ef_service_type']['und']['#required'] = FALSE;
+    $form['field_ef_service_type']['und']['#required'] = TRUE;
 
     $deliverable_kind_tid = $form['field_ef_deliverable_kind']['und']['#default_value'][0];
 

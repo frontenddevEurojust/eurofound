@@ -1,18 +1,18 @@
 <?php
 
 function ef_webform_limited_list_form_alter(&$form, $form_state, $form_id) {
-
   // add a checkbox to the webform component edit form
   if($form_id == 'webform_component_edit_form') {
     $componentId = $form['cid']['#value'];
     if($form['type']['#value'] == 'select') {
-	  if(isset($form['#node'])) {
-			$nodeObj = $form['#node'];
-		} else {
-			$nodeObj = node_load($form['nid']['#value']);
-	  }
-	$allComponentvalue=$nodeObj->webform['components'];
-	$componentvalue=$allComponentvalue[$componentId]['extra']['limited_supply'];
+      if(isset($form['#node'])) {
+        $nodeObj = $form['#node'];
+      } 
+      else {
+        $nodeObj = node_load($form['nid']['#value']);
+      }
+      $allComponentvalue=$nodeObj->webform['components'];
+      $componentvalue=$allComponentvalue[$componentId]['extra']['limited_supply'];
       $limited_supply = FALSE;
       $form['extra']['limited_supply'] = array(
         '#type' => 'checkbox',
@@ -24,21 +24,151 @@ function ef_webform_limited_list_form_alter(&$form, $form_state, $form_id) {
   }
 
   if(isset($form_state['webform'])) {
-	  $node = $form['#node'];
-	  if(!empty($node)) {
-		foreach($node->webform['components'] as $component) {
-		  if(isset($component['extra']['limited_supply']) && !empty($component['extra']['limited_supply'])) {
-			_webform_limited_list_remove_used_options($node->nid, $component['cid'], $component['form_key'], $form);
-		  }
-		}
-	  }
+    $node = $form['#node'];
+    if(!empty($node)) {
+      foreach($node->webform['components'] as $component) {
+        if(isset($component['extra']['limited_supply']) && !empty($component['extra']['limited_supply'])) {
+          _webform_limited_list_remove_used_options($node->nid, $component['cid'], $component['form_key'], $form);
+        }
+      }
+    }
   }
+  //WEM-950
+  if ($form['#id'] == 'views-exposed-form-webform-submissions2-procurement-submissions-view') {
+    drupal_add_js(drupal_get_path('module', 'ef_webform_limited_list') . '/js/ef_webform_limited_list.js');
+    drupal_add_css(drupal_get_path('module', 'ef_webform_limited_list') . '/css/ef_webform_limited_list.css');
+
+    $options = _ef_webform_limited_list_get_negotiated_procedures_options();
+    $form['negotiated_procedures'] = array(
+      '#type' => 'select',
+      '#title' => t('Negotiated procedures'),
+      '#options' => $options,
+    );
+  }
+  //END WEM-950
 }
 
 function _webform_limited_list_remove_used_options($nid, $cid, $cid_name, &$form) {
   $resource = db_query('SELECT data FROM {webform_submitted_data} sd inner join {webform_submissions} s on s.sid=sd.sid WHERE sd.nid= :nid AND sd.cid= :cid  AND is_draft=0 ', array(':nid' => $nid, ':cid' => $cid));
   foreach ($resource as $record) {
-	unset($form['submitted'][$cid_name]['#options'][$record->data]);
+    unset($form['submitted'][$cid_name]['#options'][$record->data]);
   }
 }
 
+//WEM-950
+function _ef_webform_limited_list_get_negotiated_procedures_options() {
+  //get NIDs of the relevant webforms
+  $nids = _ef_webform_limited_list_get_relevant_webforms();
+  //The get the sorted list of negociated procedures
+  $negociated_procedures = _ef_webform_limited_list_get_negociated_procedures_by_nid($nids);
+
+  return $negociated_procedures;
+}
+
+function _ef_webform_limited_list_get_relevant_webforms() {
+  //This feature applies to this webform types (taxonomy: Webform types)
+  $webform_types = array('22062', '22065', '22064', '22066');
+  //This query returns the nids
+  $query = db_select('node', 'n');
+  $query->innerJoin('field_data_field_webform_type', 'wt', 'n.nid = wt.entity_id');
+  $query->fields('n', array('nid'));
+  $query->condition('n.type', 'webform');
+  $query->condition('wt.field_webform_type_tid', $webform_types, 'IN');
+  $results = $query->execute()->fetchCol();
+
+  foreach ($results as $key => $nid) {
+    $nids[] = $nid;
+  }
+
+  return $nids;
+}
+
+function _ef_webform_limited_list_get_negociated_procedures_by_nid($nids) {
+  //We could use keys to prevent duplicates but at this point
+  //we thought it was better to use string comparison  $check_duplicates = array();
+  $check_duplicates = array();
+  //Now we get the negociated procedures
+  foreach ($nids as $key => $nid) {
+    //Query to get the involved webform components for each webform
+    $query = db_select('webform_component', 'wc');
+    $query->fields('wc', array('extra', 'cid'));
+    $query->condition('wc.nid', $nid);
+    //This is the only constraint, we need to identify the webform component
+    $query->condition('wc.form_key', '%negotiated_procedures%', 'LIKE');
+    $results = $query->execute()->fetchAll();
+    //Add an empty value in the options of the dropdown
+    $procedures[0] = '-Choose a value-';
+    
+    foreach ($results as $key => $obj) {
+      //Get serialised data from each component and unserialise it
+      $procedure = unserialize($obj->extra);
+      //We get all the components in a single string
+      //Explode to get separated values in an array
+      $explode_procedure = explode(PHP_EOL, $procedure['items']);
+      foreach ($explode_procedure as $key => $string_procedure) {
+        //Then split the values and the literals
+        $procedure = preg_split('/\| /', $string_procedure);
+        $procedure[1] = trim($procedure[1]);
+        //Save an array with all the values, duplicated values too
+        if (!empty($procedure[0])) {
+          $procedures_all[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
+        }
+        //An another array removing the duplicates
+        if (!in_array($procedure[1], $check_duplicates)) {
+          if (!empty($procedure[0])) {
+            $procedures[$nid . '-' . trim($procedure[0]) . '-' . $obj->cid] = $procedure[1];
+          }
+          $check_duplicates[] = $procedure[1];
+        }
+      }
+    }
+  }
+  //This array will be used to filter the view as it contains 
+  //a relationship between nids, cids and literals, so we need
+  //to store it. Not the best approach for performance.
+  variable_set('ef_webform_limited_list_negotiated_procedures', $procedures_all);
+  //This will be used to populate the dropdown. No duplicates.
+  return $procedures;
+}
+
+function view_php_filter_setup_code() {
+  //Get selected procedure
+  $url = $_SERVER['REQUEST_URI'];
+  $parts = parse_url($url);
+  parse_str($parts['query'], $query);
+  $selected_procedure = $query['negotiated_procedures'];
+  if (!empty($selected_procedure)) {
+    $sids=array(0);
+    //Get all procedures
+    $all_procedures = variable_get('ef_webform_limited_list_negotiated_procedures');
+    $string_procedure = $all_procedures[$selected_procedure];
+    $codes[] = $selected_procedure;
+    foreach ($all_procedures as $code => $procedure) {
+      if ($procedure == $string_procedure) {
+        $codes[] = $code;
+      }
+    }
+    foreach ($codes as $key => $code) {
+      $formatted_codes = preg_split('/\-/', $code);
+      $query = db_select('webform_submitted_data', 'wsd')->distinct();
+      $query->fields('wsd', array('sid'));
+      $query->condition('wsd.nid', $formatted_codes[0]);
+      $query->condition('wsd.cid', $formatted_codes[2]);
+      $query->condition('wsd.data', $formatted_codes[1]);
+      $results = $query->execute()->fetchCol();
+      foreach ($results as $key => $sid) {
+        $sids[] = $sid;
+      }
+    }
+    $static = $sids;
+  }
+}
+
+function view_php_filter_filter_code() {
+  //Hide all sids not matching the selected procedure
+  if (isset($static)) {
+    if (!in_array($row->sid, $static)) {
+      return TRUE;
+    }
+  }
+}

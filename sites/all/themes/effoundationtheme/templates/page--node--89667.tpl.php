@@ -190,6 +190,17 @@
   <main role="main" class="row l-main">
     <div class="<?php print $main_grid; ?> main columns">
       <div class="ef-main">
+
+      <ul class="button-group">
+        <?php foreach ($variables['tabs']['#primary'] as $item_name => $key): ?>
+        <?php if($key['#link']['title'] == 'View'): ?>
+        <li class="active"><a href="<?= $variables['tabs']['#primary'][$item_name]['#link']['href']; ?>" class="active small button secondary" ><?= $variables['tabs']['#primary'][$item_name]['#link']['title']; ?></a></li>
+        <?php else: ?>
+        <li><a href="<?= $variables['tabs']['#primary'][$item_name]['#link']['href']; ?>" class="small button secondary" ><?= $variables['tabs']['#primary'][$item_name]['#link']['title']; ?></a></li>
+        <?php endif; ?>
+        <?php endforeach; ?>
+      </ul>
+
         <h1 id="page-title" class="title secundary"><?php print $node->title; ?></h1>
 			<?php
 			  global $language;
@@ -212,46 +223,74 @@
           // dont translate if the user not login
           if(!user_is_logged_in()){
             $topic_term->name = trim($taxonomy_term->name);
-          }  
-		  		$alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];  	
+          }
+          
+          $alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value'];
+
+          // test translate alternative terms with login user
+          // $topic_term->name = trim($taxonomy_term->name);
+          //$alternative_terms_translate = $taxonomy_term->field_alternative_terms_topics[substr($_SERVER['REQUEST_URI'],1,2)][0]['value'];
 
 
-					if ($alternative_terms != '') {	
+
+
+					if ($alternative_terms_translate  != NULL) {	            
+            // $alternative_terms = $taxonomy_term->field_alternative_terms_topics[substr($_SERVER['REQUEST_URI'],1,2)][0]['value']; 
+            $alternative_terms = $taxonomy_term->field_alternative_terms_topics[$language->language][0]['value']; 
 						$alternative = explode("<br />",check_markup($alternative_terms));            
 						foreach ($alternative as $key => $alternative_item) {
 							$alternative_obj = new stdClass();
 							$alternative_obj->name = trim(strip_tags($alternative_item));
 							$alternative_obj->tid = $topic_term->tid;								
-							//$tree[] = $alternative_obj;
-							array_push($tree, $alternative_obj);								
+							array_push($tree, $alternative_obj);
+							
 						}								
-					}					
-			  }
+					}else{
+            $alternative_terms = $taxonomy_term->field_alternative_terms_topics['en'][0]['value']; 
+            if($alternative_terms != NULL){            
+              $alternative = explode("<br />",check_markup($alternative_terms));            
+              foreach ($alternative as $key => $alternative_item) {
+                $alternative_obj = new stdClass();
+                $alternative_obj->name = trim(strip_tags($alternative_item));
+                $alternative_obj->tid = $topic_term->tid;               
+                array_push($tree, $alternative_obj);
+              }
+            }
+          }		
 
+			  }
+        
 				function orderString($a, $b) {
 			    return strcasecmp($a->name, $b->name);
 				}
 				usort($tree, "orderString");
 				//natcasesort($tree);
+      
 
 				print "<ul class='terms-topics-list'>";
-				$start = true;
+				$start = true;        
 				foreach ($tree as $key  => $all_topic_term) {
+          $entity_name = $all_topic_term->name;
+          $topic_url = drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid);
+          $fixed_topic_url = str_replace('topics' , 'topic' , $topic_url);
+
 					if ($start == true) {
-						$group_letter = strtoupper(substr($all_topic_term->name,0,1));
+						$group_letter = strtoupper(mb_substr($all_topic_term->name,0,1));
 						print '<li class="group-by first"><h3>'. $group_letter .'</h3><ul class="sublist-topics">';
-            print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $all_topic_term->name . "</a></li>";
+            print "<li class='term-topic-item'><a href='". $fixed_topic_url ."' >" . $entity_name  . "</a></li>";
+           // krumo($all_topic_term->name);
 						$start = false;
 					}
           else {
-						if ($group_letter != strtoupper(substr($all_topic_term->name,0,1))) {
-							$group_letter = strtoupper(substr($all_topic_term->name,0,1));
+           
+						if ($group_letter != strtoupper(mb_substr($entity_name,0,1))) {
+							$group_letter = strtoupper(mb_substr($entity_name,0,1));
 							print '</ul>';
               print '<li class="group-by"><h3>' . $group_letter .'</h3><ul class="sublist-topics">';
-              print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $all_topic_term->name . "</a></li>";
+              print "<li class='term-topic-item'><a href='".  $fixed_topic_url ."' >" . $entity_name . "</a></li>";
 							$start = false;
 						} else {
-              print "<li class='term-topic-item'><a href='". drupal_get_path_alias('taxonomy/term/' . $all_topic_term->tid) ."' >" . $all_topic_term->name . "</a></li>";
+              print "<li class='term-topic-item'><a href='".  $fixed_topic_url ."' >" . $entity_name . "</a></li>";
             }
 					}				
 					
