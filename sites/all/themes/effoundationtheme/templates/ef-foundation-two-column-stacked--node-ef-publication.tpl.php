@@ -285,15 +285,11 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 					<?php endif; ?>
 
 				</ul>
-			</div>
-			
-	
-			<?php if(isset($content['group_ef_node_details']['field_term_subscription_url'])): ?>
-			<div class="field field-name-field-term-subscription-url field-type-text field-label-hidden field-wrapper">
-				
-				<?= $content['group_ef_node_details']['field_term_subscription_url'][0]['#markup']; ?>
-
-			</div>
+				<?php if($content['group_ef_node_details']['field_ef_subscription_msg']['#items'][0]['value'] == 1 &&
+							 $content['group_ef_node_details']['field_term_subscription_url']['#items'][0]['safe_value'] != ''): ?>				
+				<div class="field field-name-field-term-subscription-url field-type-text field-label-hidden field-wrapper">				
+					<?= $content['group_ef_node_details']['field_term_subscription_url'][0]['#markup']; ?>
+				</div>
 			<?php endif; ?>
 	
 		</div>
