@@ -25,7 +25,7 @@
 
       if(anchor_found != -1 && anchorUp != 'up'){
 
-        var active = window.location.href.match(/#+[a-z0-9\-\_\/\?\*\"\"\'\(\)\¡\!']+/);
+        var active = window.location.href.match(/#+[a-z0-9\-\%E2 %80 %93\%E2 %80 %94\–\%E2 %80 %9D\%E2 %80 %9C\_\/\?\*\"\"\'\(\)\¡\!']+/);
          
         active = active[0].substr(1);
 
@@ -75,7 +75,8 @@
 
             if(anchor_found != -1){
               // Replace #title value for the clicked one
-              var newURLString = window.location.href.replace(/#+[a-z0-9\-\_\/\?\*\"\"\'\(\)\¡\!']+/,'#' + active).replace('active','');
+              var newURLString = window.location.href.replace(/#+[a-z0-9\-\%E2 %80 %93\%E2 %80 %94\–\%E2 %80 %9D\%E2 %80 %9C\_\/\?\*\"\"\'\(\)\¡\!']+/,'#' + active).replace('active','');
+              console.log(newURLString);
               history.pushState(null, "", newURLString);
 
             }else{
