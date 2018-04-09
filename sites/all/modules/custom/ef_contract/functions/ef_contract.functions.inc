@@ -540,6 +540,12 @@ function get_default_deliverable_kind_by_ct($ct) {
     if ($ct == 'ef_factsheet' && $term->name_field['und'][0]['value'] == 'Provision of ERM factsheets') {
       return $term->tid;
     }
+    if ($ct == 'erm_support_instrument' && $term->name_field['und'][0]['value'] == 'ERM database on support instruments - 1 instrument update') {
+      return $term->tid;
+    }
+    if ($ct == 'ef_erm_regulation' && $term->name_field['und'][0]['value'] == 'ERM database on restructuring related legislation - 1 regulation update') {
+      return $term->tid;                                                       
+    }
   }
   return;
 }
