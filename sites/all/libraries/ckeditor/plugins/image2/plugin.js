@@ -249,10 +249,12 @@
 					var block = doc.createElement( editor.activeEnterMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 					block.replace( this.widget.wrapper );
 					this.widget.wrapper.move( block );
+					this.element.$.className = 'user-modify';
 				}
 
 				// The focus must be transferred from the old one (destroyed)
 				// to the new one (just created).
+				
 				if ( this.focused ) {
 					this.widget.focus();
 					delete this.focused;
@@ -264,7 +266,9 @@
 			// If now widget was destroyed just update wrapper's alignment.
 			// According to the new state.
 			else {
-				setWrapperAlign( this.widget, alignClasses );
+
+				setWrapperAlign( this.widget, alignClasses );		
+
 			}
 		}
 
