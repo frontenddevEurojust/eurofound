@@ -333,7 +333,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 	<!-- end comments -->
 
 	<div class="go-top-wrapper no-pdf">
-	  <a class="go-top fa-stack fa-2x" href="#up">
+	  <a class="go-top fa-stack fa-2x up" href="javascript:">
 	    <i class="fa fa-circle fa-stack-2x"></i>
 	    <i class="fa fa-angle-up fa-stack-1x fa-inverse"></i>
 	  </a>
