@@ -9,6 +9,8 @@
 	
 	.title-general-comparison{
 		display: none;
+		position: relative!important;
+		top:0!important;
 	}
 
 	.hide-overlay{
