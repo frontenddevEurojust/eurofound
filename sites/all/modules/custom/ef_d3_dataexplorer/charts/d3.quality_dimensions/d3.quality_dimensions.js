@@ -377,7 +377,7 @@
       
 			// Might need to be created with excel data
 			var legendLabels = [
-				{label: "Level of satisfaction", class: "lollipop-start"}, 
+				{label: "Level of satisfaction (1-10)", class: "lollipop-start"}, 
 				//{label: "(%) - 2016", class: "lollipop-end"},
 			];
       

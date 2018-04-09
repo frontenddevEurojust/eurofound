@@ -479,7 +479,7 @@
       };
 */       
       var axisLines = xAxisGroup.selectAll("path")
-        .data(x.ticks(0))
+        .data(x.ticks(10))
         .enter().append("path")
         .attr("class", "grid-line")
         .attr("d", axisLinePath);      
