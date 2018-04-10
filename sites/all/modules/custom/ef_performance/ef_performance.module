@@ -52,12 +52,17 @@ function _delete_and_remove_old_revisions($content_type = NULL, $date = NULL) {
   $result = $query->execute();
   $nids = $result->fetchAll();
 
+  //Special requirements for these types
+  $exception_types = array('erm_support_instrument', 'ef_erm_regulation');
+
   //Get all revisions
   foreach ($nids as $key => $item){
     $query = db_select('node_revision', 'nr')->distinct();
     $query->fields('nr', array('vid'));
     $query->condition('nr.nid', $item->nid);
-    $query->condition('nr.timestamp', $date, '<');
+    if (!in_array($item->type, $exception_types)) {
+      $query->condition('nr.timestamp', $date, '<');
+    }
   
     $result = $query->execute();
     $vids = $result->fetchAll();
@@ -87,17 +92,19 @@ function _delete_and_remove_old_revisions($content_type = NULL, $date = NULL) {
  *
  */
 function _save_old_revisions_to_drupal_archive($cropped) {
-  foreach ($cropped as $nid => $data) {
-    //Get the revision IDs to be archived
-    $revisions = _custom_revision_list($nid, $data);
+  if (!empty($cropped)) {
+    foreach ($cropped as $nid => $data) {
+      //Get the revision IDs to be archived
+      $revisions = _custom_revision_list($nid, $data);
 
-    if (!empty($revisions)) {
-      //This function contains the CRUD
-      _save_records_from_old_revisions($nid, $data['type'], $revisions);
-      //Prepare data for the csv output
-      $csv_output_data = array($nid, $data['title'], implode(',', $revisions));
-      //This function will append this data
-      _write_output_csv_file($csv_output_data);
+      if (!empty($revisions)) {
+        //This function contains the CRUD
+        _save_records_from_old_revisions($nid, $data['type'], $revisions);
+        //Prepare data for the csv output
+        $csv_output_data = array($nid, $data['title'], implode(',', $revisions));
+        //This function will append this data
+        _write_output_csv_file($csv_output_data);
+      }
     }
   }
 
@@ -263,3 +270,4 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
   }
 
   return;
+}

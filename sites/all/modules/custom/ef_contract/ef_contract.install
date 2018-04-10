@@ -170,9 +170,22 @@ function ef_contract_update_7003() {
       $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
       $node->field_ef_service_type['und'][0]['tid'] = $service_type;
       $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
-      if (in_array($node->field_ef_assign_to_country_group['und'][0]['target_id'], array_keys($removed_country_groups))) {
-        $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
-        $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
+      $gid = $node->field_ef_assign_to_country_group['und'][0]['target_id'];
+      $group = group_load($gid);
+      $pos = strpos($group->title, '2014-2018');
+      if ($pos !== false) {
+        $period = '/ 2014-2018/';
+        $replace = '';
+        $new_country_group_name = preg_replace($period, $replace, $group->title);
+        foreach ($groups as $gid => $title) {
+          if ($title == $new_country_group_name) {
+            $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
+          }
+        }
+      }
+      $user = get_user_by_mid($node->field_ef_assign_to_author['und'][0]['target_id']);
+      if (!isset($user->uid)) {
+        $node->field_ef_assign_to_author['und'][0]['target_id'] = get_leader_mid_by_gid($node->field_ef_assign_to_country_group['und'][0]['target_id']);
       }
       field_attach_update('node', $node);
       print_r('values updated || ');
@@ -202,9 +215,22 @@ function ef_contract_update_7003() {
     $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
     $node->field_ef_service_type['und'][0]['tid'] = $service_type;
     $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
-    if (in_array($node->field_ef_assign_to_country_group['und'][0]['target_id'], array_keys($removed_country_groups))) {
-      $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
-      $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
+    $gid = $node->field_ef_assign_to_country_group['und'][0]['target_id'];
+    $group = group_load($gid);
+    $pos = strpos($group->title, '2014-2018');
+    if ($pos !== false) {
+      $period = '/ 2014-2018/';
+      $replace = '';
+      $new_country_group_name = preg_replace($period, $replace, $group->title);
+      foreach ($groups as $gid => $title) {
+        if ($title == $new_country_group_name) {
+          $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $gid;
+        }
+      }
+    }
+    $user = get_user_by_mid($node->field_ef_assign_to_author['und'][0]['target_id']);
+    if (!isset($user->uid)) {
+      $node->field_ef_assign_to_author['und'][0]['target_id'] = get_leader_mid_by_gid($node->field_ef_assign_to_country_group['und'][0]['target_id']);
     }
     field_attach_update('node', $node);
     print_r('values updated || ');
