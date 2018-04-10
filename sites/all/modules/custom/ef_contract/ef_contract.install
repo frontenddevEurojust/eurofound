@@ -140,10 +140,10 @@ function ef_contract_update_7003() {
     if (!isset($user->uid)) {
       $node->field_ef_assign_to_author['und'][0]['target_id'] = get_leader_mid_by_gid($node->field_ef_assign_to_country_group['und'][0]['target_id']);
     }
-    //field_attach_update('node', $node);
-    //print_r('values updated || ');
-    //entity_get_controller('node')->resetCache(array($node->nid));
-    //print_r('cache updated || ');
+    field_attach_update('node', $node);
+    print_r('values updated || ');
+    entity_get_controller('node')->resetCache(array($node->nid));
+    print_r('cache updated || ');
   }
 
   //Factsheets
@@ -174,10 +174,10 @@ function ef_contract_update_7003() {
         $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
         $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
       }
-      //field_attach_update('node', $node);
-      //print_r('values updated || ');
-      //entity_get_controller('node')->resetCache(array($node->nid));
-      //print_r('cache updated || ');
+      field_attach_update('node', $node);
+      print_r('values updated || ');
+      entity_get_controller('node')->resetCache(array($node->nid));
+      print_r('cache updated || ');
     }
   }
 
@@ -206,9 +206,9 @@ function ef_contract_update_7003() {
       $node->field_ef_assign_to_country_group['und'][0]['target_id'] = $removed_country_groups[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
       $node->field_ef_assign_to_author['und'][0]['target_id'] = $new_country_group_leaders[$node->field_ef_assign_to_country_group['und'][0]['target_id']];
     }
-    //field_attach_update('node', $node);
-    //print_r('values updated || ');
-    //entity_get_controller('node')->resetCache(array($node->nid));
-    //print_r('cache updated || ');
+    field_attach_update('node', $node);
+    print_r('values updated || ');
+    entity_get_controller('node')->resetCache(array($node->nid));
+    print_r('cache updated || ');
   }
 }
