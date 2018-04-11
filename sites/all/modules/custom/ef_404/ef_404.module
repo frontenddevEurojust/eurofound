@@ -361,23 +361,3 @@ function ef_404_settings() {
   return system_settings_form($form);
 }
 
-/**
- * This function is used to handle the cases in which a url does not exist but its parent does. In those cases, Drupal considers them a valid URL, and it should not be the case.
- */
-function ef_404_init()
-{
-    $menu_item = menu_get_item();
-	//Getting valid URL.
-	$path = $menu_item['path'];
-	//Getting actual URL.
-    $href = $menu_item['href'];
-    $current_path = current_path();
-
-    // Check if the actual path ($current_path) is different than the Drupal assumption ($href)
-    if ($href != $current_path)
-	{
-		//If URLs do not match, redirect to "not found" page.
-        //return drupal_not_found();
-		drupal_goto('ef_404');
-    }
-}
