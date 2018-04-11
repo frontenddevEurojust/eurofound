@@ -211,7 +211,7 @@ function ef_contract_update_7003() {
     $node = node_load($nid, $vid);
     //WGS-367 requirement: Approved for Payment must be empty for 
     //Support Instruments and Regulations
-    $node->field_ef_approved_for_payment = array();
+    $node->field_approved_payment_erm_reg = array();
     $node->field_ef_deliverable_kind['und'][0]['tid'] = $dk_tid;
     $node->field_ef_service_type['und'][0]['tid'] = $service_type;
     $node->field_ef_author_contract['und'][0]['tid'] = get_equivalent_new_contract($node->field_ef_author_contract['und'][0]['tid'], $contracts);
