@@ -62,13 +62,14 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
 				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, <span class="country"></span>, <span class="period"></span></h2>
 				<div id="ejm-chart"></div>
+				<div class="legend-wrapper"></div>
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
 
 	<?php else: ?>
 
-	<div class="jm-filters-chart">
+	<div class="jm-filters-chart clearfix">
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
 	  		<fieldset>

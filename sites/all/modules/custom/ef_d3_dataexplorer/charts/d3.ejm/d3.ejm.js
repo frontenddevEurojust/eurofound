@@ -15,30 +15,40 @@
     var ejm = [];
     var stacked = 0;
 
-	var countryPar = getParameterByName('country');
-    var countryFilter = d3.select("#country");
-	
-	$("#country").attr("multiple","multiple");
+
+    if(getParameterByName('country') != null){
+      var countryPar = getParameterByName('country').split(",");
+    }else{
+      var countryPar = [];
+      countryPar.push("EU");
+    }
+
+
+    var countryFilter = d3.select("#country")
+      .attr("multiple","multiple")
+      .attr("class","chosen-select");
+
+
 	
     countryFilter.selectAll("option")
-		.data(settings.countries)
-		.enter().append("option")
-		.attr("value", function (d) { return d[0]; })
-		.text(function (d) { return d[1]; })		
-		.property("selected", function(d)
-		{
-			if(countryPar != null && countryPar.length > 0)
-			{
-				return d[0] === countryPar; 
-			}
-			else
-			{
-				return d[0] === "EU"; 
-			}
+  		.data(settings.countries)
+  		.enter().append("option")
+  		.attr("value", function (d) { return d[0]; })
+  		.text(function (d) { return d[1]; })		
+  		.property("selected", function(d)
+  		{
+  			if(countryPar.length != null ) {          
+          if( countryPar.indexOf(d[0]) != -1){
+            $('.chosen-select').val(countryPar).trigger("chosen:updated");
+            return d[0] === d[0]; 
+          } 
+  			}
 		});
 
+
+
 	var periodFilterPar = getParameterByName('period');
-    var periodFilter = d3.select("#period");
+  var periodFilter = d3.select("#period");
 
     periodFilter.selectAll("option")
 		.data(settings.period)
@@ -60,7 +70,7 @@
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
 	var breakdownFilterPar = getParameterByName('breakdown');
-    var breakdownFilter = d3.select("#breakdown");
+  var breakdownFilter = d3.select("#breakdown");
 
     breakdownFilter.selectAll("option")
 		.data(breakdownKeys)
@@ -79,7 +89,7 @@
 			}*/
 		});
 
-    var criterionFilter = d3.select("#criterion");	
+  var criterionFilter = d3.select("#criterion");	
 	var criterionFilterPar = getParameterByName('criterion');
 	
     criterionFilter.selectAll("option")
@@ -99,29 +109,62 @@
 			}*/
 		});
 
-    var stackedInput = 0;
+  var stackedInput = 0;
 
-    d3.select("#country").on("change", render_graph);
-    d3.select("#period").on("change", render_graph);
-    d3.select("#criterion").on("change", render_graph);
-    d3.select("#breakdown").on("change", render_graph);
+    //d3.select("#country").on("change", render_graph);    
+    function filtersOnChange(){
+      $("#ejm-chart svg").remove();
+      $(".d3-tip").remove();        
+      for(i=0;i<$('.chosen-select')[0].length;i++){
+       if($('.chosen-select')[0][i].selected == true){
+        render_graph( $('.chosen-select')[0][i].value );
+       } 
+      }
+    }
+
+    $('.chosen-select').on('change', function(evt, params) {
+        filtersOnChange();
+    });
+
+    d3.select("#period").on('change', function () {
+        filtersOnChange();
+    });
+
+    d3.select("#criterion").on('change', function () {
+        filtersOnChange();
+    });
+    d3.select("#breakdown").on('change', function () {
+        filtersOnChange();
+    });
+    // d3.select("#period").on("change", render_graph);
+    // d3.select("#criterion").on("change", render_graph);
+    //d3.select("#breakdown").on("change", render_graph);
 
     window.addEventListener("resize", render_graph);
  
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
-      render_graph();
+     // render_graph(settings.id);
+      for(i=0;i<countryPar.length;i++){
+        render_graph(countryPar[i] );
+      }
     });
 
-    function render_graph() {
 
-      d3.select("svg").remove();
+    function render_graph(c) {
+      if(c == 'ejm-chart'){
+        country = "EU";        
+      }else{
+        country = c;
+      }
+      
 
-      country = d3.select("#country").property('value');
+      // d3.select("#country").property('value')
       period = d3.select("#period").property('value');
       criterion = d3.select("#criterion").property('value');
       breakdown = d3.select("#breakdown").property('value');
-//alert(country);
+
+
 
       if (period == '2011-2013' || period == '2011-2016') {
         countryFilter.selectAll("option")
@@ -159,6 +202,9 @@
 
       var footNote = getFootnote(selection, settings.footnote);
 
+     // console.log( selection );
+     // console.log( settings.footnote );
+
 	  //this is the fraction of the maximum value which is added as a top and bottom margin.
 	  var topMargin = 0.05;
 	  var bottomMargin = 0.05;
@@ -184,8 +230,8 @@
 
         // Padding is top, right, bottom, left as in css padding.
         p = [50, 50, 30, 50, 60],
-        w = $("#ejm-chart").width(),
-        h = w * .60,
+        w = $("#ejm-chart").width()/2.5,
+        h = w * 1,
         // chart is 65% and 80% of overall height
         chart = {w: w * .90, h: h * .85},
         legend = {w: w * .50, h: h},
@@ -206,7 +252,7 @@
         z = d3.scaleOrdinal().range(settings.colors[breakdown]),
         div = (settings.id) ? settings.id : 'visualisation';
 
-      breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("") ;
+      breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("");
       d3.select(".country").text(countryText[0][1]);
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion.toLowerCase());
@@ -214,9 +260,11 @@
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
       /* SVG BASE */
+
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h + 90)
+        .attr('class',country)
         .append("g")
         .attr("transform", "translate(" + p[4] + "," + p[3] + ")")
         .call(tip);
@@ -226,6 +274,11 @@
           .on("start", function() { d3.select(this).style("opacity", 0); })
           .duration(850)
           .style("opacity", 1);
+
+      svg.append("text")
+        .attr("class","charts-title")
+        .attr("width", chart.w)
+        .text(countryText[0][1]);
 
       /* GREY BACKGROUND */
       svg.append("rect")
@@ -326,8 +379,10 @@
             tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
             //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           })
-          .on('mouseout', tip.hide);      }
-      else {
+          .on('mouseout', tip.hide);
+      }
+      else
+      {
         var bar = graph.selectAll('g.bars')
           .data(rows)
           .enter().append('g')
@@ -350,7 +405,27 @@
           .on('mouseout', tip.hide);
       }
 
+
       /* LEGEND */
+        
+      $(".legendHTML").remove();
+
+      var legendHTML = d3.select('.legend-wrapper')
+      .append("ul")
+      .attr("class","legendHTML");
+
+      var keys = legendHTML.selectAll(".legendHTML")
+        .data(key)
+        .enter().append("li")        
+        .text( function(d,i) { 
+           return d;            
+        });
+      keys.append("div")
+        .attr("style", function(d,i) { return  "background:"+d3.rgb(z(i)); });
+
+
+
+/*
       var legend = svg.append("g")
         .attr("class", "legend")
         .attr("transform", "translate(" + 0 + "," + (chart.h + 60) + ")");
@@ -431,15 +506,18 @@
           }
         });
       }
-
+*/
       divFootnotes = d3.select(".jm-footnote");
       divFootnotes.select("h3").remove();
       divFootnotes.selectAll("p").remove();
+      
       if (footNote[0]) {
         divFootnotes.append("h3").text("Note");
         $.each(footNote, function(key, value) {
           divFootnotes.append("p").text(value);
         });
+      }else{
+        // console.log( 'footnote ===>' + footNote);
       }
 
       function getColumnValues(json, breakdownColumns, datagrid) {
@@ -454,8 +532,7 @@
       }
 
       function getFootnote(json, footnotes) {
-        var footnote = []
-        
+        var footnote = [];
         if (json[0].Footnote == "A") {
           footnote[0] = footnotes.A;
         }
@@ -463,9 +540,8 @@
         if (json[0].Footnote == "AB") {
           footnote[0] = footnotes.A;
           footnote[1] = footnotes.B;
-        }
-        
-        return footnote;
+        } 
+        return footnote;       
       }
 
       function getMinStackedValue(array) {
@@ -488,40 +564,47 @@
         return maxRange;
       }
 
-	  $('select').on('change', function () {
-        var valOption = $(this).val();
-        var nameVar = $(this).attr('id');
-
-        if (valOption)
-		{ 
-			if(!document.location.search)
-			{
-				history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
-			}
-			else
-			{
-				if(document.location.search.indexOf(nameVar) > 0)
-				{
-alert(valOption);
-					if(nameVar == 'country' && (getParameterByName(nameVar).split(",")).length >= 4)
-					{
-						alert('Please choose a maximum of 4 four countries');
-					}
-					else
-					{
-						var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
-						var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
-						history.pushState(null, "",  window.location.pathname + newVarString );
-					}
-				}
-				else
-				{
-					history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
-				}
-			}
-        }
+	   $('select').on('change', function () {
+      var valOption = $(this).val();
+      var nameVar = $(this).attr('id');
+      if (valOption)
+  		{ 
+  			if(!document.location.search)
+  			{
+    				history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
+  			}
+  			else
+  			{
+    				if(document.location.search.indexOf(nameVar) > 0)
+    				{
+    					if(nameVar == 'country' && (getParameterByName(nameVar).split(",")).length >= 4)
+    					{
+    						// alert('Please choose a maximum of 4 four countries');
+    					}
+    					else
+    					{
+    						var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+    						var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
+    						history.pushState(null, "",  window.location.pathname + newVarString );
+    					}
+    				}
+    				else
+    				{
+    					history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+    				}
+    			}
+        }          
         return false;
       });
     }
+
+
+
+   // $(".chosen-select").chosen();
+    $(".chosen-select").chosen({
+      placeholder_text_multiple: "Select Some Options",
+      max_selected_options: 4,
+      allow_single_deselect: true
+    });
   }
 })(jQuery);
