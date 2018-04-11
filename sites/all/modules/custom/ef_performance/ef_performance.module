@@ -176,9 +176,12 @@ function _write_output_csv_file($data) {
   //Open file
   $csv = fopen('sites/default/files/deleted_revisions.csv', 'a');
   //Write file with the previously prepared array
-  fputcsv($csv, $data);
+  //fputcsv($csv, $data);
   //Close file
-  fclose($csv);
+  while(is_resource($csv)){
+    //Handle still open
+    fclose($csv);
+  }
 }
 
 /**
