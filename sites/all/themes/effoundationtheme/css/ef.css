@@ -7086,12 +7086,12 @@ html.js input.throbbing {
 .img-align-right img, 
 img.img-align-right{
 	float: right !important;
-	margin:0px 0px 20px 20px !important;
+	margin:20px 0px 20px 20px !important;
 }
 .img-align-left img, 
 img.img-align-left{
 	float: left !important;
-	margin:0px 20px 20px 0px !important;
+	margin:20px 20px 20px 0px !important;
 }
 .img-no-float img, 
 img.img-no-float{
