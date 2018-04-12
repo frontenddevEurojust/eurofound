@@ -295,7 +295,7 @@
       /* people (thousands) LITERAL) */
       svg.append("text")
         .attr("x", (chart.h / 2)-55)
-        .attr("y", -45)
+        .attr("y", -40)
         .attr("font-size", 12)
         .attr("transform","rotate(-90 "+ Number(chart.h/2) +" "+ Number(chart.h/2)+ ")")
         //.attr("style", "writing-mode: tb;")
@@ -597,6 +597,7 @@
         return false;
       });
     }
+
 
 
 
