@@ -238,9 +238,16 @@ g.ticks text {
 
 
 #ejm-chart svg {
-  width: 50% !important;
+  width: 50%;
  // height: 350px !important;
  // border: 1px solid #000 !important;
+}
+
+#ejm-chart.only-one {
+  text-align: center;
+}
+#ejm-chart.only-one svg{
+  width: 65%;
 }
 .legendHTML{
   list-style-type: none;
@@ -265,7 +272,9 @@ text.charts-title {
   font-family: Opensans-semibold-webfont;
   transform: translate(25%,-7px);
 }
-
+#ejm-chart.only-one text.charts-title {
+  transform: translate(33%,-7px);
+}
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   .jm-charts {

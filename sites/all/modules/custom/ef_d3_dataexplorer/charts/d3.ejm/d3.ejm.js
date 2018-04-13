@@ -10,6 +10,8 @@
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
+  var countryNames = [];
+
   Drupal.d3.ejm = function (select, settings) {
 
     var ejm = [];
@@ -18,8 +20,10 @@
 
     if(getParameterByName('country') != null){
       var countryPar = getParameterByName('country').split(",");
+      var urlVars = getParameterByName('country').split(",").length;
     }else{
       var countryPar = [];
+      var urlVars = 1;
       countryPar.push("EU");
     }
 
@@ -114,16 +118,39 @@
     //d3.select("#country").on("change", render_graph);    
     function filtersOnChange(){
       $("#ejm-chart svg").remove();
-      $(".d3-tip").remove();        
+      $(".d3-tip").remove();
+      countryNames.length = 0;
+
+      var countryTags = [];
+
       for(i=0;i<$('.chosen-select')[0].length;i++){
        if($('.chosen-select')[0][i].selected == true){
-        render_graph( $('.chosen-select')[0][i].value );
+        countryTags.push($('.chosen-select')[0][i].value);
        } 
       }
+      //***** NO SELECTED COUNTRY ******//
+      if( countryTags.length == 0 ){
+        d3.select(".country").text('');
+        $('.ejm-alert').css('display', 'block');
+        $('.jm-footnote').css('display', 'none');
+
+        
+      }else{
+        $('.ejm-alert').css('display', 'none');
+        $('.jm-footnote').css('display', 'block');
+        
+        for(i=0;i<$('.chosen-select')[0].length;i++){
+         if($('.chosen-select')[0][i].selected == true){
+          render_graph( $('.chosen-select')[0][i].value , countryTags.length );
+         } 
+        }
+      }
+
+
     }
 
     $('.chosen-select').on('change', function(evt, params) {
-        filtersOnChange();
+        filtersOnChange();        
     });
 
     d3.select("#period").on('change', function () {
@@ -140,24 +167,39 @@
     // d3.select("#criterion").on("change", render_graph);
     //d3.select("#breakdown").on("change", render_graph);
 
-    window.addEventListener("resize", render_graph);
+   // window.addEventListener("resize", render_graph);
  
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
      // render_graph(settings.id);
       for(i=0;i<countryPar.length;i++){
-        render_graph(countryPar[i] );
+        render_graph(countryPar[i], countryPar.length );
       }
     });
 
 
-    function render_graph(c) {
+    function render_graph(c, urlVars) {
       if(c == 'ejm-chart'){
         country = "EU";        
       }else{
         country = c;
       }
-      
+
+    // number of the charts
+    if( urlVars == 1 ){
+
+      $("#ejm-chart").addClass('only-one');
+      var widthSVG = $("#ejm-chart").width()*0.6;
+      var heightSVG = $("#ejm-chart").width()*0.45;
+
+    } else if( urlVars >= 2 ){
+
+      $("#ejm-chart").removeClass('only-one');
+      var widthSVG = $("#ejm-chart").width()/ 2.5;
+      var heightSVG = widthSVG*1;
+
+    }
+
 
       // d3.select("#country").property('value')
       period = d3.select("#period").property('value');
@@ -223,15 +265,16 @@
 		//Adding a margin to the top of the graph.
 		max = max + max * topMargin;
 		min = min + min * bottomMargin;
-		
+
+
         var maxStacked = getMaxStackedValue(columnValues),
         range = (min >= 0) ? max : max - min,
         rangeStacked = (minStacked >= 0) ? maxStacked : maxStacked - minStacked,
 
-        // Padding is top, right, bottom, left as in css padding.
-        p = [50, 50, 30, 50, 60],
-        w = $("#ejm-chart").width()/2.5,
-        h = w * 1,
+      // Padding is top, right, bottom, left as in css padding.
+      p = [50, 50, 30, 50, 60],
+      w = widthSVG,
+      h = heightSVG,
         // chart is 65% and 80% of overall height
         chart = {w: w * .90, h: h * .85},
         legend = {w: w * .50, h: h},
@@ -253,14 +296,20 @@
         div = (settings.id) ? settings.id : 'visualisation';
 
       breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("");
-      d3.select(".country").text(countryText[0][1]);
+
+      countryNames.push( countryText[0][1] );
+
+      d3.select(".country").text(countryNames.join( ', ' ) + ',');
       d3.select(".period").text(period);
       d3.select(".criterion").text(criterion.toLowerCase());
 
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
-      /* SVG BASE */
 
+
+
+
+      /* SVG BASE */
       var svg = d3.select('#' + div).append("svg")
         .attr("width", w)
         .attr("height", h + 90)
@@ -563,41 +612,40 @@
         });
         return maxRange;
       }
-
-	   $('select').on('change', function () {
-      var valOption = $(this).val();
-      var nameVar = $(this).attr('id');
-      if (valOption)
-  		{ 
-  			if(!document.location.search)
-  			{
-    				history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
-  			}
-  			else
-  			{
-    				if(document.location.search.indexOf(nameVar) > 0)
-    				{
-    					if(nameVar == 'country' && (getParameterByName(nameVar).split(",")).length >= 4)
-    					{
-    						// alert('Please choose a maximum of 4 four countries');
-    					}
-    					else
-    					{
-    						var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
-    						var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
-    						history.pushState(null, "",  window.location.pathname + newVarString );
-    					}
-    				}
-    				else
-    				{
-    					history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
-    				}
-    			}
-        }          
-        return false;
-      });
     }
 
+    
+    $('select').on('change', function () {
+      var valOption = $(this).val();
+      var nameVar = $(this).attr('id');
+      // console.log(valOption);
+      if (valOption) { 
+        $('.legend-wrapper').css('display','block');
+        if(!document.location.search) {
+            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
+        } else {
+          if(document.location.search.indexOf(nameVar) > 0) {
+            var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+            var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
+            history.pushState(null, "",  window.location.pathname + newVarString );
+          } else {
+            //console.log('nameVar  ------->' + nameVar);
+            history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+          }
+        }
+      } else {
+
+        if( valOption == null ){
+          var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+          var newVarString = document.location.search.replace(stringToReplace,'');
+          history.pushState(null, "",  window.location.pathname + newVarString );
+          $('.legend-wrapper').css('display','none');
+        }
+      
+
+      }       
+      return false;
+    });
 
 
 
@@ -607,5 +655,6 @@
       max_selected_options: 4,
       allow_single_deselect: true
     });
+
   }
 })(jQuery);
