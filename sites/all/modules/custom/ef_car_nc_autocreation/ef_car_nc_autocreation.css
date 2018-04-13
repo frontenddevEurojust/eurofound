@@ -1,13 +1,13 @@
 
-.page-car-nc-autocreation #edit-country2 .form-type-checkbox > input{
+.page-articles-autocreation #edit-country .form-type-checkbox > input{
 	visibility: hidden;
 }
 
-.page-car-nc-autocreation #edit-country2 .form-type-checkbox label > i {
+.page-articles-autocreation #edit-country .form-type-checkbox label > i {
     margin-right: 5px;
 }
 
-.page-car-nc-autocreation #edit-country2 .large-3.column.countries-col {
+.page-articles-autocreation #edit-country .large-3.column.countries-col {
     
     min-height: 200px;
 }
@@ -15,19 +15,27 @@
  /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (max-width: 40.063em) { 
 
-	.page-car-nc-autocreation #edit-country2 .large-3.column.countries-col {
+	.page-articles-autocreation #edit-country .large-3.column.countries-col {
 	    
 	    min-height: 160px;
 	}
 
 }
 
-#remove-back{
+.remove-button-file, #remove-back{
 	display: none;
 }
 
-table #remove-back{
-	display: block!important;
+#file-list-wrapper > table.sticky-enabled.tableheader-processed.sticky-table > thead > tr > th:nth-child(4){
+	width: 210px;
+	text-align: center;
+}
+
+table .remove-button-file{
+	display: flex!important;
+    top: 1em;
+    left: 2em;
+    float: right;
 }
 
 #edit-addallbutton{
@@ -46,3 +54,18 @@ table #remove-back{
 	clear: both;
 }
 
+#remove-backs{
+	float: right;
+    margin-top: -5.5em;
+    margin-right: 0.5em;
+ }
+
+ 
+ td{
+ 	height:  5em!important;
+ }
+
+ #remove-backs button{
+ 	font-size:0.9em;
+    margin-left: -5.6rem;
+ }
