@@ -104,18 +104,18 @@ $countview = count($result);
                                 print t("Topic: ");
                                 if (isset($node->field_ef_topic[$language->language])) {
                                     foreach ($node->field_ef_topic[$language->language] as $key => $topic){
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     }
                                 }else{
                                     foreach ( $node->field_ef_topic["und"] as $key => $topic ){ 
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path);
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     } 
                                 }
