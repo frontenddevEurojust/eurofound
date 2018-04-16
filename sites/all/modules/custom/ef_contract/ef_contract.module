@@ -1315,4 +1315,35 @@ function correct_bulk_contract_submit(&$form, $form_state) {
   }
 }
 
+/**
+ * Helper function to get current revision ID
+ */
+function get_node_current_vid($nid) {
+  $query = db_select('workbench_moderation_node_history', 'nh');
+  $query->fields('nh', array('vid'));
+  $query->condition('nh.nid', $nid);
+  $query->condition('nh.current', 1);
+
+  $vid = $query->execute()->fetchCol();
+
+  return $vid[0];
+}
+
+/**
+ * Helper function to get equivalent new contract 
+ */
+function get_equivalent_new_contract($old_contract, $contracts) {
+  $old_term = taxonomy_term_load($old_contract);
+  if ($old_term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022') {
+    return $old_term->tid;
+  }
+  $country = $old_term->field_ef_eu_related_countries['und'][0]['iso2'];
+  foreach ($contracts as $tid => $term) {
+    if ($term->field_ef_nec_period['und'][0]['value'] == '2018 - 2022' && $term->field_ef_eu_related_countries['und'][0]['iso2'] == $country) {
+      return $term->tid;
+    }
+  }
+
+  return;
+}
 
