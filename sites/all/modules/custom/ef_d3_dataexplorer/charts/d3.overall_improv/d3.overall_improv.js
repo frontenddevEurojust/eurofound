@@ -76,7 +76,7 @@
     var modalities = overallFunctions.buildModalityOptions(data);
     
     var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text('Group');
-    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'data');
+    var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'group');
 
     var options = select
       .selectAll('option')
@@ -423,7 +423,7 @@
 
       overallFunctions.buildGraphStructure(data);
 
-      var modalityCode = overallFunctions.getParameterByName('data');
+      var modalityCode = overallFunctions.getParameterByName('group');
       var order = overallFunctions.getParameterByName('sort');
 
       if (modalityCode == null) modalityCode = 1;
