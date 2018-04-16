@@ -473,9 +473,16 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 			}
 		}
 	}
-	if ($form['#form_id'] =='taxonomy_form_term' && $form["#term"]["vocabulary_machine_name"]=="ef_topics") {
-		$form['#submit'][] = "ef_customised_forms_related_content_taxonmy_submit";
 
+	//WGS-388
+	//When deleting a term, drupal loads it as an object
+	//and can lead to a fatal error, the fix will prevent this 
+	if (!is_object($form['#term'])) {
+		$vocabulary_machine_name = $form['#term']['vocabulary_machine_name'];
+	}
+
+	if ($form['#form_id'] =='taxonomy_form_term' && $vocabulary_machine_name == 'ef_topics') {
+		$form['#submit'][] = "ef_customised_forms_related_content_taxonmy_submit";
 		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
 		$form['field_ef_related_content']['#element_validate'] = array("ef_customised_forms_field_related_content_validate");
 		//Set Default Value
@@ -485,19 +492,17 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
-		        $query->fields('rc', array("rc_weight"));
-		        $query->condition('rc.nid', $nid, "=");
-		        $query->condition('rc.rc_id', $tid, "=");
-		        $result=$query->execute();
+        $query->fields('rc', array("rc_weight"));
+        $query->condition('rc.nid', $nid, "=");
+        $query->condition('rc.rc_id', $tid, "=");
+        $result=$query->execute();
 
-		        while($record = $result->fetchAssoc()) {
-		            $real_weight = $record["rc_weight"];
-		        }
-				//Delta
-				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
-				
+        while($record = $result->fetchAssoc()) {
+          $real_weight = $record["rc_weight"];
+        }
 			}
 		}
+
 		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
 			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
 			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->tid;
