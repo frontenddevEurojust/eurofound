@@ -22,6 +22,52 @@
       return row.modalityCode == modality && row.subgroupCode == subgroup && row.genderCode == gender;
     });
 
+    if (sort == 0)
+    {
+      // sort == 1 ? order = d3.ascending : order = d3.descending;
+      order = d3.ascending;
+      var filteredKeyed = d3.nest().key(function(d) { 
+        if(d.countryName != 'EU28'){
+
+          return d.countryName;
+
+        }else{
+
+          // firts element in the order
+          return 'AAAA'+d.countryName;
+        }; 
+      }).sortKeys(order).entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { 
+          return a.values[0];     
+      });
+
+    }
+
+    if (sort == 1)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot1,+b.dot1);
+      }); 
+
+      filtered = byMaxValue;
+
+    }
+
+    if (sort == 2)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot2,+b.dot2);
+      });      
+      filtered = byMaxValue;
+    }
+
+
+   /* 
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
       var filteredKeyed = d3.nest()
@@ -34,19 +80,19 @@
     if (sort == 3) {
       var byMinValue = filtered.slice(0);
       byMinValue.sort(function(d,b) {
-        return b.dot1 - d.dot1;
+        return Math.abs(Math.round(b.dot2)) < Math.abs(Math.round(d.dot2));
       });
       
       filtered = byMinValue;
     }
 
     if (sort == 4) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return b.dot2 - d.dot2;
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b) {
+        return Math.abs(Math.round(b.dot2)) > Math.abs(Math.round(d.dot2));
       });
       
-      filtered = byMinValue;
+      filtered = byMaxValue;
     }
 
     if (sort == 5) {
@@ -66,6 +112,7 @@
       
       filtered = byValueGap;
     }
+    */
 
     return filtered;
   }
@@ -119,7 +166,8 @@
   }
 
   var createOrderingFilter = function() {
-	var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
+    // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
+    var alphaSort = ["Alphabetically ascending (A-Z, with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
