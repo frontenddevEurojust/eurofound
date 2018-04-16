@@ -67,53 +67,6 @@
       filtered = byMaxValue;
     }
 
-    
-/*
-    if (sort == 1 || sort == 2) {
-      sort == 1 ? order = d3.ascending : order = d3.descending;
-      var filteredKeyed = d3.nest()
-        .key(function(d) { return d.countryName; }).sortKeys(order)
-        .entries(filtered);
-
-      filtered = filteredKeyed.map(function(a) { return a.values[0];});
-    }
-
-    if (sort == 3) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return d.dot2 - b.dot2;
-      });
-      
-      filtered = byMinValue;
-    }
-
-    if (sort == 4) {
-      var byMaxValue = filtered.slice(0);
-      byMaxValue.sort(function(d,b) {
-        return b.dot2 - d.dot2;
-      });
-      
-      filtered = byMaxValue;
-    }
-
-    if (sort == 5) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(Math.round(d.dot1) - Math.round(d.dot2)) - Math.abs(Math.round(b.dot1) - Math.round(b.dot2));
-      });
-      
-      filtered = byValueGap;
-    }
-
-    if (sort == 6) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(Math.round(b.dot1) - Math.round(b.dot2)) - Math.abs(Math.round(d.dot1) - Math.round(d.dot2));
-      });
-      
-      filtered = byValueGap;
-    }
-*/
     return filtered;
   }
 
@@ -150,7 +103,6 @@
   }
 
   var createOrderingFilter = function() {
-   // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];
     var alphaSort = [
       "Alphabetically ascending (A-Z, with EU28 first)",
       "By 2007 value descending",

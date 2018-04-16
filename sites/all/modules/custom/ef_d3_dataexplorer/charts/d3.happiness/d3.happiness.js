@@ -64,29 +64,7 @@
       });      
       filtered = byMaxValue;
     }
-
-
-    /*
-
-    if (sort == 5) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-
-    if (sort == 6) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-    */
-
+ 
     return filtered;
   }
 

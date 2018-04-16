@@ -65,53 +65,6 @@
       filtered = byMaxValue;
     }
 
-
-/*
-    if (sort == 1 || sort == 2) {
-      sort == 1 ? order = d3.ascending : order = d3.descending;
-      var filteredKeyed = d3.nest()
-        .key(function(d) { return d.countryName; }).sortKeys(order)
-        .entries(filtered);
-
-      filtered = filteredKeyed.map(function(a) { return a.values[0];});
-    }
-
-    if (sort == 3) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return b.dot1 - d.dot1;
-      });
-      
-      filtered = byMinValue;
-    }
-
-    if (sort == 4) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return b.dot2 - d.dot2;
-      });
-      
-      filtered = byMinValue;
-    }
-
-    if (sort == 5) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-
-    if (sort == 6) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-*/
     return filtered;
   }
 
