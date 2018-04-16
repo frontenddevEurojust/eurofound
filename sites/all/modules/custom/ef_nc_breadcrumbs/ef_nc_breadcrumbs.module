@@ -12,6 +12,7 @@
 function ef_nc_breadcrumbs_page_build(&$page) {
   global $user;
   global $base_url;
+  global $language;
   // Start with getting the current URL
   $path = current_path();
   $uri = drupal_get_path_alias($path);
@@ -31,7 +32,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
       $node = current($array_nodes);
 
       $content_type = $node['#bundle'];
-
+	  
       switch ($content_type) {
         //It's fine
         case 'ef_annual_progress_report':
@@ -209,13 +210,31 @@ function ef_nc_breadcrumbs_page_build(&$page) {
         case 'webform':
           # code...
           break;
-
+		  
+		//Used to create the Extranet content types breadcrumb.
+		case 'board_member_page':
+			if(isset($trail[1]))
+			{
+				$trail[1] = "<a href='/extranet'>Extranet</a>";
+			}
+		break;
+		  
         default:
           # code...
           break;
       }
+	  
+	  
     }
-
+	//Used to create the governing board view breadcrumb.
+	else if('_extranet_for_the_governing_board' === views_get_page_view()->name)
+	{
+		if(isset($trail[1]))
+		{
+			$trail[1] = "<a href='/extranet'>Extranet</a>";
+		}
+	}
+	
   $current_URL = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
   //collective wage bargaing exception #issue 3522. They show blocks instead of nodes, hence, URL approach
   $cwb = '/observatories/eurwork/collective-wage-bargaining/';
@@ -294,12 +313,21 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     $trail[1] = '<a href="/news">News</a>';
   }elseif ($pos_topics > 0){
 
-    $trail[1] = '<a href="/topic">Topics</a>';
+    $langUrl = substr($_SERVER['REQUEST_URI'],0,6);
+    if($langUrl == '/topic'){
+      $langUrl = '';
+    }else{
+      $langUrl = substr($_SERVER['REQUEST_URI'],0,3);
+    }
+
+    $trail[1] = '<a href="' .  $langUrl . '/topic">Topics</a>';
+
     //unset($trail[2]);
     $request = $_SERVER['REQUEST_URI'];
-    $term = str_replace("/topic/", "", $request);
+    $term = str_replace("topic/", "", $request);
     $term =  str_replace("-", " ", $term);
     $term = ucfirst($term);
+
   }
   //Out of if .. else as we want to override spotlight on cases. Conflict with news
   if ($pos_spotlight_on > 0){

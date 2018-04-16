@@ -49,18 +49,12 @@
   background: #666;
   color: #FFF;
 }
-#ef-content-inventory-download-form ul li input.form-submit:active {
-    background: #666;
-    color: #FFF;
-    border-color: #555;
-    text-shadow: #222 0 0px 0;
-}
-#ef-content-inventory-download-form ul + input.form-submit{
-  margin-top: 2rem;
-  border-radius: 0;
+input.form-submit-inventory{
+  margin-top: 2rem !important;
+  border-radius: 0 !important;
   padding: 0.5rem 1rem !important;
-  background: #f9f9f9;
-  margin-left: 20px;
+  background: #f9f9f9 !important;
+  margin-left: 20px !important;
 }
 #ef-content-inventory-download-form ul + input.form-submit:hover{
   background: #666;
@@ -77,22 +71,21 @@
   cursor: not-allowed;
   opacity: 0.5;
 }
-#edit-file-is-being-created{
+
+.ci-message {
   padding: 3rem;
   text-align: center;
   margin: 3rem 0;
   background: #f9f9f9;
--webkit-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
--moz-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
-}
-#edit-file-is-being-created > p{
   color: #a88d1b !important;
   font-size: 1rem;
   line-height: 1.8rem;
+  -webkit-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
+  -moz-box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
+  box-shadow: 0px 0px 8px 0px rgba(204,204,204,1);
 }
 
-#edit-file-is-being-created > p:before{
+p.ci-message:before {
   content: "\f071";
   font-family: 'fontawesome';
   margin-right: 5px;

@@ -154,26 +154,47 @@ function ef_content_inventory_download_form($form, &$form_state) {
   $generate = variable_get('ef_content_inventory_generate_on_cron');
   $generating = variable_get('ef_content_inventory_cron_working');
 
-  if ($generate || $generating) {
-    $form['file_is_being_created'] = array(
+  if ($generate) {
+    $form['file_will_be_created'] = array(
       '#type' => 'item',
-      '#markup' => '<p style="color:red">Currently there is a request to create a new content inventory file. This button will be disabled until the task is finished.</p>',
+      '#markup' => "<p class='ci-message'>Currently there is a request to create a new content inventory file. No new request can be submitted as long as this process is running. Alternatively, the current request can be dropped using the 'Stop process' button.</p>",
     );
   }
+  elseif ($generating) {
+    $form['file_is_being_created'] = array(
+      '#type' => 'item',
+      '#markup' => "<p class='ci-message'>Currently, a content inventory is being compiled. No new request can be submitted as long as this process is running. Alternatively, the current process can be stopped using the 'Stop process' button.</p>",
+    );
+  }
+
+  $form['unlock'] = array(
+    '#type' => 'submit',
+    '#value' => t('Stop process'),
+    '#disabled' => !$generate && !$generating,
+    '#attributes' => array('class' => array('form-submit-inventory')),
+  );
 
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Generate content inventory file'),
     '#disabled' => $generate || $generating,
+    '#attributes' => array('class' => array('form-submit-inventory')),
   );
 
   return $form;
 }
 
 function ef_content_inventory_download_form_submit($form, &$form_state) {
-  variable_set('ef_content_inventory_generate_on_cron', TRUE);
-  drupal_set_message('New file containing the content inventory will be created. As this is a long task it will be executed as a background process. The new file will be listed on this page after the task is finished.');
-  drupal_goto('/admin/config/content-inventory/download');
+  if ($form_state['clicked_button']['#id'] == 'edit-unlock') {
+    _reset_ci();
+  }
+  else {
+    variable_set('ef_content_inventory_generate_on_cron', TRUE);
+    drupal_set_message('New file containing the content inventory will be created. As this is a long task it will be executed as a background process. The new file will be listed on this page after the task is finished.');
+    drupal_goto('/admin/config/content-inventory/download');
+  }
+
+  return;
 }
 
 function ef_content_inventory_delete_file($form, &$form_state) {

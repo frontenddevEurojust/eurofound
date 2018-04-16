@@ -32,27 +32,30 @@ if(!empty($variables['ef_activities'])){
     <?php endif; ?>
 
     <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
-        <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
+        <?php if ($variables['featured_block'] != ''):  ?>
         <section class="large-9 columns">
         <?php else: ?>
         <section class="large-12 columns">
         <?php endif; ?>
             <?php if (isset($variables['summary']) || isset($variables['main_image'])): ?>
             <div class="topic-abstract">
-            <p>
-                <?php if (isset($variables['main_image'])): ?>
-                    <?= $main_image; ?>
-                <?php else: ?>
-                    <?php if(isset($variables['summary'])): ?>
-                    <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+
+
+
+                <p>
+                    <?php if (isset($variables['main_image'])): ?>
+                        <?= $main_image; ?>
+                    <?php else: ?>
+                        <?php if(isset($variables['summary'])): ?>
+                        <img src="/<?= drupal_get_path('module','ef_topics_page') . '/images/img-no-available.jpg'; ?>">
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
-            </p>
-            <p>
-                <?php if(isset($variables['summary'])): ?>
-                    <?= $summary; ?>
-                <?php endif; ?>
-            </p>
+                </p>
+                <p>
+                    <?php if(isset($variables['summary'])): ?>
+                        <?= $summary; ?>
+                    <?php endif; ?>
+                </p>
             </div>
             <?php endif; ?>
 
@@ -60,11 +63,30 @@ if(!empty($variables['ef_activities'])){
             <p class="topic-subscription"><a href="<?= $subscription_url; ?>" title="go to subscriptions page"><i class="fa fa-envelope-o" aria-hidden="true"></i>
             <?= t("Subscribe now and receive updates on Eurofound's work in the area of @title", array("@title" => $term->name)); ?></a></p>
             <?php endif; ?>
+
+            <!-- DESCRIPTION AREA -->
+
             <?php if(isset($variables['description'])): ?>
             <div class="topic-description">
                 <?= $description; ?>
             </div>
             <?php endif; ?>
+            <!-- END DESCRIPTION AREA -->
+
+
+            <!-- ONGOING WORK AREA -->
+            <?php if($variables['descriptionongoing'] != ""): ?>
+                <section class="section-ongoing-work" lang="en">
+                    <h2 class="title-ongoing" >
+                        <?= strip_tags($titleongoing); ?>
+                    </h2>
+                    <div class="description-ongoing">
+                        <?= $descriptionongoing; ?>
+                    </div>
+                </section>
+            <?php endif; ?>
+            <!-- END ONGOING WORK AREA -->
+
 
             <?php if (count($variables['topics'])): ?>
             <ul class="related-content-topic">
@@ -128,22 +150,11 @@ if(!empty($variables['ef_activities'])){
     </section>
     <?php endif; ?>
 
-    <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
+   <?php if ($variables['featured_block'] != ''):  ?>
     <aside class="large-3 columns">
-
-        <?php if (isset($variables['featured_block'])): ?>
         <div class="featured-block">
             <?= render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
         </div>
-
-        <?php endif; ?>
-
-        <?php if (isset($variables['related_links_block'])): ?>
-        <div class="related-links-block">
-            <?= render(field_view_field('taxonomy_term', $term, 'field_ef_related_links_block', array('label'=>'hidden'))); ?>
-        </div>
-        <?php endif; ?>
-
     </aside>
     <?php endif; ?>
 

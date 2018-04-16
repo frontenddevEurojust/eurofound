@@ -91,6 +91,7 @@ if (isset($content['field_ef_document'][0]['#file']))
 //Remove the day when the content is forthcoming
 $publication_date_forthcoming = preg_split('#\s+#', $content['group_ef_node_details']['published_on'][0]['#markup'], 2);
 $state == 'forthcoming' ? $publication_date = $publication_date_forthcoming[1] : $publication_date = $content['group_ef_node_details']['published_on'][0]['#markup'];
+$overwrite_thumbnail = $node->field_overwrite_thumbnail['und'][0]['value'];
 
 if (isset($content['group_ef_node_details']['field_ef_observatory']))
 
@@ -109,58 +110,68 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 	</div> 
 	<div class="row">
 
-
-	<?php if($state != 'forthcoming'): ?>
-			
-		<?php if(isset($content['field_ef_document'][0]['#file'])): ?>
-		<div class="ds-node-side-info large-4 columns">
-							
-			<div class="field field-name-publication-preview">
-				<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a> 
+	<!-- publication state is not forthcoming -->
+	<?php if($state != 'forthcoming'): ?>			
+		<?php if(isset($content['field_ef_document'][0]['#file']) || isset($content['field_ef_main_image'])): ?>
+			<div class="ds-node-side-info large-4 columns">			
+				<div class="field field-name-publication-preview">
+					<!-- checkbox ovwewrite is active -->
+					<?php if($overwrite_thumbnail == 1): ?>
+						<!-- If main image dont exits the pdf cover will be displayed  -->
+						<?php if (is_null($content['field_ef_main_image'])): ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+						<!-- If main image exits it will be displayed  -->
+						<?php else: ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>">
+								<?php print '<img src="' . image_style_url('publications_detail_339x480',$content['field_ef_main_image'][0]['#item']['uri']) . '" >' ?>
+							</a>
+						<?php endif; ?>
+					<!-- checkbox ovwewrite is false -->
+					<?php else: ?>
+						<!-- If pdf file dont exits the main image will be displayed  -->
+						<?php if (is_null($content['field_ef_document'][0]['#file']->uri)): ?>
+							<?php print render($content['field_ef_main_image']); ?>
+						<!-- If pdf file exits the cover pdf will be displayed  -->
+						<?php else: ?>
+							<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><img src="<?= $imageurl; ?>"></a>
+						<?php endif; ?>					
+					<?php endif; ?>
+				</div>	
+				<?php if($content['field_ef_document'][0]['#file']->uri): ?>		
+				<div class="field field-name-field-ef-document">				
+					<span class="file">						
+						<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
+					</span>			
+				</div>
+				<?php endif ?>
+				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+					<div class="field-order-label">
+						<?= $content['field_order_label'][0]['#markup']; ?>
+					</div>
+				<?php endif; ?>		
 			</div>
-			
-			<div class="field field-name-field-ef-document">
-				
-				<span class="file">
-					<a href="<?= file_create_url($content['field_ef_document'][0]['#file']->uri); ?>"><?= $content['field_ef_document'][0]['#file']->filename; ?></a>
-				</span>
-			
-			</div>
-
-			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-			<div class="field-order-label">
-					<?= $content['field_order_label'][0]['#markup']; ?>
-			</div>
-			<?php endif; ?>
-		
-		</div>
-
-		<div class="ds-node-content large-8 columns">
-
+			<div class="ds-node-content large-8 columns">
 		<?php else: ?>
-		<div class="ds-node-content large-12 columns">
+			<div class="ds-node-content large-12 columns">
 		<?php endif; ?>
-					
+	<!-- publication state is forthcoming -->
 	<?php else: ?>
 
 		<?php if (isset($content['field_ef_main_image'])): ?>
-		<div class="ds-node-side-info large-4 columns">
-			<div class="field field-name-publication-preview">
-				<?php print render($content['field_ef_main_image']); ?>
-			</div>
-		
-
-			<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
-			<div class="field-order-label">
-				<?= $content['field_order_label'][0]['#markup']; ?>
-			</div>
-			<?php endif; ?>
-		</div>
-		
-		<div class="ds-node-content large-8 columns">
-		<?php else: ?>
-		
-		<div class="ds-node-content large-12 columns">
+			<div class="ds-node-side-info large-4 columns">
+				<div class="field field-name-publication-preview">
+					<?php print '<img src="' . image_style_url('publications_detail_339x480',$content['field_ef_main_image'][0]['#item']['uri']) . '" >' ?>
+					<?php //print render($content['field_ef_main_image']); ?>
+				</div>
+				<?php if(isset($content['group_ef_node_details']['field_show_order_button'])): ?>
+					<div class="field-order-label">
+						<?= $content['field_order_label'][0]['#markup']; ?>
+					</div>
+				<?php endif; ?>
+			</div>			
+			<div class="ds-node-content large-8 columns">
+		<?php else: ?>			
+				<div class="ds-node-content large-12 columns">
 		<?php endif; ?>
 
 	<?php endif; ?>
@@ -274,15 +285,11 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 					<?php endif; ?>
 
 				</ul>
-			</div>
-			
-	
-			<?php if(isset($content['group_ef_node_details']['field_term_subscription_url'])): ?>
-			<div class="field field-name-field-term-subscription-url field-type-text field-label-hidden field-wrapper">
-				
-				<?= $content['group_ef_node_details']['field_term_subscription_url'][0]['#markup']; ?>
-
-			</div>
+				<?php if($content['group_ef_node_details']['field_ef_subscription_msg']['#items'][0]['value'] == 1 &&
+							 $content['group_ef_node_details']['field_term_subscription_url']['#items'][0]['safe_value'] != ''): ?>				
+				<div class="field field-name-field-term-subscription-url field-type-text field-label-hidden field-wrapper">				
+					<?= $content['group_ef_node_details']['field_term_subscription_url'][0]['#markup']; ?>
+				</div>
 			<?php endif; ?>
 	
 		</div>

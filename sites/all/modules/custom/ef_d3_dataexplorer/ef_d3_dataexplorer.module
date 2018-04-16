@@ -102,7 +102,7 @@ function d3_ejm() {
 
 /**
  * Helper callback to return all sample libraries located inside this custom module.
- * New charts should be added here aswell.
+ * New charts should be added here as well.
  */
 function d3_custom_libraries() {
   return array(
@@ -114,7 +114,15 @@ function d3_custom_libraries() {
     'd3.overall_improv',
     'd3.social_excl',
     'd3.tensions',
-    'd3.work_life'
+    'd3.work_life',
+    'd3.living_optimistic',
+    'd3.living_satisfaction',
+    'd3.living_ends',
+    'd3.living_economising',
+    'd3.balance_care',
+	'd3.quality_dimensions',
+    'd3.internet',
+    'd3.happiness_pyramid'
   );
 }
 
@@ -240,6 +248,146 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
       'id' => 'work-life-chart',
 
       'type' => 'work_life'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_optimistic'){
+
+    $chart = [
+
+      'id' => 'living-optimistic-chart',
+
+      'type' => 'living_optimistic'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_satisfaction'){
+
+    $chart = [
+
+      'id' => 'living-satisfaction-chart',
+
+      'type' => 'living_satisfaction'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_ends'){
+
+    $chart = [
+
+      'id' => 'living-ends-chart',
+
+      'type' => 'living_ends'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_economising'){
+
+    $chart = [
+
+      'id' => 'living-economising-chart',
+
+      'type' => 'living_economising'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'balance_care'){
+
+    $chart = [
+
+      'id' => 'balance-care-chart',
+
+      'type' => 'balance_care'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'quality_dimensions'){
+
+    $chart = [
+
+      'id' => 'quality-dimensions-chart',
+
+      'type' => 'quality_dimensions'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'internet'){
+    $chart = [
+
+      'id' => 'internet-chart',
+
+      'type' => 'internet'
+    ];
+
+    d3_draw($chart);
+
+    $settings['language'] = $language->language;
+
+    drupal_add_js(array('ef_d3_dataexplorer' => $settings), 'setting');
+
+    return;
+  }
+  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'happiness_pyramid'){
+    $chart = [
+
+      'id' => 'happiness-pyramid-chart',
+
+      'type' => 'happiness_pyramid'
     ];
 
     d3_draw($chart);

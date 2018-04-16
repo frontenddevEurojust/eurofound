@@ -1,6 +1,16 @@
 /** working life country profiles **/
-h1.title-working-life {
+h2.title-working-life, 
+h2.title-living-country {
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+  font-size: 2.1em;
   margin-top: 4rem;
+  margin-bottom: 0.2em;
+  margin-top: 0px;
+  letter-spacing: -0.05em;
+  line-height: 1.1em;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  text-align: left;
 }
 .node-type-ef-working-life-country-profiles p:empty{
   display: none;
@@ -119,7 +129,7 @@ ul.list-metadata li > ul li:first-child:before{
   background: #f9f9f9;
   padding: 1rem;
 }
-.wp_about h2{
+.wp_about h3{
   border-bottom: 1px dotted #ccc;
   font-family: 'Opensans-light-webfont';
 }
@@ -184,7 +194,6 @@ ul.list-metadata li > ul li:first-child:before{
 .field.field-name-field-ef-country-img-caption {
   background-color: rgba(255,255,255,0.8) !important;
   bottom: 0;
-  position: absolute;
   padding: 10px;
   font-size: 12px;
 }
@@ -205,7 +214,7 @@ ul.list-metadata li > ul li:first-child:before{
   margin-right: 5px;
   font-size: 22px;
 }
-.section-living-working h3 i{
+.section-living-working h4 i{
   display: none;
 }
 .section-living-working .active i {
@@ -243,18 +252,21 @@ ul.list-metadata li > ul li:first-child:before{
   left: 7px;
 }
 
-.section-container .content h3{
+.section-container .content h3, 
+.section-container .content h4{
   font-family: Opensans-semibold-webfont;
   color: #444;
   font-size: 1.1rem;
   margin-bottom: 1rem;  
 } 
+.section-container .content h3, 
 .section-container .content h4{
   font-family: Opensans-bold-webfont;
   color: #444;
   font-size: 14px; 
     margin-top: 0; 
 } 
+.section-living-working .content h3 a:after, 
 .section-living-working .content h4 a:after{
   font-size: 10px;  
 }
@@ -381,7 +393,8 @@ ul.list-metadata li > ul li:first-child:before{
 .wp_about ul li > span:first-child{
   font-family:'OpenSans-Semibold-Webfont';
 }
-h1.title-working-life .fa{
+h2.title-working-life .fa, 
+h2.title-living-country .fa{
   color: #F58020;
   margin-right: 10px;
   font-size: 36px;
@@ -538,7 +551,8 @@ h1.title-working-life .fa{
   .quarterly-overviews {
     width: 100%;
   }
-  .quarterly-overviews h3 {
+  .quarterly-overviews h3, 
+  .quarterly-overviews h4 {
     margin-top: 1rem !important;
   }
   .quarterly-overviews .view-content{
@@ -603,7 +617,8 @@ h1.title-working-life .fa{
   .quarterly-overviews {
     width: 100%;
   }
-  .quarterly-overviews h3 {
+  .quarterly-overviews h3, 
+  .quarterly-overviews h4 {
     margin-top: 1rem !important;
   }
   .quarterly-overviews .view-content{
@@ -632,7 +647,8 @@ h1.title-working-life .fa{
 }
 @media only screen and (max-width : 767px) { 
 
-  h1.title-working-life .fa {
+  h2.title-working-life .fa, 
+  h2.title-living-country.fa {
     color: #F58020;
     margin-right: 10px;
     font-size: 36px;
@@ -729,7 +745,7 @@ h1.title-working-life .fa{
   .section-container.vertical-tabs > section{
     position: relative;
   }
-  .section-container.vertical-tabs > section > h2.title:after {
+  .section-container.vertical-tabs > section > h3.title:after {
     content: "\f107" !important;
     font-family: 'FontAwesome';
     width: 30px;
@@ -748,7 +764,7 @@ h1.title-working-life .fa{
     transition: all .20s;
     font-size: 22px !important;
   }
-  .section-container.vertical-tabs > section > h2.title.active:after {
+  .section-container.vertical-tabs > section > h3.title.active:after {
      content: "\f106" !important; 
   }
   .section-country .print-pdf-wrapper {

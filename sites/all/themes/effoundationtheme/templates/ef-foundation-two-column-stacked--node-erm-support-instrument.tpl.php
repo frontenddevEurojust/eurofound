@@ -20,9 +20,12 @@
 <!-- go back button BACK END -->
 <?php if(in_array('authenticated user', $user->roles)): ?>
 	<div class="back-erm-list-button-div">
+	<?php if(strpos($_SERVER['HTTP_REFERER'], 'admin')): ?>	
 		<a href="<?php echo $url; ?>"><?php print t("Go back to admin page")?></a>		
+	<?php else: ?>
+		<a href= <?php print $_SERVER['HTTP_REFERER'] ?>><?php print t("Go back to list")?></a>
+	<?php endif; ?>
 	</div>
-
 <!-- go back button FRONT END-->
 <?php elseif(in_array('anonymous user', $user->roles)): ?>
 	<div class="back-erm-list-button-div">
@@ -46,20 +49,6 @@
 <?php print print_insert_link();?>
 <!-- ARTICLE -->
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-
-	<?php if(!in_array('authenticated user', $user->roles)): ?>
-		<div class="erm-legal-disclaimer">
-			<p><?php print t("Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures 
-				in the Member States of the European Union and Norway. National governments, employers’ organisations and trade 
-				unions are among the bodies providing support for companies that need to restructure and the affected employees. 
-				The support instruments are described in terms of their characteristics, involved actors, funding sources, strengths, 
-				weaknesses and outcomes. The aim is to inform governments, social partners and others involved about what kinds of 
-				support can be offered."); ?>
-			</p>
-			
-		</div>
-	<?php endif; ?>
-
 	<!-- COUNTRY / PHASE / TYPE -->
 	<div class="erm-title-info row">
 		<div class="erm-country small-6 columns">

@@ -108,7 +108,7 @@
 	width: 100%;
 }
 #node_ef_publication_full_group_ef_node_details .field{
-	padding-left: 30%!important;
+	padding-left: 30%;
 	line-height: 1.1em;
 	overflow: hidden;
 	text-align: left;
@@ -193,7 +193,9 @@ ul.metadata-publications > li > ul li {
     padding: 0;
 }
 
-
+.field-name-field-term-subscription-url{
+  padding-left: 0%!important;
+}
 .field-name-field-term-subscription-url .topic-subscription {
     margin-bottom: 2.5em;
     margin-top: 1em;
@@ -243,7 +245,16 @@ ul.metadata-publications > li > ul li {
 .field-name-field-ef-main-image img{
 	width:100%;
 }
-
+.logged-in .node-ef_publication-form .media-widget .preview {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 120px;
+  height: 120px;
+  background: #F2F3F3 url(no-image.svg);
+  background-size: cover;
+  vertical-align: bottom;
+}
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) 

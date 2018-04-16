@@ -95,29 +95,82 @@ function ef_topics_page_theme(){
  */
 function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
     
-  if($form['#id'] == 'taxonomy-form-term')
-  {
-    
+  if($form['#id'] == 'taxonomy-form-term') {
     // For checkboxes checked condition needs to be used
     $form['field_term_subscription_url']['#states'] = array(
-        'visible' => array(
-            'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
-        )
+      'visible' => array(
+        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+      )
     );
 
     $form['field_term_key_topic']['#states'] = array(
-        'visible' => array(
-            'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
-        )
+      'visible' => array(
+        'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
+      )
     );
 
     // Hide last updated field as it is populated automatically
     $form['field_term_last_updated']['#type'] = 'hidden';
     
     drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_edit_form.js');
-
   }
 
+  if (isset($form["field_ef_topic"])) {
+    array_unshift($form["#submit"], "_ef_topics_page_update_last_modified_date_term");
+  }
+}
+
+function _ef_topics_page_update_last_modified_date_term($form, &$form_state){
+  if ((!isset($form['#node']->published_at) || $form['#node']->published_at == 0) && $form_state['values']['workbench_moderation_state_new'] == 'published') {
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
+    $new_publication = TRUE;
+  }
+  elseif ($form_state['values']['workbench_moderation_state_new'] == 'published' && $form_state['values']['workbench_moderation_state_current'] == 'forthcoming') {
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
+    $new_publication = TRUE;
+  }
+  elseif ($form_state['values']['workbench_moderation_state_new'] == 'published') {
+    $node_publication_date = strtotime($form_state['values']['pubdate']);
+  }
+  else {
+    return;
+  }
+  $node_topics = $form['field_ef_topic']['und']['#default_value'];
+  $form_state_topics = array();
+  $new_topics = array();
+  foreach ($form_state['values']['field_ef_topic']['und'] as $value) {
+    $form_state_topics[] = $value['tid']; 
+  }
+  $new_topics = array_diff($form_state_topics, $node_topics);
+  if ($new_publication) {
+    foreach ($form_state_topics as $topic) {
+      $term = taxonomy_term_load($topic);
+      if ($term->vocabulary_machine_name == 'ef_topics') {
+        $term_last_updated_date = $term->field_term_last_updated['und'][0]['value'];
+        if ($node_publication_date > $term_last_updated_date) {
+          $term->field_term_last_updated['und'][0]['value'] = $node_publication_date;
+          $_SESSION['update_term_from_node'] = $node_publication_date;
+          taxonomy_term_save($term);
+        }
+      }
+    }
+  }
+  elseif (count($new_topics) > 0) {
+    foreach ($new_topics as $topic) {
+      $term = taxonomy_term_load($topic);
+      if ($term->vocabulary_machine_name == 'ef_topics') {
+        $term_last_updated_date = $term->field_term_last_updated['und'][0]['value'];
+        if ($node_publication_date > $term_last_updated_date) {
+          $term->field_term_last_updated['und'][0]['value'] = $node_publication_date;
+          $_SESSION['update_term_from_node'] = $node_publication_date;
+          taxonomy_term_save($term);
+        }
+      }
+    }
+  }
+  else {
+    return;
+  }
 }
 
 function _update_topics_tab($tid, $content_type_name, $page){
@@ -176,95 +229,7 @@ function _update_topics_tab($tid, $content_type_name, $page){
     }
  
 }
-/*
- * Implements hook_node_presave($node)
- *
- * Act on a node being inserted or updated.  
- *
- * @param  $node. 
-*/
-function ef_topics_page_node_presave($node){
-    
-    // Force save for a taxonomic term when it's added so that last_updated field is updated
 
-    $topics_types = array('ef_publication','ef_report','ef_news','ef_event');
-
-    if(in_array($node->type, $topics_types))
-    {
-
-        $input_array = [];
-        $original_array = [];
-
-        if( isset($node->field_ef_topic['und']) )
-        {
-            $input_array = $node->field_ef_topic['und']; 
-        }
-        
-        if( isset($node->original->field_ef_topic['und']) )
-        {
-            $original_array = $node->original->field_ef_topic['und'];
-        }
-        
-        
-        
-        $difference = array_diff_assoc($input_array, $original_array);
-        
-        if(count($difference))
-        {
-            
-            foreach ($difference as $key => $element) 
-            {
-                taxonomy_term_save(taxonomy_term_load($element['tid']));
-            }
-        
-        }
-        
-    }
-    
-}
-
-/*
- * Implements hook_taxonomy_term_presave($term)
- *
- * Act on taxonomy terms before they are saved.
- *
- * @param $term
-*/
-function ef_topics_page_taxonomy_term_presave($term){
-
-    if($term->vocabulary_machine_name == 'ef_topics')
-    {
-
-        $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
-    
-    }
-    
-}
-
-/*
-function update_fill_topics_titles(){
-
-    // topics vid = 21
-    $tax = taxonomy_get_tree('21');
-    
-    foreach ($tax as $key => $entity) 
-
-    {
-        
-        $topic = taxonomy_term_load($entity->tid);
-
-        $topic->field_term_title['en'][0]['value'] = $topic->name;
-
-        $topic->field_term_title['en'][0]['safe_value'] = $topic->name;
-
-        taxonomy_term_save($topic);
-    
-    }
-    
-    
-
-}
-*/
 /**
  * Implements hook_entity_update()
  */
@@ -281,5 +246,15 @@ function ef_topics_page_entity_update($entity, $type) {
     $link[$alias] = $alias;
     $link[$source] = $source;
     $result = purge_urls($link);
+  }
+}
+
+function ef_topics_page_taxonomy_term_presave($term) {
+  if (isset($_SESSION['update_term_from_node'])) {
+    $term->field_term_last_updated['und'][0]['value'] = $_SESSION['update_term_from_node'];
+    unset($_SESSION['update_term_from_node']);
+  }
+  else {
+    $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
   }
 }

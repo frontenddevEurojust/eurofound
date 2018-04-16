@@ -1139,3 +1139,6 @@ div.add-or-remove-shortcuts {
   pointer-events: none;
   opacity: 0.5;
 }
+#edit-field-term-key-topic{
+  display: block !important;
+}
