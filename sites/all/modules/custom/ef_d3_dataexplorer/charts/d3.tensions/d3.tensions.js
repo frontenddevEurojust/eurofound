@@ -22,6 +22,61 @@
       return row.modalityCode == modality && row.subgroupCode == subgroup;
     });
 
+    if (sort == 0)
+    {
+      // sort == 1 ? order = d3.ascending : order = d3.descending;
+      order = d3.ascending;
+      var filteredKeyed = d3.nest().key(function(d) { 
+        if(d.countryName != 'EU28'){
+
+          return d.countryName;
+
+        }else{
+
+          // firts element in the order
+          return 'AAAA'+d.countryName;
+        }; 
+      }).sortKeys(order).entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { 
+          return a.values[0];     
+      });
+
+    }
+
+    if (sort == 1)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot1,+b.dot1);
+      }); 
+
+      filtered = byMaxValue;
+
+    }
+
+    if (sort == 2)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot2,+b.dot2);
+      });      
+      filtered = byMaxValue;
+    }
+    if (sort == 3)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot3,+b.dot3);
+      });      
+      filtered = byMaxValue;
+    }
+
+
+/*
     if (sort == 1 || sort == 2) {
       sort == 1 ? order = d3.ascending : order = d3.descending;
       var filteredKeyed = d3.nest()
@@ -85,7 +140,7 @@
       
       filtered = byValueGap;
     }
-
+*/
     return filtered;
 
   }
@@ -124,15 +179,10 @@
 
   var createOrderingFilter = function() {
     var alphaSort = [
-      "- None -",
-      "Alphabetically ascending",
-      "Alphabetically descending",
-      "By value ascending",
-      "By value descending",
-      "By value gap (2007-2016) ascending",
-      "By value gap (2007-2016) descending",
-      "By value gap (2011-2016) ascending",
-      "By value gap (2011-2016) descending"
+      "Alphabetically ascending (A-Z, with EU28 first)",
+      "By 2007 value descending",
+      "By 2011 value descending",
+      "By 2016 value descending"
     ];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
