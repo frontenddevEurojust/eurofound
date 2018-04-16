@@ -83,7 +83,7 @@
     <img class="print-icon" typeof="foaf:Image" src="/sites/all/modules/contrib/print/icons/print_icon.png" width="16px" height="16px" alt="print icon" ></a>
     </li>
     <li class="activarPdf"><a href="<?php echo "http://".$_SERVER['HTTP_HOST'] ."/printpdf".substr($_SERVER['REQUEST_URI'], 6).$contPdf."pdf=".rand() ?>" title="Download PDF file" class="print-pdf">
-    <img class="print-icon" typeof="foaf:Image" src="http://www.eurofound.europa.eu/sites/all/modules/contrib/print/icons/pdf_icon.png" width="16px" height="16px" alt="pdf icon"></a>
+    </a>
     </li>
   </ul>
 
@@ -111,7 +111,7 @@
         print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
         print '</div>';
         print '<div class="page-break"></div>';
-      }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') == true  ) {
+      }elseif (strpos($_SESSION["back_search"],'/restructuring-case-studies') == true && strpos($_SERVER['REQUEST_URI'],'/observatories/emcc/erm/restructuring-case-studies/') == false  ) {
         print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
         print '<h1 class="title-cover">Restructuring case studies</h1>';
         print '<p class="description-cover">The restructuring case studies provide examples of how private sector and public sector employers anticipate and manage restructuring. Such restructuring can occur for many reasons and can take different forms, from business expansion to the closure of the the firm. The case studies illustrate the planning and implementation processes of organisational change as well as their outcomes. The aim is to inform governments, social partners, employers and others involved about how restructuring has been realised in European organisations and what lessons can be learned from these experiences.</p>';
@@ -119,7 +119,7 @@
         print '</div>'; 
         print '<div class="page-break"></div>';    
       }else{
-        print '<h1 id="page-title" class="title">' . $print_title . '</h1>';
+        print '<h1 id="page-title" class="title test">' . $print_title . '</h1>';
       }
   ?>
   <!-- End  Print cover PDF for support instruments, case studies and legilations -->
