@@ -119,7 +119,7 @@
         print '</div>'; 
         print '<div class="page-break"></div>';    
       }else{
-        //print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+        print '<h1 id="page-title" class="title">' . $print_title . '</h1>';
       }
   ?>
   <!-- End  Print cover PDF for support instruments, case studies and legilations -->
