@@ -428,6 +428,137 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   if ($form['#id'] =='user-profile-form') {
 		$form['account']['mail']['#weight'] = -8;
   }
+
+	//Validate, Rearrange and modify Default Value Taxonomies and Related Content
+  	$type_taxonomies_taxonomies = array("blog", "ef_news", "page", "ef_publication", "ef_event", "ef_case_study", "ef_spotlight_entry", "ef_photo_gallery", "ef_video", "ef_vacancy", "ef_call_for_tender", "ef_project", "ef_survey", "ef_comparative_analytical_report", "ef_national_contribution", "ef_report", "ef_ir_dictionary", "ef_input_to_erm", "board_member_page", "ef_emire_dictionary", "ef_factsheet", "ef_network_extranet_page", "ef_working_life_country_profiles", "presentation");
+
+	if (isset($form['#node_edit_form']) && (in_array($form['#bundle'], $type_taxonomies_taxonomies))) {
+		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
+		$form['field_ef_related_content']['#element_validate'] = array("ef_customised_forms_field_related_content_validate");
+		//Set Default Value
+		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
+			$tid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->field_related_taxonomy['und'][$key]['target_id'];
+			$nid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->nid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
+			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
+			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->nid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				//$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+			}
+		}
+	}
+	if ($form['#form_id'] =='taxonomy_form_term' && $form["#term"]["vocabulary_machine_name"]=="ef_topics") {
+		$form['#submit'][] = "ef_customised_forms_related_content_taxonmy_submit";
+
+		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
+		$form['field_ef_related_content']['#element_validate'] = array("ef_customised_forms_field_related_content_validate");
+		//Set Default Value
+		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
+			$tid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->field_related_taxonomy['und'][$key]['target_id'];
+			$nid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->tid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+				
+			}
+		}
+		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
+			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
+			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->tid;
+			if (is_numeric($key) && is_numeric($tid)) {
+				//Get real weight
+				$query = db_select('related_content_and_taxonomies', 'rc');
+		        $query->fields('rc', array("rc_weight"));
+		        $query->condition('rc.nid', $nid, "=");
+		        $query->condition('rc.rc_id', $tid, "=");
+		        $result=$query->execute();
+
+		        while($record = $result->fetchAssoc()) {
+		            $real_weight = $record["rc_weight"];
+		        }
+				//Delta
+				//$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+				
+			}
+		}
+	}
+}
+
+function ef_customised_forms_field_related_taxonomy_validate($form, &$form_state){
+	$i=0;
+	foreach ($form_state['values']['field_related_taxonomy']['und'] as $key ) {
+		if ($key["_weight"] < 0 ) {
+			$real_weight = ef_customised_forms_get_real_weight($form['und'][$i]['target_id']['#entity']->field_related_taxonomy['und'][$i]['target_id'], $form['und'][0]['target_id']['#entity']->nid);
+			if ($real_weight >= 0 || $real_weight===false) {
+				form_error($form, t("The weight must be possitive in RELATED TAXONOMY. Value: (".$key["_weight"].") in ID: ".$form['und'][$i]['target_id']['#entity']->field_related_taxonomy['und'][$i]['target_id']) );
+			}
+		}
+		$i++;
+	}
+}
+function ef_customised_forms_field_related_content_validate($form, &$form_state){
+	$i=0;
+	foreach ($form_state['values']['field_ef_related_content']['und'] as $key ) {
+		if ($key["_weight"] < 0 ) {
+			$real_weight = ef_customised_forms_get_real_weight($form['und'][$i]['target_id']['#entity']->field_ef_related_content['und'][$i]['target_id'], $form['und'][0]['target_id']['#entity']->nid);
+			if ($real_weight >= 0 || $real_weight===false) {
+				form_error($form, t("The weight must be possitive in RELATED CONTENT. Value: (".$key["_weight"].") in ID: ".$form['und'][$i]['target_id']['#entity']->field_ef_related_content['und'][$i]['target_id']) );
+			}
+		}
+		$i++;
+	}
+}
+
+function ef_customised_forms_get_real_weight($id_contenido, $nid) {
+	$query = db_select('related_content_and_taxonomies', 'rc');
+    $query->fields('rc', array("rc_weight"));
+    $query->condition('rc.nid', $nid, "=");
+    $query->condition('rc.rc_id', $id_contenido, "=");
+    $result=$query->execute();
+
+    if ($result->rowCount()==1) {
+    	while($record = $result->fetchAssoc()) {
+    		return $record["rc_weight"];
+        }
+    }else{
+    	return false;
+    }
 }
 
 function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id){
@@ -440,3 +571,103 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 
 }
 
+function ef_customised_forms_node_submit($node, $form, &$form_state){
+	if (isset($form_state['values']['field_related_taxonomy']['und'])) {
+
+		$nid = $form_state["build_info"]["args"][0]->nid;
+		$vid = $form_state["build_info"]["args"][0]->vid;
+		
+		//If create a new revision
+			if ($node->revision_operation==1 || $node->workbench_moderation_state_new != "") {
+				$result = db_query("select MAX(vid) from node_revision");
+				while($record = $result->fetchAssoc()) {
+					$vid=$record["MAX(vid)"]+1;
+				}
+			}
+
+		$num_deleted = db_delete('related_content_and_taxonomies')
+						  ->condition('revision_id', $vid)
+						  ->execute();
+
+		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+			$tid = $taxonomy["target_id"];
+			$weight = $taxonomy["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($tid) ) {
+		    		
+				db_insert('related_content_and_taxonomies') 
+					->fields(array(
+					  'nid' => $nid,
+					  'revision_id' => $vid,
+					  'rc_type' => "tax",
+					  'rc_id' => $tid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+		    }
+		}
+		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+			$cid = $content["target_id"];
+			$weight = $content["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies')
+					->fields(array(
+					  'nid' => $nid,
+					  'revision_id' => $vid,
+					  'rc_type' => "node",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+				
+		    }
+		}
+	}
+}
+
+//Submit to modificate or insert taxonomies in Related Content and Taxonomies 
+function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state){
+	if ($form['#entity_type']=="taxonomy_term" && $form["#bundle"]=="ef_topics" ) {
+		$tid = $form_state["build_info"]["args"][0]->tid;
+		$num_deleted = db_delete('related_content_and_taxonomies')
+						  ->condition('nid', $tid)
+						  ->execute();
+
+		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+			$cid = $taxonomy["target_id"];
+			$weight = $taxonomy["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies') 
+					->fields(array(
+					  'nid' => $tid,
+					  'revision_id' => 0,
+					  'rc_type' => "tax",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();
+		    }
+		}
+		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+			$cid = $content["target_id"];
+			$weight = $content["_weight"];
+
+		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		    		
+				db_insert('related_content_and_taxonomies')
+					->fields(array(
+					  'nid' => $tid,
+					  'revision_id' => 0,
+					  'rc_type' => "node",
+					  'rc_id' => $cid,
+					  'rc_weight' => $weight,
+					))
+					->execute();		
+		    }
+		}
+	}
+}

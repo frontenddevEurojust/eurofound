@@ -1732,6 +1732,12 @@ $(document).ready(function(){
 //Desactivate the button "Display selected cases"
 (function ($) {
   $(document).ready(function(){
+
+    if($(".vbo-views-form-empty").length > 0){
+      $("#edit-actionviews-bulk-operations-argument-selector-action").hide();
+    }else{
+      $("#edit-actionviews-bulk-operations-argument-selector-action").show();
+    }
     
     if($(".vbo-select:checked").length > 1){
       $("#edit-actionviews-bulk-operations-argument-selector-action").prop("disabled",false);

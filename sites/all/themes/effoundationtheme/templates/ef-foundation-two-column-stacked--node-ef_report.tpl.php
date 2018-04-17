@@ -71,7 +71,7 @@ $countview = count($result);
     <?php endif; ?>
 
    
-    <section class="large-12 columns">
+   
         <div class="row">
             <div class="ds-node-metadata">
 
@@ -104,18 +104,18 @@ $countview = count($result);
                                 print t("Topic: ");
                                 if (isset($node->field_ef_topic[$language->language])) {
                                     foreach ($node->field_ef_topic[$language->language] as $key => $topic){
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     }
                                 }else{
                                     foreach ( $node->field_ef_topic["und"] as $key => $topic ){ 
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path);
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     } 
                                 }
@@ -168,7 +168,7 @@ $countview = count($result);
                         <div class="label-inline">
                             <?php 
                                 $publish_on=$node->workbench_moderation["current"]->stamp;
-                                $publish_on=date("Y-m-d", $publish_on);
+                                $publish_on=date("d F Y", $publish_on);
                                 print t("Published on: ").$publish_on;
                             ?>
                         </div>
@@ -257,4 +257,3 @@ $countview = count($result);
                 </div>
             </div>
         <?php endif; ?>
-    </section>

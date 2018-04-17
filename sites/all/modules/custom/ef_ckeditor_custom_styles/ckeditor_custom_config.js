@@ -26,7 +26,7 @@ CKEDITOR.stylesSet.add('default', [
 	/* IMG styles*/
 	{ name: 'Image no style',	element: 'img', attributes: { 'class': '' } },
 	{ name: 'Image left',	element: 'img', attributes: { 'class': 'img-align-left' } },
-	{ name: 'Image center',	element: 'img', attributes: { 'class': 'img-align-center' } },
+	{ name: 'Image center',	element:'img', attributes: { 'class': 'img-align-center' } },
 	{ name: 'Image right',	element: 'img', attributes: { 'class': 'img-align-right' } },
 
 

@@ -95,7 +95,7 @@
 		      <h2><i class="fa fa-external-link-square" aria-hidden="true"></i> Misc</h2>
 		      <ul>
 		        <li><a href="node/55566" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranet for the Governing Board</span></a></li>
-		        <li><a href="node/58826" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranets for the Network of European Correspondents</span></a></li>
+		        <li><a href="node/58826" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Extranet for the Network of Eurofound Correspondents</span></a></li>
 		        <li><a href="reimbursement-webforms" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Reimbursement webforms</span></a></li>
 		        <?php if($observatory == 'EMCC'): ?>
 		        <li><a href="procurement-submissions" title="" class=""><i class="fa fa-external-link" aria-hidden="true"></i> <span>Procurement Form Submissions</span></a></li>

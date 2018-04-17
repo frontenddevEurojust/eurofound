@@ -10,26 +10,25 @@
  * Implements hook_views_query_alter
  */
 function ef_performance_views_query_alter(&$view, &$query) {
-	
-	if ($view->name == 'custom_taxonomy_term_display') {
-		$tid = $view->args[0];
-		//run taxonomy_index subquery
-		$subquery = db_select('taxonomy_index', 'ti')
-    	->fields('ti', array('nid'))
-    	->condition('ti.tid', $tid);
-  	$result = $subquery->execute();
-		//get an array of nids
-		$related_nids = $result->fetchAll();
-		foreach ($related_nids as $key => $item) {
-			$nids[] = $item->nid;
-		}
-		//Change the condition nid is in array of nids
-		$query->where[0]['conditions'][0]['value'] = $nids;
-	}
+  if ($view->name == 'custom_taxonomy_term_display') {
+    $tid = $view->args[0];
+    //run taxonomy_index subquery
+    $subquery = db_select('taxonomy_index', 'ti')
+      ->fields('ti', array('nid'))
+      ->condition('ti.tid', $tid);
+    $result = $subquery->execute();
+    //get an array of nids
+    $related_nids = $result->fetchAll();
+    foreach ($related_nids as $key => $item) {
+      $nids[] = $item->nid;
+    }
+    //Change the condition nid is in array of nids
+    $query->where[0]['conditions'][0]['value'] = $nids;
+  }
 }
 
 /**
- * Main function to perform WEM-857 task:
+ * Main function to perform WEM-958 task:
  *   - WP2 - Archive old content revisions - Revisions removal
  * 
  * @param string $date
@@ -37,38 +36,47 @@ function ef_performance_views_query_alter(&$view, &$query) {
  *   FORMAT: d-m-Y
  *
  */
-function _delete_and_remove_old_revisions($date = NULL) {
-	if (is_null($date)) {
-		$date = strtotime('01-01-2016');
-	}
+function _delete_and_remove_old_revisions($content_type = NULL, $date = NULL) {
+  if (is_null($date)) {
+    $date = strtotime('01-01-2016');
+  }
 
-	//Get node IDs of nodes created after the given date with 3 or more revisions
-	$query = db_select('node', 'n');
-	$query->addJoin('INNER', 'workbench_moderation_node_history', 'nh', 'n.nid = nh.nid');
-  $query->fields('n', array('nid', 'type', 'title'));
-  $query->fields('nh', array('vid'));
-  $query->condition('n.created', $date, '<');
-  $query->condition('nh.published', 1);
+  //Get node IDs and related data
+  $query = db_select('node', 'n')->distinct();
+  $query->addJoin('INNER', 'node_revision', 'nr', 'n.nid = nr.nid');
+  if (isset($content_type)) {
+    $query->condition('n.type', $content_type);
+  }
+  $query->fields('n', array('nid', 'vid', 'type', 'title'));
   
   $result = $query->execute();
   $nids = $result->fetchAll();
 
+  //Special requirements for these types
+  $exception_types = array('erm_support_instrument', 'ef_erm_regulation');
+
+  //Get all revisions
   foreach ($nids as $key => $item){
-  	$query = db_select('node_revision', 'nr');
-  	$query->fields('nr', array('vid'));
-  	$query->condition('nr.nid', $item->nid);
+    $query = db_select('node_revision', 'nr')->distinct();
+    $query->fields('nr', array('vid'));
+    $query->condition('nr.nid', $item->nid);
+    if (!in_array($item->type, $exception_types)) {
+      $query->condition('nr.timestamp', $date, '<');
+    }
   
-  	$result = $query->execute();
-  	$vids = $result->fetchAll();
+    $result = $query->execute();
+    $vids = $result->fetchAll();
 
-  	$number_of_revisions = sizeof($vids);
-
-  	if ($number_of_revisions > 3) {
-  		$nodes_to_be_cropped[$item->nid]['vid'] = $item->vid;
-  		$nodes_to_be_cropped[$item->nid]['type'] = $item->type;
-  		$nodes_to_be_cropped[$item->nid]['title'] = $item->title;
-  	}
+    if (!empty($vids)) {
+      $nodes_to_be_cropped[$item->nid]['vid'] = $item->vid;
+      $nodes_to_be_cropped[$item->nid]['type'] = $item->type;
+      $nodes_to_be_cropped[$item->nid]['title'] = $item->title;
+      foreach ($vids as $key => $vid_obj) {
+        $nodes_to_be_cropped[$item->nid]['all_revisions'][] = $vid_obj->vid; 
+      }
+    }
   }
+
   //Now we got the nodes, let's manage them
   _save_old_revisions_to_drupal_archive($nodes_to_be_cropped);
 
@@ -84,21 +92,23 @@ function _delete_and_remove_old_revisions($date = NULL) {
  *
  */
 function _save_old_revisions_to_drupal_archive($cropped) {
-	foreach ($cropped as $nid => $data) {
-		//Get the revision IDs to be archived
-		$revisions = _custom_revision_list($nid, $data['vid']);
+  if (!empty($cropped)) {
+    foreach ($cropped as $nid => $data) {
+      //Get the revision IDs to be archived
+      $revisions = _custom_revision_list($nid, $data);
 
-		if (!empty($revisions)) {
-			//This function contains the CRUD
-			_save_records_from_old_revisions($nid, $data['type'], $revisions);
-			//Prepare data for the csv output
-			$csv_output_data = array($nid, $data['title'], implode(',', $revisions));
-			//This function will append this data
-			_write_output_csv_file($csv_output_data);
-		}
-	}
+      if (!empty($revisions)) {
+        //This function contains the CRUD
+        _save_records_from_old_revisions($nid, $data['type'], $revisions);
+        //Prepare data for the csv output
+        $csv_output_data = array($nid, $data['title'], implode(',', $revisions));
+        //This function will append this data
+        _write_output_csv_file($csv_output_data);
+      }
+    }
+  }
 
-	return;
+  return;
 }
 
 /**
@@ -113,36 +123,67 @@ function _save_old_revisions_to_drupal_archive($cropped) {
  * @return array $archived_vids
  *   An array of the revisions that will be archived
  */
-function _custom_revision_list($nid, $pub_vid) {
+function _custom_revision_list($nid, $data) {
   //Queries to get both revision IDs before publication and
   //all revision IDs
-  $query_cut = db_select('node_revision', 'nr');
-  $query_cut->fields('nr', array('vid'));
-  $query_cut->condition('nr.nid', $nid);
-  $query_cut->condition('nr.vid', $pub_vid, '<');
 
-  $result_cut = $query_cut->execute();
-  $vids_cut = $result_cut->fetchAll();
+  $revisions = db_select('node_revision', 'nr')
+          ->fields('nr', array('vid'))
+          ->condition('nr.nid', $nid)
+          ->execute();
+  $count_revisions = $revisions->rowCount();
 
-  foreach ($vids_cut as $key => $item) {
-  	$all_vids_cut[] = $item->vid;
+  $exception_types = array('erm_support_instrument', 'ef_erm_regulation');
+
+  if ($count_revisions > 3 && !in_array($data['type'], $exception_types)) {
+    foreach ($data['all_revisions'] as $key => $vid) {
+      if (isset($data['vid'])) {
+        if ($data['vid'] > $vid){
+          $archived_vids[] = $vid;
+        }
+      }
+    }
   }
-
-  $query = db_select('node_revision', 'nr');
-  $query->fields('nr', array('vid'));
-  $query->condition('nr.nid', $nid);
-  
-  $result = $query->execute();
-  $vids = $result->fetchAll();
-
-  foreach ($vids as $key => $item) {
-  	$all_vids[] = $item->vid;
+  elseif (in_array($data['type'], $exception_types)) {
+    foreach ($data['all_revisions'] as $key => $vid) {
+      if (isset($data['vid'])) {
+        if ($data['vid'] > $vid){
+          $archived_vids[] = $vid;
+        }
+      }
+    }
   }
-  //But we have to filter to ensure that at least
-  //3 revisions will remain as are
-  $archived_vids = _filter_archived_vids($all_vids, $all_vids_cut, $pub_vid);
+  else {
+    return;
+  }
 
   return $archived_vids;
+}
+
+/**
+ * Gets the data and writes the report in a csv file
+ * 
+ * @param array $nid
+ *   ID of the node
+ *
+ * @param array $pub_vid
+ *   ID of the published revision
+ *
+ * @return array $archived_vids
+ *   An array of the revisions that will be archived
+ */
+function _write_output_csv_file($data) {
+  //Open file
+  $csv = fopen('sites/default/files/deleted_revisions.csv', 'a');
+  //Write file with the previously prepared array
+  fputcsv($csv, $data);
+  //Close file
+  fclose($csv);
+  while(is_resource($csv)){
+    print_r('File is not closed');
+    //Handle still open
+    fclose($csv);
+  }
 }
 
 /**
@@ -159,16 +200,17 @@ function _custom_revision_list($nid, $pub_vid) {
  *
  */
 function _save_records_from_old_revisions($nid, $bundle, $revisions) {
+  
   //Get field configuration by content type
-	$fields = field_info_instances('node', $bundle);
-	foreach ($fields as $key => $field_name) {
+  $fields = field_info_instances('node', $bundle);
+  foreach ($fields as $key => $field_name) {
     //Get the table where values are stored by field
-		$field = field_info_field($key);
-		$tables[] = key($field['storage']['details']['sql']['FIELD_LOAD_REVISION']);
-	}
+    $field = field_info_field($key);
+    $tables[] = key($field['storage']['details']['sql']['FIELD_LOAD_REVISION']);
+  }
 
   //Add data for the DB connection from the application
-	$other_database = array(
+  $other_database = array(
     'database' => 'drupal_archive',
     'username' => 'root',
     'password' => 'Geppett0', 
@@ -176,105 +218,61 @@ function _save_records_from_old_revisions($nid, $bundle, $revisions) {
     'driver' => 'mysql',
   );
   Database::addConnectionInfo('archive', 'default', $other_database);
-	
+  
   //Get all the data from the production environment
-	foreach ($tables as $key => $table) {
-		$query = db_select($table, 't');
-  	$query->fields('t');
-  	$query->condition('t.entity_id', $nid);
-  	$query->condition('t.revision_id', $revisions, 'IN');
+  foreach ($tables as $key => $table) {
+    $query = db_select($table, 't');
+    $query->fields('t');
+    $query->condition('t.entity_id', $nid);
+    $query->condition('t.revision_id', $revisions, 'IN');
 
-  	$result = $query->execute();
-  	$records_array[$table] = $result->fetchAll();
-	}
+    $result = $query->execute();
+    $records_array[$table] = $result->fetchAll();
+  }
 
-	foreach ($revisions as $key => $revision) {
-		$query = db_select('workbench_moderation_node_history', 'nh');
-  	$query->fields('nh');
-  	$query->condition('nh.nid', $nid);
-  	$query->condition('nh.vid', $revisions, 'IN');
+  foreach ($revisions as $key => $revision) {
+    $query = db_select('workbench_moderation_node_history', 'nh');
+    $query->fields('nh');
+    $query->condition('nh.nid', $nid);
+    $query->condition('nh.vid', $revisions, 'IN');
 
-  	$result = $query->execute();
-  	$records_array['workbench_moderation_node_history'] = $result->fetchAll();
-	}
+    $result = $query->execute();
+    $records_array['workbench_moderation_node_history'] = $result->fetchAll();
+  }
 
-	foreach ($revisions as $key => $revision) {
-		$query = db_select('node_revision', 'nr');
-  	$query->fields('nr');
-  	$query->condition('nr.nid', $nid);
-  	$query->condition('nr.vid', $revisions, 'IN');
+  foreach ($revisions as $key => $revision) {
+    $query = db_select('node_revision', 'nr');
+    $query->fields('nr');
+    $query->condition('nr.nid', $nid);
+    $query->condition('nr.vid', $revisions, 'IN');
 
-  	$result = $query->execute();
-  	$records_array['node_revision'] = $result->fetchAll();
-	}
+    $result = $query->execute();
+    $records_array['node_revision'] = $result->fetchAll();
+  }
 
   //Enable the secondary database
-	db_set_active('archive');
+  db_set_active('archive');
   //Insert the archived data in the secondary database
   foreach ($records_array as $table => $records) {
-  	foreach ($records as $key => $record) {
-  		$fields = get_object_vars($record);
-  		$query = db_insert($table)->fields(array_keys($fields))->values($fields)->execute();
-  	}
-  }
-  //Enable again the production database
-	db_set_active();
-
-  foreach ($tables as $key => $table) {
-    foreach ($revisions as $key => $revision) {
-      db_delete($table)
-        ->condition('revision_id', $revision)
-        ->execute();
+    foreach ($records as $key => $record) {
+      $fields = get_object_vars($record);
+      try {
+        $query = db_insert($table)->fields(array_keys($fields))->values($fields)->execute();
+      }
+      catch (Exception $e) {
+        //this record will not be inserted, sorry
+        //continue
+      }
     }
   }
+  //Enable again the production database
+  db_set_active();
 
-  //Delete the archived data (core)
-	foreach ($revisions as $key => $revision) {
-		db_delete('node_revision')
-      ->condition('vid', $revision)
-      ->execute();
-	}
-	
-  //Delete the revisions from Workbench Moderation
-	foreach ($revisions as $key => $revision) {
-		db_delete('workbench_moderation_node_history')
-  		->condition('vid', $revision)
-  		->execute();
-	}
-
-	return;
-}
-
-/**
- * Ensures that at least 3 revisions will remain
- * 
- * @param array $vids_cut
- *   An array containing all the revision IDs of a given node
- *
- * @param array $all_vids
- *   An array containing all the revision IDs of a given node
- *
- * @param array $cut
- *   ID of the published revision
- *
- * @return array $vids_cut
- *   An array of the revisions that will be archived
- */
-function _filter_archived_vids($all_vids, $vids_cut, $cut) {
-  //If remaining revisions are less than 3
-	if ((sizeof($all_vids) - sizeof($vids_cut)) < 3) {
-    //Re-create the array adding the necesary items
-		$vids_cut = array_slice($all_vids, 0, sizeof($all_vids) - 3);
+  //It will be better if we remove all the revisions using node_revision_delete
+  foreach ($revisions as $key => $revision) {
+    $result = node_revision_delete($revision);
+    echo $result;
   }
 
-  return $vids_cut;
-}
-
-function _write_output_csv_file($data) {
-  //Open file
-	$csv = fopen('sites/default/files/deleted_revisions.csv', 'a');
-  //Write file with the previously prepared array
-	fputcsv($csv, $data);
-	//Close file
-	fclose($csv);
+  return;
 }

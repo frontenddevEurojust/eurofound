@@ -352,6 +352,10 @@ text.charts-title {
     /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
     font-size: 9px;
   }
+  #ejm-chart > svg > g > text.charts-title{
+    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
+    font-size: 16px;
+  }
   .chart-wrapper .tick text{
     font-size: 11px;
   }
@@ -412,7 +416,7 @@ text.charts-title {
 
   #ejm-chart > svg > g > text.charts-title{
   transform: rotate(0deg) translate(25%,-7px) !important;
-  font-size: 14px;
+  font-size: 16px;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;

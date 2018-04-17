@@ -2522,7 +2522,7 @@ ul.pagination li:before,
 
 .sidebar .block .item-list a{
 	display: block!important;
-	padding: 8px 20px 8px 0px;
+	padding: 8px 20px 0px 0px;
 	width: 100%;
 	margin: 0px 0px 0px 0px;
 	letter-spacing: -0.04em;
@@ -5457,6 +5457,10 @@ ul.metadata-items li:last-child{
   padding: 0px 0px 0px 4px !important;
   margin-right: 0;
 }
+ul.metadata-items li.fix-padding{
+  padding: 0!important;
+  margin-right: 0;
+}
 ul.metadata-items li a{
   padding: 0px 8px 0px 0px !important;
   display: inline-block;
@@ -7082,12 +7086,12 @@ html.js input.throbbing {
 .img-align-right img, 
 img.img-align-right{
 	float: right !important;
-	margin:0px 0px 20px 20px !important;
+	margin:20px 0px 20px 20px !important;
 }
 .img-align-left img, 
 img.img-align-left{
 	float: left !important;
-	margin:0px 20px 20px 0px !important;
+	margin:20px 20px 20px 0px !important;
 }
 .img-no-float img, 
 img.img-no-float{
@@ -7503,9 +7507,9 @@ h1.parent_eurwork.title{
 	padding: 28px 30px;
 	color: #fff;
 	margin:-30px -25px 40px -25px;
-	-moz-box-shadow: 0px 0px 0px #8B8B8B;
-	-webkit-box-shadow: 0px 0px 0px #8B8B8B;
-	box-shadow: 0px 0px 0px #8B8B8B;
+	-moz-box-shadow: 0px 0px 5px #8B8B8B;
+	-webkit-box-shadow: 0px 0px 5px #8B8B8B;
+	box-shadow: 0px 0px 5px #8B8B8B;
 	font-size: 1.3em;
 	letter-spacing: 0.02em;
 	line-height: 1.3em;
@@ -12827,7 +12831,7 @@ p.view-empty.error-msg:before{
 .page-observatories-emcc-index h1.title, h1.parent_emcc.title {
   background: #FFF url(../images/background-observatories.jpg) no-repeat;
   background-size: 100% 86px;
-  padding:30px 50px 35px !important;
+  padding:30px 50px 30px !important;
   color:#005BAA;
 }
 
@@ -14381,6 +14385,7 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /* end New OSU Contract Reporting */
+<<<<<<< HEAD
 
 
 /* Button to compare Nodes in case studies and support instrument "Display selected cases" */
@@ -14426,12 +14431,12 @@ h4.title-tooltip-geolocation a:hover{
 	padding-top: 0;
 }
 
-.page-contents-comparison .pub-pdf-img {
+.view-restructuring-case-studies .pub-pdf-img {
     margin-top: 25px;
     max-width: 25%;
 }
 
-.page-contents-comparison .field-name-field-ef-document .file{
+.view-restructuring-case-studies .field-name-field-ef-document .file{
   display: block;
   background-color: #F99E35;
   text-align: left;
@@ -14442,7 +14447,7 @@ h4.title-tooltip-geolocation a:hover{
   width: 315px;
 }
 
-.page-contents-comparison .field-name-field-ef-document .file a {
+.view-restructuring-case-studies .field-name-field-ef-document .file a {
     padding: 18px 30px 18px 15px !important;
     color: #fff;
     margin: 0px;
@@ -14450,7 +14455,7 @@ h4.title-tooltip-geolocation a:hover{
     display: block;
 }
 
-.page-contents-comparison .field-name-field-ef-document .file a:after {
+.view-restructuring-case-studies .field-name-field-ef-document .file a:after {
     font-family: 'ef-icon-font';
     speak: none;
     font-style: normal;
@@ -14471,4 +14476,127 @@ h4.title-tooltip-geolocation a:hover{
 .float-img-render img{
 	float: left;
 	margin: 0px 25px 20px 0px;
+}
+
+/** BOARD MEMBER PAGE VIEW **/
+
+.block-menu-menu-extranet-menu .menu{
+	margin: 0;
+	padding: 0;
+}
+
+.block-menu-menu-extranet-menu .menu li a{
+	font-family: inherit;
+	font-weight: 400;
+	font-size: 1em;
+	line-height: 1.6;
+	padding: 0.75em 0;
+	text-rendering: optimizeLegibility;
+	display: block;
+}
+.page-extranet-board-members-extranet h1#page-title{
+  background: #FFF url(../images/background-observatories.jpg) no-repeat;
+  background-size: 100% 86px;
+	padding: 20px 50px 40px !important;
+  color: #005BAA;
+
+  text-align: left;
+  border: 0;
+	font-family: 'OpenSans-Bold-webfont',Arial,Helvetica,sans-serif;
+  font-size: 2.6em;
+  vertical-align: middle;
+  letter-spacing: -0.03em;
+}
+.page-extranet-board-members-extranet .main .ef-main{
+	padding: 0;
+}
+
+.board-member-h2{
+  padding-right: 9%;
+}
+.page-extranet-board-members-extranet .main .ef-main h2{
+  font-size: 1.2em;
+}
+.page-extranet-board-members-extranet .view-id-_extranet_for_the_governing_board{
+  padding: 30px 25px 40px 25px;
+}
+
+
+/** END BOARD MEMBER PAGE VIEW **/
+
+/** COMMUNICATIONS CALENDAR **/
+
+.communication-calendar .content-type{
+	position: absolute;
+	top: -999999px;
+	left:-999999px
+}
+
+.communication-calendar .icon-publications:before, 
+.communication-calendar .icon-events:before{
+	font-family: 'ef-icon-font';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  color: #F7931E;
+  padding: 0px 15px 0px 10px;
+	font-size: 1.5rem;
+  vertical-align: -15%;
+} 
+.communication-calendar .icon-publications:before{
+  content: "\e607";
+}
+.communication-calendar .icon-blog{
+  background: url(../images/icon-blog-orange.png);
+  width: 25px;
+  height: 24px;
+  display: inline-block;
+  background-size: cover;
+  margin: 0px 15px 0px 11px;
+}
+.communication-calendar .icon-events:before{
+	content: "\e610";
+}
+.communication-calendar th.views-field.views-field-php-1, 
+.communication-calendar td.views-field.views-field-php-1{
+  width: 4rem;
+  text-align: center;
+}
+
+/** END COMMUNICATIONS CALENDAR **/
+
+#overlay-eurofound{
+  position:fixed;
+  z-index:99999;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background: rgba(255,255,255,0.8);
+  transition: 1s 0.4s;
+}
+
+#overlay-eurofound .loading-position{
+	position: absolute;
+    top: 50%;
+    left: 45%;
+    
+}
+
+#overlay-eurofound .loading-position img{
+	border: 0px;
+    outline-width: 0px;
+}
+
+#overlay-eurofound .loading-position span{
+	padding-left: 0.5em;
+}
+
+.title-general-comparison{
+	display: none;
 }
