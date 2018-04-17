@@ -3,7 +3,7 @@ g.rule text {
   fill: #666666 !important;
 }
 g.ticks text {
-  font-size: 1em;
+  font-size: 0.9em;
   fill: #666666 !important;
 }
 .tooltip {
@@ -49,6 +49,7 @@ g.ticks text {
 .jm-charts{
   background: #F1F4F8;
   padding: 30px 15px;
+  min-height: 550px;
 }
 
 .jm-filters-chart {
@@ -252,7 +253,7 @@ g.ticks text {
 .legendHTML{
   list-style-type: none;
   width: auto;
-  margin: auto;
+  margin: auto !important;
   text-align: center;
 }
 .legendHTML li{
@@ -270,13 +271,40 @@ g.ticks text {
 text.charts-title {
   font-size: 1rem;
   font-family: Opensans-semibold-webfont;
-  transform: translate(25%,-7px);
+  transform: translate(30%,-10px);
 }
 #ejm-chart.only-one text.charts-title {
-  transform: translate(33%,-7px);
+  transform: translate(33%,-10px);
+}
+.ejm-alert{
+  display: none;
+  font-family: Opensans-Semibold-webfont;
+  text-align: center;
+  color: #000;
+  font-size: 1.1rem;
+  margin-top: 6rem;
+}
+.ejm-alert img{
+  outline-width: 0 !important;
+  margin: 0 !important;
+  opacity: 0.2;
+}
+.advice-select-countries{
+  font-size: 12px;
+  font-style: italic;
+  font-weight: normal !important;
+  font-family: Opensans-regular-webfont;
 }
 
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: auto;
+  }
   .jm-charts {
       background: #F1F4F8;
       padding: 30px 15px 60px;
@@ -310,7 +338,13 @@ text.charts-title {
 }
 
 @media only screen and (max-width : 767px) {
-
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: 25px auto 0;
+  }
   #ejm-chart > svg > g{
     transform: translate(50px,10px) !important;
   }
@@ -374,6 +408,11 @@ text.charts-title {
   }
   #ejm-chart > svg > g > text{
     transform: rotate(-90deg) translate(-195px,17px) !important;
+  }
+
+  #ejm-chart > svg > g > text.charts-title{
+  transform: rotate(0deg) translate(25%,-7px) !important;
+  font-size: 14px;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
@@ -483,7 +522,7 @@ text.charts-title {
 .d3-tip p.country-name{
   font-family: 'OpenSans-Semibold-webfont';
   color: #000;
-  font-size: 12;
+  font-size: 12px;
 }
 .d3-tip p.no-data{
   font-family: 'OpenSans-Semibold-webfont';
@@ -493,7 +532,12 @@ text.charts-title {
 .d3-tip p.dot{
   font-family: 'OpenSans-bold-webfont';
   color: #F28524;
-  font-size: 12;
+  font-size: 12px;
+}
+.d3-tip .xLabels-tip{
+  font-family: 'OpenSans-regular-webfont';
+  color: #000;
+  font-size: 11px;
 }
 svg text[class^='legend-text']{
   cursor: pointer;

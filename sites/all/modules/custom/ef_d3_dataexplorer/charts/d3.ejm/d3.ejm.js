@@ -12,6 +12,7 @@
 
   var countryNames = [];
 
+
   Drupal.d3.ejm = function (select, settings) {
 
     var ejm = [];
@@ -37,7 +38,9 @@
     countryFilter.selectAll("option")
   		.data(settings.countries)
   		.enter().append("option")
-  		.attr("value", function (d) { return d[0]; })
+  		.attr("value", function (d) { 
+        return d[0]; 
+      })
   		.text(function (d) { return d[1]; })		
   		.property("selected", function(d)
   		{
@@ -73,13 +76,16 @@
 
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
+
 	var breakdownFilterPar = getParameterByName('breakdown');
   var breakdownFilter = d3.select("#breakdown");
 
     breakdownFilter.selectAll("option")
 		.data(breakdownKeys)
 		.enter().append("option")
-		.attr("value", function (d) { return d; })
+		.attr("value", function (d) { 
+      return d; 
+    })
 		.text(function (d) { return d; })
 		.property("selected", function(d)
 		{
@@ -93,13 +99,15 @@
 			}*/
 		});
 
-  var criterionFilter = d3.select("#criterion");	
-	var criterionFilterPar = getParameterByName('criterion');
+  var criterionFilter = d3.select("#job_quality_criterion ");	
+	var criterionFilterPar = getParameterByName('job_quality_criterion ');
 	
     criterionFilter.selectAll("option")
 		.data(settings.criterion)
 		.enter().append("option")
-		.attr("value", function (d) { return d; })
+		.attr("value", function (d) { 
+      return d; 
+    })
 		.text(function (d) { return d; })
 		.property("selected", function(d)
 		{
@@ -115,7 +123,22 @@
 
   var stackedInput = 0;
 
-    //d3.select("#country").on("change", render_graph);    
+    //d3.select("#country").on("change", render_graph); 
+
+      //***** WHEN NO SELECTED COUNTRY MESAGGE IS DISPLAYED******//
+     function msgDisplay(tags){
+      if( tags == 0 ){
+        d3.select(".country").text('');
+        $('.ejm-alert').css('display', 'block');
+        $('.jm-footnote').css('display', 'none');        
+      }else{
+        $('.ejm-alert').css('display', 'none');
+        $('.jm-footnote').css('display', 'block');      
+
+      }
+    }
+
+   
     function filtersOnChange(){
       $("#ejm-chart svg").remove();
       $(".d3-tip").remove();
@@ -128,25 +151,12 @@
         countryTags.push($('.chosen-select')[0][i].value);
        } 
       }
-      //***** NO SELECTED COUNTRY ******//
-      if( countryTags.length == 0 ){
-        d3.select(".country").text('');
-        $('.ejm-alert').css('display', 'block');
-        $('.jm-footnote').css('display', 'none');
-
-        
-      }else{
-        $('.ejm-alert').css('display', 'none');
-        $('.jm-footnote').css('display', 'block');
-        
-        for(i=0;i<$('.chosen-select')[0].length;i++){
-         if($('.chosen-select')[0][i].selected == true){
-          render_graph( $('.chosen-select')[0][i].value , countryTags.length );
-         } 
-        }
+      for(i=0;i<$('.chosen-select')[0].length;i++){
+       if($('.chosen-select')[0][i].selected == true){
+        render_graph( $('.chosen-select')[0][i].value , countryTags.length );
+       } 
       }
-
-
+      msgDisplay(countryTags.length);
     }
 
     $('.chosen-select').on('change', function(evt, params) {
@@ -157,7 +167,7 @@
         filtersOnChange();
     });
 
-    d3.select("#criterion").on('change', function () {
+    d3.select("#job_quality_criterion").on('change', function () {
         filtersOnChange();
     });
     d3.select("#breakdown").on('change', function () {
@@ -168,6 +178,15 @@
     //d3.select("#breakdown").on("change", render_graph);
 
    // window.addEventListener("resize", render_graph);
+
+    
+    window.addEventListener("resize", function () {
+      $("#ejm-chart svg").remove();
+      $(".d3-tip").remove();
+      countryNames.length = 0;
+      filtersOnChange();   
+    });  
+
  
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
@@ -192,6 +211,8 @@
       var widthSVG = $("#ejm-chart").width()*0.6;
       var heightSVG = $("#ejm-chart").width()*0.45;
 
+      msgDisplay( urlVars );
+
     } else if( urlVars >= 2 ){
 
       $("#ejm-chart").removeClass('only-one');
@@ -200,10 +221,20 @@
 
     }
 
+    if( $( window ).width() > 600 && $( window ).width() <= 1024 ){
+      var widthSVG = $("#ejm-chart").width()*0.9;
+      var heightSVG = $("#ejm-chart").width()*0.45;
+
+    } else if ( $( window ).width() <= 600 ) {
+      var widthSVG = $("#ejm-chart").width()*0.9;
+      var heightSVG = $("#ejm-chart").width()*0.60;
+      console.log( heightSVG );
+    }
+
 
       // d3.select("#country").property('value')
       period = d3.select("#period").property('value');
-      criterion = d3.select("#criterion").property('value');
+      criterion = d3.select("#job_quality_criterion ").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
 
@@ -234,6 +265,7 @@
 
       var breakdownColumns = settings.keys_by_breakdown[breakdown];
 
+
       var datagrid = [];
 
       selection = ejm.filter(function(csv) {
@@ -248,8 +280,8 @@
      // console.log( settings.footnote );
 
 	  //this is the fraction of the maximum value which is added as a top and bottom margin.
-	  var topMargin = 0.05;
-	  var bottomMargin = 0.05;
+	  var topMargin = 0.10;
+	  var bottomMargin = 0.10;
       var rows = columnValues.map(function(d, i) { return d; }),
         // Use first value in each row as the label.
         xLabels = ['Low', 'Mid-low', 'Mid', 'Mid-high', 'High'],
@@ -265,7 +297,6 @@
 		//Adding a margin to the top of the graph.
 		max = max + max * topMargin;
 		min = min + min * bottomMargin;
-
 
         var maxStacked = getMaxStackedValue(columnValues),
         range = (min >= 0) ? max : max - min,
@@ -290,6 +321,7 @@
         x = d3.scaleLinear().domain([0,rows.length]).range([0,chart.w]),
         barY = d3.scaleLinear().domain([0,range]).range([chart.h, 0]),
         y = d3.scaleLinear().domain([min,max]).range([chart.h, 0]),
+
         barYStacked = d3.scaleLinear().domain([0,rangeStacked]).range([chart.h, 0]),
         yStacked = d3.scaleLinear().domain([minStacked,maxStacked]).range([chart.h, 0]),
         z = d3.scaleOrdinal().range(settings.colors[breakdown]),
@@ -424,11 +456,13 @@
           .attr('x', function (d,i) { return 25; })
           .attr('y', function (d,i) { d = Number(d); if (i == 0) {accp = accn = 0}; if (d >= 0) { accp = accp + d; return yStacked(accp);} else { accn = accn - Math.abs(d); return yStacked(Math.abs(d)) + chart.h - barYStacked(Math.abs(accn));}})
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
-          .on('mouseover', function(d, i) {
+          .on('mouseover', function(d, i, n) {
             tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
             //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           })
-          .on('mouseout', tip.hide);
+          .on('mouseout', function(d, i) {
+            tip.hide();
+          });
       }
       else
       {
@@ -444,14 +478,24 @@
           .attr("width", barWidth)
           .attr("height", function(d) { return chart.h - barY(Math.abs(d)); })
           .attr('x', function (d,i) { return i * barWidth + 25; })
-          .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)) ; })
+          .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)); })
           .attr('fill', function(d,i) { return d3.rgb(z(i)); })
           .on('mouseover', function(d, i) {
             //tip.show(breakdownColumns[i][0] + " " + d);
-            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>" + d + "</p>");
+            tip.show("<p class='country-name'>" + breakdownColumns[i][0] + "</p><p class='dot'>"  + d + "</p>");
             //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           })
-          .on('mouseout', tip.hide);
+          .on('mouseout', function(d, i) {
+            tip.hide();
+          });
+/*
+          bar.selectAll('rect')
+            .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)); })
+            .attr("height", function(d,i) {  return (d > 0) ? 0   : chart.h - barY(Math.abs(d));  })
+            .transition()
+              .duration(1500)              
+              .attr('height', function (d,i) { return (d > 0) ? chart.h - barY(Math.abs(d))   : chart.h - barY(Math.abs(d)); });
+*/
       }
 
 
@@ -627,6 +671,9 @@
           if(document.location.search.indexOf(nameVar) > 0) {
             var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
             var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
+              // newVarString = encodeURI( newVarString.replace(/\s/g,"-") );
+              // newVarString = encodeURI( newVarString.replace(/\s/g,"-") ); 
+             
             history.pushState(null, "",  window.location.pathname + newVarString );
           } else {
             //console.log('nameVar  ------->' + nameVar);
