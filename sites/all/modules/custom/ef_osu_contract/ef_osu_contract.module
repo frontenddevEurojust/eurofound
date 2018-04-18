@@ -252,6 +252,32 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
         $form[$field_id .'_value']['#options'] = $options;
         $form[$field_id .'_value']['#size'] = 1;
       }
+
+    
+    if (isset($form['field_ef_author_contract_tid'])) {    
+        
+
+          $contract_list = array();
+          // Start with a default so the filter is optional
+          $contract_list = array("All" => t('- Any -'));
+          $vid_contract = taxonomy_vocabulary_machine_name_load('ef_contracts')->vid;
+          $con_tree = taxonomy_get_tree($vid_contract);
+
+          foreach ($con_tree as $key => $value) {
+            $tax_term = taxonomy_term_load($value->tid);
+            if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+              $contract_list[$value->tid]=$value->name;  
+            }
+           
+          }
+        
+        // Alter the field
+        $form['field_ef_author_contract_tid']['#type'] = 'select';
+        $form['field_ef_author_contract_tid']['#options'] = $contract_list;
+        $form['field_ef_author_contract_tid']['#size'] = 1;
+        $form['field_ef_author_contract_tid']['#default_value'] = 'All';
+        
+    }
         
   }
 }

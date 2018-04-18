@@ -338,7 +338,7 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
-      }else if(pathname_form=='new-osu-contracts-reporting'){
+      }else if(pathname_form=='osu-contracts-reporting-2018'){
         num_divisor=parseInt(8);  
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
@@ -350,7 +350,7 @@
 
       if ( $(".view-new-osu-contract-reporting").length > "0" ){
         //Append Help text
-        $( "#edit-field-ef-contract-year-comp-value-wrapper" ).append( $( "<div class='description'> <span  class='' title='Contract year starts 1 March and ends on 28/9 February the following year.'>More information?</span></div>" ) );
+        $( "#edit-field-ef-contract-year-comp-value-wrapper" ).once().append( $( "<div class='description'> <span  class='' title='Contract year starts 1 March and ends on 28/9 February the following year.'>More information?</span></div>" ) );
       }
 
       var $filter_rows = Math.floor($num_filters/num_divisor);
