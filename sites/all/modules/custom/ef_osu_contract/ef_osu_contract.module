@@ -244,7 +244,9 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
 
         // Build the options array based on the grouped field values
         foreach($result as $row) {
-          $options[$row->field] = $row->field;
+          if($row->field > 2017){
+            $options[$row->field] = $row->field;
+          }
         }
         
         // Alter the field
