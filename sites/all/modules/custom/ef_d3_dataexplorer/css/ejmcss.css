@@ -513,11 +513,16 @@ svg text[class^='legend-text']{
 .d3-tip.showed{
   opacity: 1 !important;
 }
-.legend-group, .y-axis path.domain{
+.legend-group {
   display: none !important;
+}
+.y-axis path.domain{
+   // opacity: 0.2;
+   display: none;
 }
 .y-axis .tick line {
   display: none;
+  //   opacity: 0.2;
 }
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
