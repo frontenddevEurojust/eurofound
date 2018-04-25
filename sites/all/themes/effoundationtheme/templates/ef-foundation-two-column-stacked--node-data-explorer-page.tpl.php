@@ -25,7 +25,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		</div>
 	</div>
 
-	<?php if($content['field_ef_de_chart_id'][0]['#markup'] == 'EJM'): ?>
+	<?php if( $node->field_ef_de_chart_id['und'][0]['safe_value'] == 'EJM'): ?>
 
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
