@@ -3,7 +3,7 @@ g.rule text {
   fill: #666666 !important;
 }
 g.ticks text {
-  font-size: 1em;
+  font-size: 0.9em;
   fill: #666666 !important;
 }
 .tooltip {
@@ -49,6 +49,7 @@ g.ticks text {
 .jm-charts{
   background: #F1F4F8;
   padding: 30px 15px;
+  min-height: 550px;
 }
 
 .jm-filters-chart {
@@ -67,38 +68,30 @@ g.ticks text {
 }
 
 
- ul.legend-list{
+ ul.legend-list {
   list-style: none;
   text-align: center;
   width: auto;
   margin: auto;
- }
- ul.legend-list-butterfly{
-  list-style: none;
-  text-align: center;
-  width: auto;
-  margin: 2rem auto 0 !important;
 }
-  ul.legend-list li, 
-  ul.legend-list-butterfly li{
+  ul.legend-list li{
     width: auto;
     margin: 0 15px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
   }
-  ul.legend-list li.active, 
-  ul.legend-list-butterfly li.active {
+  ul.legend-list li.active {
     font-weight: bold !important;
   }
   ul.legend-list li.start i{
-    color:#a6ce3a;
+    color:#A4CA43;
   }
   ul.legend-list li.median i {
     color: #BB1E8C;
   }
   ul.legend-list li.end i{
-    color:#519fdc;
+    color:#529DDA;
   }
 
 .filters-jm-chart  legend{
@@ -148,9 +141,6 @@ g.ticks text {
 .filters-jm-chart .group-filters  label.label-sort{
     margin-top: 1.5rem;
 }
-.filters-jm-chart .group-filters  label.label-sort:first-child{
-    margin-top: 0rem;
-}
 .filters-jm-chart .group-filters  label[for^="subg"]{
     margin-top: 1.5rem;
 }
@@ -160,7 +150,7 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.5em 1.5em 0.5em 0.7em !important;
+    padding: 0.5em !important;
     height: auto;
     color: #222;
 }
@@ -192,7 +182,7 @@ g.ticks text {
 
 /** European Quality of Life Survey 2016 **/
 .chart-wrapper{
-  text-align: center;
+
 }
 .chart-wrapper .tick text{
   font-size: 12px;
@@ -201,11 +191,6 @@ g.ticks text {
   stroke:#d0d5dd;
   stroke-width: 12px;
   opacity: 0.75;
-}
-.chart-wrapper .economising.lollipop-line, 
-.chart-wrapper .care.lollipop-line, 
-.chart-wrapper .quality.lollipop-line{
-  stroke-width: 6px;
 }
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
@@ -219,16 +204,15 @@ g.ticks text {
 }
 .chart-wrapper circle:hover{
   cursor: pointer;
-  fill:#f16000 !important;
 }
 .chart-wrapper circle.lollipop-start {
-  fill:#a6ce3a;
+  fill:#A4CA43;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
 
 .chart-wrapper .lollipop-end {
-  fill: #519fdc;
+  fill: #529DDA;
   -webkit-transition: all 1s;
   transition: all 1s;
 }    
@@ -254,40 +238,73 @@ g.ticks text {
 }
 
 
-/** HAPPINESS PYRAMID **/
-.right16, .start-R .fa-circle{
-  fill: #4D9DD5;
-  color:#4D9DD5;
-}
-.right11, .end-R .fa-circle{
-  fill: #B7D1EB;
-  color:#B7D1EB;
-}
-.left16, .start-L .fa-circle{
-  fill: #92C856;
-  color: #92C856;
-}
-.left11, .end-L .fa-circle{
-  fill:#CCDFB9;
-  color:#CCDFB9;
-}
-.name{
-  font-size: 12px;
-}
-.score, .leftscore{
-  font-size: 11px;
-}
-rect.left11:hover, 
-rect.left16:hover, 
-rect.right11:hover, 
-rect.right16:hover{
-  cursor: pointer;
-  fill: #f16000;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+#ejm-chart svg {
+  width: 50%;
+ // height: 350px !important;
+ // border: 1px solid #000 !important;
 }
 
+#ejm-chart.only-one {
+  text-align: center;
+}
+#ejm-chart.only-one svg{
+  width: 65%;
+}
+.legendHTML{
+  list-style-type: none;
+  width: auto;
+  margin: auto !important;
+  text-align: center;
+}
+.legendHTML li{
+  display: inline-block;
+  margin-left: 1rem;
+}
+.legendHTML li div{
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  margin-top: 6px;
+}
+text.charts-title {
+  font-size: 1rem;
+  font-family: Opensans-semibold-webfont;
+  transform: translate(30%,-10px);
+}
+#ejm-chart.only-one text.charts-title {
+  transform: translate(33%,-10px);
+}
+.ejm-alert{
+  display: none;
+  font-family: Opensans-Semibold-webfont;
+  text-align: center;
+  color: #000;
+  font-size: 1.1rem;
+  margin-top: 6rem;
+}
+.ejm-alert img{
+  outline-width: 0 !important;
+  margin: 0 !important;
+  opacity: 0.2;
+}
+.advice-select-countries{
+  font-size: 12px;
+  font-style: italic;
+  font-weight: normal !important;
+  font-family: Opensans-regular-webfont;
+}
+
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: auto;
+  }
   .jm-charts {
       background: #F1F4F8;
       padding: 30px 15px 60px;
@@ -321,13 +338,23 @@ rect.right16:hover{
 }
 
 @media only screen and (max-width : 767px) {
-
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: 25px auto 0;
+  }
   #ejm-chart > svg > g{
     transform: translate(50px,10px) !important;
   }
   #ejm-chart > svg > g > text{
     /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
     font-size: 9px;
+  }
+  #ejm-chart > svg > g > text.charts-title{
+    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
+    font-size: 16px;
   }
   .chart-wrapper .tick text{
     font-size: 11px;
@@ -351,8 +378,7 @@ rect.right16:hover{
     overflow:initial;
     -ms-overflow:hidden;
   }
-  ul.legend-list li, 
-  ul.legend-list-butterfly li{
+  ul.legend-list li {
     width: 100%;
     margin: 5px 0;
     display:block;
@@ -386,6 +412,11 @@ rect.right16:hover{
   }
   #ejm-chart > svg > g > text{
     transform: rotate(-90deg) translate(-195px,17px) !important;
+  }
+
+  #ejm-chart > svg > g > text.charts-title{
+  transform: rotate(0deg) translate(25%,-7px) !important;
+  font-size: 16px;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
@@ -495,7 +526,7 @@ rect.right16:hover{
 .d3-tip p.country-name{
   font-family: 'OpenSans-Semibold-webfont';
   color: #000;
-  font-size: 12;
+  font-size: 12px;
 }
 .d3-tip p.no-data{
   font-family: 'OpenSans-Semibold-webfont';
@@ -505,7 +536,12 @@ rect.right16:hover{
 .d3-tip p.dot{
   font-family: 'OpenSans-bold-webfont';
   color: #F28524;
-  font-size: 12;
+  font-size: 12px;
+}
+.d3-tip .xLabels-tip{
+  font-family: 'OpenSans-regular-webfont';
+  color: #000;
+  font-size: 11px;
 }
 svg text[class^='legend-text']{
   cursor: pointer;
@@ -515,9 +551,6 @@ svg text[class^='legend-text']{
 }
 .legend-group, .y-axis path.domain{
   display: none !important;
-}
-.y-axis .tick line {
-  display: none;
 }
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
@@ -559,7 +592,4 @@ svg text[class^='legend-text']{
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
-}
-svg{
-  //border: 1px solid #000 !important;
 }
