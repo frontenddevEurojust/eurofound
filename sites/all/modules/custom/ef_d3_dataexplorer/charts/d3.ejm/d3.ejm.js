@@ -7,6 +7,65 @@
       results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
+
+      switch (results[2]) { 
+        case 'all': 
+          results[2] = 'All employment';
+          break;
+
+        case 'gender': 
+          results[2] = 'Gender';
+          break;
+
+        case 'time': 
+          results[2] = 'Part time / full time';
+          break;
+
+        case 'Employment status': 
+          results[2] = 'status';
+          break;
+
+        case 'contract': 
+          results[2] = 'Contract (employees only)';
+          break;
+
+        case 'combined': 
+          results[2] = 'Combined employment status';
+          break;
+
+        case 'country': 
+          results[2] = 'Country of birth';
+          break;
+
+        case 'sector': 
+          results[2] = 'Broad sector';
+          break;
+
+        case 'wage': 
+          results[2]  = 'Job-wage';
+          break;
+
+        case 'quality': 
+          results[2]  = 'Broad job quality';
+          break;
+
+        case 'education': 
+          results[2]  = 'Education';
+          break;
+
+      }
+
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+
+var getParameterURLByName = function(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
@@ -54,8 +113,8 @@
 
 
 
-	var periodFilterPar = getParameterByName('period');
-  var periodFilter = d3.select("#period");
+	var periodFilterPar = getParameterByName('time');
+  var periodFilter = d3.select("#time");
 
     periodFilter.selectAll("option")
 		.data(settings.period)
@@ -98,9 +157,9 @@
 				return d === "2013-2016"; 
 			}*/
 		});
+  var criterionFilterPar = getParameterByName('job_quality_criterion');
+  var criterionFilter = d3.select("#job_quality_criterion");	
 
-  var criterionFilter = d3.select("#job_quality_criterion ");	
-	var criterionFilterPar = getParameterByName('job_quality_criterion ');
 	
     criterionFilter.selectAll("option")
 		.data(settings.criterion)
@@ -163,7 +222,7 @@
         filtersOnChange();        
     });
 
-    d3.select("#period").on('change', function () {
+    d3.select("#time").on('change', function () {
         filtersOnChange();
     });
 
@@ -228,12 +287,12 @@
     } else if ( $( window ).width() <= 600 ) {
       var widthSVG = $("#ejm-chart").width()*0.9;
       var heightSVG = $("#ejm-chart").width()*0.60;
-      console.log( heightSVG );
+      //console.log( heightSVG );
     }
 
 
       // d3.select("#country").property('value')
-      period = d3.select("#period").property('value');
+      period = d3.select("#time").property('value');
       criterion = d3.select("#job_quality_criterion ").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
@@ -662,6 +721,55 @@
     $('select').on('change', function () {
       var valOption = $(this).val();
       var nameVar = $(this).attr('id');
+
+
+      switch (valOption) { 
+        case 'All employment': 
+          valOption = 'all';
+          break;
+
+        case 'Gender': 
+          valOption = 'gender';
+          break;
+
+        case 'Part time / full time': 
+          valOption = 'time';
+          break;
+
+        case 'Employment status': 
+          valOption = 'status';
+          break;
+
+        case 'Contract (employees only)': 
+          valOption = 'contract';
+          break;
+
+        case 'Combined employment status': 
+          valOption = 'combined';
+          break;
+
+        case 'Country of birth': 
+          valOption = 'country';
+          break;
+
+        case 'Broad sector': 
+          valOption = 'sector';
+          break;
+
+        case 'Job-wage': 
+          valOption = 'wage';
+          break;
+
+        case 'Broad job quality': 
+          valOption = 'quality';
+          break;
+
+        case 'Education': 
+          valOption = 'education';
+          break;
+
+      }
+
       // console.log(valOption);
       if (valOption) { 
         $('.legend-wrapper').css('display','block');
@@ -669,10 +777,11 @@
             history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
         } else {
           if(document.location.search.indexOf(nameVar) > 0) {
-            var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+            var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
             var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
               // newVarString = encodeURI( newVarString.replace(/\s/g,"-") );
               // newVarString = encodeURI( newVarString.replace(/\s/g,"-") ); 
+              
              
             history.pushState(null, "",  window.location.pathname + newVarString );
           } else {
@@ -683,7 +792,7 @@
       } else {
 
         if( valOption == null ){
-          var stringToReplace = encodeURI(nameVar+'='+getParameterByName(nameVar));
+          var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
           var newVarString = document.location.search.replace(stringToReplace,'');
           history.pushState(null, "",  window.location.pathname + newVarString );
           $('.legend-wrapper').css('display','none');

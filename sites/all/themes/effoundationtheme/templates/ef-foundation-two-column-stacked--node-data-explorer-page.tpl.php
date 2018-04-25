@@ -39,7 +39,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 			    	</div>
 						<div class="group-filters jm-filter-time">
 				    	<label>Time period</label>
-				    	<select id="period">
+				    	<select id="time">
 				    	</select>
 			    	</div>
 			    	<div class="group-filters jm-filter-breakdown">
