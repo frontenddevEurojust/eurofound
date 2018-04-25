@@ -8,6 +8,9 @@
     if (!results) return null;
     if (!results[2]) return '';
 
+
+    if( name == 'country' ) results[2] = results[2].toUpperCase();
+
       switch (results[2]) { 
         case 'all': 
           results[2] = 'All employment';
@@ -86,6 +89,7 @@ var getParameterURLByName = function(name) {
       var urlVars = 1;
       countryPar.push("EU");
     }
+
 
 
     var countryFilter = d3.select("#country")
@@ -287,7 +291,6 @@ var getParameterURLByName = function(name) {
     } else if ( $( window ).width() <= 600 ) {
       var widthSVG = $("#ejm-chart").width()*0.9;
       var heightSVG = $("#ejm-chart").width()*0.60;
-      //console.log( heightSVG );
     }
 
 
@@ -335,8 +338,6 @@ var getParameterURLByName = function(name) {
 
       var footNote = getFootnote(selection, settings.footnote);
 
-     // console.log( selection );
-     // console.log( settings.footnote );
 
 	  //this is the fraction of the maximum value which is added as a top and bottom margin.
 	  var topMargin = 0.10;
@@ -722,7 +723,6 @@ var getParameterURLByName = function(name) {
       var valOption = $(this).val();
       var nameVar = $(this).attr('id');
 
-
       switch (valOption) { 
         case 'All employment': 
           valOption = 'all';
@@ -770,22 +770,22 @@ var getParameterURLByName = function(name) {
 
       }
 
-      // console.log(valOption);
+      if( nameVar == 'country' && valOption != null ) valOption = String.prototype.toLowerCase.apply(valOption).split(",");
+
+
       if (valOption) { 
         $('.legend-wrapper').css('display','block');
         if(!document.location.search) {
-            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
+               
+             history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
+
         } else {
           if(document.location.search.indexOf(nameVar) > 0) {
             var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
             var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
-              // newVarString = encodeURI( newVarString.replace(/\s/g,"-") );
-              // newVarString = encodeURI( newVarString.replace(/\s/g,"-") ); 
-              
-             
+         
             history.pushState(null, "",  window.location.pathname + newVarString );
           } else {
-            //console.log('nameVar  ------->' + nameVar);
             history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
           }
         }
