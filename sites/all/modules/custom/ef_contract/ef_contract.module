@@ -538,18 +538,11 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $form['field_ef_deliverable_kind']['und']['#required'] = TRUE;
 
     $form['field_ef_service_type']['und']['#type'] = 'radios';
-    $form['field_ef_service_type']['und']['#required'] = TRUE;
 
     $deliverable_kind_tid = $form['field_ef_deliverable_kind']['und']['#default_value'][0];
 
     $service_type_tid = $form['field_ef_service_type']['und']['#entity']->field_ef_service_type['und'][0]['tid'];
     $service_type = get_service_type($deliverable_kind_tid);
-    if (user_access('edit field_ef_service_type', $user) && $context == 1) {
-      $form['field_ef_service_type']['und']['#required'] = TRUE;
-    }
-    else {
-      $form['field_ef_service_type']['und']['#required'] = FALSE;
-    }
     
     if (isset($service_type)) {
       foreach ($service_type as $tid => $value) {
@@ -734,13 +727,25 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $form['field_ef_assign_to_user']['#prefix'] = '<div id="field-assign-to-user-wrapper">';
     $form['field_ef_assign_to_user']['#suffix'] = '</div>';
 
+    array_unshift($form['actions']['submit']['#validate'], 'service_type_validate');
+
     return $form;
   }
 }
 // end CREATE/EDIT FORM
 
-function ef_contract_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+function service_type_validate($form, &$form_state) {
+  global $user;
 
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
+  
+  $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $form_state['input']['field_ef_service_type']['und'];
+  if ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user) {
+    if ($context == 1) {
+      form_set_error('Service Type', t('Service type is Required'));
+    }
+  }
 }
 
 function ajax_contract_callback($form, &$form_state) {
@@ -807,12 +812,16 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
   $service_type = get_service_type($deliverable_kind_tid);
   if (isset($service_type) && !empty($service_type)) {
     foreach ($service_type as $tid => $value) {
-      $form['field_ef_service_type']['und']['#value'] = $value;
-      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
-      if ($value != 0){
+      if ($value != 0) {
+        $form['field_ef_service_type']['und']['#value'] = $value;
+        $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
         $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
+  }
+
+  if ($form['field_ef_service_type']['und']['#value'] == 0) {
+    $form['field_ef_service_type']['und']['#value'] = $form['field_ef_service_type']['und']['#default_value'];
   }
 
   if (!empty($country_gid)) {
