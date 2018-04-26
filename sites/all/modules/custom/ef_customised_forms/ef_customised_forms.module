@@ -234,6 +234,20 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
   }
 */
+	/** ---- VIEW: OSU Contract Reporting ----
+  ***
+  *** Display name: Page
+  *** Path: osu-contracts-reporting
+  ***
+  *** Issue: WGS-383 Processed for payment creates new revision
+  *** Remove N/A option from field form
+  ***/
+  if (isset($form['field_ef_processed_for_payment'])) {
+  	foreach ($form['field_ef_processed_for_payment'] as $key => $pfpform) {
+  		unset($form['field_ef_processed_for_payment'][$key]['field_ef_processed_for_payment']['und']['#options']['_none']);
+  	}
+  } 
+
 
   /** ---- VIEW: Restructuring in SMEs ----
   ***
