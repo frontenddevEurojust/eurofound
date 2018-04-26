@@ -12929,7 +12929,9 @@ h1.parent_eurwork.title{
 
 
 /** KEY TOPICS HOME **/
-
+.view-id-key_topics_landing_page{
+	width: 83%;
+}
 .view-ef-key-topics-home{
   padding: 0;
   overflow: hidden;
@@ -12967,7 +12969,7 @@ h1.parent_eurwork.title{
 }
 .view-key-topics-landing-page .not-important-key-topics-group{
   float: right;
-  width: 25%;
+  width: 33.3%;
 }
 .not-important-key-topics-group .key-topics-list{
   width: 99%;
@@ -12978,13 +12980,13 @@ h1.parent_eurwork.title{
 }
 .view-key-topics-landing-page .important-key-topics-group{
   float: left;
-  width:75%;
+  width: 66.6%;
 }
 .important-key-topics-group .key-topics-list{
   width: 49%;
 }
 .view-key-topics-landing-page .important-key-topics-group .key-topics-list{
-  width: 32.2%;
+  width: 49%;
 }
 .pane-ef-key-topics-home .key-topics-list,
 .view-ef-key-topics-home .key-topics-list, 
