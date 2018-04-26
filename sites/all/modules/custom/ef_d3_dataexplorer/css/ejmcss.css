@@ -44,7 +44,7 @@ g.ticks text {
   display: inline-block;
 }
 .jm-abstract-wrapper{
-  padding: 15px 25px;
+  padding: 15px 55px 15px 25px;
 }
 .jm-charts{
   background: #F1F4F8;
@@ -54,7 +54,7 @@ g.ticks text {
 
 .jm-filters-chart {
   background: #E9EDF3;
-  overflow: auto;
+ /* overflow: auto;*/
 }
 .filters-jm-chart {
   padding: 90px 0 0 0;
@@ -73,6 +73,8 @@ g.ticks text {
   text-align: center;
   width: auto;
   margin: auto;
+  position: relative;
+  top: -30px;
 }
   ul.legend-list li{
     width: auto;
@@ -294,6 +296,45 @@ text.charts-title {
   font-style: italic;
   font-weight: normal !important;
   font-family: Opensans-regular-webfont;
+}
+.topic-label{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  font-weight: bold;
+  vertical-align: top;
+  position: relative;
+  font-size: 0.9em;
+  top: 12px;
+}
+p.last-update {
+  margin: 11px 0 0 0;
+  display: inline-block;
+  float: right;
+  font-style: italic;
+}
+.topic-list{
+  display: inline-block;
+  margin: 10px 0 !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+  max-width: 80%;
+}
+.topic-list li{
+  margin-left: 0 !important;
+  padding:0 !important;  
+}
+.topic-list li a:after{
+  content: ' | ';
+}
+.topic-list li:last-child a:after {
+  content:none;
+}
+.topic-list li a{
+  margin-left: 0 !important;
+  padding:0 !important;  
 }
 
 
