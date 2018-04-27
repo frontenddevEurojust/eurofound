@@ -741,7 +741,7 @@ function service_type_validate($form, &$form_state) {
   $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
   
   $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $form_state['input']['field_ef_service_type']['und'];
-  if ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user) {
+  if ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user)) {
     if ($context == 1) {
       form_set_error('Service Type', t('Service type is Required'));
     }
