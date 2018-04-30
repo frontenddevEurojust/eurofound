@@ -680,11 +680,8 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 			drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
 			drupal_set_message(l("View NC: " . $dsm_title, $nodeUrl));
 
-			workbench_moderation_moderate($node, "requested");
-	   		field_attach_update('node', $node);
-	   		$created_nc_nids[] = $node->nid; 
-
-			$contributionsIds[] = $node->nid;
+			workbench_moderation_moderate($node, 'requested');
+	   	ef_notifications_save_transition_records($node, 'draft', 'requested');
 		}
 	}
 	/* --- end --- */
