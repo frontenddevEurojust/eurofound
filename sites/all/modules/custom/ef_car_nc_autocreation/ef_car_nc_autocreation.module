@@ -682,6 +682,9 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 
 			workbench_moderation_moderate($node, 'requested');
 	   	ef_notifications_save_transition_records($node, 'draft', 'requested');
+
+	   	$created_nc_nids[] = $node->nid; 
+			$contributionsIds[] = $node->nid;
 		}
 	}
 	/* --- end --- */
