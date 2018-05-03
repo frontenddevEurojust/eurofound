@@ -823,7 +823,7 @@ function car_nc_autocreation_form_submit($form, &$form_state){
 
 function car_autocreation_file_upload_ajax($form, &$form_state) {
 	
-	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
+	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx"); 
 	$doc_error = false;
 	global $user;
 	//No more than 20 documets are allowed
