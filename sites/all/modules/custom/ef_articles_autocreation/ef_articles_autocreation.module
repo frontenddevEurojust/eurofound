@@ -310,7 +310,9 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	//   10 MB.
 	// File validation
 	global $user;
-	$form_state['rebuild'] = TRUE;
+	if($form_state['clicked_button']['#value'] !="Submit"){
+		$form_state['rebuild'] = TRUE;
+	}
 	$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
 
 	if($form_state['complete form']['con_file']['file_list']['#rows'][0]['file'] == "No file"){
