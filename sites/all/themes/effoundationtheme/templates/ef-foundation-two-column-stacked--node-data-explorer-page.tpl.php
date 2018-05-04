@@ -91,12 +91,6 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 	<?php else: ?>
 
 	<div class="jm-filters-chart clearfix">
-		<div class="related-content-aside-3">
-            <?php
-                $block = block_load('block','54');
-                print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
-            ?>
-        </div>
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
 	  		<fieldset>
@@ -104,6 +98,14 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 					<div class="group-filters chart-filters"></div>
 				</fieldset>
 			</form>
+			<?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+			<div class="related-content-aside-3 related-content-data-explorer">
+			    <?php
+			        $block = block_load('block','54');
+			        print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+			    ?>
+			</div>
+			 <?php endif; ?>
 		</div>
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
 			<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
