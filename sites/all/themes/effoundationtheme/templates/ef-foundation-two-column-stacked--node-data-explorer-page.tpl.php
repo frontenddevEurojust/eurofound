@@ -91,6 +91,12 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 	<?php else: ?>
 
 	<div class="jm-filters-chart clearfix">
+		<div class="related-content-aside-3">
+            <?php
+                $block = block_load('block','54');
+                print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+            ?>
+        </div>
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
 	  		<fieldset>
