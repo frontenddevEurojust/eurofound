@@ -79,7 +79,7 @@ $countview = count($result);
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($countview  > 0)): ?>
+    <?php if (isset($content['field_ef_related_content'][0]['#markup']) || ($countview  > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -198,11 +198,14 @@ $countview = count($result);
             </h2>
             <div class="author-view">
                 <?php
-               
-                 print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); ?>
+                    print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); 
+                 ?>
             </div>
         <?php endif; ?>
-        <div class="related-links-block">
-            <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>
+        <div class="related-content-aside-3">
+            <?php
+                $block = block_load('block','54');
+                print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+            ?>
         </div>
     </aside>

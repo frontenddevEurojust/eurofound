@@ -77,7 +77,6 @@
             $name="";
             $date="";
             $node_ittem=node_load($value);
-
             $query = db_select('related_content_and_taxonomies', 'rc');
             $query->fields('rc', array("rc_type"));
             $query->condition('rc.nid', $nid, "=");
@@ -197,6 +196,8 @@
                 $name=t("Publication");
               }elseif($name=="EF survey"){
                 $name=t("Survey");
+              }elseif($name=="Spotlight report"){
+                $name=t("Article");
               }
 
 
@@ -212,6 +213,8 @@
 
 
               if ($is_nodo){
+                //If the node isn't unpublished
+                if($node_ittem->status != 0){
                 //ALIAS HREF
                   $path = 'node/'.$node_ittem->nid;
                   $alias = url($path, array("absolute"=>TRUE));
@@ -243,7 +246,8 @@
 
                         </ul>  
                       </li>
-                    <?php 
+                <?php 
+                }
               }else{
                 //Get Taxonmy name
                   $sql = db_select('taxonomy_term_data','t');
