@@ -406,14 +406,16 @@
 
 							if( alignElement.hasClass( 'img-align-left-ck' ) ){
 								alignElement.removeClass( 'img-align-left-ck');
+								alignElement.removeClass( 'img-align-center-ck')
 								data.align = 'left';
 							
 							} else if( alignElement.hasClass( 'img-align-right-ck' ) ){
 								alignElement.removeClass( 'img-align-right-ck');
+								alignElement.removeClass( 'img-align-center-ck')
 								data.align = 'right';
 							
 							} else if( alignElement.hasClass( 'img-align-center-ck' ) ){
-								alignElement.removeClass( 'img-align-center-ck');
+								//alignElement.removeClass( 'img-align-center-ck');
 								data.align = 'center';
 
 							} else {
