@@ -12,22 +12,24 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 	<div class="row">
 		<div class="jm-abstract-wrapper small-12 large-9">			
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
-		  <p class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></p>
-		  <?php if( $content['field_ef_topic']['#items'] ): ?>
-				<div class="data-explorer-topics">							
-							<p class="topic-label"><?php print t('Topics'); ?>: </p>				
-							<ul class="topic-list inline-list">
-								<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
-									<li><?php 
-										$term = taxonomy_term_load( $topics['tid'] );
-										$name = $term->field_term_title[$language][0]['value'];
-										$url = url(taxonomy_term_uri($term)['path']);
-	           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
-									  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
-									?></li>							
-								<?php endforeach; ?>
-							</ul>
-				</div>
+	  	<?php if( $node->field_ef_de_chart_id['und'][0]['safe_value'] != 'EJM'): ?>
+			  <p class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></p>
+			  <?php if( $content['field_ef_topic']['#items'] ): ?>
+					<div class="data-explorer-topics">							
+								<p class="topic-label"><?php print t('Topics'); ?>: </p>				
+								<ul class="topic-list inline-list">
+									<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
+										<li><?php 
+											$term = taxonomy_term_load( $topics['tid'] );
+											$name = $term->field_term_title[$language][0]['value'];
+											$url = url(taxonomy_term_uri($term)['path']);
+		           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
+										  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
+										?></li>							
+									<?php endforeach; ?>
+								</ul>
+					</div>
+				<?php endif; ?>
 			<?php endif; ?>
 			<div class="jm-abstract">
 				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
