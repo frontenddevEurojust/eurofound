@@ -241,9 +241,15 @@
     filteredData = filterData(data, modalityCode, subgroupCode, order);
     
     var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-    var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+  
+    if( calculateMinValue(filteredData) < 1){
+      var domainMin = Math.round(calculateMinValue(filteredData));
+    }else{
+      var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+    }
 
 
+ 
     padding = 0;
 
       if($(window).width()>=768){
@@ -278,7 +284,7 @@
       .padding(padding);
 
     yAxis = d3.axisLeft().scale(y)
-      .tickSize(0);
+      .tickSize(10);
 
     x.domain([domainMin, domainMax])
       .range([0, width])
@@ -495,7 +501,7 @@
           .nice();
         
         yAxis = d3.axisLeft().scale(y)
-          .tickSize(0);
+          .tickSize(10);
         
         xAxis = d3.axisTop().scale(x)
           .tickFormat(function(d,i) {
@@ -508,7 +514,7 @@
           });
         
         var yAxisGroup = svg.append("g")
-          .attr("transform", "translate(-10, 0)")
+          .attr("transform", "translate(0, 0)")
           .attr("class", "y-axis")
           .call(yAxis);
           //.select(".domain").remove();    
