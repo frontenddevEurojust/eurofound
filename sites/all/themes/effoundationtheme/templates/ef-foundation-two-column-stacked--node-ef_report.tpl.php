@@ -183,7 +183,10 @@ $countview = count($result);
                                 ?>
                                     <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>">
                                         <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>                                           
-                                    </a> <span>;</span>
+                                    </a> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print '<span>;</span>';
+                                    }; ?>
                                 <?php
                             }else{
                                 ?>
