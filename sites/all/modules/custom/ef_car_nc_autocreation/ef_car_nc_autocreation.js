@@ -141,17 +141,3 @@
 
   });
 })(jQuery);
-
-/*
-
-
-(function ($) {
-  $(window).load(function() {
-    if($('#edit-country2 .form-item label').prev('input').is(":checked")){
-      alert("checked peo");
-      $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
-    }
-  });
-})(jQuery);
-
-*/
