@@ -3,7 +3,7 @@ g.rule text {
   fill: #666666 !important;
 }
 g.ticks text {
-  font-size: 1em;
+  font-size: 0.9em;
   fill: #666666 !important;
 }
 .tooltip {
@@ -44,16 +44,17 @@ g.ticks text {
   display: inline-block;
 }
 .jm-abstract-wrapper{
-  padding: 15px 25px;
+  padding: 15px 55px 15px 25px;
 }
 .jm-charts{
   background: #F1F4F8;
   padding: 30px 15px;
+  min-height: 550px;
 }
 
 .jm-filters-chart {
   background: #E9EDF3;
-  overflow: auto;
+ /* overflow: auto;*/
 }
 .filters-jm-chart {
   padding: 90px 0 0 0;
@@ -253,7 +254,6 @@ g.ticks text {
   stroke-width: 1px;
 }
 
-
 /** HAPPINESS PYRAMID **/
 .right16, .start-R .fa-circle{
   fill: #4D9DD5;
@@ -271,8 +271,104 @@ g.ticks text {
   fill:#CCDFB9;
   color:#CCDFB9;
 }
+#ejm-chart svg {
+  width: 50%;
+ // height: 350px !important;
+ // border: 1px solid #000 !important;
+}
+
+#ejm-chart.only-one {
+  text-align: center;
+}
+#ejm-chart.only-one svg{
+  width: 65%;
+}
+.legendHTML{
+  list-style-type: none;
+  width: auto;
+  margin: auto !important;
+  text-align: center;
+}
+.legendHTML li{
+  display: inline-block;
+  margin-left: 1rem;
+}
+.legendHTML li div{
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+  margin-top: 6px;
+}
+text.charts-title {
+  font-size: 1rem;
+  font-family: Opensans-semibold-webfont;
+  transform: translate(30%,-10px);
+}
+#ejm-chart.only-one text.charts-title {
+  transform: translate(33%,-10px);
+}
+.ejm-alert{
+  display: none;
+  font-family: Opensans-Semibold-webfont;
+  text-align: center;
+  color: #000;
+  font-size: 1.1rem;
+  margin-top: 6rem;
+}
+.ejm-alert img{
+  outline-width: 0 !important;
+  margin: 0 !important;
+  opacity: 0.2;
+}
+.advice-select-countries{
+  font-size: 12px;
+  font-style: italic;
+  font-weight: normal !important;
+  font-family: Opensans-regular-webfont;
+}
 .name{
   font-size: 12px;
+}
+.topic-label{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  font-weight: bold;
+  vertical-align: top;
+  position: relative;
+  font-size: 0.9em;
+  top: 12px;
+}
+p.last-update {
+  margin: 11px 0 0 0;
+  display: inline-block;
+  float: right;
+  font-style: italic;
+}
+.topic-list{
+  display: inline-block;
+  margin: 10px 0 !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+  max-width: 80%;
+}
+.topic-list li{
+  margin-left: 0 !important;
+  padding:0 !important;  
+}
+.topic-list li a:after{
+  content: ' | ';
+}
+.topic-list li:last-child a:after {
+  content:none;
+}
+.topic-list li a{
+  margin-left: 0 !important;
+  padding:0 !important;  
 }
 .score, .leftscore{
   font-size: 11px;
@@ -288,6 +384,13 @@ rect.right16:hover{
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: auto;
+  }
   .jm-charts {
       background: #F1F4F8;
       padding: 30px 15px 60px;
@@ -321,13 +424,23 @@ rect.right16:hover{
 }
 
 @media only screen and (max-width : 767px) {
-
+  #ejm-chart {
+    text-align: center;
+  }
+  #ejm-chart > svg {
+    width: 90% !important;
+    margin: 25px auto 0;
+  }
   #ejm-chart > svg > g{
     transform: translate(50px,10px) !important;
   }
   #ejm-chart > svg > g > text{
     /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
     font-size: 9px;
+  }
+  #ejm-chart > svg > g > text.charts-title{
+    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
+    font-size: 16px;
   }
   .chart-wrapper .tick text{
     font-size: 11px;
@@ -386,6 +499,11 @@ rect.right16:hover{
   }
   #ejm-chart > svg > g > text{
     transform: rotate(-90deg) translate(-195px,17px) !important;
+  }
+
+  #ejm-chart > svg > g > text.charts-title{
+  transform: rotate(0deg) translate(25%,-7px) !important;
+  font-size: 16px;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
@@ -495,7 +613,6 @@ rect.right16:hover{
 .d3-tip p.country-name{
   font-family: 'OpenSans-Semibold-webfont';
   color: #000;
-  font-size: 12;
 }
 .d3-tip p.no-data{
   font-family: 'OpenSans-Semibold-webfont';
@@ -505,7 +622,11 @@ rect.right16:hover{
 .d3-tip p.dot{
   font-family: 'OpenSans-bold-webfont';
   color: #F28524;
-  font-size: 12;
+}
+.d3-tip .xLabels-tip{
+  font-family: 'OpenSans-regular-webfont';
+  color: #000;
+  font-size: 11px;
 }
 svg text[class^='legend-text']{
   cursor: pointer;
@@ -513,12 +634,18 @@ svg text[class^='legend-text']{
 .d3-tip.showed{
   opacity: 1 !important;
 }
-.legend-group, .y-axis path.domain{
+.legend-group {
   display: none !important;
+}
+.y-axis path.domain{
+   // opacity: 0.2;
+   display: none;
 }
 .y-axis .tick line {
   display: none;
+  //   opacity: 0.2;
 }
+
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
@@ -559,7 +686,4 @@ svg text[class^='legend-text']{
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
-}
-svg{
-  //border: 1px solid #000 !important;
 }
