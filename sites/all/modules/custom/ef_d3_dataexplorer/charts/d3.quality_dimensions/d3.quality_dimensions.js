@@ -66,7 +66,7 @@
 		return filtered;
 	}
 
-	var createModalityFilter = function(data)
+	var createModalityFilter = function(data, settingsData)
 	{
 		var modalities = buildModalityOptions(data);
     
@@ -82,23 +82,9 @@
 		d3.select("#modality-filter").on("change", updateGraph);
 	}
 
-	/*var createSubgroupFilter = function(data)
-	{    
-		var subgroups = buildSubgroupOptions(data);    
-		var select = d3.select('body .chart-filters').append('select').property('id', 'subgroup-filter').property('name', 'group');
-
-		var options = select.selectAll('option').data(subgroups).enter()
-			.append('option').text(function (c) { return c.subgroupValue; })
-			.property('value',function(c){ return c.subgroupCode; });
-
-		d3.select("#subgroup-filter").on("change", updateGraph);
-	}*/
-
-	var createOrderingFilter = function()
+	var createOrderingFilter = function(dataFile, settingsData)
 	{
-		/*var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];*/
-		// var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending"];
-		var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2016 value descending"];
+		var alphaSort = [translatedValue(dataFile, 'quality-dim-GP_sortOptionDefault'), translatedValue(dataFile, 'quality-dim-GP_sortOption1')];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -182,14 +168,12 @@
 		return maxValue;
 	}
 
-	var buildGraphStructure = function(csv)
+	var buildGraphStructure = function(csv, dataFile, settingsData)
 	{
-		$('.chart-filters').append('<label for="modality-filter" class="label-data">Data:</label>');
-		createModalityFilter(csv);
-		/*$('.chart-filters').append('<label for="subgroup-filter" class="label-group">Group:</label>');
-		createSubgroupFilter(csv);*/
-		$('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
-		createOrderingFilter();
+		$('.chart-filters').append('<label for="modality-filter" class="label-data">' + translatedValue(dataFile, 'LabelData') + '</label>');
+		createModalityFilter(csv, settingsData);
+		$('.chart-filters').append('<label for="sort-filter" class="label-sort">' + translatedValue(dataFile, 'LabelSort') + '</label>');
+		createOrderingFilter(dataFile, settingsData);
 	};
 
 	var axisLinePath = function(d)
@@ -197,15 +181,50 @@
 		return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
 	};
 
-	var parseToFloat = function(csv)
+	var translateData = function(dataFile, csv)
 	{
 		var data = csv.map(function(row)
 		{
+			row.countryName = translatedValue(dataFile, 'country' + row.countryCode);
 			row.dot1 = parseFloat(row.dot1);
-			//row.dot2 = parseFloat(row.dot2);
+			row.dot2 = parseFloat(row.dot2);
+			row.modalityValue = translatedValue(dataFile, 'quality-dim-GP_filter_group' + row.modalityCode);
 			return row;
 		});
 		return data;
+	}
+
+	var readSettings = function(settingsFile)
+	{
+		var settingsData = settingsFile.map(function(row)
+		{
+			return row;
+		});
+		return settingsData;
+	}
+
+	var translatedValue = function(translatedArray, arrayKey)
+	{
+		var entry = translatedArray.find(function(e)
+		{
+			return e.Key === arrayKey;
+		});
+		if (entry)
+		{
+			return entry.Value;
+		}
+	}
+
+	var customSettings = function(settingsArray, chartName, modalityName)
+	{
+		var elementId = settingsArray.find(function(e)
+		{
+			return (e.chartID === chartName && e.modalityCode === modalityName);
+		});
+		if (elementId)
+		{
+			return [elementId.xMin, elementId.xMax];
+		}
 	}
 
 	function updateGraph()
@@ -217,9 +236,10 @@
 		//filteredData = filterData(data, modalityCode, subgroupCode, order);
 		filteredData = filterData(data, modalityCode, order);
 
-		var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-		var domainMin = Math.round(calculateMinValue(filteredData) - 1);
-
+		var customLimits = customSettings(settingsData, 'quality-dim-GP', 'N/A');
+		
+		var domainMin = customLimits[0];
+		var domainMax = customLimits[1];
 
 		padding = 0;
 
@@ -325,8 +345,13 @@
 	$(document).ready(function()
 	{
 		data = [];
+		settingsData = [];
 
-		if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+		if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+		{
+			var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+		}	
+		else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
 		{
 			var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
 		}
@@ -334,12 +359,24 @@
 		{
 			console.log("Language is undefined. Data can't be loaded");
 		}
-
-		d3.csv('/sites/default/files/ejm/data/' + languageCode + '/quality-dimensions/quality-dimensions_' + languageCode + '.csv', function(csv)
+		
+		d3.queue()
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+			.defer(d3.csv, '/sites/default/files/ejm/data/en/quality-dimensions/quality-dimensions_en.csv')
+			.await(function(error, settingsFile, dataFile, csv)
 		{
 			if (csv === null)
 			{
-				console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/quality-dimensions/quality-dimensions_' + languageCode + '.csv" was not found.');
+				console.log('Requested csv at "/sites/default/files/ejm/data/en/quality-dimensions/quality-dimensions_en.csv" was not found.');
+			}
+		  
+			settingsData = function(settingsFile)
+			{
+				settingsFile.map(function(row)
+				{
+					return row;
+				});
 			}
 
 			// Initialize tooltip
@@ -377,7 +414,7 @@
       
 			// Might need to be created with excel data
 			var legendLabels = [
-				{label: "Level of satisfaction (1-10)", class: "lollipop-start"}, 
+				{label: translatedValue(dataFile, 'quality-dim-GP_legend1'), class: "lollipop-start"}
 				//{label: "(%) - 2016", class: "lollipop-end"},
 			];
       
@@ -418,9 +455,11 @@
 				return legendPosition.x + spaceBetween * i;
 			}).attr("cy", legendPosition.y).attr("r", 5).attr("class", function(d) { return d.class });
 
-			data = parseToFloat(csv);
-			
-			buildGraphStructure(data);
+
+			data = translateData(dataFile, csv);
+			settingsData = readSettings(settingsFile);
+
+			buildGraphStructure(data, dataFile, settingsData);
 
 			var modalityCode = getParameterByName('data');
 			var subgroupCode = subgroupCode = getParameterByName('group');
@@ -446,8 +485,10 @@
 			//filteredData = filterData(data, modalityCode, subgroupCode, order);
 			filteredData = filterData(data, modalityCode, order);
 
-			var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-			var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+			var customLimits = customSettings(settingsData, 'quality-dim-GP', 'N/A');
+			
+			var domainMin = customLimits[0];
+			var domainMax = customLimits[1];
 			
 			y = d3.scaleBand().domain(filteredData.map(function(d) { return d.countryName }))
 				.range([0, height]).padding(padding);

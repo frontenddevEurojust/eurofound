@@ -69,7 +69,7 @@
     return filtered;
   }
 
-  var createModalityFilter = function(data){
+  var createModalityFilter = function(data, settingsData){
     
     var modalities = buildModalityOptions(data);
     
@@ -117,8 +117,8 @@
     d3.select("#gender-filter").on("change", updateGraph);
   }
 
-  var createOrderingFilter = function() {
-    var alphaSort = ["Alphabetically ascending (A-Z, with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
+  var createOrderingFilter = function(dataFile, settingsData) {
+	var alphaSort = [translatedValue(dataFile, 'work-life-balance_1_sortOptionDefault'), translatedValue(dataFile, 'work-life-balance_1_sortOption1'), translatedValue(dataFile, 'work-life-balance_1_sortOption2')];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -253,35 +253,69 @@
     return maxValue;
   }
 
-  var buildGraphStructure = function(csv){
-    $('.chart-filters').append('<label for="modality-filter" class="label-data">Data:</label>');
-    createModalityFilter(csv);
-    $('.chart-filters').append('<label for="subgroup-filter" class="label-subgroup">Group:</label>');
-    createSubgroupFilter(csv);
-    $('.chart-filters').append('<label for="gender-filter" class="label-gender">Gender:</label>');
-    createGenderFilter(csv);
-    $('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
-    createOrderingFilter();
+  var buildGraphStructure = function(csv, dataFile, settingsData)
+  {
+    $('.chart-filters').append('<label for="modality-filter" class="label-data">' + translatedValue(dataFile, 'LabelData') + '</label>');
+    createModalityFilter(csv, settingsData);
+    $('.chart-filters').append('<label for="subgroup-filter" class="label-subgroup">' + translatedValue(dataFile, 'LabelGroup') + '</label>');
+    createSubgroupFilter(csv, settingsData);
+    $('.chart-filters').append('<label for="gender-filter" class="label-gender">' + translatedValue(dataFile, 'LabelGender') + '</label>');
+    createGenderFilter(csv, settingsData);
+    $('.chart-filters').append('<label for="sort-filter" class="label-sort">' + translatedValue(dataFile, 'LabelSort') + '</label>');
+    createOrderingFilter(dataFile, settingsData);
   };
 
   var axisLinePath = function(d) {
     return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
   };
-       
 
-  var parseToFloat = function(csv){
+	var translateData = function(dataFile, csv)
+	{
+		var data = csv.map(function(row)
+		{
+			row.countryName = translatedValue(dataFile, 'country' + row.countryCode);
+			row.dot1 = parseFloat(row.dot1);
+			row.dot2 = parseFloat(row.dot2);
+			row.modalityValue = translatedValue(dataFile, 'work-life-balance_1_filter_data' + row.modalityCode);
+			row.subgroupValue = translatedValue(dataFile, 'work-life-balance_1_filter_group' + row.subgroupCode);
+			row.genderValue = translatedValue(dataFile, 'work-life-balance_1_filter_gender' + row.genderCode);
+			return row;
+		});
+		return data;
+	}
 
-    var data = csv.map(function(row){
+	var readSettings = function(settingsFile)
+	{
+		var settingsData = settingsFile.map(function(row)
+		{
+			return row;
+		});
+		return settingsData;
+	}
 
-      row.dot1 = parseFloat(row.dot1);
+	var translatedValue = function(translatedArray, arrayKey)
+	{
+		var entry = translatedArray.find(function(e)
+		{
+			return e.Key === arrayKey;
+		});
+		if (entry)
+		{
+			return entry.Value;
+		}
+	}
 
-      row.dot2 = parseFloat(row.dot2);
-
-      return row;
-    });
-
-    return data;
-  }
+	var customSettings = function(settingsArray, chartName, modalityName)
+	{
+		var elementId = settingsArray.find(function(e)
+		{
+			return (e.chartID === chartName && e.modalityCode == modalityName);
+		});
+		if (elementId)
+		{
+			return [elementId.xMin, elementId.xMax];
+		}
+	}
 
   function updateGraph() {
 
@@ -291,9 +325,11 @@
     var order = d3.select('#sort-filter').property("value");
 
     var filteredData = filterData(data, modalityCode, subgroupCode, genderCode, order);
-    
-    var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-    var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+
+	var customLimits = customSettings(settingsData, 'work-life', subgroupCode);
+	
+	var domainMin = customLimits[0];
+	var domainMax = customLimits[1];
 
     padding = 0;
 
@@ -413,19 +449,40 @@
 
   $(document).ready(function(){
 
-    data = [];
+	data = [];
+	settingsData = [];
 
-    if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
-      var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-    } else {
-      console.log("Language is undefined. Data can't be loaded");
-    }
+	if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+	{
+		var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+	}	
+	else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+	{
+		var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
+	}
+	else
+	{
+		console.log("Language is undefined. Data can't be loaded");
+	}
+	
+	d3.queue()
+		.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+		.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+		.defer(d3.csv, '/sites/default/files/ejm/data/en/work-life/work-life_en.csv')
+		.await(function(error, settingsFile, dataFile, csv)
+	{
 
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/work-life/work-life_' + languageCode + '.csv', function(csv){
-
-      if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/work-life/work-life_' + languageCode + '.csv" was not found.');
-      }
+		if (csv === null){
+			console.log('Requested csv at "/sites/default/files/ejm/data/en/work-life/work-life_en.csv" was not found.');
+		}
+		  
+		settingsData = function(settingsFile)
+		{
+			settingsFile.map(function(row)
+			{
+				return row;
+			});
+		}
 
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
@@ -456,11 +513,11 @@
         "lollipop-end": "max",
       }
 
-      // Will be created using texts excel data
-      var legendLabels = [
-        {label: "At least several times a month (%) - 2007", class: "lollipop-start"},
-        {label: "At least several times a month (%) - 2016", class: "lollipop-end"},
-      ];
+      // Will be created using texts excel data		  
+		var legendLabels = [
+			{label: translatedValue(dataFile, 'work-life-balance_1_legend1'), class: "lollipop-start"}, 
+			{label: translatedValue(dataFile, 'work-life-balance_1_legend2'), class: "lollipop-end"},
+		];
       
       var padding = 0;
 
@@ -508,9 +565,10 @@
       
       var padding = 0;
 
-      data = parseToFloat(csv);
+		data = translateData(dataFile, csv);
+		settingsData = readSettings(settingsFile);
 
-      buildGraphStructure(data);
+		buildGraphStructure(data, dataFile, settingsData);
 
       var modalityCode = getParameterByName('data');
       var subgroupCode = getParameterByName('group');
@@ -529,8 +587,10 @@
       
       var filteredData = filterData(data, modalityCode, subgroupCode, genderCode, order);
 
-      var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-      var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+	var customLimits = customSettings(settingsData, 'work-life', subgroupCode);
+	
+	var domainMin = customLimits[0];
+	var domainMax = customLimits[1];
       
       y = d3.scaleBand()
         .domain(filteredData.map(function(d) { return d.countryName }))

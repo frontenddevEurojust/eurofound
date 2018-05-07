@@ -65,11 +65,11 @@
     return filtered;
   }
 
-  overallFunctions.createModalityFilter = function(data){
+  overallFunctions.createModalityFilter = function(data, dataFile, settingsData){
       
     var modalities = overallFunctions.buildModalityOptions(data);
     
-    var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text('Group');
+    var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text(overallFunctions.translatedValue(dataFile, 'LabelGroup'));
     var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'group');
 
     var options = select
@@ -82,10 +82,9 @@
     d3.select("#modality-filter").on("change", updateGraph);
   }
 
-  overallFunctions.createOrderingFilter = function() {
-    // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
-
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By own future 2016 value descending", "By (grand)children future 2016 value descending"];
+  overallFunctions.createOrderingFilter = function(dataFile, settingsData)
+  {
+	var alphaSort = [overallFunctions.translatedValue(dataFile, 'liv-depr-optim_sortOptionDefault'), overallFunctions.translatedValue(dataFile, 'liv-depr-optim_sortOption1'), overallFunctions.translatedValue(dataFile, 'liv-depr-optim_sortOption2')];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -157,29 +156,61 @@
     return maxValue;
   }
 
-  overallFunctions.buildGraphStructure = function(csv){
-    overallFunctions.createModalityFilter(csv);
-    $('.chart-filters').append('<label for="sort-order" class="label-sort">Sort:</label>');
-    overallFunctions.createOrderingFilter();
+  overallFunctions.buildGraphStructure = function(csv, dataFile, settingsData){
+    overallFunctions.createModalityFilter(csv, dataFile, settingsData);
+    $('.chart-filters').append('<label for="sort-order" class="label-sort">' + overallFunctions.translatedValue(dataFile, 'LabelSort') + '</label>');
+    overallFunctions.createOrderingFilter(dataFile, settingsData);
   };
 
   var axisLinePath = function(d) {
     return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
   };
 
-  overallFunctions.parseToFloat = function(csv){
+	overallFunctions.translateData = function(dataFile, csv)
+	{
+		var data = csv.map(function(row)
+		{
+			row.countryName = overallFunctions.translatedValue(dataFile, 'country' + row.countryCode);
+			row.dot1 = parseFloat(row.dot1);
+			row.dot2 = parseFloat(row.dot2);
+			row.modalityValue = overallFunctions.translatedValue(dataFile, 'liv-depr-optim_filter_group' + row.modalityCode);
+			return row;
+		});
+		return data;
+	}
 
-    var data = csv.map(function(row){
+	overallFunctions.readSettings = function(settingsFile)
+	{
+		var settingsData = settingsFile.map(function(row)
+		{
+			return row;
+		});
+		return settingsData;
+	}
 
-      row.dot1 = parseFloat(row.dot1);
+	overallFunctions.translatedValue = function(translatedArray, arrayKey)
+	{
+		var entry = translatedArray.find(function(e)
+		{
+			return e.Key === arrayKey;
+		});
+		if (entry)
+		{
+			return entry.Value;
+		}
+	}
 
-      row.dot2 = parseFloat(row.dot2);
-
-      return row;
-    });
-
-    return data;
-  }
+	overallFunctions.customSettings = function(settingsArray, chartName, modalityName)
+	{
+		var elementId = settingsArray.find(function(e)
+		{
+			return (e.chartID === chartName && e.modalityCode === modalityName);
+		});
+		if (elementId)
+		{
+			return [elementId.xMin, elementId.xMax];
+		}
+	}
 
   function updateGraph() {
 
@@ -187,12 +218,11 @@
     var order = d3.select('#sort-filter').property("value");
 
     var filteredData = overallFunctions.filterData(data, modalityCode, order);
-      
-    var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
-    var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
-    
 
-
+	var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-optim', 'N/A');
+	
+	var domainMin = customLimits[0];
+	var domainMax = customLimits[1];
     padding = 0;
 
 
@@ -320,18 +350,39 @@
   $(document).ready(function(){
 
     data = [];
+	settingsData = [];
 
-    if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
-      var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-    } else {
-      console.log("Language is undefined. Data can't be loaded");
-    }
-
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/living-optimistic/living-optimistic_' + languageCode + '.csv', function(csv){
+	if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+	{
+		var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+	}	
+	else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+	{
+		var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
+	}
+	else
+	{
+		console.log("Language is undefined. Data can't be loaded");
+	}
+	
+	d3.queue()
+		.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+		.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+		.defer(d3.csv, '/sites/default/files/ejm/data/en/living-optimistic/living-optimistic_en.csv')
+		.await(function(error, settingsFile, dataFile, csv)
+	{
 
       if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/living-optimistic/living-optimistic_' + languageCode + '.csv" was not found.');
+        console.log('Requested csv at "/sites/default/files/ejm/data/en/living-optimistic/living-optimistic_en.csv" was not found.');
       }
+		  
+		settingsData = function(settingsFile)
+		{
+			settingsFile.map(function(row)
+			{
+				return row;
+			});
+		}
       
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
@@ -366,8 +417,8 @@
       }
 
       var legendLabels = [
-        {label: "% optimistic about future value", class: "lollipop-start"}, 
-        {label: "% optimistic about children's/grandchildren's future value", class: "lollipop-end"},
+		{label: overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_legend1'), class: "lollipop-start"}, 
+		{label: overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_legend2'), class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -416,9 +467,10 @@
       var legend = svg.append("g")
         .attr("class","legend-group");
 
-      data = overallFunctions.parseToFloat(csv);
+	  data = overallFunctions.translateData(dataFile, csv);
+	  settingsData = overallFunctions.readSettings(settingsFile);
 
-      overallFunctions.buildGraphStructure(data);
+	  overallFunctions.buildGraphStructure(data, dataFile, settingsData);
 
       var modalityCode = overallFunctions.getParameterByName('group');
       var order = overallFunctions.getParameterByName('sort');
@@ -431,8 +483,10 @@
 
       filteredData = overallFunctions.filterData(data, modalityCode, order);
 
-      var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
-      var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData)- 1);
+		var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-optim', 'N/A');
+		
+		var domainMin = customLimits[0];
+		var domainMax = customLimits[1];
       
 
 
