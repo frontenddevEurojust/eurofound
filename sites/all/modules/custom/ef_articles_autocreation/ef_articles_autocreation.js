@@ -95,6 +95,13 @@
     	$(this).prepend('<i class="fa fa-circle-thin"></i>');
     });
 
+    //Check if the country is checked when there is a Validation error.
+    $('#edit-country .form-item label').each(function(index, element){
+      if($(this).prev('input').is(":checked")){
+        $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
+      }
+    });
+
   });
 })(jQuery);
 

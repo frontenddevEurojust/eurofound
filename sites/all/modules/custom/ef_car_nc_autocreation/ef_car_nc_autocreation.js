@@ -1,6 +1,5 @@
 (function ($) {
   $(document).ready(function(){
-
     $('select#edit-deliver').change(function() {
       
       var checkExist = setInterval(function() {
@@ -133,5 +132,26 @@
       $(this).prepend('<i class="fa fa-circle-thin"></i>');
     });
 
+    //Check if the country is checked when there is a Validation error.
+    $('#edit-country2 .form-item label').each(function(index, element){
+      if($(this).prev('input').is(":checked")){
+        $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
+      }
+    });
+
   });
 })(jQuery);
+
+/*
+
+
+(function ($) {
+  $(window).load(function() {
+    if($('#edit-country2 .form-item label').prev('input').is(":checked")){
+      alert("checked peo");
+      $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
+    }
+  });
+})(jQuery);
+
+*/
