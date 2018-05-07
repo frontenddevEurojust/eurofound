@@ -176,7 +176,7 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 								<?php endif; ?>
 						<?php else: ?>
 								<?php if(!empty($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup'])): ?>
-									<section class="<?php print strtolower($cadena);?>">
+									<section class="<?php print strtolower($cadena);?>" id="<?php print strtolower($cadena);?>">
 										<h3 class="title" data-section-title><?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_label_tabs'][0]['#markup']); ?></h3> 
 										<div class="content" data-section-content>
 											<?php print render($content['field_ef_tabs_living_working'][$i]['field_ef_content_tabs'][0]['#markup']); ?>
@@ -223,9 +223,9 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 				$stringClass = trim (str_replace("-","", $stringClass ) );
 			 ?>
 				<?php if($i == 0): ?>
-					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?> active">
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?> active" id="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
 					<?php else: ?>
-					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
+					<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>" id="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
 					<?php endif; ?>
 						<h3 class="title" data-section-title><?php print render($content['field_ef_tabs_living_country']['#items'][$i]['field_ef_title_living_tab']['und'][0]['safe_value']); ?></h3>
 						<div class="content" data-section-content>
@@ -317,9 +317,9 @@ $pdf_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://" . $_SERVER[HTT
 		$stringClass = trim (str_replace("-","", $stringClass ) );
 	 ?>
 		<?php if($i == 0): ?>
-		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?> active">
+		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?> active" id="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
 		<?php else: ?>
-		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
+		<section class="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>" id="<?php print str_replace("'","",preg_replace('/\s/','-',preg_replace("/[\,\;]+/","",strtolower($stringClass)))); ?>">
 		<?php endif; ?>
 			<h3 class="title" data-section-title><?php print render($content['field_ef_tabs'][$i]['field_ef_tabs_title'][0]['#markup']); ?></h3>
 			<div class="content" data-section-content>
