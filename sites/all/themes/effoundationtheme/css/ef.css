@@ -1890,7 +1890,7 @@ div.qrr-info img {
 	padding-left: 0px;
 }
  .ds-node-metadata .field:last-child {
-	/*border: none;*/
+	border: none;
 }
 .field-group-div:last-child > div{
   display: inline-block;
@@ -1977,7 +1977,9 @@ div.qrr-info img {
 .ds-node-metadata a:last-child:after{
 	content: none;
 }
-
+.field.field-name-field-ef-author a:after{
+	content: none;
+}
 /*-----SubTitle---------*/
 .ds-node-sub-header {
 	font-size: 17px;
