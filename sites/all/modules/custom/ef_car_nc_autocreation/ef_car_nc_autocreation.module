@@ -298,14 +298,14 @@ function car_nc_autocreation_form($form, &$form_submit) {
   	$form['con_file']['upload'] = array(
 	    '#type' => 'button',
 	    '#value' => t('Upload file'),
+	    '#name' => 'upload',
 	    '#ajax' => array(
-	      'callback' => 'car_autocreation_file_upload_ajax',
-	      'wrapper' => 'container_file',
-	      'method' => 'replace',
-	      'effect' => 'fade',
+	    	'callback' => 'car_autocreation_file_upload_ajax',
+	    	'wrapper' => 'container_file',
+	    	'method' => 'replace',
+	    	'effect' => 'fade',
 	  	),
 	);
-
 
 	$header = $header = array(
     	'file' => array('data' => t('File')),
@@ -314,8 +314,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
     	'actions' => array('data' => t('Actions'))
   	);
  
-	
-  	
+	  	
 	if (isset($_SESSION['source_documents_car']) && count($_SESSION['source_documents_car'])>0) {
 		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
@@ -358,7 +357,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		'#name' => 'remove_last',
 		'#type' => 'button',
 		'#prefix' => '<div id="remove-back">',
-	'#suffix' => '</div>',
+		'#suffix' => '</div>',
 		'#value' => t('Remove'),
 		'#attributes' => array('file-id' => "last"),
 		'#ajax' => array(
@@ -388,7 +387,11 @@ function car_nc_autocreation_form($form, &$form_submit) {
 function car_nc_autocreation_form_validate($form, &$form_state) {
 	global $user;
 	
-	$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
+	if($form_state['clicked_button']['#value'] !="Submit"){
+		$form_state['rebuild'] = TRUE;
+	}else{
+	}
+	 $form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
 
 	if($form_state['complete form']['con_file']['file_list']['#rows'][0]['file'] == "No file"){
 		unset($form_state['complete form']['con_file']['file_list']['#rows'][0]);
@@ -396,17 +399,18 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 
 	//If session source documents have less elements we need to unset the one we have removed previously
 	if (count($form_state['complete form']['con_file']['file_list']['#rows']) > count($_SESSION['source_documents_car'])){
-
+		
 		foreach ($form_state['complete form']['con_file']['file_list']['#rows'] as $key => $value) {
 			if ($value['file']!=$_SESSION['source_documents_car'][$key]['name']){
 				unset ($form_state['complete form']['con_file']['file_list']['#rows'][$key]);
+				$form_state['rebuild'] = TRUE;
 				break;
 			}
 		}
 	}
 
 	//If session source documents have more elements we need to add the last element into the table
-	if(count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents_car']) && $form_state['clicked_button']['#value']=='Submit'){
+	if(($form_state['complete form']['con_file']['file_list']['#rows'][0]['file'] =="No files attached" && count($_SESSION['source_documents_car'])==1)|| (count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents_car']) && $form_state['clicked_button']['#value']=='Submit')){
 		
 		$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-backs">';
 		$key = 	count($_SESSION['source_documents_car']) - 1;
@@ -434,7 +438,6 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 	//Validation only when you click the Submit button
 	if(!isset($form_state['clicked_button']['#attributes']['file-id']) && $form_state['clicked_button']['#value']=='Submit'){
 		//Is not the remove button
-		
 		//validate the requerired fields -Title -Delivery date -Contract -Delivery kind -Service type
 		if ($form_state['values']['title']==""){
 			form_set_error('title', 'Title field is required');
@@ -477,10 +480,9 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 
 function remove_file_by_id($form, &$form_state){
 	global $user;
-	
 	$key = $form_state['clicked_button']['#attributes']['file-id'];
 
-	if((string)$key=="last"){
+	if($key=="last"){
 		$key = count($_SESSION['source_documents_car'])-1;
 	}
 	//Remove the document from the session and the form
