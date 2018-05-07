@@ -240,12 +240,14 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
             <?php print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); ?>
         </div>
         <?php endif; ?>
-        <div class="related-content-aside-3">
-            <?php
-                $block = block_load('block','54');
-                print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
-            ?>
-        </div>
+        <?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+            <div class="related-content-aside-3">
+                <?php
+                    $block = block_load('block','54');
+                    print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+                ?>
+            </div>
+        <?php endif; ?>
     </aside>
 
 <script>
