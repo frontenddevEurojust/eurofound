@@ -44,7 +44,7 @@ g.ticks text {
   display: inline-block;
 }
 .jm-abstract-wrapper{
-  padding: 15px 25px;
+  padding: 15px 55px 15px 25px;
 }
 .jm-charts{
   background: #F1F4F8;
@@ -54,7 +54,7 @@ g.ticks text {
 
 .jm-filters-chart {
   background: #E9EDF3;
-  overflow: auto;
+ /* overflow: auto;*/
 }
 .filters-jm-chart {
   padding: 90px 0 0 0;
@@ -68,30 +68,38 @@ g.ticks text {
 }
 
 
- ul.legend-list {
+ ul.legend-list{
   list-style: none;
   text-align: center;
   width: auto;
   margin: auto;
+ }
+ ul.legend-list-butterfly{
+  list-style: none;
+  text-align: center;
+  width: auto;
+  margin: 2rem auto 0 !important;
 }
-  ul.legend-list li{
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: auto;
     margin: 0 15px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
   }
-  ul.legend-list li.active {
+  ul.legend-list li.active, 
+  ul.legend-list-butterfly li.active {
     font-weight: bold !important;
   }
   ul.legend-list li.start i{
-    color:#A4CA43;
+    color:#a6ce3a;
   }
   ul.legend-list li.median i {
     color: #BB1E8C;
   }
   ul.legend-list li.end i{
-    color:#529DDA;
+    color:#519fdc;
   }
 
 .filters-jm-chart  legend{
@@ -141,6 +149,9 @@ g.ticks text {
 .filters-jm-chart .group-filters  label.label-sort{
     margin-top: 1.5rem;
 }
+.filters-jm-chart .group-filters  label.label-sort:first-child{
+    margin-top: 0rem;
+}
 .filters-jm-chart .group-filters  label[for^="subg"]{
     margin-top: 1.5rem;
 }
@@ -150,7 +161,7 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.5em !important;
+    padding: 0.5em 1.5em 0.5em 0.7em !important;
     height: auto;
     color: #222;
 }
@@ -182,7 +193,7 @@ g.ticks text {
 
 /** European Quality of Life Survey 2016 **/
 .chart-wrapper{
-
+  text-align: center;
 }
 .chart-wrapper .tick text{
   font-size: 12px;
@@ -191,6 +202,11 @@ g.ticks text {
   stroke:#d0d5dd;
   stroke-width: 12px;
   opacity: 0.75;
+}
+.chart-wrapper .economising.lollipop-line, 
+.chart-wrapper .care.lollipop-line, 
+.chart-wrapper .quality.lollipop-line{
+  stroke-width: 6px;
 }
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
@@ -204,15 +220,16 @@ g.ticks text {
 }
 .chart-wrapper circle:hover{
   cursor: pointer;
+  fill:#f16000 !important;
 }
 .chart-wrapper circle.lollipop-start {
-  fill:#A4CA43;
+  fill:#a6ce3a;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
 
 .chart-wrapper .lollipop-end {
-  fill: #529DDA;
+  fill: #519fdc;
   -webkit-transition: all 1s;
   transition: all 1s;
 }    
@@ -237,7 +254,23 @@ g.ticks text {
   stroke-width: 1px;
 }
 
-
+/** HAPPINESS PYRAMID **/
+.right16, .start-R .fa-circle{
+  fill: #4D9DD5;
+  color:#4D9DD5;
+}
+.right11, .end-R .fa-circle{
+  fill: #B7D1EB;
+  color:#B7D1EB;
+}
+.left16, .start-L .fa-circle{
+  fill: #92C856;
+  color: #92C856;
+}
+.left11, .end-L .fa-circle{
+  fill:#CCDFB9;
+  color:#CCDFB9;
+}
 #ejm-chart svg {
   width: 50%;
  // height: 350px !important;
@@ -295,8 +328,123 @@ text.charts-title {
   font-weight: normal !important;
   font-family: Opensans-regular-webfont;
 }
+.name{
+  font-size: 12px;
+}
+.topic-label{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  line-height: 1rem;
+  font-weight: bold;
+  vertical-align: top;
+  position: relative;
+  font-size: 0.9em;
+  top: 12px;
+}
+p.last-update {
+  margin: 11px 0 0 0;
+  display: inline-block;
+  float: right;
+  font-style: italic;
+}
+.topic-list{
+  display: inline-block;
+  margin: 10px 0 !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+  max-width: 80%;
+}
+.topic-list li{
+  margin-left: 0 !important;
+  padding:0 !important;  
+}
+.topic-list li a:after{
+  content: ' | ';
+}
+.topic-list li:last-child a:after {
+  content:none;
+}
+.topic-list li a{
+  margin-left: 0 !important;
+  padding:0 !important;  
+}
+.score, .leftscore{
+  font-size: 11px;
+}
+rect.left11:hover, 
+rect.left16:hover, 
+rect.right11:hover, 
+rect.right16:hover{
+  cursor: pointer;
+  fill: #f16000;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
 
+ /* RELATED CONTENT OF DATA EXPLORER PAGE */
 
+.related-content-data-explorer .block-views{
+  background-color: transparent;
+  padding:0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  /* min-height: 400px; */
+  margin-bottom: 25px;
+}
+.related-content-data-explorer .block-views h2{
+  padding: 5px 25px;
+  background: #f1f4f8;
+  border-top: 1px dotted #666;
+  font-size: 1.2rem;
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+  border-bottom: 1px dotted #666;
+  margin-bottom: 0;
+}
+.related-content-data-explorer .block-views h2:before {
+  content: "\e611";
+  font-size: 1rem;
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* line-height: 1; */
+  -webkit-font-smoothing: antialiased;
+  margin-right: 6px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.related-content-data-explorer .block-views .item-list{
+  padding: 25px 25px 20px 45px;
+  background-color: rgba(255,255,255,0.8);
+}
+.related-content-data-explorer .block-views .item-list li{
+  padding:0;
+  text-indent: 0px;
+  line-height: 1.2em;
+  font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
+  border-bottom: none;
+  text-align: left;
+}
+
+.related-content-data-explorer .block-views .item-list li ul.metadata-items {
+  margin: 0px 0 5px !important;
+  padding: 0;
+  color: #2d68aa;
+  font-size: 0.9em;
+}
+.related-content-data-explorer .block-views .item-list li ul.metadata-items li {
+  margin-right: 0;
+  margin-left: 4px;
+}
+.related-content-data-explorer .block-views .item-list li ul.metadata-items li:first-child {
+  margin-right: 0;
+  margin-left: 0px;
+}
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   #ejm-chart {
     text-align: center;
@@ -378,7 +526,8 @@ text.charts-title {
     overflow:initial;
     -ms-overflow:hidden;
   }
-  ul.legend-list li {
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: 100%;
     margin: 5px 0;
     display:block;
@@ -526,7 +675,6 @@ text.charts-title {
 .d3-tip p.country-name{
   font-family: 'OpenSans-Semibold-webfont';
   color: #000;
-  font-size: 12px;
 }
 .d3-tip p.no-data{
   font-family: 'OpenSans-Semibold-webfont';
@@ -536,7 +684,6 @@ text.charts-title {
 .d3-tip p.dot{
   font-family: 'OpenSans-bold-webfont';
   color: #F28524;
-  font-size: 12px;
 }
 .d3-tip .xLabels-tip{
   font-family: 'OpenSans-regular-webfont';
@@ -549,9 +696,18 @@ svg text[class^='legend-text']{
 .d3-tip.showed{
   opacity: 1 !important;
 }
-.legend-group, .y-axis path.domain{
+.legend-group {
   display: none !important;
 }
+.y-axis path.domain{
+   // opacity: 0.2;
+   display: none;
+}
+.y-axis .tick line {
+  display: none;
+  //   opacity: 0.2;
+}
+
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
