@@ -1890,7 +1890,7 @@ div.qrr-info img {
 	padding-left: 0px;
 }
  .ds-node-metadata .field:last-child {
-	/*border: none;*/
+	border: none;
 }
 .field-group-div:last-child > div{
   display: inline-block;
@@ -1977,7 +1977,9 @@ div.qrr-info img {
 .ds-node-metadata a:last-child:after{
 	content: none;
 }
-
+.field.field-name-field-ef-author a:after{
+	content: none;
+}
 /*-----SubTitle---------*/
 .ds-node-sub-header {
 	font-size: 17px;
@@ -2522,7 +2524,7 @@ ul.pagination li:before,
 
 .sidebar .block .item-list a{
 	display: block!important;
-	padding: 8px 20px 8px 0px;
+	padding: 8px 20px 0px 0px;
 	width: 100%;
 	margin: 0px 0px 0px 0px;
 	letter-spacing: -0.04em;
@@ -5457,6 +5459,10 @@ ul.metadata-items li:last-child{
   padding: 0px 0px 0px 4px !important;
   margin-right: 0;
 }
+ul.metadata-items li.fix-padding{
+  padding: 0!important;
+  margin-right: 0;
+}
 ul.metadata-items li a{
   padding: 0px 8px 0px 0px !important;
   display: inline-block;
@@ -7082,12 +7088,12 @@ html.js input.throbbing {
 .img-align-right img, 
 img.img-align-right{
 	float: right !important;
-	margin:0px 0px 20px 20px !important;
+	margin:20px 0px 20px 20px !important;
 }
 .img-align-left img, 
 img.img-align-left{
 	float: left !important;
-	margin:0px 20px 20px 0px !important;
+	margin:20px 20px 20px 0px !important;
 }
 .img-no-float img, 
 img.img-no-float{
@@ -14383,6 +14389,7 @@ h4.title-tooltip-geolocation a:hover{
 /* end New OSU Contract Reporting */
 
 
+
 /* Button to compare Nodes in case studies and support instrument "Display selected cases" */
 .page-observatories-emcc-erm-restructuring-case-studies .ef-main legend,
 .page-observatories-emcc-erm-support-instrument .ef-main legend,
@@ -14518,6 +14525,7 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /** END BOARD MEMBER PAGE VIEW **/
+
 /** COMMUNICATIONS CALENDAR **/
 
 .communication-calendar .content-type{
@@ -14563,6 +14571,7 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 /** END COMMUNICATIONS CALENDAR **/
+
 /** authors articles **/
 .field-name-field-ef-author > .label-inline{
 	float: left;
@@ -14585,4 +14594,34 @@ ul.links.inline-list.authors-list li:last-child:after{
 	content: '';
 }
 
-/** authors articles **/
+#overlay-eurofound{
+  position:fixed;
+  z-index:99999;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background: rgba(255,255,255,0.8);
+  transition: 1s 0.4s;
+}
+
+#overlay-eurofound .loading-position{
+	position: absolute;
+    top: 50%;
+    left: 45%;
+    
+}
+
+#overlay-eurofound .loading-position img{
+	border: 0px;
+    outline-width: 0px;
+}
+
+#overlay-eurofound .loading-position span{
+	padding-left: 0.5em;
+}
+
+.title-general-comparison{
+	display: none;
+}
+

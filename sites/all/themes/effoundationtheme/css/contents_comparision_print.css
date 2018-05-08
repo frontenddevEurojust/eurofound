@@ -6,6 +6,48 @@
     	page-break-before:always !important;
     	background: #FFF !important;
   	}
+	
+	.title-general-comparison{
+		display: none;
+		position: relative!important;
+		top:0!important;
+	}
+
+	.hide-overlay{
+		display: none;
+	}
+
+	#overlay-eurofound{
+		display: none!important;
+	}
+
+	#overlay-eurofound-print{
+	  position:fixed;
+	  z-index:99999;
+	  top:0;
+	  left:0;
+	  bottom:0;
+	  right:0;
+	  background: rgba(255,255,255,0.8);
+	  transition: 1s 0.4s;
+	}
+
+	#overlay-eurofound-print .loading-position{
+		position: absolute;
+	    top: 50%;
+	    left: 45%;
+	    
+	}
+
+	#overlay-eurofound-print .loading-position img{
+		border: 0px;
+	    outline-width: 0px;
+	}
+
+	#overlay-eurofound-print .loading-position span{
+		padding-left: 0.5em;
+	}
+
 span.restructuring-view-title {
     display: none;
 }
@@ -99,26 +141,26 @@ span.restructuring-view-title {
 	.title-cover{
 		position: absolute;
 		top:6cm;
-		left: 30%;
-		width: 65%;
+		left: 20%;
+		width: 80%;
 		z-index: 10;
 		font-size:26pt;
 	}
 	.subtitle-cover{
 		position: absolute;
 		top:8cm;
-		left: 30%;
-		width: 65%;
+		left: 20%;
+		width: 80%;
 		z-index: 10;
 		font-size:18pt;
 	}
 	.description-cover{
 		position: absolute;
-		top: 12cm;
-		left: 30%;
-		width: 60%;
+		top: 10cm;
+		left: 20%;
+		width: 80%;
 		z-index: 10;
-		font-size: 12pt;
+		font-size: 11pt;
 	}
 	.disclaimer-cover{
 		position: absolute;

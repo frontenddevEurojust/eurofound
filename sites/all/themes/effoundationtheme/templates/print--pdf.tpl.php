@@ -821,7 +821,7 @@ word-break: break-all;
       }
       .title-cover{
         position: absolute;
-        top:6cm;
+        top:5cm;
         left: 30%;
         width: 65%;
         z-index: 10;
@@ -837,11 +837,11 @@ word-break: break-all;
       }
       .description-cover{
         position: absolute;
-        top: 14cm;
-        left: 30%;
-        width: 60%;
+        top: 9cm;
+        left: 20%;
+        width: 80%;
         z-index: 10;
-        font-size: 12pt;
+        font-size: 11pt;
       }
       .disclaimer-cover{
         position: absolute;
@@ -980,6 +980,10 @@ word-break: break-all;
     
     
     <style>
+    
+    #overlay-eurofound{
+      display: none;
+    }
 
     .restructuring-view-title{
       display: none!important;
@@ -1112,7 +1116,7 @@ word-break: break-all;
         if(strpos($_SESSION["back_search"],'/support-instrument') == true && strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') == true  ){
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring support instruments</h1>';
-          print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on about 400 measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.</p>';
+          print '<p class="description-cover">Eurofound’s ERM database on support instruments for restructuring provides information on several hundred measures in the Member States of the European Union and Norway. National governments, employers’ organisations and trade unions are among the bodies providing support for companies that need to restructure and the affected employees.<br><br>The support instruments are described in terms of their characteristics, involved actors, funding sources, strengths, weaknesses and outcomes. The aim is to inform governments, social partners and others involved about what kinds of support can be offered.</p>';
           print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
@@ -1120,7 +1124,8 @@ word-break: break-all;
         }elseif (strpos($_SESSION["back_search"],'/legislation') == true &&  strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') == true) {
           print '<div class="cover-print"><img src="/sites/all/themes/effoundationtheme/images/cover-pdf-support-instrument.png">';
           print '<h1 class="title-cover">Restructuring related legislation</h1>';
-          print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.</p>';
+          print '<p class="description-cover">Eurofound’s ERM database on restructuring related legal regulations provides information on several hundred regulations in the Member States of the European Union and Norway which are explicitly or implicitly linked to anticipating and managing change. The database covers statutory rules, only, and does not include collective agreements or company-level initiatives. The regulations are described in terms of their content, thresholds, involved actors and who covers the cost (if applicable). The aim is to provide an easy possibility of a cross-national comparison of the main features of restructuring related legislation.<br><br>Eurofound aims to keep this information up to date and accurate. If errors are brought to our attention, we will try to correct them. However, Eurofound accepts no responsibility or liability whatsoever with regard to the information in this database.This information is:<br><br>- of a general nature only and is not intended to address the specific circumstances of any particular individual or entity; not necessarily comprehensive, complete, accurate or up to date;<br>- sometimes linked to external sites over which Eurofound services have no control and for which Eurofound assumes no responsibility;<br>- not professional or legal advice (if specific advice is needed, a suitably qualified professional should be consulted).</p>';
+
           print '<p class="disclaimer-cover">Disclaimer: This document has not been subject to the full Eurofound evaluation, editorial and publication process.</p>';
           print '<p class="print-date-cover">' . date("d \ F \ Y") .'</p>';
           print '</div>';
@@ -1134,7 +1139,7 @@ word-break: break-all;
           print '</div>'; 
           print '<div class="page-break"></div>';    
         }else{
-          // print '<h1 id="page-title" class="title">' . print $print_title . '</h1>';
+          print '<h1 id="page-title" class="title">' . $print_title . '</h1>';
         }
     ?>
   <!-- End  Print cover PDF for support instruments, case studies and legilations -->
@@ -1145,7 +1150,7 @@ word-break: break-all;
       $pathCountry = $url[count($url)-2];
     ?>
     <?php if ($pathCountry == 'country'): ?>
-      <h1 id="page-title" class="title no-pdf"><?php print $print_title;?></h1>
+      <h1 id="page-title" class="title no-pdf"><?php $print_title;?></h1>
     <?php else : ?>
             <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') != true 
             || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') != true
@@ -1168,3 +1173,4 @@ word-break: break-all;
 
   </body>
 </html>
+

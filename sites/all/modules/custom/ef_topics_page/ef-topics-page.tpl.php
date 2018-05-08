@@ -32,7 +32,7 @@ if(!empty($variables['ef_activities'])){
     <?php endif; ?>
 
     <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
-        <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
+        <?php if ($variables['featured_block'] != ''):  ?>
         <section class="large-9 columns">
         <?php else: ?>
         <section class="large-12 columns">
@@ -150,22 +150,11 @@ if(!empty($variables['ef_activities'])){
     </section>
     <?php endif; ?>
 
-    <?php if (isset($variables['featured_block']) || isset($variables['related_links_block'])): ?>
+   <?php if ($variables['featured_block'] != ''):  ?>
     <aside class="large-3 columns">
-
-        <?php if (isset($variables['featured_block'])): ?>
         <div class="featured-block">
             <?= render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
         </div>
-
-        <?php endif; ?>
-
-        <?php if (isset($variables['related_links_block'])): ?>
-        <div class="related-links-block">
-            <?= render(field_view_field('taxonomy_term', $term, 'field_ef_related_links_block', array('label'=>'hidden'))); ?>
-        </div>
-        <?php endif; ?>
-
     </aside>
     <?php endif; ?>
 

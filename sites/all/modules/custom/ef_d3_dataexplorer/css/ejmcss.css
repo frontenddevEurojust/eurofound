@@ -67,30 +67,38 @@ g.ticks text {
 }
 
 
- ul.legend-list {
+ ul.legend-list{
   list-style: none;
   text-align: center;
   width: auto;
   margin: auto;
+ }
+ ul.legend-list-butterfly{
+  list-style: none;
+  text-align: center;
+  width: auto;
+  margin: 2rem auto 0 !important;
 }
-  ul.legend-list li{
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: auto;
     margin: 0 15px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
   }
-  ul.legend-list li.active {
+  ul.legend-list li.active, 
+  ul.legend-list-butterfly li.active {
     font-weight: bold !important;
   }
   ul.legend-list li.start i{
-    color:#A4CA43;
+    color:#a6ce3a;
   }
   ul.legend-list li.median i {
     color: #BB1E8C;
   }
   ul.legend-list li.end i{
-    color:#529DDA;
+    color:#519fdc;
   }
 
 .filters-jm-chart  legend{
@@ -140,6 +148,9 @@ g.ticks text {
 .filters-jm-chart .group-filters  label.label-sort{
     margin-top: 1.5rem;
 }
+.filters-jm-chart .group-filters  label.label-sort:first-child{
+    margin-top: 0rem;
+}
 .filters-jm-chart .group-filters  label[for^="subg"]{
     margin-top: 1.5rem;
 }
@@ -149,7 +160,7 @@ g.ticks text {
     -moz-box-shadow: none!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important;
-    padding: 0.5em !important;
+    padding: 0.5em 1.5em 0.5em 0.7em !important;
     height: auto;
     color: #222;
 }
@@ -181,7 +192,7 @@ g.ticks text {
 
 /** European Quality of Life Survey 2016 **/
 .chart-wrapper{
-
+  text-align: center;
 }
 .chart-wrapper .tick text{
   font-size: 12px;
@@ -190,6 +201,11 @@ g.ticks text {
   stroke:#d0d5dd;
   stroke-width: 12px;
   opacity: 0.75;
+}
+.chart-wrapper .economising.lollipop-line, 
+.chart-wrapper .care.lollipop-line, 
+.chart-wrapper .quality.lollipop-line{
+  stroke-width: 6px;
 }
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
@@ -203,15 +219,16 @@ g.ticks text {
 }
 .chart-wrapper circle:hover{
   cursor: pointer;
+  fill:#f16000 !important;
 }
 .chart-wrapper circle.lollipop-start {
-  fill:#A4CA43;
+  fill:#a6ce3a;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
 
 .chart-wrapper .lollipop-end {
-  fill: #529DDA;
+  fill: #519fdc;
   -webkit-transition: all 1s;
   transition: all 1s;
 }    
@@ -234,6 +251,40 @@ g.ticks text {
 .chart-wrapper .grid-line{
   stroke: #b3b7bd;
   stroke-width: 1px;
+}
+
+
+/** HAPPINESS PYRAMID **/
+.right16, .start-R .fa-circle{
+  fill: #4D9DD5;
+  color:#4D9DD5;
+}
+.right11, .end-R .fa-circle{
+  fill: #B7D1EB;
+  color:#B7D1EB;
+}
+.left16, .start-L .fa-circle{
+  fill: #92C856;
+  color: #92C856;
+}
+.left11, .end-L .fa-circle{
+  fill:#CCDFB9;
+  color:#CCDFB9;
+}
+.name{
+  font-size: 12px;
+}
+.score, .leftscore{
+  font-size: 11px;
+}
+rect.left11:hover, 
+rect.left16:hover, 
+rect.right11:hover, 
+rect.right16:hover{
+  cursor: pointer;
+  fill: #f16000;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
@@ -300,7 +351,8 @@ g.ticks text {
     overflow:initial;
     -ms-overflow:hidden;
   }
-  ul.legend-list li {
+  ul.legend-list li, 
+  ul.legend-list-butterfly li{
     width: 100%;
     margin: 5px 0;
     display:block;
@@ -464,6 +516,9 @@ svg text[class^='legend-text']{
 .legend-group, .y-axis path.domain{
   display: none !important;
 }
+.y-axis .tick line {
+  display: none;
+}
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {
   box-sizing: border-box;
@@ -504,4 +559,7 @@ svg text[class^='legend-text']{
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
+}
+svg{
+  //border: 1px solid #000 !important;
 }

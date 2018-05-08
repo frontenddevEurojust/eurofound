@@ -104,18 +104,18 @@ $countview = count($result);
                                 print t("Topic: ");
                                 if (isset($node->field_ef_topic[$language->language])) {
                                     foreach ($node->field_ef_topic[$language->language] as $key => $topic){
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     }
                                 }else{
                                     foreach ( $node->field_ef_topic["und"] as $key => $topic ){ 
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path);
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     } 
                                 }
@@ -178,18 +178,25 @@ $countview = count($result);
                 <?php if (isset($content['field_ef_publ_contributors']['#items'])) : ?>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                        <ul class="links inline-list authors-list">
                         <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {  ?>
-                                <li class="author"><a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a></li>
-                            <?php
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {
+                                ?>
+                                    <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>">
+                                        <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>                                           
+                                    </a> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print '<span>;</span>';
+                                    }; ?>
+                                <?php
                             }else{
-                            ?>
-                                    <li class="author"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></li>
+                                ?>
+                                    <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print '<span>;</span>';
+                                    }; ?>
                                 <?php
                             } ?>
                         <?php endforeach; ?>
-                        </ul>
                     </div>
                 <?php endif; ?>
 

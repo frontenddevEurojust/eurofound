@@ -44,22 +44,6 @@
 <!-- ARTICLE -->
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-	<?php if(!in_array('authenticated user', $user->roles)): ?>
-		<div class="erm-legal-disclaimer">
-			<p><?php print t("Eurofound aims to keep this information up to date and accurate. 
-				If errors are brought to our attention, we will try to correct them. 
-				However, Eurofound accepts no responsibility or liability whatsoever with regard to the information in this database."); ?>
-			
-			<?php print t("This information is:"); ?></p>
-				<ul>
-					<li><?php print t("of a general nature only and is not intended to address the specific circumstances of any particular individual or entity;"); ?></li>
-					<li><?php print t("not necessarily comprehensive, complete, accurate or up to date;"); ?></li>
-					<li><?php print t("sometimes linked to external sites over which Eurofound services have no control and for which Eurofound assumes no responsibility;"); ?></li>
-					<li><?php print t("not professional or legal advice (if specific advice is needed, a suitably qualified professional should be consulted)."); ?></li>
-				</ul>
-		</div>
-	<?php endif; ?>
-
 	<!-- COUNTRY / PHASE / TYPE -->
 	<div class="erm-title-info row">
 		<div class="erm-country small-6 columns">
