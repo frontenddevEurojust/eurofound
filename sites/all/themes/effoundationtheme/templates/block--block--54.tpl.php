@@ -158,7 +158,7 @@
                 $name=t("Call for tender");
               }elseif($name=="ef_working_life_country_profiles"){
                 $name=t("Country");
-              }elseif($name=="cwb_series" || $name=="data_explorer_page" || $name=="dvs_survey") {
+              }elseif($name=="data_explorer_page" || $name=="dvs_survey") {
                 $name=t("Data");
               }elseif($name=="ef_report"){
                 $name=t("Article");
@@ -233,6 +233,31 @@
                   $path = 'node/'.$node_ittem->nid;
                   $alias = url($path, array("absolute"=>TRUE));
 
+
+
+                $content_type = $node_ittem->type;
+
+                if ($content_type=="page"
+                    || $content_type=="blog" 
+                    || $content_type=="board_member_page" 
+                    || $content_type=="blog" 
+                    || $content_type=="ef_call_for_tender" 
+                    || $content_type=="data_explorer_page" 
+                    || $content_type=="dvs_survey" 
+                    || $content_type=="ef_report" 
+                    || $content_type=="ef_erm_regulation" 
+                    || $content_type=="erm_support_instrument" 
+                    || $content_type=="ef_event" 
+                    || $content_type=="ef_factsheet" 
+                    || $content_type=="ef_ir_dictionary" 
+                    || $content_type=="ef_network_extranet_page" 
+                    || $content_type=="ef_news" 
+                    || $content_type=="presentation" 
+                    || $content_type=="ef_publication" 
+                    || $content_type=="ef_survey" 
+                    || $content_type=="board_member_page"  
+                    || $content_type=="board_member_page" 
+                    || $content_type=="ef_network_extranet_page") {
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
@@ -261,6 +286,7 @@
                         </ul>  
                       </li>
                 <?php 
+                  }
                 }
               }else{
                 //Get Taxonmy name
