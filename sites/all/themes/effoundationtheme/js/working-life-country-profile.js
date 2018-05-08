@@ -121,6 +121,21 @@
 
 
 
+          $('.main a').click(function(){
+            var link = $(this).attr('href');
+            var posLink = link.indexOf('#');
+            var anchorName = link.slice(posLink+1, link.length);
+
+            if( $('section.' + anchorName) ){
+              parentDiv = $('section.' + anchorName).parent().attr('id');
+              $( '#' + parentDiv + ' section').removeClass('active');
+              $( '#' + parentDiv + ' section.' + anchorName).addClass('active');
+        
+            }
+
+          });
+
+
 
       $(window).scroll(function () {
         if ($(this).scrollTop() >1300) {
@@ -143,4 +158,10 @@
     }
   });
 })(jQuery);
+
+
+
+
+
+
 /** END working life country profiles  **/
