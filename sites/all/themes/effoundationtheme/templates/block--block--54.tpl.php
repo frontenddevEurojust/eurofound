@@ -3,7 +3,6 @@
   <?php
     $node = menu_get_object();
 
-    
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
         $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
@@ -77,7 +76,6 @@
             $name="";
             $date="";
             $node_ittem=node_load($value);
-
             $query = db_select('related_content_and_taxonomies', 'rc');
             $query->fields('rc', array("rc_type"));
             $query->condition('rc.nid', $nid, "=");
@@ -147,56 +145,72 @@
               $tid = $node_ittem->field_ef_deliverable_kind['und'][0]['tid'];
               $term = taxonomy_term_load($tid);
             
-              if(!empty($tid)){
-                $name = $term->name;
-              }else{
-                $name = $type;
+              
+              $name = $type;
 
-                if($name == 'page'){
-                  $name = t('Page');
-                }
-                $name = str_replace("ef_","EF ",$name);
-                $name = str_replace("_"," ",$name);
-              }
-
-              if($tid == 13742 || $tid == 13743 || $tid  == 13770 || $tid == 20209 || $tid == 13159 ){
-                $name = t('Research in Focus');
-              }elseif($tid == 13744){
-                $name = t('Comparative Analytical Report');
-              }elseif($tid == 13745){
-                $name = t('Annual Update');
-              }elseif($tid == 13746){
-                $name = t('Representativeness Study');
-              }
-            
-           
-            //New Content Type Formats
-              if ($name=="board member page" || $name=="EF network extranet page") {
+              
+              //New Content Type Formats
+              if ($name=="page" || $name=="board_member_page" || $name=="ef_network_extranet_page") {
                 $name=t("Page");
-              }elseif($name=="EF call for tender"){
+              }elseif($name=="blog"){
+                $name=t("Blog");
+              }elseif($name=="ef_call_for_tender"){
                 $name=t("Call for tender");
-              }elseif($name=="Working life country profile update"){
+              }elseif($name=="ef_working_life_country_profiles"){
                 $name=t("Country");
-              }elseif($name=="data explorer page" || $name=="dvs survey"){
+              }elseif($name=="data_explorer_page" || $name=="dvs_survey") {
                 $name=t("Data");
-              }elseif($name=="Other research services EF"){
+              }elseif($name=="ef_report"){
                 $name=t("Article");
-              }elseif($name=="Legal database update"){
+              }elseif($name=="ef_erm_regulation"){
                 $name=t("Legislation");
-              }elseif($name=="Support instrument update"){
+              }elseif($name=="erm_support_instrument"){
                 $name=t("Support instrument");
-              }elseif($name=="EF event"){
+              }elseif($name=="ef_event"){
                 $name=t("Event");
-              }elseif($name=="Factsheet"){
+              }elseif($name=="ef_factsheet"){
                 $name=t("Restructuring event");
-              }elseif($name=="IR entry"){
+              }elseif($name=="ef_ir_dictionary"){
                 $name=t("Dictionary");
-              }elseif($name=="EF news"){
+              }elseif($name=="ef_news"){
                 $name=t("News");
-              }elseif($name=="EF publication"){
+              }elseif($name=="ef_publication"){
                 $name=t("Publication");
-              }elseif($name=="EF survey"){
+              }elseif($name=="ef_survey"){
                 $name=t("Survey");
+              }elseif($name=="presentation"){
+                $name=t("Presentation");
+              }elseif($name=="ef_annual_progress_report" 
+                  || $name=="article"
+                  || $name=="ef_case_study"
+                  || $name=="case_study_publication"
+                  || $name=="ef_comparative_analytical_report"
+                  || $name=="ef_contact_form"
+                  || $name=="cwb_level_coordination"
+                  || $name=="cwb_country_info"
+                  || $name=="timeline_date"
+                  || $name=="cwb_time_series"
+                  || $name=="cwb_series"
+                  || $name=="ef_emire_dictionary"
+                  || $name=="ef_ic_quarterly_report"
+                  || $name=="ef_input_to_erm"
+                  || $name=="ef_national_contribution"
+                  || $name=="ef_network_quarterly_report"
+                  || $name=="panel"
+                  || $name=="ef_photo_gallery"
+                  || $name=="ef_project"
+                  || $name=="ef_quarterly_report"
+                  || $name=="ef_regulation"
+                  || $name=="ef_restructuring_in_smes"
+                  || $name=="simplenews"
+                  || $name=="ef_spotlight_entry"
+                  || $name=="ssi_services"
+                  || $name=="ef_support_instrument"
+                  || $name=="ef_survey"
+                  || $name=="ef_vacancy"
+                  || $name=="ef_video"
+                  || $name=="webform"){
+                $name="";
               }
 
 
@@ -210,12 +224,40 @@
                 $date="";
               }
 
+              
 
               if ($is_nodo){
+                //If the node isn't unpublished
+                if($node_ittem->status != 0){
                 //ALIAS HREF
                   $path = 'node/'.$node_ittem->nid;
                   $alias = url($path, array("absolute"=>TRUE));
 
+
+
+                $content_type = $node_ittem->type;
+
+                if ($content_type=="page"
+                    || $content_type=="blog" 
+                    || $content_type=="board_member_page" 
+                    || $content_type=="blog" 
+                    || $content_type=="ef_call_for_tender" 
+                    || $content_type=="data_explorer_page" 
+                    || $content_type=="dvs_survey" 
+                    || $content_type=="ef_report" 
+                    || $content_type=="ef_erm_regulation" 
+                    || $content_type=="erm_support_instrument" 
+                    || $content_type=="ef_event" 
+                    || $content_type=="ef_factsheet" 
+                    || $content_type=="ef_ir_dictionary" 
+                    || $content_type=="ef_network_extranet_page" 
+                    || $content_type=="ef_news" 
+                    || $content_type=="presentation" 
+                    || $content_type=="ef_publication" 
+                    || $content_type=="ef_survey" 
+                    || $content_type=="board_member_page"  
+                    || $content_type=="board_member_page" 
+                    || $content_type=="ef_network_extranet_page") {
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
@@ -229,9 +271,9 @@
                               <?php echo $country; ?>
                             </li>
                           <?php endif; ?>
-                          <?php if(isset($name)): ?>
+                          <?php if($name != ''): ?>
                             <li class="list-delib-kind">
-                              <?php echo ucfirst($name); ?>
+                              <?php echo $name; ?>
                             </li>
                           <?php endif; ?>
 
@@ -243,7 +285,9 @@
 
                         </ul>  
                       </li>
-                    <?php 
+                <?php 
+                  }
+                }
               }else{
                 //Get Taxonmy name
                   $sql = db_select('taxonomy_term_data','t');
