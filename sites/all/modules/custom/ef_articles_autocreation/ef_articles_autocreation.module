@@ -182,21 +182,21 @@ function articles_autocreation_form($form, &$form_state) {
 	  	$form['remove_'.$i]= array(
 	  		'#name' => 'remove_'.$i,
 	  		'#type' => 'button',
-	  		'#prefix' => '<div id="remove-back">',
+	  		'#prefix' => '<div id=remove-back_'.$i.' class="remove-button-file">',
 			'#suffix' => '</div>',
 	  		'#value' => t('Remove'),
 	  		'#attributes' => array('file-id' => $i),
 	  		'#ajax' => array(
 		      		'callback' => 'remove_article_file_by_id',
 		      		'#attributes' => array('file-id' => $i),
-		      		'wrapper' => 'file-list-wrapper',
+		      		'wrapper' => 'container_file',
 		      		'method' => 'replace',
 		      		'effect' => 'fade',
 		  		),
 		);
   	}
 
-
+  	//Container for the file list
 	$form['con_file'] = array(
       '#type' => 'container',
       '#prefix' => '<div id="container_file">',
@@ -209,13 +209,14 @@ function articles_autocreation_form($form, &$form_state) {
       '#weight' => $instance['widget']['weight'],
     );
 	
+
 	$form['con_file']['source_documents'] = array(
   		'#type' => 'file',
   		'#title' => t('Source documents'),
   	);
 
   	$form['con_file']['upload'] = array(
-    	'#type' => 'button',
+    	'#type' => 'submit',
     	'#value' => t('Upload file'),
     	'#name' => 'upload',
     	'#ajax' => array(
@@ -226,8 +227,6 @@ function articles_autocreation_form($form, &$form_state) {
   		),
 	);
 
-  	
-
 	$header = $header = array(
     	'file' => array('data' => t('File')),
     	'user' => t('User'),
@@ -235,7 +234,6 @@ function articles_autocreation_form($form, &$form_state) {
     	'actions' => array('data' => t('Actions'))
   	);
  
-	
   	
 	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
 		$form['con_file']['file_list'] = array(
@@ -275,6 +273,22 @@ function articles_autocreation_form($form, &$form_state) {
 	  	);
   	}
 
+  	$form['con_file']['remove_last']= array(
+	  		'#name' => 'remove_last',
+	  		'#type' => 'button',
+	  		'#prefix' => '<div id="remove-back">',
+			'#suffix' => '</div>',
+	  		'#value' => t('Remove'),
+	  		'#attributes' => array('file-id' => "last"),
+	  		'#ajax' => array(
+		      		'callback' => 'remove_article_file_by_id',
+		      		'#attributes' => array('file-id' => "last"),
+		      		'wrapper' => 'container_file',
+		      		'method' => 'replace',
+		      		'effect' => 'fade',
+		  		),
+		);
+
 	/* --- Attached files (bilbomatica) --- */
 	$form['#attached']['js'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.js';
 	$form['#attached']['css'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.css';
@@ -296,8 +310,16 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	//   10 MB.
 	// File validation
 	global $user;
-	
-	//validate if both arrays form state and session have the same elements
+	if($form_state['clicked_button']['#value'] !="Submit"){
+		$form_state['rebuild'] = TRUE;
+	}
+	$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
+
+	if($form_state['complete form']['con_file']['file_list']['#rows'][0]['file'] == "No file"){
+		unset($form_state['complete form']['con_file']['file_list']['#rows'][0]);
+	}
+
+	//If session source documents have less elements we need to unset the one we have removed previously
 	if (count($form_state['complete form']['con_file']['file_list']['#rows']) > count($_SESSION['source_documents'])){
 
 		foreach ($form_state['complete form']['con_file']['file_list']['#rows'] as $key => $value) {
@@ -307,9 +329,11 @@ function articles_autocreation_form_validate($form, &$form_state) {
 			}
 		}
 	}
-	
-	if(count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents'])){
 
+	//If session source documents have more elements we need to add the last element into the table
+	if(count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents']) && $form_state['clicked_button']['#value']=='Submit'){
+		
+		$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-backs">';
 		$key = 	count($_SESSION['source_documents']) - 1;
 		$remove_button = $form['remove_'.$key];
 	 	$form['con_file']['file_list']['#rows'][$key] = array(
@@ -325,15 +349,16 @@ function articles_autocreation_form_validate($form, &$form_state) {
 	  		'file' => $_SESSION['source_documents'][$key]['name'],
 	  		'user' => $user->name,
 	  		'submitted' => date("d F Y"),
-	  		'actions' => array('data' => $remove_button),
+	  		'actions' => '<div id="remove-back"></div>',
 	  	);
+
 	  	$form_state['complete form']['con_file']['file_list']['remove_' . $key] = &$remove_button;
 
 	}
 
-
+	//Validation only when you click the Submit button
 	if(!isset($form_state['clicked_button']['#attributes']['file-id']) && $form_state['clicked_button']['#value']=='Submit'){
-		//Is not the remove button
+
 		
 		//validate the requerired fields -Title -Delivery date -Delivery kind -Service type
 		if ($form_state['values']['title']==""){
@@ -363,21 +388,23 @@ function articles_autocreation_form_validate($form, &$form_state) {
 		if (count($selectedCountries)==0){
 			form_set_error('country', 'NCs/Countries field is required');
 		}
-
-		
 	}
-	
 }
+
 
 function remove_article_file_by_id($form, &$form_state){
 	global $user;
 	$key = $form_state['clicked_button']['#attributes']['file-id'];
-	
+	if ($key=='last'){
+		$key = count($_SESSION['source_documents'])-1;
+	}
+	//Remove the document from the session and the form
 	unset($_SESSION['source_documents'][$key]);
 	unset($_SESSION['documents'][$key]);
 	unset($form_state['file_list']['#rows'][$key]);
 	unset($form['con_file']['file_list']['#rows'][$key]);
-	
+
+	//Delete the empty spaces into the session documents
 	$_SESSION['source_documents'] = array_values($_SESSION['source_documents']);
 	$_SESSION['documents'] = array_values($_SESSION['documents']);
 	
@@ -388,6 +415,7 @@ function remove_article_file_by_id($form, &$form_state){
     	'actions' => array('data' => t('Actions'))
   	);
 
+	//Create the table
 	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
 		$form['con_file']['file_list'] = array(
 				'#prefix' => '<div id="file-list-wrapper">',
@@ -427,8 +455,9 @@ function remove_article_file_by_id($form, &$form_state){
 	  	);
 	  
   	}
-
-	return $form['con_file']['file_list'];
+  	//Hide the remove_last button
+	$form['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
+	return $form['con_file'];
 
 }
 
@@ -533,7 +562,7 @@ function articles_autocreation_form_submit($form, &$form_state){
 		drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
 		drupal_set_message(l("View Article: " . $dsm_title, $nodeUrl));
 
-		workbench_moderation_moderate($node, "requested");
+		workbench_moderation_moderate($node, 'requested');
 
 	}
 
@@ -597,6 +626,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 	    'file_validate_extensions' => array('pdf xls html doc txt docx xlsx'),
 	    // 'file_validate_is_image' => array(),
 	  ));
+	
 	// If the file passed validation:
 	  if (isset($file->filename)) {
 	      // Move the file, into the Drupal file system
@@ -615,7 +645,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
 	    }
 	  }
 	  else {
-	    form_set_error('file', t('Invalid file, only images with the extension pdf xls html doc txt are allowed'));
+	    form_set_error('file', t('Invalid file, only files with the extension pdf xls html doc txt are allowed'));
 	  }
 	  
 	  
@@ -644,6 +674,7 @@ function articles_autocreation_file_upload_ajax($form, &$form_state) {
   	}
 
   }
+  $form_state['rebuild'] = TRUE;
   return $form['con_file'];
 }
 

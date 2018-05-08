@@ -1,5 +1,43 @@
 (function ($) {
   $(document).ready(function(){
+    $('select#edit-deliver').change(function() {
+      
+      var checkExist = setInterval(function() {
+
+        if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
+          if( $('.form-item-service select option').length == "3" ){
+              $(".form-item-service select option:selected").prop("selected", false);
+              $(".form-item-service select option:nth-child(1)").prop("selected", true);
+            clearInterval(checkExist);
+          }
+        }
+
+        if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
+          if( $('.form-item-service select option').length == "3" ){
+              $(".form-item-service select option:selected").prop("selected", false);
+              $(".form-item-service select option:nth-child(1)").prop("selected", true);
+            clearInterval(checkExist);
+          }
+        }
+
+      }, 100);
+    });
+
+    $('select#edit-deliver').change(function() {
+        if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to comparative work"){
+          if($('.form-item-service select option:selected').val() != 0 ){
+              $(".form-item-service select option:selected").prop("selected", false);
+              
+          }
+        }
+
+        if( $('#edit_deliver_chosen > a > span').text() == "Questionnaire based national contribution to sectoral representativeness studies"){
+          if($('.form-item-service select option:selected').val() != 0 ){
+              $(".form-item-service select option:selected").prop("selected", false);
+              
+          }
+        }
+    });
 
     // Select all
     $('#edit-addallbutton').on('click', function(){
@@ -92,6 +130,13 @@
 
     $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox > label').each(function(i){
       $(this).prepend('<i class="fa fa-circle-thin"></i>');
+    });
+
+    //Check if the country is checked when there is a Validation error.
+    $('#edit-country2 .form-item label').each(function(index, element){
+      if($(this).prev('input').is(":checked")){
+        $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
+      }
     });
 
   });
