@@ -17,14 +17,14 @@ tensions,7,1,100
 work-life,1,1,100
 work-life,2,1,100
 work-life,3,1,100
-liv-depr-optim,N/A,1,100
+liv-depr-optim,N/A,10,100
 liv-depr-makeendmeet,N/A,1,100
 liv-depr-stdliving,N/A,1,10
 liv-depr-economising,1,1,100
 liv-depr-economising,2,1,100
 liv-depr-economising,3,1,100
 liv-depr-economising,4,1,100
-work-life-2,1,1,100
+work-life-2,1,20,50
 work-life-2,2,1,100
 work-life-2,3,1,100
 work-life-2,4,1,100

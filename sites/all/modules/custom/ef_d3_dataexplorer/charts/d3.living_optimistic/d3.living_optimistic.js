@@ -28,9 +28,7 @@
       order = d3.ascending;
       var filteredKeyed = d3.nest().key(function(d) { 
         if(d.countryName != 'EU28'){
-
           return d.countryName;
-
         }else{
 
           // firts element in the order
@@ -219,85 +217,90 @@
 
     var filteredData = overallFunctions.filterData(data, modalityCode, order);
 
-	var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-optim', 'N/A');
-	
-	var domainMin = customLimits[0];
-	var domainMax = customLimits[1];
-    padding = 0;
+  	var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-optim', 'N/A');
+  	
+  	var domainMin = customLimits[0];
+  	var domainMax = customLimits[1];
+        padding = 0;
 
 
-      if($(window).width()>=768){
-        var margin = {top: 75, right:150, bottom: 75, left: 150};
-        width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
-      }else{
-        var margin = {top: 25, right:25, bottom: 25, left: 100};
-        width = Number($(window).width()) - margin.left - margin.right;
-      }
-     
-      height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
-
-      //temporarily
-      height = 675;
-
-    d3.select("body .chart-wrapper svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
-    
-    d3.select("body .chart-wrapper svg > g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    d3.selectAll("g.tick")
-      .remove();
-
-    y = d3.scaleBand()
-      .domain(filteredData.map(function(d) { return d.countryName }))
-      .range([0, height])
-      .padding(padding);
-
-    yAxis = d3.axisLeft().scale(y)
-      .tickSize(0);
-
-    x.domain([domainMin, domainMax])
-      .range([0, width])
-      .nice();
-
-
-//console.log(domainMin + '------------->' +domainMax );
-
-    xAxis.tickFormat(function(d,i) {
-        if (i == 0) {
-          var domainMinRound = x.domain()[0];
-          return d3.format(".0%")(domainMinRound/100);
-        } else {
-          return d3.format(".0%")(d/100); 
+        if($(window).width()>=768){
+          var margin = {top: 75, right:150, bottom: 75, left: 150};
+          width = Number($('.chart-wrapper').outerWidth()) - margin.left - margin.right;
+        }else{
+          var margin = {top: 25, right:25, bottom: 25, left: 100};
+          width = Number($(window).width()) - margin.left - margin.right;
         }
-    });
+     
+        height = Number($('.chart-wrapper').height()) - margin.top - margin.bottom;
+
+        //temporarily
+        height = 675;
+
+        d3.select("body .chart-wrapper svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+    
+        d3.select("body .chart-wrapper svg > g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        d3.selectAll("g.tick")
+          .remove();
+
+        y = d3.scaleBand()
+          .domain(filteredData.map(function(d) { return d.countryName }))
+          .range([0, height])
+          .padding(padding);
+
+        yAxis = d3.axisLeft().scale(y)
+          .tickSize(0);
+
+        x.domain([domainMin, domainMax])
+          .range([0, width])
+          .nice();
+
+        xAxis.tickFormat(function(d,i) {
+            if (i == 0) {
+              var domainMinRound = x.domain()[0];
+              return d3.format(".0%")(domainMinRound/100);
+            } else {
+              return d3.format(".0%")(d/100); 
+            }
+        });
 
 
     // Select the section we want to apply our changes to
     var svg = d3.select("body .chart-wrapper");
 
-    svg.select(".x-axis")
-      .transition().duration(750)
-      .call(xAxis); 
+        svg.select(".x-axis")
+          .transition().duration(750)
+          .call(xAxis); 
 
-    svg.select(".y-axis")
-      .transition().duration(750)
-      .call(yAxis); 
+        svg.select(".y-axis")
+          .transition().duration(750)
+          .call(yAxis); 
 
+        // Add countryCode class to each y-axis element
+        d3.selectAll(".y-axis .tick text")
+          .data(filteredData)
+          .attr("class", function(d) {  
+            if(d.highlight == 1){
+              return 'highlight';
+            }              
+          });
 
-    // Move x-axis lines
-    d3.selectAll("path.grid-line")
-      .remove();
-    
-    axisLines = xAxisGroup.selectAll("path")
-      .data(x.ticks(10))
-      .enter().append("path")
-      .attr("class", "grid-line")
-      .attr("stroke-opacity", "0")
-      .attr("d", axisLinePath)
-      .transition().duration(750)
-      .attr("stroke-opacity", "1");      
+        // Move x-axis lines
+        d3.selectAll("path.grid-line")
+          .remove();
+        
+        axisLines = xAxisGroup.selectAll("path")
+          .data(x.ticks(10))
+          .enter().append("path")
+          .attr("class", "grid-line")
+          .attr("stroke-opacity", "0")
+          .attr("d", axisLinePath)
+          .transition().duration(750)
+          .attr("stroke-opacity", "1");      
 
 
 
@@ -305,14 +308,22 @@
 
     // Chrome 1+
     var isChrome = !!window.chrome && !!window.chrome.webstore;
-    if(isChrome){
-     var transitionD = 0;
-    }else{
-      var transitionD = 750;
-    }
+
+        if(isChrome){
+         var transitionD = 0;
+        }else{
+          var transitionD = 750;
+        }
  
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-start highlight';
+        }else{
+          return 'lollipop-start';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot1); 
       })
@@ -323,6 +334,13 @@
       
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-end highlight';
+        }else{
+          return 'lollipop-end';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot2); 
       })
@@ -333,14 +351,20 @@
 
 
       // añadir duration a las transiciones
-    lollipops.select("path.lollipop-line")
-      .data(filteredData) 
-      .transition().duration(750)
-      .attr("d", overallFunctions.lollipopLinePath)
-      .attr("class", function(d){
-        return "lollipop-line";
-      });
-  }
+      lollipops.select("path.lollipop-line")
+        .data(filteredData) 
+        .transition().duration(750)
+        .attr("d", overallFunctions.lollipopLinePath)
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-line highlight';
+          }else{
+            return 'lollipop-line';
+          }                
+        });
+      }
+
+
 
   $(window).on("resize orientationchange",function(e){
     updateGraph();
@@ -349,8 +373,8 @@
 
   $(document).ready(function(){
 
-    data = [];
-	settingsData = [];
+  data = [];
+  settingsData = [];
 
 	if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
 	{
@@ -519,7 +543,8 @@
         .attr("transform", "translate(-10, 0)")
         .attr("class", "y-axis")
         .call(yAxis)
-        .select(".domain").remove();    
+        .select(".domain").remove();  
+
       
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
@@ -527,6 +552,7 @@
         .call(xAxis);
 
       lineGenerator = d3.line();
+
 /*
       var axisLinePath = function(d) {
         return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
@@ -552,7 +578,7 @@
         .attr("class", function(d){
           return "lollipop-line";
         });
-      
+ 
 
       var circleRadio = 6;
 
@@ -565,13 +591,19 @@
       }
 
       var startCircles = lollipops.append("circle")
-        .attr("class", "lollipop-start")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot1); 
         })
-        .attr("cy", function(d) {
+        .attr("cy", function(d) {          
           return y(d.countryName) + y.bandwidth() / 2;
+        })
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }                
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
@@ -582,7 +614,13 @@
         .transition().duration(transitionD); 
 
      var endCircles = lollipops.append("circle")
-        .attr("class", "lollipop-end")
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-end highlight';
+          }else{
+            return 'lollipop-end';
+          }                
+        })
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot2); 
@@ -598,27 +636,30 @@
         })
         .transition().duration(transitionD); 
 
-      $('select').on('change', function () {
-        var valOption = $(this).val();
-        var nameVar = $(this).attr('name');
 
-        if (valOption) { 
-          if(!document.location.search) {
-            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+        $('select').on('change', function () {
+          var valOption = $(this).val();
+          var nameVar = $(this).attr('name');
+
+          if (valOption) { 
+            if(!document.location.search) {
+              history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+            }
+            else {              
+              if(document.location.search.indexOf(nameVar) > 0){
+                // reemplazamos la variable de la URL con la nueva
+                var newVarString = document.location.search.replace(nameVar+'='+overallFunctions.getParameterByName(nameVar),nameVar + '=' + valOption )
+                history.pushState(null, "",  window.location.pathname + newVarString );
+              }
+              else {
+                history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+              }
+            }              
           }
-          else {              
-            if(document.location.search.indexOf(nameVar) > 0){
-              // reemplazamos la variable de la URL con la nueva
-              var newVarString = document.location.search.replace(nameVar+'='+overallFunctions.getParameterByName(nameVar),nameVar + '=' + valOption )
-              history.pushState(null, "",  window.location.pathname + newVarString );
-            }
-            else {
-              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
-            }
-          }              
-        }
-        return false;
-      }); 
+          return false;
+        }); 
+
+
     });
   });
 })(jQuery);

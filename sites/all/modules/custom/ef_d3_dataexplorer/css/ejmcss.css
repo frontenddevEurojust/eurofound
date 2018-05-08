@@ -211,6 +211,13 @@ g.ticks text {
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
 }
+.chart-wrapper .lollipop-line.highlight{
+    stroke: #eb8b0b  !important;
+}
+.chart-wrapper svg text.highlight   {
+  font-size: 12px;
+  fill: #eb8b0b  !important;
+}
 .chart-wrapper .highlighted{
   font-weight: bold;
 }
@@ -235,6 +242,15 @@ g.ticks text {
 }    
 .chart-wrapper .lollipop-median {
   fill:#BB1E8C;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+.chart-wrapper circle.highlight {
+ // fill:#f16000 !important;
+  stroke:#4d4d4d !important;
+  stroke-width:1;
+  stroke-linecap: butt;
+  stroke-dasharray: 0;
   -webkit-transition: all 1s;
   transition: all 1s;
 }
