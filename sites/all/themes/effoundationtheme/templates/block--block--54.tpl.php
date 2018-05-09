@@ -6,7 +6,7 @@ $rc_published = '';
 
 foreach ($node->field_ef_related_content['und'] as $key => $value) {
   $node_related = node_load($value['target_id']);
-  if ($node_related->status = '1'){
+  if ($node_related->status == 1){
     $rc_published = 'published';
   }
 }
@@ -18,7 +18,6 @@ if($rc_published == "published"){
   <h2 class="block-title">Related content</h2>
   <?php
     $node = menu_get_object();
-dpm($node);
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
         $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
@@ -245,6 +244,7 @@ dpm($node);
               if ($is_nodo){
                 //If the node isn't unpublished
                 if($node_ittem->status != 0){
+                  
                 //ALIAS HREF
                   $path = 'node/'.$node_ittem->nid;
                   $alias = url($path, array("absolute"=>TRUE));
