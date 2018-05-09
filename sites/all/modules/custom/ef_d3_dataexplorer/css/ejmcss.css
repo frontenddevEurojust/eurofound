@@ -38,6 +38,9 @@ g.ticks text {
   padding: 15px 25px;
   text-align: center;
 }
+.jm-abstract{
+  margin-top: 3.5rem;
+}
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
   padding: 0;
@@ -83,7 +86,7 @@ g.ticks text {
   ul.legend-list li, 
   ul.legend-list-butterfly li{
     width: auto;
-    margin: 0 15px;
+    margin: 0 10px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
@@ -216,13 +219,14 @@ g.ticks text {
 }
 .chart-wrapper svg text.highlight   {
   font-size: 12px;
+  font-weight: bold;
   fill: #eb8b0b  !important;
 }
 .chart-wrapper .highlighted{
   font-weight: bold;
 }
 .chart-wrapper .highlighted  text {
-  font-size: 14px;
+  font-size: 12px;
   fill: #eb8b0b  !important;
 }
 .chart-wrapper circle:hover{
@@ -287,6 +291,38 @@ g.ticks text {
   fill:#CCDFB9;
   color:#CCDFB9;
 }
+.left11.highlight, 
+.left16.highlight {
+  stroke:#2e4911 !important;
+  stroke-width:1.5;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+.right11.highlight, 
+.right16.highlight {
+  stroke:#174668  !important;
+  stroke-width:1.5;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 #ejm-chart svg {
   width: 50%;
  // height: 350px !important;

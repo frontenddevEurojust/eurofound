@@ -98,7 +98,8 @@
 			.enter()
 			.append('option')
 			.text(function (d, i) { return d; })
-			.property('value',function(d, i){ return i; });			
+			.property('value',function(d, i){ return i; });
+
 		d3.select("#sort-filter").on("change", reloadOnSort);
 	}
 
@@ -231,8 +232,23 @@ console.log(d);
 		
 		var y = d3.scaleBand().range([20,height]);
 
+
 		buildGraphStructure(dataFile, settingsData);
-		var order = d3.select('#sort-filter').property("value");
+
+		var order = Number( getParameterByName('sort') );
+
+		if (order == null)
+		{
+			order = 0;
+		}
+
+    d3.selectAll("#sort-filter option")
+      .attr("selected", function(d,i) { 
+      	if( i == getParameterByName('sort') ){
+      		return 'selected';
+      	} 
+    });
+
 		var data = filterData(data, order);
 		
 		var numericValuesLeft = d3.keys(data[0]).filter(function(key)
@@ -349,7 +365,13 @@ console.log(d);
 			{
 				return width - xLeft(d[leftBar11]);
 			}).attr("y", yPosByIndexDown)
-			.attr("class", function(d){return "left11 "+d.countryCode;})
+			.attr("class", function(d){
+	        if(d.highlight1 == 1){
+	        	return "left11 highlight "+d.countryCode;
+	        }else{
+	          return "left11 "+d.countryCode;
+	        }  
+			})
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
@@ -366,7 +388,13 @@ console.log(d);
 			{
 				return width - xLeft(d[leftBar16]);
 			}).attr("y", yPosByIndex)
-			.attr("class", function(d){return "left16 "+d.countryCode;})
+			.attr("class", function(d){
+	        if(d.highlight1 == 1){
+	        	return "left16 highlight "+d.countryCode;
+	        }else{
+	          return "left16 "+d.countryCode;
+	        }  
+			})
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
@@ -384,7 +412,13 @@ console.log(d);
 				return y(d.countryName) + y.bandwidth() / 2 -3;
 			}).attr("dy", ".20em")
 			.attr("text-anchor", "middle")
-			.attr("class", function(d){return "name "+d.countryCode;})
+			.attr("class", function(d){
+        if(d.highlight1 == 1 || d.highlight2 == 1 ){
+          return "name highlight "+d.countryCode;
+        } else {
+        	return "name "+d.countryCode;
+        } 			
+			})
 			.text(function(d){return translatedValue(dataFile, "country" + d.countryCode);});
 			
 		chart.selectAll("rect.right_H")
@@ -392,7 +426,13 @@ console.log(d);
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndex)
-			.attr("class", function(d){return "right16 "+d.countryCode;})
+			.attr("class", function(d){
+	        if(d.highlight2 == 1){
+	        	return "right16 highlight "+d.countryCode;
+	        }else{
+	          return "right16 "+d.countryCode;
+	        }                
+	     })
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
@@ -407,7 +447,13 @@ console.log(d);
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndexDown)
-			.attr("class", function(d){return "right11 "+d.countryCode;})
+			.attr("class", function(d){
+	        if(d.highlight2 == 1){
+	        	return "right11 highlight "+d.countryCode;
+	        }else{
+	          return "right11 "+d.countryCode;
+	        }  
+			})
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{

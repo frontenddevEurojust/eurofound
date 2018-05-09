@@ -363,6 +363,15 @@
       .transition().duration(750)
       .call(yAxis);
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) { 
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    }); 
+
     // Move x-axis lines
     d3.selectAll("path.grid-line")
       .remove();
@@ -405,11 +414,19 @@
       return circleRadio;           
     })
     .attr("class", function(d){
-      if (d.dot1 == 0){
-        return "lollipop-start no-data";
-      } else {
-        return "lollipop-start";           
-      }
+        if (d.dot1 == 0){
+          if(d.highlight == 1){
+            return 'lollipop-start no-data highlight';
+          }else{
+            return 'lollipop-start no-data';
+          }  
+        } else {
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }      
+        }
     });
 
     var medianCircles = lollipops.select("circle.lollipop-median")
@@ -431,11 +448,19 @@
         return circleRadio;           
       })
       .attr("class", function(d){
-        if (d.dot3 == 0){
-          return "lollipop-median no-data";
-        } else {
-          return "lollipop-median";           
-        }
+          if (d.dot3 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-median no-data highlight';
+            }else{
+              return 'lollipop-median no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-median highlight';
+            }else{
+              return 'lollipop-median';
+            }      
+          }
       });
 
     var endCircles = lollipops.select("circle.lollipop-end")
@@ -457,11 +482,19 @@
         return circleRadio;           
       })
       .attr("class", function(d){
-        if (d.dot2 == 0){
-          return "lollipop-end no-data";
-        } else {
-          return "lollipop-end";           
-        }
+          if (d.dot2 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-end no-data highlight';
+            }else{
+              return 'lollipop-end no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-end highlight';
+            }else{
+              return 'lollipop-end';
+            }      
+          }
       });
       
     // añadir duration a las transiciones
@@ -469,8 +502,12 @@
       .data(filteredData) 
       .transition().duration(750)
       .attr("d", lollipopLinePath)
-      .attr("class", function(d){
-        return "lollipop-line";
+      .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-line highlight';
+          }else{
+            return 'lollipop-line';
+          }                
       });
   }
 
@@ -656,6 +693,15 @@
         .call(yAxis)
         .select(".domain").remove();    
       
+      // Add class to each highlight y-axis element
+      d3.selectAll(".y-axis .tick text")
+        .data(filteredData)
+        .attr("class", function(d) { 
+          if(d.highlight == 1){
+            return 'highlight';
+          }              
+      }); 
+
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
@@ -680,9 +726,13 @@
       lollipops.append("path")
         .attr("class", "lollipop-line")
         .attr("d", lollipopLinePath)
-        .attr("class", function(d){
-          return "lollipop-line";
-        });
+        .attr("class", function(d) {  
+            if(d.highlight == 1){
+              return 'lollipop-line highlight';
+            }else{
+              return 'lollipop-line';
+            }                
+          });
           
 
       circleRadio = 6;
@@ -699,9 +749,17 @@
           })
           .attr("class", function(d){
             if (d.dot1 == 0){
-              return "lollipop-start no-data";
+              if(d.highlight == 1){
+                return 'lollipop-start no-data highlight';
+              }else{
+                return 'lollipop-start no-data';
+              }  
             } else {
-              return "lollipop-start";           
+              if(d.highlight == 1){
+                return 'lollipop-start highlight';
+              }else{
+                return 'lollipop-start';
+              }      
             }
           })
           .on('mouseout', tip.hide)
@@ -728,9 +786,17 @@
           })
           .attr("class", function(d){
             if (d.dot3 == 0){
-              return "lollipop-median no-data";
+              if(d.highlight == 1){
+                return 'lollipop-median no-data highlight';
+              }else{
+                return 'lollipop-median no-data';
+              }  
             } else {
-              return "lollipop-median";           
+              if(d.highlight == 1){
+                return 'lollipop-median highlight';
+              }else{
+                return 'lollipop-median';
+              }      
             }
           })     
           .on('mouseout', tip.hide)    
@@ -756,9 +822,17 @@
           })
           .attr("class", function(d){
             if (d.dot2 == 0){
-              return "lollipop-end no-data";
+              if(d.highlight == 1){
+                return 'lollipop-end no-data highlight';
+              }else{
+                return 'lollipop-end no-data';
+              }  
             } else {
-              return "lollipop-end";           
+              if(d.highlight == 1){
+                return 'lollipop-end highlight';
+              }else{
+                return 'lollipop-end';
+              }      
             }
           })  
           .on('mouseout', tip.hide)    

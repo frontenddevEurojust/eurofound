@@ -292,6 +292,15 @@
 
 		svg.select(".y-axis").transition().duration(750).call(yAxis);
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    });
+
 		// Move x-axis lines
 		d3.selectAll("path.grid-line").remove();
 
@@ -310,7 +319,16 @@
 		}
 
 
-		var startCircles = lollipops.select("circle.lollipop-start").data(filteredData).transition().duration(transitionD)
+		var startCircles = lollipops.select("circle.lollipop-start").data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-start highlight';
+        }else{
+          return 'lollipop-start';
+        }                
+      })
+			.transition()
+			.duration(transitionD)
 			.attr("cx", function(d)
 			{ 
 				return x(Math.round(d.dot1)); 
@@ -329,10 +347,20 @@
 				return y(d.countryName) + y.bandwidth() / 2;
 			});*/
 
-		lollipops.select("path.lollipop-line").data(filteredData).transition().duration(750).attr("d", lollipopLinePath).attr("class", function(d)
-		{
-			return "quality "+"lollipop-line";
-		});
+		lollipops.select("path.lollipop-line")
+			.data(filteredData)
+			.transition()
+			.duration(750)
+			.attr("d", lollipopLinePath)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'quality lollipop-line highlight';
+        }else{
+          return 'quality lollipop-line';
+        }                
+      });
+
+
 	}
 
 
@@ -512,7 +540,16 @@
 			
 			var yAxisGroup = svg.append("g").attr("transform", "translate(-10, 0)").attr("class", "y-axis")
 				.call(yAxis).select(".domain").remove();    
-			
+
+	    // Add class to each highlight y-axis element
+	    d3.selectAll(".y-axis .tick text")
+	      .data(filteredData)
+	      .attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'highlight';
+	        }              
+	    });
+							
 			xAxisGroup = svg.append("g").attr("class", "x-axis").attr("transform", "translate(0,0)").call(xAxis);
 			
 			lineGenerator = d3.line();
@@ -525,14 +562,29 @@
 
 			lollipops = lollipopsGroup.selectAll("g").data(filteredData).enter().append("g").attr("class", "lollipop");
 			
-			lollipops.append("path").attr("class", "lollipop-line").attr("d", lollipopLinePath).attr("class", function(d)
-			{
-				return "quality "+"lollipop-line";
-			});        
+			lollipops.append("path")
+				.attr("class", "lollipop-line")
+				.attr("d", lollipopLinePath)
+	      .attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'quality lollipop-line highlight';
+	        }else{
+	          return 'quality lollipop-line';
+	        }                
+	      });       
 
 			var circleRadio = 6;
 
-			var startCircles = lollipops.append("circle").attr("class", "lollipop-start").attr("r", circleRadio).attr("cx", function(d)
+			var startCircles = lollipops.append("circle")
+	      .attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'lollipop-start highlight';
+	        }else{
+	          return 'lollipop-start';
+	        }                
+	      })
+				.attr("r", circleRadio)
+				.attr("cx", function(d)
 				{
 					return x(Math.round(d.dot1));
 				}).attr("cy", function(d)

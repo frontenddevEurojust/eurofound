@@ -19,7 +19,7 @@
 
   overallFunctions.filterData = function(data, modality, sort) {
 
-    var filtered = data.filter(function(row){
+      var filtered = data.filter(function(row){
       return row.modalityCode == modality;
     });
 
@@ -280,14 +280,14 @@
           .transition().duration(750)
           .call(yAxis); 
 
-        // Add countryCode class to each y-axis element
+        // Add class to each highlight y-axis element
         d3.selectAll(".y-axis .tick text")
           .data(filteredData)
           .attr("class", function(d) {  
             if(d.highlight == 1){
               return 'highlight';
             }              
-          });
+        });
 
         // Move x-axis lines
         d3.selectAll("path.grid-line")
@@ -350,7 +350,7 @@
       .transition().duration(transitionD);
 
 
-      // añadir duration a las transiciones
+
       lollipops.select("path.lollipop-line")
         .data(filteredData) 
         .transition().duration(750)
@@ -545,6 +545,14 @@
         .call(yAxis)
         .select(".domain").remove();  
 
+      // Add class to each highlight y-axis element
+      d3.selectAll(".y-axis .tick text")
+        .data(filteredData)
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'highlight';
+          }              
+      });
       
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")

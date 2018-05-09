@@ -19,7 +19,7 @@
 
   overallFunctions.filterData = function(data, modality, sort) {
 
-     var filtered = data.filter(function(row){
+      var filtered = data.filter(function(row){
       return row.modalityCode == modality;
     });
 
@@ -28,9 +28,7 @@
       order = d3.ascending;
       var filteredKeyed = d3.nest().key(function(d) { 
         if(d.countryName != 'EU28'){
-
           return d.countryName;
-
         }else{
 
           // firts element in the order
@@ -282,6 +280,14 @@
       .transition().duration(750)
       .call(yAxis); 
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    });
 
     // Move x-axis lines
     d3.selectAll("path.grid-line")
@@ -310,6 +316,13 @@
  
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-start highlight';
+        }else{
+          return 'lollipop-start';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot1); 
       })
@@ -320,6 +333,13 @@
       
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-end highlight';
+        }else{
+          return 'lollipop-end';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot2); 
       })
@@ -329,13 +349,17 @@
       .transition().duration(transitionD);
 
 
-      // añadir duration a las transiciones
+
     lollipops.select("path.lollipop-line")
       .data(filteredData) 
       .transition().duration(750)
       .attr("d", overallFunctions.lollipopLinePath)
-      .attr("class", function(d){
-        return "lollipop-line";
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-line highlight';
+        }else{
+          return 'lollipop-line';
+        }                
       });
   }
 
@@ -512,6 +536,15 @@
         .call(yAxis)
         .select(".domain").remove();    
       
+      // Add class to each highlight y-axis element
+      d3.selectAll(".y-axis .tick text")
+        .data(filteredData)
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'highlight';
+          }              
+      });
+      
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
@@ -540,10 +573,14 @@
       lollipops.append("path")
         .attr("class", "lollipop-line")
         .attr("d", overallFunctions.lollipopLinePath)
-        .attr("class", function(d){
-          return "lollipop-line";
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-line highlight';
+          }else{
+            return 'lollipop-line';
+          }                
         });
-      
+        
 
       var circleRadio = 6;
 
@@ -556,13 +593,19 @@
       }
 
       var startCircles = lollipops.append("circle")
-        .attr("class", "lollipop-start")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot1); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
+        })
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }                
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
@@ -573,14 +616,20 @@
         .transition().duration(transitionD); 
 
      var endCircles = lollipops.append("circle")
-        .attr("class", "lollipop-end")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot2); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
-        })    
+        })
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-end highlight';
+          }else{
+            return 'lollipop-end';
+          }                
+        })   
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
           tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
