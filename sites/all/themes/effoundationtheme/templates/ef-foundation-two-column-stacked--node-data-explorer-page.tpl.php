@@ -31,10 +31,15 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 					</div>
 				<?php endif; ?>
 			<?php endif; ?>
-			<div class="jm-abstract">
-				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
 
+			<?php if( $content['field_ef_topic']['#items'] ): ?>
+				<div class="jm-abstract-topics">
+			<?php else: ?>
+				<div class="jm-abstract">
+			<?php endif; ?>
+				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
 			</div>
+
 		</div>
 		<div class="jm-back-button large-3">
 
