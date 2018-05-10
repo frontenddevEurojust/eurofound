@@ -1982,11 +1982,11 @@ div.qrr-info img {
 	padding: 0px ;
 }
 .node-type-ef-report .ds-node-metadata .field-name-field-ef-author .author-report {
-	margin-left: -2px;
+	margin-left: 0px;
 }
 .node-type-ef-report .ds-node-metadata .field-name-field-ef-author span.semicolon{
 	position: relative;
-	left: -1px;
+	left: -2px;
 }
 
 .field.field-name-field-ef-author a:after{
