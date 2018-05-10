@@ -1977,6 +1977,18 @@ div.qrr-info img {
 .ds-node-metadata a:last-child:after{
 	content: none;
 }
+
+.node-type-ef-report .ds-node-metadata .field-name-field-ef-author a {
+	padding: 0px ;
+}
+.node-type-ef-report .ds-node-metadata .field-name-field-ef-author .author-report {
+	margin-left: 0px;
+}
+.node-type-ef-report .ds-node-metadata .field-name-field-ef-author span.semicolon{
+	position: relative;
+	left: -2px;
+}
+
 .field.field-name-field-ef-author a:after{
 	content: none;
 }
