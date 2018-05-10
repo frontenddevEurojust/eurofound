@@ -2,7 +2,6 @@
 
 //Check if the related content is published, If all related content are unpublished we don't display the Block related content
 $node = menu_get_object();
-dpm($node);
 $rc_published = '';
 
 foreach ($node->field_ef_related_content['und'] as $key => $value) {
