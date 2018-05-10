@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * Conversion from ef_report with deliverable kind "Topical Update" to ef_publications_ct_update_7001
+ * FIELD MAP:
+ * 
+ * Title -> Title
+ * Main Image -> Main Image
+ * Abstract -> Abstract
+ * Body -> Description
+ * Observatory -> Observatory 
+ * Topic -> Topic
+ * Sector -> Sector
+ * Country -> Country
+ * Unit -> Unit
+ * Work Programme Area -> Work Programme Area
+ * Authors -> Authors
+ * "Authored by" must remain as is
+ *
+ *     ----   DATES ----
+ * "Authored on" must remain as is
+ * Publication date must remain as is
+ * 
+ */
+function ef_publications_ct_update_7201() {
+	//Get the "Topical update" tid from the term entity
+	$term = taxonomy_get_term_by_name('Topical update', 'ef_deliverable_kinds');
+  $topical_update_tid = key($term);
+
+  //Query for articles with deliverable kind "Topical update"
+  $query = db_select('node', 'n');
+  $query->fields('n', array('nid'));
+  $query->join('field_data_field_ef_deliverable_kind', 'dk', 'n.nid = dk.entity_id');
+  $query->condition('n.type', 'ef_report');
+  $query->condition('dk.field_ef_deliverable_kind_tid', $topical_update_tid);
+
+  $results = $query->execute()->fetchAll();
+
+  //For each relevant article we create a new publication.
+  foreach ($results as $key => $value) {
+  	global $user;
+  	$user = user_load(403);
+
+  	$nid = $value->nid;
+  	$vid = get_node_current_vid($nid);
+  	//Load the article, the whole entity
+  	$article = node_load($nid);
+  	//Create the publication
+  	$publication = new stdClass();
+  	node_object_prepare($publication);
+  	//Load the values in the new entity
+  	//Language
+  	$publication->language = "en";
+  	//Title Drupal + Entity Translation
+		$publication->title = $article->title;
+		$publication->title_field = $article->title_field;
+		//Type
+		$publication->type = 'ef_publication';
+		//Status, for the time being we are converting all the relevant articles
+		//maybe later we'll discard the unpublished ones and then $article->status
+		//will be just a "1".
+		$publication->status = $article->status;
+		//Main Image
+		$publication->field_ef_main_image = $article->field_ef_main_image;
+		//Observatory
+		$publication->field_ef_observatory = $article->field_ef_observatory;
+		//Topic
+		$publication->field_ef_topic = $article->field_ef_topic;
+		//Sector
+		$publication->field_ef_sector = $article->field_ef_sector;
+		//Country
+		$publication->field_ef_eu_related_countries = $article->field_ef_country;
+		//Unit
+		$publication->field_ef_unit = $article->field_ef_unit;
+		//Work programme area
+		$publication->field_ef_work_programme_area = $article->field_ef_work_programme_area;
+		//Authors
+		$publication->field_ef_publ_contributors = $article->field_ef_publ_contributors;
+		//Publication_date
+		$publication->published_at = $article->published_at;
+		//Node creator
+		$publication->uid = $article->uid;
+		//Node creation date
+		$publication->created = $article->created;
+		//EF Activities
+		$publication->field_ef_activities = $article->field_ef_activities;
+
+		node_save($publication);
+		if ($article->status == 1) {
+			workbench_moderation_moderate($publication, 'published');
+		}
+		workbench_moderation_moderate($article, 'unpublished');
+		$article->status = 0;
+		node_save($article);
+  }
+}
