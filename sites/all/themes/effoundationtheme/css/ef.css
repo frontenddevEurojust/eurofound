@@ -13064,7 +13064,18 @@ h1.parent_eurwork.title{
   background: rgba(247,147,30, 0.9);
 }
 .pane-ef-key-topics-home .key-topics-list p:hover a.key-topic-name,
-.view-ef-key-topics-home .key-topics-list p:hover a.key-topic-name, 
+.view-ef-key-topics-home .key-topics-list p:hover a.key-topic-name{
+  margin-bottom:0px;
+  bottom: 0%;
+  height: 100%;
+  display: block;
+  width: 100%;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  display: block;
+  background: rgba(0,91,170, 0.7);
+  text-shadow: 1px 1px #000000;
+}
 .view-key-topics-landing-page .key-topics-list p:hover a.key-topic-name{
   margin-bottom:0px;
   bottom: 0%;
@@ -13080,7 +13091,7 @@ h1.parent_eurwork.title{
 .pane-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name,
 .view-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name, 
 .view-key-topics-landing-page .important-key-topics-group .key-topics-list p:hover a.key-topic-name{
-  background: rgba(247,147,30, 0.5);
+  background: rgba(247,147,30, 0.6);
 }
 .landing-topics-item{
     margin: 10px 0 40px 0;
