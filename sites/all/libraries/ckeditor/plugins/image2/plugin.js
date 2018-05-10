@@ -241,23 +241,23 @@
 			// new state of the widget.
 			if ( this.deflated ) {
 				this.widget = editor.widgets.initOn( this.element, 'image', this.widget.data );
-					
+
 				// Once widget was re-created, it may become an inline element without
 				// block wrapper (i.e. when unaligned, end not captioned). Let's do some
 				// sort of autoparagraphing here (https://dev.ckeditor.com/ticket/10853).
-				if ( this.widget.inline && !( new CKEDITOR.dom.elementPath( this.widget.wrapper, editable ).block ) ) {
+		
+				if ( this.widget != null && this.widget.inline && !( new CKEDITOR.dom.elementPath( this.widget.wrapper, editable ).block ) ) {
 					var block = doc.createElement( editor.activeEnterMode == CKEDITOR.ENTER_P ? 'p' : 'div' );
 					block.replace( this.widget.wrapper );
 					this.widget.wrapper.move( block );
-					// console.log(this.element.$.className );
-					this.element.$.className = 'user-modify';
+				} 
 
-				}
 
 				// The focus must be transferred from the old one (destroyed)
 				// to the new one (just created).
 				
-				if ( this.focused ) {
+
+				if ( this.widget != null && this.focused ) {
 					this.widget.focus();
 					delete this.focused;
 				}
@@ -268,10 +268,7 @@
 			// If now widget was destroyed just update wrapper's alignment.
 			// According to the new state.
 			else {
-
-				setWrapperAlign( this.widget, alignClasses );	
-				// this.element.$.className = 'user-modify';	
-
+				setWrapperAlign( this.widget, alignClasses );
 			}
 		}
 
@@ -370,7 +367,6 @@
 					image = this.parts.image,
 					data = {
 						hasCaption: !!this.parts.caption,
-						class: image.getAttribute( 'class' ),
 						src: image.getAttribute( 'src' ),
 						alt: image.getAttribute( 'alt' ) || '',
 						width: image.getAttribute( 'width' ) || '',
@@ -397,23 +393,38 @@
 
 					// Read the initial left/right alignment from the class set on element.
 					if ( alignClasses ) {
+
 						if ( alignElement.hasClass( alignClasses[ 0 ] ) ) {
 							data.align = 'left';
-							if(data.align == 'left'){								
-								alignElement.removeClass( 'img-align-center');
-							}
-							
 						} else if ( alignElement.hasClass( alignClasses[ 2 ] ) ) {
 							data.align = 'right';
-							if(data.align == 'right'){
-								alignElement.removeClass( 'img-align-center');
-							}
 						}
 
 						if ( data.align ) {
 							alignElement.removeClass( alignClasses[ alignmentsObj[ data.align ] ] );
 						} else {
-							data.align = 'none';
+
+							if( alignElement.hasClass( 'img-align-left-ck' ) ){
+								alignElement.removeClass( 'img-align-left-ck');
+								alignElement.removeClass( 'img-align-center-ck')
+								data.align = 'left';
+							
+							} else if( alignElement.hasClass( 'img-align-right-ck' ) ){
+								alignElement.removeClass( 'img-align-right-ck');
+								alignElement.removeClass( 'img-align-center-ck')
+								data.align = 'right';
+							
+							} else if( alignElement.hasClass( 'img-align-center-ck' ) ){
+								//alignElement.removeClass( 'img-align-center-ck');
+								data.align = 'center';
+
+							} else {
+								data.align = 'none';
+								alignElement.removeClass( 'img-align-center-ck');
+								alignElement.removeClass( 'img-align-right-ck');
+								alignElement.removeClass( 'img-align-left-ck');
+							}
+							
 						}
 					}
 					// Read initial float style from figure/image and then remove it.
@@ -536,14 +547,14 @@
 			var stateActions = {
 				align: function( shift, oldValue, newValue ) {
 					var el = shift.element;
-					var stClass = shift.newData.class; 
 
 					// Alignment changed.
-					if ( shift.changed.align ) {												
+					if ( shift.changed.align ) {
 						// No caption in the new state.
 						if ( !shift.newData.hasCaption ) {
 							// Changed to "center" (non-captioned).
-							if ( newValue == 'center') {
+							if ( newValue == 'center' ) {
+
 								shift.deflate();
 								shift.element = wrapInCentering( editor, el );
 							}
@@ -555,25 +566,12 @@
 							}
 						}
 					}
+
 					// Alignment remains and "center" removed caption.
 					else if ( newValue == 'center' && shift.changed.hasCaption && !shift.newData.hasCaption ) {
 						shift.deflate();
 						shift.element = wrapInCentering( editor, el );
-
-					} else {
-						if( newValue == 'none' && stClass.indexOf('img-align-center') >= 0 ){
-								newValue = 'center';
-								shift.newData.align = "center"							
-								shift.changed.align = true;	
-								shift.deflate();
-								shift.element = wrapInCentering( editor, el );		
-								shift.widget.setData( 'align', shift.newData.align );
-							}
 					}
-
-							
-
-
 
 					// Finally set display for figure.
 					if ( !alignClasses && el.is( 'figure' ) ) {
@@ -693,9 +691,14 @@
 			function unwrapFromCentering( element ) {
 				var imageOrLink = element.findOne( 'a,img' );
 
-				imageOrLink.replace( element );
+				if( imageOrLink != null){
 
-				return imageOrLink;
+					imageOrLink.replace( element );
+					return imageOrLink;
+				} else {
+					return element;
+				}
+
 			}
 
 			// Wraps <img/> -> <a><img/></a>.
@@ -1034,13 +1037,10 @@
 
 				// If left/right, add float style to the downcasted element.
 				else if ( align in { left: 1, right: 1 } ) {
-					if ( alignClasses ){
-						el.attributes.class="user-modify";
+					if ( alignClasses )
 						attrsHolder.addClass( alignClasses[ alignmentsObj[ align ] ] );
-					}
-					else{
+					else
 						styles[ 'float' ] = align;
-					}
 				}
 
 				// Update element styles.

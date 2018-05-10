@@ -282,12 +282,12 @@ p.clear{
 	text-align:left;
 	display:block;
 }
-img.img-align-right{
+img.img-align-right-ck{
 	float: right ;
 	margin:0px 0px 20px 20px ;
 	clear: none;
 }
-img.img-align-left{
+img.img-align-left-ck{
 	float: left;
 	margin:0px 20px 20px 0px ;
 	clear: none ;
@@ -298,7 +298,7 @@ img.img-no-float{
 	display: block ;
   float: none;
 }
-img.img-align-center {
+img.img-align-center-ck {
 	float: none;
 	clear:both ;
 	margin:20px auto;
@@ -346,19 +346,42 @@ img.img-align-center {
 }
 .img-align-center figcaption{
 	text-align: center;
+	clear: both;
 }
 figure {
 	margin:0rem 25px;
 }
-figure[data-cke-widget-data*="left"]{
+figure.image figcaption {
+	clear: both;
+}
+figure[data-cke-widget-data*="left"], 
+figure.img-align-left{
 	margin: 0px 25px 20px 0px;
+	float: left;
 }
-figure[data-cke-widget-data*="right"]{
+figure[data-cke-widget-data*="left"] figcaption, 
+figure.img-align-left figcaption{
+	float: left;
+	clear: both;
+}
+
+figure[data-cke-widget-data*="right"], 
+figure.img-align-right {
 	margin: 0rem 0rem 25px 20px;
+	float: right;
 }
+
 figure[data-cke-widget-data*="center"]{
-	margin: 2rem;
+	margin: 0 2rem 0rem 0;
+  text-align: center;
 }
+
+figure[data-cke-widget-data*="center"] img, 
+img[data-cke-widget-data*="center"] {
+  margin: 20px auto !important;
+}
+
+
 .cke_image_nocaption[style*="left"] {
 	 margin: 0px 25px 20px 0px;
 }
