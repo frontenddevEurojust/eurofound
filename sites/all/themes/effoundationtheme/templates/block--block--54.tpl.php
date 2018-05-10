@@ -2,6 +2,7 @@
 
 //Check if the related content is published, If all related content are unpublished we don't display the Block related content
 $node = menu_get_object();
+dpm($node);
 $rc_published = '';
 
 foreach ($node->field_ef_related_content['und'] as $key => $value) {
@@ -11,7 +12,7 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
   }
 }
 
-if($rc_published == "published"){
+if($rc_published == "published" || $node->field_related_taxonomy['und'][0]['target_id'] != ''){
 
 ?>
 <section class="block block-views">
