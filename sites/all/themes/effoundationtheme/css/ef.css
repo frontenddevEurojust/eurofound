@@ -12987,7 +12987,9 @@ h1.parent_eurwork.title{
 
 
 /** KEY TOPICS HOME **/
-
+.view-id-key_topics_landing_page{
+	width: 100%;
+}
 .view-ef-key-topics-home{
   padding: 0;
   overflow: hidden;
@@ -13025,10 +13027,10 @@ h1.parent_eurwork.title{
 }
 .view-key-topics-landing-page .not-important-key-topics-group{
   float: right;
-  width: 25%;
+  width: 33.3%;
 }
 .not-important-key-topics-group .key-topics-list{
-  width: 99%;
+  width: 98%;
 }
 .important-key-topics-group{
   float: left;
@@ -13036,13 +13038,14 @@ h1.parent_eurwork.title{
 }
 .view-key-topics-landing-page .important-key-topics-group{
   float: left;
-  width:75%;
+  width: 66.6%;
 }
 .important-key-topics-group .key-topics-list{
   width: 49%;
 }
 .view-key-topics-landing-page .important-key-topics-group .key-topics-list{
-  width: 32.2%;
+  width: 49%;
+  height: auto;
 }
 .pane-ef-key-topics-home .key-topics-list,
 .view-ef-key-topics-home .key-topics-list, 
@@ -13052,7 +13055,7 @@ h1.parent_eurwork.title{
   overflow: hidden;
   margin-right: 1%;
   margin-bottom: 1em;
-  height: 128px;
+  height:auto;
   position: relative;
 }
 .pane-ef-key-topics-home .key-topics-list p,
@@ -13078,16 +13081,17 @@ h1.parent_eurwork.title{
 .pane-ef-key-topics-home .key-topics-list p > img,
 .view-ef-key-topics-home .key-topics-list p > img, 
 .view-key-topics-landing-page .key-topics-list  p > img{
-	position: absolute;
+	position: relative;
 	z-index: 9;
 	border:0;
 	outline-width: 0px;
 	top: 0;
 	width: 100%;
 	margin: 0;
+	float: left;
 }
 .view-ef-key-topics-home .key-topics-list p > img{
-  position: absolute;
+  position: relative;
   z-index: 9;
   width: 100%;
   padding: 0;
@@ -13118,22 +13122,34 @@ h1.parent_eurwork.title{
   background: rgba(247,147,30, 0.9);
 }
 .pane-ef-key-topics-home .key-topics-list p:hover a.key-topic-name,
-.view-ef-key-topics-home .key-topics-list p:hover a.key-topic-name, 
-.view-key-topics-landing-page .key-topics-list p:hover a.key-topic-name{
+.view-ef-key-topics-home .key-topics-list p:hover a.key-topic-name{
   margin-bottom:0px;
   bottom: 0%;
   height: 100%;
   display: block;
   width: 100%;
-  -webkit-transition: all 0.25s;
-  transition: all 0.25s;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
   display: block;
-  background: rgba(0,91,170, 0.5);
+  background: rgba(0,91,170, 0.7);
+  text-shadow: 1px 1px #000000;
+}
+.view-key-topics-landing-page .key-topics-list p:hover a.key-topic-name{
+  margin-bottom:0px;
+  bottom: 0%;
+  height: 60%;
+  display: block;
+  width: 100%;
+  -webkit-transition: all 0.35s;
+  transition: all 0.35s;
+  display: block;
+  background: rgba(0,91,170, 0.7);
+  text-shadow: 1px 1px #000000;
 }
 .pane-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name,
 .view-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name, 
 .view-key-topics-landing-page .important-key-topics-group .key-topics-list p:hover a.key-topic-name{
-  background: rgba(247,147,30, 0.5);
+  background: rgba(247,147,30, 0.6);
 }
 .landing-topics-item{
     margin: 10px 0 40px 0;
@@ -13239,7 +13255,7 @@ h1.parent_eurwork.title{
   	order: 2;
 	}
 	.view-key-topics-landing-page .important-key-topics-group .key-topics-list {
-		width: 32%;
+		width: 49%;
 	}
 	.not-important-key-topics-group .key-topics-list {
 	  width: 48.5%;
