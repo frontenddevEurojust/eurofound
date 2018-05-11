@@ -1363,3 +1363,13 @@ function get_equivalent_new_contract($old_contract, $contracts) {
   return;
 }
 
+
+/**WGS-371
+ * Delete validation message if we haven't permission to view the required field
+ */
+function ef_contract_date_popup_pre_validate_alter(&$element, &$form_state, &$input){
+  if (user_access('edit field_ef_revision_deadline', $user)) {
+    $element['#required'] = FALSE;
+    unset($form['field_ef_revision_deadline']['und'][0]['#element_validate']);
+  }
+}
