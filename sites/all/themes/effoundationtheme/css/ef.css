@@ -12930,7 +12930,7 @@ h1.parent_eurwork.title{
 
 /** KEY TOPICS HOME **/
 .view-id-key_topics_landing_page{
-	width: 100%;
+	width: 75%;
 }
 .view-ef-key-topics-home{
   padding: 0;
@@ -13074,19 +13074,19 @@ h1.parent_eurwork.title{
   transition: all 0.35s;
   display: block;
   background: rgba(0,91,170, 0.7);
-  text-shadow: 1px 1px #000000;
+  text-shadow: 1px 1px #f7931ee6;
 }
 .view-key-topics-landing-page .key-topics-list p:hover a.key-topic-name{
   margin-bottom:0px;
   bottom: 0%;
-  height: 60%;
+  height: 100%;
   display: block;
   width: 100%;
   -webkit-transition: all 0.35s;
   transition: all 0.35s;
   display: block;
   background: rgba(0,91,170, 0.7);
-  text-shadow: 1px 1px #000000;
+  text-shadow: 1px 1px #005baa;
 }
 .pane-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name,
 .view-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name, 
