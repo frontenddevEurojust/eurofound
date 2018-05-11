@@ -7109,7 +7109,7 @@ img.img-no-float{
 .img-align-left-ck.img-align-right, 
 .img-align-center-ck.img-align-right{
   float: right !important;
-  margin: 10px 0px 10px 20px !important;
+  margin: 0px 0px 10px 1em !important;
 }
 
 
@@ -7117,11 +7117,11 @@ img.img-no-float{
 img.img-align-left, 
 img.img-align-left-ck{
 	float: left !important;
-	margin:10px 10px 10px 0px !important;
+	margin:0px 1em 1em 0px !important;
 }
 figure.img-align-left{
   float: left;
-  margin: 10px 10px 10px 0px !important;
+  margin: 0px 1em 1em 0px !important;
 }
 figure.img-align-left img{
   margin: 5px 0 !important;
@@ -7135,24 +7135,24 @@ img.img-align-center,
 img.img-align-center-ck {
 	float: none ;
 	clear:both ;
-	margin:10px auto !important;
+	margin:1em auto !important;
 	text-align:center;
 	display:block;
 }
 figure.img-align-center img{
   float: right;
-	margin:10px auto !important;
+	margin:1em auto !important;
 }
 
 .img-align-right img, 
 img.img-align-right, 
 img.img-align-right-ck{
 	float: right !important;
-	margin:10px 0px 10px 10px !important;
+	margin:1em 0px 10px 1em !important;
 }
 figure.img-align-right{
   float: right;
-  margin: 10px 0px 10px 20px !important;
+  margin: 0px 0px 1em 20px !important;
 }
 figure.img-align-right img{
   float: right;
@@ -7163,6 +7163,11 @@ figure.img-align-left figcaption,
 figure.img-align-center figcaption,
 figure.img-align-right figcaption{
 	clear: both;
+}
+
+figure.img-align-right ~ br, 
+figure.img-align-left ~ br{
+	display: none;
 }
 
 
