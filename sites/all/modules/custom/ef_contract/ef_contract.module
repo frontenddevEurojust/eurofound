@@ -1368,7 +1368,11 @@ function get_equivalent_new_contract($old_contract, $contracts) {
  * Delete validation message if we haven't permission to view the required field
  */
 function ef_contract_date_popup_pre_validate_alter(&$element, &$form_state, &$input){
+  global $user;
   if (user_access('edit field_ef_revision_deadline', $user)) {
+    $element['#required'] = TRUE;
+  }
+  else {
     $element['#required'] = FALSE;
   }
 }
