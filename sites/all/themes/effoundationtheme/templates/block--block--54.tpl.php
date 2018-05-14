@@ -4,6 +4,7 @@
 $node = menu_get_object();
 $rc_published = '';
 
+//Check the related content publiched in type Node
 foreach ($node->field_ef_related_content['und'] as $key => $value) {
   $node_related = node_load($value['target_id']);
   if ($node_related->status == 1){
@@ -11,7 +12,34 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
   }
 }
 
-if($rc_published == "published" || $node->field_related_taxonomy['und'][0]['target_id'] != ''){
+//Check if it is a topic. We load the topic related content and we check if the relates content is published
+//Load the current topic
+$path = 'topics/' . arg(1);
+$source_path = drupal_get_normal_path($path, $path_language = NULL);
+
+//Get the topic tid
+$term_ulr = explode('/', $source_path);
+$term_ulr = array_filter($term_ulr);
+$term_ulr = array_merge($term_ulr, array()); 
+$term_ulr = preg_replace('/\?.*/', '', $term_ulr);
+
+$topic_term = $term_ulr[2];
+
+$term = taxonomy_term_load($topic_term);
+
+//Check the related content publiched in type Topic
+foreach ($term->field_ef_related_content['und'] as $key => $value) {
+  $taxonomy_related = node_load($value['target_id']);
+  if ($taxonomy_related->status == 1){
+    $tx_published = 'published_term';
+  }
+}
+
+//Display the block in two types, node and topics
+if($rc_published == "published"
+   || $tx_published = "published_term" 
+   || $node->field_related_taxonomy['und'][0]['target_id'] != ''
+   || $term->field_related_taxonomy['und'][0]['target_id'] != ''){
 
 ?>
 <section class="block block-views">
