@@ -1369,10 +1369,12 @@ function get_equivalent_new_contract($old_contract, $contracts) {
  */
 function ef_contract_date_popup_pre_validate_alter(&$element, &$form_state, &$input){
   global $user;
-  if (user_access('edit field_ef_revision_deadline', $user)) {
-    $element['#required'] = TRUE;
-  }
-  else {
-    $element['#required'] = FALSE;
+  if($form_state['build_info']['args'][0]->type == 'erm_support_instrument' || $form_state['build_info']['args'][0]->type == 'ef_erm_regulation' || ){
+    if (user_access('edit field_ef_revision_deadline', $user) && $form_state['values']['field_ef_moderation_state'] == 'under_revision_request' && $element['#field']['field_name'] == 'field_ef_revision_deadline' ) {
+      $element['#required'] = TRUE;
+    }
+    else {
+      $element['#required'] = FALSE;
+    }
   }
 }
