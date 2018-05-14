@@ -728,7 +728,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $form['field_ef_assign_to_user']['#suffix'] = '</div>';
 
     array_unshift($form['actions']['submit']['#validate'], 'service_type_validate');
-
+    dpm($field_ef_service_type);
     return $form;
   }
 }
