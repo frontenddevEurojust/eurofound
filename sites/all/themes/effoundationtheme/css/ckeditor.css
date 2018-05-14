@@ -307,12 +307,12 @@ img.img-align-center-ck {
 }
 .img-align-right img{
 	float: right ;
-	margin:0px 0px 20px 20px ;
+	margin:0px 0px 20px 20px !important;
 	clear: none;
 }
 .img-align-left img{
 	float: left;
-	margin:0px 20px 20px 0px ;
+	margin:0px 20px 20px 0px !important;
 	clear: none ;
 }
 .img-no-float img{
@@ -329,12 +329,50 @@ img.img-align-center-ck {
 	display:block ;
 }
 
+figure {
+	margin:0rem 25px;
+}
+figure.image figcaption {
+	clear: both;
+}
 
+figure[data-cke-widget-data*="left"], 
+figure.img-align-left{
+	margin: 0px 25px 20px 0px !important;
+	float: left;
+}
+
+figure[data-cke-widget-data*="left"] figcaption, 
+figure.img-align-left figcaption{
+	float: left;
+	clear: both;
+}
+
+figure[data-cke-widget-data*="right"], 
+figure.img-align-right {
+	margin: 0rem 0rem 25px 20px !important;
+	float: right;
+}
+
+figure[data-cke-widget-data*="center"]{
+	margin: 0 2rem 0rem 0;
+  text-align: center;
+}
+
+figure[data-cke-widget-data*="center"] img {
+	  margin: 20px auto !important;
+} 
+
+figure[data-cke-widget-data*="left"] img {
+	margin: 0 !important;
+}
+figure[data-cke-widget-data*="right"] img {
+	margin: 0 !important;
+}
 
 
 .cke_widget_inline, .cke_image_resizer_wrapper {
  display: block !important;
-
 }
 .img-align-left .cke_image_resizer{
  left: -5px !important;
@@ -348,39 +386,6 @@ img.img-align-center-ck {
 	text-align: center;
 	clear: both;
 }
-figure {
-	margin:0rem 25px;
-}
-figure.image figcaption {
-	clear: both;
-}
-figure[data-cke-widget-data*="left"], 
-figure.img-align-left{
-	margin: 0px 25px 20px 0px;
-	float: left;
-}
-figure[data-cke-widget-data*="left"] figcaption, 
-figure.img-align-left figcaption{
-	float: left;
-	clear: both;
-}
-
-figure[data-cke-widget-data*="right"], 
-figure.img-align-right {
-	margin: 0rem 0rem 25px 20px;
-	float: right;
-}
-
-figure[data-cke-widget-data*="center"]{
-	margin: 0 2rem 0rem 0;
-  text-align: center;
-}
-
-figure[data-cke-widget-data*="center"] img, 
-img[data-cke-widget-data*="center"] {
-  margin: 20px auto !important;
-}
-
 
 .cke_image_nocaption[style*="left"] {
 	 margin: 0px 25px 20px 0px;
@@ -393,6 +398,9 @@ img[data-cke-widget-data*="center"] {
 }
 .cke_image_nocaption[style*="right"] img{
 	margin: 0rem;
+}
+img[data-cke-widget-data*="center"] {
+  margin: 20px auto;
 }
 figure img{
 	margin:0rem !important;

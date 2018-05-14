@@ -7117,28 +7117,29 @@ img.img-no-float{
 img.img-align-left, 
 img.img-align-left-ck{
 	float: left !important;
-	margin:0px 1em 1em 0px !important;
+	margin:6px 1em 1em 0px !important;
 }
 figure.img-align-left{
   float: left;
-  margin: 0px 1em 1em 0px !important;
+  margin: 0px 20px 1em 0px !important;
 }
 figure.img-align-left img{
   margin: 5px 0 !important;
 }
-
 .img-align-center{
 	text-align: center;
 }
 .img-align-center img, 
 img.img-align-center, 
-img.img-align-center-ck {
+img.img-align-center-ck, 
+.img-align-center ~  .media.media-element-container.media-default{
 	float: none ;
 	clear:both ;
 	margin:1em auto !important;
 	text-align:center;
 	display:block;
 }
+
 figure.img-align-center img{
   float: right;
 	margin:1em auto !important;
@@ -7148,7 +7149,7 @@ figure.img-align-center img{
 img.img-align-right, 
 img.img-align-right-ck{
 	float: right !important;
-	margin:1em 0px 10px 1em !important;
+	margin:6px 0px 10px 1em !important;
 }
 figure.img-align-right{
   float: right;
@@ -7169,7 +7170,9 @@ figure.img-align-right ~ br,
 figure.img-align-left ~ br{
 	display: none;
 }
-
+.media.media-element-container.media-default{
+	margin-bottom: 1rem;
+}
 
 .source {
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
