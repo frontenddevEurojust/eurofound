@@ -88,78 +88,6 @@
 
 		}
 
-/*
-		if (sort == 4)
-		{
-			var byMaxValue = filtered.slice(0);
-			byMaxValue.sort(function(d,b)
-			{
-				return d.dot2 - b.dot2;
-			});      
-			filtered = byMaxValue;
-		}
-
-		if (sort == 5)
-		{
-			var byMinValue = filtered.slice(0);
-			byMinValue.sort(function(d,b)
-			{
-				return d.dot3 - b.dot3;
-			});      
-			filtered = byMinValue;
-		}
-
-		if (sort == 6)
-		{
-			var byMaxValue = filtered.slice(0);
-			byMaxValue.sort(function(d,b)
-			{
-				return d.dot4 - b.dot4;
-			});      
-			filtered = byMaxValue;
-		}
-
-		if (sort == 7)
-		{
-			var byValueGap = filtered.slice(0);
-			byValueGap.sort(function(d,b)
-			{
-				return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
-			});      
-			filtered = byValueGap;
-		}
-
-		if (sort == 8)
-		{
-			var byValueGap = filtered.slice(0);
-			byValueGap.sort(function(d,b)
-			{
-				return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
-			});      
-			filtered = byValueGap;
-		}
-
-		if (sort == 9)
-		{
-			var byValueGap = filtered.slice(0);
-			byValueGap.sort(function(d,b)
-			{
-				return Math.abs(d.dot3 - d.dot4) - Math.abs(b.dot3 - b.dot4);
-			});      
-			filtered = byValueGap;
-		}
-
-		if (sort == 10)
-		{
-			var byValueGap = filtered.slice(0);
-			byValueGap.sort(function(d,b)
-			{
-				return Math.abs(b.dot3 - b.dot4) - Math.abs(d.dot3 - d.dot4);
-			});      
-			filtered = byValueGap;
-		}
-		*/
-
 		return filtered;
 	}
 
@@ -254,7 +182,7 @@
 		var labelArea = 120;
 		var chart = '';//500;
 		var width = jQuery('.chart-wrapper').width()/3;
-		var height = $(window).height()*.65;
+		var height = $(window).height()*.82;
 
 		if(height < 450){
 			height = 650;
@@ -391,7 +319,7 @@
 		};		
 		var yPosByIndexDown = function (d)
 		{
-			return (y(d.countryName)) + y.bandwidth()*0.4;
+			return (y(d.countryName)) + y.bandwidth()*0.35;
 		};
 		var yPosByIndexDownText = function (d)
 		{
@@ -410,13 +338,13 @@
 			.attr("class", function(d){return "left11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + d[leftBar11] +"<p>");
       })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
 			})
-			.attr("height", y.bandwidth()*0.4);
+			.attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("rect.left_H")
 			.data(data)
@@ -429,13 +357,13 @@
 			.attr("class", function(d){return "left16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[leftBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + d[leftBar16] +"<p>");
       })
 			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
 			})
-			.attr("height", y.bandwidth()*0.4);
+			.attr("height", y.bandwidth()*0.35);
 	
 /*	DATA OF EACH COUNTRY LEFT
 
@@ -479,7 +407,7 @@
 			.enter().append("text")			
 			.attr("x", (labelArea / 2) + width)
 			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth() / 2;
+				return y(d.countryName) + y.bandwidth() / 2 -3;
 			})
 			.attr("dy", ".20em")
 			.attr("text-anchor", "middle")
@@ -494,12 +422,12 @@
 			.attr("class", function(d){return "right16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + d[rightBar16] +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar16]);
 			})
-			.attr("height", y.bandwidth()*0.4);
+			.attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("rect.right_L")
 			.data(data)
@@ -509,12 +437,12 @@
 			.attr("class", function(d){return "right11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d[rightBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + d[rightBar11] +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar11]);
 			})
-			.attr("height", y.bandwidth()*0.4);
+			.attr("height", y.bandwidth()*0.35);
 
 /* DATA OF EACH COUNTRY LEFT
 		chart.selectAll("text.score_H")

@@ -1764,3 +1764,22 @@ $(document).ready(function(){
   });
 })(jQuery);
   
+
+//remoove styles insert from ckeditor dropdwn styles
+(function ($) {
+  $(document).ready(function(){
+
+  $("figure.image").removeClass('img-align-left-ck');
+  $("figure.image").removeClass('img-align-center-ck');
+  $("figure.image").removeClass('img-align-right-ck');
+
+/*
+    $('figure.image img').load(function() {
+        var withImg = $(this).width();
+        $('figure.image figcaption').css('width',withImg);
+    });
+
+*/
+
+  });
+})(jQuery);

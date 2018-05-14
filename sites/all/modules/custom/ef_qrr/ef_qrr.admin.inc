@@ -1198,7 +1198,6 @@ function ef_qrr_status_actions_submit($form, &$form_state) {
 
                      if ( $current_moderation_state != $new_moderation_state ) {
                         workbench_moderation_moderate($node, $new_moderation_state);
-                        ef_notifications_save_transition_records($node, $current_moderation_state , $new_moderation_state);
                         $save = TRUE;
                      }
                      if(!empty($v['table']['revision_deadline_'.$nid])){
