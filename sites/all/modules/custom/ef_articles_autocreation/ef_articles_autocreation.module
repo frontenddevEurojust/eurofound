@@ -685,7 +685,6 @@ function articles_autocreation_deliver_select_ajax($form, &$form_state){
 	$service_list = array();
 	$service_list[0] = "- Select -";
 
-
 	foreach ($tax_term->field_ef_service_type['und'] as $key => $tid) {
 		$service_type = taxonomy_term_load($tid['tid']);
 		$options[$tid['tid']] = $service_type->name;
