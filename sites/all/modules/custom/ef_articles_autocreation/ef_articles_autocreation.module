@@ -686,25 +686,12 @@ function articles_autocreation_deliver_select_ajax($form, &$form_state){
 	$service_list[0] = "- Select -";
 
 
-	if (isset($tax_term->field_ef_service_type['und'][0]['tid'])){
-		$opt1 = taxonomy_term_load($tax_term->field_ef_service_type['und'][0]['tid']);
-		//$service_list = array($opt1->name);
-		$service_list[$tax_term->field_ef_service_type['und'][0]['tid']]=$opt1->name;
-	}else{
-		$service_list =array();
+	foreach ($tax_term->field_ef_service_type['und'] as $key => $tid) {
+		$service_type = taxonomy_term_load($tid['tid']);
+		$options[$tid['tid']] = $service_type->name;
 	}
-	
-	if (isset($tax_term->field_ef_service_type['und'][1]['tid'])){
-		$opt2 = taxonomy_term_load($tax_term->field_ef_service_type['und'][1]['tid']);
-		//$service_list = array($opt1->name,$opt2->name);
-		$service_list[$tax_term->field_ef_service_type['und'][1]['tid']]=$opt2->name;
-	}else{
 
-		unset($service_list[0]);
-	}
-	
-	//$form['service']['#default_value'] ="Scheduled reporting service";
-	$form['service']['#options'] = $service_list;
+	$form['service']['#options'] = $options;
 
 	return $form['service'];
 
