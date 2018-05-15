@@ -13000,7 +13000,7 @@ h1.parent_eurwork.title{
 
 /** KEY TOPICS HOME **/
 .view-id-key_topics_landing_page{
-	width: 100%;
+	width: 66.6666%;
 }
 .view-ef-key-topics-home{
   padding: 0;
@@ -13144,19 +13144,19 @@ h1.parent_eurwork.title{
   transition: all 0.35s;
   display: block;
   background: rgba(0,91,170, 0.7);
-  text-shadow: 1px 1px #000000;
+  text-shadow: 1px 1px #f7931ee6;
 }
 .view-key-topics-landing-page .key-topics-list p:hover a.key-topic-name{
   margin-bottom:0px;
   bottom: 0%;
-  height: 60%;
+  height: 100%;
   display: block;
   width: 100%;
   -webkit-transition: all 0.35s;
   transition: all 0.35s;
   display: block;
   background: rgba(0,91,170, 0.7);
-  text-shadow: 1px 1px #000000;
+  text-shadow: 1px 1px #005baa;
 }
 .pane-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name,
 .view-ef-key-topics-home .important-key-topics-group .key-topics-list p:hover a.key-topic-name, 
@@ -13254,9 +13254,12 @@ h1.parent_eurwork.title{
 	  column-count:3;
 	  column-gap: 1rem;
 	}
+	.view-id-key_topics_landing_page {
+	  width: 100%;
+	}
 	.view-key-topics-landing-page .view-content{
-		display: flex;
-  	flex-direction: column;
+		/* display: flex;
+  	flex-direction: column; */
 	}
 	.view-key-topics-landing-page .important-key-topics-group{
 		width: 100%;
@@ -13270,7 +13273,17 @@ h1.parent_eurwork.title{
 		width: 49%;
 	}
 	.not-important-key-topics-group .key-topics-list {
-	  width: 48.5%;
+	  width: 49%;
+	}
+}
+
+
+@media only screen 
+and (min-width : 768px) 
+and (max-width : 1024px) 
+and (orientation : landscape) { 
+	.view-id-key_topics_landing_page {
+	  width: 100%;
 	}
 }
 @media only screen 
@@ -13278,8 +13291,8 @@ and (min-width : 768px)
 and (max-width : 1024px) 
 and (orientation : portrait) { 
 	.terms-topics-list{
-	  column-count:2;
-	  column-gap: 1rem;
+	 /* column-count:2;
+	  column-gap: 1rem; */
 	}
 }
 @media only screen 
@@ -13291,7 +13304,13 @@ and (orientation : portrait) {
 	  column-gap: 1rem;
 	}
 }
+@media only screen and (max-width:1024px){
+	.view-id-key_topics_landing_page {
+  	width: 100%;
+	}
+}
 @media only screen and (min-width:540px) and (max-width: 767px) {
+
 	.view-key-topics-landing-page .view-content{
 		display: flex;
   	flex-direction: column;
@@ -13308,6 +13327,7 @@ and (orientation : portrait) {
 		width: 48% !important;
   	min-height: auto !important;
 	}
+
 	.not-important-key-topics-group .key-topics-list {
 		width: 48% !important;
 		min-height: auto !important;
@@ -14471,7 +14491,7 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /* end New OSU Contract Reporting */
-<<<<<<< HEAD
+
 
 
 /* Button to compare Nodes in case studies and support instrument "Display selected cases" */
@@ -14655,6 +14675,28 @@ h4.title-tooltip-geolocation a:hover{
 }
 
 /** END COMMUNICATIONS CALENDAR **/
+
+/** authors articles **/
+.field-name-field-ef-author > .label-inline{
+	float: left;
+}
+ul.links.inline-list.authors-list {
+	display: inline-block;
+	line-height: 1.1em;
+}
+ul.links.inline-list.authors-list li{
+	line-height: 1.2em;
+	 margin: 0px 4px 0 0px;
+}
+ul.links.inline-list.authors-list li a{
+	padding: 0;
+}
+ul.links.inline-list.authors-list li:after{
+	content: ';';
+}
+ul.links.inline-list.authors-list li:last-child:after{
+	content: '';
+}
 
 #overlay-eurofound{
   position:fixed;

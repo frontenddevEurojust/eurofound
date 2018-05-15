@@ -149,6 +149,21 @@
 	padding: 0.75em;
 	height: auto;
 }
+.logged-in #edit-add-new-contributor-wrapper input#edit-save{
+  margin: 1rem 0;
+  border: 0px;
+  border-radius: 0;
+  -moz-box-shadow: none!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  padding: 0.75em;
+  height: auto;
+  background: #0074BD;
+  color: #FFF;
+}
+.logged-in #edit-add-new-contributor-wrapper input#edit-save:hover{
+  background:#a4c4e0;
+}
 .logged-in .field-name-field-ef-publ-contributors {
   width: 47%;
   float: left;
