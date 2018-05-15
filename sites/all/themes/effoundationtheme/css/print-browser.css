@@ -1024,6 +1024,15 @@ ul.metadata-publications > li > ul li {
     display: none;
   }
 
+  .columns.blog-presentation {
+    margin-top: 60px;
+    width: 100%!important;
+  }
+
+  .related-content-aside-3 ul{
+    padding-left: 0!important;
+    margin-left: 0!important;
+  }
 
 
 @media print {
