@@ -14471,7 +14471,7 @@ h4.title-tooltip-geolocation a:hover{
 
 
 /* end New OSU Contract Reporting */
-<<<<<<< HEAD
+
 
 
 /* Button to compare Nodes in case studies and support instrument "Display selected cases" */
@@ -14656,6 +14656,28 @@ h4.title-tooltip-geolocation a:hover{
 
 /** END COMMUNICATIONS CALENDAR **/
 
+/** authors articles **/
+.field-name-field-ef-author > .label-inline{
+	float: left;
+}
+ul.links.inline-list.authors-list {
+	display: inline-block;
+	line-height: 1.1em;
+}
+ul.links.inline-list.authors-list li{
+	line-height: 1.2em;
+	 margin: 0px 4px 0 0px;
+}
+ul.links.inline-list.authors-list li a{
+	padding: 0;
+}
+ul.links.inline-list.authors-list li:after{
+	content: ';';
+}
+ul.links.inline-list.authors-list li:last-child:after{
+	content: '';
+}
+
 #overlay-eurofound{
   position:fixed;
   z-index:99999;
@@ -14713,4 +14735,3 @@ h4.title-tooltip-geolocation a:hover{
     border-left:0!important;
     margin-left:0;
 }
-
