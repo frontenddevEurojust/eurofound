@@ -1042,6 +1042,10 @@ ul.metadata-publications > li > ul li {
     font-weight: normal!important
   }
 
+  .page-topic .large-3.columns{
+    width: 100%!important;
+  }
+
 
 @media print {
   html, body{margin:4%!important; }
