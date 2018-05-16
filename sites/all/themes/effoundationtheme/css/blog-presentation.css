@@ -63,10 +63,9 @@ h1 .title-blog-presentation{
 }
 
 .view-display-id-page_2 .published-at{
-    border-right: 1px solid #2d68aa;
+    border-left: 1px solid #2d68aa;
     padding: 0px 10px 0px 0px;
-    margin: 0px 10px 0px 0px;
-    float: left;
+    margin: 0px 10px 0px 4px;
     color:#8f8f8f;
 }
 
@@ -75,8 +74,8 @@ h1 .title-blog-presentation{
 }
 
 .view-display-id-page_2 .authors-as-metadata p.data-and-read{
-    font-size: 0.8em;
-    padding-top: 5px;
+    font-size: 0.81em;
+    padding-top: 2px;
     color: #f7931e;
 }
 
@@ -331,13 +330,14 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
 }
 
 .view-authors-as-metadata .authors-as-metadata a{
-    font-weight: bold;
+    font-family:'OpenSans-Bold-webfont',Arial,Helvetica,sans-serif;
     display: block!important;
     padding: 8px 20px 0px 0px;
     width: 100%;
     margin: 0px 0px 0px 0px;
     letter-spacing: -0.04em;
     line-height: 18px;
+    text-align: left;
 }
 
 .view-authors-as-metadata .authors-as-metadata a:before{
