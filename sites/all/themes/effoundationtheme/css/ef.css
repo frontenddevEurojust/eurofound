@@ -14792,3 +14792,7 @@ ul.links.inline-list.authors-list li:last-child:after{
     display: inline;
 }
 
+/*Fix WEM-1046 publication detail topic */
+.node-type-ef-publication .ds-node-content .metadata-publications ul.topic-list{
+	margin: 1px 0 !important;
+}
