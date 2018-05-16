@@ -337,6 +337,14 @@
     
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
+      .attr("class", 
+         function(d) {
+            if( d.dot1 == 0){
+              return "lollipop-start disable";
+            } else {
+              return "lollipop-start";
+            }              
+       })
       .transition().duration(transitionD)
       .attr("cx", function(d) { 
         return x(Math.round(d.dot1)); 
@@ -348,6 +356,14 @@
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
       .transition().duration(transitionD)
+      .attr("class", 
+         function(d) {
+            if( d.dot2 == 0){
+              return "lollipop-end disable";
+            } else {
+              return "lollipop-end";
+            }              
+       })
       .attr("cx", function(d) { 
         return x(Math.round(d.dot2)); 
       })
@@ -551,7 +567,14 @@
         var circleRadio = 6;
 
         var startCircles = lollipops.append("circle")
-          .attr("class", "lollipop-start")
+          .attr("class", 
+             function(d) {
+                if( d.dot1 == 0){
+                  return "lollipop-start disable";
+                } else {
+                  return "lollipop-start";
+                }              
+             })
           .attr("r", circleRadio)
           .attr("cx", function(d) { 
             return x(Math.round(d.dot1)); 
@@ -561,7 +584,12 @@
           })
           .on('mouseout', tip.hide)
           .on('mouseover', function(d) {
-            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) + "%" +"<p>");
+            if( d.dot1 == 0){
+              tip.show("<p class='no-data'>No data available for" + '<br>' +  d.countryName + "</p>");
+            } else {
+              tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) + "%" +"<p>");
+            }
+            
             // Reset top for Firefox as onepage framework changes top values
             // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           });
@@ -569,7 +597,14 @@
 
         
        var endCircles = lollipops.append("circle")
-          .attr("class", "lollipop-end")
+          .attr("class", 
+             function(d) {
+                if( d.dot2 == 0){
+                  return "lollipop-end disable";
+                } else {
+                  return "lollipop-end";
+                }              
+             })
           .attr("r", circleRadio)
           .attr("cx", function(d) { 
             return x(Math.round(d.dot2)); 
@@ -579,7 +614,11 @@
           })    
           .on('mouseout', tip.hide)    
           .on('mouseover', function(d) {
-            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) + "%" +"<p>");
+            if( d.dot2 == 0){
+              tip.show("<p class='no-data'>No data available for" + '<br>' +  d.countryName + "</p>");
+            } else {
+              tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) + "%" +"<p>");
+            }
             // Reset top for Firefox as onepage framework changes top values
             // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
           });

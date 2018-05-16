@@ -198,7 +198,23 @@
 		var y = d3.scaleBand().range([20,height]);
 
 		buildGraphStructure(data);
-		var order = d3.select('#sort-filter').property("value");
+
+		var order = getParameterByName('sort');
+
+		if (order == null)
+		{
+			order = 0;
+		}
+
+    var select = d3.select('#sort-filter')
+    	.selectAll('option')
+    	.attr('selected',
+    		function(d){ 
+    			if( $(this).attr('value') == getParameterByName('sort')){
+						return 'selected';
+    			}
+    	});
+
 		var data = filterData(data, order);
 		
 		var numericValuesLeft = d3.keys(data[0]).filter(function(key)
@@ -326,6 +342,8 @@
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
 
+ 		formatOnedecimal = d3.format(",.1f");
+
 
 		chart.selectAll("rect.left_L")
 			.data(data)
@@ -338,7 +356,7 @@
 			.attr("class", function(d){return "left11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + d[leftBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " +  formatOnedecimal(d[leftBar11])  +"<p>");
       })
 			.attr("width", function (d)
 			{
@@ -357,7 +375,7 @@
 			.attr("class", function(d){return "left16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + d[leftBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " +  formatOnedecimal(d[leftBar16])  +"<p>");
       })
 			.attr("width", function (d)
 			{
@@ -422,7 +440,7 @@
 			.attr("class", function(d){return "right16 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + d[rightBar16] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + formatOnedecimal( d[rightBar16] ) +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar16]);
@@ -437,7 +455,7 @@
 			.attr("class", function(d){return "right11 "+d.countryCode;})
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + d[rightBar11] +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + formatOnedecimal( d[rightBar11] ) +"<p>");
       })
 			.attr("width", function (d) {
 				return xRight(d[rightBar11]);
