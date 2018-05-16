@@ -475,7 +475,10 @@ function car_nc_autocreation_form_validate(&$form, &$form_state) {
 			form_set_error('country2', 'NCs/Countries field is required');
 		}
 	}
+
 	$dk_tid = $form_state['values']['deliver'];
+	$options[0] = '- Select -'; 
+
 	if (isset($dk_tid)) {
 		$term = taxonomy_term_load($dk_tid);
 		foreach ($term->field_ef_service_type['und'] as $key => $tid) {
@@ -483,6 +486,11 @@ function car_nc_autocreation_form_validate(&$form, &$form_state) {
 			$options[$tid['tid']] = $service_type->name;
 		}
 	}
+	
+	if (count($options) == 2) {
+		unset($options[0]);
+	} 
+
 	$form['service']['#options'] = $options;
 }
 
@@ -958,11 +966,16 @@ return $form['con_file'];
 function car_autocreation_deliver_select_ajax($form, &$form_state) {
 	$deliver_id = $form_state['complete form']['deliver']['#value'];
 	$term = taxonomy_term_load($deliver_id);
+	$options[0] = '- Select -';
 
 	foreach ($term->field_ef_service_type['und'] as $key => $tid) {
 		$service_type = taxonomy_term_load($tid['tid']);
 		$options[$tid['tid']] = $service_type->name;
 	}
+
+	if (count($options) == 2) {
+		unset($options[0]);
+	} 
 
 	$form['service']['#options'] = $options;
 
