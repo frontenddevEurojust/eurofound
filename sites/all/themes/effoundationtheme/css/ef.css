@@ -14772,6 +14772,7 @@ ul.links.inline-list.authors-list li:last-child:after{
 	width: 100%;
 	margin: 0px 0px 0px 0px;
 	letter-spacing: -0.04em;
+	text-align: left;
 }
 
 .related-content-aside-3 a:before{
