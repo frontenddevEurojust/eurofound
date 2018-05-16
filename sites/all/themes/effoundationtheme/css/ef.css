@@ -1611,6 +1611,7 @@ section.latest-by-topic-block{
 .ef-main {
 	padding: 30px 25px 40px 25px;
 	text-align:  justify;
+	line-height: 1.4em;
 }
  .sidebar-first.page-countries .ef-main,
  .sidebar-first.page-ef-themes .ef-main{
