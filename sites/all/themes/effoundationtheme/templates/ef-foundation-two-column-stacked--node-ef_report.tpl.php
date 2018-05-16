@@ -246,6 +246,9 @@ $countview = count($result);
             
             <?php print $content['field_abstract'][0]['#markup']?>
             <?php print $content['body'][0]['#markup'] ?>
+            <div class="ds-node-downloads">
+                <?= drupal_render($content['field_ef_documents']); ?>
+            </div>
         </div>
      
         <!-- FREE COMMENTS -->
