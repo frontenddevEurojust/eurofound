@@ -83,7 +83,7 @@
   }
 
   overallFunctions.createOrderingFilter = function() {
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2011 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2011 value descending", "By 2016 value descending"];
 
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
@@ -360,8 +360,8 @@
       }
 
       var legendLabels = [
-        {label: "Difficulty levels (0-100%) - 2011", class: "lollipop-start"}, 
-        {label: "Difficulty levels (0-100%) - 2016", class: "lollipop-end"},
+        {label: "Difficulty levels (%) - 2011", class: "lollipop-start"}, 
+        {label: "Difficulty levels (%) - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;

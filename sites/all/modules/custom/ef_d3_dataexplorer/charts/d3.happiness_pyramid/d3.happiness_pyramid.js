@@ -93,7 +93,7 @@
 
 	var createOrderingFilter = function()
 	{
-		var alphaSort = ["Ordered by sum of Happiness and Life Satisfaction for 2016", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
+		var alphaSort = ["Happiness and Life Satisfaction 2016 descending", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -501,10 +501,10 @@
 
 		// Will be created using texts excel data
 		var legendLabels = [			
-			{label: "Happiness - 2016", class: "lollipop-start-l"},
-			{label: "Happiness - 2011", class: "lollipop-end-l"},
-			{label: "Life satisfaction - 2016", class: "lollipop-start-r"},
-			{label: "Life satisfaction - 2011", class: "lollipop-end-r"},
+			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-l"},
+			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-l"},
+			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-r"},
+			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-r"},
 		];
 
 		var padding = 0;

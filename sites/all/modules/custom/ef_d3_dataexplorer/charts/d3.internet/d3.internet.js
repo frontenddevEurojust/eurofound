@@ -98,7 +98,7 @@
 
   var createOrderingFilter = function() {
     // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2011 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2011 value descending", "By 2016 value descending"];
 
 
 

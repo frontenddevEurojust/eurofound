@@ -113,7 +113,7 @@
 
   var createOrderingFilter = function() {
     var alphaSort = [
-      "Alphabetically ascending (A-Z, with EU28 first)",
+      "Alphabetically ascending",
       "By 2007 value descending",
       "By 2011 value descending",
       "By 2016 value descending"

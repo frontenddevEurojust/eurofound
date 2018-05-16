@@ -118,7 +118,7 @@
   }
 
   var createOrderingFilter = function() {
-    var alphaSort = ["Alphabetically ascending (A-Z, with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2007 value descending", "By 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
