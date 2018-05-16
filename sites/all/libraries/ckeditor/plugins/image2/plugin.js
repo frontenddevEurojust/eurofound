@@ -396,6 +396,7 @@
 
 						if ( alignElement.hasClass( alignClasses[ 0 ] ) ) {
 							data.align = 'left';
+
 						} else if ( alignElement.hasClass( alignClasses[ 2 ] ) ) {
 							data.align = 'right';
 						}
@@ -406,7 +407,7 @@
 
 							if( alignElement.hasClass( 'img-align-left-ck' ) ){
 								alignElement.removeClass( 'img-align-left-ck');
-								alignElement.removeClass( 'img-align-center-ck')
+								alignElement.removeClass( 'img-align-center-ck');
 								data.align = 'left';
 							
 							} else if( alignElement.hasClass( 'img-align-right-ck' ) ){
@@ -415,7 +416,10 @@
 								data.align = 'right';
 							
 							} else if( alignElement.hasClass( 'img-align-center-ck' ) ){
-								//alignElement.removeClass( 'img-align-center-ck');
+								//this.element.removeClass( 'img-align-center-ck');	
+								if ( data.hasCaption == true) {
+									alignElement.removeClass( 'img-align-center-ck');	
+								}			
 								data.align = 'center';
 
 							} else {
@@ -424,7 +428,7 @@
 								alignElement.removeClass( 'img-align-right-ck');
 								alignElement.removeClass( 'img-align-left-ck');
 							}
-							
+						
 						}
 					}
 					// Read initial float style from figure/image and then remove it.
@@ -554,7 +558,6 @@
 						if ( !shift.newData.hasCaption ) {
 							// Changed to "center" (non-captioned).
 							if ( newValue == 'center' ) {
-
 								shift.deflate();
 								shift.element = wrapInCentering( editor, el );
 							}

@@ -1611,6 +1611,7 @@ section.latest-by-topic-block{
 .ef-main {
 	padding: 30px 25px 40px 25px;
 	text-align:  justify;
+	line-height: 1.4em;
 }
  .sidebar-first.page-countries .ef-main,
  .sidebar-first.page-ef-themes .ef-main{
@@ -7123,7 +7124,7 @@ img.img-no-float{
 .img-align-left-ck.img-align-right, 
 .img-align-center-ck.img-align-right{
   float: right !important;
-  margin: 10px 0px 10px 20px !important;
+  margin: 0px 0px 10px 1em !important;
 }
 
 
@@ -7131,42 +7132,43 @@ img.img-no-float{
 img.img-align-left, 
 img.img-align-left-ck{
 	float: left !important;
-	margin:10px 10px 10px 0px !important;
+	margin:6px 1em 1em 0px !important;
 }
 figure.img-align-left{
   float: left;
-  margin: 10px 10px 10px 0px !important;
+  margin: 0px 20px 1em 0px !important;
 }
 figure.img-align-left img{
   margin: 5px 0 !important;
 }
-
 .img-align-center{
 	text-align: center;
 }
 .img-align-center img, 
 img.img-align-center, 
-img.img-align-center-ck {
+img.img-align-center-ck, 
+.img-align-center ~  .media.media-element-container.media-default{
 	float: none ;
 	clear:both ;
-	margin:10px auto !important;
+	margin:1em auto !important;
 	text-align:center;
 	display:block;
 }
+
 figure.img-align-center img{
   float: right;
-	margin:10px auto !important;
+	margin:1em auto !important;
 }
 
 .img-align-right img, 
 img.img-align-right, 
 img.img-align-right-ck{
 	float: right !important;
-	margin:10px 0px 10px 10px !important;
+	margin:6px 0px 10px 1em !important;
 }
 figure.img-align-right{
   float: right;
-  margin: 10px 0px 10px 20px !important;
+  margin: 0px 0px 1em 20px !important;
 }
 figure.img-align-right img{
   float: right;
@@ -7179,6 +7181,13 @@ figure.img-align-right figcaption{
 	clear: both;
 }
 
+figure.img-align-right ~ br, 
+figure.img-align-left ~ br{
+	display: none;
+}
+.media.media-element-container.media-default{
+	margin-bottom: 1rem;
+}
 
 .source {
 	font-family: 'OpenSans-Italic-webfont', Arial, Helvetica, sans-serif!important;
@@ -14579,7 +14588,7 @@ h4.title-tooltip-geolocation a:hover{
     font-size: 1.8em;
 }
 
-.float-img-render img{
+.float-img-render .field-name-field-ef-main-image img{
 	float: left;
 	margin: 0px 25px 20px 0px;
 }
