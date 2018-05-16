@@ -241,7 +241,7 @@ function car_nc_autocreation_form($form, &$form_submit) {
 	  	),
 	  	'#validated' => TRUE,
 	);
-	
+
 	$form['service']=array(
 		'#type' => 'select',
 		'#title' => t('Service type'),
@@ -251,7 +251,6 @@ function car_nc_autocreation_form($form, &$form_submit) {
 		'#required' => TRUE,
 		'#multiple' => FALSE,
 		'#validated' => TRUE,
-		
 	);
 
 	//Add extra remove buttons 
@@ -384,12 +383,13 @@ function car_nc_autocreation_form($form, &$form_submit) {
 }
 
 
-function car_nc_autocreation_form_validate($form, &$form_state) {
+function car_nc_autocreation_form_validate(&$form, &$form_state) {
 	global $user;
+
+	$form_state['cache'] = FALSE;
 	
 	if($form_state['clicked_button']['#value'] !="Submit"){
 		$form_state['rebuild'] = TRUE;
-	}else{
 	}
 	
 	$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
@@ -474,8 +474,16 @@ function car_nc_autocreation_form_validate($form, &$form_state) {
 		if (count($selectedCountries)==0){
 			form_set_error('country2', 'NCs/Countries field is required');
 		}
-
 	}
+	$dk_tid = $form_state['values']['deliver'];
+	if (isset($dk_tid)) {
+		$term = taxonomy_term_load($dk_tid);
+		foreach ($term->field_ef_service_type['und'] as $key => $tid) {
+			$service_type = taxonomy_term_load($tid['tid']);
+			$options[$tid['tid']] = $service_type->name;
+		}
+	}
+	$form['service']['#options'] = $options;
 }
 
 function remove_file_by_id($form, &$form_state){
@@ -947,13 +955,11 @@ return $form['con_file'];
 }
 
 
-function car_autocreation_deliver_select_ajax($form, &$form_state){
+function car_autocreation_deliver_select_ajax($form, &$form_state) {
 	$deliver_id = $form_state['complete form']['deliver']['#value'];
-	$tax_term = taxonomy_term_load($deliver_id);
-	$service_list = array();
-	$service_list[0] = "- Select -";
+	$term = taxonomy_term_load($deliver_id);
 
-	foreach ($tax_term->field_ef_service_type['und'] as $key => $tid) {
+	foreach ($term->field_ef_service_type['und'] as $key => $tid) {
 		$service_type = taxonomy_term_load($tid['tid']);
 		$options[$tid['tid']] = $service_type->name;
 	}
