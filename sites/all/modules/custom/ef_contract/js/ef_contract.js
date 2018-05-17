@@ -4,6 +4,7 @@
 
     var $current_state = Drupal.settings.ef_contract.current_state;
     var $assigned_user = Drupal.settings.ef_contract.assigned_user_name;
+    var $service_type = Drupal.settings.ef_contract.service_type;
     var $moderation_state_description = 'Current state: ' + $current_state;
     var $revision_deadline = Drupal.settings.ef_contract.revision_deadline;
     var $rd_label = Drupal.settings.ef_contract.rd_label;
@@ -30,6 +31,10 @@
         $('#workbench-moderation-moderate-form')
             .append('<p class="apr-pseudomandatory-warning"><span>T</span>here are still empty some mandatory fields. <span>P</span>lease, fill in them before changing the state to submitted.</p>');
     }
+    
+    if(typeof $service_type != 'undefined'){
+      $('#edit-field-ef-service-type-und-' + $service_type).prop("checked", true);
+    }
 
   });
 })(jQuery);
@@ -38,8 +43,6 @@
 (function ($) {
   Drupal.behaviors.efcontract = {
   attach: function (context, settings) {
-
-    console.log(settings);
 
     $('#edit-group_ef_publishing_options select option').each(function(){
 
