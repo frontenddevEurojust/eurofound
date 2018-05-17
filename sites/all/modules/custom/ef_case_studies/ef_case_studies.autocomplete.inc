@@ -1,13 +1,15 @@
 <?php
 
 	function ef_case_studies_form_alter(&$form, &$form_state, $form_id){
-
+		//WGS-347: This form alteration breaks the ef_contract logic
+		//as we think it wasn't needed we have removed them
+		/*
 		if($form_id == 'ef_case_study_node_form'){
 
 			$form_state['rebuild']=TRUE;
 			//drupal_rebuild_form('ef_case_study_node_form', $form_state);
 		}
-
+		*/
 
 		if($form_id == 'views_exposed_form'){
 
@@ -155,8 +157,8 @@
 		  'name' => 'john',
 		);
 		*/
-		drupal_add_js( array("ef_case_studies" => $settings), 'setting');
-    	//drupal_add_js(drupal_get_path('module', 'ef_case_studies') .'/ef_case_studies.js', 'file');
+		//drupal_add_js( array("ef_case_studies" => $settings), 'setting');
+    //drupal_add_js(drupal_get_path('module', 'ef_case_studies') .'/ef_case_studies.js', 'file');
 
 		drupal_json_output($titles);
 

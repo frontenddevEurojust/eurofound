@@ -698,7 +698,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'on_external_editing'))
     );
 
-    drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js';
 
     if($form['#node_edit_form'] === TRUE){
       drupal_add_js(drupal_get_path('module','ef_contract') . '/js/ef_contract_edit_mode.js');
@@ -707,7 +707,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       }
     }
 
-    drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     // We pass to JS the 'current state' variable and Assigned user name,
     // in order to show it in the vertical tab description
@@ -749,6 +749,10 @@ function service_type_validate($form, &$form_state) {
       form_set_error('Service Type', t('Service type is Required'));
     }
   }
+
+  //Get Service Type value as a JS param
+  $settings['service_type'] = $form_state['values']['field_ef_service_type']['und'][0]['tid'];
+  drupal_add_js(array('ef_contract' => $settings), 'setting');
 }
 
 function ajax_contract_callback($form, &$form_state) {
