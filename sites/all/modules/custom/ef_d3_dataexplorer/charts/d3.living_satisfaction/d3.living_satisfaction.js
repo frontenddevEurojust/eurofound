@@ -85,7 +85,7 @@
   overallFunctions.createOrderingFilter = function() {
     // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
         
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2007 value descending", "By 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -361,8 +361,8 @@
       }
 
       var legendLabels = [
-        {label: "Satisfaction level (1-10) - 2007", class: "lollipop-start"}, 
-        {label: "Satisfaction level (1-10) - 2016", class: "lollipop-end"},
+        {label: "Satisfaction with standard of living (1-10) - 2007", class: "lollipop-start"}, 
+        {label: "Satisfaction with standard of living (1-10) - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;

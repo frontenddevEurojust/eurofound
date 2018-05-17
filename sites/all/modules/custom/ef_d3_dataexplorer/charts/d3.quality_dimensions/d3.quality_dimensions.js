@@ -98,7 +98,7 @@
 	{
 		/*var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];*/
 		// var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending"];
-		var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2016 value descending"];
+		var alphaSort = ["Alphabetically ascending", "By 2016 value descending"];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -377,7 +377,7 @@
       
 			// Might need to be created with excel data
 			var legendLabels = [
-				{label: "Level of satisfaction (1-10)", class: "lollipop-start"}, 
+				{label: "Having difficulties to afford following health services (%) - 2016", class: "lollipop-start"}, 
 				//{label: "(%) - 2016", class: "lollipop-end"},
 			];
       
