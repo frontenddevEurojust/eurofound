@@ -442,12 +442,8 @@
 
     /**********************************************************************************/
 
-    console.log(localStorage.getItem("phase"));
-    console.log(localStorage.getItem("num_types"));
-
     if (localStorage.getItem("phase") !== null) {
       var phase = localStorage.getItem("phase");
-      console.log(phase);
       if (phase == 'Anticipation') {
         $('#edit-field-type-erm-si-und .management-items-wrapper').addClass('disabled'); 
       } else if (phase == 'Management') {
