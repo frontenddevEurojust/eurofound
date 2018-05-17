@@ -88,8 +88,6 @@
       }, 100);
     });
 
-    console.log(settings.ef_contract.service_type);
-
     //CONTRACT select id: #edit-field-ef-author-contract-und
     //DELIVERABLE KIND select id: #edit-field-ef-deliverable-kind-und
     $('#edit-field-ef-author-contract-und').once().change(function() {
