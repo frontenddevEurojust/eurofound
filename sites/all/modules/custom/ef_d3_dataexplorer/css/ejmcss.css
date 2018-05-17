@@ -9,6 +9,9 @@ g.ticks text {
 .tooltip {
   z-index: 1000;
 }
+.disable {
+  fill: #CCC !important;
+}
 .node-type-data-explorer-page svg:not(:root) {
     overflow: visible;
 }
@@ -72,13 +75,13 @@ g.ticks text {
   list-style: none;
   text-align: center;
   width: auto;
-  margin: auto;
+  margin:-1rem auto 1rem !important;
  }
  ul.legend-list-butterfly{
   list-style: none;
   text-align: center;
   width: auto;
-  margin: 2rem auto 0 !important;
+  margin: 4rem auto 0 !important;
 }
   ul.legend-list li, 
   ul.legend-list-butterfly li{
