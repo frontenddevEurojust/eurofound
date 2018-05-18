@@ -14805,3 +14805,7 @@ ul.links.inline-list.authors-list li:last-child:after{
 .node-type-ef-publication .ds-node-content .metadata-publications ul.topic-list{
 	margin: 1px 0 !important;
 }
+
+#node_ef_publication_full_group_ef_node_details a{
+	font-size: 12.96px;
+}
