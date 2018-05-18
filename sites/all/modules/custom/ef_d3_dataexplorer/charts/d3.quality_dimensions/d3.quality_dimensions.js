@@ -253,15 +253,11 @@
 
 		xAxis.tickFormat(function(d,i)
 		{
-			if (i == 0)
-			{
-        var domainMinRound = x.domain()[0];
-        return d3.format(".2s")(domainMinRound);
-			}
-			else
-			{
-				return d3.format(".2s")(d); 
-			}
+          if (i == 0) {
+            return d3.format(".0%")(domainMin/100); 
+          } else {
+            return d3.format(".0%")(d/100); 
+          }
 		});
 
 
@@ -458,15 +454,11 @@
 			
 			xAxis = d3.axisTop().scale(x).tickFormat(function(d,i)
 			{
-				if (i == 0)
-				{
-          var domainMinRound = x.domain()[0];
-          return d3.format(".2s")(domainMinRound);
-				}
-				else
-				{
-					return d3.format(".2s")(d); 
-				}
+          if (i == 0) {
+            return d3.format(".0%")(domainMin/100); 
+          } else {
+            return d3.format(".0%")(d/100); 
+          }
 			 });
 			
 			var yAxisGroup = svg.append("g").attr("transform", "translate(-10, 0)").attr("class", "y-axis")
@@ -499,7 +491,7 @@
 					return y(d.countryName) + y.bandwidth() / 2;
 				}).on('mouseout', tip.hide).on('mouseover', function(d)
 				{
-					tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1)+"<p>");
+					tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) + "%" + "<p>");
 					// Reset top for Firefox as onepage framework changes top values
 					// $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
 				});

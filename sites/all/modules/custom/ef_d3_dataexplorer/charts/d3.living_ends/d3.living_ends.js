@@ -512,7 +512,7 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot1 ) + ' %' +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot1 ) + '%' +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -529,7 +529,7 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot2 ) + ' %' +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot2 ) + '%' +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
