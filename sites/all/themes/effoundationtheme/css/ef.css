@@ -4226,7 +4226,9 @@ display:none;
 
 #edit-field-ef-report-delivery-date-value-1-value > div > div.description,
 #edit-field-ef-approved-for-payment-value-value > div > div.description,
-#edit-field-approved-payment-erm-reg-value-value > div > div{
+#edit-field-approved-payment-erm-reg-value-value > div > div.description,
+#edit-field-ef-approved-for-payment-value-1-value > div > div.description
+{
 	display: none;
 }
 
@@ -4239,7 +4241,8 @@ display:none;
 #edit-field-ef-report-delivery-date-value-wrapper > div.description,
 #edit-field-ef-report-delivery-date-value-1-wrapper > div.description,
 #edit-field-ef-approved-for-payment-value-wrapper > div.description,
-#edit-field-approved-payment-erm-reg-value-wrapper > div.description
+#edit-field-approved-payment-erm-reg-value-wrapper > div.description,
+#edit-field-ef-approved-for-payment-value-1-wrapper > div.description
 {
 	position: relative;
 	float: left;
@@ -4252,9 +4255,10 @@ display:none;
 }
 
 #edit-field-ef-report-delivery-date-value-1-wrapper > div.description,
-#edit-field-approved-payment-erm-reg-value-wrapper > div.description
+#edit-field-approved-payment-erm-reg-value-wrapper > div.description,
+#edit-field-ef-approved-for-payment-value-1-wrapper > div.description
 {
-    margin-top: -44px;
+    margin-top: -42px;
 }
 
 #edit-field-ef-report-delivery-date-value-value-datepicker-popup-0,
@@ -4264,7 +4268,7 @@ display:none;
 }
 
 #edit-field-ef-report-delivery-date-value-1-value-datepicker-popup-0,
-#edit-field-ef-approved-for-payment-value-1-value-datepicker-popup-0,
+#edit-field-ef-approved-for-payment-value-1-value-datepicker-popup-0
 {
 	margin-left: 24px;
 }
