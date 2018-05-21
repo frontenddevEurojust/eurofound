@@ -264,7 +264,8 @@ function ef_qrr_node_rating_submit($form, &$form_state) {
       }else
          $ratings[$row->riid] = NULL;
    }
-   if($save){
+   //if($save)
+   {
     _ef_qrr_save_ratings( $v['nid'], $user->uid, $ratings, $v['qrr_comments'] );
    }
 }
@@ -519,14 +520,17 @@ function _ef_qrr_save_ratings ( $nid, $uid, $ratings, $comments = '' ) {
          execute();
 
       foreach ( $ratings as $riid => $rating ) {
-         if ( $rating !== NULL )
-            db_update('qrr_rating')->
-               fields(array(
-                  'rating' => $rating,
-               ))->
-               condition('rid', $revision['rid'], '=')->
-               condition('riid', $riid, '=')->
-               execute();
+        if ( $rating === NULL )
+		{
+			$rating = 0;
+		}
+		db_update('qrr_rating')->
+		   fields(array(
+			  'rating' => $rating,
+		   ))->
+		   condition('rid', $revision['rid'], '=')->
+		   condition('riid', $riid, '=')->
+		   execute();
       }
    }
    //Refresh cache on update event (BM-Maren)
