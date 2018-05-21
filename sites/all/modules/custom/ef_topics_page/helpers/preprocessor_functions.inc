@@ -27,11 +27,11 @@ function build_content_tabs($variables, $term, $page = '')
   if (!isset($term->field_ef_term_hide_tabs['und'][0]['value'])) {
     $variables['tabs']['Highlights'] = add_highlights_tab($term->tid, $page);
 		$variables['tabs']['All'] = add_all_tab($term->tid, $page);
-		$variables['tabs']['newest_node'] = $variables['tabs']['All'][0]->published_at;
+		$variables['newest_node'] = $variables['tabs']['All'][0]->published_at;
   } 
   else {
   	$all_nodes_from_tabs = add_all_tab($term->tid, $page);
-  	$variables['tabs']['newest_node'] = $all_nodes_from_tabs[0]->published_at;
+  	$variables['newest_node'] = $all_nodes_from_tabs[0]->published_at;
   } 
 
 	$variables['tabs']['Publications'] = add_publications_tab($term->tid, $page);

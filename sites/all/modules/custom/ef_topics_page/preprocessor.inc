@@ -78,8 +78,7 @@ function prepare_template_content($term, $data_language, $navigation_language){
 
     if ($term->field_term_last_updated) {
       $term_last_updated = date('d F Y', $term->field_term_last_updated['und'][0]['value']);
-      $nodes_last_updated = $variables['tabs']['newest_node'];
-      $term->field_term_last_updated['und'][0]['value'] > strtotime($nodes_last_updated) ? $variables['last_updated'] = $term_last_updated : $variables['last_updated'] = $nodes_last_updated;
+      $term->field_term_last_updated['und'][0]['value'] > strtotime($variables['newest_node']) ? $variables['last_updated'] = $term_last_updated : $variables['last_updated'] = $variables['newest_node'];
     }
 
     if(isset($term->field_ef_featured_block_content))
