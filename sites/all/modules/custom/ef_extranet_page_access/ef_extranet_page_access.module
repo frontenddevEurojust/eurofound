@@ -34,7 +34,8 @@ function ef_extranet_page_access_node_access($node, $op, $account) {
     'administrator',
     'Author',
     'Author +',
-    'External Editor'
+    'External Editor',
+    'OSU',
   );
   $finished_extranet_roles = array(
     'Author',
