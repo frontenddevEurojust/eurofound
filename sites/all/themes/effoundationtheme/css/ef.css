@@ -3403,10 +3403,13 @@ ul.quicktabs-tabs.quicktabs-style-basic{border:none;}
 	width: 40%;
 }
 .form-support-instruments  .views-widget-filter-field_ef_involved_actors_tax_tid{
+	width: 50%;
+	margin-left: 0%;
+}
+.page-observatories-emcc-erm-support-instrument .form-support-instruments  .views-widget-filter-field_ef_involved_actors_tax_tid{
 	width: 40%;
 	margin-left: 10%;
 }
-
 .form-support-instruments .views-field.views-field-edit-node.persist.essential > a{
     float: none;
     display: block;
@@ -12636,7 +12639,7 @@ p.view-empty.error-msg:before{
       width: 48%;
       display: inline-block;
       margin-right: 2%;
-      margin-top: 4px;
+      margin-top: 0px;
   }
   .form-elements-wrapper label,
   .form-elements-wrapper label{
@@ -14147,6 +14150,7 @@ h4.title-tooltip-geolocation a:hover{
 .view-id-erm_regulations .wrap-row-filters #edit-field-involved-actors-erm-reg-tid-selective-wrapper label{
 	text-align: left;
 	padding-bottom: 12px;
+  line-height: 12px;
 }
 
 .view-id-erm_regulations .wrap-row-filters #edit-field-type-phase-erm-reg-tid-selective-wrapper label{
@@ -14595,12 +14599,14 @@ h4.title-tooltip-geolocation a:hover{
 
 /** BOARD MEMBER PAGE VIEW **/
 
-.block-menu-menu-extranet-menu .menu{
+.block-menu-menu-extranet-menu .menu, 
+.block-menu-menu-menu-extranet-menu .menu{
 	margin: 0;
 	padding: 0;
 }
 
-.block-menu-menu-extranet-menu .menu li a{
+.block-menu-menu-extranet-menu .menu li a, 
+.block-menu-menu-menu-extranet-menu .menu li a{
 	font-family: inherit;
 	font-weight: 400;
 	font-size: 1em;
