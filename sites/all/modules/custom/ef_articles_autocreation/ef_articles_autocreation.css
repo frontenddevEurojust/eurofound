@@ -1,4 +1,3 @@
-
 .page-articles-autocreation #edit-country .form-type-checkbox > input{
 	visibility: hidden;
 }
@@ -61,7 +60,7 @@ table .remove-button-file{
  }
 
  
- td{
+#container_file td{
  	height:  5em!important;
  }
 

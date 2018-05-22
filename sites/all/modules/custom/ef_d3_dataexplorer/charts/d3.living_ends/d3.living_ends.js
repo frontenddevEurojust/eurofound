@@ -83,7 +83,7 @@
   }
 
   overallFunctions.createOrderingFilter = function() {
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2011 value descending", "By 2016 value descending"];
 
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
@@ -278,7 +278,7 @@
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
       .attr("cx", function(d) { 
-        return x(d.dot1); 
+        return x( Math.round( d.dot1 ) ); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
@@ -288,7 +288,7 @@
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
       .attr("cx", function(d) { 
-        return x(d.dot2); 
+        return x( Math.round( d.dot2 ) ); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
@@ -360,8 +360,8 @@
       }
 
       var legendLabels = [
-        {label: "Difficulty levels (0-100%) - 2007", class: "lollipop-start"}, 
-        {label: "Difficulty levels (0-100%) - 2016", class: "lollipop-end"},
+        {label: "Difficulty levels (%) - 2011", class: "lollipop-start"}, 
+        {label: "Difficulty levels (%) - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -505,14 +505,14 @@
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
-          return x(d.dot1); 
+          return x( Math.round( d.dot1 ) ); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 + ' %' +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot1 ) + '%' +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -522,14 +522,14 @@
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
-          return x(d.dot2); 
+          return x( Math.round( d.dot2 ) ); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 + ' %' +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot2 ) + '%' +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })

@@ -96,7 +96,7 @@
 	{
 		/*var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];*/
 		// var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending"];
-		var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2016 value descending"];
+		var alphaSort = ["Alphabetically ascending", "By 2016 value descending"];
 
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
@@ -375,7 +375,7 @@
       
 			// Might need to be created with excel data
 			var legendLabels = [
-				{label: "% At least several times a week", class: "lollipop-start"}, 
+				{label: "At least several times a week (%) - 2016", class: "lollipop-start"}, 
 				//{label: "(%) - 2016", class: "lollipop-end"},
 			];
       

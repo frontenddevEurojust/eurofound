@@ -23,49 +23,49 @@
       return row.modalityCode == modality;
     });
 
-    if (sort == 1 || sort == 2) {
-      sort == 1 ? order = d3.ascending : order = d3.descending;
-      var filteredKeyed = d3.nest()
-        .key(function(d) { return d.countryName; }).sortKeys(order)
-        .entries(filtered);
 
-      filtered = filteredKeyed.map(function(a) { return a.values[0];});
+    if (sort == 0)
+    {
+      // sort == 1 ? order = d3.ascending : order = d3.descending;
+      order = d3.ascending;
+      var filteredKeyed = d3.nest().key(function(d) { 
+        if(d.countryName != 'EU28'){
+
+          return d.countryName;
+
+        }else{
+
+          // firts element in the order
+          return 'AAAA'+d.countryName;
+        }; 
+      }).sortKeys(order).entries(filtered);
+
+      filtered = filteredKeyed.map(function(a) { 
+          return a.values[0];     
+      });
+
     }
 
-    if (sort == 3) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return b.dot1 - d.dot1;
-      });
-      
-      filtered = byMinValue;
+    if (sort == 1)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot1,+b.dot1);
+      }); 
+
+      filtered = byMaxValue;
+
     }
 
-    if (sort == 4) {
-      var byMinValue = filtered.slice(0);
-      byMinValue.sort(function(d,b) {
-        return b.dot2 - d.dot2;
-      });
-      
-      filtered = byMinValue;
-    }
-
-    if (sort == 5) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(d.dot1 - d.dot2) - Math.abs(b.dot1 - b.dot2);
-      });
-      
-      filtered = byValueGap;
-    }
-
-    if (sort == 6) {
-      var byValueGap = filtered.slice(0);
-      byValueGap.sort(function(d,b) {
-        return Math.abs(b.dot1 - b.dot2) - Math.abs(d.dot1 - d.dot2);
-      });
-      
-      filtered = byValueGap;
+    if (sort == 2)
+    {
+      var byMaxValue = filtered.slice(0);
+      byMaxValue.sort(function(d,b)
+      {
+        return d3.descending(+d.dot2,+b.dot2);
+      });      
+      filtered = byMaxValue;
     }
 
     return filtered;
@@ -89,7 +89,12 @@
   }
 
   overallFunctions.createOrderingFilter = function() {
-    var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2011 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
+    var alphaSort = [
+      "Alphabetically ascending",
+      "By 2011 value descending",
+      "By 2016 value descending"
+    ];
+
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -503,6 +508,8 @@
         var transitionD = 0;
       }
 
+    formatOnedecimal = d3.format(",.1f");
+
       var startCircles = lollipops.append("circle")
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
@@ -514,7 +521,7 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot1 ) +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -531,7 +538,7 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot2 ) +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })

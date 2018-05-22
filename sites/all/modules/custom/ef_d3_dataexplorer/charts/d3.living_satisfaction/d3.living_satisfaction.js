@@ -85,7 +85,7 @@
   overallFunctions.createOrderingFilter = function() {
     // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
         
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2007 value descending", "By 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By 2007 value descending", "By 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -361,8 +361,8 @@
       }
 
       var legendLabels = [
-        {label: "Satisfaction level (1-10) - 2007", class: "lollipop-start"}, 
-        {label: "Satisfaction level (1-10) - 2016", class: "lollipop-end"},
+        {label: "Satisfaction with standard of living (1-10) - 2007", class: "lollipop-start"}, 
+        {label: "Satisfaction with standard of living (1-10) - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -501,6 +501,8 @@
         var transitionD = 0;
       }
 
+    formatOnedecimal = d3.format(",.1f");
+
       var startCircles = lollipops.append("circle")
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
@@ -512,7 +514,7 @@
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot1 ) +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -529,7 +531,7 @@
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot2 ) +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })

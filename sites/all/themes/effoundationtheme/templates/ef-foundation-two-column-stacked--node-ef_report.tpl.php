@@ -104,18 +104,18 @@ $countview = count($result);
                                 print t("Topic: ");
                                 if (isset($node->field_ef_topic[$language->language])) {
                                     foreach ($node->field_ef_topic[$language->language] as $key => $topic){
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path); 
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     }
                                 }else{
                                     foreach ( $node->field_ef_topic["und"] as $key => $topic ){ 
-                                        $path=taxonomy_term_uri($topic["taxonomy_term"]);
-                                        $taxonomy_path=drupal_lookup_path('alias', $path);
+                                        $path = taxonomy_term_uri($topic["taxonomy_term"])['path'];
+                                        $taxonomy_path = drupal_get_path_alias($path); 
                                         ?>
-                                            <a href="<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
+                                            <a href="/<?php echo $taxonomy_path; ?>"><?php echo $topic["taxonomy_term"]->name; ?></a>
                                         <?php
                                     } 
                                 }
@@ -179,15 +179,19 @@ $countview = count($result);
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
                         <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                            <?php if (check_if_author_has_publications($author["taxonomy_term"])) {
-                                ?>
-                                    <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?></a>
-                                <?php
-                            }else{
-                                ?>
-                                    <?= format_author_name($author["taxonomy_term"]->name_field["und"][0]["value"]); ?>
-                                <?php
-                            } ?>
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])): ?>
+                                    <a class="author-report" href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>">
+                                        <?= trim( $author["taxonomy_term"]->name_field["und"][0]["value"] ); ?>
+                                    </a> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php else: ?>
+                                    <span class="author-report"><?= trim( $author["taxonomy_term"]->name_field["und"][0]["value"]); ?></span>
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
@@ -242,6 +246,10 @@ $countview = count($result);
             
             <?php print $content['field_abstract'][0]['#markup']?>
             <?php print $content['body'][0]['#markup'] ?>
+            <div class="ds-node-downloads">
+                <?= drupal_render($content['field_ef_documents']); ?>
+                <?= drupal_render($content['field_ef_source_documents']); ?>
+            </div>
         </div>
      
         <!-- FREE COMMENTS -->

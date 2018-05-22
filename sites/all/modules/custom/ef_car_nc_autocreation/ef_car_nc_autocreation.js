@@ -1,7 +1,5 @@
-
 (function ($) {
   $(document).ready(function(){
-
     $('select#edit-deliver').change(function() {
       
       var checkExist = setInterval(function() {
@@ -46,12 +44,12 @@
       
       $('#edit-country2 .form-item input').each(function(i){
 
-      	if($(this).is( ":checked" )){
-      		//is checked
-      		
-      	}else{
-      		//check it
-      		$(this).trigger('click');
+        if($(this).is( ":checked" )){
+          //is checked
+          
+        }else{
+          //check it
+          $(this).trigger('click');
 
           var label = $(this).next('label').children('i');
 
@@ -60,7 +58,7 @@
             label.addClass('fa-check-circle');
           }
 
-      	}
+        }
 
       });
 
@@ -99,29 +97,29 @@
     
     $('#edit-country2 .form-item label').each(function(index, element){
 
-    	$(element).on('click', function(e){
+      $(element).on('click', function(e){
 
-    		e.preventDefault();
+        e.preventDefault();
 
-	    	if($(element).prev('input').is( ":checked" )){
+        if($(element).prev('input').is( ":checked" )){
 
           $(this).children('i').removeClass('fa-check-circle').addClass('fa-circle-thin');
           $(this).prev('input').trigger('click');
-	    		
-	    	}else{
-	    		
+          
+        }else{
+          
           $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
           $(this).prev('input').trigger('click');
-	    		
-	    	}
+          
+        }
 
         $('#edit-quitallbutton').prop('disabled', false);
         $('#edit-addallbutton').prop('disabled', false);
-	    	
-    	});
+        
+      });
 
     });
-    	    	
+            
 
 
     $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox').slice(0,8).wrapAll('<div class="large-3 column countries-col"></div>');
@@ -131,7 +129,14 @@
 
 
     $('.page-car-nc-autocreation #edit-country2 .form-type-checkbox > label').each(function(i){
-    	$(this).prepend('<i class="fa fa-circle-thin"></i>');
+      $(this).prepend('<i class="fa fa-circle-thin"></i>');
+    });
+
+    //Check if the country is checked when there is a Validation error.
+    $('#edit-country2 .form-item label').each(function(index, element){
+      if($(this).prev('input').is(":checked")){
+        $(this).children('i').removeClass('fa-circle-thin').addClass('fa-check-circle');
+      }
     });
 
   });

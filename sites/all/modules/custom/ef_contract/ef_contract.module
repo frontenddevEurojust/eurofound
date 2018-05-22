@@ -538,25 +538,22 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $form['field_ef_deliverable_kind']['und']['#required'] = TRUE;
 
     $form['field_ef_service_type']['und']['#type'] = 'radios';
-    $form['field_ef_service_type']['und']['#required'] = TRUE;
 
     $deliverable_kind_tid = $form['field_ef_deliverable_kind']['und']['#default_value'][0];
 
-    if (!isset($form['field_ef_service_type']['und']['#default_value'][0])) { 
-      $service_type = get_service_type($deliverable_kind_tid);
-      if(!empty($service_type)) {
-        foreach ($service_type as $tid => $value) {
-          $form['field_ef_service_type']['und']['#value'] = $value;
-          $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
+    $service_type_tid = $form['field_ef_service_type']['und']['#entity']->field_ef_service_type['und'][0]['tid'];
+    $service_type = get_service_type($deliverable_kind_tid);
+    
+    if (isset($service_type)) {
+      foreach ($service_type as $tid => $value) {
+        if (!empty($service_type_tid) && $service_type_tid != 0) {
+          $form['field_ef_service_type']['und']['#default_value'] = $service_type_tid;
+          $form['field_ef_service_type']['und'][$tid]['#default_value'] = $service_type_tid;
         }
-      }
-    }
-    else {
-      $service_types = get_service_type($deliverable_kind_tid);
-      $service_type = $form['field_ef_service_type']['und']['#default_value'][0];
-      foreach ($service_types as $tid => $value) {
-        $form['field_ef_service_type']['und']['#value'] = $service_type;
-        $form['field_ef_service_type']['und'][$tid]['#value'] = $service_type;
+        else {
+          $form['field_ef_service_type']['und']['#default_value'] = $value;
+          $form['field_ef_service_type']['und'][$tid]['#default_value'] = $value;
+        }
       }
     }
 
@@ -701,7 +698,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'on_external_editing'))
     );
 
-    drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js';
 
     if($form['#node_edit_form'] === TRUE){
       drupal_add_js(drupal_get_path('module','ef_contract') . '/js/ef_contract_edit_mode.js');
@@ -710,7 +707,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       }
     }
 
-    drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     // We pass to JS the 'current state' variable and Assigned user name,
     // in order to show it in the vertical tab description
@@ -730,13 +727,32 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
     $form['field_ef_assign_to_user']['#prefix'] = '<div id="field-assign-to-user-wrapper">';
     $form['field_ef_assign_to_user']['#suffix'] = '</div>';
 
+    array_unshift($form['actions']['submit']['#validate'], 'service_type_validate');
+
     return $form;
   }
 }
 // end CREATE/EDIT FORM
 
-function ef_contract_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
+function service_type_validate($form, &$form_state) {
+  global $user;
 
+  $nec = variable_get('ef_contract_enabled_contracting_period');
+  $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
+
+  if (isset($form_state['input']['field_ef_service_type']['und'])) {  
+    $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $form_state['input']['field_ef_service_type']['und'];
+  }
+  
+  if ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user)) {
+    if ($context == 1) {
+      form_set_error('Service Type', t('Service type is Required'));
+    }
+  }
+
+  //Get Service Type value as a JS param
+  $settings['service_type'] = $form_state['values']['field_ef_service_type']['und'][0]['tid'];
+  drupal_add_js(array('ef_contract' => $settings), 'setting');
 }
 
 function ajax_contract_callback($form, &$form_state) {
@@ -803,12 +819,16 @@ function ajax_ef_deliverable_kind_callback($form, &$form_state) {
   $service_type = get_service_type($deliverable_kind_tid);
   if (isset($service_type) && !empty($service_type)) {
     foreach ($service_type as $tid => $value) {
-      $form['field_ef_service_type']['und']['#value'] = $value;
-      $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
-      if ($value != 0){
+      if ($value != 0) {
+        $form['field_ef_service_type']['und']['#value'] = $value;
+        $form['field_ef_service_type']['und'][$tid]['#value'] = $value;
         $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $value;
       }
     }
+  }
+
+  if ($form['field_ef_service_type']['und']['#value'] == 0) {
+    $form['field_ef_service_type']['und']['#value'] = $form['field_ef_service_type']['und']['#default_value'];
   }
 
   if (!empty($country_gid)) {
@@ -1347,3 +1367,18 @@ function get_equivalent_new_contract($old_contract, $contracts) {
   return;
 }
 
+
+/**WGS-371
+ * Delete validation message if we haven't permission to view the required field
+ */
+function ef_contract_date_popup_pre_validate_alter(&$element, &$form_state, &$input){
+  global $user;
+  if($form_state['build_info']['args'][0]->type == 'erm_support_instrument' || $form_state['build_info']['args'][0]->type == 'ef_erm_regulation'){
+    if (user_access('edit field_ef_revision_deadline', $user) && $form_state['values']['field_ef_moderation_state'] == 'under_revision_request' && $element['#field']['field_name'] == 'field_ef_revision_deadline' ) {
+      $element['#required'] = TRUE;
+    }
+    else {
+      $element['#required'] = FALSE;
+    }
+  }
+}

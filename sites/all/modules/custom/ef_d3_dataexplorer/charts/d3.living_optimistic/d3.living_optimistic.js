@@ -85,7 +85,7 @@
   overallFunctions.createOrderingFilter = function() {
     // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
 
-    var alphaSort = ["Alphabetically ascending (with EU28 first)", "By own future 2016 value descending", "By (grand)children future 2016 value descending"];
+    var alphaSort = ["Alphabetically ascending", "By own future 2016 value descending", "By (grand)children future 2016 value descending"];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -284,7 +284,7 @@
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
       .attr("cx", function(d) { 
-        return x(d.dot1); 
+        return x( Math.round( d.dot1 ) ); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
@@ -294,7 +294,7 @@
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
       .attr("cx", function(d) { 
-        return x(d.dot2); 
+        return x( Math.round( d.dot2 ) ); 
       })
       .attr("cy", function(d) {
         return y(d.countryName) + y.bandwidth() / 2;
@@ -366,8 +366,8 @@
       }
 
       var legendLabels = [
-        {label: "% optimistic about future value", class: "lollipop-start"}, 
-        {label: "% optimistic about children's/grandchildren's future value", class: "lollipop-end"},
+        {label: "Optimistic about own future - 2016", class: "lollipop-start"}, 
+        {label: "Optimistic about children's/grandchildren's future - 2016", class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -514,14 +514,14 @@
         .attr("class", "lollipop-start")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
-          return x(d.dot1); 
+          return x( Math.round( d.dot1 ) ); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 + ' %' + "<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot1 ) + '%' + "<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
@@ -531,14 +531,14 @@
         .attr("class", "lollipop-end")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
-          return x(d.dot2); 
+          return x( Math.round( d.dot2 ) ); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })    
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 + ' %' + "<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round( d.dot2 ) + '%' + "<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
