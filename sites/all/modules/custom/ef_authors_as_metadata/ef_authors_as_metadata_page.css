@@ -60,6 +60,7 @@
     line-height: 1.6;
     margin-bottom: 1.25em;
     text-rendering: optimizeLegibility;
+    word-break: break-all;
 }
 .view-authors-as-metadata .authors-as-metadata:nth-child(odd){
  margin-left: 0%;
