@@ -54,9 +54,6 @@ $result = views_get_view_result('authors_as_metadata', 'page_2' ,  $term->tid , 
 $countview = count($result);
 
 ?>
-    <?php if (isset($last_updated)): ?>
-    <span class="last-updated"><?= $last_updated; ?></span>
-    <?php endif; ?>
 
     <?php if ($show_menu): ?>
         <ul class="button-group">
@@ -75,22 +72,20 @@ $countview = count($result);
         <div class="row">
             <div class="ds-node-metadata">
 
-                <?php if ( user_access("view field_ef_report_delivery_date") && isset($content['published_on'][0]['#markup']) ) {
-                    ?>
-                        <div class="field field-name-published-on">
-                            <div class="label-inline">
-                                <?php print t("Scheduled record delivery date: ").$content['published_on'][0]['#markup']; ?>
-                            </div>
+                <?php if ( user_access("view field_ef_report_delivery_date") && isset($content['field_ef_report_delivery_date'][0]['#markup']) ) : ?>
+                    <div class="field field-name-published-on">
+                        <div class="label-inline">
+                            <?php print t("Scheduled record delivery date: ") . $content['field_ef_report_delivery_date'][0]['#markup']; ?>
                         </div>
-                    <?php
-                } ?>
+                    </div>
+                <?php endif; ?>
 
                 <?php if (isset($node->field_ef_approved_for_payment["und"][0]["value"]) && user_access("view field_ef_approved_for_payment") ) : ?>
                     <div class="field field_ef_approved_for_payment">
                         <div class="label-inline">
                             <?php 
                                  $date = new DateTime($node->field_ef_approved_for_payment["und"][0]["value"]);
-                                 $date_format=$date->format('l, F j, o');
+                                 $date_format = $date->format('d F Y');
                                  print t("Approved for payment: ").$date_format; 
                             ?>
                         </div>
@@ -136,7 +131,7 @@ $countview = count($result);
                 <?php endif; ?>
 
                 <?php if (isset($node->field_ef_author_contract["und"][0]["taxonomy_term"]->name) && user_access("view field_ef_contract") ) : ?>
-                    <div class="field field_ef_author_contract">
+                    <div class="field field-ef-author-contract">
                         <div class="label-inline">
                             <?php 
                                  $contract_name=$node->field_ef_author_contract["und"][0]["taxonomy_term"]->name;
@@ -151,25 +146,21 @@ $countview = count($result);
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"]) && !in_array('anonymous user', $user->roles)) : ?>
-                    <div class="field field_term_last_updated">
+                <?php if (isset($content['ds_submission_date'][0]['#markup']) && !in_array('anonymous user', $user->roles)) : ?>
+                    <div class="field field-ds-submission-date">
                         <div class="label-inline">
                             <?php 
-                                $timestamp=$node->field_ef_topic["und"][0]["taxonomy_term"]->field_term_last_updated["und"][0]["value"];
-                                $date=date("Y-m-d", $timestamp);
-                                print t("Date of last submission: ").$date;
+                                print t("Date of last submission: ") . $content['ds_submission_date'][0]['#markup'];
                             ?>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <?php if (isset($node->workbench_moderation["current"]->stamp)) : ?>
+                <?php if (isset($content['published_on'][0]['#markup'])) : ?>
                     <div class="field field_term_last_updated">
                         <div class="label-inline">
                             <?php 
-                                $publish_on=$node->workbench_moderation["current"]->stamp;
-                                $publish_on=date("d F Y", $publish_on);
-                                print t("Published on: ").$publish_on;
+                                print t("Published on: ") . $content['published_on'][0]['#markup'];
                             ?>
                         </div>
                     </div>
