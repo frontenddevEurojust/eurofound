@@ -31,6 +31,8 @@
         $('#workbench-moderation-moderate-form')
             .append('<p class="apr-pseudomandatory-warning"><span>T</span>here are still empty some mandatory fields. <span>P</span>lease, fill in them before changing the state to submitted.</p>');
     }
+
+    $('label[for="edit-field-ef-service-type-und"]').append('<span class="form-required"> * </span>');
     
     if(typeof $service_type != 'undefined'){
       $('#edit-field-ef-service-type-und-' + $service_type).prop("checked", true);
