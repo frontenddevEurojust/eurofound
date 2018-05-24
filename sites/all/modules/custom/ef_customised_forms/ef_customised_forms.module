@@ -635,7 +635,7 @@ function ef_customised_forms_node_submit($node, $form, &$form_state){
 //Submit to modificate or insert taxonomies in Related Content and Taxonomies 
 function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state){
 	if ($form['#entity_type']=="taxonomy_term" && $form["#bundle"]=="ef_topics" ) {
-		$tid = $form_state["build_info"]["args"][0]->tid;
+		$tid = $form_state['tid'];
 		$num_deleted = db_delete('related_content_and_taxonomies')
 						  ->condition('nid', $tid)
 						  ->execute();
