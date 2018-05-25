@@ -14,13 +14,17 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
   }
 }
 
+global $language;
+
+$language->language != 'en' ? $argument = 2 : $argument = 1;
+
 //Check if it is a topic. We load the topic related content and we check if the relates content is published
 //Load the current topic
 $my_path = current_path();
-$my_path = arg(0);
+$my_path = arg($argument - 1);
 
 if($my_path == 'topic'){
-  $path = 'topics/' . arg(1);
+  $path = 'topics/' . arg($argument);
   $source_path = drupal_get_normal_path($path, $path_language = NULL);
 
   //Get the topic tid
@@ -54,7 +58,7 @@ if($rc_published == "published"
     $node = menu_get_object();
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
-        $term = arg(1);
+        $term = arg($argument);
         $termname = str_replace("-", " ", $term);
          
         $node = taxonomy_get_term_by_name($termname);
