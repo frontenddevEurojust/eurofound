@@ -32,9 +32,6 @@
             .append('<p class="apr-pseudomandatory-warning"><span>T</span>here are still empty some mandatory fields. <span>P</span>lease, fill in them before changing the state to submitted.</p>');
     }
 
-    $('label[for="edit-field-ef-service-type-und"]').append('<span class="form-required"> * </span>');
-    $('label[for="edit-field-ef-service-type-und--2"]').append('<span class="form-required"> * </span>');
-    
     if(typeof $service_type != 'undefined'){
       $('#edit-field-ef-service-type-und-' + $service_type).prop("checked", true);
     }
@@ -71,6 +68,11 @@
         }
       }, 100);
     });
+
+    $('label[for="edit-field-ef-service-type-und"]').once().append('<span class="form-required"> * </span>');
+    $('label[for="edit-field-ef-service-type-und--2"]').once().append('<span class="form-required"> * </span>');
+    $('label[for="edit-field-ef-service-type-und--3"]').once().append('<span class="form-required"> * </span>');
+    $('label[for="edit-field-ef-service-type-und--4"]').once().append('<span class="form-required"> * </span>');
 
     // PATCH 1.1
     $('select#edit-field-ef-moderation-state').change(function(){
