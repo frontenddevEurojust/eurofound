@@ -33,6 +33,7 @@
     }
 
     $('label[for="edit-field-ef-service-type-und"]').append('<span class="form-required"> * </span>');
+    $('label[for="edit-field-ef-service-type-und--2"]').append('<span class="form-required"> * </span>');
     
     if(typeof $service_type != 'undefined'){
       $('#edit-field-ef-service-type-und-' + $service_type).prop("checked", true);
