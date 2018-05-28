@@ -108,19 +108,19 @@
 					var activeOption = $(this).attr('class');
 
 					if(classItem.indexOf('start-L') == 0){
-						hightlightRect('left16','start-L');
+						hightlightRect('left11','start-L');
 					}
 					else if(classItem.indexOf('end-L') == 0)
 					{
-						hightlightRect('left11','end-L');
+						hightlightRect('left16','end-L');
 					}
 					else if(classItem.indexOf('start-R') == 0)
 					{
-						hightlightRect('right16','start-R');			
+						hightlightRect('right11','start-R');			
 					}
 					else if(classItem.indexOf('end-R') == 0)
 					{
-						hightlightRect('right11','end-R');	
+						hightlightRect('right16','end-R');	
 					}
 
 

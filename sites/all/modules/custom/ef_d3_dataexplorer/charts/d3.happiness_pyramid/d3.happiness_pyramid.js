@@ -500,11 +500,11 @@
 		
 
 		// Will be created using texts excel data
-		var legendLabels = [			
+		var legendLabels = [
 			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-l"},
 			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-l"},
 			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-r"},
-			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-r"},
+			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-r"},			
 		];
 
 		var padding = 0;
