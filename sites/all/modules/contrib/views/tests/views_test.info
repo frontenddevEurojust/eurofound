@@ -5,9 +5,8 @@ core = 7.x
 dependencies[] = views
 hidden = TRUE
 
-; Information added by drupal.org packaging script on 2013-04-09
-version = "7.x-3.7"
+; Information added by Drupal.org packaging script on 2018-04-14
+version = "7.x-3.20"
 core = "7.x"
 project = "views"
-datestamp = "1365499236"
-
+datestamp = "1523668093"
