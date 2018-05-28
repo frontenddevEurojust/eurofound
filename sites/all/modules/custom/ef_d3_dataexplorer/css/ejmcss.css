@@ -86,7 +86,7 @@ g.ticks text {
   ul.legend-list li, 
   ul.legend-list-butterfly li{
     width: auto;
-    margin: 0 15px;
+    margin: 0 10px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
@@ -258,19 +258,19 @@ g.ticks text {
 }
 
 /** HAPPINESS PYRAMID **/
-.right16, .start-R .fa-circle{
+.right16, .end-R .fa-circle{
   fill: #4D9DD5;
   color:#4D9DD5;
 }
-.right11, .end-R .fa-circle{
+.right11, .start-R .fa-circle{
   fill: #B7D1EB;
   color:#B7D1EB;
 }
-.left16, .start-L .fa-circle{
+.left16, .end-L .fa-circle{
   fill: #92C856;
   color: #92C856;
 }
-.left11, .end-L .fa-circle{
+.left11, .start-L .fa-circle{
   fill:#CCDFB9;
   color:#CCDFB9;
 }
