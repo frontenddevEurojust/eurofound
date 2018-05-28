@@ -114,7 +114,7 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_content'][0]['#markup']) || ($countview  > 0)): ?>
+    <?php if (isset($content['field_ef_related_content'][0]['#markup']) || isset($content['field_related_taxonomy'][0]['#markup']) || ($countview  > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">

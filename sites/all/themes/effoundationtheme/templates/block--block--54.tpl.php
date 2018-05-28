@@ -290,8 +290,8 @@ if($rc_published == "published"
                 if ($content_type=="page"
                     || $content_type=="blog" 
                     || $content_type=="board_member_page" 
-                    || $content_type=="blog" 
-                    || $content_type=="ef_call_for_tender" 
+                    || $content_type=="ef_call_for_tender"
+                    || $content_type=="ef_working_life_country_profiles" 
                     || $content_type=="data_explorer_page" 
                     || $content_type=="dvs_survey" 
                     || $content_type=="ef_report" 
@@ -304,10 +304,7 @@ if($rc_published == "published"
                     || $content_type=="ef_news" 
                     || $content_type=="presentation" 
                     || $content_type=="ef_publication" 
-                    || $content_type=="ef_survey" 
-                    || $content_type=="board_member_page"  
-                    || $content_type=="board_member_page" 
-                    || $content_type=="ef_network_extranet_page") {
+                    || $content_type=="ef_survey") {
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
