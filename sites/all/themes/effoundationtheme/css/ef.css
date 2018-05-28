@@ -7150,7 +7150,7 @@ figure.img-align-left img{
 .img-align-center img, 
 img.img-align-center, 
 img.img-align-center-ck, 
-.img-align-center ~  .media.media-element-container.media-default{
+p.img-align-center +  .media.media-element-container{
 	float: none ;
 	clear:both ;
 	margin:1em auto !important;
@@ -7188,7 +7188,7 @@ figure.img-align-right ~ br,
 figure.img-align-left ~ br{
 	display: none;
 }
-.media.media-element-container.media-default{
+.media.media-element-container{
 	margin-bottom: 1rem;
 }
 
