@@ -577,59 +577,96 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 }
 
 function ef_customised_forms_node_submit($node, $form, &$form_state){
-	if (isset($form_state['values']['field_related_taxonomy']['und'])) {
 
-		$nid = $form_state["build_info"]["args"][0]->nid;
-		$vid = $form_state["build_info"]["args"][0]->vid;
-		
-		//If create a new revision
-			if ($node->revision_operation==1 || $node->workbench_moderation_state_new != "") {
-				$result = db_query("select MAX(vid) from node_revision");
-				while($record = $result->fetchAssoc()) {
-					$vid=$record["MAX(vid)"]+1;
-				}
-			}
-
-		$num_deleted = db_delete('related_content_and_taxonomies')
-						  ->condition('revision_id', $vid)
-						  ->execute();
-
-		foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
-			$tid = $taxonomy["target_id"];
-			$weight = $taxonomy["_weight"];
-
-		    if ( is_numeric($weight) && is_numeric($tid) ) {
-		    		
-				db_insert('related_content_and_taxonomies') 
-					->fields(array(
-					  'nid' => $nid,
-					  'revision_id' => $vid,
-					  'rc_type' => "tax",
-					  'rc_id' => $tid,
-					  'rc_weight' => $weight,
-					))
-					->execute();
-		    }
-		}
-		foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
-			$cid = $content["target_id"];
-			$weight = $content["_weight"];
-
-		    if ( is_numeric($weight) && is_numeric($cid) ) {
-		    		
-				db_insert('related_content_and_taxonomies')
-					->fields(array(
-					  'nid' => $nid,
-					  'revision_id' => $vid,
-					  'rc_type' => "node",
-					  'rc_id' => $cid,
-					  'rc_weight' => $weight,
-					))
-					->execute();
-				
-		    }
+	$num_deleted = db_delete('related_content_and_taxonomies')
+	  	->condition('revision_id', $node->vid)
+	 	->execute();
+	
+	foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
+		$tid = $taxonomy["target_id"];
+		$weight = $taxonomy["_weight"];
+		if (is_numeric($weight) && is_numeric($tid)) {
+			$node->related_taxonomy_weight[$tid] = $weight;
 		}
 	}
+
+	foreach ($form_state['values']['field_ef_related_content']['und'] as $content) {
+		$cid = $content["target_id"];
+		$weight = $content["_weight"];
+		if (is_numeric($weight) && is_numeric($cid)) {
+			$node->related_content_weight[$cid] = $weight;
+		}
+	}
+}
+
+function ef_customised_forms_node_update($node) {
+
+	if (isset($node->related_taxonomy_weight)) {
+		foreach ($node->related_taxonomy_weight as $key => $value) {	
+			db_insert('related_content_and_taxonomies') 
+			->fields(array(
+	        	'nid' => $node->nid,
+	     		'revision_id' => $node->vid,
+				'rc_type' => "tax",
+				'rc_id' => $key,
+				'rc_weight' => $value,
+			))
+			->execute();
+		}
+	}
+	
+	if (isset($node->related_content_weight)) {
+		foreach ($node->related_content_weight as $key => $value) {
+			db_insert('related_content_and_taxonomies')
+			->fields(array(
+				'nid' => $node->nid,
+				'revision_id' => $node->vid,
+				'rc_type' => "node",
+				'rc_id' => $key,
+				'rc_weight' => $value,
+			))
+			->execute();
+		}
+	}
+
+	unset($node->related_taxonomy_weight);
+	unset($node->related_content_weight);
+
+}
+
+function ef_customised_forms_node_insert($node) {
+
+	if (isset($node->related_taxonomy_weight)) {
+		foreach ($node->related_taxonomy_weight as $key => $value) {
+			db_insert('related_content_and_taxonomies') 
+			->fields(array(
+		        'nid' => $node->nid,
+		     	'revision_id' => $node->vid,
+				'rc_type' => "tax",
+				'rc_id' => $key,
+				'rc_weight' => $value,
+			))
+			->execute();
+			
+		}
+	}
+	
+	if (isset($node->related_content_weight)) {
+		foreach ($node->related_content_weight as $key => $value) {
+			db_insert('related_content_and_taxonomies')
+			->fields(array(
+				'nid' => $node->nid,
+				'revision_id' => $node->vid,
+				'rc_type' => "node",
+				'rc_id' => $key,
+				'rc_weight' => $value,
+			))
+			->execute();
+		}
+	}
+
+	unset($node->related_taxonomy_weight);
+	unset($node->related_content_weight);
 }
 
 //Submit to modificate or insert taxonomies in Related Content and Taxonomies 
