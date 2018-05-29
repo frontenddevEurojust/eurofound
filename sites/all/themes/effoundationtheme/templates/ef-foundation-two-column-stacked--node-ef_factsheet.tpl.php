@@ -440,7 +440,7 @@
                         <?php endif; ?>
                         <?php if (isset( $value['field_ef_sourcemedia']['und'][0]['entity']->name_original )): ?> 
                         <span class="fs_col_name">
-                          <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank">
+                          <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank" title="Will be opened in a new window">
                            <?php 
                             print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original;
                             ?>

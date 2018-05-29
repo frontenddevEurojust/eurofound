@@ -14791,20 +14791,20 @@ ul.links.inline-list.authors-list li:last-child:after{
 }
 
 .related-content-aside-3 a:before{
-    font-family: 'ef-icon-font';
-    speak: none;
-    font-style: normal;
-    font-weight: normal!important;
-    font-variant: normal;
-    text-transform: none;
-    vertical-align: top!important;
-    margin-right: -20px;
-    font-size: 1.5em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: "\e61c";
-    float: right;
-    display: inline;
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal!important;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: top!important;
+  margin-right: -20px;
+  font-size: 1.5em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e61c";
+  float: right;
+  display: inline;
 }
 
 /*Fix WEM-1046 publication detail topic */
@@ -14821,7 +14821,6 @@ table#field-ef-sourcemedialinks-values thead{
 	margin: 0px;
 	width: 100%;
 	padding: 0.5em;
-
 }
 table#field-ef-sourcemedialinks-values thead th{
 	background-color: #005BAA !important;
@@ -14833,12 +14832,16 @@ table#field-ef-sourcemedialinks-values thead th label{
 	font-weight: normal;
 	font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
 }
+
+table#field-ef-sourcemedialinks-values .form-actions.form-wrapper{
+	margin: 0;
+}
 table#field-ef-sourcemedialinks-values button.remove-button{
 	float: right;
 	font-size: 0.9em;
 	padding: 0.5em 1em 0.4375em 1em;
+	margin-bottom: 0;
 }
-
 
 
 .node-type-ef-factsheet.section-node-edit .field-name-field-ef-sourcemedia, 
