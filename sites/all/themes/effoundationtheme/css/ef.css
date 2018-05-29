@@ -14815,3 +14815,49 @@ ul.links.inline-list.authors-list li:last-child:after{
 #node_ef_publication_full_group_ef_node_details a{
 	font-size: 12.96px;
 }
+
+/** factsheet admin area */
+table#field-ef-sourcemedialinks-values thead{
+	margin: 0px;
+	width: 100%;
+	padding: 0.5em;
+
+}
+table#field-ef-sourcemedialinks-values thead th{
+	background-color: #005BAA !important;
+	padding: 0.5em;
+}
+table#field-ef-sourcemedialinks-values thead th label{
+	color: #fff !important;
+	font-size: 1.4em;
+	font-weight: normal;
+	font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+}
+table#field-ef-sourcemedialinks-values button.remove-button{
+	float: right;
+	font-size: 0.9em;
+	padding: 0.5em 1em 0.4375em 1em;
+}
+
+
+
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-sourcemedia, 
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-sourcelink, 
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate{
+	
+		width: auto;
+		margin-right: 1%;
+		display: inline-block;
+}
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate fieldset{
+	margin: 0;
+	padding:0;
+	border: 0;
+	position: relative;
+	top: -37px;
+}
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate legend{
+	display: none;
+}
+
+/** End factsheet admin area */
