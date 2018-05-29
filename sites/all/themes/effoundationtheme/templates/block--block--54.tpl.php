@@ -15,6 +15,7 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
 }
 
 global $language;
+global $user;
 
 $language->language != 'en' ? $argument = 2 : $argument = 1;
 
@@ -76,14 +77,16 @@ if($rc_published == "published"
             $query->orderBy('rc.rc_weight', 'ASC');
             $result=$query->execute();
       }
-    }else{
+    }
+    else {
       $nid=$node->nid;
       $weight=array();
-      
-      if (substr($_SERVER["REQUEST_URI"], -6, 6)=="/draft") {
-         $current_revision=$node->workbench_moderation["current"]->vid;
+      if (!$user->uid) {
+        //user is not logged in
+        $current_revision = $node->vid; 
       }else{
-         $current_revision=$node->vid;
+        //user is logged in
+        $current_revision = $node->workbench_moderation["current"]->vid;
       }
 
         $query = db_select('related_content_and_taxonomies', 'rc');
