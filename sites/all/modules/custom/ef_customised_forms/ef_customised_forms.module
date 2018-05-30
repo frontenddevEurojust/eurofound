@@ -577,10 +577,6 @@ function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id
 }
 
 function ef_customised_forms_node_submit($node, $form, &$form_state){
-
-	$num_deleted = db_delete('related_content_and_taxonomies')
-	  	->condition('revision_id', $node->vid)
-	 	->execute();
 	
 	foreach ($form_state['values']['field_related_taxonomy']['und'] as $taxonomy) {
 		$tid = $taxonomy["target_id"];
