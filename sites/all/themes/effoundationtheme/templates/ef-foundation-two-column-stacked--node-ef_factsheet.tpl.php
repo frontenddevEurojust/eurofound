@@ -434,7 +434,7 @@
                         <span class="fs_col_date">
                           <?php 
                                $fmd = $value['field_ef_linkdate']['und'][0]['value'];
-                               print date("d-m-Y",strtotime($fmd));
+                               print '<i class="fa fa-calendar" aria-hidden="true"></i> ' . date("d-m-Y",strtotime($fmd));
                           ?>                            
                         </span>
                         <?php endif; ?>
@@ -442,7 +442,7 @@
                         <span class="fs_col_name">
                           <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank" title="Will be opened in a new window">
                            <?php 
-                            print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original;
+                            print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original . ' <i class="fa fa-external-link" aria-hidden="true"></i>';
                             ?>
                           </a>
                         </span>
@@ -466,7 +466,7 @@
                   <?php endif; ?>
                   <?php if (isset($content['group_egf_year_code']['field_egf_code']['#items'][0]['value']) && isset($content['group_egf_year_code']['field_egf_year_date']['#items'][0] )): ?>
                       <div class="ef_fs_source_pdf fs_indoor row">
-                          <span class="small-3 columns">European Globalisation Fund:</span>
+                          <span class="small-3 columns others-sources">European Globalisation Fund:</span>
                           <span class="fs_data">
                             <?php print substr($content['group_egf_year_code']['field_egf_year_date']['#items'][0]['value'], 0, 4); ?>
                             /

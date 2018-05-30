@@ -605,6 +605,9 @@
 .source-area{
   background-color: #fafafa; 
 }
+.source-area .fs_col_name i{
+  font-size: 10px;
+}
 .ef_fs_addit_info h4{
   width: 28%;
   display: inline-block;
