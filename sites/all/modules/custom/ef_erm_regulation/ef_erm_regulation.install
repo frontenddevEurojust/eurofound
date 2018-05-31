@@ -2,7 +2,7 @@
 
 /**
  * Requested by client on WEM-931
- * Convert ‘Company size’ field to numeric (ERM Regulations)
+ * Convert ‘Company size’ and ‘Affected employees‘ fields to numeric (ERM Regulations)
  */
 
 function ef_erm_regulation_update_7002() {
@@ -28,12 +28,13 @@ function ef_erm_regulation_update_7002() {
     }else{
       print_r('Node:'.$node->nid.' value Affected employees NO updated || ');
     }
-    
-    field_attach_update('node', $node);
-    print_r('values updated || ');
-    entity_get_controller('node')->resetCache(array($node->nid));
-    print_r('cache updated || ');
 
+    if ($node->field_company_size_erm_reg['und'][0]['value'] != '' || $node->field_affected_employees_erm_reg['und'][0]['value'] != ''){
+      field_attach_update('node', $node);
+      print_r('values updated || ');
+      entity_get_controller('node')->resetCache(array($node->nid));
+      print_r('cache updated || ');
+    }
   }
 }
 
