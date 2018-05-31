@@ -209,14 +209,6 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
   }
 
   if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1'){
-    $form['field_ef_report_delivery_date_value']['min']['#date_format'] = 'd/m/Y';
-    $form['field_ef_report_delivery_date_value']['max']['#date_format'] = 'd/m/Y';
-    $form['field_ef_report_delivery_date_value']['min']['#title'] = 'From';
-    $form['field_ef_report_delivery_date_value']['max']['#title'] = 'To';
-    $form['field_ef_approved_for_payment_value']['min']['#date_format'] = 'd/m/Y';
-    $form['field_ef_approved_for_payment_value']['max']['#date_format'] = 'd/m/Y';
-    $form['field_ef_approved_for_payment_value']['min']['#title'] = 'From';
-    $form['field_ef_approved_for_payment_value']['max']['#title'] = 'To';
     
     //Change the field contract year comp to a Select. 
     //We Fill the select with the sql table of the years values.
