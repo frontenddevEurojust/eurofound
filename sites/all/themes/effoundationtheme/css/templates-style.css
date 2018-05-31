@@ -572,6 +572,8 @@
 {
   padding-right: 1em;
   padding-left: 0em;
+  width: auto;
+  display: inline-block;
 }
 
 
@@ -622,7 +624,7 @@
   width: 65%;
   display: inline-block;
   margin: 20px 0px 10px 20px;
-  padding-left: 7em;
+  padding-left: 5em;
   background-color: #fafafa;
 }
 .ef_fs_addit_info ul li{
@@ -631,10 +633,20 @@
   list-style-type: none;
   margin: 10px 0;
 }
+.ef_fs_addit_info .source-area ul li a{
+  display: inline-block;
+  width: 75%;
+  vertical-align: top;
+  word-break: break-word;
+}
+
 .ef_fs_source_pdf .others-sources{
   width: 31% !important;
   padding-right: 0;
-  margin-right: 6px;
+  margin-right: 4px;
+}
+.ef_fs_source_pdf .fs_data{
+  padding-left: 5em;  
 }
   
 
@@ -772,4 +784,48 @@
 
 .node-type-ef-factsheet .content_factsheet .small-3.columns {
     width: 28%;
+}
+
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) { 
+  .ef_fs_addit_info h4{
+    width: 100%;
+    display: block;
+    padding-left: 6px;
+    margin-left: 10px;
+    padding: 10px;
+  }
+  .ef_fs_addit_info ul {
+    width: 100%;
+    display:block;
+    margin: 0px 0px 10px 20px;
+    padding-left: 0;
+  }
+  .ef_fs_source_pdf{
+    margin-left: 0 !important;
+  }
+}
+@media only screen and (max-width : 767px){
+  .ef_fs_addit_info h4{
+    width: 100%;
+    display: block;
+    padding-left: 6px;
+    margin-left: 10px;
+    padding: 10px;
+  }
+  .ef_fs_addit_info ul {
+    width: 100%;
+    display:block;
+    margin: 0px 0px 10px 20px;
+    padding-left: 0;
+  }
+  .ef_fs_source_pdf{
+    margin-left: 0 !important;
+  }
+  .ef_fs_source_pdf .others-sources {
+    width: auto !important;
+  }
+  .ef_fs_source_pdf  .fs_data {
+    padding-left: 0;
+  }
 }

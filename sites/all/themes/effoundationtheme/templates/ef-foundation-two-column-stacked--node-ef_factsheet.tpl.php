@@ -434,19 +434,32 @@
                         <span class="fs_col_date">
                           <?php 
                                $fmd = $value['field_ef_linkdate']['und'][0]['value'];
-                               print '<i class="fa fa-calendar" aria-hidden="true"></i> ' . date("d-m-Y",strtotime($fmd));
+                               print '<i class="fa fa-calendar" aria-hidden="true"></i> <time datetime="' . date("d-m-Y",strtotime($fmd)) . '">' . date("d-m-Y",strtotime($fmd)) . '</time>';
                           ?>                            
                         </span>
                         <?php endif; ?>
                         <?php if (isset( $value['field_ef_sourcemedia']['und'][0]['entity']->name_original )): ?> 
                         <span class="fs_col_name">
-                          <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank" title="Will be opened in a new window">
-                           <?php 
-                            print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original . ' <i class="fa fa-external-link" aria-hidden="true"></i>';
-                            ?>
-                          </a>
-                        </span>
+                          <?php if (isset( $value['field_ef_sourcelink']['und'][0]['safe_value'] )): ?>
+                            <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank" title="Will be opened in a new window">
+                             <?php 
+                              print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original . ' <i class="fa fa-external-link" aria-hidden="true"></i>';
+                              ?>
+                            </a>
+                          <?php else: ?>
+                             <?php 
+                              print $value['field_ef_sourcemedia']['und'][0]['entity']->name_original;
+                              ?>
+                          <?php endif; ?>                        
+                        <?php else: ?>
+                          <span class="fs_col_name">
+                            <?php if (isset( $value['field_ef_sourcelink']['und'][0]['safe_value'] )): ?>
+                                <a href='<?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] ?>' target="_blank" title="Will be opened in a new window">
+                                <?php print $value['field_ef_sourcelink']['und'][0]['safe_value'] . ' <i class="fa fa-external-link" aria-hidden="true"></i>' ?>
+                              </a>
+                            <?php endif; ?>
                         <?php endif; ?>
+                          </span>
                       </li>
                       <?php endforeach;  ?>
                      </ul>
@@ -457,9 +470,13 @@
                       <div class="ef_fs_source_pdf fs_indoor row">
                         <span class="small-3 columns others-sources">Other full text sources:</span>
                         <span class="fs_data">
-                          <a target="_blank" href="<?php print ($content['field_otheref_full_text_sources'][0]['#markup']); ?>">
+                          <?php if (isset( $content['field_otheref_full_text_sources'][0]['#markup'] )): ?>
+                            <a target="_blank" href="<?php print ( $content['field_otheref_full_text_sources'][0]['#markup'] ); ?>">
+                              <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
+                            </a>
+                          <?php else: ?>
                             <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
-                          </a>
+                          <?php endif; ?>
                         </span>
                       </div>
                     <?php endif; ?>
