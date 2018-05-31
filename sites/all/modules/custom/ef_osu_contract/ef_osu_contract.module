@@ -208,7 +208,7 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
     $form['field_ef_requested_on_value']['max']['#date_format'] = 'Y-m-d';
   }
 
-  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1'){
+  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1' || $form['#id'] == 'views-exposed-form-new-osu-contract-reporting-views-data-export-1'){
     
     //Change the field contract year comp to a Select. 
     //We Fill the select with the sql table of the years values.
