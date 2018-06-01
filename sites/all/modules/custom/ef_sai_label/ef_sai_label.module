@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Implements hook_form_node_form_alter
+ */
+function ef_sai_label_form_node_form_alter($form, &$form_state) {
+	//dpm($form['field_ef_sai_label']);
+	//dpm($form['field_ef_sai_label_display']);
+	//dpm($form['field_ef_sai_label_override']);
+	if (content_is_sai_labelled($form['#entity'])) {
+		$form['#attached']['js'][] = drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js';
+		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
+	}
+	return $form;
+}
+
+function ef_sai_label_preprocess_page(&$vars) {
+	if (content_is_sai_labelled($vars['node'])) {
+		global $language;
+		$lang = $language->language;
+		$node = $vars['node'];
+
+		if (user_is_logged_in()) {
+			$nid = $node->nid;
+			$vid = get_node_current_vid($node->nid);
+			$node = node_load($nid, $vid);
+		}
+
+		$display = $node->field_ef_sai_label_display['und'][0]['value'];
+		$override = $node->field_ef_sai_label_override['und'][0]['value'];
+
+		if ($display) {
+			if ($override && !empty($node->field_ef_sai_label[$lang][0]['value'])) { 
+					$vars['sai_label'] = $node->field_ef_sai_label[$lang][0]['value'];
+			}
+			else {
+				$activity = $node->field_ef_activities['und'][0]['tid'];
+				$activity_term = taxonomy_term_load($activity);
+				$vars['sai_label'] = $activity_term->field_ef_sai_label[$lang][0]['value'];
+			}
+		}
+	}
+}
+
+function content_is_sai_labelled($node) {
+	$affected_content_types = array('ef_publication', 'blog', 'presentation', 'ef_event', 'ef_news');
+	$partially_affected_content_types = array('ef_report', 'ef_comparative_analytical_report', 'ef_national_contribution');
+
+	if (in_array($node->type, $affected_content_types)) {
+		return TRUE;
+	}
+	elseif (in_array($node->type, $partially_affected_content_types)) {
+		foreach ($node->field_ef_observatory['und'] as $key => $tid) {
+			$observatory = taxonomy_term_load($tid['tid']);
+			if ($observatory->name == 'EurWORK') {
+				return TRUE;
+			}
+		}
+	}
+	else {
+		return FALSE;
+	}
+}

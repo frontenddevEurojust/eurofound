@@ -379,6 +379,11 @@
                 
                  
                  <?php  if($node->type != "data_explorer_page"): ?>
+                    <?php  if (isset($sai_label)): ?>
+                      <span class="sai-label">
+                        <?php print $sai_label ?>
+                      </span>
+                    <?php endif; ?>
                     <h1 id="page-title" class="title secundary">
                       <?php print $title ?>
                     </h1>

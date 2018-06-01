@@ -731,6 +731,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
 
     return $form;
   }
+  dpm($form['#attached']);
 }
 // end CREATE/EDIT FORM
 
