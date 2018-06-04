@@ -369,8 +369,10 @@
          last--;
         }
 
-        $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
-      
+        if ( $(".view-new-osu-contract-reporting").length != "1" ){
+          $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
+        }
+
       }
 
       $('.view-button').wrapAll('<div class="wrap-row-buttons"></div>');
