@@ -1,14 +1,39 @@
 <?php
 
 /**
+ * Implements hook_menu
+ */
+function ef_sai_label_menu() {
+	$items = array();
+  
+  $items["admin/config/sai-label"] = array(
+    'title' => 'SAI label management',
+    'description' => 'Set default values for SAI labels',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_sai_label_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ef_sai_label.admin.inc',
+  );
+
+	return $items;
+}
+
+/**
  * Implements hook_form_node_form_alter
  */
 function ef_sai_label_form_node_form_alter($form, &$form_state) {
 	//Just adding some js to manage the inputs
 	if (content_is_sai_labelled($form['#entity'])) {
-		$form['#attached']['js'][] = drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js';
-		//Just in case '#attached' does not work, it should, but...
 		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
+		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
+	}
+	//If SAI label does not apply here, we remove the form elements
+	else {
+		if (isset($form['field_ef_sai_label'])) {
+			unset($form['field_ef_sai_label']);
+			unset($form['field_ef_sai_label_display']);
+			unset($form['field_ef_sai_label_override']);
+		}
 	}
 	return $form;
 }
