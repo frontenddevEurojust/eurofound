@@ -25,7 +25,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		</div>
 	</div>
 
-	<?php if($content['field_ef_de_chart_id'][0]['#markup'] == 'EJM'): ?>
+	<?php if( $node->field_ef_de_chart_id['und'][0]['safe_value'] == 'EJM'): ?>
 
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
@@ -33,13 +33,13 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 			  <fieldset>
 			    <legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			    	<div class="group-filters jm-filter-countries">
-				    	<label>Countries</label>
+				    	<label>Countries <span class="advice-select-countries">(Select up to 4 countries)</span></label>
 				    	<select id="country">
-							</select>
+							</select>							
 			    	</div>
 						<div class="group-filters jm-filter-time">
 				    	<label>Time period</label>
-				    	<select id="period">
+				    	<select id="time">
 				    	</select>
 			    	</div>
 			    	<div class="group-filters jm-filter-breakdown">
@@ -52,7 +52,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 			  		<legend><i class="fa fa-filter" aria-hidden="true"></i> More filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			  		<div class="group-filters jm-filter-criterion">
 				    	<label>Job quality criterion</label>
-				    	<select id="criterion">
+				    	<select id="job_quality_criterion" name="job_quality_criterion">
 				    	</select>
 			    	</div>
 			  </fieldset>
@@ -60,15 +60,20 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		</div>
 
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
-				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, <span class="country"></span>, <span class="period"></span></h2>
+				<h2>Employment shifts by <span class="criterion"></span> quintile<span class="breakdown"></span>, <span class="country"></span> <span class="period"></span></h2>
+				<div class="ejm-alert">
+					<p class="text">Select at least one country</p>
+					<img src="<?php echo base_path()?>sites/all/themes/effoundationtheme/images/loading-eurofound.gif" alt="Loading" >
+				</div>
 				<div id="ejm-chart"></div>
+				<div class="legend-wrapper"></div>
 				<div class="jm-footnote"></div>
 		</div>
 	</div>
 
 	<?php else: ?>
 
-	<div class="jm-filters-chart">
+	<div class="jm-filters-chart clearfix">
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
 	  		<fieldset>
