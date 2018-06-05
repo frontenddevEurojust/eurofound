@@ -14690,7 +14690,9 @@ h4.title-tooltip-geolocation a:hover{
 }
 .communication-calendar .icon-blog-img{
   outline: 0;
-  width: 24px;
+  width: 25px;
+  position: relative;
+  left: -2px;
 }
 
 
