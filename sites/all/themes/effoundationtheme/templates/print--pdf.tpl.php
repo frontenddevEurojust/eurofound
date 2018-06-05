@@ -1139,6 +1139,12 @@ word-break: break-all;
           print '</div>'; 
           print '<div class="page-break"></div>';    
         }else{
+
+         if( isset($sai_label) ){
+          print  '<span class="sai-label">' . $sai_label . "</span>";
+         }
+
+          print  '<span class="sai-label">' . $sai_label . "</span>";
           print '<h1 id="page-title" class="title">' . $print_title . '</h1>';
         }
     ?>
@@ -1146,7 +1152,7 @@ word-break: break-all;
 
 
     <?php
-       $url = explode('/', $_SERVER['REQUEST_URI']);
+      $url = explode('/', $_SERVER['REQUEST_URI']);
       $pathCountry = $url[count($url)-2];
     ?>
     <?php if ($pathCountry == 'country'): ?>
@@ -1155,7 +1161,7 @@ word-break: break-all;
             <?php if(strpos($_SERVER['REQUEST_URI'],'/restructuring-case-studies/') != true 
             || strpos($_SERVER['REQUEST_URI'],'/restructuring-related-legislation/') != true
             || strpos($_SERVER['REQUEST_URI'],'/restructuring-support-instruments/') != true): ?>
-      <?php endif; ?>
+            <?php endif; ?>
     <?php endif; ?>
 
     <?php
