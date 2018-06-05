@@ -27,14 +27,6 @@ function ef_sai_label_form_node_form_alter($form, &$form_state) {
 		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
 		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
 	}
-	//If SAI label does not apply here, we remove the form elements
-	else {
-		if (isset($form['field_ef_sai_label'])) {
-			unset($form['field_ef_sai_label']);
-			unset($form['field_ef_sai_label_display']);
-			unset($form['field_ef_sai_label_override']);
-		}
-	}
 	return $form;
 }
 
@@ -100,13 +92,21 @@ function content_is_sai_labelled($node) {
 	//If it is a partially affected content type from the EurWORK
 	//observatoty, go on
 	elseif (in_array($node->type, $partially_affected_content_types)) {
-		//There are nodes with multiple values for the observatory
-		foreach ($node->field_ef_observatory['und'] as $key => $tid) {
-			//Get the term from the node and load it
-			$observatory = taxonomy_term_load($tid['tid']);
-			//Check the observatory and if it matches, go on
-			if ($observatory->name == 'EurWORK') {
-				return TRUE;
+		//When we create a node of one of these content types
+		//this content could be SAI labelled or not, so we
+		//must enable this option
+		if (is_null($node->nid)) {
+			return TRUE;
+		}
+		else {
+			//There are nodes with multiple values for the observatory
+			foreach ($node->field_ef_observatory['und'] as $key => $tid) {
+				//Get the term from the node and load it
+				$observatory = taxonomy_term_load($tid['tid']);
+				//Check the observatory and if it matches, go on
+				if ($observatory->name == 'EurWORK') {
+					return TRUE;
+				}
 			}
 		}
 	}
