@@ -14688,6 +14688,11 @@ h4.title-tooltip-geolocation a:hover{
   width: 4rem;
   text-align: center;
 }
+.communication-calendar .icon-blog-img{
+  outline: 0;
+  width: 24px;
+}
+
 
 /** END COMMUNICATIONS CALENDAR **/
 
