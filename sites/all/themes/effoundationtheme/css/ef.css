@@ -14823,6 +14823,11 @@ ul.links.inline-list.authors-list li:last-child:after{
   font-size: 1.3em !important;
  	 padding-bottom:3px;
 }
+.sai-label-calendar {
+  padding-bottom: 3px;
+  display: block;
+  font-family: 'OpenSans-regular-webfont', Arial, Helvetica, sans-serif;
+}
 .sai-label ~ h1 {
   color: #10499e !important;
 }
