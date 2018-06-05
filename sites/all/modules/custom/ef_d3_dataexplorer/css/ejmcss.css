@@ -171,6 +171,10 @@ g.ticks text {
 .filters-jm-chart .group-filters select::-ms-expand {
     display: none;
 }
+select.disabled{
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .filters-jm-chart .group-filters  select option[disabled]{
     color: #CCC;
 }

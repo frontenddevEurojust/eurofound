@@ -193,10 +193,17 @@ var getParameterURLByName = function(name) {
       if( tags == 0 ){
         d3.select(".country").text('');
         $('.ejm-alert').css('display', 'block');
-        $('.jm-footnote').css('display', 'none');        
+        $('.jm-footnote').css('display', 'none');
+        $('#time').attr('disabled','disabled').addClass('disabled');  
+        $('#breakdown').attr('disabled','disabled').addClass('disabled');  
+        $('#job_quality_criterion').attr('disabled','disabled').addClass('disabled');          
+     
       }else{
         $('.ejm-alert').css('display', 'none');
-        $('.jm-footnote').css('display', 'block');      
+        $('.jm-footnote').css('display', 'block');   
+        $('#time').removeAttr('disabled','').removeClass('disabled'); 
+        $('#breakdown').removeAttr('disabled','').removeClass('disabled'); 
+        $('#job_quality_criterion').removeAttr('disabled','').removeClass('disabled');
 
       }
     }
