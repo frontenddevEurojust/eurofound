@@ -14,6 +14,8 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
   }
 }
 
+global $user;
+
 //Check if it is a topic. We load the topic related content and we check if the relates content is published
 //Load the current topic
 $my_path = current_path();
@@ -75,11 +77,14 @@ if($rc_published == "published"
       $nid=$node->nid;
       $weight=array();
       
-      if (substr($_SERVER["REQUEST_URI"], -6, 6)=="/draft") {
-         $current_revision=$node->workbench_moderation["current"]->vid;
-      }else{
-         $current_revision=$node->vid;
-      }
+      if (!$user->uid) {
+       //user is not logged in
+       $current_revision = $node->vid; 
+       }
+       else{
+       //user is logged in
+       $current_revision = $node->workbench_moderation["current"]->vid;
+       }
 
         $query = db_select('related_content_and_taxonomies', 'rc');
         $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
@@ -291,7 +296,8 @@ if($rc_published == "published"
                     || $content_type=="blog" 
                     || $content_type=="board_member_page" 
                     || $content_type=="blog" 
-                    || $content_type=="ef_call_for_tender" 
+                    || $content_type=="ef_call_for_tender"
+                    || $content_type=="ef_working_life_country_profiles" 
                     || $content_type=="data_explorer_page" 
                     || $content_type=="dvs_survey" 
                     || $content_type=="ef_report" 
@@ -305,9 +311,8 @@ if($rc_published == "published"
                     || $content_type=="presentation" 
                     || $content_type=="ef_publication" 
                     || $content_type=="ef_survey" 
-                    || $content_type=="board_member_page"  
-                    || $content_type=="board_member_page" 
-                    || $content_type=="ef_network_extranet_page") {
+                    || $content_type=="ef_network_extranet_page" 
+                    || $content_type=="ef_survey"){
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
