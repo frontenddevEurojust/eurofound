@@ -14,18 +14,13 @@ foreach ($node->field_ef_related_content['und'] as $key => $value) {
   }
 }
 
-global $language;
-global $user;
-
-$language->language != 'en' ? $argument = 2 : $argument = 1;
-
 //Check if it is a topic. We load the topic related content and we check if the relates content is published
 //Load the current topic
 $my_path = current_path();
-$my_path = arg($argument - 1);
+$my_path = arg(0);
 
 if($my_path == 'topic'){
-  $path = 'topics/' . arg($argument);
+  $path = 'topics/' . arg(1);
   $source_path = drupal_get_normal_path($path, $path_language = NULL);
 
   //Get the topic tid
@@ -59,34 +54,31 @@ if($rc_published == "published"
     $node = menu_get_object();
     if (is_null($node)) {
       if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
-        $term = arg($argument);
+        $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
         $termname = str_replace("-", " ", $term);
-         
-        $node = taxonomy_get_term_by_name($termname);
+        
+        $node=taxonomy_get_term_by_name($termname);
 
         foreach ($node as $key => $value) {
-          if ($value->vocabulary_machine_name == 'ef_topics') {
-            $nid=$key;
-          }
+          $nid=$key;
         }
 
         $weight=array();
+
         $query = db_select('related_content_and_taxonomies', 'rc');
             $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
             $query->condition('rc.nid', $nid, "=");
             $query->orderBy('rc.rc_weight', 'ASC');
             $result=$query->execute();
       }
-    }
-    else {
+    }else{
       $nid=$node->nid;
       $weight=array();
-      if (!$user->uid) {
-        //user is not logged in
-        $current_revision = $node->vid; 
+      
+      if (substr($_SERVER["REQUEST_URI"], -6, 6)=="/draft") {
+         $current_revision=$node->workbench_moderation["current"]->vid;
       }else{
-        //user is logged in
-        $current_revision = $node->workbench_moderation["current"]->vid;
+         $current_revision=$node->vid;
       }
 
         $query = db_select('related_content_and_taxonomies', 'rc');
@@ -95,10 +87,22 @@ if($rc_published == "published"
         $query->condition('rc.revision_id', $current_revision, "=");
         $query->orderBy('rc.rc_weight', 'ASC');
         $result=$query->execute();  
-        
     }
 
+    //random numbers to dont match
+      $nt=1000;
+      $nc=5000;
     while($record = $result->fetchAssoc()) {
+      //ORDER: --FIRST BY WEIGHT --SECOND BY 
+      /*//Order first taxonmies
+      if ($record["rc_type"]=="tax") {
+        $nt++;
+        $order_type=$nt;
+      }else{
+        $nc++;
+        $order_type=$nc;
+      }
+      $weight[$record["rc_weight"]][$order_type] = $record["rc_id"];*/
       if ($record["rc_type"]=="tax") {
         $weight[0][$record["rc_id"]] = $record["rc_id"];
       }else{
@@ -126,6 +130,7 @@ if($rc_published == "published"
             $query->condition('rc.nid', $nid, "=");
             $query->condition('rc.rc_id', $value, "=");
             $result_ex=$query->execute();
+
             while($record = $result_ex->fetchAssoc()) {
               if ($record["rc_type"]=="tax") {
                 $is_nodo=false;
@@ -285,8 +290,8 @@ if($rc_published == "published"
                 if ($content_type=="page"
                     || $content_type=="blog" 
                     || $content_type=="board_member_page" 
-                    || $content_type=="ef_call_for_tender"
-                    || $content_type=="ef_working_life_country_profiles" 
+                    || $content_type=="blog" 
+                    || $content_type=="ef_call_for_tender" 
                     || $content_type=="data_explorer_page" 
                     || $content_type=="dvs_survey" 
                     || $content_type=="ef_report" 
@@ -299,7 +304,10 @@ if($rc_published == "published"
                     || $content_type=="ef_news" 
                     || $content_type=="presentation" 
                     || $content_type=="ef_publication" 
-                    || $content_type=="ef_survey") {
+                    || $content_type=="ef_survey" 
+                    || $content_type=="board_member_page"  
+                    || $content_type=="board_member_page" 
+                    || $content_type=="ef_network_extranet_page") {
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
