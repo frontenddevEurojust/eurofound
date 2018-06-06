@@ -234,6 +234,22 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 
   }
 */
+	/** ---- VIEW: OSU Contract Reporting ----
+  ***
+  *** Display name: Page
+  *** Path: osu-contracts-reporting
+  ***
+  *** Issue: WGS-383 Processed for payment creates new revision
+  *** Remove N/A option from field form
+  ***/
+  if ($form['#theme'] == 'views_form_views_form') {
+		if (isset($form['field_ef_processed_for_payment']) 
+				&& $form['field_ef_processed_for_payment'][0]['#attributes']['class'] == 'editable-field') {
+			foreach ($form['field_ef_processed_for_payment'] as &$pfpform) {
+  			unset($pfpform['field_ef_processed_for_payment']['und']['#options']['_none']);
+  		}
+		}
+	}
 
   /** ---- VIEW: Restructuring in SMEs ----
   ***
