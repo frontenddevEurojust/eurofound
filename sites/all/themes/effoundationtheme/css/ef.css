@@ -4240,7 +4240,57 @@ display:none;
 #edit-field-ef-report-delivery-date-value-wrapper .views-widget .form-item label,
 #edit-field-ef-report-delivery-date-value-wrapper .views-widget .form-item .description{
 	display:none;
- }
+}
+
+#edit-field-ef-report-delivery-date-value-1-value > div > div.description,
+#edit-field-ef-approved-for-payment-value-value > div > div.description,
+#edit-field-approved-payment-erm-reg-value-value > div > div.description,
+#edit-field-ef-approved-for-payment-value-1-value > div > div.description
+{
+	display: none;
+}
+
+#edit-field-ef-report-delivery-date-value-1-value-datepicker-popup-0,
+#edit-field-ef-approved-for-payment-value-1-value-datepicker-popup-0
+{
+	margin-top: 22px;
+}
+
+#edit-field-ef-report-delivery-date-value-wrapper > div.description,
+#edit-field-ef-report-delivery-date-value-1-wrapper > div.description,
+#edit-field-ef-approved-for-payment-value-wrapper > div.description,
+#edit-field-approved-payment-erm-reg-value-wrapper > div.description,
+#edit-field-ef-approved-for-payment-value-1-wrapper > div.description
+{
+	position: relative;
+	float: left;
+	margin-top: -34px;
+	color: #4D4D4D;
+	cursor: pointer;
+	display: block;
+	font-size: 0.875em;
+	font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif!important;
+}
+
+#edit-field-ef-report-delivery-date-value-1-wrapper > div.description,
+#edit-field-approved-payment-erm-reg-value-wrapper > div.description,
+#edit-field-ef-approved-for-payment-value-1-wrapper > div.description
+{
+    margin-top: -42px;
+}
+
+#edit-field-ef-report-delivery-date-value-value-datepicker-popup-0,
+#edit-field-ef-approved-for-payment-value-value-datepicker-popup-0
+{
+	margin-left: 41px;
+}
+
+#edit-field-ef-report-delivery-date-value-1-value-datepicker-popup-0,
+#edit-field-ef-approved-for-payment-value-1-value-datepicker-popup-0
+{
+	margin-left: 24px;
+}
+
 .page-osu-contract-reporting .form-item-created-max > label{
  display:none!important;
  margin-right: 0.5em;
