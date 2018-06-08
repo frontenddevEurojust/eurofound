@@ -1,0 +1,122 @@
+<?php
+
+/**
+ * Implements hook_menu
+ */
+function ef_sai_label_menu() {
+	$items = array();
+  
+  $items["admin/config/sai-label"] = array(
+    'title' => 'SAI label management',
+    'description' => 'Set default values for SAI labels',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_sai_label_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ef_sai_label.admin.inc',
+  );
+
+	return $items;
+}
+
+/**
+ * Implements hook_form_node_form_alter
+ */
+function ef_sai_label_form_node_form_alter($form, &$form_state) {
+	//Just adding some js to manage the inputs
+	if (content_is_sai_labelled($form['#entity'])) {
+		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
+		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
+	}
+	return $form;
+}
+
+/**
+ * Implements hook_preprocess_page()
+ *
+ * Function to add some preprocess, SAI label must be added
+ * to the page template along with the title
+ */
+function ef_sai_label_preprocess_page(&$vars) {
+	if (content_is_sai_labelled($vars['node'])) {
+		global $language;
+		//We are overriding drupal behaviors with this so we must take care
+		//of the languages
+		$lang = $language->language;
+		//node object
+		$node = $vars['node'];
+		//Different revisions for auth'd and anonymous users
+		if (user_is_logged_in()) {
+			$nid = $node->nid;
+			$vid = get_node_current_vid($node->nid);
+			$node = node_load($nid, $vid);
+		}
+		//Get values from the checkboxes
+		$display = $node->field_ef_sai_label_display['und'][0]['value'];
+		$override = $node->field_ef_sai_label_override['und'][0]['value'];
+		//Sai label should be displayed?
+		if ($display) {
+			//Sai label should be overridden? Then we show the
+			//customised SAI label
+			if ($override && !empty($node->field_ef_sai_label[$lang][0]['value'])) { 
+				$vars['sai_label'] = $node->field_ef_sai_label[$lang][0]['value'];
+			}
+			//If not, we display the default value for the SAI label
+			//from the EF Activities vocabulary
+			else {
+				$activity = $node->field_ef_activities['und'][0]['tid'];
+				$activity_term = taxonomy_term_load($activity);
+				if (!isset($activity_term->field_ef_sai_label[$lang][0]['value']) && $lang != 'en') {
+					$vars['sai_label'] = $activity_term->field_ef_sai_label['en'][0]['value'];
+				}
+				else {
+					$vars['sai_label'] = $activity_term->field_ef_sai_label[$lang][0]['value'];
+				}
+			}
+		}
+	}
+}
+
+
+/**
+ * Function to check if SAI label can be applied to a given piece of content
+ */
+function content_is_sai_labelled($node) {
+	//SAI label affects to these content types globally
+	$affected_content_types = array('ef_publication', 'blog', 'presentation', 'ef_event', 'ef_news');
+	//But it affects to these content types partiually, this prevents
+	//this feature to have an administration page to manage which contents
+	//can be affected by it, because the possibilities are endless.
+	//In this case we must take care of the observatory, but in the future,
+	//topics, document types or anything could be added as options to filter
+	//the affected content types
+	$partially_affected_content_types = array('ef_report', 'ef_comparative_analytical_report', 'ef_national_contribution');
+	//If it is a globally affected content type, go on
+	if (in_array($node->type, $affected_content_types)) {
+		return TRUE;
+	}
+	//If it is a partially affected content type from the EurWORK
+	//observatoty, go on
+	elseif (in_array($node->type, $partially_affected_content_types)) {
+		//When we create a node of one of these content types
+		//this content could be SAI labelled or not, so we
+		//must enable this option
+		if (is_null($node->nid)) {
+			return TRUE;
+		}
+		else {
+			//There are nodes with multiple values for the observatory
+			foreach ($node->field_ef_observatory['und'] as $key => $tid) {
+				//Get the term from the node and load it
+				$observatory = taxonomy_term_load($tid['tid']);
+				//Check the observatory and if it matches, go on
+				if ($observatory->name == 'EurWORK') {
+					return TRUE;
+				}
+			}
+		}
+	}
+	//Finally, if the given content is not affected, no label should be added.
+	else {
+		return FALSE;
+	}
+}
