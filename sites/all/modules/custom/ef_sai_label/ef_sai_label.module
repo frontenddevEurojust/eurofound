@@ -74,7 +74,6 @@ function ef_sai_label_preprocess_page(&$vars) {
 			}
 		}
 	}
-	dpm($vars['sai_label']);
 }
 
 
