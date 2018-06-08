@@ -65,10 +65,16 @@ function ef_sai_label_preprocess_page(&$vars) {
 			else {
 				$activity = $node->field_ef_activities['und'][0]['tid'];
 				$activity_term = taxonomy_term_load($activity);
-				$vars['sai_label'] = $activity_term->field_ef_sai_label[$lang][0]['value'];
+				if (!isset($activity_term->field_ef_sai_label[$lang][0]['value']) && $lang != 'en') {
+					$vars['sai_label'] = $activity_term->field_ef_sai_label['en'][0]['value'];
+				}
+				else {
+					$vars['sai_label'] = $activity_term->field_ef_sai_label[$lang][0]['value'];
+				}
 			}
 		}
 	}
+	dpm($vars['sai_label']);
 }
 
 
