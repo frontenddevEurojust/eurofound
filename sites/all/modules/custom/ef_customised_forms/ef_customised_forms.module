@@ -583,13 +583,8 @@ function ef_customised_forms_get_real_weight($id_contenido, $nid) {
 }
 
 function ef_customised_forms_form_node_form_alter(&$form, &$form_state, $form_id){
-
 	// Hide field_ef_theme field as it's not used anymore. Need to maintain it due to URL dependency in some content types.
 	$form['field_ef_theme']['#access'] = FALSE;
-
-	
-  	$form['#attached']['js'][] = drupal_get_path('module', 'ef_customised_forms') .'/js/ef_customised_forms.js';
-
 }
 
 function ef_customised_forms_node_submit($node, $form, &$form_state){
