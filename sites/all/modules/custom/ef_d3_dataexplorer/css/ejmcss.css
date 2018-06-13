@@ -41,6 +41,9 @@ g.ticks text {
   padding: 15px 25px;
   text-align: center;
 }
+.jm-abstract{
+  margin-top: 3rem;
+}
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
   padding: 0;
@@ -76,6 +79,7 @@ g.ticks text {
   text-align: center;
   width: auto;
   margin:-1rem auto 1rem !important;
+
  }
  ul.legend-list-butterfly{
   list-style: none;
@@ -218,11 +222,19 @@ select.disabled{
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
 }
+.chart-wrapper .lollipop-line.highlight{
+    stroke: #eb8b0b  !important;
+}
+.chart-wrapper svg text.highlight   {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #eb8b0b  !important;
+}
 .chart-wrapper .highlighted{
   font-weight: bold;
 }
 .chart-wrapper .highlighted  text {
-  font-size: 14px;
+  font-size: 12px;
   fill: #eb8b0b  !important;
 }
 .chart-wrapper circle:hover{
@@ -245,6 +257,15 @@ select.disabled{
   -webkit-transition: all 1s;
   transition: all 1s;
 }
+.chart-wrapper circle.highlight {
+ // fill:#f16000 !important;
+  stroke:#4d4d4d !important;
+  stroke-width:1;
+  stroke-linecap: butt;
+  stroke-dasharray: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
 .chart-wrapper .no-data {
   fill: #d8dde4 !important;
   color: #d8dde4 !important;
@@ -262,22 +283,49 @@ select.disabled{
 }
 
 /** HAPPINESS PYRAMID **/
-.right16, .end-R .fa-circle{
+.right16, .start-R .fa-circle{
   fill: #4D9DD5;
   color:#4D9DD5;
 }
-.right11, .start-R .fa-circle{
+.right11, .end-R .fa-circle{
   fill: #B7D1EB;
   color:#B7D1EB;
 }
-.left16, .end-L .fa-circle{
+.left16, .start-L .fa-circle{
   fill: #92C856;
   color: #92C856;
 }
-.left11, .start-L .fa-circle{
+.left11, .end-L .fa-circle{
   fill:#CCDFB9;
   color:#CCDFB9;
 }
+.left11.highlight, 
+.left16.highlight {
+  stroke:#2e4911 !important;
+  stroke-width:1.5;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+.right11.highlight, 
+.right16.highlight {
+  stroke:#174668  !important;
+  stroke-width:1.5;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+
 #ejm-chart svg {
   width: 50%;
  // height: 350px !important;

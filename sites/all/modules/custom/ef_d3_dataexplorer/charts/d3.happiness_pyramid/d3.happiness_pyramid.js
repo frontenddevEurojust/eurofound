@@ -30,40 +30,39 @@
 	{
 		var filtered = data;
 
-		if (sort == 0){
+		if (sort == 0)
+		{
+			var byValueSum = filtered.slice(0);
 
-      var byValueSum = filtered.slice(0);
-
-      byValueSum.sort(function(d,b) {
-      	var sum1 = Math.abs(Number(d.dot2) + Number(d.dot4));
-      	var sum2 = Math.abs(Number(b.dot2) + Number(b.dot4));
-      	
-        return d3.descending(+sum1,+sum2);
-
-      });
-      filtered = byValueSum;
+			byValueSum.sort(function(d,b)
+			{
+				var sum1 = Math.abs(Number(d.dot2) + Number(d.dot4));
+				var sum2 = Math.abs(Number(b.dot2) + Number(b.dot4));      	
+				return d3.descending(+sum1,+sum2);
+			});
+			filtered = byValueSum;
 		}
 
 		if (sort == 1)
 		{
 			// sort == 1 ? order = d3.ascending : order = d3.descending;
 			order = d3.ascending;
-			var filteredKeyed = d3.nest().key(function(d) { 
-				if(d.countryName != 'EU28'){
-
+			var filteredKeyed = d3.nest().key(function(d)
+			{ 
+				if(d.countryName != 'EU28')
+				{
 					return d.countryName;
-
-				}else{
-
-					// firts element in the order
+				}
+				else
+				{
+					// first element in the order
 					return 'AAAA'+d.countryName;
-				}; 
+				};
 			}).sortKeys(order).entries(filtered);
-
-			filtered = filteredKeyed.map(function(a) { 
-					return a.values[0];			
+			filtered = filteredKeyed.map(function(a)
+			{ 
+				return a.values[0];			
 			});
-
 		}
 
 		if (sort == 2)
@@ -82,21 +81,17 @@
 			byMaxValue.sort(function(d,b)
 			{
 				return d3.descending(+d.dot4,+b.dot4);
-			}); 
-
+			});
 			filtered = byMaxValue;
-
 		}
-
 		return filtered;
 	}
 
-	var createOrderingFilter = function()
+	var createOrderingFilter = function(dataFile, settingsData)
 	{
-		var alphaSort = ["Happiness and Life Satisfaction 2016 descending", "Alphabetically ascending", "By Happiness 2016 descending", "By Life Satisfaction 2016 descending"];
+		var alphaSort = [translatedValue(dataFile, 'happiness_sortOptionDefault'), translatedValue(dataFile, 'happiness_sortOption1'), translatedValue(dataFile, 'happiness_sortOption2'), translatedValue(dataFile, 'happiness_sortOption3')];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
-
 		var options = select
 			.selectAll('option')
 			.data(alphaSort)
@@ -105,16 +100,48 @@
 			.text(function (d, i) { return d; })
 			.property('value',function(d, i){ return i; });
 
-			
 		d3.select("#sort-filter").on("change", reloadOnSort);
 	}
 
-	function buildGraphStructure (csv)
+	var translatedValue = function(translatedArray, arrayKey)
+	{
+		var entry = translatedArray.find(function(e)
+		{
+			return e.Key === arrayKey;
+		});
+		if (entry)
+		{
+			return entry.Value;
+		}
+	}
+
+	var readSettings = function(settingsFile)
+	{
+		var settingsData = settingsFile.map(function(row)
+		{
+			return row;
+		});
+		return settingsData;
+	}
+
+	var customSettings = function(settingsArray, chartName, modalityName)
+	{
+		var elementId = settingsArray.find(function(e)
+		{
+			return (e.chartID === chartName && e.modalityCode === modalityName);
+		});
+		if (elementId)
+		{
+			return [elementId.xMin, elementId.xMax];
+		}
+	}
+
+	function buildGraphStructure (dataFile, settingsData)
 	{
 		if ($(".label-sort").parents(".chart-filters").length === 0)
 		{
-			$('.chart-filters').append('<label for="sort-order" class="label-sort">Sort:</label>');
-			createOrderingFilter();
+			$('.chart-filters').append('<label for="sort-order" class="label-sort">' + translatedValue(dataFile, 'LabelSort') + '</label>');
+			createOrderingFilter(dataFile, settingsData);
 		}
 	};
 
@@ -126,58 +153,67 @@
 
 	function reloadOnSort()
 	{
-		if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
-		{
-			var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-		}
-		else
-		{
-			console.log("Language is undefined. Data can't be loaded");
-		}
-		d3.csv('/sites/default/files/ejm/data/' + languageCode + '/happiness-pyramid/happiness-pyramid_' + languageCode + '.csv', type, render);
+		languageCode = selectLanguage();
+		d3.queue()
+			.defer(d3.csv, '/sites/default/files/ejm/data/en/happiness-pyramid/happiness-pyramid_en.csv')
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+			//.await(type, render);
+			.await(render);
+		//d3.csv('/sites/default/files/ejm/data/' + languageCode + '/happiness-pyramid/happiness-pyramid_' + languageCode + '.csv', type, render);
 	}
 	
 	$(window).on("resize orientationchange",function(e)
 	{
-		if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
-		{
-			var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-		}
-		else
-		{
-			console.log("Language is undefined. Data can't be loaded");
-		}
-		d3.csv('/sites/default/files/ejm/data/' + languageCode + '/happiness-pyramid/happiness-pyramid_' + languageCode + '.csv', type, render);
+		reloadOnSort();
 	});
 
 
 	$(document).ready(function()
 	{
-		if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+		reloadOnSort();
+	});
+
+	function selectLanguage()
+	{
+		if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
 		{
-			var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
+			return Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+		}	
+		else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+		{
+			return languageCode = Drupal.settings.ef_d3_dataexplorer.language;
 		}
 		else
 		{
-			console.log("Language is undefined. Data can't be loaded");
+			console.log("Language is undefined. Using English as default.");
+			return 'en';
 		}
-		d3.csv('/sites/default/files/ejm/data/' + languageCode + '/happiness-pyramid/happiness-pyramid_' + languageCode + '.csv', type, render);
-	});
-
-	function type(d)
+	}
+	
+	/*function type(d)
 	{
+console.log(d);
 		d.leftBar = +d[leftBar11];
 		d.rightBar = +d[rightBar11];
 		return d;
-	}
+	}*/
 			
-	function render(error,data)
+	function render(error, data, dataFile, settingsData)
 	{
 		if (error)
 		{
 			throw error;
 		}
-		d3.select("svg").remove();
+		d3.select("svg").remove();		
+		settingsData = readSettings(settingsData);
+
+		var customLimitsLeft = customSettings(settingsData, 'happiness', '1');
+		var domainMinLeft = customLimitsLeft[0];
+		var domainMaxLeft = customLimitsLeft[1];
+		var customLimitsRight = customSettings(settingsData, 'happiness', '2');
+		var domainMinRight = customLimitsRight[0];
+		var domainMaxRight = customLimitsRight[1];
 		
 		var labelArea = 120;
 		var chart = '';//500;
@@ -190,30 +226,28 @@
 
 		var rightOffset = width + labelArea;
 
-
 		// var xLeft = d3.scaleLinear().range([0,width]).domain([0,width]);
 		var xLeft = d3.scaleLinear().range([0,width]);
 		var xRight = d3.scaleLinear().range([0,width]);
 		
 		var y = d3.scaleBand().range([20,height]);
 
-		buildGraphStructure(data);
 
-		var order = getParameterByName('sort');
+		buildGraphStructure(dataFile, settingsData);
+
+		var order = Number( getParameterByName('sort') );
 
 		if (order == null)
 		{
 			order = 0;
 		}
 
-    var select = d3.select('#sort-filter')
-    	.selectAll('option')
-    	.attr('selected',
-    		function(d){ 
-    			if( $(this).attr('value') == getParameterByName('sort')){
-						return 'selected';
-    			}
-    	});
+    d3.selectAll("#sort-filter option")
+      .attr("selected", function(d,i) { 
+      	if( i == getParameterByName('sort') ){
+      		return 'selected';
+      	} 
+    });
 
 		var data = filterData(data, order);
 		
@@ -238,34 +272,27 @@
 			return +d[leftBar11];
 		});
 
-
 		var xLeft = function(d)
 		{
 			// return (width-labelArea)*d/maxLeft;
-			return (width)*d/d3.max(maxArray);
-		}
+			//return (width)*d/d3.max(maxArray);
+			return (width)*d/domainMaxLeft;
+		};
 		
 		var xRight = function(d)
 		{
-			return (width)*d/d3.max(maxArray);
-		}
+			//return (width)*d/d3.max(maxArray);
+			return (width)*d/domainMaxRight;
+		};
 
-    // Initialize tooltip
-    tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
-
-
-		var chart = d3.select(".chart-wrapper")
-			.append("svg")
-			.attr('class', 'chart')
-			.attr('width', labelArea + 2*width)
-			.attr('height', height)
-			.call(tip);
+		// Initialize tooltip
+		tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
 
-			chart.style("opacity", 0)
-			.transition()
-			.duration(1500)
-			.style("opacity", 1);		
+		var chart = d3.select(".chart-wrapper").append("svg").attr('class', 'chart').attr('width', labelArea + 2*width)
+			.attr('height', height).call(tip);
+
+		chart.style("opacity", 0).transition().duration(1500).style("opacity", 1);		
 
 		/** MAX DATA VAR**/
 		var maxLeft11 = d3.max(data, function(d)
@@ -290,39 +317,28 @@
 
 		/** MAX DATA **/
 		var maxArray = [maxLeft11,maxLeft16,maxRight11,maxRight16];
-		var maxDataAxis =  Math.round(d3.max(maxArray)) + 1;
-		var stepAxisScale = Number(width * 1/maxDataAxis);
+		//var maxDataAxis =  Math.round(d3.max(maxArray)) + 1;
+		//var stepAxisScale = Number(width * 1/maxDataAxis);
+		var stepAxisScaleLeft = Number(width * 1/domainMaxLeft);
+		var stepAxisScaleRight = Number(width * 1/domainMaxRight);
 
 		/** AXIS LEFT **/
-		var axisScaleLeft = d3.scaleLinear()
-			.domain ([ maxDataAxis , 0 ])
-			.range ([ 0 , width + stepAxisScale ]);
+		//var axisScaleLeft = d3.scaleLinear().domain ([ maxDataAxis , 0 ]).range ([ 0 , width + stepAxisScale ]);
+		var axisScaleLeft = d3.scaleLinear().domain ([ domainMaxLeft , 0 ]).range ([ 0 , width]);
+		var xAxisLeft = d3.axisBottom().scale(axisScaleLeft);
 
-		var xAxisLeft = d3.axisBottom()
-		    .scale(axisScaleLeft);
-
-	 var xAxisGroupLeft = chart.append ('g')
-	 			.attr('class', 'group-ticks-left')
-	 			.attr("x", width - xLeft(maxLeft11))
-	 			.attr("transform", "translate(" + Number(0 - stepAxisScale) + "," + height + ")")
-	 			.call (xAxisLeft);
+		//var xAxisGroupLeft = chart.append ('g').attr('class', 'group-ticks-left').attr("x", width - xLeft(maxLeft11))
+		var xAxisGroupLeft = chart.append ('g').attr('class', 'group-ticks-left').attr("x", width - xLeft(domainMaxLeft))
+			.attr("transform", "translate(" + Number(0) + "," + height + ")").call (xAxisLeft);
 
 		/** AXIS RIGHT **/
-		var axisScaleRight = d3.scaleLinear()
-			.domain ([ 0 , maxDataAxis ])
-			.range ([ 0 , width + (width * 1/maxDataAxis) ]);
+		//var axisScaleRight = d3.scaleLinear().domain ([ 0 , maxDataAxis ]).range ([ 0 , width + (width * 1/maxDataAxis) ]);
+		var axisScaleRight = d3.scaleLinear().domain ([ 0, domainMaxRight ]).range ([ 0 , width]);
+		var xAxisRight = d3.axisBottom().scale(axisScaleRight);
 
-		var xAxisRight = d3.axisBottom()
-		    .scale(axisScaleRight);
-
-	 var xAxisGroupRight = chart.append ('g')
-	 			.attr('class', 'group-ticks-right')
-	 			.attr("x", width - xRight(maxRight11))
-	 			.attr("transform", "translate(" + Number(rightOffset) + "," + height + ")")
-	 			.call (xAxisRight);
-
-
-
+		//var xAxisGroupRight = chart.append ('g').attr('class', 'group-ticks-right').attr("x", width - xRight(maxRight11))
+		var xAxisGroupRight = chart.append ('g').attr('class', 'group-ticks-right').attr("x", width - xRight(domainMaxRight))
+			.attr("transform", "translate(" + Number(rightOffset) + "," + height + ")").call (xAxisRight);
 
 		y.domain(data.map(function (d)
 		{
@@ -342,27 +358,28 @@
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
 
- 		formatOnedecimal = d3.format(",.1f");
-
-
 		chart.selectAll("rect.left_L")
 			.data(data)
 			.enter().append("rect")
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar11]);
+			}).attr("y", yPosByIndexDown)
+			.attr("class", function(d){
+	        if(d.highlight1 == 1){
+	        	return "left11 highlight "+d.countryCode;
+	        }else{
+	          return "left11 "+d.countryCode;
+	        }  
 			})
-			.attr("y", yPosByIndexDown)
-			.attr("class", function(d){return "left11 "+d.countryCode;})
-      .on('mouseout', tip.hide)
-      .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " +  formatOnedecimal(d[leftBar11])  +"<p>");
-      })
-			.attr("width", function (d)
+			.on('mouseout', tip.hide)
+			.on('mouseover', function(d)
+			{
+				tip.show("<p class='country-name'>" +  translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + d[leftBar11] +"<p>");
+			}).attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
-			})
-			.attr("height", y.bandwidth()*0.35);
+			}).attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("rect.left_H")
 			.data(data)
@@ -370,55 +387,22 @@
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar16]);
+			}).attr("y", yPosByIndex)
+			.attr("class", function(d){
+	        if(d.highlight1 == 1){
+	        	return "left16 highlight "+d.countryCode;
+	        }else{
+	          return "left16 "+d.countryCode;
+	        }  
 			})
-			.attr("y", yPosByIndex)
-			.attr("class", function(d){return "left16 "+d.countryCode;})
-      .on('mouseout', tip.hide)
-      .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " +  formatOnedecimal(d[leftBar16])  +"<p>");
-      })
-			.attr("width", function (d)
+			.on('mouseout', tip.hide)
+			.on('mouseover', function(d)
+			{
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + d[leftBar16] +"<p>");
+			}).attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
-			})
-			.attr("height", y.bandwidth()*0.35);
-	
-/*	DATA OF EACH COUNTRY LEFT
-
-		chart.selectAll("text.leftscore_L")
-			.data(data)
-			.enter().append("text")
-			.attr("x", function (d) {
-				return width - xLeft(d[leftBar16])-40;
-			})
-			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth();
-			})
-			.attr("dx", "20")
-			//.attr("dy", ".36em")
-			//.attr("dy", "-1em")
-			.attr("y", yPosByIndexDownText)
-			.attr("text-anchor", "end")
-			.attr('class', 'leftscore')
-			.text(function(d){return d[leftBar16];});			
-
-		chart.selectAll("text.leftscore_H")
-			.data(data)
-			.enter().append("text")
-			.attr("x", function (d) {
-				return width - xLeft(d[leftBar11])-40;
-			})
-			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth() / 4;
-			})
-			.attr("dx", "20")
-			//.attr("dy", ".36em")
-			//.attr("dy", "0")
-			.attr("text-anchor", "end")
-			.attr('class', 'leftscore')
-			.text(function(d){return d[leftBar11];});
-*/
-
+			}).attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("text.name")
 			.data(data)
@@ -426,85 +410,65 @@
 			.attr("x", (labelArea / 2) + width)
 			.attr("y", function (d) {
 				return y(d.countryName) + y.bandwidth() / 2 -3;
-			})
-			.attr("dy", ".20em")
+			}).attr("dy", ".20em")
 			.attr("text-anchor", "middle")
-			.attr("class", function(d){return "name "+d.countryCode;})
-			.text(function(d){return d.countryName;});
-
+			.attr("class", function(d){
+        if(d.highlight1 == 1 || d.highlight2 == 1 ){
+          return "name highlight "+d.countryCode;
+        } else {
+        	return "name "+d.countryCode;
+        } 			
+			})
+			.text(function(d){return translatedValue(dataFile, "country" + d.countryCode);});
+			
 		chart.selectAll("rect.right_H")
 			.data(data)
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndex)
-			.attr("class", function(d){return "right16 "+d.countryCode;})
-      .on('mouseout', tip.hide)
-      .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2016</p><p class='dot'> " + formatOnedecimal( d[rightBar16] ) +"<p>");
-      })
-			.attr("width", function (d) {
+			.attr("class", function(d){
+	        if(d.highlight2 == 1){
+	        	return "right16 highlight "+d.countryCode;
+	        }else{
+	          return "right16 "+d.countryCode;
+	        }                
+	     })
+			.on('mouseout', tip.hide)
+			.on('mouseover', function(d)
+			{
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + d[rightBar16] +"<p>");
+			}).attr("width", function (d)
+			{
 				return xRight(d[rightBar16]);
-			})
-			.attr("height", y.bandwidth()*0.35);
+			}).attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("rect.right_L")
 			.data(data)
 			.enter().append("rect")
 			.attr("x", rightOffset)
 			.attr("y", yPosByIndexDown)
-			.attr("class", function(d){return "right11 "+d.countryCode;})
-      .on('mouseout', tip.hide)
-      .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + ", 2011</p><p class='dot'> " + formatOnedecimal( d[rightBar11] ) +"<p>");
-      })
-			.attr("width", function (d) {
+			.attr("class", function(d){
+	        if(d.highlight2 == 1){
+	        	return "right11 highlight "+d.countryCode;
+	        }else{
+	          return "right11 "+d.countryCode;
+	        }  
+			})
+			.on('mouseout', tip.hide)
+			.on('mouseover', function(d)
+			{
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + d[rightBar11] +"<p>");
+			}).attr("width", function (d) {
 				return xRight(d[rightBar11]);
-			})
-			.attr("height", y.bandwidth()*0.35);
+			}).attr("height", y.bandwidth()*0.35);
 
-/* DATA OF EACH COUNTRY LEFT
-		chart.selectAll("text.score_H")
-			.data(data)
-			.enter().append("text")
-			.attr("x", function (d) {
-				return xRight(d[rightBar11]) + rightOffset+40;
-			})
-			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth() / 4;
-			})
-			.attr("dx", -15)
-			//.attr("dy", ".36em")
-			//.attr("dy", "0em")
-			.attr("text-anchor", "end")
-			.attr('class', 'score')
-			.text(function(d){return d[rightBar11];});
-
-		chart.selectAll("text.score_L")
-			.data(data)
-			.enter().append("text")
-			.attr("x", function (d) {
-				return xRight(d[rightBar16]) + rightOffset+40;
-			})
-			.attr("y", function (d) {
-				return y(d.countryName) + y.bandwidth();
-			})
-			.attr("dx", -15)
-			//.attr("dy", ".36em")
-			//.attr("dy", "-1em")
-			//.attr("dy", yPosByIndexDown)
-			.attr("y", yPosByIndexDownText)
-			.attr("text-anchor", "end")
-			.attr('class', 'score')
-			.text(function(d){return d[rightBar16];});
-*/
-		
 
 		// Will be created using texts excel data
-		var legendLabels = [
-			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-l"},
-			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-l"},
-			{label: "Average rating on scale (1-10), 2011", class: "lollipop-start-r"},
-			{label: "Average rating on scale (1-10), 2016", class: "lollipop-end-r"},			
+		var legendLabels = [			
+			{label: translatedValue(dataFile, 'happiness_legend1'), class: "lollipop-start-l"}, 
+			{label: translatedValue(dataFile, 'happiness_legend2'), class: "lollipop-end-l"},
+			{label: translatedValue(dataFile, 'happiness_legend3'), class: "lollipop-start-r"}, 
+			{label: translatedValue(dataFile, 'happiness_legend4'), class: "lollipop-end-r"},
 		];
 
 		var padding = 0;
@@ -539,32 +503,32 @@
 		}).attr("cy", legendPosition.y).attr("r", 5).attr("class", function(d) { return d.class });
 
 
-			$('select').on('change', function () {
-        var valOption = $(this).val();
-        var nameVar = $(this).attr('name');
+		$('select').on('change', function ()
+		{
+			var valOption = $(this).val();
+			var nameVar = $(this).attr('name');
 
-        if (valOption) { 
-
-          if(!document.location.search) {
-            history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
-          }
-          else {    
-                        
-            if(document.location.search.indexOf(nameVar) > 0){  
-              // reemplazamos la variable de la URL con la nueva
-              var newVarString = document.location.search.replace(nameVar+'='+getParameterByName(nameVar),nameVar + '=' + valOption )
-              history.pushState(null, "",  window.location.pathname + newVarString );              
-            }
-            else {
-              history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
-
-            }
-          }              
-        }
-        return false;
-      }); 
-
-
+			if (valOption)
+			{
+				if(!document.location.search)
+				{
+					history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);              
+				}
+				else
+				{       
+					if(document.location.search.indexOf(nameVar) > 0)
+					{
+						// reemplazamos la variable de la URL con la nueva
+						var newVarString = document.location.search.replace(nameVar+'='+getParameterByName(nameVar),nameVar + '=' + valOption );
+						history.pushState(null, "",  window.location.pathname + newVarString );              
+					}
+					else
+					{
+						history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
+					}
+				}              
+			}
+			return false;
+		});
 	}
-	
 })(jQuery);

@@ -9,16 +9,40 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 
 
 <div  class="jm-charts-wrapper ">
-
 	<div class="row">
-		<div class="jm-abstract-wrapper small-12 large-9">
+		<div class="jm-abstract-wrapper small-12 large-9">			
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
-			<div class="jm-abstract">
-				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
+	  	<?php if( $node->field_ef_de_chart_id['und'][0]['safe_value'] != 'EJM'): ?>
+			  <p class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></p>
+			  <?php if( $content['field_ef_topic']['#items'] ): ?>
+					<div class="data-explorer-topics">							
+								<p class="topic-label"><?php print t('Topics'); ?>: </p>				
+								<ul class="topic-list inline-list">
+									<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
+										<li><?php 
+											$term = taxonomy_term_load( $topics['tid'] );
+											$name = $term->field_term_title[$language][0]['value'];
+											$url = url(taxonomy_term_uri($term)['path']);
+		           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
+										  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
+										?></li>							
+									<?php endforeach; ?>
+								</ul>
+					</div>
+				<?php endif; ?>
+			<?php endif; ?>
 
+			<?php if( $content['field_ef_topic']['#items'] ): ?>
+				<div class="jm-abstract-topics">
+			<?php else: ?>
+				<div class="jm-abstract">
+			<?php endif; ?>
+				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
 			</div>
+
 		</div>
 		<div class="jm-back-button large-3">
+
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
 				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>
 			</section>
@@ -81,6 +105,14 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 					<div class="group-filters chart-filters"></div>
 				</fieldset>
 			</form>
+			<?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+			<div class="related-content-aside-3 related-content-data-explorer">
+			    <?php
+			        $block = block_load('block','54');
+			        print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+			    ?>
+			</div>
+			 <?php endif; ?>
 		</div>
 		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
 			<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
