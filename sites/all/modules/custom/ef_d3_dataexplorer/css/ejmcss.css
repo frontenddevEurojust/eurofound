@@ -283,26 +283,26 @@ select.disabled{
 }
 
 /** HAPPINESS PYRAMID **/
-.right16, .start-R .fa-circle{
+.right16, .end-R .fa-circle{
   fill: #4D9DD5;
   color:#4D9DD5;
 }
-.right11, .end-R .fa-circle{
+.right11, .start-R .fa-circle{
   fill: #B7D1EB;
   color:#B7D1EB;
 }
-.left16, .start-L .fa-circle{
+.left16, .end-L .fa-circle{
   fill: #92C856;
   color: #92C856;
 }
-.left11, .end-L .fa-circle{
+.left11, .start-L .fa-circle{
   fill:#CCDFB9;
   color:#CCDFB9;
 }
 .left11.highlight, 
 .left16.highlight {
   stroke:#2e4911 !important;
-  stroke-width:1.5;
+  stroke-width:1;
   stroke-linecap: butt;
   -webkit-transition: all 1s;
   transition: all 1s;
@@ -315,7 +315,7 @@ select.disabled{
 .right11.highlight, 
 .right16.highlight {
   stroke:#174668  !important;
-  stroke-width:1.5;
+  stroke-width:1;
   stroke-linecap: butt;
   -webkit-transition: all 1s;
   transition: all 1s;
@@ -325,6 +325,11 @@ select.disabled{
   animation: dash 5s linear forwards;
 }
 
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 
 #ejm-chart svg {
   width: 50%;
