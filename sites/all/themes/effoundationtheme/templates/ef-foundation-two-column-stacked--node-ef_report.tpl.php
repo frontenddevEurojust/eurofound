@@ -178,7 +178,7 @@ $countview = count($result);
                                            print'<span class="semicolon">;</span>';
                                     }; ?>
                             <?php else: ?>
-                                    <span class="author-report"><?= trim( $author["taxonomy_term"]->name_field["und"][0]["value"]); ?></span>
+                                    <span class="author-report"><?= trim( $author["taxonomy_term"]->name); ?></span>
                                     <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
                                            print'<span class="semicolon">;</span>';
                                     }; ?>

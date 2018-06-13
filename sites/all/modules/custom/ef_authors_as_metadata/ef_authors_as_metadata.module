@@ -19,28 +19,8 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 		
 		$term = taxonomy_term_load($tid);
 		
-		$view->build_info['title'] = $term->name;
-		
-		/*
-		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
+		$view->build_info['title'] = $term->name_field['und'][0]['value'];
 
-		{
-
-			$filter = [
-
-				'field' => 'taxonomy_index.tid',
-
-				'value' => $view->exposed_raw_input['tid'],
-
-				'operator' => '=',
-
-			];
-
-			$view->query->where[1]['conditions'][] = $filter;
-	
-		}
-		*/
-		
 	}
 
 }
