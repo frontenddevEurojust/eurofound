@@ -753,10 +753,11 @@ function _related_content_published_forthcoming_validate($element, &$form_state)
 		if ($node->status == 0 && $node->type != 'ef_publication') {
 			form_error($element, t('The referenced entity (Node: @id) is invalid.', array('@id' => $nid)));
 		}
-		elseif ($node->type != 'ef_publication') {
+		elseif ($node->type == 'ef_publication') {
 			if ($node->workbench_moderation['current']->state != 'forthcoming' && $node->status == 0) {
 				form_error($element, t('The referenced entity (Node: @id) is invalid.', array('@id' => $nid)));
 			}
 		}
 	}
+	return;
 }
