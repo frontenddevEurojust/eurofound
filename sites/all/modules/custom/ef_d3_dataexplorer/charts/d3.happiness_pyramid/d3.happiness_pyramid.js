@@ -380,7 +380,8 @@ console.log(d);
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar11]);
-			}).attr("y", yPosByIndexDown)
+			})
+			.attr("y", yPosByIndexDown)
 			.attr("class", function(d){
 	        if(d.highlight1 == 1){
 	        	return "left11 highlight "+d.countryCode;
@@ -392,10 +393,13 @@ console.log(d);
 			.on('mouseover', function(d)
 			{
 				tip.show("<p class='country-name'>" +  translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + formatOnedecimal(d[leftBar11]) +"<p>");
-			}).attr("width", function (d)
+			})
+			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
-			}).attr("height", y.bandwidth()*0.35);
+
+			})
+			.attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("rect.left_H")
 			.data(data)
@@ -403,7 +407,8 @@ console.log(d);
 			.attr("x", function (d)
 			{
 				return width - xLeft(d[leftBar16]);
-			}).attr("y", yPosByIndex)
+			})
+			.attr("y", yPosByIndex)
 			.attr("class", function(d){
 	        if(d.highlight1 == 1){
 	        	return "left16 highlight "+d.countryCode;
@@ -415,10 +420,12 @@ console.log(d);
 			.on('mouseover', function(d)
 			{
 				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + formatOnedecimal(d[leftBar16]) +"<p>");
-			}).attr("width", function (d)
+			})
+			.attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
-			}).attr("height", y.bandwidth()*0.35);
+			})
+			.attr("height", y.bandwidth()*0.35);
 
 		chart.selectAll("text.name")
 			.data(data)
@@ -426,7 +433,8 @@ console.log(d);
 			.attr("x", (labelArea / 2) + width)
 			.attr("y", function (d) {
 				return y(d.countryName) + y.bandwidth() / 2 -3;
-			}).attr("dy", ".20em")
+			})
+			.attr("dy", ".20em")
 			.attr("text-anchor", "middle")
 			.attr("class", function(d){
         if(d.highlight1 == 1 || d.highlight2 == 1 ){
@@ -452,8 +460,9 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + formatOnedecimal(d[leftBar16]) +"<p>");
-			}).attr("width", function (d)
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + formatOnedecimal(d[rightBar16]) +"<p>");
+			})
+			.attr("width", function (d)
 			{
 				return xRight(d[rightBar16]);
 			}).attr("height", y.bandwidth()*0.35);
@@ -473,10 +482,12 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + formatOnedecimal(d[leftBar11]) +"<p>");
-			}).attr("width", function (d) {
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + formatOnedecimal(d[rightBar11]) +"<p>");
+			})
+			.attr("width", function (d) {
 				return xRight(d[rightBar11]);
-			}).attr("height", y.bandwidth()*0.35);
+			})
+			.attr("height", y.bandwidth()*0.35);
 
 
 		// Will be created using texts excel data
