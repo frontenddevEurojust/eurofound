@@ -324,21 +324,35 @@ console.log(d);
 
 		/** AXIS LEFT **/
 		//var axisScaleLeft = d3.scaleLinear().domain ([ maxDataAxis , 0 ]).range ([ 0 , width + stepAxisScale ]);
-		var axisScaleLeft = d3.scaleLinear().domain ([ domainMaxLeft , 0 ]).range ([ 0 , width]);
-		var xAxisLeft = d3.axisBottom().scale(axisScaleLeft);
+		var axisScaleLeft = d3.scaleLinear()
+			.domain ([ domainMaxLeft , 0 ])
+			.range ([ 0 , width]);
+
+		var xAxisLeft = d3.axisBottom()
+			.scale(axisScaleLeft);
 
 		//var xAxisGroupLeft = chart.append ('g').attr('class', 'group-ticks-left').attr("x", width - xLeft(maxLeft11))
-		var xAxisGroupLeft = chart.append ('g').attr('class', 'group-ticks-left').attr("x", width - xLeft(domainMaxLeft))
-			.attr("transform", "translate(" + Number(0) + "," + height + ")").call (xAxisLeft);
+		var xAxisGroupLeft = chart.append ('g')
+			.attr('class', 'group-ticks-left')
+			.attr("x", width - xLeft(domainMaxLeft))
+			.attr("transform", "translate(" + Number(0) + "," + height + ")")
+			.call (xAxisLeft);
 
 		/** AXIS RIGHT **/
 		//var axisScaleRight = d3.scaleLinear().domain ([ 0 , maxDataAxis ]).range ([ 0 , width + (width * 1/maxDataAxis) ]);
-		var axisScaleRight = d3.scaleLinear().domain ([ 0, domainMaxRight ]).range ([ 0 , width]);
-		var xAxisRight = d3.axisBottom().scale(axisScaleRight);
+		var axisScaleRight = d3.scaleLinear()
+			.domain ([ 0, domainMaxRight ])
+			.range ([ 0 , width]);
+
+		var xAxisRight = d3.axisBottom()
+			.scale(axisScaleRight);
 
 		//var xAxisGroupRight = chart.append ('g').attr('class', 'group-ticks-right').attr("x", width - xRight(maxRight11))
-		var xAxisGroupRight = chart.append ('g').attr('class', 'group-ticks-right').attr("x", width - xRight(domainMaxRight))
-			.attr("transform", "translate(" + Number(rightOffset) + "," + height + ")").call (xAxisRight);
+		var xAxisGroupRight = chart.append ('g')
+			.attr('class', 'group-ticks-right')
+			.attr("x", width - xRight(domainMaxRight))
+			.attr("transform", "translate(" + Number(rightOffset) + "," + height + ")")
+			.call (xAxisRight);
 
 		y.domain(data.map(function (d)
 		{
@@ -358,6 +372,8 @@ console.log(d);
 			return (y(d.countryName)) + y.bandwidth()*.6;
 		};
 
+		formatOnedecimal = d3.format(",.1f");
+
 		chart.selectAll("rect.left_L")
 			.data(data)
 			.enter().append("rect")
@@ -375,7 +391,7 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>" +  translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + d[leftBar11] +"<p>");
+				tip.show("<p class='country-name'>" +  translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + formatOnedecimal(d[leftBar11]) +"<p>");
 			}).attr("width", function (d)
 			{
 				return xLeft(d[leftBar11]);
@@ -398,7 +414,7 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + d[leftBar16] +"<p>");
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + formatOnedecimal(d[leftBar16]) +"<p>");
 			}).attr("width", function (d)
 			{
 				return xLeft(d[leftBar16]);
@@ -436,7 +452,7 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + d[rightBar16] +"<p>");
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2016</p><p class='dot'> " + formatOnedecimal(d[leftBar16]) +"<p>");
 			}).attr("width", function (d)
 			{
 				return xRight(d[rightBar16]);
@@ -457,7 +473,7 @@ console.log(d);
 			.on('mouseout', tip.hide)
 			.on('mouseover', function(d)
 			{
-				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + d[rightBar11] +"<p>");
+				tip.show("<p class='country-name'>"+ translatedValue(dataFile, "country" + d.countryCode) + ", 2011</p><p class='dot'> " + formatOnedecimal(d[leftBar11]) +"<p>");
 			}).attr("width", function (d) {
 				return xRight(d[rightBar11]);
 			}).attr("height", y.bandwidth()*0.35);

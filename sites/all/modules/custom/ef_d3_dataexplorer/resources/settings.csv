@@ -1,6 +1,6 @@
 chartID,modalityCode,xMin,xMax
 happiness,1,4,8.5
-happiness,2,2,10
+happiness,2,2,8.5
 optimism,N/A,1,100
 overall-improv,N/A,1,10
 social-excl,1,0,45
