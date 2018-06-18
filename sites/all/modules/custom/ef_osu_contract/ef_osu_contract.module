@@ -294,7 +294,6 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
 }
 
 function ef_osu_contract_views_query_alter(&$view, &$query) {
-  dpm($view->name);
   if(isset($view->name)) {
     if($view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting') {
       //-------------------IR ENTRY REVISIONS CONTROL------------------
