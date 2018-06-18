@@ -63,13 +63,17 @@ if($rc_published == "published"
       $weight=array();
       
       if (!$user->uid) {
-       //user is not logged in
-       $current_revision = $node->vid; 
-       }
-       else{
-       //user is logged in
-       $current_revision = $node->workbench_moderation["current"]->vid;
-       }
+        //user is not logged in
+        $current_revision = $node->vid; 
+      }
+      else{
+        //user is logged in
+        if(isset($node->workbench_moderation["current"]->vid)){
+          $current_revision = $node->workbench_moderation["current"]->vid;
+         }else{
+          $current_revision = $node->vid;    
+        }
+      }
 
         $query = db_select('related_content_and_taxonomies', 'rc');
         $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
