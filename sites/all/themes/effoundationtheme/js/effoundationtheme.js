@@ -1785,3 +1785,13 @@ $(document).ready(function(){
 
   });
 })(jQuery);
+
+
+//WGS-291 - remove RSS links for anonymous users.
+(function ($) {
+  $(document).ready(function(){
+    $(".not-logged-in .l-footer-columns .footer-second ul li:last-child").remove();
+    $(".not-logged-in div.footer.large-6.columns > section > ul.menu > li.last.leaf").remove();
+    $(".not-logged-in footer > section:nth-child(1) > div.footer.large-6.columns > section > ul.menu > li:nth-child(5)").css("border","0");
+  });
+})(jQuery);
