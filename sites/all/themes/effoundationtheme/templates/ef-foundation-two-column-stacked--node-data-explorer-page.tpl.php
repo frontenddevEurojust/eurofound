@@ -29,6 +29,13 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 									<?php endforeach; ?>
 								</ul>
 					</div>
+					
+					 <?php if( isset($node->field_ef_data_organisation['en'][0]['safe_value']) ): ?>
+					<div class="data-explorer-organisation">
+						<p><span class="organisation-label"><?php print t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?></p>
+					</div>
+					<?php endif; ?>
+
 				<?php endif; ?>
 			<?php endif; ?>
 

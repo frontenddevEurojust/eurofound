@@ -410,7 +410,7 @@ p.last-update {
 }
 .topic-list{
   display: inline-block;
-  margin: 10px 0 !important;
+  margin: 10px 0 0 !important;
   padding: 0;
   color: #2d68aa;
   font-size: 0.9em;
@@ -429,6 +429,20 @@ p.last-update {
 .topic-list li a{
   margin-left: 0 !important;
   padding:0 !important;  
+}
+.organisation-label{
+  padding: 0;
+  line-height: 1rem;
+  font-weight: bold;
+}
+.data-explorer-organisation{
+  padding: 0;
+  color: #5A5A5A;
+  font-size: 0.9em;
+  max-width: 80%;
+}
+.jm-abstract-topics{
+  margin-top: 10px;
 }
 .score, .leftscore{
   font-size: 11px;
