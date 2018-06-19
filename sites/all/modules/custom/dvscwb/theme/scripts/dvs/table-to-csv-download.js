@@ -84,25 +84,25 @@ function getCSVDelimiter(){
 	}
 
 	function saveStringToCSVFile(result) {
-    var blob = new Blob([ result ], {
-      type : "application/csv;charset=utf-8;"
-    });
+		data = decodeURI(result);
+		var BOM = "\uFEFF";
+		var csvContent = BOM + data;
+		var blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
 
-    //IE
+		//IE
     if (window.navigator.msSaveBlob) {
       navigator.msSaveBlob(blob, 'cwb_exported_data.xls');
 	  }
-	  //OTHERS
-	  else {
-      var link = document.createElement("a");
-      var csvUrl = URL.createObjectURL(blob);
-      link.href = csvUrl;
-      link.style = "visibility:hidden";
-      link.download = 'cwb_exported_data.xls';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-	}
 
+    var dlink = document.getElementById('csvExport');
+    dlink.download = 'cwb_exported_data.csv';
+    dlink.href = window.URL.createObjectURL(blob);
+    dlink.onclick = function(e) {
+    // revokeObjectURL needs a delay to work properly
+      var that = this;
+      setTimeout(function() {
+      	window.URL.revokeObjectURL(that.href);
+    	}, 1500);
+    };
+	}
 })(jQuery);
