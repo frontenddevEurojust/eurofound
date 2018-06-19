@@ -90,7 +90,7 @@ function getCSVDelimiter(){
 
     //IE
     if (window.navigator.msSaveBlob) {
-      navigator.msSaveBlob(blob, fileName);
+      navigator.msSaveBlob(blob, 'cwb_exported_data.xls');
 	  }
 	  //OTHERS
 	  else {
