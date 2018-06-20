@@ -105,13 +105,11 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			],
 		];
 
-		
 
 		// Add the new form item to the group authors fieldset
 		$form['#groups']['group_authors']->children[] = 'add_new_contributor_wrapper';
 
 		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
-
 		
 		$form['#attached']['css'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css';
 
@@ -121,6 +119,22 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 		
 		$form['#attached']['js'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js';
 
+		
+		if (isset( $form['field_ef_publ_contributors']['und']['#default_value'])) {
+		
+			$authors = array();
+			$nid = $form['nid']['#value'];
+			$vid = get_node_current_vid($nid);
+			$node = node_load($nid, $vid);
+
+			foreach ($node->field_ef_publ_contributors['und'] as $key => $value ) {
+				$term = taxonomy_term_load($node->field_ef_publ_contributors['und'][$key]['tid']);
+				$authors[] = '"' . $term->name_field['und'][0]['value'] . '", ';
+			}
+
+			$form['field_ef_publ_contributors']['und']['#default_value'] =  $authors;
+
+    }
 
 		return $form;
 	}

@@ -134,8 +134,20 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
                     </div>
                     <div class="field field-name-field-ef-author">
                         <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                       <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                            <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])): ?>
+                                    <a class="author-report" href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>">
+                                        <?= trim( $author["taxonomy_term"]->name_field["und"][0]["value"] ); ?>
+                                    </a> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php else: ?>
+                                    <span class="author-report"><?= trim( $author['taxonomy_term']->name_field['und'][0]['value']); ?></span>
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                     <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
