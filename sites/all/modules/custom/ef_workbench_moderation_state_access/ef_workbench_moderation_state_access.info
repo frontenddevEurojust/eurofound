@@ -3,7 +3,6 @@ description = A granular access control by each state of Workbench Moderation.
 core = 7.x
 package = EF modules
 dependencies[] = workbench_moderation
-dependencies[] = fe_workbench_moderation_state_access
 
 ; "Workbench_moderation_state_access" module modification
 version = "7.x-1.1"

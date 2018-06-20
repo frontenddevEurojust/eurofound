@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the Country group feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'country_group.features.inc';

@@ -1,8 +1,7 @@
 name = EF CAR group documents
 core = 7.x
 package = Features
-dependencies[] = ctools
-dependencies[] = field_group
-features[ctools][] = field_group:field_group:1
+ctools[] = field_group:field_group:1
 features[features_api][] = api:2
-features[field_group][] = group_documents|node|ef_comparative_analytical_report|default
+field_group[] = group_documents|node|ef_comparative_analytical_report|default
+mtime = 1432721754
