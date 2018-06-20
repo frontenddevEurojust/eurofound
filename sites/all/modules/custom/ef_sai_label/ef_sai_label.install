@@ -1,0 +1,49 @@
+<?php
+
+function ef_sai_label_install() {
+	//Initial equivalences as following:
+	//Working conditions and sustainable work                               → Working conditions
+	//Industrial relations sai                                              → Industrial relations
+	//Social dialogue                                                       → Industrial relations
+	//Reporting on working life developments                                → Industrial relations
+	//Labour market change sai                                              → Labour market change
+	//Innovation and job creation in companies                              → Labour market change
+	//Monitoring structural change and managing restructuring               → Labour market change
+	//Well-functioning and inclusive labour markets                         → Labour market change
+	//Quality of life and public services sai                               → Quality of life
+	//Quality of life and quality of society                                → Quality of life
+	//Public services                                                       → Public services
+	//Monitoring convergence in the European Union                          → Monitoring EU convergence
+	//The digital age: opportunities and challenges for work and employment → Digital age
+	//Corporate communication                                               → Corporate communication
+	//Ad-hoc requests                                                       → Ad-hoc requests
+	//FOME                                                                  → Future of manufacturing in Europe
+	$sai_labels_by_name = array(
+		'Working conditions and sustainable work' => 'Working conditions',
+		'Industrial relations sai' => 'Industrial relations',
+		'Social dialogue' => 'Industrial relations',
+		'Reporting on working life developments' => 'Industrial relations',
+		'Labour market change sai' => 'Labour market change',
+		'Innovation and job creation in companies' => 'Labour market change',
+		'Monitoring structural change and managing restructuring' => 'Labour market change',
+		'Well-functioning and inclusive labour markets' => 'Labour market change',
+		'Quality of life and public services sai' => 'Quality of life',
+		'Quality of life and quality of society' => 'Quality of life',
+		'Public services' => 'Public services',
+		'Monitoring convergence in the European Union' => 'Monitoring EU convergence',
+		'The digital age: opportunities and challenges for work and employment' => 'Digital age',
+		'Corporate communication' => 'Corporate communication',
+		'Ad-hoc requests' => 'Ad-hoc requests',
+		'FOME' => 'Future of manufacturing in Europe',
+	);
+
+	foreach ($sai_labels_by_name as $term_name => $sai_label) {
+		$term_array = taxonomy_get_term_by_name($term_name, 'ef_activities');
+		$key = key($term_array);
+		$term = $term_array[$key];
+		if (!isset($term->field_ef_sai_label['en'][0]['value'])) {
+			$term->field_ef_sai_label['en'][0]['value'] = $sai_label;
+		}
+		taxonomy_term_save($term);
+	}
+}
