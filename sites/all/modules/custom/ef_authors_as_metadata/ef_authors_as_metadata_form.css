@@ -141,18 +141,25 @@
 /** styles for admin profile **/
 
 
+
+
 .logged-in #edit-field-ef-publ-contributors input#edit-field-ef-publ-contributors-und, 
 .logged-in #edit-add-new-contributor-wrapper input{
-	margin-bottom: 0;
-	border: 1px dotted #A0A0A0;
-	border-radius: 4px;
-	-moz-box-shadow: none!important;
-	-webkit-box-shadow: none!important;
-	box-shadow: none!important;
-	padding: 0.75em;
-	height: auto;
+  margin-bottom: 0;
+  border: 1px dotted #A0A0A0;
+  border-radius: 4px;
+  -moz-box-shadow: none!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  padding: 0.75em;
+  height: auto;
   width: 97% !important;
 }
+
+.form-item input.error{
+  border: 2px solid red !important;
+}
+
 .logged-in #edit-add-new-contributor-wrapper input#edit-save{
   margin: 1rem 0;
   border: 0px;

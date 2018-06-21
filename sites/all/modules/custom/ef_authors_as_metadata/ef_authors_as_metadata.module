@@ -38,11 +38,10 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 
 
-	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
+	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors'])){	
 
-	{	
-		
-		
+		$form['field_ef_publ_contributors']['#element_validate'] = array("ef_customised_forms_field_contributors_validate");
+
 		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
 		$form['add_new_contributor_wrapper'] = [
@@ -140,6 +139,32 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 	}
 
 }
+
+function ef_customised_forms_field_contributors_validate($element, &$form_state){
+
+	//Check if author exist
+  $authors = array();
+	
+	foreach ($form_state['values']['field_ef_publ_contributors']['und'] as $key => $value) {
+		$author_not_exist = FALSE;
+		if ( $value['tid'] == 'autocreate' ){
+			$author_not_exist = TRUE;
+			$authors[] = $value['name'];
+		}
+	}
+
+	$total_authors = implode(", ", $authors);
+
+	if ( !empty($total_authors) ) {
+     if ( count($authors) > 1 ){
+     	form_error($element, t("The Authors: (" . $total_authors . ") does not exist"));
+     }else{
+     	form_error($element, t("The Author: (" . $total_authors . ") does not exist"));
+     } 
+	}
+
+}
+
 
 /*
 *  Implements hook_node_view_alter(&$build).
