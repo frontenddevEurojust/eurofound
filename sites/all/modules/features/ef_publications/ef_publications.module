@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the Publications feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_publications.features.inc';

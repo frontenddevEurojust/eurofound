@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the ef_case_study_publication_importer feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_case_study_publication_importer.features.inc';

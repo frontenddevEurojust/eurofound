@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the ERM Legal database feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'erm_legal_database.features.inc';

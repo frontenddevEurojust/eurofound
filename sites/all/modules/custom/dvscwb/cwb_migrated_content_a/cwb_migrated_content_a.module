@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the CWB migrated content A feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'cwb_migrated_content_a.features.inc';
