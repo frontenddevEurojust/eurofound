@@ -28,7 +28,7 @@ if(!empty($variables['ef_activities'])){
     <?php endif; ?>
 
     <?php if (isset($last_updated)): ?>
-        <span class="last-updated"><?= $last_updated; ?></span>
+        <p class="last-updated"><?= $last_updated; ?></p>
     <?php endif; ?>
 
     <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
