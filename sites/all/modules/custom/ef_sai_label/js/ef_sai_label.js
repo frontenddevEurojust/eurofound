@@ -5,7 +5,18 @@
       $("input#edit-field-ef-sai-label-en-0-value").prop("disabled", !$(this).is(':checked'));
     });
 
-    if ($('input#edit-field-ef-observatory-und-13188').length) {
+    var s2article = document.getElementsByClassName('node-ef_report-form');
+    var s2nc = document.getElementsByClassName('node-ef_national_contribution-form');
+    var s2car = document.getElementsByClassName('node-ef_comparative_analytical_report-form');
+
+    if (s2article.length || s2nc.length || s2car.length) {
+      s2 = true;
+    } 
+    else {
+      s2 = false;
+    }
+
+    if ($('input#edit-field-ef-observatory-und-13188').length && s2) {
       $('input#edit-field-ef-observatory-und-13188').once().change(function(){
         if ($("input#edit-field-ef-observatory-und-13188").is(':checked')) {
           $(".group-ef-sai-page-label").show();
@@ -26,7 +37,19 @@
     else {
       $("input#edit-field-ef-sai-label-en-0-value").prop("disabled", true);
     }
-    if ($('input#edit-field-ef-observatory-und-13188').length) {
+
+    var s2article = document.getElementsByClassName('node-ef_report-form');
+    var s2nc = document.getElementsByClassName('node-ef_national_contribution-form');
+    var s2car = document.getElementsByClassName('node-ef_comparative_analytical_report-form');
+
+    if (s2article.length || s2nc.length || s2car.length) {
+      s2 = true;
+    } 
+    else {
+      s2 = false;
+    }
+
+    if ($('input#edit-field-ef-observatory-und-13188').length && s2) {
       if ($("input#edit-field-ef-observatory-und-13188").is(':checked')) {
         $(".group-ef-sai-page-label").show();
       } 
