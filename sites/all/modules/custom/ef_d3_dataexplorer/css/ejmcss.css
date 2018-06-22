@@ -42,7 +42,7 @@ g.ticks text {
   text-align: center;
 }
 .jm-abstract{
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
@@ -391,44 +391,59 @@ text.charts-title {
 .name{
   font-size: 12px;
 }
+.data-explorer-topics{
+  text-align: left !important;
+}
 .topic-label{
   display: inline-block;
+  padding: 4px 0px 0px 0px;
   margin: 0;
-  padding: 0;
-  line-height: 1rem;
-  font-weight: bold;
-  vertical-align: top;
-  position: relative;
-  font-size: 0.9em;
-  top: 12px;
+  font-size: 0.8em;
 }
-p.last-update {
-  margin: 11px 0 0 0;
+.last-update {
+  margin: 0;
   display: inline-block;
-  float: right;
-  font-style: italic;
+ /* float: right;
+  font-style: italic;*/
+  font-size: 0.8em;
 }
+
 .topic-list{
   display: inline-block;
-  margin: 10px 0 !important;
+  margin: 3px 0 0 !important;
   padding: 0;
   color: #2d68aa;
-  font-size: 0.9em;
-  max-width: 80%;
+  font-size: 0.8em;
+ /* max-width: 80%;*/
 }
-.topic-list li{
+.topic-item{
   margin-left: 0 !important;
-  padding:0 !important;  
+  padding:0 !important;
+    font-size: 0.8em;  
 }
-.topic-list li a:after{
-  content: ' | ';
+.topic-item a:after{
+  content: ',';
+  padding-right: 0px;
 }
-.topic-list li:last-child a:after {
+.topic-item:last-child a:after {
   content:none;
 }
-.topic-list li a{
+.topic-item a{
   margin-left: 0 !important;
   padding:0 !important;  
+}
+.organisation-label{
+  padding: 0;
+  line-height: 1rem;
+}
+.data-explorer-organisation{
+  padding: 0;
+  color: #5A5A5A;
+  font-size: 0.8em;
+  line-height: 1.4rem;
+}
+.jm-abstract-topics{
+  margin-top: 10px;
 }
 .score, .leftscore{
   font-size: 11px;
@@ -442,8 +457,17 @@ rect.right16:hover{
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
-
+.withline{
+  border-right: 1px solid #F7931E;
+  padding: 4px 5px 1px 0px ;
+  margin: 0px 8px 0px 0px ;
+}
+.last-update.withline{
+  padding: 4px 9px 1px 0px;
+  margin: 0px 5px 0px 0px;
+}
  /* RELATED CONTENT OF DATA EXPLORER PAGE */
+}
 
 .related-content-data-explorer .block-views{
   background-color: transparent;
