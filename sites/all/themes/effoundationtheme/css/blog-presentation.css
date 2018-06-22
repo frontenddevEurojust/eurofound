@@ -105,6 +105,10 @@ section.large-12.columns.blog-presentation-content > div.topic-abstract{
     margin: 0 auto;
 }
 
+section.large-9.columns.blog-presentation-content > div.topic-abstract > div.content-pdf-viewer > div{
+    width: 93%;
+}
+
 .content-description{
     padding-top: 1em;
     text-align: center;

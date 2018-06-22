@@ -216,10 +216,9 @@
                  European Observatory of Working Life
             </a>
           </h1>
-
         <?php endif; ?>
-      <!-- end issue 3286 -->
 
+      <!-- end issue 3286 -->
         <?php if (!empty($page['highlighted'])): ?>
           <div class="highlight panel callout">
             <?php print render($page['highlighted']); ?>
@@ -230,8 +229,6 @@
 
         <?php if ($title && !$is_front): ?>
           <?php print render($title_prefix); ?>
-
-
           <?php
               $trail_holder = menu_set_active_trail();
 
@@ -241,8 +238,9 @@
               else{
                 $link_path="none";
               }
+          ?>
 
-              if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe (FOME)' ) :?>
+          <?php if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe (FOME)' ) :?>
                <h1 id="page-title" class="title parent_emcc">
                  <a href="<?php print $base_url?>/observatories/emcc">
                     <span class="abbrevation">EMCC</span>
@@ -252,17 +250,15 @@
 
                 <h1 id="page-title" class="title secundary">
                    <?php
-
                       if($node->type == 'erm_support_instrument' && isset($node->field_english_name_erm_si['und'][0]['safe_value'])){
                         print $node->field_english_name_erm_si['und'][0]['safe_value'];
                       }else{
                         print $title;
                       }
-
                    ?>
                 </h1>
-              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>
-                
+
+            <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>                
                 <h1 id="page-title" class="title parent_fome">
                  <a href="<?php print $base_url?>/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
@@ -272,21 +268,27 @@
                 
                 <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
 
-              <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
+            <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>  
+
                  <h1 id="page-title" class="title parent_eurwork">
                   <a href="<?php print $base_url?>/observatories/eurwork">
                    <span class="abbrevation">EurWORK</span>
                   European Observatory of Working Life
                   </a>
                 </h1>
+
+               <?php  if (isset($sai_label)): ?>
+                  <span class="sai-label">
+                    <?php print $sai_label ?>
+                  </span>
+                <?php endif; ?> 
                 <h1 id="page-title" class="title secundary">
                    <?php
                     print $title
                    ?>
                 </h1>
 
-              <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
-
+            <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
                  <h1 id="page-title" class="title parent_emcc">
                   <a href="<?php print $base_url?>/observatories/eurlife">
                   <span class="abbrevation">EurLIFE</span>
@@ -295,7 +297,7 @@
                   </h1>
                   <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
 
-              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
+            <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
 
                 <h1 id="page-title" class="title parent_eurwork">
                   <a href="<?php print $base_url?>/observatories/eurwork">
@@ -303,8 +305,13 @@
                     European Observatory of Working Life
                   </a>
                 </h1>
+               <?php  if (isset($sai_label)): ?>
+                  <span class="sai-label">
+                    <?php print $sai_label ?>
+                  </span>
+                <?php endif; ?> 
 
-              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc'))) : ?>
+            <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc'))) : ?>
                  <h1 id="page-title" class="title parent_emcc">
                   <a href="<?php print $base_url?>/observatories/emcc">
                   <span class="abbrevation">EMCC</span>
@@ -312,28 +319,18 @@
                   </a>
                   </h1>
 
-              
-              <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
-
-                 <h1 id="page-title" class="title parent_emcc">
-                  <a href="<?php print $base_url?>/observatories/eurlife">
-                  <span class="abbrevation">EurLIFE</span>
-                  European Observatory on Quality of Life
-                  </a>
+            <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
+                  <h1 id="page-title" class="title parent_emcc">
+                    <a href="<?php print $base_url?>/observatories/eurlife">
+                    <span class="abbrevation">EurLIFE</span>
+                    European Observatory on Quality of Life
+                    </a>
                   </h1>
 
-
-              <!-- issues 3189 -->
-              <?php elseif($link_path == 'none' && isset($node->field_ef_observatory['und'][0]['tid']) &&
+            <!-- issues 3189 -->
+            <?php elseif($link_path == 'none' && isset($node->field_ef_observatory['und'][0]['tid']) &&
                 $node->field_ef_observatory['und'][0]['tid'] == 13188): ?>
-<!--
-                <h1 id="page-title" class="title parent_eurwork">
-                  <a href="<?php print $base_url?>/observatories/eurwork">
-                   <span class="abbrevation">EurWORK</span>
-                  European Observatory of Working Life
-                  </a>
-                </h1>
--->
+                  <!-- EURWORK -->
                  <!-- Region navigation -->
                 <?php if(!empty($page['navigation'])): ?>
                   <div id="navigation-region">
@@ -342,26 +339,31 @@
                 <?php endif; ?>
                 <!-- end Region navigation -->
 
+                 <?php  if (isset($sai_label)): ?>
+                    <span class="sai-label">
+                      <?php print $sai_label ?>
+                    </span>
+                  <?php endif; ?>          
+
                 <h1 id="page-title" class="title secundary">
                   <?php print $title ?>
                  </h1>
 
-              <?php elseif($link_path == 'none' && isset($node->field_ef_observatory['und'][0]['tid']) &&
+            <?php elseif($link_path == 'none' && isset($node->field_ef_observatory['und'][0]['tid']) &&
                 $node->field_ef_observatory['und'][0]['tid'] == 12176): ?>
-<!--
-                 <h1 id="page-title" class="title parent_emcc">
-                  <a href="<?php print $base_url?>/observatories/emcc">
-                    <span class="abbrevation">EMCC</span>
-                    European Monitoring Centre on Change
-                  </a>
-                </h1>
--->
+                 <!-- EMCC -->
+
+                 <?php  if (isset($sai_label)): ?>
+                    <span class="sai-label">
+                      <?php print $sai_label ?>
+                    </span>
+                  <?php endif; ?>   
+
                 <h1 id="page-title" class="title secundary">
                   <?php print $title ?>
                  </h1>
 
-              <?php elseif($link_path == 'observatories/eurwork/eurwork-landing-pages/pay'): ?>
-
+            <?php elseif($link_path == 'observatories/eurwork/eurwork-landing-pages/pay'): ?>
                 <h1 id="page-title" class="title parent_eurwork">
                   <a href="<?php print $base_url?>/observatories/eurwork">
                    <span class="abbrevation">EurWORK</span>
@@ -372,22 +374,27 @@
                   <?php print $title ?>
                  </h1>
 
-              <?php elseif($node->type == 'board_member_page'): ?>
-                <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>            
+            <?php elseif($node->type == 'board_member_page'): ?>
+                <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>       
 
-             <?php else : ?>
-                
-                 
+
+            <?php else : ?>
+
                  <?php  if($node->type != "data_explorer_page"): ?>
+                  
+                    <?php  if (isset($sai_label)): ?>
+                      <span class="sai-label">
+                        <?php print $sai_label ?>
+                      </span>
+                    <?php endif; ?>
                     <h1 id="page-title" class="title secundary">
                       <?php print $title ?>
                     </h1>
                  <?php endif; ?>                 
                  
-              <?php endif; ?>
+            <?php endif; ?>
 
               <!-- END issues 3189 -->
-
 
           <?php print render($title_suffix); ?>
         <?php endif; ?>

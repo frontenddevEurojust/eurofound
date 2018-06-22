@@ -19,28 +19,8 @@ function ef_authors_as_metadata_views_query_alter(&$view, &$query){
 		
 		$term = taxonomy_term_load($tid);
 		
-		$view->build_info['title'] = $term->name;
-		
-		/*
-		if (count($view->exposed_raw_input['tid']) && $view->exposed_raw_input['published_at'] != '')
+		$view->build_info['title'] = $term->name_field['und'][0]['value'];
 
-		{
-
-			$filter = [
-
-				'field' => 'taxonomy_index.tid',
-
-				'value' => $view->exposed_raw_input['tid'],
-
-				'operator' => '=',
-
-			];
-
-			$view->query->where[1]['conditions'][] = $filter;
-	
-		}
-		*/
-		
 	}
 
 }
@@ -58,11 +38,10 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 
 
-	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors']))
+	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors'])){	
 
-	{	
-		
-		
+		$form['field_ef_publ_contributors']['#element_validate'] = array("ef_customised_forms_field_contributors_validate");
+
 		$form['field_ef_publ_contributors']['und']['#description'] = "Introduce authors separated by commas.If it's not available, it can be added with the panel to the right.";
 
 		$form['add_new_contributor_wrapper'] = [
@@ -79,7 +58,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 			'#title' => t('Add new authors'),
 
-			'#description' => t('New authors should follow the convention:"Last Name, First Name". Use a semicolon to separate multiple values.'),
+			'#description' => t('New authors should follow the convention:&lt;br&gt;Last Name1, First Name1; Last Name2, First Name2; Last Name3, First Name3'),
 
 			'#weight' => $form['field_ef_publ_contributors']['#weight'] + 1,
 
@@ -125,13 +104,11 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 			],
 		];
 
-		
 
 		// Add the new form item to the group authors fieldset
 		$form['#groups']['group_authors']->children[] = 'add_new_contributor_wrapper';
 
 		$form['#group_children']['add_new_contributor_wrapper'] = 'group_authors';
-
 		
 		$form['#attached']['css'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_form.css';
 
@@ -141,11 +118,53 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 		
 		$form['#attached']['js'][] = drupal_get_path('module','ef_authors_as_metadata') . '/ef_authors_as_metadata_tags.js';
 
+		
+		if (isset( $form['field_ef_publ_contributors']['und']['#default_value'])) {
+		
+			$authors = array();
+			$nid = $form['nid']['#value'];
+			$vid = get_node_current_vid($nid);
+			$node = node_load($nid, $vid);
+
+			foreach ($node->field_ef_publ_contributors['und'] as $key => $value ) {
+				$term = taxonomy_term_load($node->field_ef_publ_contributors['und'][$key]['tid']);
+				$authors[] = '"' . $term->name_field['und'][0]['value'] . '", ';
+			}
+
+			$form['field_ef_publ_contributors']['und']['#default_value'] =  $authors;
+
+    }
 
 		return $form;
 	}
 
 }
+
+function ef_customised_forms_field_contributors_validate($element, &$form_state){
+
+	//Check if author exist
+  $authors = array();
+	
+	foreach ($form_state['values']['field_ef_publ_contributors']['und'] as $key => $value) {
+		$author_not_exist = FALSE;
+		if ( $value['tid'] == 'autocreate' ){
+			$author_not_exist = TRUE;
+			$authors[] = $value['name'];
+		}
+	}
+
+	$total_authors = implode(", ", $authors);
+
+	if ( !empty($total_authors) ) {
+     if ( count($authors) > 1 ){
+     	form_error($element, t("The Authors: (" . $total_authors . ") does not exist"));
+     }else{
+     	form_error($element, t("The Author: (" . $total_authors . ") does not exist"));
+     } 
+	}
+
+}
+
 
 /*
 *  Implements hook_node_view_alter(&$build).

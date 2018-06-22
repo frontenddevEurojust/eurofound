@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the EF Search Index feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_search_index.features.inc';

@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the EF CAR group documents feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_car_group_documents.features.inc';

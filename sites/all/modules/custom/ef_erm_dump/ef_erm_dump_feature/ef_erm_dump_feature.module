@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the EF ERM dump feature feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_erm_dump_feature.features.inc';
