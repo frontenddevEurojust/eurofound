@@ -25,12 +25,8 @@ function ef_sai_label_form_node_form_alter($form, &$form_state) {
 	//Just adding some js to manage the inputs
 	if (content_is_sai_labelled($form['#entity'])) {
 		if (empty($form['field_ef_sai_label']['en'][0]['value']['#default_value'])) {
-			dpm('default');
 			$form['field_ef_sai_label']['en'][0]['value']['#default_value'] = get_default_sai_label($form['field_ef_activities']['und']['#default_value'][0]);
 		}
-
-		dpm($form['field_ef_sai_label']);
-		dpm($form['#fieldgroups']['group_ef_sai_page_label']);
 
 		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
 		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
