@@ -14888,9 +14888,10 @@ ul.links.inline-list.authors-list li:last-child:after{
  	 padding-bottom:3px;
 }
 .sai-label-calendar {
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   display: block;
-  font-family: 'OpenSans-regular-webfont', Arial, Helvetica, sans-serif;
+  font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif;
+  color: #005BAA;
 }
 .sai-label ~ h1 {
   color: #10499e !important;
