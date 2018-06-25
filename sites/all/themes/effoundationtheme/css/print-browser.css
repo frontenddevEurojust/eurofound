@@ -1084,7 +1084,9 @@ ul.metadata-publications > li > ul li {
   .page-topic .large-3.columns{
     width: 100%!important;
   }
-
+  .communication-calendar .icon-blog-img {
+    width: 21px;
+  }
 
 @media print {
   html, body{margin:4%!important; }
@@ -1097,6 +1099,9 @@ ul.metadata-publications > li > ul li {
   .quarterly-overviews, .latest-news-working-life{
     width: 100% !important;
     float: none !important;
+  }
+  .communication-calendar .icon-blog-img {
+    width: 21px;
   }
 }
 /** end working life countri profile **/
