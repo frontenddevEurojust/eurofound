@@ -20,13 +20,17 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 						<?php endif; ?>
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>
-							<span class="data-explorer-organisation withline">
-								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
+							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
+							<span class="data-explorer-organisation withline">								
+								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>								
 							</span>
+							<?php endif; ?>	
 						<?php else: ?>
+							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
 							<span class="data-explorer-organisation">
 								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
 							</span>
+							<?php endif; ?>	
 						<?php endif; ?>	
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>						
