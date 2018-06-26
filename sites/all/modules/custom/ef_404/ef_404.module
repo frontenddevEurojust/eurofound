@@ -361,3 +361,11 @@ function ef_404_settings() {
   return system_settings_form($form);
 }
 
+function ef_404_page_build(&$page) {
+  global $user;
+  $tid = arg(2);
+  $term = menu_get_object('taxonomy_term', 2);
+  if (isset($term->tid) && $term->vocabulary_machine_name == 'ef_activities' && $term->tid == $tid && !$user->uid) {
+    drupal_not_found();
+  }
+}
