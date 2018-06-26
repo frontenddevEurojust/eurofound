@@ -11,26 +11,38 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 <div  class="jm-charts-wrapper ">
 	<div class="row">
 		<div class="jm-abstract-wrapper small-12 large-9">			
-		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>
-	  	<?php if( $node->field_ef_de_chart_id['und'][0]['safe_value'] != 'EJM'): ?>
-			  <p class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></p>
-			  <?php if( $content['field_ef_topic']['#items'] ): ?>
-					<div class="data-explorer-topics">							
-								<p class="topic-label"><?php print t('Topics'); ?>: </p>				
-								<ul class="topic-list inline-list">
-									<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
-										<li><?php 
-											$term = taxonomy_term_load( $topics['tid'] );
-											$name = $term->field_term_title[$language][0]['value'];
-											$url = url(taxonomy_term_uri($term)['path']);
-		           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
-										  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
-										?></li>							
-									<?php endforeach; ?>
-								</ul>
-					</div>
-				<?php endif; ?>
-			<?php endif; ?>
+		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>			  
+			<div class="data-explorer-topics">
+						<?php if( $content['field_ef_topic']['#items'] || isset($node->field_ef_data_organisation['en'][0]['safe_value']) ): ?>
+							<span class="last-update withline"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
+						<?php else: ?>
+							<span class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
+						<?php endif; ?>
+
+						<?php if( $content['field_ef_topic']['#items'] ): ?>
+							<span class="data-explorer-organisation withline">
+								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
+							</span>
+						<?php else: ?>
+							<span class="data-explorer-organisation">
+								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
+							</span>
+						<?php endif; ?>	
+
+						<?php if( $content['field_ef_topic']['#items'] ): ?>						
+							<span class="topic-label"><?php print t('Topics'); ?>:</span>
+							<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
+									<span class="topic-item"><?php 
+										$term = taxonomy_term_load( $topics['tid'] );
+										$name = $term->field_term_title[$language][0]['value'];
+										$url = url(taxonomy_term_uri($term)['path']);
+	           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
+									  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
+									?></span>							
+								<?php endforeach; ?>
+						<?php endif; ?>
+			</div>
+	
 
 			<?php if( $content['field_ef_topic']['#items'] ): ?>
 				<div class="jm-abstract-topics">
