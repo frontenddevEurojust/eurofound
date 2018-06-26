@@ -20,13 +20,17 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 						<?php endif; ?>
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>
-							<span class="data-explorer-organisation withline">
-								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
+							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
+							<span class="data-explorer-organisation withline">								
+								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>								
 							</span>
+							<?php endif; ?>	
 						<?php else: ?>
+							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
 							<span class="data-explorer-organisation">
 								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
 							</span>
+							<?php endif; ?>	
 						<?php endif; ?>	
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>						
@@ -66,7 +70,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 	<div class="jm-filters-chart">
 		<div class="filters-jm-chart small-12 large-3">
 			<form>
-			  <fieldset>
+			  <fieldset class="main-filters">
 			    <legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			    	<div class="group-filters jm-filter-countries">
 				    	<label>Countries <span class="advice-select-countries">(Select up to 4 countries)</span></label>
@@ -84,11 +88,11 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 				    	</select>
 			    	</div>
 			  </fieldset>
-			  <fieldset>
+			  <fieldset class="secondary-filters">
 			  		<legend><i class="fa fa-filter" aria-hidden="true"></i> More filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
 			  		<div class="group-filters jm-filter-criterion">
 				    	<label>Job quality criterion</label>
-				    	<select id="job_quality_criterion" name="job_quality_criterion">
+				    	<select id="criterion" name="criterion">
 				    	</select>
 			    	</div>
 			  </fieldset>
