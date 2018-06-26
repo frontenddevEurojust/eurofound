@@ -22,7 +22,7 @@
  * Publication date must remain as is
  * 
  */
-function ef_publications_ct_update_7201() {
+function ef_publications_ct_update_7202() {
 	//Get the "Topical update" tid from the term entity
 	$term = taxonomy_get_term_by_name('Topical update', 'ef_deliverable_kinds');
   $topical_update_tid = key($term);
