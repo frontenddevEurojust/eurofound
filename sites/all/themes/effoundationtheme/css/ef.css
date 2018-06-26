@@ -14888,9 +14888,10 @@ ul.links.inline-list.authors-list li:last-child:after{
  	 padding-bottom:3px;
 }
 .sai-label-calendar {
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   display: block;
-  font-family: 'OpenSans-regular-webfont', Arial, Helvetica, sans-serif;
+  font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif;
+  color: #005BAA;
 }
 .sai-label ~ h1 {
   color: #10499e !important;
@@ -14898,4 +14899,15 @@ ul.links.inline-list.authors-list li:last-child:after{
 h1.parent_eurwork.title ~ .sai-label {
   display: block;
   margin-top: -20px;
+}
+
+.node-type-ef-publication h1.title.secundary, 
+.node-type-ef-report h1.title.secundary, 
+.node-type-presentation  h1.title.secundary, 
+.node-type-blog h1.title.secundary, 
+.node-type-ef-event h1.title.secundary, 
+.node-type-ef-news h1.title.secundary, 
+.node-type-ef-comparative-analytical-report .parent_eurwork ~ h1.title.secundary, 
+.node-type-ef-national-contribution .parent_eurwork ~ h1.title.secundary {
+		color: #10499e !important;
 }
