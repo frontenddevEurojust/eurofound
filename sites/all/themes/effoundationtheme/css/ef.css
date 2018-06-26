@@ -14901,6 +14901,10 @@ h1.parent_eurwork.title ~ .sai-label {
   margin-top: -20px;
 }
 
+h1.parent_fome.title.fome-sai-label{
+  margin: -18px -0 20px 0;
+}
+
 .node-type-ef-publication h1.title.secundary, 
 .node-type-ef-report h1.title.secundary, 
 .node-type-presentation  h1.title.secundary, 
