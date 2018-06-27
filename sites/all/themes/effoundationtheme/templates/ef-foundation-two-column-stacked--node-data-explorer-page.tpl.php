@@ -62,6 +62,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
 				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>
 			</section>
+
 		</div>
 	</div>
 
@@ -113,36 +114,56 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 
 	<?php else: ?>
 
-	<div class="jm-filters-chart clearfix">
-		<div class="filters-jm-chart small-12 large-3">
-			<form>
-	  		<fieldset>
-	    		<legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
-					<div class="group-filters chart-filters"></div>
-				</fieldset>
-			</form>
-			<?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
-			<div class="related-content-aside-3 related-content-data-explorer">
+
+			<div class="jm-filters-chart clearfix">
+				<div class="filters-jm-chart small-12 large-3">
+					<form>
+			  		<fieldset>
+			    		<legend class="opened"><i class="fa fa-filter" aria-hidden="true"></i> Filters: <i class="fa fa-angle-down" aria-hidden="true"></i></legend>
+							<div class="group-filters chart-filters"></div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
+					<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
+					<div class="legend-butterfly"></div>
+				</div>
+			</div>
+
+
+	<?php endif; ?>
+
+
+		<?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+			<div class="related-content-aside-3 related-content-data-explorer small-12 large-3 column <?php if( strlen($content['field_ef_de_subtitle']['#items'][0]['safe_value']) == 0 ):?>without-title <?php endif; ?>">
 			    <?php
 			        $block = block_load('block','54');
 			        print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
 			    ?>
 			</div>
-			 <?php endif; ?>
+		<?php endif; ?>
+
+
+	<?php 
+		if($node->field_related_taxonomy['und'][0]['target_id'] == '' && $node->field_ef_related_content['und'][0]['target_id'] == ''){
+			$classe = 'push-3';
+		}
+	?>
+
+	<?php if ($content['field_ef_de_subtitle']['#items'][0]['safe_value'] != '' ||  $content['field_ef_de_methodology'][0]['#markup'] != '' ): ?>
+		<div class="jm-methodology-wrapper small-12 large-9 column <?php print $classe ?>">
+			<?php if ($content['field_ef_de_subtitle']['#items'][0]['safe_value'] != '' ): ?>
+				<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
+			<?php endif; ?>
+
+			<?php if ($content['field_ef_de_methodology'][0]['#markup'] != '' ): ?>
+			<div class="jm-methodology">
+				<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
+			</div>
+			<?php endif; ?>
 		</div>
-		<div class="jm-charts small-12 large-9 <?php print implode(' ', $classes_array); ?>">
-			<div class="chart-wrapper" id="<?php print $content['field_ef_de_chart_id']['#items'][0]['value']; ?>-wrapper"></div>
-			<div class="legend-butterfly"></div>
-		</div>
-	</div>
 
 	<?php endif; ?>
 
-	<div class="jm-methodology-wrapper small-12 large-9  push-3">
-		<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
-		<div class="jm-methodology">
-			<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
-		</div>
-	</div>
-
+	<div class="clearfix"></div>
 </div>
