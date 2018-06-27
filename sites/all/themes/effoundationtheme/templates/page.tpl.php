@@ -263,18 +263,30 @@
                 </h1>
 
             <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>                
+                
+              <?php  if (isset($sai_label)): ?>
+                <h1 id="page-title" class="title parent_fome fome-sai-label">
+                 <a href="<?php print $base_url?>/observatories/emcc/fome">
+                 <span class="abbrevation">FOME</span> 
+                 Future of Manufacturing in Europe
+                 </a>
+                </h1>
+                  <span class="sai-label">
+                    <?php print $sai_label ?>
+                  </span>
+                <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
+
+              <?php else: ?> 
+
                 <h1 id="page-title" class="title parent_fome">
                  <a href="<?php print $base_url?>/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
                  Future of Manufacturing in Europe
                  </a>
                 </h1>
-               <?php  if (isset($sai_label)): ?>
-                  <span class="sai-label">
-                    <?php print $sai_label ?>
-                  </span>
-                <?php endif; ?> 
                 <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
+
+              <?php endif; ?> 
 
             <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>  
 
