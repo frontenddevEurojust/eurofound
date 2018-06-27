@@ -430,7 +430,7 @@
                      <ul>
                       <?php foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value): ?>
                       <li>  
-                        <?php if (isset($value['field_ef_linkdate']['und'][0]['value'])): ?>                            
+                        <?php if ( isset($value['field_ef_linkdate']['und'][0]['value']) && ( isset( $value['field_ef_sourcemedia']['und'][0]['entity']->name_original) || isset( $value['field_ef_sourcelink']['und'][0]['safe_value'] )) ): ?>                            
                         <span class="fs_col_date">
                           <?php 
                                $fmd = $value['field_ef_linkdate']['und'][0]['value'];
