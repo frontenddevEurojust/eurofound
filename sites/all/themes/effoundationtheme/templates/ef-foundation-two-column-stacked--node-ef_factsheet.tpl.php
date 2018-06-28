@@ -463,9 +463,10 @@
                       </li>
                       <?php endforeach;  ?>
                      </ul>
+                     <span class="clearfix"></span>
                    </div>
                   <?php endif; ?>
-                  
+
                   <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
                     <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
                       <div class="ef_fs_source_pdf fs_indoor row">
