@@ -424,9 +424,20 @@
                     <div class="ef_fs_add_inf row">
                        <div class="fs_additional_info"> <?php print ($node->field_ef_additional_information['und'][0]['value']); ?></div>
                     </div>
+                    <?php 
+                    foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value){
 
-                    <?php if ( isset($node->field_ef_sourcemedialinks['und']) ): ?> 
+                      $elementsSource +=  intval(count( $value['field_ef_sourcemedia']['und']) );  
+                      $elementsLinks += intval( count(  $value['field_ef_sourcelink']['und'] ) );                    
+                      $linkdate += intval( count( $value['field_ef_linkdate']['und']) );  
+                      // krumo(  $elementsSource  );
+                      // krumo(  $elementsLinks  );                         
+                    }
+                    ?>
+
+                    <?php if ($elementsSource != 0 &&  $elementsLinks != 0 ): ?> 
                     <div class="source-area">
+
                      <h4 class="small columns">Sources:</h4>                   
                      <ul>
                       <?php foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value): ?>
