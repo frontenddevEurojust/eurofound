@@ -423,8 +423,8 @@
 
                     <div class="ef_fs_add_inf row">
                        <div class="fs_additional_info"> <?php print ($node->field_ef_additional_information['und'][0]['value']); ?></div>
-                    </div>
-                    
+
+                    <?php if ( isset($node->field_ef_sourcemedialinks['und']) ): ?> 
                     <div class="source-area">
                      <h4 class="small columns">Sources:</h4>                   
                      <ul>
@@ -464,7 +464,8 @@
                       <?php endforeach;  ?>
                      </ul>
                    </div>
-
+                  <?php endif; ?>
+                  
                   <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
                     <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
                       <div class="ef_fs_source_pdf fs_indoor row">
