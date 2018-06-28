@@ -364,10 +364,12 @@ select.disabled{
 text.charts-title {
   font-size: 1rem;
   font-family: Opensans-semibold-webfont;
-  transform: translate(30%,-10px);
+  transform: translate(35%,-12px);
+  text-anchor: middle;
 }
 #ejm-chart.only-one text.charts-title {
-  transform: translate(33%,-10px);
+  transform: translate(40%,-12px);
+  text-anchor: middle;
 }
 .ejm-alert{
   display: none;
@@ -606,8 +608,9 @@ rect.right16:hover{
     font-size: 9px;
   }
   #ejm-chart > svg > g > text.charts-title{
-    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
-    font-size: 16px;
+  transform: rotate(0deg) translate(48%,-12px) !important;
+  font-size: 16px;
+  text-anchor: middle;
   }
   .chart-wrapper .tick text{
     font-size: 11px;
@@ -669,8 +672,9 @@ rect.right16:hover{
   }
 
   #ejm-chart > svg > g > text.charts-title{
-  transform: rotate(0deg) translate(25%,-7px) !important;
+  transform: rotate(0deg) translate(48%,-12px) !important;
   font-size: 16px;
+  text-anchor: middle;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;
