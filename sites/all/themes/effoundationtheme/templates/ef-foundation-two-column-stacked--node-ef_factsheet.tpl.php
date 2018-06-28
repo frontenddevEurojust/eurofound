@@ -435,7 +435,7 @@
                     }
                     ?>
 
-                    <?php if ($elementsSource != 0 &&  $elementsLinks != 0 ): ?> 
+                    <?php if ($elementsSource != 0 ||  $elementsLinks != 0 ): ?> 
                     <div class="source-area">
 
                      <h4 class="small columns">Sources:</h4>                   
