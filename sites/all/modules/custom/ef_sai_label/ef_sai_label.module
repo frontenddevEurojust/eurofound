@@ -24,9 +24,15 @@ function ef_sai_label_menu() {
 function ef_sai_label_form_node_form_alter($form, &$form_state) {
 	//Just adding some js to manage the inputs
 	if (content_is_sai_labelled($form['#entity'])) {
+		if (empty($form['field_ef_sai_label']['en'][0]['value']['#default_value'])) {
+			$default_sai = get_default_sai_label($form['field_ef_activities']['und']['#default_value'][0]);
+			drupal_add_js(array('ef_sai_label' => array('default_sai' => $default_sai)), array('type' => 'setting'));
+		}
+
 		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
 		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
 	}
+
 	return $form;
 }
 
@@ -118,5 +124,16 @@ function content_is_sai_labelled($node) {
 	//Finally, if the given content is not affected, no label should be added.
 	else {
 		return FALSE;
+	}
+}
+
+function get_default_sai_label($ef_activity) {
+	$term = taxonomy_term_load($ef_activity);
+
+	if (isset($term->field_ef_sai_label['en'][0]['value'])) {
+		return $term->field_ef_sai_label['en'][0]['value'];
+	}
+	else {
+		return;
 	}
 }

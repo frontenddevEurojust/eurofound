@@ -467,18 +467,27 @@ rect.right16:hover{
   margin: 0px 5px 0px 0px;
 }
  /* RELATED CONTENT OF DATA EXPLORER PAGE */
-}
 
+
+.related-content-data-explorer{
+  margin-top: 85px;  
+}
+.related-content-data-explorer.without-title {
+  margin-top: 42px;
+}
+.related-content-data-explorer.without-chart {
+  margin-top: 25px;
+}
 .related-content-data-explorer .block-views{
   background-color: transparent;
   padding:0;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  /* min-height: 400px; */
   margin-bottom: 25px;
 }
 .related-content-data-explorer .block-views h2{
+  /*
   padding: 5px 25px;
   background: #f1f4f8;
   border-top: 1px dotted #666;
@@ -486,8 +495,10 @@ rect.right16:hover{
   font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
   border-bottom: 1px dotted #666;
   margin-bottom: 0;
+  */
 }
 .related-content-data-explorer .block-views h2:before {
+  /*
   content: "\e611";
   font-size: 1rem;
   font-family: 'ef-icon-font';
@@ -496,38 +507,48 @@ rect.right16:hover{
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
-  /* line-height: 1; */
   -webkit-font-smoothing: antialiased;
   margin-right: 6px;
   -moz-osx-font-smoothing: grayscale;
+  */
 }
 
 .related-content-data-explorer .block-views .item-list{
+  /*
   padding: 25px 25px 20px 45px;
   background-color: rgba(255,255,255,0.8);
+  */
 }
 .related-content-data-explorer .block-views .item-list li{
+  /*
   padding:0;
   text-indent: 0px;
   line-height: 1.2em;
   font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
   border-bottom: none;
   text-align: left;
+  */
 }
 
 .related-content-data-explorer .block-views .item-list li ul.metadata-items {
+  /*
   margin: 0px 0 5px !important;
   padding: 0;
   color: #2d68aa;
   font-size: 0.9em;
+  */
 }
 .related-content-data-explorer .block-views .item-list li ul.metadata-items li {
+  /*
   margin-right: 0;
   margin-left: 4px;
+  */
 }
 .related-content-data-explorer .block-views .item-list li ul.metadata-items li:first-child {
+  /*
   margin-right: 0;
   margin-left: 0px;
+  */
 }
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   #ejm-chart {

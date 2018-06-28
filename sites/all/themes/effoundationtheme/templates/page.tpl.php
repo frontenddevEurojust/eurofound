@@ -247,7 +247,11 @@
                   European Monitoring Centre on Change
                   </a>
                </h1>
-
+               <?php  if (isset($sai_label)): ?>
+                  <span class="sai-label">
+                    <?php print $sai_label ?>
+                  </span>
+                <?php endif; ?> 
                 <h1 id="page-title" class="title secundary">
                    <?php
                       if($node->type == 'erm_support_instrument' && isset($node->field_english_name_erm_si['und'][0]['safe_value'])){
@@ -259,14 +263,30 @@
                 </h1>
 
             <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/emcc')) && $trail_holder[3]['link_title'] == 'Future of Manufacturing in Europe (FOME)'): ?>                
+                
+              <?php  if (isset($sai_label)): ?>
+                <h1 id="page-title" class="title parent_fome fome-sai-label">
+                 <a href="<?php print $base_url?>/observatories/emcc/fome">
+                 <span class="abbrevation">FOME</span> 
+                 Future of Manufacturing in Europe
+                 </a>
+                </h1>
+                  <span class="sai-label">
+                    <?php print $sai_label ?>
+                  </span>
+                <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
+
+              <?php else: ?> 
+
                 <h1 id="page-title" class="title parent_fome">
                  <a href="<?php print $base_url?>/observatories/emcc/fome">
                  <span class="abbrevation">FOME</span> 
                  Future of Manufacturing in Europe
                  </a>
                 </h1>
-                
                 <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
+
+              <?php endif; ?> 
 
             <?php elseif(sizeof($trail_holder)>3 && (!strcmp($link_path,'observatories/eurwork'))) : ?>  
 
@@ -295,6 +315,11 @@
                   European Observatory on Quality of Life
                   </a>
                   </h1>
+                 <?php  if (isset($sai_label)): ?>
+                    <span class="sai-label">
+                      <?php print $sai_label ?>
+                    </span>
+                  <?php endif; ?> 
                   <h1 id="page-title" class="title secundary"><?php print $title; ?></h1>
 
             <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurwork'))) : ?>
@@ -319,6 +344,12 @@
                   </a>
                   </h1>
 
+                  <?php  if (isset($sai_label)): ?>
+                    <span class="sai-label">
+                      <?php print $sai_label ?>
+                    </span>
+                  <?php endif; ?>    
+
             <?php elseif(sizeof($trail_holder)>2 && (!strcmp($link_path,'observatories/eurlife'))) : ?>
                   <h1 id="page-title" class="title parent_emcc">
                     <a href="<?php print $base_url?>/observatories/eurlife">
@@ -326,6 +357,12 @@
                     European Observatory on Quality of Life
                     </a>
                   </h1>
+
+                  <?php  if (isset($sai_label)): ?>
+                    <span class="sai-label">
+                      <?php print $sai_label ?>
+                    </span>
+                  <?php endif; ?>    
 
             <!-- issues 3189 -->
             <?php elseif($link_path == 'none' && isset($node->field_ef_observatory['und'][0]['tid']) &&

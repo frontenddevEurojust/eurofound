@@ -14848,20 +14848,20 @@ ul.links.inline-list.authors-list li:last-child:after{
 }
 
 .related-content-aside-3 a:before{
-    font-family: 'ef-icon-font';
-    speak: none;
-    font-style: normal;
-    font-weight: normal!important;
-    font-variant: normal;
-    text-transform: none;
-    vertical-align: top!important;
-    margin-right: -20px;
-    font-size: 1.5em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: "\e61c";
-    float: right;
-    display: inline;
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal!important;
+  font-variant: normal;
+  text-transform: none;
+  vertical-align: top!important;
+  margin-right: -20px;
+  font-size: 1.5em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e61c";
+  float: right;
+  display: inline;
 }
 
 /*Fix WEM-1046 publication detail topic */
@@ -14872,6 +14872,56 @@ ul.links.inline-list.authors-list li:last-child:after{
 #node_ef_publication_full_group_ef_node_details a{
 	font-size: 12.96px;
 }
+
+
+/** factsheet admin area */
+table#field-ef-sourcemedialinks-values thead{
+	margin: 0px;
+	width: 100%;
+	padding: 0.5em;
+}
+table#field-ef-sourcemedialinks-values thead th{
+	background-color: #005BAA !important;
+	padding: 0.5em;
+}
+table#field-ef-sourcemedialinks-values thead th label{
+	color: #fff !important;
+	font-size: 1.4em;
+	font-weight: normal;
+	font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+}
+
+table#field-ef-sourcemedialinks-values .form-actions.form-wrapper{
+	margin: 0;
+}
+table#field-ef-sourcemedialinks-values button.remove-button{
+	float: right;
+	font-size: 0.9em;
+	padding: 0.5em 1em 0.4375em 1em;
+	margin-bottom: 0;
+}
+
+
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-sourcemedia, 
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-sourcelink, 
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate{
+	
+		width: auto;
+		margin-right: 1%;
+		display: inline-block;
+}
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate fieldset{
+	margin: 0;
+	padding:0;
+	border: 0;
+	position: relative;
+	top: -37px;
+}
+.node-type-ef-factsheet.section-node-edit .field-name-field-ef-linkdate legend{
+	display: none;
+}
+
+/** End factsheet admin area */
 
 .alert-box.secondary {
     background-color: #FFFACD;
@@ -14887,9 +14937,10 @@ ul.links.inline-list.authors-list li:last-child:after{
  	 padding-bottom:3px;
 }
 .sai-label-calendar {
-  padding-bottom: 3px;
+  padding-bottom: 4px;
   display: block;
-  font-family: 'OpenSans-regular-webfont', Arial, Helvetica, sans-serif;
+  font-family: 'OpenSans-light-webfont', Arial, Helvetica, sans-serif;
+  color: #005BAA;
 }
 .sai-label ~ h1 {
   color: #10499e !important;
@@ -14898,3 +14949,19 @@ h1.parent_eurwork.title ~ .sai-label {
   display: block;
   margin-top: -20px;
 }
+
+h1.parent_fome.title.fome-sai-label{
+  margin: -18px -0 20px 0;
+}
+
+.node-type-ef-publication h1.title.secundary, 
+.node-type-ef-report h1.title.secundary, 
+.node-type-presentation  h1.title.secundary, 
+.node-type-blog h1.title.secundary, 
+.node-type-ef-event h1.title.secundary, 
+.node-type-ef-news h1.title.secundary, 
+.node-type-ef-comparative-analytical-report .parent_eurwork ~ h1.title.secundary, 
+.node-type-ef-national-contribution .parent_eurwork ~ h1.title.secundary {
+		color: #10499e !important;
+}
+

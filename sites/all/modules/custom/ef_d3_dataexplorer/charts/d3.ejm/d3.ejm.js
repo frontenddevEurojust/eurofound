@@ -62,15 +62,15 @@
   }
 
 
-var getParameterURLByName = function(name) {
-    url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-      results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-  }
+  var getParameterURLByName = function(name) {
+      url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
   var countryNames = [];
 
@@ -83,11 +83,15 @@ var getParameterURLByName = function(name) {
 
     if(getParameterByName('country') != null){
       var countryPar = getParameterByName('country').split(",");
-      var urlVars = getParameterByName('country').split(",").length;
+      var urlVars = getParameterByName('country').split(",").length;      
     }else{
       var countryPar = [];
       var urlVars = 1;
       countryPar.push("EU");
+    }
+
+    if(getParameterByName('criterion') != null){
+      $('.secondary-filters legend').addClass('opened');
     }
 
 
@@ -156,13 +160,10 @@ var getParameterURLByName = function(name) {
 			{
 				return d === breakdownFilterPar; 
 			}
-			/*else
-			{
-				return d === "2013-2016"; 
-			}*/
+
 		});
-  var criterionFilterPar = getParameterByName('job_quality_criterion');
-  var criterionFilter = d3.select("#job_quality_criterion");	
+  var criterionFilterPar = getParameterByName('criterion');
+  var criterionFilter = d3.select("#criterion");	
 
 	
     criterionFilter.selectAll("option")
@@ -178,15 +179,10 @@ var getParameterURLByName = function(name) {
 			{
 				return d === criterionFilterPar; 
 			}
-			/*else
-			{
-				return d === "2013-2016"; 
-			}*/
+
 		});
 
   var stackedInput = 0;
-
-    //d3.select("#country").on("change", render_graph); 
 
       //***** WHEN NO SELECTED COUNTRY MESAGGE IS DISPLAYED******//
      function msgDisplay(tags){
@@ -196,14 +192,14 @@ var getParameterURLByName = function(name) {
         $('.jm-footnote').css('display', 'none');
         $('#time').attr('disabled','disabled').addClass('disabled');  
         $('#breakdown').attr('disabled','disabled').addClass('disabled');  
-        $('#job_quality_criterion').attr('disabled','disabled').addClass('disabled');          
+        $('#criterion').attr('disabled','disabled').addClass('disabled');          
      
       }else{
         $('.ejm-alert').css('display', 'none');
         $('.jm-footnote').css('display', 'block');   
         $('#time').removeAttr('disabled','').removeClass('disabled'); 
         $('#breakdown').removeAttr('disabled','').removeClass('disabled'); 
-        $('#job_quality_criterion').removeAttr('disabled','').removeClass('disabled');
+        $('#criterion').removeAttr('disabled','').removeClass('disabled');
 
       }
     }
@@ -227,6 +223,13 @@ var getParameterURLByName = function(name) {
        } 
       }
       msgDisplay(countryTags.length);
+
+      if( countryTags.length == 0 ){
+        $('.jm-charts h2').css('display','none');
+      }else{
+        $('.jm-charts h2').css('display','block');
+      }
+
     }
 
     $('.chosen-select').on('change', function(evt, params) {
@@ -237,7 +240,7 @@ var getParameterURLByName = function(name) {
         filtersOnChange();
     });
 
-    d3.select("#job_quality_criterion").on('change', function () {
+    d3.select("#criterion").on('change', function () {
         filtersOnChange();
     });
     d3.select("#breakdown").on('change', function () {
@@ -274,6 +277,8 @@ var getParameterURLByName = function(name) {
         country = c;
       }
 
+
+
     // number of the charts
     if( urlVars == 1 ){
 
@@ -303,7 +308,7 @@ var getParameterURLByName = function(name) {
 
       // d3.select("#country").property('value')
       period = d3.select("#time").property('value');
-      criterion = d3.select("#job_quality_criterion ").property('value');
+      criterion = d3.select("#criterion ").property('value');
       breakdown = d3.select("#breakdown").property('value');
 
 
@@ -349,25 +354,32 @@ var getParameterURLByName = function(name) {
 	  //this is the fraction of the maximum value which is added as a top and bottom margin.
 	  var topMargin = 0.10;
 	  var bottomMargin = 0.10;
-      var rows = columnValues.map(function(d, i) { return d; }),
-        // Use first value in each row as the label.
-        xLabels = ['Low', 'Mid-low', 'Mid', 'Mid-high', 'High'],
-        key = breakdownColumns.map(function(d) { return d[0]; })
-        // From inside out:
-        // - Convert all values to numeric numbers.
-        // - Merge all sub-arrays into one flat array.
-        // - Return the highest (numeric) value from flat array.
-        min = d3.min(d3.merge(columnValues).map(function(d) { (d > 0) ? minY = 0 : minY = d; return + minY; })),
-        minStacked = getMinStackedValue(columnValues),
-        max = d3.max(d3.merge(columnValues).map(function(d) { (d <= 0) ? maxY = 0 : maxY = d; return + maxY; }));
-		
-		//Adding a margin to the top of the graph.
-		max = max + max * topMargin;
-		min = min + min * bottomMargin;
+      var rows = columnValues.map(function(d, i) { return d; });
 
-        var maxStacked = getMaxStackedValue(columnValues),
-        range = (min >= 0) ? max : max - min,
-        rangeStacked = (minStacked >= 0) ? maxStacked : maxStacked - minStacked,
+      // Use first value in each row as the label.
+      xLabels = ['Low', 'Mid-low', 'Mid', 'Mid-high', 'High'];
+      key = breakdownColumns.map(function(d) { return d[0]; });
+
+      // From inside out:
+      // - Convert all values to numeric numbers.
+      // - Merge all sub-arrays into one flat array.
+      // - Return the highest (numeric) value from flat array.
+      min = d3.min(d3.merge(columnValues).map(function(d) { (d > 0) ? minY = 0 : minY = d; return + minY; }));
+      max = d3.max(d3.merge(columnValues).map(function(d) { (d <= 0) ? maxY = 0 : maxY = d; return + maxY; }));
+
+      //Adding a margin to the top of the graph.
+      max = max + max * topMargin;
+      min = min + min * bottomMargin;
+
+
+      // Range for stacked charts
+      var minStacked = getMinStackedValue(columnValues) + (getMinStackedValue(columnValues) * bottomMargin);
+      var maxStacked = getMaxStackedValue(columnValues) + ( getMaxStackedValue(columnValues) * topMargin);		
+
+
+        
+      range = (min >= 0) ? max : max - min;
+      rangeStacked = (minStacked >= 0) ? maxStacked : maxStacked - minStacked;
 
       // Padding is top, right, bottom, left as in css padding.
       p = [50, 50, 30, 50, 60],
@@ -397,6 +409,7 @@ var getParameterURLByName = function(name) {
       breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("");
 
       countryNames.push( countryText[0][1] );
+
 
       d3.select(".country").text(countryNames.join( ', ' ) + ',');
       d3.select(".period").text(period);
@@ -555,14 +568,6 @@ var getParameterURLByName = function(name) {
           .on('mouseout', function(d, i) {
             tip.hide();
           });
-/*
-          bar.selectAll('rect')
-            .attr('y', function (d,i) { return (d > 0) ? y(Math.abs(d)) : y(Math.abs(d)) + chart.h - barY(Math.abs(d)); })
-            .attr("height", function(d,i) {  return (d > 0) ? 0   : chart.h - barY(Math.abs(d));  })
-            .transition()
-              .duration(1500)              
-              .attr('height', function (d,i) { return (d > 0) ? chart.h - barY(Math.abs(d))   : chart.h - barY(Math.abs(d)); });
-*/
       }
 
 
@@ -585,88 +590,7 @@ var getParameterURLByName = function(name) {
 
 
 
-/*
-      var legend = svg.append("g")
-        .attr("class", "legend")
-        .attr("transform", "translate(" + 0 + "," + (chart.h + 60) + ")");
 
-      switch (breakdown) {
-        case "All employment":
-          var keys = legend.selectAll("g")
-            .data(key)
-            .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + chart.w / 2.5 + "," + 0 + ")"});
-            break;
-
-        case "Gender":
-        case "Part time / full time":
-        case "Employment status":
-        case "Contract (employees only)":
-          var keys = legend.selectAll("g")
-            .data(key)
-            .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 3) + (i * chart.w / 6))  + "," + 0 + ")"});
-            break;
-
-        case "Combined employment status":
-        case "Broad sector":
-          var keys = legend.selectAll("g")
-            .data(key)
-            .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 6) + (i * chart.w / 5.5))  + "," + 0 + ")"});
-            break;
-
-        case "Country of birth":
-          var keys = legend.selectAll("g")
-            .data(key)
-            .enter().append("g")
-            .attr("transform", function(d,i) { return "translate(" + ((chart.w / 10) + (i * chart.w / 6))  + "," + 0 + ")"});
-            break;
-      }
-
-      keys.append("rect")
-        .attr("fill", function(d,i) { return d3.rgb(z(i)); })
-        .attr("width", 12)
-        .attr("height", 12)
-        .attr("y", 0)
-        .attr("x", 0);
-
-      var labelWrapper = keys.append("g");
-
-      labelWrapper.selectAll("text")
-        .data(function(d,i) { return d3.splitString(key[i], 15); })
-        .enter().append("text")
-        .text(function(d,i) { return d})
-        .attr("font-size", 12)
-        .attr("x", 20)
-        .attr("y", function(d,i) { return i * 12})
-        .attr("dy", "1em");
-
-      function wrap(text, width) {
-        text.each(function() {
-          var text = d3.select(this),
-          words = text.text().split(/\s+/).reverse(),
-          word,
-          line = [],
-          lineNumber = 0, 
-          lineHeight = 1.2, 
-          x = text.attr("x"), 
-          y = text.attr("y"),
-          dy = text.attr("dy") ? text.attr("dy") : 0;
-          tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
-          while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
-              line.pop();
-              tspan.text(line.join(" "));
-              line = [word];
-              tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-            }
-          }
-        });
-      }
-*/
       divFootnotes = d3.select(".jm-footnote");
       divFootnotes.select("h3").remove();
       divFootnotes.selectAll("p").remove();
@@ -790,7 +714,7 @@ var getParameterURLByName = function(name) {
           if(document.location.search.indexOf(nameVar) > 0) {
             var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
             var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
-         
+            newVarString = newVarString.replace('&&','&');
             history.pushState(null, "",  window.location.pathname + newVarString );
           } else {
             history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
@@ -798,9 +722,11 @@ var getParameterURLByName = function(name) {
         }
       } else {
 
-        if( valOption == null ){
-          var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
+        if( valOption == null ){       
+
+          var stringToReplace = '&'+encodeURI(nameVar+'='+getParameterURLByName(nameVar));
           var newVarString = document.location.search.replace(stringToReplace,'');
+          newVarString = newVarString.replace('&&','&');
           history.pushState(null, "",  window.location.pathname + newVarString );
           $('.legend-wrapper').css('display','none');
         }
