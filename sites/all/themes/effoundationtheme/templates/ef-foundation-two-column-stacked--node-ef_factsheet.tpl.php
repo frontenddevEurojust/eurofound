@@ -423,6 +423,7 @@
 
                     <div class="ef_fs_add_inf row">
                        <div class="fs_additional_info"> <?php print ($node->field_ef_additional_information['und'][0]['value']); ?></div>
+                    </div>
 
                     <?php if ( isset($node->field_ef_sourcemedialinks['und']) ): ?> 
                     <div class="source-area">
