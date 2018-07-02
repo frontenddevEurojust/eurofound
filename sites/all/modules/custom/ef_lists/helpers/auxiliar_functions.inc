@@ -24,6 +24,10 @@ function _retrieve_table_data($uid, $title, $types, $country_groups, $order)
 			$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
 		}  
 
+		if (in_array('Author +', $user->roles)) {
+			$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
+		} 
+
 		// Add conditions if any of the filters is populated
 		// Add title LIKE condition
 		if($title)
