@@ -14722,13 +14722,21 @@ h4.title-tooltip-geolocation a:hover{
 .communication-calendar .icon-publications:before{
   content: "\e607";
 }
-.communication-calendar .icon-blog{
-  background: url(../images/icon-blog-orange.png);
-  width: 25px;
-  height: 24px;
-  display: inline-block;
-  background-size: cover;
-  margin: 0px 15px 0px 11px;
+.communication-calendar .icon-blog:before{
+	font-family: 'FontAwesome';
+  content: "\f0f6";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  color: #F7931E;
+  padding: 0px 15px 0px 10px;
+	font-size: 1.3rem;
+  vertical-align: -15%;
 }
 .communication-calendar .icon-events:before{
 	content: "\e610";

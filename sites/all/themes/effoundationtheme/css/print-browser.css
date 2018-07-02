@@ -1084,8 +1084,10 @@ ul.metadata-publications > li > ul li {
   .page-topic .large-3.columns{
     width: 100%!important;
   }
-  .communication-calendar .icon-blog-img {
-    width: 21px;
+  .communication-calendar .icon-publications, 
+  .communication-calendar .icon-events, 
+  .communication-calendar .icon-blog {
+    color: #F7931E !important;
   }
 
 @media print {
@@ -1102,6 +1104,11 @@ ul.metadata-publications > li > ul li {
   }
   .communication-calendar .icon-blog-img {
     width: 21px;
+  }
+  .communication-calendar .icon-publications, 
+  .communication-calendar .icon-events, 
+  .communication-calendar .icon-blog {
+    color: #F7931E !important;
   }
 }
 /** end working life countri profile **/
