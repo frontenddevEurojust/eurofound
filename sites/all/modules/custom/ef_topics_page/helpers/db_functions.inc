@@ -56,6 +56,7 @@ function return_url_alias_data($tid){
 function add_highlights_tab($tid, $page, $limit = 8){
 
     $query = db_select('field_data_field_ef_highlighted', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.field_ef_highlighted_target_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
@@ -101,6 +102,7 @@ function add_highlights_tab($tid, $page, $limit = 8){
 function add_all_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
@@ -144,6 +146,7 @@ function add_all_tab($tid, $page, $limit = 8){
 function add_publications_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
@@ -184,6 +187,7 @@ function add_publications_tab($tid, $page, $limit = 8){
 function add_articles_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
@@ -225,6 +229,7 @@ function add_articles_tab($tid, $page, $limit = 8){
 function add_news_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
@@ -265,6 +270,7 @@ function add_news_tab($tid, $page, $limit = 8){
 function add_events_tab($tid, $page, $limit = 8){
 
     $query = db_select('taxonomy_index', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.nid = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('field_data_field_ef_event_start_date', 'd', 'b.nid = d.entity_id');

@@ -128,9 +128,11 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 			foreach ($node->field_ef_publ_contributors['und'] as $key => $value ) {
 				$term = taxonomy_term_load($node->field_ef_publ_contributors['und'][$key]['tid']);
-				$authors[] = '"' . $term->name_field['und'][0]['value'] . '", ';
+				if( isset($term->name_field['und'][0]['value']) ){
+					$authors[] = '"' . $term->name_field['und'][0]['value'] . '", ';
+				}
 			}
-
+			
 			$form['field_ef_publ_contributors']['und']['#default_value'] =  $authors;
 
     }
