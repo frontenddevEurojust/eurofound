@@ -1,5 +1,7 @@
 (function($) {
 
+  var maxCountrySelected = 4;
+
   var getParameterByName = function(name) {
     url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -186,6 +188,8 @@
 
       //***** WHEN NO SELECTED COUNTRY MESAGGE IS DISPLAYED******//
      function msgDisplay(tags){
+
+
       if( tags == 0 ){
         d3.select(".country").text('');
         $('.ejm-alert').css('display', 'block');
@@ -217,11 +221,40 @@
         countryTags.push($('.chosen-select')[0][i].value);
        } 
       }
-      for(i=0;i<$('.chosen-select')[0].length;i++){
-       if($('.chosen-select')[0][i].selected == true){
-        render_graph( $('.chosen-select')[0][i].value , countryTags.length );
-       } 
+
+      
+
+      if( countryTags.length <= maxCountrySelected){
+        $('.advice-select-countries').removeAttr('style');
+        $('.advice-max-countries').remove();
+        
+        for(i=0;i<$('.chosen-select')[0].length;i++){
+         if($('.chosen-select')[0][i].selected == true){
+          render_graph( $('.chosen-select')[0][i].value , countryTags.length );
+         } 
+        }        
+      } else {
+        
+        $('.advice-select-countries').css('color','#F00');
+
+        if($('.advice-max-countries').text() != ''){
+           $('.advice-max-countries').html('There are ' + countryTags.length + ' countries selected');
+        } else {
+          $('.advice-select-countries').append(  '<div class="advice-max-countries">There are ' + countryTags.length + ' countries selected </div>' );
+        }
+        
+        var valOption = getParameterURLByName('country');
+        if( valOption != null ) valOption = String.prototype.toUpperCase.apply(valOption).split(",");
+        for(i=0;i<valOption.length;i++){          
+          render_graph( valOption[i] , countryTags.length );
+        } 
       }
+
+
+
+
+
+
       msgDisplay(countryTags.length);
 
       if( countryTags.length == 0 ){
@@ -702,9 +735,10 @@
       }
 
       if( nameVar == 'country' && valOption != null ) valOption = String.prototype.toLowerCase.apply(valOption).split(",");
+ 
 
 
-      if (valOption) { 
+      if (valOption && valOption.length <= maxCountrySelected ) { 
         $('.legend-wrapper').css('display','block');
         if(!document.location.search) {
                
@@ -723,7 +757,6 @@
       } else {
 
         if( valOption == null ){       
-
           var stringToReplace = '&'+encodeURI(nameVar+'='+getParameterURLByName(nameVar));
           var newVarString = document.location.search.replace(stringToReplace,'');
           newVarString = newVarString.replace('&&','&');
