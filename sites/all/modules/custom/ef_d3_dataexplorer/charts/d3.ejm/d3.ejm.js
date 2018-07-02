@@ -251,11 +251,9 @@
       }
 
 
-
-
-
-
       msgDisplay(countryTags.length);
+
+
 
       if( countryTags.length == 0 ){
         $('.jm-charts h2').css('display','none');
@@ -347,12 +345,12 @@
 
 
       if (period == '2011-2013' || period == '2011-2016') {
-        countryFilter.selectAll("option")
-          .property("disabled", function(d){ return d[0] === "NL" || d[0] === "SK"});
-      }
+        countryFilter.selectAll("option").property("disabled", function(d){ return d[0] === "NL" || d[0] === "SK"});
+        $('.chosen-select').trigger("chosen:updated"); 
+      }      
       else {
-        countryFilter.selectAll("option")
-          .attr("disabled", null);
+        countryFilter.selectAll("option").attr("disabled", null);
+        $('.chosen-select').trigger("chosen:updated");
       }
 
       if (country == 'NL' || country == 'SK') {
@@ -734,38 +732,41 @@
 
       }
 
+
       if( nameVar == 'country' && valOption != null ) valOption = String.prototype.toLowerCase.apply(valOption).split(",");
- 
+
+      var numOptionCountries = 0;
+      if( nameVar == 'country' && valOption != null ) numOptionCountries = String.prototype.toLowerCase.apply(valOption).split(",").length;
 
 
-      if (valOption && valOption.length <= maxCountrySelected ) { 
+      if (valOption && numOptionCountries <= maxCountrySelected ) {
         $('.legend-wrapper').css('display','block');
-        if(!document.location.search) {
-               
+        if(!document.location.search) {               
              history.pushState(null, "",  window.location.pathname + '?'+nameVar +'=' + valOption);
-
-        } else {
-          if(document.location.search.indexOf(nameVar) > 0) {
+        }
+        else {
+          if(document.location.search.indexOf(nameVar+'=') > 0) {
             var stringToReplace = encodeURI(nameVar+'='+getParameterURLByName(nameVar));
             var newVarString = document.location.search.replace(stringToReplace,nameVar + '=' + valOption );
             newVarString = newVarString.replace('&&','&');
             history.pushState(null, "",  window.location.pathname + newVarString );
-          } else {
+          }
+          else {
             history.pushState(null, "",  window.location.search + '&'+nameVar +'=' + valOption);
           }
         }
-      } else {
 
+      }
+      else {
         if( valOption == null ){       
           var stringToReplace = '&'+encodeURI(nameVar+'='+getParameterURLByName(nameVar));
           var newVarString = document.location.search.replace(stringToReplace,'');
           newVarString = newVarString.replace('&&','&');
           history.pushState(null, "",  window.location.pathname + newVarString );
           $('.legend-wrapper').css('display','none');
-        }
-      
+        }  
+      }    
 
-      }       
       return false;
     });
 
