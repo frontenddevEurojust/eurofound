@@ -2084,7 +2084,7 @@ list-style-type:none;
 */
 h1.title.secundary{
   width: 100%;
-  padding-right: 2.2em;
+  padding-right: 2.3em;
 }
 .page-search span.print_html{
 	top: 305px;
@@ -14944,6 +14944,12 @@ table#field-ef-sourcemedialinks-values button.remove-button{
 }
 .sai-label ~ h1 {
   color: #10499e !important;
+}
+.sai-label ~ span.print_pdf{
+	  top: 4em;
+}
+.sai-label ~ span.print_html{
+	  top: 3.46em;
 }
 h1.parent_eurwork.title ~ .sai-label {
   display: block;
