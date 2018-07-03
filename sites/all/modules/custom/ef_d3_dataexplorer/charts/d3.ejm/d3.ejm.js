@@ -1,6 +1,7 @@
 (function($) {
 
   var maxCountrySelected = 4;
+  var countryExist = 0;
 
   var getParameterByName = function(name) {
     url = window.location.href;
@@ -212,6 +213,7 @@
     function filtersOnChange(){
       $("#ejm-chart svg").remove();
       $(".d3-tip").remove();
+      countriesSelected = countryNames;
       countryNames.length = 0;
 
       var countryTags = [];
@@ -264,6 +266,7 @@
     }
 
     $('.chosen-select').on('change', function(evt, params) {
+        countryExist = 0;
         filtersOnChange();        
     });
 
@@ -353,13 +356,19 @@
         $('.chosen-select').trigger("chosen:updated");
       }
 
+
+
       if (country == 'NL' || country == 'SK') {
-        periodFilter.selectAll("option")
-          .property("disabled", function(d){ return d === "2011-2013" || d === "2011-2016"});
+        countryExist ++ ;
+        }
+
+      if (  countryExist != 0 ) {
+        periodFilter.selectAll("option").property("disabled", function(d){ return d === "2011-2013" || d === "2011-2016"});
+        $('.chosen-select').trigger("chosen:updated");
       } 
       else {
-        periodFilter.selectAll("option")
-          .attr("disabled", null);
+        periodFilter.selectAll("option").attr("disabled", null);
+        $('.chosen-select').trigger("chosen:updated");
       }
 
       breakdown == 'Combined employment status' || breakdown == 'Country of birth' || breakdown == 'Broad sector' ? stacked = 1 : stacked = 0;
