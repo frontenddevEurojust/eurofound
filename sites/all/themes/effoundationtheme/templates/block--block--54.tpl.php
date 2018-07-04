@@ -9,7 +9,7 @@ $node = menu_get_object();
 //Check the related content publiched in type Node
 foreach ($node->field_ef_related_content['und'] as $key => $value) {
   $node_related = node_load($value['target_id']);
-  if ($node_related->status == 1){
+  if ($node_related->status == 1 || $node_related->workbench_moderation['current']->state == 'forthcoming'){
     $rc_published = 'published';
   }
 }
@@ -267,7 +267,7 @@ if($rc_published == "published"
 
               if ($is_nodo){
                 //If the node isn't unpublished
-                if($node_item->status != 0){
+                if($node_item->status != 0 || $node_item->workbench_moderation['current']->state == 'forthcoming'){
                   
                 //ALIAS HREF
                   $path = 'node/'.$node_item->nid;
