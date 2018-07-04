@@ -3,6 +3,7 @@
  * @file
  * Default theme file for d3 visualizations.
  */
+global $language;
 drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejm.css');
 drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 ?>
@@ -13,23 +14,29 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		<div class="jm-abstract-wrapper small-12 large-9">			
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>			  
 			<div class="data-explorer-topics">
-						<?php if( $content['field_ef_topic']['#items'] || isset($node->field_ef_data_organisation['en'][0]['safe_value']) ): ?>
+						<?php if( $content['field_ef_topic']['#items'] || isset($node->field_ef_data_organisation[$language->language][0]['safe_value']) ): ?>
 							<span class="last-update withline"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
 						<?php else: ?>
 							<span class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
 						<?php endif; ?>
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>
-							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
-							<span class="data-explorer-organisation withline">								
-								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>								
-							</span>
+							<?php 
+								$data_organisation = $node->field_ef_data_organisation[$language->language][0]['safe_value'];
+								if(!isset($data_organisation)){
+									$data_organisation = $node->field_ef_data_organisation['en'][0]['safe_value'];
+								}
+							?>
+							<?php if( $data_organisation ): ?>
+								<span class="data-explorer-organisation withline">								
+									<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $data_organisation; ?>								
+								</span>
 							<?php endif; ?>	
 						<?php else: ?>
-							<?php if( $node->field_ef_data_organisation['en'][0]['safe_value'] ): ?>
-							<span class="data-explorer-organisation">
-								<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $node->field_ef_data_organisation['en'][0]['safe_value']; ?>
-							</span>
+							<?php if( $data_organisation ): ?>
+								<span class="data-explorer-organisation">
+									<span class="organisation-label"><?php echo t('Organisation: ') ?></span><?php print $data_organisation; ?>
+								</span>
 							<?php endif; ?>	
 						<?php endif; ?>	
 
@@ -38,7 +45,10 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 							<?php foreach ( $content['field_ef_topic']['#items'] as $key => $topics): ?>								
 									<span class="topic-item"><?php 
 										$term = taxonomy_term_load( $topics['tid'] );
-										$name = $term->field_term_title[$language][0]['value'];
+										$name = $term->field_term_title[$language->language][0]['value'];		
+										if( !isset($name) ){
+											$name = $term->field_term_title['en'][0]['value'];
+										} 
 										$url = url(taxonomy_term_uri($term)['path']);
 	           				$fixed_topic_url = str_replace('topics' , 'topic' , $url );
 									  print '<a href="'. $fixed_topic_url .'" >' . $name . '</a>'; 
@@ -56,12 +66,37 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 				<?php print render($content['field_ef_de_description'][0]['#markup']); ?>
 			</div>
 
+			<?php if ( strlen($node->field_ef_de_chart_id['und'][0]['safe_value']) == 0 ) : ?>
+				<?php $subtitle = $content['field_ef_de_subtitle']['#items'][0]['safe_value']; ?>
+				<?php if ($subtitle): ?>
+					<h2><?php print $subtitle; ?></h2>
+				<?php endif; ?>
+
+				<?php if ($content['field_ef_de_methodology'][0]['#markup'] != '' ): ?>
+				<div class="jm-methodology">
+					<?php print render($content['field_ef_de_methodology'][0]['#markup']); ?>
+				</div>
+				<?php endif; ?>
+
+			<?php endif; ?>
+
 		</div>
 		<div class="jm-back-button large-3">
 
 			<section class="block block-block boxed-block back-to-results-block block-block-13 clearfix">
 				<a href="<?php print render($content['field_ef_de_button_url']['#items'][0]['display_url']); ?>" title="Back to Data Explorer"><?php print render($content['field_ef_de_button_url']['#items'][0]['title']); ?></a>
 			</section>
+
+      <?php if ( strlen($node->field_ef_de_chart_id['und'][0]['safe_value']) == 0 ) : ?>
+        <?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+          <div class="related-content-aside-3 related-content-data-explorer small-12 large-12 column without-chart">
+              <?php
+                  $block = block_load('block','54');
+                  print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+              ?>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
 
 		</div>
 	</div>
@@ -114,7 +149,7 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 
 	<?php else: ?>
 
-
+		<?php if ( strlen($node->field_ef_de_chart_id['und'][0]['safe_value']) > 0 ) : ?>
 			<div class="jm-filters-chart clearfix">
 				<div class="filters-jm-chart small-12 large-3">
 					<form>
@@ -129,31 +164,33 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 					<div class="legend-butterfly"></div>
 				</div>
 			</div>
-
+		<?php endif; ?>
 
 	<?php endif; ?>
 
-
+  <?php if ( strlen($node->field_ef_de_chart_id['und'][0]['safe_value']) != 0 ) : ?>
 		<?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
-			<div class="related-content-aside-3 related-content-data-explorer small-12 large-3 column <?php if( strlen($content['field_ef_de_subtitle']['#items'][0]['safe_value']) == 0 ):?>without-title <?php endif; ?>">
+			<div class="related-content-aside-3 related-content-data-explorer small-12 large-3 column <?php if( strlen($node->field_ef_de_subtitle[$language->language][0]['safe_value']) == 0 ):?>without-title <?php endif; ?>">
 			    <?php
 			        $block = block_load('block','54');
 			        print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
 			    ?>
 			</div>
 		<?php endif; ?>
+  <?php endif; ?>
 
 
-	<?php 
-		if($node->field_related_taxonomy['und'][0]['target_id'] == '' && $node->field_ef_related_content['und'][0]['target_id'] == ''){
-			$classe = 'push-3';
-		}
-	?>
 
-	<?php if ($content['field_ef_de_subtitle']['#items'][0]['safe_value'] != '' ||  $content['field_ef_de_methodology'][0]['#markup'] != '' ): ?>
+  <?php if(strlen($node->field_ef_de_chart_id['und'][0]['safe_value']) != 0): ?>
+  	<?php 
+    	if( $node->field_related_taxonomy['und'][0]['target_id'] == '' &&  $node->field_ef_related_content['und'][0]['target_id'] == '' ){
+    		$classe = 'push-3';
+    	}    	
+  	?>
 		<div class="jm-methodology-wrapper small-12 large-9 column <?php print $classe ?>">
-			<?php if ($content['field_ef_de_subtitle']['#items'][0]['safe_value'] != '' ): ?>
-				<h2><?php print render($content['field_ef_de_subtitle']['#items'][0]['safe_value']); ?></h2>
+			<?php $subtitle = $content['field_ef_de_subtitle']['#items'][0]['safe_value']; ?>
+			<?php if ($subtitle): ?>
+				<h2><?php print $subtitle; ?></h2>
 			<?php endif; ?>
 
 			<?php if ($content['field_ef_de_methodology'][0]['#markup'] != '' ): ?>
@@ -162,8 +199,8 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 			</div>
 			<?php endif; ?>
 		</div>
+  <?php endif; ?>
 
-	<?php endif; ?>
 
 	<div class="clearfix"></div>
 </div>
