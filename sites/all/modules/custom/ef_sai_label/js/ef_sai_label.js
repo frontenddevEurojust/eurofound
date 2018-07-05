@@ -2,67 +2,58 @@
   Drupal.behaviors.efsailabel = {
   attach: function (context, settings) {
 
-    $('input#edit-field-ef-sai-label-override-und').once().change(function(){
-      $("input#edit-field-ef-sai-label-en-0-value").prop("disabled", !$(this).is(':checked'));
+    $sai_labels = Drupal.settings.ef_sai_label.sai_labels;
+    $lang = Drupal.settings.ef_sai_label.sai_labels_lang;
+
+    $sai_label_input = 'input#edit-field-ef-sai-label-' + $lang + '-0-value';
+
+    $('input#edit-field-ef-sai-label-display-und').once().change(function(){
+      $('input#edit-field-ef-sai-label-override-und').prop("disabled", !$(this).is(':checked'));
     });
 
-    var s2article = document.getElementsByClassName('node-ef_report-form');
-    var s2nc = document.getElementsByClassName('node-ef_national_contribution-form');
-    var s2car = document.getElementsByClassName('node-ef_comparative_analytical_report-form');
+    $('input#edit-field-ef-sai-label-override-und').once().change(function(){
+      $($sai_label_input).prop("disabled", !$(this).is(':checked'));
+      if (!$(this).is(':checked')) {
+        $tid = $('#edit-field-ef-activities option:selected').val();
+        $($sai_label_input).val($sai_labels[$tid]);
+      }
+    });
 
-    if (s2article.length || s2nc.length || s2car.length) {
-      s2 = true;
-    } 
-    else {
-      s2 = false;
-    }
+    $('#edit-field-ef-activities').once().change(function(){
+      if (!$('input#edit-field-ef-sai-label-override-und').is(':checked')) {
+        $tid = $('option:selected',this).val();
+        $($sai_label_input).val($sai_labels[$tid]);
+      }
+    });
 
-    if ($('input#edit-field-ef-observatory-und-13188').length && s2) {
-      $('input#edit-field-ef-observatory-und-13188').once().change(function(){
-        if ($("input#edit-field-ef-observatory-und-13188").is(':checked')) {
-          $(".group-ef-sai-page-label").show();
-        } 
-        else {
-          $(".group-ef-sai-page-label").hide();
-        }
-      });
-    }
   }};
 })(jQuery);
 
 (function ($) {
   $(document).ready(function(){
 
-    if ($("input#edit-field-ef-sai-label-override-und").is(':checked')) {
-      $("input#edit-field-ef-sai-label-en-0-value").prop("disabled", false);
+    $sai_labels = Drupal.settings.ef_sai_label.sai_labels;
+    $lang = Drupal.settings.ef_sai_label.sai_labels_lang;
+
+    $sai_label_input = 'input#edit-field-ef-sai-label-' + $lang + '-0-value';
+
+    if ($('input#edit-field-ef-sai-label-display-und').is(':checked')) {
+      $('input#edit-field-ef-sai-label-override-und').prop('disabled', !$(this).is(':checked'));
     } 
     else {
-      $("input#edit-field-ef-sai-label-en-0-value").prop("disabled", true);
+      $('input#edit-field-ef-sai-label-override-und').prop('disabled', !$(this).is(':checked'));
     }
-    
-    var s2article = document.getElementsByClassName('node-ef_report-form');
-    var s2nc = document.getElementsByClassName('node-ef_national_contribution-form');
-    var s2car = document.getElementsByClassName('node-ef_comparative_analytical_report-form');
 
-    if (s2article.length || s2nc.length || s2car.length) {
-      s2 = true;
+    if ($('input#edit-field-ef-sai-label-override-und').is(':checked')) {
+      $($sai_label_input).prop('disabled', !$(this).is(':checked'));
     } 
     else {
-      s2 = false;
+      $($sai_label_input).prop('disabled', !$(this).is(':checked'));
     }
 
-    if ($('input#edit-field-ef-observatory-und-13188').length && s2) {
-      if ($("input#edit-field-ef-observatory-und-13188").is(':checked')) {
-        $(".group-ef-sai-page-label").show();
-      } 
-      else {
-        $(".group-ef-sai-page-label").hide();
-      }
-    }
-
-    if ($('input#edit-field-ef-sai-label-en-0-value').val().length == 0) {
-      $default_sai = Drupal.settings.ef_sai_label.default_sai;
-      $('input#edit-field-ef-sai-label-en-0-value').val($default_sai);
+    if ($($sai_label_input).val() == '' && $('#edit-field-ef-activities option:selected') != '_none') {
+      $tid = $('#edit-field-ef-activities option:selected').val();
+      $($sai_label_input).val($sai_labels[$tid]);
     }
 
   });
