@@ -1,0 +1,67 @@
+<?php
+
+/*
+*  WEM - 1011 - Update Document Type term for the Ef Articles, National Contributions and Comparative Analytical Reports
+*/
+function ef_car_nc_autocreation_update_7001() {
+
+	$sql = "SELECT nid FROM node WHERE type IN ('ef_report','ef_comparative_analytical_report','ef_national_contribution');";
+	$nodes = db_query($sql)->fetchAll();
+
+	
+	$articleTid = taxonomy_get_term_by_name('Article', $vocabulary = 'ef_publication_types');
+	if (count($articleTid) == 1) {
+		$articleTid = reset($articleTid);
+		$articleTid = $articleTid->tid;
+	} else {
+		$articleTid = 0;
+	}
+	$carTid = taxonomy_get_term_by_name('CAR', $vocabulary = 'ef_publication_types');
+	if (count($carTid) == 1) {
+		$carTid = reset($carTid);
+		$carTid = $carTid->tid;
+	} else {
+		$carTid = 0;
+	}
+	$ncTid = taxonomy_get_term_by_name('NC', $vocabulary = 'ef_publication_types');
+	if (count($ncTid) == 1) {
+		$ncTid = reset($ncTid);
+		$ncTid = $ncTid->tid;
+	} else {
+		$ncTid = 0;
+	}
+
+	foreach ($nodes as $nid) {
+		$node = node_load($nid->nid);
+
+		if (count($node->field_ef_document_type) == 0) {
+			echo $node->nid .PHP_EOL;
+			if ($node->type == 'ef_report' && $articleTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $articleTid);
+			} else if ($node->type == 'ef_comparative_analytical_report' && $carTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $carTid);
+			} else if ($node->type == 'ef_national_contribution' && $ncTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $ncTid);
+			}
+
+			field_attach_update('node', $node);
+		}	
+
+		$vid = get_node_current_vid($nid->nid);
+		$node = node_load($nid->nid, $vid);
+
+		if (count($node->field_ef_document_type) == 0) {
+			if ($node->type == 'ef_report' && $articleTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $articleTid);
+			} else if ($node->type == 'ef_comparative_analytical_report' && $carTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $carTid);
+			} else if ($node->type == 'ef_national_contribution' && $ncTid) {
+				$node->field_ef_document_type['und'][] = array('tid' => $ncTid);
+			}
+
+			field_attach_update('node',$node);
+		}
+	}
+}
+
+?>
