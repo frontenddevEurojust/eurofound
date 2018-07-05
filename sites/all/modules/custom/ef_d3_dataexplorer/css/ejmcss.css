@@ -444,6 +444,9 @@ text.charts-title {
   font-size: 0.8em;
   line-height: 1.4rem;
 }
+.data-explorer-organisation *{
+  display: inline;
+}
 .jm-abstract-topics{
   margin-top: 10px;
 }
