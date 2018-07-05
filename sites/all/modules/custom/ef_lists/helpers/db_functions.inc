@@ -4,8 +4,8 @@
 * @description: return defined base query for my to do list.
 * @args: user identifier.
 */
-function _generate_base_query($uid)
-{
+function _generate_base_query($uid) {
+	global $user;
 
 	$query = db_select('node', 'a');
 	$query->innerJoin('workbench_moderation_node_history', 'c', 'a.nid = c.nid');
@@ -31,6 +31,10 @@ function _generate_base_query($uid)
 	$query->condition('b.field_ef_assign_to_user_target_id', $uid, '=');
 	$query->condition('c.current', '1', '=');
 	$query->condition('c.state', array('approved','published','unpublished'),'NOT IN');
+
+	if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
+		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
+	}  
 
 	return $query;
 }

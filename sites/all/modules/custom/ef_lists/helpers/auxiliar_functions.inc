@@ -14,19 +14,19 @@ function _retrieve_table_data($uid, $title, $types, $country_groups, $order)
 	// Distinguish by url-> my todo or my group todo list
 	$url = $_SERVER["REQUEST_URI"];
 
+	if (in_array('Author', $user->roles)) {
+		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
+	}  
+
+	if (in_array('Author +', $user->roles)) {
+		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
+	} 
+
 	if(!strpos($url,'ef-my-todo-list') === FALSE)
 	{
 		// My ToDo list
 		// base query
 		$query = _generate_base_query($uid);
-
-		if (in_array('Author', $user->roles)) {
-			$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
-		}  
-
-		if (in_array('Author +', $user->roles)) {
-			$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
-		} 
 
 		// Add conditions if any of the filters is populated
 		// Add title LIKE condition
