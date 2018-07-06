@@ -11,7 +11,6 @@
     if (!results) return null;
     if (!results[2]) return '';
 
-
     if( name == 'country' ) results[2] = results[2].toUpperCase();
 
       switch (results[2]) { 
@@ -78,6 +77,8 @@
   var countryNames = [];
 
 
+
+
   Drupal.d3.ejm = function (select, settings) {
 
     var ejm = [];
@@ -114,18 +115,32 @@
   		.text(function (d) { return d[1]; })		
   		.property("selected", function(d)
   		{
+
+        if( countryPar.length > maxCountrySelected){          
+          $('.advice-select-countries').css('color','#F00');
+
+          if($('.advice-max-countries').text() != ''){
+             $('.advice-max-countries').html('Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+          } else {
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+          }
+        }
+        
   			if(countryPar.length != null ) {          
-          if( countryPar.indexOf(d[0]) != -1){
-            $('.chosen-select').val(countryPar).trigger("chosen:updated");
-            return d[0] === d[0]; 
+          if( countryPar.indexOf(d[0]) != -1 ){
+            if( countryPar.indexOf(d[0]) <= maxCountrySelected ){
+              countryPar.length = maxCountrySelected;
+              $('.chosen-select').val(countryPar).trigger("chosen:updated");
+              return d[0] === d[0]; 
+            }
           } 
   			}
 		});
 
 
 
-	var periodFilterPar = getParameterByName('time');
-  var periodFilter = d3.select("#time");
+  	var periodFilterPar = getParameterByName('time');
+    var periodFilter = d3.select("#time");
 
     periodFilter.selectAll("option")
 		.data(settings.period)
@@ -147,8 +162,8 @@
     breakdownKeys = Object.keys(settings.keys_by_breakdown);
 
 
-	var breakdownFilterPar = getParameterByName('breakdown');
-  var breakdownFilter = d3.select("#breakdown");
+	  var breakdownFilterPar = getParameterByName('breakdown');
+    var breakdownFilter = d3.select("#breakdown");
 
     breakdownFilter.selectAll("option")
 		.data(breakdownKeys)
@@ -165,8 +180,9 @@
 			}
 
 		});
-  var criterionFilterPar = getParameterByName('criterion');
-  var criterionFilter = d3.select("#criterion");	
+
+    var criterionFilterPar = getParameterByName('criterion');
+    var criterionFilter = d3.select("#criterion");	
 
 	
     criterionFilter.selectAll("option")
@@ -185,11 +201,10 @@
 
 		});
 
-  var stackedInput = 0;
+    var stackedInput = 0;
 
       //***** WHEN NO SELECTED COUNTRY MESAGGE IS DISPLAYED******//
-     function msgDisplay(tags){
-
+    function msgDisplay(tags){
 
       if( tags == 0 ){
         d3.select(".country").text('');
@@ -209,6 +224,9 @@
       }
     }
 
+
+
+
    
     function filtersOnChange(){
       $("#ejm-chart svg").remove();
@@ -222,10 +240,7 @@
        if($('.chosen-select')[0][i].selected == true){
         countryTags.push($('.chosen-select')[0][i].value);
        } 
-      }
-
-      
-
+      }      
       if( countryTags.length <= maxCountrySelected){
         $('.advice-select-countries').removeAttr('style');
         $('.advice-max-countries').remove();
@@ -235,27 +250,33 @@
           render_graph( $('.chosen-select')[0][i].value , countryTags.length );
          } 
         }        
-      } else {
-        
-        $('.advice-select-countries').css('color','#F00');
+      } else { 
 
-        if($('.advice-max-countries').text() != ''){
-           $('.advice-max-countries').html('There are ' + countryTags.length + ' countries selected');
-        } else {
-          $('.advice-select-countries').append(  '<div class="advice-max-countries">There are ' + countryTags.length + ' countries selected </div>' );
+
+        if( countryTags.length > maxCountrySelected){          
+          $('.advice-select-countries').css('color','#F00');
+
+          if($('.advice-max-countries').text() != ''){
+             $('.advice-max-countries').html('Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+          } else {
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+          }
         }
+
+        $('.advice-max-countries i.fa-times').click(function (){
+            $('.advice-select-countries').removeAttr('style');
+            $('.advice-max-countries').remove();
+        });  
         
         var valOption = getParameterURLByName('country');
         if( valOption != null ) valOption = String.prototype.toUpperCase.apply(valOption).split(",");
+
         for(i=0;i<valOption.length;i++){          
           render_graph( valOption[i] , countryTags.length );
         } 
       }
 
-
       msgDisplay(countryTags.length);
-
-
 
       if( countryTags.length == 0 ){
         $('.jm-charts h2').css('display','none');
@@ -265,19 +286,20 @@
 
     }
 
+
+
+
     $('.chosen-select').on('change', function(evt, params) {
         countryExist = 0;
         filtersOnChange();        
     });
-
     d3.select("#time").on('change', function () {
         filtersOnChange();
     });
-
     d3.select("#criterion").on('change', function () {
         filtersOnChange();
     });
-    d3.select("#breakdown").on('change', function () {
+    d3.select("#breakdown").on('change', function () { 
         filtersOnChange();
     });
     // d3.select("#period").on("change", render_graph);
@@ -297,47 +319,56 @@
  
     d3.csv("/sites/default/files/ejm/data.csv", function(data) {
       ejm = data.map(function(d) { return d; });
+
      // render_graph(settings.id);
       for(i=0;i<countryPar.length;i++){
-        render_graph(countryPar[i], countryPar.length );
+        if(i < maxCountrySelected){
+          render_graph(countryPar[i], countryPar.length );
+        } else {
+          if($('.advice-max-countries').text() != ''){
+             $('.advice-max-countries').html('Only can be selected up to ' + countryPar.length + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+          } else {
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + countryPar.length + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+          }
+        }      
       }
     });
 
 
     function render_graph(c, urlVars) {
+      
       if(c == 'ejm-chart'){
         country = "EU";        
       }else{
         country = c;
       }
 
+      // number of the charts
+      if( urlVars == 1 ){
+        $("#ejm-chart").addClass('only-one');
+        var widthSVG = $("#ejm-chart").width()*0.6;
+        var heightSVG = $("#ejm-chart").width()*0.45;
+
+        msgDisplay( urlVars );
+      }
+      else if( urlVars >= 2 )
+      {
+        $("#ejm-chart").removeClass('only-one');
+        var widthSVG = $("#ejm-chart").width()/ 2.5;
+        var heightSVG = widthSVG*1;
+      }
 
 
-    // number of the charts
-    if( urlVars == 1 ){
+      if( $( window ).width() > 600 && $( window ).width() <= 1024 ){
+        var widthSVG = $("#ejm-chart").width()*0.9;
+        var heightSVG = $("#ejm-chart").width()*0.45;
 
-      $("#ejm-chart").addClass('only-one');
-      var widthSVG = $("#ejm-chart").width()*0.6;
-      var heightSVG = $("#ejm-chart").width()*0.45;
-
-      msgDisplay( urlVars );
-
-    } else if( urlVars >= 2 ){
-
-      $("#ejm-chart").removeClass('only-one');
-      var widthSVG = $("#ejm-chart").width()/ 2.5;
-      var heightSVG = widthSVG*1;
-
-    }
-
-    if( $( window ).width() > 600 && $( window ).width() <= 1024 ){
-      var widthSVG = $("#ejm-chart").width()*0.9;
-      var heightSVG = $("#ejm-chart").width()*0.45;
-
-    } else if ( $( window ).width() <= 600 ) {
-      var widthSVG = $("#ejm-chart").width()*0.9;
-      var heightSVG = $("#ejm-chart").width()*0.60;
-    }
+      }
+      else if ( $( window ).width() <= 600 )
+      {
+        var widthSVG = $("#ejm-chart").width()*0.9;
+        var heightSVG = $("#ejm-chart").width()*0.60;
+      }
 
 
       // d3.select("#country").property('value')
@@ -780,7 +811,10 @@
     });
 
 
-
+    $('.advice-max-countries i.fa-times').click(function (){
+        $('.advice-select-countries').removeAttr('style');
+        $('.advice-max-countries').remove();
+    });
    // $(".chosen-select").chosen();
     $(".chosen-select").chosen({
       placeholder_text_multiple: "Select Some Options",
