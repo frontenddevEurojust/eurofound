@@ -31,7 +31,7 @@ if($my_path == 'topic'){
   //Check the related content published in type Topic
   foreach ($term->field_ef_related_content['und'] as $key2 => $value2) {
     $taxonomy_related = node_load($value2['target_id']);
-    if ($taxonomy_related->status == 1){
+    if ($taxonomy_related->status == 1 || $taxonomy_related->workbench_moderation['current']->state == 'forthcoming'){
       $tx_published = 'published_term';
     }
   }
