@@ -61,7 +61,14 @@ function ef_publications_ct_update_7202() {
 		//will be just a "1".
 		$publication->status = $article->status;
 		//Main Image
-		$publication->field_ef_main_image = $article->field_ef_main_image;
+		$imagepath = $article->field_ef_main_image['und'][0]['uri'];
+		$image = (object) array(
+    	'uid' => 1,
+    	'uri' => $imagepath,
+    	'filemime' => file_get_mimetype($imagepath),
+    	'status' => 1,
+  	);
+  	$publication->field_ef_main_image[LANGUAGE_NONE][0] = (array)$image;
 		//Observatory
 		$publication->field_ef_observatory = $article->field_ef_observatory;
 		//Topic
@@ -84,6 +91,8 @@ function ef_publications_ct_update_7202() {
 		$publication->created = $article->created;
 		//EF Activities
 		$publication->field_ef_activities = $article->field_ef_activities;
+		//Body
+		$publication->body = $article->body;
 
 		node_save($publication);
 		if ($article->status == 1) {
@@ -91,6 +100,7 @@ function ef_publications_ct_update_7202() {
 		}
 		workbench_moderation_moderate($article, 'unpublished');
 		$article->status = 0;
+		$article->path['alias'] = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive/', $article->path['alias']);
 		node_save($article);
   }
 }
