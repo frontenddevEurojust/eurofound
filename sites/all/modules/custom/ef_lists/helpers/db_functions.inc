@@ -71,6 +71,7 @@ function _retrieve_country_groups_per_user($uid,$roles,$types)
 
 function _create_country_group_table($gid, $order, $limit, $types, $title)
 {
+	global $user;
 
 	$query = db_select('node', 'a');
 	$query->innerJoin('workbench_moderation_node_history', 'c', 'a.nid = c.nid');
@@ -109,9 +110,7 @@ function _create_country_group_table($gid, $order, $limit, $types, $title)
 		$query->condition('a.title', '%' . $title . '%', 'LIKE');
 	}
 
-	global $user;
-	$limited_roles = array('Author', 'Author +');
-	if (in_array($limited_roles, $user->roles)) {
+	if (in_array('Author', $user->roles) || in_array('Author +', $user->roles)) {
 		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
 	}  
 
