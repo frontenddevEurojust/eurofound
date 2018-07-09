@@ -98,7 +98,7 @@ function ef_publications_ct_update_7202() {
 
 		$old_alias = $article->path['alias'];
 
-		$new_alias = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive', $old_alias);
+		$new_alias = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive/', $old_alias);
 		db_update('url_alias')
 			->fields(array('alias' => $new_alias))
 			->condition ('url_alias.alias', $old_alias)
