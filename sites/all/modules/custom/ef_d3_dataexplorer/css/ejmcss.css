@@ -9,6 +9,9 @@ g.ticks text {
 .tooltip {
   z-index: 1000;
 }
+.disable {
+  fill: #CCC !important;
+}
 .node-type-data-explorer-page svg:not(:root) {
     overflow: visible;
 }
@@ -37,6 +40,9 @@ g.ticks text {
 .jm-back-button{
   padding: 15px 25px;
   text-align: center;
+}
+.jm-abstract{
+  margin-top: 1rem;
 }
 .jm-charts, .jm-abstract-wrapper{
   margin: 0;
@@ -72,18 +78,19 @@ g.ticks text {
   list-style: none;
   text-align: center;
   width: auto;
-  margin: auto;
+  margin:-1rem auto 1rem !important;
+
  }
  ul.legend-list-butterfly{
   list-style: none;
   text-align: center;
   width: auto;
-  margin: 2rem auto 0 !important;
+  margin: 4rem auto 0 !important;
 }
   ul.legend-list li, 
   ul.legend-list-butterfly li{
     width: auto;
-    margin: 0 15px;
+    margin: 0 10px;
     display: inline-block;
     cursor: pointer;
     font-size: 12px;
@@ -168,6 +175,10 @@ g.ticks text {
 .filters-jm-chart .group-filters select::-ms-expand {
     display: none;
 }
+select.disabled{
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .filters-jm-chart .group-filters  select option[disabled]{
     color: #CCC;
 }
@@ -211,11 +222,19 @@ g.ticks text {
 .chart-wrapper .lollipop-line.highlighted{
     stroke: #b6b6b6  !important;
 }
+.chart-wrapper .lollipop-line.highlight{
+    stroke: #eb8b0b  !important;
+}
+.chart-wrapper svg text.highlight   {
+  font-size: 12px;
+  font-weight: bold;
+  fill: #eb8b0b  !important;
+}
 .chart-wrapper .highlighted{
   font-weight: bold;
 }
 .chart-wrapper .highlighted  text {
-  font-size: 14px;
+  font-size: 12px;
   fill: #eb8b0b  !important;
 }
 .chart-wrapper circle:hover{
@@ -238,6 +257,15 @@ g.ticks text {
   -webkit-transition: all 1s;
   transition: all 1s;
 }
+.chart-wrapper circle.highlight {
+ // fill:#f16000 !important;
+  stroke:#4d4d4d !important;
+  stroke-width:1;
+  stroke-linecap: butt;
+  stroke-dasharray: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
 .chart-wrapper .no-data {
   fill: #d8dde4 !important;
   color: #d8dde4 !important;
@@ -255,22 +283,54 @@ g.ticks text {
 }
 
 /** HAPPINESS PYRAMID **/
-.right16, .start-R .fa-circle{
+.right16, .end-R .fa-circle{
   fill: #4D9DD5;
   color:#4D9DD5;
 }
-.right11, .end-R .fa-circle{
+.right11, .start-R .fa-circle{
   fill: #B7D1EB;
   color:#B7D1EB;
 }
-.left16, .start-L .fa-circle{
+.left16, .end-L .fa-circle{
   fill: #92C856;
   color: #92C856;
 }
-.left11, .end-L .fa-circle{
+.left11, .start-L .fa-circle{
   fill:#CCDFB9;
   color:#CCDFB9;
 }
+.left11.highlight, 
+.left16.highlight {
+  stroke:#2e4911 !important;
+  stroke-width:1;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+.right11.highlight, 
+.right16.highlight {
+  stroke:#174668  !important;
+  stroke-width:1;
+  stroke-linecap: butt;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 #ejm-chart svg {
   width: 50%;
  // height: 350px !important;
@@ -304,10 +364,12 @@ g.ticks text {
 text.charts-title {
   font-size: 1rem;
   font-family: Opensans-semibold-webfont;
-  transform: translate(30%,-10px);
+  transform: translate(35%,-12px);
+  text-anchor: middle;
 }
 #ejm-chart.only-one text.charts-title {
-  transform: translate(33%,-10px);
+  transform: translate(40%,-12px);
+  text-anchor: middle;
 }
 .ejm-alert{
   display: none;
@@ -331,44 +393,59 @@ text.charts-title {
 .name{
   font-size: 12px;
 }
+.data-explorer-topics{
+  text-align: left !important;
+}
 .topic-label{
   display: inline-block;
+  padding: 4px 0px 0px 0px;
   margin: 0;
-  padding: 0;
-  line-height: 1rem;
-  font-weight: bold;
-  vertical-align: top;
-  position: relative;
-  font-size: 0.9em;
-  top: 12px;
+  font-size: 0.8em;
 }
-p.last-update {
-  margin: 11px 0 0 0;
+.last-update {
+  margin: 0;
   display: inline-block;
-  float: right;
-  font-style: italic;
+ /* float: right;
+  font-style: italic;*/
+  font-size: 0.8em;
 }
+
 .topic-list{
   display: inline-block;
-  margin: 10px 0 !important;
+  margin: 3px 0 0 !important;
   padding: 0;
   color: #2d68aa;
-  font-size: 0.9em;
-  max-width: 80%;
+  font-size: 0.8em;
+ /* max-width: 80%;*/
 }
-.topic-list li{
+.topic-item{
   margin-left: 0 !important;
-  padding:0 !important;  
+  padding:0 !important;
+    font-size: 0.8em;  
 }
-.topic-list li a:after{
-  content: ' | ';
+.topic-item a:after{
+  content: ',';
+  padding-right: 0px;
 }
-.topic-list li:last-child a:after {
+.topic-item:last-child a:after {
   content:none;
 }
-.topic-list li a{
+.topic-item a{
   margin-left: 0 !important;
   padding:0 !important;  
+}
+.organisation-label{
+  padding: 0;
+  line-height: 1rem;
+}
+.data-explorer-organisation{
+  padding: 0;
+  color: #5A5A5A;
+  font-size: 0.8em;
+  line-height: 1.4rem;
+}
+.jm-abstract-topics{
+  margin-top: 10px;
 }
 .score, .leftscore{
   font-size: 11px;
@@ -382,7 +459,55 @@ rect.right16:hover{
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
+.withline{
+  border-right: 1px solid #F7931E;
+  padding: 4px 5px 1px 0px ;
+  margin: 0px 8px 0px 0px ;
+}
+.last-update.withline{
+  padding: 4px 9px 1px 0px;
+  margin: 0px 5px 0px 0px;
+}
+ /* RELATED CONTENT OF DATA EXPLORER PAGE */
 
+
+.related-content-data-explorer{
+  margin-top: 85px;  
+}
+.related-content-data-explorer.without-title {
+  margin-top: 42px;
+}
+.related-content-data-explorer.without-chart {
+  margin-top: 25px;
+}
+.related-content-data-explorer .block-views{
+  background-color: transparent;
+  padding:0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin-bottom: 25px;
+}
+.advice-max-countries{
+  background: rgb(255, 0, 0);
+  text-align: center;
+  font-family: OpenSans-Semibold-webfont;
+  padding: 0.5rem;
+  color: #FFF;
+  margin: 0.5rem 0;
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
+  #ejm-chart svg {
+    width: 100%;
+  }
+  #ejm-chart text.charts-title {
+    transform: translate(42%,-12px);
+    text-anchor: middle;
+  }
+  #ejm-chart.only-one svg {
+    width: 100%;
+  }
+}
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) { 
   #ejm-chart {
     text-align: center;
@@ -414,7 +539,10 @@ rect.right16:hover{
   g.rule text {
       font-size: 10px !important;
   }
-
+  #ejm-chart text.charts-title {
+    transform: translate(42%,-12px);
+    text-anchor: middle;
+  }
   .back-to-results-block a {
   font-size: 13px !important;
   text-align: center;
@@ -439,8 +567,9 @@ rect.right16:hover{
     font-size: 9px;
   }
   #ejm-chart > svg > g > text.charts-title{
-    /*transform: rotate(-90deg) translate(-125px,17px) !important;*/
-    font-size: 16px;
+  transform: rotate(0deg) translate(48%,-12px) !important;
+  font-size: 16px;
+  text-anchor: middle;
   }
   .chart-wrapper .tick text{
     font-size: 11px;
@@ -502,8 +631,9 @@ rect.right16:hover{
   }
 
   #ejm-chart > svg > g > text.charts-title{
-  transform: rotate(0deg) translate(25%,-7px) !important;
+  transform: rotate(0deg) translate(45%,-12px) !important;
   font-size: 16px;
+  text-anchor: middle;
   }
   #ejm-chart > svg > g > rect{
     width: 91% !important;

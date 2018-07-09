@@ -1,36 +1,78 @@
+<?php
+
+//Check if the related content is published, If all related content are unpublished we don't display the Block related content
+$rc_published = '';
+$tx_published = '';
+
+$node = menu_get_object();
+
+//Check the related content publiched in type Node
+foreach ($node->field_ef_related_content['und'] as $key => $value) {
+  $node_related = node_load($value['target_id']);
+  if ($node_related->status == 1){
+    $rc_published = 'published';
+  }
+}
+
+global $user;
+
+//Check if it is a topic. We load the topic related content and we check if the relates content is published
+//Load the current topic
+$my_path = arg(0);
+
+if($my_path == 'topic'){
+  $path = 'topics/' . arg(1);
+  $source_path = drupal_get_normal_path($path);
+
+  //Get the topic tid
+  $term_url = explode('/', $source_path);
+  $term = taxonomy_term_load($term_url[2]);
+
+  //Check the related content published in type Topic
+  foreach ($term->field_ef_related_content['und'] as $key2 => $value2) {
+    $taxonomy_related = node_load($value2['target_id']);
+    if ($taxonomy_related->status == 1){
+      $tx_published = 'published_term';
+    }
+  }
+}
+
+//Display the block in two types, node and topics
+if($rc_published == "published"
+   || $tx_published == "published_term" 
+   || $node->field_related_taxonomy['und'][0]['target_id'] != ''
+   || $term->field_related_taxonomy['und'][0]['target_id'] != ''){
+
+?>
 <section class="block block-views">
   <h2 class="block-title">Related content</h2>
   <?php
     $node = menu_get_object();
-
-    
     if (is_null($node)) {
-      if (strpos($_SERVER["REQUEST_URI"], "/topic/") == 0) {
-        $term=str_replace("/topic/", "", $_SERVER["REQUEST_URI"]);
-        $termname = str_replace("-", " ", $term);
-        
-        $node=taxonomy_get_term_by_name($termname);
+      $nid = $term->tid;
+      $weight=array();
 
-        foreach ($node as $key => $value) {
-          $nid=$key;
-        }
-
-        $weight=array();
-
-        $query = db_select('related_content_and_taxonomies', 'rc');
-            $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
-            $query->condition('rc.nid', $nid, "=");
-            $query->orderBy('rc.rc_weight', 'ASC');
-            $result=$query->execute();
-      }
-    }else{
+      $query = db_select('related_content_and_taxonomies', 'rc');
+          $query->fields('rc', array("rc_weight", "rc_id", "rc_type", "nid"));
+          $query->condition('rc.nid', $nid, "=");
+          $query->orderBy('rc.rc_weight', 'ASC');
+          $result=$query->execute();
+    }
+    else{
       $nid=$node->nid;
       $weight=array();
       
-      if (substr($_SERVER["REQUEST_URI"], -6, 6)=="/draft") {
-         $current_revision=$node->workbench_moderation["current"]->vid;
-      }else{
-         $current_revision=$node->vid;
+      if (!$user->uid) {
+        //user is not logged in
+        $current_revision = $node->vid; 
+      }
+      else{
+        //user is logged in
+        if(isset($node->workbench_moderation["current"]->vid)){
+          $current_revision = $node->workbench_moderation["current"]->vid;
+         }else{
+          $current_revision = $node->vid;    
+        }
       }
 
         $query = db_select('related_content_and_taxonomies', 'rc');
@@ -76,8 +118,7 @@
         foreach ($weight_final as $node => $value) {
             $name="";
             $date="";
-            $node_ittem=node_load($value);
-
+            $node_item=node_load($value);
             $query = db_select('related_content_and_taxonomies', 'rc');
             $query->fields('rc', array("rc_type"));
             $query->condition('rc.nid', $nid, "=");
@@ -93,29 +134,29 @@
             }
 
               //Country 
-                if(($node_ittem->type == 'ef_comparative_analytical_report') || $node_ittem->type == 'ef_publication'){
-                  $iso2 = $node_ittem->field_ef_eu_node_ittem_countries;
+                if(($node_item->type == 'ef_comparative_analytical_report') || $node_item->type == 'ef_publication'){
+                  $iso2 = $node_item->field_ef_eu_node_item_countries;
                   $variable = $iso2['und'][0]['iso2'];
                  
                   $sql = db_select('node', 'n');
                   $sql->join('field_data_field_ef_eu_related_countries', 'c', 'c.entity_id = n.nid');
                   $sql->join('countries_country', 'cc', 'c.field_ef_eu_related_countries_iso2 = cc.iso2');
                   $sql->fields('cc', array('name'));
-                  $sql->condition('n.nid', $node_ittem->nid, '=');
+                  $sql->condition('n.nid', $node_item->nid, '=');
                   $sql->condition('cc.iso2', $variable, '=');
                   $sql->distinct();
                   
                   $country = $sql->execute()->fetchAll();  
                 }
-                elseif (($node_ittem->type == 'ef_ic_quarterly_report') || ($node_ittem->type == 'ef_network_quarterly_report')) {
-                  $iso2 = $node_ittem->field_ef_eu_related_countries;
+                elseif (($node_item->type == 'ef_ic_quarterly_report') || ($node_item->type == 'ef_network_quarterly_report')) {
+                  $iso2 = $node_item->field_ef_eu_related_countries;
                   $variable = $iso2['und'][0]['iso2'];
 
                   $sql = db_select('node', 'n');
                   $sql->join('field_data_field_ef_quarter_report_country', 'c', 'c.entity_id = n.nid');
                   $sql->join('countries_country', 'cc', 'c.field_data_field_ef_quarter_report_country.iso2 = cc.iso2');
                   $sql->fields('cc', array('name'));
-                  $sql->condition('n.nid', $node_ittem->nid, '=');
+                  $sql->condition('n.nid', $node_item->nid, '=');
                   $sql->condition('cc.iso2', $variable, '=');
                   $sql->distinct();
                   
@@ -123,7 +164,7 @@
                 }
                 else {
                 
-                  $iso2 = $node_ittem->field_ef_country;
+                  $iso2 = $node_item->field_ef_country;
                 
                   $variable = $iso2['und'][0]['iso2'];
                   
@@ -131,7 +172,7 @@
                   $sql->join('field_data_field_ef_country','c','c.entity_id = n.nid');
                   $sql->join('countries_country','cc','c.field_ef_country_iso2 = cc.iso2');
                   $sql->fields('cc',array('name'));
-                  $sql->condition('n.nid', $node_ittem->nid, '=');
+                  $sql->condition('n.nid', $node_item->nid, '=');
                   $sql->condition('cc.iso2',$variable,'=');
                   $sql->distinct();
 
@@ -141,86 +182,129 @@
                 $country=$country[0]->name;
             //Get Delib Kind 
               //Content type
-              $type = $node_ittem->type;
+              $type = $node_item->type;
 
             // deliverable kinds
-              $tid = $node_ittem->field_ef_deliverable_kind['und'][0]['tid'];
+              $tid = $node_item->field_ef_deliverable_kind['und'][0]['tid'];
               $term = taxonomy_term_load($tid);
             
-              if(!empty($tid)){
-                $name = $term->name;
-              }else{
-                $name = $type;
+              
+              $name = $type;
 
-                if($name == 'page'){
-                  $name = t('Page');
-                }
-                $name = str_replace("ef_","EF ",$name);
-                $name = str_replace("_"," ",$name);
-              }
-
-              if($tid == 13742 || $tid == 13743 || $tid  == 13770 || $tid == 20209 || $tid == 13159 ){
-                $name = t('Research in Focus');
-              }elseif($tid == 13744){
-                $name = t('Comparative Analytical Report');
-              }elseif($tid == 13745){
-                $name = t('Annual Update');
-              }elseif($tid == 13746){
-                $name = t('Representativeness Study');
-              }
-            
-           
-            //New Content Type Formats
-              if ($name=="board member page" || $name=="EF network extranet page") {
+              
+              //New Content Type Formats
+              if ($name=="page" || $name=="board_member_page" || $name=="ef_network_extranet_page") {
                 $name=t("Page");
-              }elseif($name=="EF call for tender"){
+              }elseif($name=="blog"){
+                $name=t("Blog");
+              }elseif($name=="ef_call_for_tender"){
                 $name=t("Call for tender");
-              }elseif($name=="Working life country profile update"){
+              }elseif($name=="ef_working_life_country_profiles"){
                 $name=t("Country");
-              }elseif($name=="data explorer page" || $name=="dvs survey"){
+              }elseif($name=="data_explorer_page" || $name=="dvs_survey") {
                 $name=t("Data");
-              }elseif($name=="Other research services EF"){
+              }elseif($name=="ef_report"){
                 $name=t("Article");
-              }elseif($name=="Legal database update"){
+              }elseif($name=="ef_erm_regulation"){
                 $name=t("Legislation");
-              }elseif($name=="Support instrument update"){
+              }elseif($name=="erm_support_instrument"){
                 $name=t("Support instrument");
-              }elseif($name=="EF event"){
+              }elseif($name=="ef_event"){
                 $name=t("Event");
-              }elseif($name=="Factsheet"){
+              }elseif($name=="ef_factsheet"){
                 $name=t("Restructuring event");
-              }elseif($name=="IR entry"){
+              }elseif($name=="ef_ir_dictionary"){
                 $name=t("Dictionary");
-              }elseif($name=="EF news"){
+              }elseif($name=="ef_news"){
                 $name=t("News");
-              }elseif($name=="EF publication"){
+              }elseif($name=="ef_publication"){
                 $name=t("Publication");
-              }elseif($name=="EF survey"){
+              }elseif($name=="ef_survey"){
                 $name=t("Survey");
+              }elseif($name=="presentation"){
+                $name=t("Presentation");
+              }elseif($name=="ef_annual_progress_report" 
+                  || $name=="article"
+                  || $name=="ef_case_study"
+                  || $name=="case_study_publication"
+                  || $name=="ef_comparative_analytical_report"
+                  || $name=="ef_contact_form"
+                  || $name=="cwb_level_coordination"
+                  || $name=="cwb_country_info"
+                  || $name=="timeline_date"
+                  || $name=="cwb_time_series"
+                  || $name=="cwb_series"
+                  || $name=="ef_emire_dictionary"
+                  || $name=="ef_ic_quarterly_report"
+                  || $name=="ef_input_to_erm"
+                  || $name=="ef_national_contribution"
+                  || $name=="ef_network_quarterly_report"
+                  || $name=="panel"
+                  || $name=="ef_photo_gallery"
+                  || $name=="ef_project"
+                  || $name=="ef_quarterly_report"
+                  || $name=="ef_regulation"
+                  || $name=="ef_restructuring_in_smes"
+                  || $name=="simplenews"
+                  || $name=="ef_spotlight_entry"
+                  || $name=="ssi_services"
+                  || $name=="ef_support_instrument"
+                  || $name=="ef_survey"
+                  || $name=="ef_vacancy"
+                  || $name=="ef_video"
+                  || $name=="webform"){
+                $name="";
               }
 
 
             //Publication date
-              $date_ts = $node_ittem->published_at;
+              $date_ts = $node_item->published_at;
               $date = date('d F Y', $date_ts);
 
             //Delete date when the content type is in array
               $delete_date_in=array("page", "board_member_page", "ef_working_life_country_profiles", "data_explorer_page", "dvs_survey", "ef_ir_dictionary", "ef_network_extranet_page", "ef_survey");
-              if (in_array($node_ittem->type, $delete_date_in)) {
+              if (in_array($node_item->type, $delete_date_in)) {
                 $date="";
               }
 
+              
 
               if ($is_nodo){
+                //If the node isn't unpublished
+                if($node_item->status != 0){
+                  
                 //ALIAS HREF
-                  $path = 'node/'.$node_ittem->nid;
+                  $path = 'node/'.$node_item->nid;
                   $alias = url($path, array("absolute"=>TRUE));
+              
+                $content_type = $node_item->type;
 
+                if ($content_type=="page"
+                    || $content_type=="blog" 
+                    || $content_type=="board_member_page" 
+                    || $content_type=="blog" 
+                    || $content_type=="ef_call_for_tender"
+                    || $content_type=="ef_working_life_country_profiles" 
+                    || $content_type=="data_explorer_page" 
+                    || $content_type=="dvs_survey" 
+                    || $content_type=="ef_report" 
+                    || $content_type=="ef_erm_regulation" 
+                    || $content_type=="erm_support_instrument" 
+                    || $content_type=="ef_event" 
+                    || $content_type=="ef_factsheet" 
+                    || $content_type=="ef_ir_dictionary" 
+                    || $content_type=="ef_network_extranet_page" 
+                    || $content_type=="ef_news" 
+                    || $content_type=="presentation" 
+                    || $content_type=="ef_publication" 
+                    || $content_type=="ef_survey" 
+                    || $content_type=="ef_network_extranet_page" 
+                    || $content_type=="ef_survey"){
                 //Paint HTML
                     ?>
                       <li class="views-row views-row-1 views-row-odd views-row-first">  
                         <a href="<?php echo $alias; ?>">
-                          <?php echo $node_ittem->title; ?>
+                          <?php echo $node_item->title; ?>
                         </a>    
                             
                         <ul class="metadata-items inline-list">
@@ -229,9 +313,9 @@
                               <?php echo $country; ?>
                             </li>
                           <?php endif; ?>
-                          <?php if(isset($name)): ?>
+                          <?php if($name != ''): ?>
                             <li class="list-delib-kind">
-                              <?php echo ucfirst($name); ?>
+                              <?php echo $name; ?>
                             </li>
                           <?php endif; ?>
 
@@ -243,7 +327,9 @@
 
                         </ul>  
                       </li>
-                    <?php 
+                <?php 
+                  }
+                }
               }else{
                 //Get Taxonmy name
                   $sql = db_select('taxonomy_term_data','t');
@@ -295,3 +381,4 @@
     ?>
  
 </section>
+<?php } ?>

@@ -338,7 +338,7 @@
         || pathname_form=='network-quarterly-reports-export'
         || pathname_form=='quarterly-reports-export'){
         num_divisor=parseInt(5);
-      }else if(pathname_form=='new-osu-contracts-reporting'){
+      }else if(pathname_form=='osu-contracts-reporting-2018'){
         num_divisor=parseInt(8);  
       }else if(pathname_form=='legislation'){
         num_divisor=parseInt(2);
@@ -350,7 +350,7 @@
 
       if ( $(".view-new-osu-contract-reporting").length > "0" ){
         //Append Help text
-        $( "#edit-field-ef-contract-year-comp-value-wrapper" ).append( $( "<div class='description'> <span  class='' title='Contract year starts 1 March and ends on 28/9 February the following year.'>More information?</span></div>" ) );
+        $( "#edit-field-ef-contract-year-comp-value-wrapper" ).once().append( $( "<div class='description'> <span  class='' title='Contract year starts 1 March and ends on 28/9 February the following year.'>More information?</span></div>" ) );
       }
 
       var $filter_rows = Math.floor($num_filters/num_divisor);
@@ -369,8 +369,10 @@
          last--;
         }
 
-        $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
-      
+        if ( $(".view-new-osu-contract-reporting").length != "1" ){
+          $('.view-filter').slice(first, last).wrapAll('<div class="wrap-row-filters"></div>');
+        }
+
       }
 
       $('.view-button').wrapAll('<div class="wrap-row-buttons"></div>');
@@ -1764,3 +1766,32 @@ $(document).ready(function(){
   });
 })(jQuery);
   
+
+//remoove styles insert from ckeditor dropdwn styles
+(function ($) {
+  $(document).ready(function(){
+
+  $("figure.image").removeClass('img-align-left-ck');
+  $("figure.image").removeClass('img-align-center-ck');
+  $("figure.image").removeClass('img-align-right-ck');
+
+/*
+    $('figure.image img').load(function() {
+        var withImg = $(this).width();
+        $('figure.image figcaption').css('width',withImg);
+    });
+
+*/
+
+  });
+})(jQuery);
+
+
+//WGS-291 - remove RSS links for anonymous users.
+(function ($) {
+  $(document).ready(function(){
+    $(".not-logged-in .l-footer-columns .footer-second ul li:last-child").remove();
+    $(".not-logged-in div.footer.large-6.columns > section > ul.menu > li.last.leaf").remove();
+    $(".not-logged-in footer > section:nth-child(1) > div.footer.large-6.columns > section > ul.menu > li:nth-child(5)").css("border","0");
+  });
+})(jQuery);

@@ -25,6 +25,10 @@ function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
   // EDIT MODE
   if($form_id == 'ef_erm_regulation_node_form'){
     
+    //Unset old fields company size and afected employees
+    unset($form['field_company_size_erm_reg']);
+    unset($form['field_affected_employees_erm_reg']);
+
     $form['title_field']['#type'] = 'hidden';
     $form['field_observatory_erm_reg']['#type'] = 'hidden';
     $form['field_theme_erm_reg']['#type'] = 'hidden';

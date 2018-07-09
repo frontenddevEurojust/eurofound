@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the SSI web apps intergration feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ssi_web_apps_intergration.features.inc';

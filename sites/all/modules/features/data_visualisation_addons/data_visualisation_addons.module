@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the Data visualisation addons feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'data_visualisation_addons.features.inc';

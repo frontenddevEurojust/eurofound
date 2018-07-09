@@ -34,6 +34,35 @@ html, body{
 i:before{
   content: "";
 }
+.hide-overlay{
+  display: none;
+}
+  #overlay-eurofound-print{
+    position:fixed;
+    z-index:99999;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background: rgba(255,255,255,0.8);
+    transition: 1s 0.4s;
+  }
+
+  #overlay-eurofound-print .loading-position{
+    position: absolute;
+      top: 50%;
+      left: 45%;
+      
+  }
+
+  #overlay-eurofound-print .loading-position img{
+    border: 0px;
+      outline-width: 0px;
+  }
+
+  #overlay-eurofound-print .loading-position span{
+    padding-left: 0.5em;
+  }
 ul,ol{
   margin: 1em !important;
   padding-left: 40px !important;
@@ -251,7 +280,7 @@ h1.print-h1{
 }
 
 h1.title, h2.title{
-background:transparent !important;
+  background:transparent !important;
   -moz-box-shadow:none !important;
   -webkit-box-shadow:none !important;
   box-shadow:none !important;
@@ -279,6 +308,16 @@ h2.title-working-life{
 .ef-main h1{
  margin-left:0cm !important;
  }
+.sai-label{
+  color: #10499e !important;
+  font-family: "OpenSans-light-webfont" !important;
+  font-size: 1.3em !important;
+  padding-bottom: 3px;
+}
+.sai-label ~ h1 {
+  color: #10499e !important;
+  margin-top: 0em !important;
+}
 .field-name-published-on{
   display:block !important;
  }
@@ -1024,7 +1063,32 @@ ul.metadata-publications > li > ul li {
     display: none;
   }
 
+  .columns.blog-presentation {
+    margin-top: 60px;
+    width: 100%!important;
+  }
 
+  .related-content-aside-3 ul{
+    padding-left: 0!important;
+    margin-left: 0!important;
+  }
+
+  .view-authors-as-metadata .authors-as-metadata a{
+    font-weight: normal!important
+  }
+
+  .related-content-aside-3 a{
+    font-weight: normal!important
+  }
+
+  .page-topic .large-3.columns{
+    width: 100%!important;
+  }
+  .communication-calendar .icon-publications, 
+  .communication-calendar .icon-events, 
+  .communication-calendar .icon-blog {
+    color: #F7931E !important;
+  }
 
 @media print {
   html, body{margin:4%!important; }
@@ -1037,6 +1101,14 @@ ul.metadata-publications > li > ul li {
   .quarterly-overviews, .latest-news-working-life{
     width: 100% !important;
     float: none !important;
+  }
+  .communication-calendar .icon-blog-img {
+    width: 21px;
+  }
+  .communication-calendar .icon-publications, 
+  .communication-calendar .icon-events, 
+  .communication-calendar .icon-blog {
+    color: #F7931E !important;
   }
 }
 /** end working life countri profile **/

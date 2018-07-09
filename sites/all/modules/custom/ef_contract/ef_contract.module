@@ -698,7 +698,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       'visible' => array('select[name="field_ef_moderation_state"]' => array('value' => 'on_external_editing'))
     );
 
-    drupal_add_js(drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js');
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_contract') . '/js/ef_contract.js';
 
     if($form['#node_edit_form'] === TRUE){
       drupal_add_js(drupal_get_path('module','ef_contract') . '/js/ef_contract_edit_mode.js');
@@ -707,7 +707,7 @@ function ef_contract_form_node_form_alter(&$form, $form_state, $form_id){
       }
     }
 
-    drupal_add_css(drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css');
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_contract') . '/css/ef_contract.css';
 
     // We pass to JS the 'current state' variable and Assigned user name,
     // in order to show it in the vertical tab description
@@ -749,6 +749,10 @@ function service_type_validate($form, &$form_state) {
       form_set_error('Service Type', t('Service type is Required'));
     }
   }
+
+  //Get Service Type value as a JS param
+  $settings['service_type'] = $form_state['values']['field_ef_service_type']['und'][0]['tid'];
+  drupal_add_js(array('ef_contract' => $settings), 'setting');
 }
 
 function ajax_contract_callback($form, &$form_state) {
@@ -1188,6 +1192,15 @@ function ef_contract_node_presave($node) {
   $types = ef_contract_get_affected_cts();
 
   if (in_array($node->type, $types)) {
+    
+    //Save Service type when Service Type is unset. eg When Author create a Node. 
+    //The Author can fill in the DK but does not have permissions to fill the ST and He saves NULL
+    //If the DK have two options to save ST, we save ['und'][0] = "On-request reporting service"
+    if ( isset($node->field_ef_deliverable_kind['und'][0]['tid']) && !isset($node->field_ef_service_type['und'][0]['tid']) ){
+      $term = taxonomy_term_load($node->field_ef_deliverable_kind['und'][0]['tid']);
+      $node->field_ef_service_type['und'][0]['tid'] = $term->field_ef_service_type['und'][0]['tid'];
+    }
+
     // We create $node->group variable with the 'field_ef_assign_to_country_group' info
     // because the QM, who create the nodes, are not members in any Country Group,
     // so they can't choose any group in Group field
@@ -1363,3 +1376,18 @@ function get_equivalent_new_contract($old_contract, $contracts) {
   return;
 }
 
+
+/**WGS-371
+ * Delete validation message if we haven't permission to view the required field
+ */
+function ef_contract_date_popup_pre_validate_alter(&$element, &$form_state, &$input){
+  global $user;
+  if($form_state['build_info']['args'][0]->type == 'erm_support_instrument' || $form_state['build_info']['args'][0]->type == 'ef_erm_regulation'){
+    if (user_access('edit field_ef_revision_deadline', $user) && $form_state['values']['field_ef_moderation_state'] == 'under_revision_request' && $element['#field']['field_name'] == 'field_ef_revision_deadline' ) {
+      $element['#required'] = TRUE;
+    }
+    else {
+      $element['#required'] = FALSE;
+    }
+  }
+}

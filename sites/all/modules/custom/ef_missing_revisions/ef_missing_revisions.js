@@ -33,7 +33,6 @@ jQuery(window).load(function(){
   $(document).ready(function() {
   	needToConfirm = false;
     var myinstances = [];
-   // console.log(jQuery('.form-textarea-wrapper .wysiwyg').length);
     if(jQuery('.form-textarea-wrapper .wysiwyg').length > 0) {
       for(var i in CKEDITOR.instances) {
          myinstances[CKEDITOR.instances[i].name] = CKEDITOR.instances[i].getData();
@@ -173,7 +172,6 @@ jQuery(window).load(function(){
             names[j] = CKEDITOR.instances[i].name;
             j = j +1 ;
          }
-         console.log(myinstances);
          for (var i = names.length - 1; i >= 0; i--) {
             if(myinstances[names[i]] != myinstancesafter[names[i]]) {
               needToConfirm = true;

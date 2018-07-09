@@ -208,15 +208,7 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
     $form['field_ef_requested_on_value']['max']['#date_format'] = 'Y-m-d';
   }
 
-  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1'){
-    $form['field_ef_report_delivery_date_value']['min']['#date_format'] = 'd/m/Y';
-    $form['field_ef_report_delivery_date_value']['max']['#date_format'] = 'd/m/Y';
-    $form['field_ef_report_delivery_date_value']['min']['#title'] = 'From';
-    $form['field_ef_report_delivery_date_value']['max']['#title'] = 'To';
-    $form['field_ef_approved_for_payment_value']['min']['#date_format'] = 'd/m/Y';
-    $form['field_ef_approved_for_payment_value']['max']['#date_format'] = 'd/m/Y';
-    $form['field_ef_approved_for_payment_value']['min']['#title'] = 'From';
-    $form['field_ef_approved_for_payment_value']['max']['#title'] = 'To';
+  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1' || $form['#id'] == 'views-exposed-form-new-osu-contract-reporting-views-data-export-1'){
     
     //Change the field contract year comp to a Select. 
     //We Fill the select with the sql table of the years values.
@@ -244,7 +236,9 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
 
         // Build the options array based on the grouped field values
         foreach($result as $row) {
-          $options[$row->field] = $row->field;
+          if($row->field > 2017){
+            $options[$row->field] = $row->field;
+          }
         }
         
         // Alter the field
@@ -252,13 +246,56 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
         $form[$field_id .'_value']['#options'] = $options;
         $form[$field_id .'_value']['#size'] = 1;
       }
+
+    
+    if (isset($form['field_ef_author_contract_tid'])) {    
+          $contract_list = array();
+          // Start with a default so the filter is optional
+          $contract_list = array("All" => t('- Any -'));
+          $vid_contract = taxonomy_vocabulary_machine_name_load('ef_contracts')->vid;
+          $con_tree = taxonomy_get_tree($vid_contract);
+
+          foreach ($con_tree as $key => $value) {
+            $tax_term = taxonomy_term_load($value->tid);
+            if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+              $contract_list[$value->tid]=$value->name;  
+            }
+           
+          }
+        
+        // Alter the field
+        $form['field_ef_author_contract_tid']['#type'] = 'select';
+        $form['field_ef_author_contract_tid']['#options'] = $contract_list;
+        $form['field_ef_author_contract_tid']['#size'] = 1;
+        $form['field_ef_author_contract_tid']['#default_value'] = 'All';
+    }
+
+    //Alter Deliverable kind field
+    if (isset($form['field_ef_deliverable_kind_tid'])) {
+          $deliverable_list = array();
+          $vid_deliverable = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds')->vid;
+          $del_tree = taxonomy_get_tree($vid_deliverable);
+
+          foreach ($del_tree as $key => $value) {
+            $tax_term = taxonomy_term_load($value->tid);
+            if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+              $deliverable_list[$value->tid]=$value->name;  
+            }
+           
+          }
+        
+        // Alter the field
+        $form['field_ef_deliverable_kind_tid']['#type'] = 'select';
+        $form['field_ef_deliverable_kind_tid']['#options'] = $deliverable_list;
+        $form['field_ef_deliverable_kind_tid']['#size'] = 1;
+    }
         
   }
 }
 
 function ef_osu_contract_views_query_alter(&$view, &$query) {
   if(isset($view->name)) {
-    if( $view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting' ) {
+    if($view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting') {
       //-------------------IR ENTRY REVISIONS CONTROL------------------
       $sql = "SELECT * from field_data_field_ef_deliverable_kind where field_ef_deliverable_kind_tid = 13753";
       $irdictionaries = db_query($sql)->fetchAll();
@@ -299,6 +336,15 @@ function ef_osu_contract_views_query_alter(&$view, &$query) {
       }
       //-------------------END IR ENTRY REVISIONS QUERY ALTER------------------
     }
+
+    if ($view->name == 'new_osu_contract_reporting') {
+      $query->table_queue['node_revision']['join']->left_field = 'nid';
+      $query->table_queue['node_revision']['join']->field = 'nid';
+
+      $query->table_queue['node_revision']['join']->definition['left_field'] = 'nid';
+      $query->table_queue['node_revision']['join']->definition['field'] = 'nid';
+    }
+
   }
 }
 

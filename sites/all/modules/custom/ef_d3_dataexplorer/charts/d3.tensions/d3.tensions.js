@@ -79,7 +79,7 @@
 
   }
 
-  var createModalityFilters = function(data){
+  var createModalityFilters = function(data, settingsData){
     
     var modalities = buildModalityOptions(data);
     
@@ -111,13 +111,17 @@
     d3.select("#subgroup-filter").on("change", updateGraph);
   }
 
-  var createOrderingFilter = function() {
-    var alphaSort = [
+  var createOrderingFilter = function(dataFile, settingsData) {
+    /*var alphaSort = [
       "Alphabetically ascending (A-Z, with EU28 first)",
       "By 2007 value descending",
       "By 2011 value descending",
       "By 2016 value descending"
-    ];
+    ];*/
+  var alphaSort = [translatedValue(dataFile, 'tensions_sortOptionDefault'),
+    translatedValue(dataFile, 'tensions_sortOption1'),
+    translatedValue(dataFile, 'tensions_sortOption2'),
+    translatedValue(dataFile, 'tensions_sortOption3')];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -228,35 +232,66 @@
     return maxValue;
   }
 
-  var buildGraphStructure = function(csv){
-    $('.chart-filters').append('<label for="modality-filter" class="label-data">Data:</label>');
-    createModalityFilters(csv);
-    $('.chart-filters').append('<label for="subgroup-filter" class="label-group">Group:</label>');
-    createSubgroupFilters(csv);
-    $('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
-    createOrderingFilter();
-  };
+  var buildGraphStructure = function(csv, dataFile, settingsData){
+    $('.chart-filters').append('<label for="modality-filter" class="label-data">' + translatedValue(dataFile, 'LabelData') + '</label>');
+    createModalityFilters(csv, settingsData);
+    $('.chart-filters').append('<label for="subgroup-filter" class="label-group">' + translatedValue(dataFile, 'LabelGroup') + '</label>');
+    createSubgroupFilters(csv, settingsData);
+    $('.chart-filters').append('<label for="sort-filter" class="label-sort">' + translatedValue(dataFile, 'LabelSort') + '</label>');
+    createOrderingFilter(dataFile, settingsData);
+  };  
 
+  var translateData = function(dataFile, csv)
+  {
+    var data = csv.map(function(row)
+    {
+      row.countryName = translatedValue(dataFile, 'country' + row.countryCode);
+      row.dot1 = parseFloat(row.dot1);
+      row.dot2 = parseFloat(row.dot2);      
+      row.dot3 = parseFloat(row.dot3); 
+      row.modalityValue = translatedValue(dataFile, 'tensions_filter_data' + row.modalityCode);
+      row.subgroupValue = translatedValue(dataFile, 'tensions_filter_group' + row.subgroupCode);
+      return row;
+    });
+    return data;
+  }
+
+  var readSettings = function(settingsFile)
+  {
+    var settingsData = settingsFile.map(function(row)
+    {
+      return row;
+    });
+    return settingsData;
+  }
+
+  var translatedValue = function(translatedArray, arrayKey)
+  {
+    var entry = translatedArray.find(function(e)
+    {
+      return e.Key === arrayKey;
+    });
+    if (entry)
+    {
+      return entry.Value;
+    }
+  }
+
+  var customSettings = function(settingsArray, chartName, modalityName)
+  {
+    var elementId = settingsArray.find(function(e)
+    {
+      return (e.chartID === chartName && e.modalityCode == modalityName);
+    });
+    if (elementId)
+    {
+      return [elementId.xMin, elementId.xMax];
+    }
+  }
+  
   var axisLinePath = function(d) {
     return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
   };
-
-  var parseToFloat = function(csv){
-
-    var data = csv.map(function(row){
-
-      row.dot1 = parseFloat(row.dot1); 
-
-      row.dot2 = parseFloat(row.dot2); 
-      
-      row.dot3 = parseFloat(row.dot3); 
-      
-
-      return row;
-    });
-
-    return data;
-  }
 
   function updateGraph(){
 
@@ -266,13 +301,9 @@
 
     var filteredData = filterData(data, modalityCode, subgroupCode, order);
 
-    if (calculateMinValue(filteredData) == 0){
-      var domainMin = Math.round(calculateMinValue(filteredData));
-    } else {
-      var domainMin = Math.round(calculateMinValue(filteredData) - 1);
-    }
-
-    var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
+  var customLimits = customSettings(settingsData, 'tensions', modalityCode);
+  var domainMin = customLimits[0];
+  var domainMax = customLimits[1];
 
     padding = 0;
 
@@ -332,6 +363,15 @@
       .transition().duration(750)
       .call(yAxis);
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) { 
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    }); 
+
     // Move x-axis lines
     d3.selectAll("path.grid-line")
       .remove();
@@ -374,11 +414,19 @@
       return circleRadio;           
     })
     .attr("class", function(d){
-      if (d.dot1 == 0){
-        return "lollipop-start no-data";
-      } else {
-        return "lollipop-start";           
-      }
+        if (d.dot1 == 0){
+          if(d.highlight == 1){
+            return 'lollipop-start no-data highlight';
+          }else{
+            return 'lollipop-start no-data';
+          }  
+        } else {
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }      
+        }
     });
 
     var medianCircles = lollipops.select("circle.lollipop-median")
@@ -400,11 +448,19 @@
         return circleRadio;           
       })
       .attr("class", function(d){
-        if (d.dot3 == 0){
-          return "lollipop-median no-data";
-        } else {
-          return "lollipop-median";           
-        }
+          if (d.dot3 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-median no-data highlight';
+            }else{
+              return 'lollipop-median no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-median highlight';
+            }else{
+              return 'lollipop-median';
+            }      
+          }
       });
 
     var endCircles = lollipops.select("circle.lollipop-end")
@@ -426,11 +482,19 @@
         return circleRadio;           
       })
       .attr("class", function(d){
-        if (d.dot2 == 0){
-          return "lollipop-end no-data";
-        } else {
-          return "lollipop-end";           
-        }
+          if (d.dot2 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-end no-data highlight';
+            }else{
+              return 'lollipop-end no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-end highlight';
+            }else{
+              return 'lollipop-end';
+            }      
+          }
       });
       
     // añadir duration a las transiciones
@@ -438,8 +502,12 @@
       .data(filteredData) 
       .transition().duration(750)
       .attr("d", lollipopLinePath)
-      .attr("class", function(d){
-        return "lollipop-line";
+      .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-line highlight';
+          }else{
+            return 'lollipop-line';
+          }                
       });
   }
 
@@ -453,18 +521,41 @@
   $(document).ready(function(){
 
     data = [];
+  settingsData = [];
 
-    if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
-      var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-    } else {
-      console.log("Language is undefined. Data can't be loaded");
-    }
+  if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+  {
+    var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+  } 
+  else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+  {
+    var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
+  }
+  else
+  {
+    console.log("Language is undefined. Data can't be loaded");
+  }
 
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/tensions/tensions_' + languageCode + '.csv', function(csv){
+  d3.queue()
+    .defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+    .defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+    .defer(d3.csv, '/sites/default/files/ejm/data/en/tensions/tensions_en.csv')
+    .await(function(error, settingsFile, dataFile, csv)
+  {
+    //d3.csv('/sites/default/files/ejm/data/' + languageCode + '/tensions/tensions_' + languageCode + '.csv', function(csv){
 
       if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/tensions/tensions_' + languageCode + '.csv" was not found.');
+        console.log('Requested csv at "/sites/default/files/ejm/data/en/tensions/tensions_en.csv" was not found.');
       }
+      
+  settingsData = function(settingsFile)
+  {
+    settingsFile.map(function(row)
+    {
+      return row;
+    });
+  }
+  
       // Initialize tooltip
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
 
@@ -495,11 +586,11 @@
       }
       
       // Will be created using texts excel data
-      var legendLabels = [
-        {label: "Perception of 'a lot' of tension (%) - 2007", class: "lollipop-start"},
-        {label: "Perception of 'a lot' of tension (%) - 2011", class: "lollipop-end"}, 
-        {label: "Perception of 'a lot' of tension (%) - 2016", class: "lollipop-median"},
-      ];
+    var legendLabels = [
+      {label: translatedValue(dataFile, 'tensions_legend1'), class: "lollipop-start"}, 
+      {label: translatedValue(dataFile, 'tensions_legend2'), class: "lollipop-end"},
+      {label: translatedValue(dataFile, 'tensions_legend3'), class: "lollipop-median"},
+    ];
       
       var padding = 0;
 
@@ -545,9 +636,10 @@
         .attr("class", function(d) { return d.class });
 
 
-      data = parseToFloat(csv);
+    data = translateData(dataFile, csv);
+    settingsData = readSettings(settingsFile);
 
-      buildGraphStructure(data);
+    buildGraphStructure(data, dataFile, settingsData);
 /*
       var modalityCode = getParameterByName('modality-filter');
       var subgroupCode = subgroupCode = getParameterByName('subgroup-filter');
@@ -566,14 +658,11 @@
       d3.select('#sort-filter').property('value', order);
 
       var filteredData = filterData(data, modalityCode, subgroupCode, order);
-
-      if (calculateMinValue(filteredData) == 0){
-        var domainMin = Math.round(calculateMinValue(filteredData));
-      } else {
-        var domainMin = Math.round(calculateMinValue(filteredData) - 1);
-      }
-
-      var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
+    
+  var customLimits = customSettings(settingsData, 'tensions', modalityCode);
+  
+  var domainMin = customLimits[0];
+  var domainMax = customLimits[1];
       
       y = d3.scaleBand()
         .domain(filteredData.map(function(d) { return d.countryName }))
@@ -604,6 +693,15 @@
         .call(yAxis)
         .select(".domain").remove();    
       
+      // Add class to each highlight y-axis element
+      d3.selectAll(".y-axis .tick text")
+        .data(filteredData)
+        .attr("class", function(d) { 
+          if(d.highlight == 1){
+            return 'highlight';
+          }              
+      }); 
+
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
@@ -628,9 +726,13 @@
       lollipops.append("path")
         .attr("class", "lollipop-line")
         .attr("d", lollipopLinePath)
-        .attr("class", function(d){
-          return "lollipop-line";
-        });
+        .attr("class", function(d) {  
+            if(d.highlight == 1){
+              return 'lollipop-line highlight';
+            }else{
+              return 'lollipop-line';
+            }                
+          });
           
 
       circleRadio = 6;
@@ -647,9 +749,17 @@
           })
           .attr("class", function(d){
             if (d.dot1 == 0){
-              return "lollipop-start no-data";
+              if(d.highlight == 1){
+                return 'lollipop-start no-data highlight';
+              }else{
+                return 'lollipop-start no-data';
+              }  
             } else {
-              return "lollipop-start";           
+              if(d.highlight == 1){
+                return 'lollipop-start highlight';
+              }else{
+                return 'lollipop-start';
+              }      
             }
           })
           .on('mouseout', tip.hide)
@@ -676,9 +786,17 @@
           })
           .attr("class", function(d){
             if (d.dot3 == 0){
-              return "lollipop-median no-data";
+              if(d.highlight == 1){
+                return 'lollipop-median no-data highlight';
+              }else{
+                return 'lollipop-median no-data';
+              }  
             } else {
-              return "lollipop-median";           
+              if(d.highlight == 1){
+                return 'lollipop-median highlight';
+              }else{
+                return 'lollipop-median';
+              }      
             }
           })     
           .on('mouseout', tip.hide)    
@@ -704,9 +822,17 @@
           })
           .attr("class", function(d){
             if (d.dot2 == 0){
-              return "lollipop-end no-data";
+              if(d.highlight == 1){
+                return 'lollipop-end no-data highlight';
+              }else{
+                return 'lollipop-end no-data';
+              }  
             } else {
-              return "lollipop-end";           
+              if(d.highlight == 1){
+                return 'lollipop-end highlight';
+              }else{
+                return 'lollipop-end';
+              }      
             }
           })  
           .on('mouseout', tip.hide)    

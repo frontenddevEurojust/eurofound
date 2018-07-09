@@ -64,7 +64,7 @@
 		return filtered;
 	}
 
-	var createModalityFilter = function(data)
+	var createModalityFilter = function(data, settingsData)
 	{
 		var modalities = buildModalityOptions(data);
     
@@ -92,11 +92,9 @@
 		d3.select("#subgroup-filter").on("change", updateGraph);
 	}
 
-	var createOrderingFilter = function()
+	var createOrderingFilter = function(dataFile, settingsData)
 	{
-		/*var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By value ascending", "By value descending", "By value gap ascending", "By value gap descending"];*/
-		var alphaSort = ["Alphabetically ascending (with EU28 first)", "By 2016 value descending"];
-
+		var alphaSort = [translatedValue(dataFile, 'liv-depr-economising_sortOptionDefault'), translatedValue(dataFile, 'liv-depr-economising_sortOption1')];
 
 		var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -180,14 +178,14 @@
 		return maxValue;
 	}
 
-	var buildGraphStructure = function(csv)
+	var buildGraphStructure = function(csv, dataFile, settingsData)
 	{
-		$('.chart-filters').append('<label for="modality-filter" class="label-data">Data:</label>');
-		createModalityFilter(csv);
-		$('.chart-filters').append('<label for="subgroup-filter" class="label-group">Group:</label>');
+		$('.chart-filters').append('<label for="modality-filter" class="label-data">' + translatedValue(dataFile, 'LabelData') + '</label>');
+		createModalityFilter(csv, settingsData);
+		$('.chart-filters').append('<label for="subgroup-filter" class="label-group">' + translatedValue(dataFile, 'LabelGroup') + '</label>');
 		createSubgroupFilter(csv);
-		$('.chart-filters').append('<label for="sort-filter" class="label-sort">Sort:</label>');
-		createOrderingFilter();
+		$('.chart-filters').append('<label for="sort-filter" class="label-sort">' + translatedValue(dataFile, 'LabelSort') + '</label>');
+		createOrderingFilter(dataFile, settingsData);
 	};
 
 	var axisLinePath = function(d)
@@ -195,15 +193,51 @@
 		return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
 	};
 
-	var parseToFloat = function(csv)
+	var translateData = function(dataFile, csv)
 	{
 		var data = csv.map(function(row)
 		{
+			row.countryName = translatedValue(dataFile, 'country' + row.countryCode);
 			row.dot1 = parseFloat(row.dot1);
-			//row.dot2 = parseFloat(row.dot2);
+			row.dot2 = parseFloat(row.dot2);
+			row.modalityValue = translatedValue(dataFile, 'liv-depr-economising_filter_data' + row.modalityCode);
+			row.subgroupValue = translatedValue(dataFile, 'liv-depr-economising_filter_group' + row.subgroupCode);
 			return row;
 		});
 		return data;
+	}
+
+	var readSettings = function(settingsFile)
+	{
+		var settingsData = settingsFile.map(function(row)
+		{
+			return row;
+		});
+		return settingsData;
+	}
+
+	var translatedValue = function(translatedArray, arrayKey)
+	{
+		var entry = translatedArray.find(function(e)
+		{
+			return e.Key === arrayKey;
+		});
+		if (entry)
+		{
+			return entry.Value;
+		}
+	}
+
+	var customSettings = function(settingsArray, chartName, modalityName)
+	{
+		var elementId = settingsArray.find(function(e)
+		{
+			return (e.chartID === chartName && e.modalityCode == modalityName);
+		});
+		if (elementId)
+		{
+			return [elementId.xMin, elementId.xMax];
+		}
 	}
 
 	function updateGraph()
@@ -214,8 +248,10 @@
 
 		filteredData = filterData(data, modalityCode, subgroupCode, order);
 
-		var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-		var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+		var customLimits = customSettings(settingsData, 'liv-depr-economising', modalityCode);
+		
+		var domainMin = customLimits[0];
+		var domainMax = customLimits[1];
 
 
 		padding = 0;
@@ -269,6 +305,15 @@
 
 		svg.select(".y-axis").transition().duration(750).call(yAxis);
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    });
+
 		// Move x-axis lines
 		d3.selectAll("path.grid-line").remove();
 
@@ -288,6 +333,13 @@
 
 
 		var startCircles = lollipops.select("circle.lollipop-start").data(filteredData).transition().duration(transitionD)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-start highlight';
+        }else{
+          return 'lollipop-start';
+        }                
+      })
 			.attr("cx", function(d)
 			{ 
 				return x(Math.round(d.dot1)); 
@@ -306,10 +358,14 @@
 				return y(d.countryName) + y.bandwidth() / 2;
 			});*/
 
-		lollipops.select("path.lollipop-line").data(filteredData).transition().duration(750).attr("d", lollipopLinePath).attr("class", function(d)
-		{
-			return 'economising ' +"lollipop-line";
-		});
+		lollipops.select("path.lollipop-line").data(filteredData).transition().duration(750).attr("d", lollipopLinePath)
+			.attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'economising lollipop-line highlight';
+	        }else{
+	          return 'economising lollipop-line';
+	        }                
+	      });
 	}
 
 
@@ -322,8 +378,13 @@
 	$(document).ready(function()
 	{
 		data = [];
+		settingsData = [];
 
-		if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+		if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+		{
+			var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+		}	
+		else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
 		{
 			var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
 		}
@@ -331,12 +392,24 @@
 		{
 			console.log("Language is undefined. Data can't be loaded");
 		}
-
-		d3.csv('/sites/default/files/ejm/data/' + languageCode + '/living-economising/living-economising_' + languageCode + '.csv', function(csv)
+		
+		d3.queue()
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+			.defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+			.defer(d3.csv, '/sites/default/files/ejm/data/en/living-economising/living-economising_en.csv')
+			.await(function(error, settingsFile, dataFile, csv)
 		{
 			if (csv === null)
 			{
-				console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/living-economising/living-economising_' + languageCode + '.csv" was not found.');
+				console.log('Requested csv at "/sites/default/files/ejm/data/en/living-economising/living-economising_en.csv" was not found.');
+			}
+		  
+			settingsData = function(settingsFile)
+			{
+				settingsFile.map(function(row)
+				{
+					return row;
+				});
 			}
 
 			// Initialize tooltip
@@ -374,7 +447,7 @@
       
 			// Might need to be created with excel data
 			var legendLabels = [
-				{label: "% Who say Yes to selected modality", class: "lollipop-start"}, 
+				{label: translatedValue(dataFile, 'liv-depr-economising_legend1'), class: "lollipop-start"}, 
 				//{label: "(%) - 2016", class: "lollipop-end"},
 			];
       
@@ -415,9 +488,11 @@
 				return legendPosition.x + spaceBetween * i;
 			}).attr("cy", legendPosition.y).attr("r", 5).attr("class", function(d) { return d.class });
 
-			data = parseToFloat(csv);
-			
-			buildGraphStructure(data);
+
+			data = translateData(dataFile, csv);
+			settingsData = readSettings(settingsFile);
+
+			buildGraphStructure(data, dataFile, settingsData);
 
 			var modalityCode = getParameterByName('data');
 			var subgroupCode = subgroupCode = getParameterByName('group');
@@ -442,8 +517,10 @@
 			
 			filteredData = filterData(data, modalityCode, subgroupCode, order);
 
-			var domainMax = Math.round(calculateMaxValue(filteredData) + 1);
-			var domainMin = Math.round(calculateMinValue(filteredData) - 1);
+			var customLimits = customSettings(settingsData, 'liv-depr-economising', modalityCode);
+			
+			var domainMin = customLimits[0];
+			var domainMax = customLimits[1];
 			
 			y = d3.scaleBand().domain(filteredData.map(function(d) { return d.countryName }))
 				.range([0, height]).padding(padding);
@@ -467,6 +544,15 @@
 			
 			var yAxisGroup = svg.append("g").attr("transform", "translate(-10, 0)").attr("class", "y-axis")
 				.call(yAxis).select(".domain").remove();    
+
+	    // Add class to each highlight y-axis element
+	    d3.selectAll(".y-axis .tick text")
+	      .data(filteredData)
+	      .attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'highlight';
+	        }              
+	    });
 			
 			xAxisGroup = svg.append("g").attr("class", "x-axis").attr("transform", "translate(0,0)").call(xAxis);
 			
@@ -487,10 +573,19 @@
 
 			var circleRadio = 6;
 
-			var startCircles = lollipops.append("circle").attr("class", "lollipop-start").attr("r", circleRadio).attr("cx", function(d)
+			var startCircles = lollipops.append("circle")
+	      .attr("class", function(d) {  
+	        if(d.highlight == 1){
+	          return 'lollipop-start highlight';
+	        }else{
+	          return 'lollipop-start';
+	        }                
+	      })
+				.attr("r", circleRadio).attr("cx", function(d)
 				{
 					return x(Math.round(d.dot1));
-				}).attr("cy", function(d)
+				})
+				.attr("cy", function(d)
 				{
 					return y(d.countryName) + y.bandwidth() / 2;
 				}).on('mouseout', tip.hide).on('mouseover', function(d)

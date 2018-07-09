@@ -25,9 +25,9 @@ CKEDITOR.stylesSet.add('default', [
 	{ name: 'Figure title',		element: 'p', attributes: { 'class': 'figure-title' } },
 	/* IMG styles*/
 	{ name: 'Image no style',	element: 'img', attributes: { 'class': '' } },
-	{ name: 'Image left',	element: 'img', attributes: { 'class': 'img-align-left' } },
-	{ name: 'Image center',	element:'img', attributes: { 'class': 'img-align-center' } },
-	{ name: 'Image right',	element: 'img', attributes: { 'class': 'img-align-right' } },
+	{ name: 'Image left',	element: 'img', attributes: { 'class': 'img-align-left-ck' } },
+	{ name: 'Image center',	element:'img', attributes: { 'class': 'img-align-center-ck' } },
+	{ name: 'Image right',	element: 'img', attributes: { 'class': 'img-align-right-ck' } },
 
 
 	/* Blocks div */
@@ -36,3 +36,6 @@ CKEDITOR.stylesSet.add('default', [
 	{ name: 'Block full',	    element: 'div', attributes: { 'class': 'block-full' } },
 	{ name: 'Block right',	    element: 'div', attributes: { 'class': 'block-right' } },
 ]);
+
+
+

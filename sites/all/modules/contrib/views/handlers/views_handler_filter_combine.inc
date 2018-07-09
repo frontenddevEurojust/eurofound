@@ -56,9 +56,9 @@ class views_handler_filter_combine extends views_handler_filter_string {
     foreach ($this->options['fields'] as $id) {
       // Field access checks may have removed this handler.
       if (!isset($this->view->field[$id])) {
-       continue;
+        continue;
       }
-      
+
       $field = $this->view->field[$id];
       // Always add the table of the selected fields to be sure a table alias
       // exists.

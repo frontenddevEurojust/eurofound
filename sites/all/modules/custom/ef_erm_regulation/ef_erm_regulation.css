@@ -27,11 +27,10 @@
 	display: inline;
 }
 
-#edit-field-company-size-erm-reg{
-	width: 35%;
-	margin: 0 5%;
+#edit-field-company-size{
+	 width: 35%;
+   margin: 0 5%;
 }
-
 
 /* --- hierarchical select --- */
 #edit-field-type-phase-erm-reg-und .phase-erm-reg{

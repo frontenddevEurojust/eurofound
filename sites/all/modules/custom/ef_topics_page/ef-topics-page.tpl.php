@@ -15,10 +15,6 @@ if(!empty($variables['ef_activities'])){
 <html>
 <body>
 
-    <?php if (isset($last_updated)): ?>
-    <span class="last-updated"><?= $last_updated; ?></span>
-    <?php endif; ?>
-
     <?php if ($show_menu): ?>
     <ul class="button-group">
         <?php foreach ($variables['admin_menu'] as $item_name => $url): ?>
@@ -31,8 +27,13 @@ if(!empty($variables['ef_activities'])){
     </ul>
     <?php endif; ?>
 
+    <?php if (isset($last_updated)): ?>
+        <p class="last-updated"><?= $last_updated; ?></p>
+    <?php endif; ?>
+
     <?php if (isset($variables['term']->field_term_title[$variables['language']][0]['value'])): ?>
-        <?php if ($variables['featured_block'] != ''):  ?>
+        <?php if ($variables['term']->field_related_taxonomy['und'][0]['target_id'] != '' || $variables['term']->field_ef_related_content['und'][0]['target_id'] != '' || $variables['featured_block'] != ''):  ?>
+
         <section class="large-9 columns">
         <?php else: ?>
         <section class="large-12 columns">
@@ -150,11 +151,21 @@ if(!empty($variables['ef_activities'])){
     </section>
     <?php endif; ?>
 
-   <?php if ($variables['featured_block'] != ''):  ?>
+   <?php if ($variables['term']->field_related_taxonomy['und'][0]['target_id'] != '' || $variables['term']->field_ef_related_content['und'][0]['target_id'] != '' || $variables['featured_block'] != ''):  ?>
     <aside class="large-3 columns">
-        <div class="featured-block">
-            <?= render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
-        </div>
+        <?php if ($variables['featured_block'] != ''):  ?>
+            <div class="featured-block">
+                <?= render(field_view_field('taxonomy_term', $term, 'field_ef_featured_block_content', array('label'=>'hidden'))); ?>
+            </div>
+        <?php endif; ?>
+        <?php if ($variables['term']->field_related_taxonomy['und'][0]['target_id'] != '' || $variables['term']->field_ef_related_content['und'][0]['target_id'] != '' ): ?>
+            <div class="related-content-aside-3">
+                <?php
+                    $block = block_load('block','54');
+                    print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+                ?>
+            </div>
+        <?php endif; ?>
     </aside>
     <?php endif; ?>
 

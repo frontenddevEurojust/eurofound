@@ -119,6 +119,11 @@
         print '</div>'; 
         print '<div class="page-break"></div>';    
       }else{
+         
+       if( isset($sai_label) ){
+        print  '<span class="sai-label">' . $sai_label . "</span>";
+       }
+
         print '<h1 id="page-title" class="title test">' . $print_title . '</h1>';
       }
   ?>

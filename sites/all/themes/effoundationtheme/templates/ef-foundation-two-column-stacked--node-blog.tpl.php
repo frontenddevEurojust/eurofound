@@ -79,7 +79,7 @@ $countview = count($result);
         </ul>
     <?php endif; ?>
 
-    <?php if (isset($content['field_ef_related_links_block'][0]['#markup']) || ($countview  > 0)): ?>
+    <?php if (isset($content['field_ef_related_content'][0]['#markup']) || isset($content['field_related_taxonomy'][0]['#markup']) || ($countview  > 0)): ?>
     <section class="large-9 columns blog-presentation-content">
     <?php else: ?>
     <section class="large-12 columns">
@@ -98,10 +98,22 @@ $countview = count($result);
                 </div>
                 <div class="field field-name-field-ef-author">
                     <div class="label-inline"><?php print t("Author:") ?>&nbsp;</div>
-                    <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-                        <a href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['field_ef_publ_contributors'][$key]['#title']; ?></a>
-                    <?php endforeach; ?>
-                </div>
+                        <?php foreach ($content['field_ef_publ_contributors']['#items'] as $key => $author): ?>
+                            <?php if (check_if_author_has_publications($author["taxonomy_term"])): ?>
+                                    <a class="author-report" href="<?= url($content['field_ef_publ_contributors'][$key]['#href']); ?>">
+                                        <?= trim( $author["taxonomy_term"]->name_field["und"][0]["value"] ); ?>
+                                    </a> 
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php else: ?>
+                                    <span class="author-report"><?= trim( $author['taxonomy_term']->name_field['und'][0]['value']); ?></span>
+                                    <?php if($author != end($content['field_ef_publ_contributors']['#items']) ){
+                                           print'<span class="semicolon">;</span>';
+                                    }; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
                 <?php if(($content['field_show_permalink']['#items'][0]['value']) != 0): ?>
                      <div class="field field-permalink">
                         <div class="label-inline">
@@ -198,11 +210,16 @@ $countview = count($result);
             </h2>
             <div class="author-view">
                 <?php
-               
-                 print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); ?>
+                    print views_embed_view('authors_as_metadata','page_2', $content['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['tid']); 
+                 ?>
             </div>
         <?php endif; ?>
-        <div class="related-links-block">
-            <?php print ($content['field_ef_related_links_block'][0]['#markup']); ?>
+        <?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
+        <div class="related-content-aside-3">
+            <?php
+                $block = block_load('block','54');
+                print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+            ?>
         </div>
+        <?php endif; ?>
     </aside>
