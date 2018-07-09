@@ -61,14 +61,9 @@ function ef_publications_ct_update_7202() {
 		//will be just a "1".
 		$publication->status = $article->status;
 		//Main Image
-		$imagepath = $article->field_ef_main_image['und'][0]['uri'];
-		$image = (object) array(
-    	'uid' => 1,
-    	'uri' => $imagepath,
-    	'filemime' => file_get_mimetype($imagepath),
-    	'status' => 1,
-  	);
-  	$publication->field_ef_main_image[LANGUAGE_NONE][0] = (array)$image;
+  	$image = file_get_contents($article->field_ef_main_image['und'][0]['uri']);
+    $file  = file_save_data($image, $publication->field_ef_main_image['und'][0]['uri'] ,FILE_EXISTS_REPLACE);
+  	$publication->field_ef_main_image[LANGUAGE_NONE][0]['fid'] = $file->fid;
 		//Observatory
 		$publication->field_ef_observatory = $article->field_ef_observatory;
 		//Topic
@@ -100,7 +95,13 @@ function ef_publications_ct_update_7202() {
 		}
 		workbench_moderation_moderate($article, 'unpublished');
 		$article->status = 0;
-		$article->path['alias'] = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive/', $article->path['alias']);
+
+		$new_alias = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive', $article->path['alias']);
+		db_update('url_alias')
+			->fields(array('alias' => $new_alias)
+			->condition ('url_alias.alias', $article->path['alias'];)
+			->execute();
+
 		node_save($article);
   }
 }
