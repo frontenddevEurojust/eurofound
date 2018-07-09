@@ -109,6 +109,11 @@ function _create_country_group_table($gid, $order, $limit, $types, $title)
 		$query->condition('a.title', '%' . $title . '%', 'LIKE');
 	}
 
+	global $user;
+	if (in_array($limited_roles, $user->roles)) {
+		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
+	}  
+
 	// Add content type condition
 	if(!empty($types))
 	{
