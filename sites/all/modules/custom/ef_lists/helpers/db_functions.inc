@@ -110,6 +110,7 @@ function _create_country_group_table($gid, $order, $limit, $types, $title)
 	}
 
 	global $user;
+	$limited_roles = array('Author', 'Author +');
 	if (in_array($limited_roles, $user->roles)) {
 		$query->condition('c.state', array('submitted','submitted_qr'), 'NOT IN');
 	}  
