@@ -299,3 +299,28 @@ function ef_synchronize_translation_paths_pathologic_alter(&$url_params, $parts,
     }
   }
 }
+
+/**
+ * WGS-442 Fix "Translate" tab
+ */
+function fix_translate_tab() {
+  $query = db_select('field_data_body', 'b');
+  $query->fields('b', array('entity_id', 'language'));
+  $query->condition('b.entity_type', 'node');
+  $query->condition('b.language', array('en', 'und'), 'NOT IN');
+  
+  $result = $query->execute()->fetchAll();
+
+  foreach ($result as $key => $translation) {
+    $query = db_select('entity_translation', 'et');
+    $query->fields('et');
+    $query->condition('et.entity_type', 'node');
+    $query->condition('et.entity_id', $translation->entity_id);
+    $query->condition('et.language', $translation->language);
+  
+    $result = $query->execute()->fetchAll();
+    if (empty($result)) {
+      print_r($translation->entity_id . '-' . $translation->language . PHP_EOL);
+    }
+  }
+}
