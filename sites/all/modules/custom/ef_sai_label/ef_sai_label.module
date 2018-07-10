@@ -28,9 +28,6 @@ function ef_sai_label_form_node_form_alter($form, &$form_state) {
 		$sai_labels = get_all_sai_labels($lang);
 		drupal_add_js(array('ef_sai_label' => array('sai_labels' => $sai_labels)), array('type' => 'setting'));
 		drupal_add_js(array('ef_sai_label' => array('sai_labels_lang' => $lang)), array('type' => 'setting'));
-		dpm($form);
-		dpm($sai_labels);
-		dpm($lang);
 
 		drupal_add_js(drupal_get_path('module', 'ef_sai_label') . '/js/ef_sai_label.js');
 		drupal_add_css(drupal_get_path('module', 'ef_sai_label') . '/css/ef_sai_label.js');
