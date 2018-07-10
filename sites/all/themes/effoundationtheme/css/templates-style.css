@@ -586,6 +586,27 @@
     margin-left: -5px;
 }
 
+.ef_fs_source_previous{
+  padding: 20px 0px 10px 0px;
+}
+.ef_fs_source_previous .ef_fs_source_link.fs_indoor.row{
+  margin-left: 0;
+}
+.ef_fs_source_previous .fs_data.pro {
+  list-style-type: none;
+  width: 65%;
+  display: inline-block;
+  margin: 0;
+  padding-left: 3.5em;
+  float: right;
+}
+.ef_fs_source_previous h4.source_link{
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  vertical-align: top;
+  float: left;
+}
 .ef_fs_geo_loc div:nth-child(even)
 {
     background-color: #fafafa;
@@ -658,7 +679,6 @@
 .fs_data.pro {
     padding-left: 21em;
 }
-
 .ef_fs_cont.row {
     margin-bottom: 1em;
 }
