@@ -474,16 +474,14 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
-		        $query->fields('rc', array("rc_weight"));
-		        $query->condition('rc.nid', $nid, "=");
-		        $query->condition('rc.rc_id', $tid, "=");
-		        $result=$query->execute();
+        $query->fields('rc', array("rc_weight"));
+        $query->condition('rc.nid', $nid, "=");
+        $query->condition('rc.rc_id', $tid, "=");
+        $result=$query->execute();
 
-		        while($record = $result->fetchAssoc()) {
-		            $real_weight = $record["rc_weight"];
-		        }
-				//Delta
-				//$form['field_related_taxonomy']['und'][$key]['_weight']['#default_value']=$real_weight;
+        while($record = $result->fetchAssoc()) {
+          $real_weight = $record["rc_weight"];
+        }
 			}
 		}
 		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
@@ -492,16 +490,27 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
-		        $query->fields('rc', array("rc_weight"));
-		        $query->condition('rc.nid', $nid, "=");
-		        $query->condition('rc.rc_id', $tid, "=");
-		        $result=$query->execute();
+        $query->fields('rc', array("rc_weight"));
+        $query->condition('rc.nid', $nid, "=");
+        $query->condition('rc.rc_id', $tid, "=");
+        $result=$query->execute();
 
-		        while($record = $result->fetchAssoc()) {
-		            $real_weight = $record["rc_weight"];
-		        }
-				//Delta
-				//$form['field_ef_related_content']['und'][$key]['_weight']['#default_value']=$real_weight;
+        while($record = $result->fetchAssoc()) {
+          $real_weight = $record["rc_weight"];
+        }
+			}
+		}
+	}
+
+	//WEM-1028
+	//We need a new element validation function for the Related Content field.
+	//Currently we set an error if the content is not published but forthcoming
+	//publications are not published yet so we must prevent throwing an error 
+	//on edit form submissions.
+	if (isset($form['#node_edit_form']) && isset($form['field_ef_related_content'])) {
+		foreach ($form['field_ef_related_content']['und'] as &$related_content) {
+			if (isset($related_content['target_id'])) {
+				$related_content['target_id']['#element_validate'][] = '_related_content_published_forthcoming_validate';
 			}
 		}
 	}
@@ -727,7 +736,7 @@ function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state)
 			$cid = $content["target_id"];
 			$weight = $content["_weight"];
 
-		    if ( is_numeric($weight) && is_numeric($cid) ) {
+		  if ( is_numeric($weight) && is_numeric($cid) ) {
 		    		
 				db_insert('related_content_and_taxonomies')
 					->fields(array(
@@ -738,7 +747,23 @@ function ef_customised_forms_related_content_taxonmy_submit($form, &$form_state)
 					  'rc_weight' => $weight,
 					))
 					->execute();		
-		    }
+		  }
 		}
 	}
+}
+
+function _related_content_published_forthcoming_validate($element, &$form_state) {
+	$nid = $form_state['values']['field_ef_related_content']['und'][$element['#delta']]['target_id'];
+	if (is_numeric($nid)) {
+		$node = node_load($nid);
+		if ($node->status == 0 && $node->type != 'ef_publication') {
+			form_error($element, t('The referenced entity (Node: @id) is invalid.', array('@id' => $nid)));
+		}
+		elseif ($node->type == 'ef_publication') {
+			if ($node->workbench_moderation['current']->state != 'forthcoming' && $node->status == 0) {
+				form_error($element, t('The referenced entity (Node: @id) is invalid.', array('@id' => $nid)));
+			}
+		}
+	}
+	return;
 }
