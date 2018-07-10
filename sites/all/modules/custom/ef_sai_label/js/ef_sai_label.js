@@ -38,17 +38,17 @@
     $sai_label_input = 'input#edit-field-ef-sai-label-' + $lang + '-0-value';
 
     if ($('input#edit-field-ef-sai-label-display-und').is(':checked')) {
-      $('input#edit-field-ef-sai-label-override-und').prop('disabled', !$(this).is(':checked'));
+      $('input#edit-field-ef-sai-label-override-und').prop('disabled', false);
     } 
     else {
-      $('input#edit-field-ef-sai-label-override-und').prop('disabled', !$(this).is(':checked'));
+      $('input#edit-field-ef-sai-label-override-und').prop('disabled', true);
     }
 
     if ($('input#edit-field-ef-sai-label-override-und').is(':checked')) {
-      $($sai_label_input).prop('disabled', !$(this).is(':checked'));
+      $($sai_label_input).prop('disabled', false);
     } 
     else {
-      $($sai_label_input).prop('disabled', !$(this).is(':checked'));
+      $($sai_label_input).prop('disabled', true);
     }
 
     if ($($sai_label_input).val() == '' && $('#edit-field-ef-activities option:selected') != '_none') {
