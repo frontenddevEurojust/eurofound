@@ -219,6 +219,7 @@ function ef_publications_ct_update_7202() {
 		}
 		workbench_moderation_moderate($article, 'unpublished');
 		$article->status = 0;
+		$article->title = $article->title . '(Archived)';
 
 		node_save($article);
 
