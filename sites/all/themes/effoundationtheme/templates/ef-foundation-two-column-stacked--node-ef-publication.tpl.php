@@ -200,7 +200,6 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 						<ul class="topic-list">
 
 							<?php foreach ($content['group_ef_node_details']['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-							<?php dpm($content['group_ef_node_details']['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][$key]['taxonomy_term']->name_field['und'][0]['value']); ?>
 							<li class="field-contributors"><a href="<?= url($content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][$key]['taxonomy_term']->name_field['und'][0]['value']; ?></a></li>
 							<?php endforeach; ?>
 						</ul>
