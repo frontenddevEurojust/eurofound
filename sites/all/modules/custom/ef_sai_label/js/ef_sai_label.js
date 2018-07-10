@@ -9,6 +9,7 @@
 
     $('input#edit-field-ef-sai-label-display-und').once().change(function(){
       $('input#edit-field-ef-sai-label-override-und').prop("disabled", !$(this).is(':checked'));
+      $('input#edit-field-ef-sai-label-override-und').val($(this).is(':checked'));
     });
 
     $('input#edit-field-ef-sai-label-override-und').once().change(function(){
