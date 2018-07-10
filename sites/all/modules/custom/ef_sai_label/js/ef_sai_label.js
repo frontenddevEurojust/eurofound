@@ -20,7 +20,10 @@
     });
 
     $('#edit-field-ef-activities').once().change(function(){
+      console.log('change_detected');
       if (!$('input#edit-field-ef-sai-label-override-und').is(':checked')) {
+        console.log($tid);
+        console.log($sai_labels[$tid]);
         $tid = $('option:selected',this).val();
         $($sai_label_input).val($sai_labels[$tid]);
       }
