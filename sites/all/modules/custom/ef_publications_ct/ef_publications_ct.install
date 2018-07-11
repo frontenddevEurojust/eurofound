@@ -212,24 +212,56 @@ function ef_publications_ct_update_7202() {
 		$publication->field_ef_activities = $article->field_ef_activities;
 		//Body
 		$publication->body = $article->body;
+		//New Publication Field to show is a Topical Update converted node
+		$publication->field_ef_article['und'][0]['value'] = 1;
+		//Document_type
+		$term = taxonomy_get_term_by_name('Report', 'ef_publication_types');
+  	$report_tid = key($term);
+  	$publication->field_ef_document_type['und'][0]['tid'] = $report_tid;
 
 		node_save($publication);
+
+		$destination = 'node/' . $publication->nid;
+
 		if ($article->status == 1) {
 			workbench_moderation_moderate($publication, 'published');
 		}
 		workbench_moderation_moderate($article, 'unpublished');
 		$article->status = 0;
 		$article->title = $article->title . '(Archived)';
+		$article->ef_archived = 1;
 
 		node_save($article);
 
 		$old_alias = $article->path['alias'];
 
-		$new_alias = str_replace('observatories/eurwork/articles/', 'observatories/eurwork/articles/archive/', $old_alias);
+		$new_alias = 'observatories/eurwork/articles/archive/' . $article->title;
 		db_update('url_alias')
 			->fields(array('alias' => $new_alias))
-			->condition ('url_alias.alias', $old_alias)
+			->condition ('url_alias.source', 'node' . $article->nid)
 			->execute();
 
+		// Add the new redirects to the Database
+		// Load the system languages list
+		$languages = language_list();
+
+		foreach ($languages as $language) {
+			// Create a redirect objct for each language
+			$redirect = new stdClass();
+			redirect_object_prepare($redirect);
+			$redirect->source = $old_alias;
+			$redirect->redirect = $destination;
+			$redirect->language = $language->language;
+
+			// Get the hash for the created redirect object
+			$hash = redirect_hash($redirect);
+
+			// Check if the hash for the redirect object already exists
+			$exists = redirect_load_by_hash($hash);
+			if (!$exists) {
+				// If there is no value for the hash, save the redirect
+				redirect_save($redirect);
+			}
+		}
   }
 }
