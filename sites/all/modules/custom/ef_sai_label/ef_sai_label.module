@@ -25,6 +25,9 @@ function ef_sai_label_form_node_form_alter($form, &$form_state) {
 	//Just adding some js to manage the inputs
 	if (content_is_sai_labelled($form['#entity'])) {
 		isset($form['language']['#value']) ? $lang = $form['language']['#value'] : $lang = $form['language']['#default_value'];
+    if ($lang == 'und') {
+      $lang = 'en';
+    }
 		$sai_labels = get_all_sai_labels($lang);
 		drupal_add_js(array('ef_sai_label' => array('sai_labels' => $sai_labels)), array('type' => 'setting'));
 		drupal_add_js(array('ef_sai_label' => array('sai_labels_lang' => $lang)), array('type' => 'setting'));
