@@ -444,6 +444,9 @@ text.charts-title {
   font-size: 0.8em;
   line-height: 1.4rem;
 }
+.data-explorer-organisation *{
+  display: inline;
+}
 .jm-abstract-topics{
   margin-top: 10px;
 }
@@ -492,9 +495,17 @@ rect.right16:hover{
   background: rgb(255, 0, 0);
   text-align: center;
   font-family: OpenSans-Semibold-webfont;
-  padding: 0.5rem;
+  padding:0.7rem 0.5rem;
   color: #FFF;
   margin: 0.5rem 0;
+  position: relative;
+  cursor: default;
+}
+.advice-max-countries i.fa-times{
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  cursor: pointer;
 }
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) { 
   #ejm-chart svg {
