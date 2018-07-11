@@ -8,7 +8,9 @@
     $sai_label_input = 'input#edit-field-ef-sai-label-' + $lang + '-0-value';
 
     $('input#edit-field-ef-sai-label-display-und').once().change(function(){
-      $('input#edit-field-ef-sai-label-override-und').prop("checked", $(this).is(':checked'));
+      if (!$(this).is(':checked')) {
+        $('input#edit-field-ef-sai-label-override-und').prop("checked", $(this).is(':checked'));
+      }
       $('input#edit-field-ef-sai-label-override-und').prop("disabled", !$(this).is(':checked'));
     });
 
