@@ -87,10 +87,17 @@
 
     if(getParameterByName('country') != null){
       var countryPar = getParameterByName('country').split(",");
-      var urlVars = getParameterByName('country').split(",").length;      
+      var urlVars = getParameterByName('country').split(",").length;
+      if(urlVars == 1){
+        var urlVarsInit = true;  
+      } else {
+        var urlVarsInit = false; 
+      }
+          
     }else{
       var countryPar = [];
       var urlVars = 1;
+      var urlVarsInit = true;
       countryPar.push("EU");
     }
 
@@ -291,6 +298,7 @@
 
     $('.chosen-select').on('change', function(evt, params) {
         countryExist = 0;
+        urlVarsInit = false;
         filtersOnChange();        
     });
     d3.select("#time").on('change', function () {
@@ -344,7 +352,8 @@
       }
 
       // number of the charts
-      if( urlVars == 1 ){
+
+      if( urlVars == 1 || urlVarsInit == true){
         $("#ejm-chart").addClass('only-one');
         var widthSVG = $("#ejm-chart").width()*0.6;
         var heightSVG = $("#ejm-chart").width()*0.45;
@@ -510,7 +519,9 @@
       svg.append("text")
         .attr("class","charts-title")
         .attr("width", chart.w)
+        .attr("style",'transform:translate('+ chart.w/2+'px,-12px)')
         .text(countryText[0][1]);
+
 
       /* GREY BACKGROUND */
       svg.append("rect")
