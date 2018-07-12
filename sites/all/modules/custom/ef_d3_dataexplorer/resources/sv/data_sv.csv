@@ -1,204 +1,209 @@
-Key,"Value"
-countryEU,"EU28_SV"
-countryAT,"Austria_SV"
-countryBE,"Belgium_SV"
-countryBG,"Bulgaria_SV"
-countryHR,"Croatia_SV"
-countryCY,"Cyprus_SV"
-countryCZ,"Czech Republic_SV"
-countryDA,"Denmark_SV"
-countryET,"Estonia_SV"
-countryFI,"Finland_SV"
-countryFR,"France_SV"
-countryDE,"Germany_SV"
-countryGR,"Greece_SV"
-countryHU,"Hungary_SV"
-countryIE,"Ireland_SV"
-countryIT,"Italy_SV"
-countryLV,"Latvia_SV"
-countryLT,"Lithuania_SV"
-countryLU,"Luxembourg_SV"
-countryMT,"Malta_SV"
-countryNL,"Netherlands_SV"
-countryPL,"Poland_SV"
-countryPT,"Portugal_SV"
-countryRO,"Romania_SV"
-countrySK,"Slovakia_SV"
-countrySL,"Slovenia_SV"
-countryES,"Spain_SV"
-countrySE,"Sweden_SV"
-countryUK,"United Kingdom_SV"
-LabelFilters,"Filters:_SV"
-LabelData,"Data:_SV"
-LabelGroup,"Group:_SV"
-LabelGender,"Gender:_SV"
-LabelSort,"Sort:_SV"
-happiness_legend1,"Average rating on scale (1-10), 2011_SV"
-happiness_legend2,"Average rating on scale (1-10), 2016_SV"
-happiness_legend3,"Average rating on scale (1-10), 2011_SV"
-happiness_legend4,"Average rating on scale (1-10), 2016_SV"
-happiness_sortOptionDefault,"Happiness and Life Satisfaction 2016 descending_SV"
-happiness_sortOption1,"Alphabetically ascending_SV"
-happiness_sortOption2,"By Happiness 2016 descending_SV"
-happiness_sortOption3,"By Life Satisfaction 2016 descending_SV"
-optimism_legend1,"I am optimistic about my future (%) - 2016_SV"
-optimism_legend2,"I am optimistic about my children's/grandchildren's future (%) - 2016_SV"
-optimism_filter_group1,"All_SV"
-optimism_filter_group2,"Lowest income quartile_SV"
-optimism_filter_group3,"Unemployed_SV"
-optimism_filter_group4,"Employed_SV"
-optimism_filter_group5,"Age 18-34_SV"
-optimism_filter_group6,"Age 35-64_SV"
-optimism_filter_group7,"Age 65+_SV"
-optimism_sortOptionDefault,"Alphabetically ascending (A-Z, with EU28 first)_SV"
-optimism_sortOption1,"By own future 2016 descending_SV"
-optimism_sortOption2,"By (grand)children's future 2016 descending_SV"
-work-life-balance_1_legend1,"At least several times a month (%) - 2007_SV"
-work-life-balance_1_legend2,"At least several times a month (%) - 2016_SV"
-work-life-balance_1_filter_data1,"Too tired from work to do household jobs_SV"
-work-life-balance_1_filter_data2,"Difficulties to fulfil family responsibilities because of time spent at work_SV"
-work-life-balance_1_filter_data3,"Difficulties to concentrate at work because of family responsibilities_SV"
-work-life-balance_1_filter_group1,"All_SV"
-work-life-balance_1_filter_group2,"Lowest income quartile_SV"
-work-life-balance_1_filter_group3,"Age 18-64_SV"
-work-life-balance_1_filter_gender1,"All_SV"
-work-life-balance_1_filter_gender2,"Female_SV"
-work-life-balance_1_filter_gender3,"Male_SV"
-work-life-balance_1_sortOptionDefault,"Alphabetically ascending_SV"
-work-life-balance_1_sortOption1,"By 2007 value descending_SV"
-work-life-balance_1_sortOption2,"By 2016 value descending_SV"
-tensions_legend1,"Perception of 'a lot' of tension (%) - 2007_SV"
-tensions_legend2,"Perception of 'a lot' of tension (%) - 2011_SV"
-tensions_legend3,"Perception of 'a lot' of tension (%) - 2016_SV"
-tensions_filter_data1,"Poor and rich_SV"
-tensions_filter_data2,"Management and workers_SV"
-tensions_filter_data3,"Men and women_SV"
-tensions_filter_data4,"Old and young_SV"
-tensions_filter_data5,"Different racial and ethnic groups_SV"
-tensions_filter_data6,"Different religious groups_SV"
-tensions_filter_data7,"People with different sexual orientations_SV"
-tensions_filter_group1,"All_SV"
-tensions_filter_group2,"Lowest income quartile_SV"
-tensions_filter_group3,"Highest income quartile_SV"
-tensions_filter_group4,"People who are satisfied with democracy_SV"
-tensions_filter_group5,"Age 18-34_SV"
-tensions_filter_group6,"Age 35-64_SV"
-tensions_filter_group7,"Age 65+_SV"
-tensions_sortOptionDefault,"Alphabetically ascending _SV"
-tensions_sortOption1,"By 2007 value descending_SV"
-tensions_sortOption2,"By 2011 value descending_SV"
-tensions_sortOption3,"By 2016 value descending_SV"
-social-excl_legend1,"(%) - 2007_SV"
-social-excl_legend2,"(%) - 2016_SV"
-social-excl_filter_data1,"I feel left out of society _SV"
-social-excl_filter_data2,"Life has become so complicated today that I almost can't find my way_SV"
-social-excl_filter_data3,"I feel that the value of what I do is not recognised by others_SV"
-social-excl_filter_data4,"Some people look down on me because of my job situation_SV"
-social-excl_filter_group1,"All_SV"
-social-excl_filter_group2,"Lowest income quartile_SV"
-social-excl_filter_group3,"Highest income quartile_SV"
-social-excl_filter_group4,"Unemployed_SV"
-social-excl_filter_group5,"Employed_SV"
-social-excl_sortOptionDefault,"Alphabetically ascending _SV"
-social-excl_sortOption1,"By 2007 value descending_SV"
-social-excl_sortOption2,"By 2016 value descending_SV"
-overall-improv_legend1,"Average rating on scale 1-10, 2011_SV"
-overall-improv_legend2,"Average rating on scale 1-10, 2016_SV"
-overall-improv_filter_group1,"Health services_SV"
-overall-improv_filter_group2,"Education system_SV"
-overall-improv_filter_group3,"Public transport_SV"
-overall-improv_filter_group4,"Childcare services_SV"
-overall-improv_filter_group5,"Long-term care services_SV"
-overall-improv_filter_group6,"Social housing_SV"
-overall-improv_filter_group7,"State pension system_SV"
-overall-improv_sortOptionDefault,"Alphabetically ascending_SV"
-overall-improv_sortOption1,"By 2011 value descending_SV"
-overall-improv_sortOption2,"By 2016 value descending_SV"
-liv-depr-optim_legend1,"Optimistic about own future - 2016_SV"
-liv-depr-optim_legend2,"Optimistic about children's/grandchildren's future - 2016_SV"
-liv-depr-optim_filter_group1,"All_SV"
-liv-depr-optim_filter_group2,"Lowest income quartile_SV"
-liv-depr-optim_filter_group3,"Unemployed_SV"
-liv-depr-optim_filter_group4,"Employed_SV"
-liv-depr-optim_filter_group5,"Age 18-34_SV"
-liv-depr-optim_filter_group6,"Age 35-64_SV"
-liv-depr-optim_filter_group7,"Age 65+_SV"
-liv-depr-optim_sortOptionDefault,"Alphabetically ascending_SV"
-liv-depr-optim_sortOption1,"By own future 2016 descending_SV"
-liv-depr-optim_sortOption2,"By (grand)children's future 2016 descending_SV"
-liv-depr-stdliving_legend1,"Satisfaction with standard of living (1-10) - 2007_SV"
-liv-depr-stdliving_legend2,"Satisfaction with standard of living (1-10) - 2016_SV"
-liv-depr-stdliving_filter_group1,"All_SV"
-liv-depr-stdliving_filter_group2,"Lowest income quartile_SV"
-liv-depr-stdliving_filter_group3,"Highest income quartile_SV"
-liv-depr-stdliving_filter_group4,"Unemployed_SV"
-liv-depr-stdliving_filter_group5,"Age 18-34_SV"
-liv-depr-stdliving_filter_group6,"Age 35-64_SV"
-liv-depr-stdliving_filter_group7,"Age 65+_SV"
-liv-depr-stdliving_sortOptionDefault,"Alphabetically ascending_SV"
-liv-depr-stdliving_sortOption1,"By 2007 value descending_SV"
-liv-depr-stdliving_sortOption2,"By 2016 value descending_SV"
-liv-depr-makeendmeet_legend1,"Difficulty levels (%) - 2011_SV"
-liv-depr-makeendmeet_legend2,"Difficulty levels (%) - 2016_SV"
-liv-depr-makeendmeet_filter_group1,"All_SV"
-liv-depr-makeendmeet_filter_group2,"Lowest income quartile_SV"
-liv-depr-makeendmeet_filter_group3,"Highest income quartile_SV"
-liv-depr-makeendmeet_filter_group4,"Unemployed_SV"
-liv-depr-makeendmeet_filter_group5,"Long-term unemployed_SV"
-liv-depr-makeendmeet_filter_group6,"Age 18-34_SV"
-liv-depr-makeendmeet_filter_group7,"Age 35-64_SV"
-liv-depr-makeendmeet_filter_group8,"Age 65+_SV"
-liv-depr-makeendmeet_sortOptionDefault,"Alphabetically ascending_SV"
-liv-depr-makeendmeet_sortOption1,"By 2011 value descending_SV"
-liv-depr-makeendmeet_sortOption2,"By 2016 value descending_SV"
-liv-depr-economising_legend1,"% Who say Yes to selected modality - 2016_SV"
-liv-depr-economising_filter_data1,"Go without fresh fruit and vegetables_SV"
-liv-depr-economising_filter_data2,"Buy cheaper cuts of meat or less meat_SV"
-liv-depr-economising_filter_data3,"Do not go or delay doctor visits_SV"
-liv-depr-economising_filter_data4,"Do not go or delay visits to the dentist_SV"
-liv-depr-economising_filter_group1,"All_SV"
-liv-depr-economising_filter_group2,"Lowest income quartile_SV"
-liv-depr-economising_filter_group3,"Highest income quartile_SV"
-liv-depr-economising_filter_group4,"People who struggle to make ends meet_SV"
-liv-depr-economising_filter_group5,"Age 18-34_SV"
-liv-depr-economising_filter_group6,"Age 35-64_SV"
-liv-depr-economising_filter_group7,"Age 65+_SV"
-liv-depr-economising_sortOptionDefault,"Alphabetically ascending_SV"
-liv-depr-economising_sortOption1,"By 2016 value descending_SV"
-work-life-balance_2_legend1,"At least several times a week (%) - 2016_SV"
-work-life-balance_2_filter_data1,"Frequency caring for and/or educating your children_SV"
-work-life-balance_2_filter_data2,"Frequency caring for and/or educating your grandchildren_SV"
-work-life-balance_2_filter_data3,"Frequency cooking and/or housework_SV"
-work-life-balance_2_filter_data4,"Frequency caring for disabled or infirm family members, meighbours or friends under 75 years old_SV"
-work-life-balance_2_filter_data5,"Frequency caring for disabled or infirm family members, meighbours or friends aged 75 or over_SV"
-work-life-balance_2_filter_group1,"All_SV"
-work-life-balance_2_filter_group2,"Lowest income quartile_SV"
-work-life-balance_2_filter_group3,"Employed_SV"
-work-life-balance_2_filter_group4,"Unemployed_SV"
-work-life-balance_2_filter_group5,"Age 18-64_SV"
-work-life-balance_2_filter_group6,"Male_SV"
-work-life-balance_2_filter_group7,"Female_SV"
-work-life-balance_2_sortOptionDefault,"Alphabetically ascending _SV"
-work-life-balance_2_sortOption1,"By 2016 value descending_SV"
-quality-dim-GP_legend1,"Having difficulties to afford following health services (%) - 2016_SV"
-quality-dim-GP_filter_group1,"Afford GP, family doctor or health centre services_SV"
-quality-dim-GP_filter_group2,"Afford dental care_SV"
-quality-dim-GP_filter_group3,"Afford psychologist, psychiatrist or other mental health services_SV"
-quality-dim-GP_filter_group4,"Afford emergency healthcare_SV"
-quality-dim-GP_filter_group5,"Afford other hospital or specialist services_SV"
-quality-dim-GP_sortOptionDefault,"Alphabetically ascending_SV"
-quality-dim-GP_sortOption1,"By 2016 value descending_SV"
-internet-society_legend1,"(%) level of participation - 2011_SV"
-internet-society_legend2,"(%) level of participation - 2016_SV"
-internet-society_filter_data1,"Use of the internet other than work_SV"
-internet-society_filter_data2,"Used online banking facilities in last 12 months_SV"
-internet-society_filter_data3,"Used any online facility of public administration in last 12 months_SV"
-internet-society_filter_group1,"Male_SV"
-internet-society_filter_group2,"Female_SV"
-internet-society_filter_group3,"Age 18-34_SV"
-internet-society_filter_group4,"Age 35-64_SV"
-internet-society_filter_group5,"Age 65-74_SV"
-internet-society_filter_group6,"Age 75+_SV"
-internet-society_sortOptionDefault,"Alphabetically ascending_SV"
-internet-society_sortOption1,"By 2011 value descending_SV"
-internet-society_sortOption2,"By 2016 value descending_SV"
+Key,Value
+countryEU,EU28
+countryAT,Austria
+countryBE,Belgium
+countryBG,Bulgaria
+countryHR,Croatia
+countryCY,Cyprus
+countryCZ,Czech Republic
+countryDA,Denmark
+countryET,Estonia
+countryFI,Finland
+countryFR,France
+countryDE,Germany
+countryGR,Greece
+countryHU,Hungary
+countryIE,Ireland
+countryIT,Italy
+countryLV,Latvia
+countryLT,Lithuania
+countryLU,Luxembourg
+countryMT,Malta
+countryNL,Netherlands
+countryPL,Poland
+countryPT,Portugal
+countryRO,Romania
+countrySK,Slovakia
+countrySL,Slovenia
+countryES,Spain
+countrySE,Sweden
+countryUK,United Kingdom
+countryAL,Albania
+countryME,Montenegro
+countryMK,FYR of Macedonia
+countryRS,Serbia
+countryTR,Turkey
+LabelFilters,Filters:
+LabelData,Data:
+LabelGroup,Group:
+LabelGender,Gender:
+LabelSort,Sort:
+happiness_legend1,"Average rating on scale (1-10), 2011"
+happiness_legend2,"Average rating on scale (1-10), 2016"
+happiness_legend3,"Average rating on scale (1-10), 2011"
+happiness_legend4,"Average rating on scale (1-10), 2016"
+happiness_sortOptionDefault,Happiness and Life Satisfaction 2016 descending
+happiness_sortOption1,Alphabetically ascending
+happiness_sortOption2,By Happiness 2016 descending
+happiness_sortOption3,By Life Satisfaction 2016 descending
+optimism_legend1,I am optimistic about my future (%) - 2016
+optimism_legend2,I am optimistic about my children's/grandchildren's future (%) - 2016
+optimism_filter_group1,All
+optimism_filter_group2,Lowest income quartile
+optimism_filter_group3,Unemployed
+optimism_filter_group4,Employed
+optimism_filter_group5,Age 18-34
+optimism_filter_group6,Age 35-64
+optimism_filter_group7,Age 65+
+optimism_sortOptionDefault,"Alphabetically ascending (A-Z, with EU28 first)"
+optimism_sortOption1,By own future 2016 descending
+optimism_sortOption2,By (grand)children's future 2016 descending
+work-life-balance_1_legend1,At least several times a month (%) - 2007
+work-life-balance_1_legend2,At least several times a month (%) - 2016
+work-life-balance_1_filter_data1,Too tired from work to do household jobs
+work-life-balance_1_filter_data2,Difficulties to fulfil family responsibilities because of time spent at work
+work-life-balance_1_filter_data3,Difficulties to concentrate at work because of family responsibilities
+work-life-balance_1_filter_group1,All
+work-life-balance_1_filter_group2,Lowest income quartile
+work-life-balance_1_filter_group3,Age 18-64
+work-life-balance_1_filter_gender1,All
+work-life-balance_1_filter_gender2,Female
+work-life-balance_1_filter_gender3,Male
+work-life-balance_1_sortOptionDefault,Alphabetically ascending
+work-life-balance_1_sortOption1,By 2007 value descending
+work-life-balance_1_sortOption2,By 2016 value descending
+tensions_legend1,Perception of 'a lot' of tension (%) - 2007
+tensions_legend2,Perception of 'a lot' of tension (%) - 2011
+tensions_legend3,Perception of 'a lot' of tension (%) - 2016
+tensions_filter_data1,Poor and rich
+tensions_filter_data2,Management and workers
+tensions_filter_data3,Men and women
+tensions_filter_data4,Old and young
+tensions_filter_data5,Different racial and ethnic groups
+tensions_filter_data6,Different religious groups
+tensions_filter_data7,People with different sexual orientations
+tensions_filter_group1,All
+tensions_filter_group2,Lowest income quartile
+tensions_filter_group3,Highest income quartile
+tensions_filter_group4,People who are satisfied with democracy
+tensions_filter_group5,Age 18-34
+tensions_filter_group6,Age 35-64
+tensions_filter_group7,Age 65+
+tensions_sortOptionDefault,Alphabetically ascending 
+tensions_sortOption1,By 2007 value descending
+tensions_sortOption2,By 2011 value descending
+tensions_sortOption3,By 2016 value descending
+social-excl_legend1,(%) - 2007 
+social-excl_legend2,(%) - 2016
+social-excl_filter_data1,I feel left out of society 
+social-excl_filter_data2,Life has become so complicated today that I almost can't find my way
+social-excl_filter_data3,I feel that the value of what I do is not recognised by others
+social-excl_filter_data4,Some people look down on me because of my job situation
+social-excl_filter_group1,All
+social-excl_filter_group2,Lowest income quartile
+social-excl_filter_group3,Highest income quartile
+social-excl_filter_group4,Unemployed
+social-excl_filter_group5,Employed
+social-excl_sortOptionDefault,Alphabetically ascending 
+social-excl_sortOption1,By 2007 value descending
+social-excl_sortOption2,By 2016 value descending
+overall-improv_legend1,"Average rating on scale 1-10, 2011"
+overall-improv_legend2,"Average rating on scale 1-10, 2016"
+overall-improv_filter_group1,Health services
+overall-improv_filter_group2,Education system
+overall-improv_filter_group3,Public transport
+overall-improv_filter_group4,Childcare services
+overall-improv_filter_group5,Long-term care services
+overall-improv_filter_group6,Social housing
+overall-improv_filter_group7,State pension system
+overall-improv_sortOptionDefault,Alphabetically ascending
+overall-improv_sortOption1,By 2011 value descending
+overall-improv_sortOption2,By 2016 value descending
+liv-depr-optim_legend1,Optimistic about own future - 2016
+liv-depr-optim_legend2,Optimistic about children's/grandchildren's future - 2016
+liv-depr-optim_filter_group1,All
+liv-depr-optim_filter_group2,Lowest income quartile
+liv-depr-optim_filter_group3,Unemployed
+liv-depr-optim_filter_group4,Employed
+liv-depr-optim_filter_group5,Age 18-34
+liv-depr-optim_filter_group6,Age 35-64
+liv-depr-optim_filter_group7,Age 65+
+liv-depr-optim_sortOptionDefault,Alphabetically ascending
+liv-depr-optim_sortOption1,By own future 2016 descending
+liv-depr-optim_sortOption2,By (grand)children's future 2016 descending
+liv-depr-stdliving_legend1,Satisfaction with standard of living (1-10) - 2007
+liv-depr-stdliving_legend2,Satisfaction with standard of living (1-10) - 2016
+liv-depr-stdliving_filter_group1,All
+liv-depr-stdliving_filter_group2,Lowest income quartile
+liv-depr-stdliving_filter_group3,Highest income quartile
+liv-depr-stdliving_filter_group4,Unemployed
+liv-depr-stdliving_filter_group5,Age 18-34
+liv-depr-stdliving_filter_group6,Age 35-64
+liv-depr-stdliving_filter_group7,Age 65+
+liv-depr-stdliving_sortOptionDefault,Alphabetically ascending
+liv-depr-stdliving_sortOption1,By 2007 value descending
+liv-depr-stdliving_sortOption2,By 2016 value descending
+liv-depr-makeendmeet_legend1,Difficulty levels (%) - 2011
+liv-depr-makeendmeet_legend2,Difficulty levels (%) - 2016
+liv-depr-makeendmeet_filter_group1,All
+liv-depr-makeendmeet_filter_group2,Lowest income quartile
+liv-depr-makeendmeet_filter_group3,Highest income quartile
+liv-depr-makeendmeet_filter_group4,Unemployed
+liv-depr-makeendmeet_filter_group5,Long-term unemployed
+liv-depr-makeendmeet_filter_group6,Age 18-34
+liv-depr-makeendmeet_filter_group7,Age 35-64
+liv-depr-makeendmeet_filter_group8,Age 65+
+liv-depr-makeendmeet_sortOptionDefault,Alphabetically ascending
+liv-depr-makeendmeet_sortOption1,By 2011 value descending
+liv-depr-makeendmeet_sortOption2,By 2016 value descending
+liv-depr-economising_legend1,% Who say Yes to selected modality - 2016
+liv-depr-economising_filter_data1,Go without fresh fruit and vegetables
+liv-depr-economising_filter_data2,Buy cheaper cuts of meat or less meat
+liv-depr-economising_filter_data3,Do not go or delay doctor visits
+liv-depr-economising_filter_data4,Do not go or delay visits to the dentist
+liv-depr-economising_filter_group1,All
+liv-depr-economising_filter_group2,Lowest income quartile
+liv-depr-economising_filter_group3,Highest income quartile
+liv-depr-economising_filter_group4,People who struggle to make ends meet
+liv-depr-economising_filter_group5,Age 18-34
+liv-depr-economising_filter_group6,Age 35-64
+liv-depr-economising_filter_group7,Age 65+
+liv-depr-economising_sortOptionDefault,Alphabetically ascending
+liv-depr-economising_sortOption1,By 2016 value descending
+work-life-balance_2_legend1,At least several times a week (%) - 2016
+work-life-balance_2_filter_data1,Providing care for and/or educating your children
+work-life-balance_2_filter_data2,Providing care for and/or educating your grandchildren
+work-life-balance_2_filter_data3,Cooking and/or doing housework
+work-life-balance_2_filter_data4,"Providing care for disabled or infirm family members, meighbours or friends under 75 years old"
+work-life-balance_2_filter_data5,"Providing care for disabled or infirm family members, meighbours or friends aged 75 or over"
+work-life-balance_2_filter_group1,All
+work-life-balance_2_filter_group2,Lowest income quartile
+work-life-balance_2_filter_group3,Employed
+work-life-balance_2_filter_group4,Unemployed
+work-life-balance_2_filter_group5,Age 18-64
+work-life-balance_2_filter_group6,Male
+work-life-balance_2_filter_group7,Female
+work-life-balance_2_sortOptionDefault,Alphabetically ascending 
+work-life-balance_2_sortOption1,By 2016 value descending
+quality-dim-GP_legend1,Having difficulties to afford following health services (%) - 2016
+quality-dim-GP_filter_group1,"Afford GP, family doctor or health centre services"
+quality-dim-GP_filter_group2,Afford dental care
+quality-dim-GP_filter_group3,"Afford psychologist, psychiatrist or other mental health services"
+quality-dim-GP_filter_group4,Afford emergency healthcare
+quality-dim-GP_filter_group5,Afford other hospital or specialist services
+quality-dim-GP_sortOptionDefault,Alphabetically ascending
+quality-dim-GP_sortOption1,By 2016 value descending
+internet-society_legend1,(%) level of participation - 2011
+internet-society_legend2,(%) level of participation - 2016
+internet-society_filter_data1,Use of the internet other than work
+internet-society_filter_data2,Used online banking facilities in last 12 months
+internet-society_filter_data3,Used any online facility of public administration in last 12 months
+internet-society_filter_group1,Male
+internet-society_filter_group2,Female
+internet-society_filter_group3,Age 18-34
+internet-society_filter_group4,Age 35-64
+internet-society_filter_group5,Age 65-74
+internet-society_filter_group6,Age 75+
+internet-society_sortOptionDefault,Alphabetically ascending
+internet-society_sortOption1,By 2011 value descending
+internet-society_sortOption2,By 2016 value descending
