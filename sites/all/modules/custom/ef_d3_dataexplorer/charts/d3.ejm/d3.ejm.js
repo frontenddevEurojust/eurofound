@@ -519,7 +519,7 @@
       svg.append("text")
         .attr("class","charts-title")
         .attr("width", chart.w)
-        .attr("style",'transform:translate('+ chart.w/2+'px,-12px)')
+        .attr("transform",'translate('+ chart.w/2+',-12)')
         .text(countryText[0][1]);
 
 
