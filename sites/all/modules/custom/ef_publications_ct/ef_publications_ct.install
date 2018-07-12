@@ -185,9 +185,15 @@ function ef_publications_ct_update_7202() {
 		//will be just a "1".
 		$publication->status = $article->status;
 		//Main Image
-  	$image = file_get_contents($article->field_ef_main_image['und'][0]['uri']);
-    $file  = file_save_data($image, $publication->field_ef_main_image['und'][0]['uri'] ,FILE_EXISTS_REPLACE);
-  	$publication->field_ef_main_image[LANGUAGE_NONE][0]['fid'] = $file->fid;
+		if (isset($article->field_ef_main_image['und'][0]['uri'])) {
+  		$image = file_get_contents($article->field_ef_main_image['und'][0]['uri']);
+    	$file  = file_save_data($image, $article->field_ef_main_image['und'][0]['uri'], FILE_EXISTS_RENAME);
+    	if (is_object($file)) {
+ 				$file->status = 1;
+  			$file = file_save($file);
+			}
+  		$publication->field_ef_main_image[LANGUAGE_NONE][0]['fid'] = $file->fid;
+  	}
 		//Observatory
 		$publication->field_ef_observatory = $article->field_ef_observatory;
 		//Topic
@@ -221,6 +227,8 @@ function ef_publications_ct_update_7202() {
 
 		node_save($publication);
 
+		print_r($publication->nid . PHP_EOL);
+
 		$destination = 'node/' . $publication->nid;
 
 		if ($article->status == 1) {
@@ -228,7 +236,7 @@ function ef_publications_ct_update_7202() {
 		}
 		workbench_moderation_moderate($article, 'unpublished');
 		$article->status = 0;
-		$article->title = $article->title . '(Archived)';
+		$article->title = $article->title . ' (Archived)';
 		$article->ef_archived = 1;
 
 		node_save($article);
