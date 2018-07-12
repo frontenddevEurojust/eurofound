@@ -331,38 +331,3 @@ function ef_publications_ct_pathauto_alias_alter(&$alias, array &$context)
 		}
 	}
 }
-
-function _archived_title() {
-	//Get the "Topical update" tid from the term entity
-	$term = taxonomy_get_term_by_name('Topical update', 'ef_deliverable_kinds');
-  $topical_update_tid = key($term);
-
-  //Query for articles with deliverable kind "Topical update"
-  $query = db_select('node', 'n');
-  $query->fields('n', array('nid'));
-  $query->join('field_data_field_ef_deliverable_kind', 'dk', 'n.nid = dk.entity_id');
-  $query->condition('n.type', 'ef_report');
-  $query->condition('dk.field_ef_deliverable_kind_tid', $topical_update_tid);
-
-  $results = $query->execute()->fetchAll();
-
-    //For each relevant article we create a new publication.
-  foreach ($results as $key => $value) {
-  	$nid = $value->nid;
-  	$article = node_load($nid);
-
-  	$vid = get_node_current_vid($nid);
-  	//Load the article, the whole entity
-  	$article = node_load($nid,$vid);
-  	$article->title = $article->title . ' (Archived)';
-  	$article->title_field['en'][0]['value'] = $article->title_field['en'][0]['value'] . ' (Archived)';
-
-  	db_update('node')
-			->fields(array('title' => $article->title_field['en'][0]['value']))
-			->condition ('node.nid', $nid)
-			->execute();
-
-		field_attach_update('node', $article);
-		entity_get_controller('node')->resetCache(array($nid));
-	}
-}
