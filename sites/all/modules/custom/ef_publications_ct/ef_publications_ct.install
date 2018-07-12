@@ -60,7 +60,7 @@ function ef_publications_ct_update_7201()
 			// Prefix for the URL
 			if ($record['type'] == 'ef_national_contribution' || $record['type'] == 'ef_comparative_analytical_report')
 			{
-				$pathPrefix = 'publications/reports/';
+				$pathPrefix = 'publications/report/';
 			}
 			else if ($record['type'] == 'ef_report')
 			{
