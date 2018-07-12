@@ -308,7 +308,7 @@ function fix_translate_tab() {
   $query_translation->fields('tf', array('entity_id', 'language', 'title_field_value'));
   $query_translation->condition('tf.entity_type', 'node');
   $query_translation->condition('tf.language', array('en', 'und'), 'NOT IN');
-  
+
   $result_translation = $query_translation->execute()->fetchAll();
 
   foreach ($result_translation as $key => $translation) {
@@ -317,18 +317,18 @@ function fix_translate_tab() {
     $query_english->condition('tf.entity_type', 'node');
     $query_english->condition('tf.language', 'en');
     $query_english->condition('tf.entity_id', $translation->entity_id);
-  
+
     $result_english = $query_english->execute()->fetchAll();
-    
+
     if ($translation->title_field_value != $result_english[0]->title_field_value) {
       $query = db_select('entity_translation', 'et');
       $query->fields('et');
       $query->condition('et.entity_type', 'node');
       $query->condition('et.entity_id', $translation->entity_id);
       $query->condition('et.language', $translation->language);
-  
+
       $result = $query->execute()->fetchAll();
-      
+
       if (empty($result)) {
         $query_en = db_select('entity_translation', 'et');
         $query_en->fields('et');
@@ -338,7 +338,7 @@ function fix_translate_tab() {
 
         $result_en = $query_en->execute()->fetchAll();
 
-        print_r($translation->entity_id . '-' . $translation->language . PHP_EOL);
+        print_r($translation->entity_id . '-' . $translation->language);
 
         if (!empty($result_en)) {
           db_insert('entity_translation')->fields(array(
@@ -352,6 +352,21 @@ function fix_translate_tab() {
             'created' => $result_en[0]->created,
             'changed' => $result_en[0]->changed,
             'revision_id' => $result_en[0]->revision_id,
+          ))
+          ->execute();
+        }
+        else {
+          db_insert('entity_translation')->fields(array(
+            'entity_type' => 'node',
+            'entity_id' => $translation->entity_id,
+            'language' => 'en',
+            'source' => '',
+            'uid' => 403,
+            'status' => 1,
+            'translate' => 0,
+            'created' => time(),
+            'changed' => time(),
+            'revision_id' => $translation->entity_id,
           ))
           ->execute();
         }
