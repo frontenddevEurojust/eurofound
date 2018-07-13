@@ -201,7 +201,13 @@
   {
     var elementId = settingsArray.find(function(e)
     {
-      return (e.chartID === chartName && e.modalityCode === modalityName);
+
+      if(e.modalityCode != 'N/A'){
+
+        return (e.chartID === chartName && e.modalityCode == modalityName );
+      } else {
+        return (e.chartID === chartName && e.modalityCode === 'N/A' );
+      }
     });
     if (elementId)
     {
@@ -216,8 +222,8 @@
 
     var filteredData = overallFunctions.filterData(data, modalityCode, order);
 
-    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', 'N/A');
-    
+    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', modalityCode);
+
     var domainMin = customLimits[0];
     var domainMax = customLimits[1];
     
@@ -502,8 +508,8 @@
 
       filteredData = overallFunctions.filterData(data, modalityCode, order);
 
-    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', 'N/A');
-    
+    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', modalityCode);
+
     var domainMin = customLimits[0];
     var domainMax = customLimits[1];
       
