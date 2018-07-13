@@ -443,7 +443,7 @@
 
                         <?php  foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value): 
 
-                          $field_ef_sourcemedia = $value['field_ef_sourcemedia']['und'][0]['taxonomy_term']->name_field[$language->language][0]['safe_value'];
+                          $field_ef_sourcemedia = $value['field_ef_sourcemedia']['und'][0]['taxonomy_term']->name;
                           $field_ef_sourcelink = $value['field_ef_sourcelink']['und'][0]['safe_value'];
                           $fmd = $value['field_ef_linkdate']['und'][0]['value'];
                         ?>
@@ -458,7 +458,6 @@
                             <?php endif; ?>
 
                             <?php if ( isset( $field_ef_sourcemedia) ): ?>
-
                               <?php if ( isset($field_ef_sourcelink) ): 
                                     $pos = strpos($field_ef_sourcelink, 'http');
                                     $pos ? $field_ef_sourcelink = $field_ef_sourcelink : $field_ef_sourcelink = 'http://' . $field_ef_sourcelink;
@@ -497,20 +496,29 @@
 
                     <?php else: ?>  
 
-                      <?php if( count($node->field_ef_fact_sources['und']) > 0  || isset($node->field_ef_sources_links['und'][0]['value']) ): ?>
+                      <?php 
+
+
+
+                      if( count($node->field_ef_fact_sources['und']) > 0  || isset($node->field_ef_sources_links['und'][0]['value']) ): ?>
                         <div class="ef_fs_source_previous">
-                           <?php if (isset($node->field_ef_fact_sources['und'][0]['field_ef_facsheet_media_date']['und'][0]['value'])): ?>
+
                             <div class="ef_fs_source_link fs_indoor row">
                                 <h4 class="source_link">Sources:</h4>
                                 <?php 
                                   foreach ($node->field_ef_fact_sources['und'] as $key => $value) {
                                      $fmd = $value['field_ef_facsheet_media_date']['und'][0]['value'];
-                                     print '<div class="fs_data pro"><span class="fs_col_date">' . date("d-m-Y",strtotime($fmd)) . '</span>';
-                                     print '<span class="fs_col_name">' . $value['field_ef_factsheet_media']['und'][0]['taxonomy_term']->name . '</span></div>';
+                                    
+                                     print '<div class="fs_data pro">';
+                                       if($fmd != null){
+                                        print '<span class="fs_col_date">' . date("d-m-Y",strtotime($fmd)) . '</span>';
+                                       }                                     
+                                      print '<span class="fs_col_name">' . $value['field_ef_factsheet_media']['und'][0]['taxonomy_term']->name . '</span>';
+                                    print '</div>';
                                   }
                                 ?> 
                               </div>
-                          <?php endif; ?>
+
 
                           <?php if (isset($node->field_ef_sources_links['und'][0]['value'])): ?>
                               <div class="ef_fs_source_link fs_indoor row">
