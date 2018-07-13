@@ -232,7 +232,6 @@
 	{
 		var elementId = settingsArray.find(function(e)
 		{
-			console.log(e.modalityCode);
 			if(e.modalityCode != 'N/A'){
 				return (e.chartID === chartName && e.modalityCode == modalityName );
 			} else {
