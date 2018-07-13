@@ -219,7 +219,13 @@
 	{
 		var elementId = settingsArray.find(function(e)
 		{
-			return (e.chartID === chartName && e.modalityCode === modalityName);
+			
+			if(e.modalityCode != 'N/A'){
+				return (e.chartID === chartName && e.modalityCode == modalityName );
+			} else {
+				return (e.chartID === chartName && e.modalityCode === 'N/A' );
+			}
+			
 		});
 		if (elementId)
 		{
@@ -236,8 +242,8 @@
 		//filteredData = filterData(data, modalityCode, subgroupCode, order);
 		filteredData = filterData(data, modalityCode, order);
 
-		var customLimits = customSettings(settingsData, 'quality-dim-GP', 'N/A');
-		
+		var customLimits = customSettings(settingsData, 'quality-dim-GP', modalityCode);
+
 		var domainMin = customLimits[0];
 		var domainMax = customLimits[1];
 
@@ -497,23 +503,23 @@
 			{
 				modalityCode = 1;
 			}
-			if (subgroupCode == null)
+			/*if (subgroupCode == null)
 			{
 				subgroupCode = 1;
-			}
+			}*/
 			if (order == null)
 			{
 				order = 0;
 			}
 
 			d3.select('#modality-filter').property('value', modalityCode);
-			d3.select('#subgroup-filter').property('value', subgroupCode);
+			//d3.select('#subgroup-filter').property('value', subgroupCode);
 			d3.select('#sort-filter').property('value', order);
 			
 			//filteredData = filterData(data, modalityCode, subgroupCode, order);
 			filteredData = filterData(data, modalityCode, order);
 
-			var customLimits = customSettings(settingsData, 'quality-dim-GP', 'N/A');
+			var customLimits = customSettings(settingsData, 'quality-dim-GP', modalityCode);
 			
 			var domainMin = customLimits[0];
 			var domainMax = customLimits[1];
