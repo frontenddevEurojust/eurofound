@@ -51,6 +51,8 @@
       $($sai_label_input).prop('disabled', false);
     } 
     else {
+      $tid = $('#edit-field-ef-activities option:selected').val();
+      $($sai_label_input).val($sai_labels[$tid]);
       $($sai_label_input).prop('disabled', true);
     }
 
