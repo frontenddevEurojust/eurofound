@@ -502,7 +502,7 @@
 
                       if( count($node->field_ef_fact_sources['und']) > 0  || isset($node->field_ef_sources_links['und'][0]['value']) ): ?>
                         <div class="ef_fs_source_previous">
-
+                          <?php if ( count($node->field_ef_fact_sources['und']) > 0 ): ?>
                             <div class="ef_fs_source_link fs_indoor row">
                                 <h4 class="source_link">Sources:</h4>
                                 <?php 
@@ -518,6 +518,7 @@
                                   }
                                 ?> 
                               </div>
+                            <?php endif; ?>
 
 
                           <?php if (isset($node->field_ef_sources_links['und'][0]['value'])): ?>
