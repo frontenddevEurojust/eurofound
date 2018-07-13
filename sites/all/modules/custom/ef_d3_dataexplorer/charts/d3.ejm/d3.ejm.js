@@ -1,6 +1,7 @@
 (function($) {
 
   var maxCountrySelected = 4;
+  var maxCountriesMsg = 'You can select up to ' + maxCountrySelected + ' countries only'
   var countryExist = 0;
 
   var getParameterByName = function(name) {
@@ -127,9 +128,9 @@
           $('.advice-select-countries').css('color','#F00');
 
           if($('.advice-max-countries').text() != ''){
-             $('.advice-max-countries').html('Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+             $('.advice-max-countries').html(maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i>');
           } else {
-            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">' + maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i></div>' );
           }
         }
         
@@ -264,9 +265,9 @@
           $('.advice-select-countries').css('color','#F00');
 
           if($('.advice-max-countries').text() != ''){
-             $('.advice-max-countries').html('Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+             $('.advice-max-countries').html(maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i>');
           } else {
-            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + maxCountrySelected + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">' + maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i></div>' );
           }
         }
 
@@ -310,11 +311,6 @@
     d3.select("#breakdown").on('change', function () { 
         filtersOnChange();
     });
-    // d3.select("#period").on("change", render_graph);
-    // d3.select("#criterion").on("change", render_graph);
-    //d3.select("#breakdown").on("change", render_graph);
-
-   // window.addEventListener("resize", render_graph);
 
     
     window.addEventListener("resize", function () {
@@ -330,13 +326,17 @@
 
      // render_graph(settings.id);
       for(i=0;i<countryPar.length;i++){
-        if(i < maxCountrySelected){
-          render_graph(countryPar[i], countryPar.length );
+        if(i < maxCountrySelected ){
+
+          if(countryPar[i] != undefined){
+            render_graph(countryPar[i], countryPar.length );
+          }
+          
         } else {
           if($('.advice-max-countries').text() != ''){
-             $('.advice-max-countries').html('Only can be selected up to ' + countryPar.length + ' countries <i class="fa fa-times" aria-hidden="true"></i>');
+             $('.advice-max-countries').html(maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i>');
           } else {
-            $('.advice-select-countries').append(  '<div class="advice-max-countries">Only can be selected up to ' + countryPar.length + ' countries <i class="fa fa-times" aria-hidden="true"></i></div>' );
+            $('.advice-select-countries').append(  '<div class="advice-max-countries">' + maxCountriesMsg + '<i class="fa fa-times" aria-hidden="true"></i></div>' );
           }
         }      
       }
@@ -488,7 +488,7 @@
 
       breakdown != "All employment" ? d3.select(".breakdown").text(" (and by " + breakdown.toLowerCase() + ")") : d3.select(".breakdown").text("");
 
-      countryNames.push( countryText[0][1] );
+      countryNames.push( countryText[0][1] ); 
 
 
       d3.select(".country").text(countryNames.join( ', ' ) + ',');
@@ -496,8 +496,6 @@
       d3.select(".criterion").text(criterion.toLowerCase());
 
       tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
-
-
 
 
 
@@ -698,6 +696,7 @@
       }
 
       function getFootnote(json, footnotes) {
+
         var footnote = [];
         if (json[0].Footnote == "A") {
           footnote[0] = footnotes.A;
@@ -706,8 +705,9 @@
         if (json[0].Footnote == "AB") {
           footnote[0] = footnotes.A;
           footnote[1] = footnotes.B;
-        } 
-        return footnote;       
+        }
+        return footnote;
+
       }
 
       function getMinStackedValue(array) {
