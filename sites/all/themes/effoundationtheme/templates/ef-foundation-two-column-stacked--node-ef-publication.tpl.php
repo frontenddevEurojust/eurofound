@@ -198,12 +198,13 @@ if (isset($content['group_ef_node_details']['field_ef_observatory']))
 						<?php if(count($content['group_ef_node_details']['field_ef_publ_contributors']) > 1): ?>
 						<span class="label-inline">Authors: </span>
 						<ul class="topic-list">
+
 							<?php foreach ($content['group_ef_node_details']['field_ef_publ_contributors']['#items'] as $key => $author): ?>
-							<li class="field-contributors"><a href="<?= url($content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#title']; ?></a></li>
+							<li class="field-contributors"><a href="<?= url($content['group_ef_node_details']['field_ef_publ_contributors'][$key]['#href']); ?>"><?= $content['group_ef_node_details']['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][$key]['taxonomy_term']->name_field['und'][0]['value']; ?></a></li>
 							<?php endforeach; ?>
 						</ul>
 						<?php else: ?>
-						<span class="label-inline">Authors: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_publ_contributors'][0]['#markup']; ?></span>
+						<span class="label-inline">Authors: </span><span class="label-content"><?= $content['group_ef_node_details']['field_ef_publ_contributors']['#object']->field_ef_publ_contributors['und'][0]['taxonomy_term']->name_field['und'][0]['value']; ?></span>
 						<?php endif; ?>
 					</li>
 					<?php endif; ?>

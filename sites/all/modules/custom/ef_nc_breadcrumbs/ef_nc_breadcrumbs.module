@@ -240,7 +240,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
   $cwb = '/observatories/eurwork/collective-wage-bargaining/';
   $emcc = '/observatories/emcc/';
   $deliverable_country_update = '/deliverable-kinds/country-update';
-  $deliverable_topical_update = '/deliverable-kinds/topical-update';
+  $deliverable_topical_update = '/observatories/eurwork/topical-update';
   $deliverable_research_extended = '/deliverable-kinds/research-in-focus-extended';
   $working_life_country_profiles = '/observatories/eurwork/comparative-information/working-life-country-profiles';
   $array_spotlight_on = array(

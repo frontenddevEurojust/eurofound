@@ -425,63 +425,143 @@
                        <div class="fs_additional_info"> <?php print ($node->field_ef_additional_information['und'][0]['value']); ?></div>
                     </div>
 
-                    <div class="ef_fs_source fs_indoor row">
-                       <?php if (isset($node->field_ef_fact_sources['und'][0]['field_ef_facsheet_media_date']['und'][0]['value'])): ?>
-                            <span class="small-3 columns">Sources:</span>
-                            <span class="fs_data">
+
+
+
+                    <?php 
+                      foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value){
+                        $elementsSource +=  intval(count( $value['field_ef_sourcemedia']['und']) );  
+                        $elementsLinks += intval( count(  $value['field_ef_sourcelink']['und'] ) );
+                        $linkdate += intval( count( $value['field_ef_linkdate']['und']) );
+                      }
+                    ?>
+
+                    <?php if ($elementsSource != 0 ||  $elementsLinks != 0 ): ?> 
+                      <div class="source-area">
+                       <h4 class="small columns">Sources:</h4>
+                       <ul>
+
+                        <?php  foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value): 
+
+                          $field_ef_sourcemedia = $value['field_ef_sourcemedia']['und'][0]['taxonomy_term']->name;
+                          $field_ef_sourcelink = $value['field_ef_sourcelink']['und'][0]['safe_value'];
+                          $fmd = $value['field_ef_linkdate']['und'][0]['value'];
+                        ?>
+                            <li>
+                            <?php if ( isset($fmd) && ( isset($field_ef_sourcemedia) || isset($field_ef_sourcelink)) ): ?> 
+                              <?php if ( isset($fmd) ): ?>                            
                               <span class="fs_col_date">
-                              <?php
-                                  foreach ($node->field_ef_fact_sources['und'] as $key => $value) {
-
-                                     $fmd = $value['field_ef_facsheet_media_date']['und'][0]['value'];
-                                     print date("d-m-Y",strtotime($fmd));
-                                     echo"<br>";
-                                     echo"<br>";
-                                  }
-                              ?>
-                             </span>
-                             <span class="fs_col_name">
-                              <?php
-                                  foreach ($node->field_ef_fact_sources['und'] as $key => $value) {
-
-                                    print($value['field_ef_factsheet_media']['und'][0]['taxonomy_term']->name);
-                                    echo"<br>";
-                                    echo"<br>";
-                                  }
-                              ?>
+                                <?php print '<i class="fa fa-calendar" aria-hidden="true"></i> <time datetime="' . date("d-m-Y",strtotime($fmd)) . '">' . date("d-m-Y",strtotime($fmd)) . '</time>';
+                                ?>                            
                               </span>
-                             </span>
+                              <?php endif; ?>
+                            <?php endif; ?>
+
+                            <?php if ( isset( $field_ef_sourcemedia) ): ?>
+                              <?php if ( isset($field_ef_sourcelink) ): 
+                                    $pos = strpos($field_ef_sourcelink, 'http');
+                                    $pos ? $field_ef_sourcelink = $field_ef_sourcelink : $field_ef_sourcelink = 'http://' . $field_ef_sourcelink;
+                              ?>
+                                <span class="fs_col_name">
+                                  <a href='<?php print $field_ef_sourcelink ?>' target="_blank" title="Will be opened in a new window">
+                                   <?php print $field_ef_sourcemedia . ' <i class="fa fa-external-link" aria-hidden="true"></i>'; ?>
+                                  </a>
+                                </span>
+                              <?php else: ?>
+                                <span class="fs_col_name">
+                                 <?php  print $field_ef_sourcemedia; ?>
+                                </span>
+                              <?php endif; ?>
+
+                            <?php else: ?>
+                              
+                                <?php if ( isset($field_ef_sourcelink) ): 
+                                    $pos = strpos($field_ef_sourcelink, 'http');
+                                    $pos ? $field_ef_sourcelink_url = $field_ef_sourcelink : $field_ef_sourcelink_url = 'http://' . $field_ef_sourcelink;
+                                ?>
+                                  <span class="fs_col_name">
+                                    <a href='<?php print $field_ef_sourcelink_url ?>' target="_blank" title="Will be opened in a new window">
+                                      <?php print $field_ef_sourcelink . ' <i class="fa fa-external-link" aria-hidden="true"></i>' ?>
+                                    </a>
+                                  </span>
+                                <?php endif; ?>
+
+                            <?php endif; ?> 
+                              </li>
+                        <?php endforeach;  ?>
+                       
+                       </ul>
+                       <span class="clearfix"></span>
+                      </div>
+
+                    <?php else: ?>  
+
+                      <?php 
+
+
+
+                      if( count($node->field_ef_fact_sources['und']) > 0  || isset($node->field_ef_sources_links['und'][0]['value']) ): ?>
+                        <div class="ef_fs_source_previous">
+                          <?php if ( count($node->field_ef_fact_sources['und']) > 0 ): ?>
+                            <div class="ef_fs_source_link fs_indoor row">
+                                <h4 class="source_link">Sources:</h4>
+                                <?php 
+                                  foreach ($node->field_ef_fact_sources['und'] as $key => $value) {
+                                     $fmd = $value['field_ef_facsheet_media_date']['und'][0]['value'];
+                                    
+                                     print '<div class="fs_data pro">';
+                                       if($fmd != null){
+                                        print '<span class="fs_col_date">' . date("d-m-Y",strtotime($fmd)) . '</span>';
+                                       }                                     
+                                      print '<span class="fs_col_name">' . $value['field_ef_factsheet_media']['und'][0]['taxonomy_term']->name . '</span>';
+                                    print '</div>';
+                                  }
+                                ?> 
+                              </div>
+                            <?php endif; ?>
+
+
+                          <?php if (isset($node->field_ef_sources_links['und'][0]['value'])): ?>
+                              <div class="ef_fs_source_link fs_indoor row">
+                                  <h4 class="source_link">Sources Links:</h4>
+                                  <div class="fs_data pro"><?php print render($node->field_ef_sources_links['und'][0]['value']); ?></div>
+                              </div>
+                          <?php endif; ?>
+                        </div>
                       <?php endif; ?>
 
-                    <?php if (isset($node->field_ef_sources_links['und'][0]['value'])): ?>
-                        <div class="ef_fs_source_link fs_indoor row">
-                            <span class="small-3 columns source_link">Sources Links:</span>
-                            <div class="fs_data pro"><?php print render($node->field_ef_sources_links['und'][0]['value']); ?></div>
-                        </div>
                     <?php endif; ?>
-                </div>
-                <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
-                  <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
-                    <div class="ef_fs_source_pdf fs_indoor row">
-                      <span class="small-3 columns">Other full text sources:</span>
-                      <span class="fs_data">
-                        <a target="_blank" href="<?php print ($content['field_otheref_full_text_sources'][0]['#markup']); ?>">
-                          <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
-                        </a>
-                      </span>
-                    </div>
-                  <?php endif; ?>
-                <?php endif; ?>
-                <?php if (isset($content['group_egf_year_code']['field_egf_code']['#items'][0]['value']) && isset($content['group_egf_year_code']['field_egf_year_date']['#items'][0] )): ?>
-                    <div class="ef_fs_source_pdf fs_indoor row">
-                        <span class="small-3 columns">European Globalisation Fund:</span>
+                    
+
+                  
+
+                  <?php if (isset($content['field_otheref_full_text_sources'][0]['#markup'])): ?>
+                    <?php if ($GLOBALS['user']->roles[3] == 'administrator' || $GLOBALS['user']->roles[7] == 'Author' || $GLOBALS['user']->roles[9] == 'Quality Manager'):  ?>
+                      <div class="ef_fs_source_pdf fs_indoor row">
+                        <span class="small-3 columns others-sources">Other full text sources:</span>
                         <span class="fs_data">
-                          <?php print substr($content['group_egf_year_code']['field_egf_year_date']['#items'][0]['value'], 0, 4); ?>
-                          /
-                          <?php print $content['group_egf_year_code']['field_egf_code']['#items'][0]['value']; ?>
+                          <?php if (isset( $content['field_otheref_full_text_sources'][0]['#markup'] )): ?>
+                            <a target="_blank" href="<?php print ( $content['field_otheref_full_text_sources'][0]['#markup'] ); ?>">
+                              <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
+                            </a>
+                          <?php else: ?>
+                            <?php print $content['field_otheref_full_text_sources']['#items'][0]['filename'] ?>
+                          <?php endif; ?>
                         </span>
-                    </div>
-                <?php endif; ?>
+                      </div>
+                    <?php endif; ?>
+                  <?php endif; ?>
+                  <?php if (isset($content['group_egf_year_code']['field_egf_code']['#items'][0]['value']) && isset($content['group_egf_year_code']['field_egf_year_date']['#items'][0] )): ?>
+                      <div class="ef_fs_source_pdf fs_indoor row">
+                          <span class="small-3 columns others-sources">European Globalisation Fund:</span>
+                          <span class="fs_data">
+                            <?php print substr($content['group_egf_year_code']['field_egf_year_date']['#items'][0]['value'], 0, 4); ?>
+                            /
+                            <?php print $content['group_egf_year_code']['field_egf_code']['#items'][0]['value']; ?>
+                          </span>
+                      </div>
+                  <?php endif; ?>                   
+                </div>
             </div>
         </div>
 

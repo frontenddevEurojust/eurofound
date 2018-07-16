@@ -295,7 +295,7 @@ function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
 
 function ef_osu_contract_views_query_alter(&$view, &$query) {
   if(isset($view->name)) {
-    if( $view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting' ) {
+    if($view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting') {
       //-------------------IR ENTRY REVISIONS CONTROL------------------
       $sql = "SELECT * from field_data_field_ef_deliverable_kind where field_ef_deliverable_kind_tid = 13753";
       $irdictionaries = db_query($sql)->fetchAll();
@@ -336,6 +336,15 @@ function ef_osu_contract_views_query_alter(&$view, &$query) {
       }
       //-------------------END IR ENTRY REVISIONS QUERY ALTER------------------
     }
+
+    if ($view->name == 'new_osu_contract_reporting') {
+      $query->table_queue['node_revision']['join']->left_field = 'nid';
+      $query->table_queue['node_revision']['join']->field = 'nid';
+
+      $query->table_queue['node_revision']['join']->definition['left_field'] = 'nid';
+      $query->table_queue['node_revision']['join']->definition['field'] = 'nid';
+    }
+
   }
 }
 

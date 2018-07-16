@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the ef_ct_dataexplorer feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_ct_dataexplorer.features.inc';

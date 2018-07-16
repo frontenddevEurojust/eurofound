@@ -131,10 +131,20 @@ fieldset.group-involved-actors-erm-reg{
 	display: inline;
 }
 
-#edit-field-company-size-erm-reg{
-	width: 35%;
-	margin: 0 5%;
+#edit-field-company-size{
+    width: 35%;
+    margin: 0 5%;
 }
+
+#edit-field-affected-employees{
+    width: 35%;
+}
+
+.logged-in #edit-field-company-size-und-0-value ,
+.logged-in #edit-field-affected-employees-und-0-value  {    
+    width:100%;
+}
+
 .node-type-ef-erm-regulation .field-add-more-submit:before{
     content: "\f196";
     font-family: fontawesome;

@@ -1190,6 +1190,11 @@ function ef_qrr_status_actions_submit($form, &$form_state) {
                      if($state && $new_moderation_state != 'published') {
                         $node->workbench_moderation_state_new = $new_moderation_state;
                      }
+                     
+                    //WGS-432
+                    $node->field_ef_assign_to_user['und'][0]['target_id'] = get_assign_to_user_by_default($new_moderation_state, $node->group, $inputs = null, $node);
+                    //END WGS-432
+
                      node_save($node);
                } else {
 
@@ -1198,6 +1203,9 @@ function ef_qrr_status_actions_submit($form, &$form_state) {
 
                      if ( $current_moderation_state != $new_moderation_state ) {
                         workbench_moderation_moderate($node, $new_moderation_state);
+                        //WGS-432
+                        $node->field_ef_assign_to_user['und'][0]['target_id'] = get_assign_to_user_by_default($new_moderation_state, $node->group, $inputs = null, $node);
+                        //END WGS-432
                         $save = TRUE;
                      }
                      if(!empty($v['table']['revision_deadline_'.$nid])){
@@ -1222,6 +1230,7 @@ function ef_qrr_status_actions_submit($form, &$form_state) {
                         }
 
                      }
+
                   if($save){
                      field_attach_update('node',$node);
                      entity_get_controller('node')->resetCache(array($nid));

@@ -695,3 +695,30 @@ function articles_autocreation_deliver_select_ajax($form, &$form_state){
 	return $form['service'];
 
 }
+
+
+/**
+ * Implements hook_form_alter(&$form, &$form_state, $form_id).
+ */
+function ef_articles_autocreation_form_alter(&$form, &$form_state, $form_id){
+	if ($form_id == 'ef_report_node_form') {
+		$form['field_ef_document_type']['#access'] = false;
+	}
+}
+
+/**
+ * Implements hook_node_presave($node)
+ */
+function ef_articles_autocreation_node_presave($node){
+
+	if ($node->type == 'ef_report') {
+		$taxonomy = taxonomy_get_term_by_name('Article', $vocabulary = 'ef_publication_types');	
+		if (count($taxonomy == 1)) {
+			$taxonomy = reset($taxonomy);
+			$taxonomy = $taxonomy->tid;
+
+			$node->field_ef_document_type['und'][] = array('tid' => $taxonomy);
+		}
+	} 
+}
+

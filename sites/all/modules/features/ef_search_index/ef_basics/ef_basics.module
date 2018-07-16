@@ -1,7 +1,5 @@
 <?php
 /**
  * @file
- * Code for the EF Basics feature.
+ * Drupal needs this blank file.
  */
-
-include_once 'ef_basics.features.inc';

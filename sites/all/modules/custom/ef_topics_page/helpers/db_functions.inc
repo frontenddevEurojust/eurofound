@@ -56,6 +56,7 @@ function return_url_alias_data($tid){
 function add_highlights_tab($tid, $page, $limit = 8){
 
     $query = db_select('field_data_field_ef_highlighted', 'a');
+    $query->distinct();
     $query->innerJoin('node', 'b', 'a.field_ef_highlighted_target_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
@@ -100,8 +101,9 @@ function add_highlights_tab($tid, $page, $limit = 8){
 
 function add_all_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query = db_select('field_data_field_ef_topic', 'a');
+    $query->distinct();
+    $query->innerJoin('node', 'b', 'a.entity_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
     $query->leftJoin('field_data_field_ef_event_start_date', 'g', 'b.nid = g.entity_id');
@@ -110,7 +112,7 @@ function add_all_tab($tid, $page, $limit = 8){
     $query->addField('f', 'name', 'ct_name');
     $query->addField('e', 'published_at','published_at');
     $query->addField('g', 'field_ef_event_start_date_value','event_start_date');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.field_ef_topic_tid', $tid, '=');
     $query->condition('b.type', array('ef_publication','ef_report','ef_news','ef_event','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
@@ -143,15 +145,16 @@ function add_all_tab($tid, $page, $limit = 8){
 
 function add_publications_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query = db_select('field_data_field_ef_topic', 'a');
+    $query->distinct();
+    $query->innerJoin('node', 'b', 'a.entity_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->leftJoin('publication_date', 'e', 'b.nid = e.nid');
     $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('e', 'published_at','published_at');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.field_ef_topic_tid', $tid, '=');
     $query->condition('b.type', array('ef_publication','blog','presentation'), 'IN');
     $query->condition('b.status', 1, '=');
 
@@ -183,15 +186,16 @@ function add_publications_tab($tid, $page, $limit = 8){
 
 function add_articles_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query = db_select('field_data_field_ef_topic', 'a');
+    $query->distinct();
+    $query->innerJoin('node', 'b', 'a.entity_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
     $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.field_ef_topic_tid', $tid, '=');
     $query->condition('b.`type`', 'ef_report', '=');
     $query->condition('b.status', 1, '=');
 
@@ -224,15 +228,16 @@ function add_articles_tab($tid, $page, $limit = 8){
 
 function add_news_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query = db_select('field_data_field_ef_topic', 'a');
+    $query->distinct();
+    $query->innerJoin('node', 'b', 'a.entity_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.type = f.type');
     $query->innerJoin('publication_date', 'd', 'b.nid = d.nid');
     $query->addField('b', 'nid', 'node_id');
     $query->addField('b', 'title', 'title');
     $query->addField('f', 'name', 'ct_name');
     $query->addField('d', 'published_at','published_at');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.field_ef_topic_tid', $tid, '=');
     $query->condition('b.type', 'ef_news', '=');
     $query->condition('b.status', 1, '=');
 
@@ -264,8 +269,9 @@ function add_news_tab($tid, $page, $limit = 8){
 
 function add_events_tab($tid, $page, $limit = 8){
 
-    $query = db_select('taxonomy_index', 'a');
-    $query->innerJoin('node', 'b', 'a.nid = b.nid');
+    $query = db_select('field_data_field_ef_topic', 'a');
+    $query->distinct();
+    $query->innerJoin('node', 'b', 'a.entity_id = b.nid');
     $query->innerJoin('node_type', 'f', 'b.`type` = f.`type`');
     $query->innerJoin('field_data_field_ef_event_start_date', 'd', 'b.nid = d.entity_id');
     $query->addField('b', 'nid', 'node_id');
@@ -274,7 +280,7 @@ function add_events_tab($tid, $page, $limit = 8){
     $query->addField('d', 'field_ef_event_start_date_value','event_start_date');
     // DOES NOT WORK so tranformation is done via PHP
     //$query->addExpression('DATE_FORMAT(field_ef_event_start_date_value,"%d %M %Y")','event_start_date');
-    $query->condition('a.tid', $tid, '=');
+    $query->condition('a.field_ef_topic_tid', $tid, '=');
     $query->condition('b.`type`', 'ef_event', '=');
     $query->condition('b.status', 1, '=');
 

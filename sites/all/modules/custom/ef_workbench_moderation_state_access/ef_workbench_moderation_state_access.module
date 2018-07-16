@@ -79,7 +79,10 @@ function ef_workbench_moderation_state_access_node_access($node, $op, $account) 
     if (user_access($permission, $account)) {
       return NODE_ACCESS_DENY;
     }
+  }
 
+  if (!$account->uid && $node->nid == 84977) {
+    return NODE_ACCESS_DENY;
   }
 
   return NODE_ACCESS_IGNORE;

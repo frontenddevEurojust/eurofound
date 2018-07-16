@@ -19,7 +19,7 @@
 
   overallFunctions.filterData = function(data, modality, sort) {
 
-     var filtered = data.filter(function(row){
+      var filtered = data.filter(function(row){
       return row.modalityCode == modality;
     });
 
@@ -28,9 +28,7 @@
       order = d3.ascending;
       var filteredKeyed = d3.nest().key(function(d) { 
         if(d.countryName != 'EU28'){
-
           return d.countryName;
-
         }else{
 
           // firts element in the order
@@ -65,11 +63,11 @@
     return filtered;
   }
 
-  overallFunctions.createModalityFilter = function(data){
+  overallFunctions.createModalityFilter = function(data, dataFile, settingsData){
       
     var modalities = overallFunctions.buildModalityOptions(data);
     
-    var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text('Group');
+    var select = d3.select('body .chart-filters').append('label').property('for', 'modality-filter').text(overallFunctions.translatedValue(dataFile, 'LabelGroup'));
     var select = d3.select('body .chart-filters').append('select').property('id', 'modality-filter').property('name', 'group');
 
     var options = select
@@ -82,10 +80,8 @@
     d3.select("#modality-filter").on("change", updateGraph);
   }
 
-  overallFunctions.createOrderingFilter = function() {
-    // var alphaSort = ["- None -", "Alphabetically ascending", "Alphabetically descending", "By 2007 value descending", "By 2016 value descending", "By value gap ascending", "By value gap descending"];
-        
-    var alphaSort = ["Alphabetically ascending", "By 2007 value descending", "By 2016 value descending"];
+  overallFunctions.createOrderingFilter = function(dataFile, settingsData) {
+    var alphaSort = [overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_sortOptionDefault'), overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_sortOption1'), overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_sortOption2')];
 
     var select = d3.select('body .chart-filters').append('select').property('id', 'sort-filter').property('name', 'sort');
 
@@ -157,28 +153,66 @@
     return maxValue;
   }
 
-  overallFunctions.buildGraphStructure = function(csv){
-    overallFunctions.createModalityFilter(csv);
-    $('.chart-filters').append('<label for="sort-order" class="label-sort">Sort:</label>');
-    overallFunctions.createOrderingFilter();
+  overallFunctions.buildGraphStructure = function(csv, dataFile, settingsData){
+    overallFunctions.createModalityFilter(csv, dataFile, settingsData);
+    $('.chart-filters').append('<label for="sort-order" class="label-sort">' + overallFunctions.translatedValue(dataFile, 'LabelSort') + '</label>');
+    overallFunctions.createOrderingFilter(dataFile, settingsData);
   };
 
   var axisLinePath = function(d) {
     return lineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, height]]);
   };
 
-  overallFunctions.parseToFloat = function(csv){
-
-    var data = csv.map(function(row){
-
+  overallFunctions.translateData = function(dataFile, csv)
+  {
+    var data = csv.map(function(row)
+    {
+      row.countryName = overallFunctions.translatedValue(dataFile, 'country' + row.countryCode);
       row.dot1 = parseFloat(row.dot1);
-
       row.dot2 = parseFloat(row.dot2);
-
+      row.modalityValue = overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_filter_group' + row.modalityCode);
       return row;
     });
-
     return data;
+  }
+
+  overallFunctions.readSettings = function(settingsFile)
+  {
+    var settingsData = settingsFile.map(function(row)
+    {
+      return row;
+    });
+    return settingsData;
+  }
+
+  overallFunctions.translatedValue = function(translatedArray, arrayKey)
+  {
+    var entry = translatedArray.find(function(e)
+    {
+      return e.Key === arrayKey;
+    });
+    if (entry)
+    {
+      return entry.Value;
+    }
+  }
+
+  overallFunctions.customSettings = function(settingsArray, chartName, modalityName)
+  {
+    var elementId = settingsArray.find(function(e)
+    {
+
+      if(e.modalityCode != 'N/A'){
+
+        return (e.chartID === chartName && e.modalityCode == modalityName );
+      } else {
+        return (e.chartID === chartName && e.modalityCode === 'N/A' );
+      }
+    });
+    if (elementId)
+    {
+      return [elementId.xMin, elementId.xMax];
+    }
   }
 
   function updateGraph() {
@@ -187,9 +221,11 @@
     var order = d3.select('#sort-filter').property("value");
 
     var filteredData = overallFunctions.filterData(data, modalityCode, order);
-      
-    var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
-    var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
+
+    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', modalityCode);
+
+    var domainMin = customLimits[0];
+    var domainMax = customLimits[1];
     
     padding = 0;
 
@@ -250,6 +286,14 @@
       .transition().duration(750)
       .call(yAxis); 
 
+    // Add class to each highlight y-axis element
+    d3.selectAll(".y-axis .tick text")
+      .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'highlight';
+        }              
+    });
 
     // Move x-axis lines
     d3.selectAll("path.grid-line")
@@ -278,6 +322,13 @@
  
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-start highlight';
+        }else{
+          return 'lollipop-start';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot1); 
       })
@@ -288,6 +339,13 @@
       
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-end highlight';
+        }else{
+          return 'lollipop-end';
+        }                
+      })
       .attr("cx", function(d) { 
         return x(d.dot2); 
       })
@@ -297,13 +355,17 @@
       .transition().duration(transitionD);
 
 
-      // añadir duration a las transiciones
+
     lollipops.select("path.lollipop-line")
       .data(filteredData) 
       .transition().duration(750)
       .attr("d", overallFunctions.lollipopLinePath)
-      .attr("class", function(d){
-        return "lollipop-line";
+      .attr("class", function(d) {  
+        if(d.highlight == 1){
+          return 'lollipop-line highlight';
+        }else{
+          return 'lollipop-line';
+        }                
       });
   }
 
@@ -315,24 +377,43 @@
   $(document).ready(function(){
 
     data = [];
+  settingsData = [];
 
-    if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined') {
-      var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
-    } else {
-      console.log("Language is undefined. Data can't be loaded");
+  if(Drupal.settings.pathPrefix != null && Drupal.settings.pathPrefix.length > 0)
+  {
+    var languageCode = Drupal.settings.pathPrefix[0] + Drupal.settings.pathPrefix[1];
+  } 
+  else if (typeof Drupal.settings.ef_d3_dataexplorer !== 'undefined')
+  {
+    var languageCode = Drupal.settings.ef_d3_dataexplorer.language;
+  }
+  else
+  {
+    console.log("Language is undefined. Data can't be loaded");
+  }
+  
+  d3.queue()
+    .defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/settings.csv')
+    .defer(d3.csv, '/sites/all/modules/custom/ef_d3_dataexplorer/resources/' + languageCode + '/data_' + languageCode + '.csv')
+    .defer(d3.csv, '/sites/default/files/ejm/data/en/living-satisfaction/living-satisfaction_en.csv')
+    .await(function(error, settingsFile, dataFile, csv)
+  {
+
+    if (csv === null)
+    {
+      console.log('Requested csv at "/sites/default/files/ejm/data/en/living-satisfaction/living-satisfaction_en.csv" was not found.');
     }
 
-    d3.csv('/sites/default/files/ejm/data/' + languageCode + '/living-satisfaction/living-satisfaction_' + languageCode + '.csv', function(csv){
-
-      if (csv === null){
-        console.log('Requested csv at "/sites/default/files/ejm/data/' + languageCode + '/living-satisfaction/living-satisfaction_' + languageCode + '.csv" was not found.');
-      }
+    // Initialize tooltip
+    tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
       
-      // Initialize tooltip
-      tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
-
-
-
+    settingsData = function(settingsFile)
+    {
+      settingsFile.map(function(row)
+      {
+        return row;
+      });
+    }
 
       if($(window).width()>=768){
         var margin = {top: 75, right:100, bottom: 75, left: 100};
@@ -361,8 +442,8 @@
       }
 
       var legendLabels = [
-        {label: "Satisfaction with standard of living (1-10) - 2007", class: "lollipop-start"}, 
-        {label: "Satisfaction with standard of living (1-10) - 2016", class: "lollipop-end"},
+    {label: overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_legend1'), class: "lollipop-start"}, 
+    {label: overallFunctions.translatedValue(dataFile, 'liv-depr-stdliving_legend2'), class: "lollipop-end"},
       ];
       
       var padding = 0;
@@ -411,9 +492,10 @@
       var legend = svg.append("g")
         .attr("class","legend-group");
 
-      data = overallFunctions.parseToFloat(csv);
+    data = overallFunctions.translateData(dataFile, csv);
+    settingsData = overallFunctions.readSettings(settingsFile);
 
-      overallFunctions.buildGraphStructure(data);
+    overallFunctions.buildGraphStructure(data, dataFile, settingsData);
 
       var modalityCode = overallFunctions.getParameterByName('group');
       var order = overallFunctions.getParameterByName('sort');
@@ -426,8 +508,10 @@
 
       filteredData = overallFunctions.filterData(data, modalityCode, order);
 
-      var domainMax = Math.round(overallFunctions.calculateMaxValue(filteredData) + 1);
-      var domainMin = Math.round(overallFunctions.calculateMinValue(filteredData) - 1);
+    var customLimits = overallFunctions.customSettings(settingsData, 'liv-depr-stdliving', modalityCode);
+
+    var domainMin = customLimits[0];
+    var domainMax = customLimits[1];
       
       y = d3.scaleBand()
         .domain(filteredData.map(function(d) { return d.countryName }))
@@ -458,6 +542,15 @@
         .call(yAxis)
         .select(".domain").remove();    
       
+      // Add class to each highlight y-axis element
+      d3.selectAll(".y-axis .tick text")
+        .data(filteredData)
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'highlight';
+          }              
+      });
+      
       xAxisGroup = svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0,0)")
@@ -486,10 +579,14 @@
       lollipops.append("path")
         .attr("class", "lollipop-line")
         .attr("d", overallFunctions.lollipopLinePath)
-        .attr("class", function(d){
-          return "lollipop-line";
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-line highlight';
+          }else{
+            return 'lollipop-line';
+          }                
         });
-      
+        
 
       var circleRadio = 6;
 
@@ -501,10 +598,7 @@
         var transitionD = 0;
       }
 
-    formatOnedecimal = d3.format(",.1f");
-
       var startCircles = lollipops.append("circle")
-        .attr("class", "lollipop-start")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot1); 
@@ -512,26 +606,39 @@
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }                
+        })
         .on('mouseout', tip.hide)
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot1 ) +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })
         .transition().duration(transitionD); 
 
      var endCircles = lollipops.append("circle")
-        .attr("class", "lollipop-end")
         .attr("r", circleRadio)
         .attr("cx", function(d) { 
           return x(d.dot2); 
         })
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
-        })    
+        })
+        .attr("class", function(d) {  
+          if(d.highlight == 1){
+            return 'lollipop-end highlight';
+          }else{
+            return 'lollipop-end';
+          }                
+        })   
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + formatOnedecimal( d.dot2 ) +"<p>");
+          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
           // Reset top for Firefox as onepage framework changes top values
           // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
         })

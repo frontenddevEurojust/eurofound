@@ -1192,6 +1192,15 @@ function ef_contract_node_presave($node) {
   $types = ef_contract_get_affected_cts();
 
   if (in_array($node->type, $types)) {
+    
+    //Save Service type when Service Type is unset. eg When Author create a Node. 
+    //The Author can fill in the DK but does not have permissions to fill the ST and He saves NULL
+    //If the DK have two options to save ST, we save ['und'][0] = "On-request reporting service"
+    if ( isset($node->field_ef_deliverable_kind['und'][0]['tid']) && !isset($node->field_ef_service_type['und'][0]['tid']) ){
+      $term = taxonomy_term_load($node->field_ef_deliverable_kind['und'][0]['tid']);
+      $node->field_ef_service_type['und'][0]['tid'] = $term->field_ef_service_type['und'][0]['tid'];
+    }
+
     // We create $node->group variable with the 'field_ef_assign_to_country_group' info
     // because the QM, who create the nodes, are not members in any Country Group,
     // so they can't choose any group in Group field
