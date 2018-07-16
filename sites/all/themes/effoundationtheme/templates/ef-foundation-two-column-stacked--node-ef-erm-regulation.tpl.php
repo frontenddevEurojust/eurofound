@@ -211,44 +211,44 @@
 		<div class="erm-reg-thresholds large-4 columns">
 
 			<?php 
-				if( isset($content['field_company_size_erm_reg'] ) ){
-					$field_company_size_erm_reg=trim($content['field_company_size_erm_reg']["#object"]->field_company_size_erm_reg["und"][0]["value"]);
+				if( isset($content['field_company_size'] ) ){
+					$field_company_size_erm_reg=trim($content['field_company_size']["#object"]->field_company_size_erm_reg["und"][0]["value"]);
 					if ($field_company_size_erm_reg=="") {
-						unset($content["field_company_size_erm_reg"]);
+						unset($content["field_company_size"]);
 					}
 				}
-
-				if( isset($content['field_affected_employees_erm_reg']) ){
-					$field_affected_employees_erm_reg=trim($content["field_affected_employees_erm_reg"]["#object"]->field_affected_employees_erm_reg["und"][0]["value"]);
+				
+				if( isset($content['field_affected_employees']) ){
+					$field_affected_employees_erm_reg=trim($content["field_affected_employees"]["#object"]->field_affected_employees_erm_reg["und"][0]["value"]);
 					if ($field_affected_employees_erm_reg=="") {
-						unset($content["field_affected_employees_erm_reg"]);
+						unset($content["field_affected_employees"]);
 					}
 				}
 			 ?>
 
-			<?php if( isset($content['field_company_size_erm_reg']) && isset($content['field_affected_employees_erm_reg']) ): ?>
+			<?php if( isset($content['field_company_size']) && isset($content['field_affected_employees']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>
 				<div class="erm-reg-thresholds-item">
 					<label><?php print t("Company size by number of employees"); ?>:</label>
-					<?php print render($content['field_company_size_erm_reg']); ?>
+					<?php print render($content['field_company_size']); ?>
 				</div>
 				<div class="erm-reg-thresholds-item">
 					<label><?php print t("Number of affected employees"); ?>:</label>
-					<?php print render($content['field_affected_employees_erm_reg']); ?>
+					<?php print render($content['field_affected_employees']); ?>
 				</div>			
-			<?php elseif( isset($content['field_company_size_erm_reg']) && !isset($content['field_affected_employees_erm_reg']) ): ?>
+			<?php elseif( isset($content['field_company_size']) && !isset($content['field_affected_employees']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>
 				<div class="erm-reg-thresholds-item">
 					<label><?php print t("Company size by number of employees"); ?>:</label>
-					<?php print render($content['field_company_size_erm_reg']); ?>
+					<?php print render($content['field_company_size']); ?>
 				</div>
-			<?php elseif( !isset($content['field_company_size_erm_reg']) && isset($content['field_affected_employees_erm_reg']) ): ?>
+			<?php elseif( !isset($content['field_company_size']) && isset($content['field_affected_employees']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>
 				<div class="erm-reg-thresholds-item">
 					<label><?php print t("Number of affected employees"); ?>:</label>
-					<?php print render($content['field_affected_employees_erm_reg']); ?>
+					<?php print render($content['field_affected_employees']); ?>
 				</div>
-			<?php elseif( !isset($content['field_company_size_erm_reg']) && !isset($content['field_affected_employees_erm_reg']) ): ?>
+			<?php elseif( !isset($content['field_company_size']) && !isset($content['field_affected_employees']) ): ?>
 				<h5><?php print t("Thresholds"); ?></h5>
 				<div class="erm-reg-thresholds-item">
 					<span><?php print t("No, applicable in all circumstances"); ?></span>
