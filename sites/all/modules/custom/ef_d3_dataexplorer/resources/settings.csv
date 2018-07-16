@@ -2,7 +2,7 @@ chartID,modalityCode,xMin,xMax
 happiness,1,1,10
 happiness,2,1,10
 optimism,N/A,10,100
-overall-improv,N/A,1,10
+overall-improv,N/A,0,10
 social-excl,1,0,50
 social-excl,2,0,80
 social-excl,3,0,55

@@ -281,7 +281,11 @@
   {
     var elementId = settingsArray.find(function(e)
     {
-      return (e.chartID === chartName && e.modalityCode == modalityName);
+      if(e.modalityCode != 'N/A'){
+        return (e.chartID === chartName && e.modalityCode == modalityName );
+      } else {
+        return (e.chartID === chartName && e.modalityCode === 'N/A' );
+      }
     });
     if (elementId)
     {
@@ -433,7 +437,7 @@
       .data(filteredData)
       .on('mouseover', function(d) {
         if (d.dot3 == 0){
-          tip.show("No data available for " + d.countryName);
+          tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
         } else { 
           tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot3) +"<p>");
         }
@@ -467,7 +471,7 @@
       .data(filteredData)
       .on('mouseover', function(d) {
         if (d.dot2 == 0){
-          tip.show("No data available for " + d.countryName);
+          tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
         } else { 
           tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) +"<p>");
         }
@@ -765,7 +769,7 @@
           .on('mouseout', tip.hide)
           .on('mouseover', function(d) {
             if (d.dot1 == 0){
-              tip.show("No data available for " + d.countryName);
+              tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
             } else { 
               tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) +"<p>");
             }
@@ -802,7 +806,7 @@
           .on('mouseout', tip.hide)    
           .on('mouseover', function(d) {
             if (d.dot3 == 0){
-              tip.show("No data available for " + d.countryName);
+              tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
             } else { 
               tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot3) +"<p>");
             }
@@ -838,7 +842,7 @@
           .on('mouseout', tip.hide)    
           .on('mouseover', function(d) {
             if (d.dot2 == 0){
-              tip.show("No data available for " + d.countryName);
+              tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
             } else { 
               tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) +"<p>");
             }
