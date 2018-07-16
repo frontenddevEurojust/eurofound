@@ -198,7 +198,11 @@
   {
     var elementId = settingsArray.find(function(e)
     {
-      return (e.chartID === chartName && e.modalityCode === modalityName);
+      if(e.modalityCode != 'N/A'){
+        return (e.chartID === chartName && e.modalityCode == modalityName );
+      } else {
+        return (e.chartID === chartName && e.modalityCode === 'N/A' );
+      }
     });
     if (elementId)
     {
@@ -218,7 +222,7 @@
 
     var filteredData = filterData(data, modalityCode, order);
 
-    var customLimits = customSettings(settingsData, 'optimism', 'N/A');
+    var customLimits = customSettings(settingsData, 'optimism', modalityCode);
     
     var domainMin = customLimits[0];
     var domainMax = customLimits[1];
@@ -501,7 +505,7 @@
 
       var filteredData = filterData(data, modalityCode, order);
 
-      var customLimits = customSettings(settingsData, 'optimism', 'N/A');
+      var customLimits = customSettings(settingsData, 'optimism', modalityCode);
       
       var domainMin = customLimits[0];
       var domainMax = customLimits[1];
