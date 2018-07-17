@@ -458,10 +458,7 @@
                             <?php endif; ?>
 
                             <?php if ( isset( $field_ef_sourcemedia) ): ?>
-                              <?php if ( isset($field_ef_sourcelink) ): 
-                                    $pos = strpos($field_ef_sourcelink, 'http');
-                                    $pos ? $field_ef_sourcelink = $field_ef_sourcelink : $field_ef_sourcelink = 'http://' . $field_ef_sourcelink;
-                              ?>
+                              <?php if ( isset($field_ef_sourcelink) ): ?>
                                 <span class="fs_col_name">
                                   <a href='<?php print $field_ef_sourcelink ?>' target="_blank" title="Will be opened in a new window">
                                    <?php print $field_ef_sourcemedia . ' <i class="fa fa-external-link" aria-hidden="true"></i>'; ?>
@@ -475,12 +472,9 @@
 
                             <?php else: ?>
                               
-                                <?php if ( isset($field_ef_sourcelink) ): 
-                                    $pos = strpos($field_ef_sourcelink, 'http');
-                                    $pos ? $field_ef_sourcelink_url = $field_ef_sourcelink : $field_ef_sourcelink_url = 'http://' . $field_ef_sourcelink;
-                                ?>
+                                <?php if ( isset($field_ef_sourcelink) ): ?>
                                   <span class="fs_col_name">
-                                    <a href='<?php print $field_ef_sourcelink_url ?>' target="_blank" title="Will be opened in a new window">
+                                    <a href='<?php print $field_ef_sourcelink ?>' target="_blank" title="Will be opened in a new window">
                                       <?php print $field_ef_sourcelink . ' <i class="fa fa-external-link" aria-hidden="true"></i>' ?>
                                     </a>
                                   </span>
