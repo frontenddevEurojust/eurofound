@@ -14937,16 +14937,27 @@ table#field-ef-sourcemedialinks-values button.remove-button{
 		margin-right: 1%;
 		display: inline-block;
 }
-.page-node-add-ef-factsheet .field-name-field-ef-linkdate fieldset{
+.page-group-node-add-ef-factsheet .field-name-field-ef-sourcemedia, 
+.page-group-node-add-ef-factsheet .field-name-field-ef-sourcelink, 
+.page-group-node-add-ef-factsheet .field-name-field-ef-linkdate{
+	
+		width: auto;
+		margin-right: 1%;
+		display: inline-block;
+}
+.page-node-add-ef-factsheet .field-name-field-ef-linkdate fieldset, 
+.page-group-node-add-ef-factsheet .field-name-field-ef-linkdate fieldset{
 	margin: 0;
 	padding:0;
 	border: 0;
 	position: relative;
 	top: -37px;
 }
-.page-node-add-ef-factsheet .field-name-field-ef-linkdate legend{
+.page-node-add-ef-factsheet .field-name-field-ef-linkdate legend, 
+.page-group-node-add-ef-factsheet .field-name-field-ef-linkdate legend{
 	display: none;
 }
+
 /** End factsheet admin area */
 
 .alert-box.secondary {
