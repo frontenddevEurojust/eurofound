@@ -55,11 +55,11 @@ strong, h1, h2, h3, h4, h5, h6{
 }
 .sai-label{
   color: #10499e !important;
-  font-family: "OpenSans-light-webfont" !important;
-  font-size: 1.3em !important;
+  font-size: 1.25em !important;
   padding-bottom: 3px;
+  opacity: 0.8;
 }
-.sai-label ~ h1 {
+.sai-label ~ h1, h1.title-sai-label {
   color: #10499e !important;
   margin-top: 0em !important;
 }
@@ -1154,8 +1154,10 @@ word-break: break-all;
 
          if( isset($sai_label) ){
           print  '<span class="sai-label">' . $sai_label . "</span>";
+          print '<h1 id="page-title" class="title title-sai-label">' . $print_title . '</h1>';
+         } else {
+          print '<h1 id="page-title" class="title">' . $print_title . '</h1>';          
          }
-         print '<h1 id="page-title" class="title">' . $print_title . '</h1>';
         }
     ?>
   <!-- End  Print cover PDF for support instruments, case studies and legilations -->

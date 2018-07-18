@@ -314,7 +314,7 @@ h2.title-working-life{
   font-size: 1.3em !important;
   padding-bottom: 3px;
 }
-.sai-label ~ h1 {
+.sai-label ~ h1, h1.title-sai-label {
   color: #10499e !important;
   margin-top: 0em !important;
 }
