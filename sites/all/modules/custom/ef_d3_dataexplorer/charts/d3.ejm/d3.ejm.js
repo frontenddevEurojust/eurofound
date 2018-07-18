@@ -3,6 +3,7 @@
   var maxCountrySelected = 4;
   var maxCountriesMsg = 'You can select up to ' + maxCountrySelected + ' countries only'
   var countryExist = 0;
+  var countryFootNotes = [];
 
   var getParameterByName = function(name) {
     url = window.location.href;
@@ -241,6 +242,7 @@
       $(".d3-tip").remove();
       countriesSelected = countryNames;
       countryNames.length = 0;
+      countryFootNotes = [];
 
       var countryTags = [];
 
@@ -300,9 +302,13 @@
     $('.chosen-select').on('change', function(evt, params) {
         countryExist = 0;
         urlVarsInit = false;
+        divFootnotes.select("h3").remove();
+        divFootnotes.selectAll("p").remove();
         filtersOnChange();        
     });
     d3.select("#time").on('change', function () {
+        divFootnotes.select("h3").remove();
+        divFootnotes.selectAll("p").remove();
         filtersOnChange();
     });
     d3.select("#criterion").on('change', function () {
@@ -672,16 +678,24 @@
 
 
       divFootnotes = d3.select(".jm-footnote");
-      divFootnotes.select("h3").remove();
-      divFootnotes.selectAll("p").remove();
-      
-      if (footNote[0]) {
-        divFootnotes.append("h3").text("Note");
-        $.each(footNote, function(key, value) {
-          divFootnotes.append("p").text(value);
-        });
+
+      if( footNote[0] != undefined ){
+          countryFootNotes.push( '1' );         
+      } else {
+          countryFootNotes.push( '0' );
+      }
+
+      if ( countryFootNotes.indexOf("1") != -1) {
+        if($('.jm-footnote h3').length == 0){
+          divFootnotes.append("h3").text("Note");
+          $.each(footNote, function(key, value) {
+            divFootnotes.append("p").text(value);
+          });
+        }
+
       }else{
-        // console.log( 'footnote ===>' + footNote);
+        divFootnotes.select("h3").remove();
+        divFootnotes.selectAll("p").remove();
       }
 
       function getColumnValues(json, breakdownColumns, datagrid) {

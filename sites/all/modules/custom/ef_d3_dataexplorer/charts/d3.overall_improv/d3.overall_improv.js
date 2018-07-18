@@ -328,11 +328,19 @@
     var startCircles = lollipops.select("circle.lollipop-start")
       .data(filteredData)
       .attr("class", function(d) {  
-        if(d.highlight == 1){
-          return 'lollipop-start highlight';
-        }else{
-          return 'lollipop-start';
-        }                
+        if (d.dot1 == 0){
+          if(d.highlight == 1){
+            return 'lollipop-start no-data highlight';
+          }else{
+            return 'lollipop-start no-data';
+          }  
+        } else {
+          if(d.highlight == 1){
+            return 'lollipop-start highlight';
+          }else{
+            return 'lollipop-start';
+          }      
+        }               
       })
       .attr("cx", function(d) { 
         return x(d.dot1); 
@@ -345,11 +353,19 @@
     var endCircles = lollipops.select("circle.lollipop-end")
       .data(filteredData)
       .attr("class", function(d) {  
-        if(d.highlight == 1){
-          return 'lollipop-end highlight';
-        }else{
-          return 'lollipop-end';
-        }                
+        if (d.dot2 == 0){
+          if(d.highlight == 1){
+            return 'lollipop-end no-data highlight';
+          }else{
+            return 'lollipop-end no-data';
+          }  
+        } else {
+          if(d.highlight == 1){
+            return 'lollipop-end highlight';
+          }else{
+            return 'lollipop-end';
+          }      
+        }               
       })
       .attr("cx", function(d) { 
         return x(d.dot2); 
@@ -611,18 +627,28 @@
         .attr("cy", function(d) {
           return y(d.countryName) + y.bandwidth() / 2;
         })
-        .attr("class", function(d) {  
-          if(d.highlight == 1){
-            return 'lollipop-start highlight';
-          }else{
-            return 'lollipop-start';
-          }                
+        .attr("class", function(d){
+          if (d.dot1 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-start no-data highlight';
+            }else{
+              return 'lollipop-start no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-start highlight';
+            }else{
+              return 'lollipop-start';
+            }      
+          }
         })
         .on('mouseout', tip.hide)
-        .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
-          // Reset top for Firefox as onepage framework changes top values
-          // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+        .on('mouseover', function(d) {          
+          if (d.dot1 == 0){
+            tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
+          } else { 
+            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot1 +"<p>");
+          }
         })
         .transition().duration(transitionD); 
 
@@ -635,17 +661,27 @@
           return y(d.countryName) + y.bandwidth() / 2;
         })
         .attr("class", function(d) {  
-          if(d.highlight == 1){
-            return 'lollipop-end highlight';
-          }else{
-            return 'lollipop-end';
-          }                
+          if (d.dot2 == 0){
+            if(d.highlight == 1){
+              return 'lollipop-end no-data highlight';
+            }else{
+              return 'lollipop-end no-data';
+            }  
+          } else {
+            if(d.highlight == 1){
+              return 'lollipop-end highlight';
+            }else{
+              return 'lollipop-end';
+            }      
+          }             
         })   
         .on('mouseout', tip.hide)    
         .on('mouseover', function(d) {
-          tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
-          // Reset top for Firefox as onepage framework changes top values
-          // $('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
+          if (d.dot2 == 0){
+            tip.show("<p class='no-data'>No data available for <br>" + d.countryName + "</p>");
+          } else { 
+            tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + d.dot2 +"<p>");
+          }
         })
         .transition().duration(transitionD); 
 

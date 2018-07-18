@@ -14,15 +14,16 @@ drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/ejm.js');
 		<div class="jm-abstract-wrapper small-12 large-9">			
 		  <h1 id='pagetitle' class='title'><?php print drupal_get_title(); ?></h1>			  
 			<div class="data-explorer-topics">
-						<?php if( $content['field_ef_topic']['#items'] || isset($node->field_ef_data_organisation[$language->language][0]['safe_value']) ): ?>
+						<?php $data_organisation = render($content['field_ef_data_organisation'][0]['#markup']); ?>
+						<?php if( $content['field_ef_topic']['#items'] || isset($data_organisation) ): ?>
 							<span class="last-update withline"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
 						<?php else: ?>
 							<span class="last-update"><?php print $content['changed_date']['#items'][0]['value']; ?></span>
 						<?php endif; ?>
+					
 
 						<?php if( $content['field_ef_topic']['#items'] ): ?>
-							<?php 
-								$data_organisation = render($node->field_ef_data_organisation[$language->language][0]['value']);
+							<?php 								
 								if(!isset($data_organisation)){
 									$data_organisation = $node->field_ef_data_organisation['en'][0]['safe_value'];
 								}
