@@ -740,11 +740,18 @@ function service_type_validate($form, &$form_state) {
   $nec = variable_get('ef_contract_enabled_contracting_period');
   $context = get_contract_context($nec, $form_state['input']['field_ef_author_contract']['und']);
 
-  if (isset($form_state['input']['field_ef_service_type']['und'])) {  
+  if (isset($form_state['input']['field_ef_service_type']['und'])) {
     $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $form_state['input']['field_ef_service_type']['und'];
   }
-  
-  if ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user)) {
+
+  if (isset($form['nid']['#value'])) {
+    $node = node_load($form['nid']['#value']);
+    if (isset($node->field_ef_service_type['und'][0]['tid']) && $node->field_ef_service_type['und'][0]['tid'] != 0) {
+      $service_type_added = TRUE;
+    }
+  }
+
+  if (!$service_type_added && $form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user)) {
     if ($context == 1) {
       form_set_error('Service Type', t('Service type is Required'));
     }
