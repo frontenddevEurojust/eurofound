@@ -446,6 +446,15 @@
                           $field_ef_sourcemedia = $value['field_ef_sourcemedia']['und'][0]['taxonomy_term']->name;
                           $field_ef_sourcelink = $value['field_ef_sourcelink']['und'][0]['safe_value'];
                           $fmd = $value['field_ef_linkdate']['und'][0]['value'];
+
+                          $array_link = explode("/",$field_ef_sourcelink);
+                          $pos_www = strpos($array_link[0], 'www');
+                          $pos_string = strpos($array_link[0], '.');
+
+                          if( $pos_www !== false || $pos_string !== false ){
+                            $field_ef_sourcelink = '//'.$field_ef_sourcelink;
+                          }
+
                         ?>
                             <li>
                             <?php if ( isset($fmd) && ( isset($field_ef_sourcemedia) || isset($field_ef_sourcelink)) ): ?> 
