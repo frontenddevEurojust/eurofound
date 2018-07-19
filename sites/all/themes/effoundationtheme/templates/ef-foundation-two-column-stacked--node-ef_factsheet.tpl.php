@@ -469,8 +469,12 @@
                             <?php if ( isset( $field_ef_sourcemedia) ): ?>
                               <?php if ( isset($field_ef_sourcelink) ): ?>
                                 <span class="fs_col_name">
-                                  <a href='<?php print $field_ef_sourcelink ?>' target="_blank" title="Will be opened in a new window">
-                                   <?php print $field_ef_sourcemedia . ' <i class="fa fa-external-link" aria-hidden="true"></i>'; ?>
+                                    <?php if( strlen($field_ef_sourcelink_url) > 0 ): ?>
+                                      <a href='<?php print $field_ef_sourcelink_url ?>' target="_blank" title="Will be opened in a new window">
+                                    <?php else: ?>
+                                      <a href='<?php print $field_ef_sourcelink ?>' target="_blank" title="Will be opened in a new window">
+                                    <?php endif; ?>
+                                    <?php print $field_ef_sourcemedia . ' <i class="fa fa-external-link" aria-hidden="true"></i>'; ?>
                                   </a>
                                 </span>
                               <?php else: ?>
