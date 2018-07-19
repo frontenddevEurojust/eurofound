@@ -52,7 +52,7 @@
 
 
   </head>
-  <body>
+  <body class="<?php print 'node-type-' . $node->type ?>">
     <div id="overlay-eurofound-print" class="overlay-print">
       <div class="loading-position">
           <img src="/sites/all/themes/effoundationtheme/images/loading-eurofound.gif" alt="Loading" />
