@@ -752,7 +752,16 @@ word-break: break-all;
   padding:0 15px !important;
 }
 /** end working life countri profile **/
-
+.node-type-ef_publication h1.title, 
+.node-type-ef-report h1.title, 
+.node-type-presentation  h1.title, 
+.node-type-blog h1.title, 
+.node-type-ef-event h1.title, 
+.node-type-ef-news h1.title, 
+.node-type-ef-comparative-analytical-report .parent_eurwork ~ h1.title, 
+.node-type-ef-national-contribution .parent_eurwork ~ h1.title {
+    color: #10499e !important;
+}
 </style>
 
   <?php   $section = $_GET["section"];
@@ -1106,7 +1115,7 @@ word-break: break-all;
   <?php endif ?>
 
   </head>
-  <body>
+  <body class="<?php print 'node-type-' . $node->type ?>">
 
     <?php if (!empty($message)): ?>
       <div class="message"><?php print $message; ?></div><p />
