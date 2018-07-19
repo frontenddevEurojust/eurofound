@@ -444,15 +444,29 @@
                         <?php  foreach ( $node->field_ef_sourcemedialinks['und'] as $key => $value): 
 
                           $field_ef_sourcemedia = $value['field_ef_sourcemedia']['und'][0]['taxonomy_term']->name;
-                          $field_ef_sourcelink = $value['field_ef_sourcelink']['und'][0]['safe_value'];
+                          $field_ef_sourcelink = $value['field_ef_sourcelink']['und'][0]['value'];
                           $fmd = $value['field_ef_linkdate']['und'][0]['value'];
 
                           $array_link = explode("/",$field_ef_sourcelink);
                           $pos_www = strpos($array_link[0], 'www');
                           $pos_string = strpos($array_link[0], '.');
+                          $pos_http = strpos($array_link[0], 'http:');
+                         
+                          $internal_link_root = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+                          $internal_link = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
-                          if( $pos_www !== false || $pos_string !== false ){
-                            $field_ef_sourcelink_url = '//'.$field_ef_sourcelink;
+
+
+                          if(strlen($array_link[0]) == 0){
+                             $field_ef_sourcelink_url = $internal_link_root . $field_ef_sourcelink;
+                          } else {
+                            if( $pos_www !== false || $pos_string !== false ){
+                              $field_ef_sourcelink_url = '//'. $field_ef_sourcelink;
+                            } else {
+                              if( $pos_http === false){
+                                 $field_ef_sourcelink_url = $internal_link . '/' . $field_ef_sourcelink;
+                              }
+                            }
                           }
 
                         ?>
