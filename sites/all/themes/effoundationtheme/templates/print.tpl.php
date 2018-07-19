@@ -121,10 +121,12 @@
       }else{
          
        if( isset($sai_label) ){
-        print  '<span class="sai-label">' . $sai_label . "</span>";
+          print  '<span class="sai-label">' . $sai_label . "</span>";
+          print '<h1 id="page-title" class="title title-sai-label">' . $print_title . '</h1>';
+       } else {
+          print '<h1 id="page-title" class="title test">' . $print_title . '</h1>';
        }
-
-        print '<h1 id="page-title" class="title test">' . $print_title . '</h1>';
+        
       }
   ?>
   <!-- End  Print cover PDF for support instruments, case studies and legilations -->

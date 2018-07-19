@@ -262,16 +262,13 @@
 
     x.domain([domainMin, domainMax]).range([0, width]).nice();
 
-    xAxis.tickFormat(function(d,i) 
-    {
-      if (i == 0)
-      {
-        return domainMin;
-      }
-      else
-      {
-        return d3.format(".2s")(d); 
-      }
+    xAxis.tickFormat(function(d,i) {
+        if (i == 0) {
+          var domainMinRound = x.domain()[0];
+          return d3.format(".0%")(domainMinRound/100);
+        } else {
+          return d3.format(".0%")(d/100); 
+        }
     });
 
     // Select the section we want to apply our changes to
@@ -525,13 +522,14 @@
       .tickSize(0);
       
       xAxis = d3.axisTop().scale(x)
-      .tickFormat(function(d,i) {
-        if (i == 0) {
-        return domainMin;
-        } else {
-        return d3.format(".2s")(d); 
-        }
-      });
+        .tickFormat(function(d,i) {
+          if (i == 0) {
+            var domainMinRound = x.domain()[0];
+            return d3.format(".0%")(domainMinRound/100);
+          } else {
+            return d3.format(".0%")(d/100); 
+          }
+        })
       
       var yAxisGroup = svg.append("g")
       .attr("transform", "translate(-10, 0)")
@@ -602,7 +600,7 @@
       .attr("r", circleRadio)       
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot1) + ' %' +"<p>");
         // Reset top for Firefox as onepage framework changes top values
         //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
       })        
@@ -627,7 +625,7 @@
       .attr("r", circleRadio)
       .on('mouseout', tip.hide)
       .on('mouseover', function(d) {
-        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) +"<p>");
+        tip.show("<p class='country-name'>"+  d.countryName + "</p><p class='dot'> " + Math.round(d.dot2) + ' %' +"<p>");
         // Reset top for Firefox as onepage framework changes top values
         //$('.d3-tip').css('top', ($(d3.event.target).offset().top - 50) + 'px');
       })        

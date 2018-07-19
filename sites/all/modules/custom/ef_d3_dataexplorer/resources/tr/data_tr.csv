@@ -174,15 +174,14 @@ work-life-balance_2_legend1,At least several times a week (%) - 2016
 work-life-balance_2_filter_data1,Providing care for and/or educating your children
 work-life-balance_2_filter_data2,Providing care for and/or educating your grandchildren
 work-life-balance_2_filter_data3,Cooking and/or doing housework
-work-life-balance_2_filter_data4,"Providing care for disabled or infirm family members, meighbours or friends under 75 years old"
-work-life-balance_2_filter_data5,"Providing care for disabled or infirm family members, meighbours or friends aged 75 or over"
+work-life-balance_2_filter_data4,"Providing care for disabled or infirm family members, neighbours or friends under 75 years old"
+work-life-balance_2_filter_data5,"Providing care for disabled or infirm family members, neighbours or friends aged 75 or over"
 work-life-balance_2_filter_group1,All
 work-life-balance_2_filter_group2,Lowest income quartile
 work-life-balance_2_filter_group3,Employed
-work-life-balance_2_filter_group4,Unemployed
-work-life-balance_2_filter_group5,Age 18-64
-work-life-balance_2_filter_group6,Male
-work-life-balance_2_filter_group7,Female
+work-life-balance_2_filter_group4,Age 18-64
+work-life-balance_2_filter_group5,Male
+work-life-balance_2_filter_group6,Female
 work-life-balance_2_sortOptionDefault,Alphabetically ascending 
 work-life-balance_2_sortOption1,By 2016 value descending
 quality-dim-GP_legend1,Having difficulties to afford following health services (%) - 2016
