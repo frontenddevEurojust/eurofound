@@ -209,41 +209,6 @@ function ef_publications_ct_form_validate($form, &$form_state) {
 */
 function ef_publications_ct_views_query_alter(&$view, &$query) {
 	if ($view->name == 'ef_publications_view') {
-		$published_at_applied = FALSE;
-		foreach ($query->where[1]['conditions'] as $key => $condition) {
-			if ($condition['field'] == 'publication_date.published_at') {
-				$published_at_applied = TRUE;
-			}
-		}
-
-		if ($published_at_applied) {
-			$state_applied = FALSE;
-			$current_applied = FALSE;
-			foreach ($query->where[1]['conditions'] as $key => $condition) {
-				if ($condition['field'] == 'workbench_moderation_node_history.state') {
-					$state_applied = TRUE;
-				} else if ($condition['field'] == 'workbench_moderation_node_history.current') {
-					$current_applied = TRUE;
-				}
-			}
-
-			if (!$state_applied) {
-				$query->where[1]['conditions'][] = array(
-					'field' => 'workbench_moderation_node_history.state',
-					'value' => array('published'),
-					'operator' => 'in',
-				);
-			}
-
-			if (!$current_applied) {
-				$query->where[1]['conditions'][] = array(
-					'field' => 'workbench_moderation_node_history.current',
-					'value' => 0,
-					'operator' => '<>',
-				);
-			}
-		}
-
 		if($view->exposed_input['checkbox_forthcoming_filtering'] === '1') {
 			foreach ($query->where[1]['conditions'] as $key => $condition) {
 				if($condition['field'] == 'workbench_moderation_node_history.state') {
