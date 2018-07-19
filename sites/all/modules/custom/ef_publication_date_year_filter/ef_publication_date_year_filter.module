@@ -56,6 +56,7 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
 
 }
 
+
 // hook_views_query_alter()
 function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
   
@@ -89,7 +90,6 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
 
     $field = 'publication_date.published_at';
 
-    
     if(isset($view->exposed_data['published_at']) && $view->exposed_data['published_at'] >= '0'){
 
       $year_index = $view->exposed_data['published_at'];
@@ -104,14 +104,18 @@ function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
       $date_end = new DateTime($year_end);
       $max = $date_end->getTimestamp();
 
-      $query->where[1]['conditions'][4]['field'] = $field;
-      $query->where[1]['conditions'][4]['value'] = $min;
-      $query->where[1]['conditions'][4]['operator'] = '>=';
-
-      $query->where[1]['conditions'][5]['field'] = $field;
-      $query->where[1]['conditions'][5]['value'] = $max;
-      $query->where[1]['conditions'][5]['operator'] = '<=';
-
+      $minCondition = array(
+        'field' => $field,
+        'value' => $min,
+        'operator' => '>='
+      );
+      $maxCondition = array(
+        'field' => $field,
+        'value' => $max,
+        'operator' => '<='
+      );
+      $query->where[1]['conditions'][] = $minCondition;
+      $query->where[1]['conditions'][] = $maxCondition;
     }
     
   }
