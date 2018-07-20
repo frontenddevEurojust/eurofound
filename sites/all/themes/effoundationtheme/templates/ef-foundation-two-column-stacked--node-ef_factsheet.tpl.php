@@ -461,7 +461,7 @@
                              $field_ef_sourcelink_url = $internal_link_root . $field_ef_sourcelink;
                           } else {
                             if( $pos_www !== false || $pos_string !== false ){
-                              $field_ef_sourcelink_url = '//'. $field_ef_sourcelink;
+                              $field_ef_sourcelink_url = 'http://'. $field_ef_sourcelink;
                             } else {
                               if( $pos_http === false){
                                  $field_ef_sourcelink_url = $internal_link . '/' . $field_ef_sourcelink;
