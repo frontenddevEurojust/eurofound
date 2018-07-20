@@ -456,15 +456,20 @@
                           $internal_link = $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 
-
                           if(strlen($array_link[0]) == 0){
+                            // start with /  -> internal root url
                              $field_ef_sourcelink_url = $internal_link_root . $field_ef_sourcelink;
                           } else {
                             if( $pos_www !== false || $pos_string !== false ){
+                              // does not starts with http but contain www or .
                               $field_ef_sourcelink_url = 'http://'. $field_ef_sourcelink;
                             } else {
                               if( $pos_http === false){
+                                 // does not start with http -> internal url
                                  $field_ef_sourcelink_url = $internal_link . '/' . $field_ef_sourcelink;
+                              } else {
+                                // start with http
+                                $field_ef_sourcelink_url = $field_ef_sourcelink;
                               }
                             }
                           }
