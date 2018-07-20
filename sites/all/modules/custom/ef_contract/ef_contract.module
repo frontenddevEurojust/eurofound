@@ -756,6 +756,9 @@ function service_type_validate($form, &$form_state) {
       form_set_error('Service Type', t('Service type is Required'));
     }
   }
+  elseif ($form_state['values']['field_ef_service_type']['und'][0]['tid'] == 0 && user_access('edit field_ef_service_type', $user)) {
+    $form_state['values']['field_ef_service_type']['und'][0]['tid'] = $node->field_ef_service_type['und'][0]['tid'];
+  }
 
   //Get Service Type value as a JS param
   $settings['service_type'] = $form_state['values']['field_ef_service_type']['und'][0]['tid'];
