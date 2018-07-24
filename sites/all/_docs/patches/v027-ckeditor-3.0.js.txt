@@ -1,0 +1,3 @@
+patch for bug on Add Media for IE. #EFDR-491
+see also :  https://www.drupal.org/node/1914904
+

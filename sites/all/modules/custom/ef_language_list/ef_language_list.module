@@ -1,0 +1,19 @@
+<?php
+
+function ef_language_list_form_alter(&$form, &$form_state, $form_id){
+ $form['#after_build'][] = 'ef_language_list_language_node_prerender';
+}
+
+function ef_language_list_language_node_prerender($element){
+  if(isset($element['#node']) && isset($element['language']['#value'])){
+      if( ($element['language']['#value']!='mt')  and ($element['language']['#value']!='ga')){
+          if(isset($element['language']['#options'])){
+            $key1 = array_search('Irish',$element['language']['#options']);
+            unset($element['language']['#options'][$key1]);
+            $key2 = array_search('Maltese',$element['language']['#options']);
+            unset($element['language']['#options'][$key2]);
+          }
+      }
+  }
+  return $element;
+}

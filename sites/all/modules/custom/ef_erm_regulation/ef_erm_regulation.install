@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Requested by client on WEM-931
+ * Convert ‘Company size’ and ‘Affected employees‘ fields to numeric (ERM Regulations)
+ */
+
+function ef_erm_regulation_update_7002() {
+  
+  //ERM Regulations
+  $query = db_select('node', 'n');
+  $query->fields('n', array('nid'));
+  $query->condition('n.type', 'ef_erm_regulation');
+  $results = $query->execute()->fetchCol();
+  
+  foreach ($results as $nid) { 
+    $vid = get_node_current_vid($nid);
+    $node = node_load($nid, $vid);
+   
+    if (!preg_match ("/[^0-9]/", $node->field_company_size_erm_reg['und'][0]['value'])){
+      $node->field_company_size['und'][0]['value'] = $node->field_company_size_erm_reg['und'][0]['value'];
+    }else{
+      print_r('Node:'.$node->nid.' value Company size NO updated || ');
+    }
+
+    if (!preg_match ("/[^0-9]/", $node->field_affected_employees_erm_reg['und'][0]['value'])){
+      $node->field_affected_employees['und'][0]['value'] = $node->field_affected_employees_erm_reg['und'][0]['value'];
+    }else{
+      print_r('Node:'.$node->nid.' value Affected employees NO updated || ');
+    }
+
+    if ($node->field_company_size_erm_reg['und'][0]['value'] != '' || $node->field_affected_employees_erm_reg['und'][0]['value'] != ''){
+      field_attach_update('node', $node);
+      print_r('values updated || ');
+      entity_get_controller('node')->resetCache(array($node->nid));
+      print_r('cache updated || ');
+    }
+  }
+}
+

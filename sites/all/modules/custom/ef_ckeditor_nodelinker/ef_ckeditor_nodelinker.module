@@ -1,0 +1,68 @@
+<?php 
+
+function ef_ckeditor_nodelinker_wysiwyg_plugin($editor, $version) {
+	
+	$plugins = array();
+	
+	switch ($editor) 
+	{
+		case 'ckeditor':
+			
+			$plugins['nodelinker'] = array(
+	            'path' => drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/plugins/nodelinker',
+	            'filename' => 'plugin.js',
+	            'load' => TRUE,
+	            'buttons' => array(
+	                'nodelinker' => t('Node linker'),
+	            ),
+	        );
+		
+		break;
+	}
+
+	return $plugins;
+}
+
+function ef_ckeditor_nodelinker_form_alter(&$form, &$form_state, $form_id){
+	
+	if($form['#node_edit_form'] == TRUE || $form['form_id']['#id'] == 'edit-taxonomy-form-term')
+	{
+		drupal_add_css(drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/ef_ckeditor_nodelinker.css');
+	}
+
+}
+
+function ef_ckeditor_nodelinker_menu(){
+
+	$items['ajax/retrieve-nodes'] = array(
+		'page callback' => '_nodes_for_linking',
+		'type' => MENU_CALLBACK,
+		'access callback' => TRUE,
+	);
+
+	return $items;
+
+}
+
+/*
+* @description: AJAX callback for assign to user value update
+* @args: $nid -> node identifier.
+*        $rev_id -> revision identifier.
+*        $user -> user identifier
+*/
+function _nodes_for_linking($text)
+{
+
+	$query = "SELECT a.title as label, CONCAT('node/', a.nid) as value 
+				FROM node a
+				INNER JOIN workbench_moderation_node_history b on a.nid = b.nid
+				INNER JOIN publication_date c on a.nid = c.nid
+				WHERE b.current = 1
+				AND b.state IN ('published','forthcoming')
+				ORDER BY c.published_at DESC";
+
+	$result = db_query($query)->fetchAll();
+
+	drupal_json_output(array('status' => 0, 'nodes' => $result));
+
+}

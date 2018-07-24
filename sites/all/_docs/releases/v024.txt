@@ -1,0 +1,52 @@
+drush sql-query "insert into schema_migrations(code,extra)values('024', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+drush en -y ef_crm_wrapper
+drush cc all
+
+drush dl -y transliteration
+drush en -y transliteration
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+:: populate EU Member States country
+drush sql-query "INSERT INTO countries_country (iso2, iso3, name, official_name, numcode, continent, enabled, language) VALUES ('EM', '', 'EU Member States', 'EU Member States', 0, 'EU', 1, 'und');  -- EU Member States"
+drush sql-query "INSERT INTO field_data_field_ef_eu_member (entity_type,bundle,entity_id,revision_id,language,delta,field_ef_eu_member_value) VALUES ('country','country',252,252,'und',0,1);  -- EU Member States"
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: patch for Views data export
+:: patches/v024-views_data_export_plugin_style_export.inc.txt
+
+drush views-disable ef_national_contributions_export
+:: and then delete view ef_national_contributions_export
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

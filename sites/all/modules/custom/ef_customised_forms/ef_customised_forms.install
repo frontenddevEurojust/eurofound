@@ -1,0 +1,121 @@
+<?php
+	
+function ef_customised_forms_update_7007 () {
+  	$table = array(
+	    'description' => 'This is a table for custom module ef_customised_forms',
+	    'fields' => array(
+	      'rcid' => array(
+	        'description' => 'The primary id.',
+	        'type' => 'serial',
+	        'length' => 20,
+	        'not null' => TRUE
+	      ),
+	      'nid' => array(
+	        'description' => 'The node id.',
+	        'type' => 'int',
+	        'length' => 20,
+	        'not null' => TRUE,
+	      ),
+	      'revision_id' => array(
+	        'description' => 'The revision id.',
+	        'type' => 'int',
+	        'length' => 20,
+	        'not null' => TRUE,
+	      ),
+	      'rc_type' => array(
+	        'description' => 'Type of entity (related content)',
+	        'type' => 'varchar',
+	        'length' => 20,
+	        'not null' => TRUE,
+	        'not null' => TRUE,
+	      ),
+	      'rc_id' => array(
+	        'description' => 'Related Content Id',
+	        'type' => 'int',
+	        'length' => 20,
+	        'not null' => TRUE,
+	      ),
+	      'rc_weight' => array(
+	        'description' => 'The real weight. Override to field_data_fiel_related_taxonomy',
+	        'type' => 'int',
+	        'length' => 20,
+	        'not null' => TRUE,
+	      )
+	    ),
+	    'primary key' => array('rcid'),
+	    'auto_increment' => 1,
+	);
+  	
+  	db_create_table('related_content_and_taxonomies', $table);
+
+	$query=db_query("
+            SELECT  fdf.entity_id, 
+                    fdf.entity_type, 
+                    fdf.field_ef_related_content_target_id,
+                    fdf.delta,
+                    fdf.revision_id
+            FROM field_revision_field_ef_related_content fdf
+          ");
+
+
+    foreach($query as $content) {
+        if ($content->entity_type != "node") {
+          $type="tax";
+        }else{
+          $type="node";
+        }
+
+        db_insert("related_content_and_taxonomies")
+          ->fields(array(
+              'nid' => $content->entity_id,
+              'revision_id' => $content->revision_id,
+              'rc_type' => $type,
+              'rc_id' => $content->field_ef_related_content_target_id,
+              'rc_weight' => $content->delta
+            ))
+            ->execute();
+    }
+}
+
+
+function ef_customised_forms_update_7008() {
+
+	$result = db_truncate('related_content_and_taxonomies')->execute();
+
+    $query = db_select('field_revision_field_ef_related_content', 'rc')
+        ->fields('rc', array('entity_id', 'revision_id', 'field_ef_related_content_target_id', 'delta'));
+    $result = $query->execute()->fetchAll();
+    
+    foreach($result as $key => $related_content) {
+    	db_insert('related_content_and_taxonomies')
+    		->fields(array(
+                'nid' => $related_content->entity_id,
+                'revision_id' => $related_content->revision_id,
+                'rc_type' => 'node',
+                'rc_id' => $related_content->field_ef_related_content_target_id,
+                'rc_weight' => $related_content->delta,
+        	)	
+    	)
+        ->execute();
+        print_r('n | ');
+    }
+
+    $query = db_select('field_revision_field_related_taxonomy', 'rt')
+        ->fields('rt', array('entity_id', 'revision_id', 'field_related_taxonomy_target_id', 'delta'));
+    $result = $query->execute()->fetchAll();
+    
+    foreach($result as $key => $related_taxonomy) {
+    	db_insert('related_content_and_taxonomies')
+    		->fields(array(
+                'nid' => $related_taxonomy->entity_id,
+                'revision_id' => $related_taxonomy->revision_id,
+                'rc_type' => 'tax',
+                'rc_id' => $related_taxonomy->field_related_taxonomy_target_id,
+                'rc_weight' => $related_taxonomy->delta,
+        	)	
+    	)
+        ->execute();
+        print_r('t | ');
+    }
+
+}

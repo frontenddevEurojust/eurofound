@@ -1,0 +1,129 @@
+.l-main {
+    max-width:100% !important;
+}
+.fa.fa-save{
+font-size:18px !important;
+}
+table select{
+  border: 0 !important;
+  border-bottom: 1px dotted #666 !important;
+  margin-bottom: 0.5rem;
+  border-radius: 0 !important;
+  width: 80%;
+  margin: 0 !important;
+  margin-right: 10px !important;
+}
+table select + button{
+    margin: 0 !important;
+    padding: 4px 9px !important;
+    position: relative;
+    top: 3px;
+  }
+h3:first-child {
+    margin-top: 30px;
+}
+table tbody td{
+  vertical-align: middle;
+}
+fieldset#edit-filters{
+  width: 70%;
+  margin: auto;
+}
+.pagination-centered .item-list {
+    float: none;
+}
+table tbody td:first-child,
+table thead th:first-child{
+  display: none;
+}
+table tbody th:nth-child(2),
+table tbody td:nth-child(2){
+  width: 25%;
+}
+table tbody td:nth-child(3){
+  color: #F7931E;
+  font-size: 0.9em;
+  width: 10%;
+}
+table thead th:nth-child(4){
+   text-align: center;
+}
+table tbody td:nth-child(4) {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  color: #000;
+   text-align: center;
+  font-family: 'OpenSans-bold-webfont',Arial,Helvetica,sans-serif;
+}
+table thead th:nth-child(6),
+table tbody td:nth-child(6){
+  text-align: center;
+  width: 25%;
+}
+table tbody td:last-child a{
+  background-color: #D6DFE8;
+  border-color: #9CB1C7;
+  color: #37628E;
+  padding: 0.3em 0.2em;
+  font-size: 0.9em;
+  border-style: solid;
+  border-width: 1px;
+  font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif!important;
+  line-height: normal;
+  margin: auto;
+  display: block;
+}
+table thead th:nth-child(8),
+table thead th:nth-child(9),
+table tbody td:nth-child(8),
+table tbody td:nth-child(9){
+  font-size: 0.85em;
+  text-align: center;
+}
+.fieldset-wrapper {
+  background: #f9f9f9;
+
+}
+fieldset {
+  border:0;
+  border-bottom: 1px dotted #CCC;
+}
+legend:hover {
+  opacity: 0.8;
+}
+.form-item-title{
+  float: left;
+  width: 60%;
+}
+.form-item-type{
+  float: left;
+  margin-left:2%;
+  width: 30%;
+}
+#edit-container {
+  clear: both;
+  display: block;
+}
+#edit-container button {
+  margin-right:1em;
+}
+.go-back-to{
+  text-align: right;
+}
+#edit-content-topside-wrapper{
+  margin-top: -22px;
+}
+select.modified{
+  border: 2px solid orange !important;
+}
+select.modified:focus {
+
+  outline: none;
+}
+select.saved{
+  border: 2px solid green !important;
+}
+
+
+
+

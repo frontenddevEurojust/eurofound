@@ -1,0 +1,500 @@
+<?php
+
+function ef_workbench_state_premissions_module_implements_alter(&$implementations, $hook) {
+	if ($hook == 'node_access') {
+    $group = $implementations['ef_workbench_state_premissions'];
+    unset($implementations['ef_workbench_state_premissions']);
+    $implementations['ef_workbench_state_premissions'] = $group;
+  }
+}
+
+
+function ef_workbench_state_premissions_node_access($node, $op, $account) {
+
+
+	//S2 Workflow
+	if(isset($node->workbench_moderation) && ($node->type == 'ef_report' || $node->type == 'ef_comparative_analytical_report'
+		|| $node->type == 'ef_national_contribution') && $op == 'update') {
+
+		$currentRevision=node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+	  // --- issue with testing
+
+	  if($node->workbench_moderation['current']->state == 'requested' || $node->workbench_moderation['current']->state == 'draft'){
+	  	if((in_array('Author', $account->roles)) || (in_array('Quality Manager', $account->roles)) || (in_array('Quality Manager +', $account->roles)) || (in_array('Authors +', $account->roles))){
+	  		return NODE_ACCESS_ALLOW;
+	  	}
+	  }
+	  // --- endi issue with testing
+
+
+
+	 /* issue 3345: The authors should be able to edit their own drafts, before changing the status to proposals */
+	 if(isset($node->workbench_moderation) && ($node->type == 'ef_report')){
+
+	  	$uid = $node->uid;
+	  	$maker = user_load($uid);
+
+	  	//Created by Author
+	  	if(in_array('Author', $maker->roles)){
+	  	  if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state == 'draft' && ($op == 'update' || $op == 'view') ){
+	  			if(in_array('Author', $account->roles) ){
+	  		  	return NODE_ACCESS_ALLOW;
+	  			}else if(in_array('Quality Manager', $account->roles)){
+	  		  	return NODE_ACCESS_DENY;
+	  			}
+	  	  }
+	  	}
+	  	//Created by QM
+	  	else if(in_array('Quality Manager', $maker->roles)){
+	  	  if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state == 'draft' && ($op == 'update' || $op == 'view') ){
+	  			if(in_array('Author', $account->roles) ){
+	  		  	return NODE_ACCESS_DENY;
+	  			}else if(in_array('Quality Manager', $account->roles)){
+	  		  	return NODE_ACCESS_ALLOW;
+	  			}
+	  	  }
+	  	}
+
+
+
+
+	  	if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state == 'requested'){
+	  		if(in_array('Quality Manager', $account->roles)){
+	  			return NODE_ACCESS_DENY;
+	  		}
+	  	}
+	  	if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state == 'proposal'){
+	  		if(in_array('Author', $account->roles)){
+	  			return NODE_ACCESS_DENY;
+	  		}
+	  	}
+	  }
+		/* end issue 3345 */
+
+
+
+		/* Author should be able to edit a NC under revision request && issue 3214 */
+		if($node->workbench_moderation['current']->state == 'under_revision_request'){
+
+			if(in_array('Quality Manager', $account->roles) && in_array('Author', $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+			elseif(in_array('Quality Manager', $account->roles)){
+				return NODE_ACCESS_DENY;
+			}elseif(in_array('Author', $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+
+		}
+		/* END */
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU', 'Editor')) && !isset($node->workbench_moderation['published'])){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="requested" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','OSU')) && isset($node->field_ef_assign_to['und']['0']['target_id']) && $currentRevision->field_ef_assign_to['und']['0']['target_id']!=$account->uid) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="submitted" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','OSU')) && isset($node->field_ef_assign_to['und']['0']['target_id'])
+			&& $currentRevision->field_ef_assign_to['und']['0']['target_id']!=$account->uid) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="approved_for_editing" && !array_intersect($account->roles, array('Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="on_second_editing" && !array_intersect($account->roles, array('Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="on_external_editing" && !array_intersect($account->roles, array('External Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="ready_for_publishing" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Editor'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="published" && !array_intersect($account->roles, array('Editor','Eurofound Administrator','Eurofound Content Manager','Quality Manager','Quality Manager +'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="unpublished" && !array_intersect($account->roles, array('Editor','Eurofound Administrator','Eurofound Content Manager','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+		if(isset($node->workbench_moderation) && ($node->type == 'ef_report') && $op == 'view'){
+
+			if($node->workbench_moderation['current']->state=="on_external_editing" && in_array('External Editor', $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+
+	}
+	if($node->workbench_moderation['current']->state=="proposal" && in_array('Quality Manager +', $account->roles)) {
+			return NODE_ACCESS_ALLOW;
+		}
+
+
+
+
+
+	// Quarterly Reports Workflow
+	} elseif(isset($node->workbench_moderation) && ($node->type == 'ef_ic_quarterly_report' || $node->type == 'ef_network_quarterly_report' || $node->type == 'ef_input_to_erm') && $op == 'update') {
+			$currentRevision=node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+			if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Author','Eurofound Administrator','Eurofound Content Manager','OSU', 'Quality Manager'))){
+				return NODE_ACCESS_DENY;
+			}
+			/*ALLOW AUTHOR TO EDIT DRAFT AND UNDER REVISION REQUEST CONTENT IN QR WORKFLOW*/
+			if($node->workbench_moderation['current']->state=="draft" && in_array(array('Author','Author +','Quality Manager +'), $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+			if($node->workbench_moderation['current']->state=="draft" && in_array(array('Quality Manager','Quality Manager +'), $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+			if($node->workbench_moderation['current']->state=="under_revision_request" && in_array(array('Author','Author +','Quality Manager +','OSU'), $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+			/*END*/
+			if($node->workbench_moderation['current']->state=="submitted_qr" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))){
+				return NODE_ACCESS_DENY;
+			}
+
+			// --- QM and OSU must be able to edit a Quearterly Report when the state is 'Submitted to QM'
+
+			if($node->workbench_moderation['current']->state == 'submitted_qr' && in_array(array('Quality Manager','Quality Manager +'), $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+			if($node->workbench_moderation['current']->state == 'submitted_qr' && in_array('OSU', $account->roles)){
+				return NODE_ACCESS_ALLOW;
+			}
+
+			// --- end QM modification
+
+			if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))) {
+				return NODE_ACCESS_DENY;
+			}
+			if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Author +','Quality Manager +','Author','Eurofound Administrator','Eurofound Content Manager','OSU'))){
+				return NODE_ACCESS_DENY;
+			}
+			if($node->workbench_moderation['current']->state=="approved" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))) {
+				return NODE_ACCESS_DENY;
+			}
+
+			// allow only authors of the same country
+			if(array_intersect($account->roles, array('Author'))){
+				$author = user_load($account->uid);
+
+				$userContracts=array();
+				foreach($author->field_ef_contracts['und'] as $term){
+					$userContracts[]=taxonomy_term_load($term['tid']);
+				}
+				$userCountries=array();
+				foreach($userContracts as $contract){
+					$countryIso=$contract->field_ef_eu_related_countries['und'][0]['iso2'];
+					if(!in_array($countryIso, $userCountries)){
+						$userCountries[] = $countryIso;
+					}
+				}
+
+				$latest_node = node_load($node->nid, $node->workbench_moderation['current']->vid);
+				$report_country = $latest_node->field_ef_quarter_report_country['und'][0]['iso2'];
+				if(!in_array($report_country, $userCountries)){
+					return NODE_ACCESS_DENY;
+				}
+			}
+
+
+
+
+	/* --- Quarterly reports: view access permissions --- */
+	} elseif(isset($node->workbench_moderation) && ($node->type == 'ef_ic_quarterly_report' || $node->type == 'ef_network_quarterly_report' || $node->type == 'ef_national_contribution')
+		&& $op == 'view') {
+
+		if(in_array(array('Author','Author +','Quality Manager +'), $account->roles)){
+			return NODE_ACCESS_ALLOW;
+		}
+	/* --- end Quarterly reports: view access permissions --- */
+
+
+
+
+
+	// IR Workflow
+	} elseif(isset($node->workbench_moderation) && ($node->type == 'ef_ir_dictionary') && $op == 'update') {
+		$currentRevision=node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Editor','Author','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU', 'Editor')) && isset($node->workbench_moderation['published'])){
+
+			return NODE_ACCESS_DENY;
+		}
+
+		// Allow Author to edit published content (Bilbomatica)
+		if($node->workbench_moderation['current']->state=="published" && array_intersect($account->roles, array('Author','Author +','Quality Manager +')) && isset($node->workbench_moderation['published'])){
+			return NODE_ACCESS_ALLOW;
+		}
+
+		// ------ //
+
+		if($node->workbench_moderation['current']->state=="submitted_qr" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+
+		if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Author +','Author','Quality Manager +','Quality Manager','OSU')) && isset($node->field_ef_assign_to['und']['0']['target_id'])
+			&& $currentRevision->field_ef_assign_to['und']['0']['target_id']!=$account->uid) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="approved_for_editing" && !array_intersect($account->roles, array('Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="on_second_editing" && !array_intersect($account->roles, array('Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="on_external_editing" && !array_intersect($account->roles, array('External Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="ready_for_publishing" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="published" && !array_intersect($account->roles, array('Author +','Quality Manager +','Editor','Quality Manager','Eurofound Administrator','Eurofound Content Manager'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="unpublished" && !array_intersect($account->roles, array('Editor','Eurofound Administrator','Eurofound Content Manager','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->published==0  && in_array('OSU', $account->roles)) {
+			return NODE_ACCESS_ALLOW;
+		}
+
+		if($node->workbench_moderation['current']->state=="proposal" && in_array('Quality Manager +', $account->roles)) {
+			return NODE_ACCESS_ALLOW;
+		}
+
+	//DB Workflow
+	//Case study, Regulation, Restructuring, Support Instrument
+	} elseif(isset($node->workbench_moderation) && ($node->type == 'ef_case_study' || $node->type == 'ef_erm_regulation' || $node->type == 'ef_restructuring_in_smes' || $node->type == 'erm_support_instrument') && $op == 'update') {
+		$currentRevision=node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Author','Quality Manager','Eurofound Administrator','Eurofound Content Manager', 'Editor','OSU')) && !isset($node->workbench_moderation['published'])){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Editor','Author','Quality Manager','Eurofound Administrator','Eurofound Content Manager', 'Editor','OSU')) && isset($node->workbench_moderation['published'])){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="submitted_qr" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Eurofound Administrator','Eurofound Content Manager','OSU'))) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Author','OSU'))) {
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="approved_for_editing" && !array_intersect($account->roles, array('Editor','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="ready_for_publishing" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+// Allow to authors to edit this contents
+/*
+		if($node->workbench_moderation['current']->state=="published" && !array_intersect($account->roles, array('Editor','Eurofound Administrator','Eurofound Content Manager'))){
+			return NODE_ACCESS_DENY;
+		}
+*/
+
+		if($node->workbench_moderation['current']->state=="unpublished" && !array_intersect($account->roles, array('Quality Manager +','Editor','Eurofound Administrator','Eurofound Content Manager','OSU','Quality Manager'))){
+			return NODE_ACCESS_DENY;
+		}
+
+
+
+
+
+
+	//Factsheets Workflow
+	} elseif(isset($node->workbench_moderation) && ($node->type == 'ef_factsheet') && $op == 'update') {
+		$currentRevision=node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('Author +','Quality Manager +','Editor','Author','Quality Manager','Eurofound Administrator','Eurofound Content Manager', 'OSU', 'Editor')) && isset($node->workbench_moderation['published'])){
+
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="submitted_qr" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager', 'OSU'))){
+
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('Author +','Quality Manager +','Eurofound Administrator','Eurofound Content Manager','Quality Manager','OSU'))) {
+
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Author +','Quality Manager +','Quality Manager','Author', 'OSU'))) {
+
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="published" && !array_intersect($account->roles, array('Author','Author +','Quality Manager +', 'Quality Manager','Editor','Eurofound Administrator','Eurofound Content Manager','OSU'))){
+
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="unpublished" && !array_intersect($account->roles, array('Quality Manager +','Quality Manager','Editor','Eurofound Administrator','Eurofound Content Manager', 'OSU'))){
+
+			return NODE_ACCESS_DENY;
+		}
+	}
+
+	/* Annual Progress Report Workflow
+		 Issue: #3337
+	*/
+
+	elseif(isset($node->workbench_moderation) && ($node->type == 'ef_annual_progress_report') && $op == 'update'){
+
+
+		$currentRevision = node_load($node->nid, $node->workbench_moderation['current']->vid);
+
+
+		if($node->workbench_moderation['current']->state=="draft" && !array_intersect($account->roles, array('OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+		if($node->workbench_moderation['current']->state=="requested" && !array_intersect($account->roles, array('Author','Author +','Quality Manager +'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="rejected" && !array_intersect($account->roles, array('OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+
+		if($node->workbench_moderation['current']->state=="submitted" && !array_intersect($account->roles, array('OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+		if($node->workbench_moderation['current']->state=="approved" && !array_intersect($account->roles, array('OSU'))){
+			return NODE_ACCESS_DENY;
+		}
+		if($node->workbench_moderation['current']->state=="under_revision_request" && !array_intersect($account->roles, array('Quality Manager','Author','Author +','Quality Manager +'))){
+			return NODE_ACCESS_DENY;
+		}
+
+	}
+
+
+		/*OSU Contract Reporting*/
+
+		/*if(($node->workbench_moderation['current']->state == "approved" ||	$node->workbench_moderation['current']->state == "published" ||
+			$node->workbench_moderation['current']->state == "ready_for_publishing") && in_array('OSU',$account->roles) ){
+			return NODE_ACCESS_ALLOW;
+		} */
+
+		if(isset($node->workbench_moderation) && ($node->type == 'ef_ic_quarterly_report' || $node->type == 'ef_network_quarterly_report' || $node->type == 'ef_national_contribution' || $node->type == 'ef_input_to_erm' || $node->type == 'ef_report' || $node->type == 'ef_factsheet' || $node->type == 'erm_support_instrument' || $node->type == 'ef_erm_regulation' || $node->type == 'ef_ir_dictionary' || $node->type == 'ef_annual_progress_report' )
+		&& ($op == 'view' || $op == 'update') && in_array('OSU',$account->roles)) {
+				return NODE_ACCESS_ALLOW;
+		}
+
+		/*End OSU Contract Reporting*/
+
+		/* Annual Progress Report Workflow
+		Issue: #3337
+		*/
+
+
+		/* #3374: Authors not able to access 'view' mode in certain states */
+		/* Authors have access to 'view' mode for all states */
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="approved" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="draft" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="proposal" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="requested" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="submitted" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="submitted_qr" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="under_revision_request" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="approved_for_editing" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="ready_for_publishing" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="on_external_editing" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="on_second_editing" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="published" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="unpublished" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="rejected" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && $op == 'view'){
+			return NODE_ACCESS_ALLOW;
+		}
+		//specific case
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="under_revision_request" && (in_array('Author', $account->roles) || in_array('Author +', $account->roles)) && ($op == 'view' || $op == 'update')){
+			return NODE_ACCESS_ALLOW;
+		}
+		/*End #3374*/
+
+
+		// --- ISSUE #3419 ---
+		if(isset($node->workbench_moderation) && $node->workbench_moderation['current']->state=="on_external_editing"
+				&& in_array('External Editor', $account->roles) && ($op == 'view' || $op == 'update')) {
+			return NODE_ACCESS_ALLOW;
+		}
+		// --- END ISSUE #3419 ---
+
+		/*
+		if(isset($node->workbench_moderation) && in_array('anonymous user', $account->roles) && $op == 'update'){
+			return NODE_ACCESS_DENY;
+		}
+		*/
+  	return NODE_ACCESS_IGNORE;
+}

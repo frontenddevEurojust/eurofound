@@ -1,0 +1,71 @@
+<?php
+
+ function ef_help_text_ratings_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+    $form_types = array(
+      'ef_comparative_analytical_report_node_form',
+      'ef_report_node_form',
+      'ef_ic_quarterly_report_node_form',
+      'ef_national_contribution_node_form',
+      'ef_network_quarterly_report_node_form');
+
+    if ((isset($form['form_id']['#value'])) && (in_array($form['form_id']['#value'], $form_types))) {
+
+      if($form['form_id']['#value'] == 'ef_report_node_form') {
+
+          $form['field_ef_balance_in_reporting_re']['#prefix'] =
+                              "<ul class='description_stars'>
+                                      <li>5* - Fully compliant: meets requirements of the criterion completely.</li>
+                                      <li>4* - Almost fully compliant: meets requirements almost completely but there are some points for improvement.</li>
+                                      <li>3* - Satisfactory: meets the minimum requirements but has many points that can be improved</li>
+                                      <li>2* - Weak: most requirements are not met, requiring additional work and effort by the quality manager to bring it to an acceptable level. </li>
+                                      <li>1* - Unacceptable: fails to comply with the requirements of the criterion completely – should be redone.</li>
+                                </ul>";
+      }else
+      if($form['form_id']['#value'] == 'ef_national_contribution_node_form') {
+
+          $form['field_ef_balance_in_reporting_nc']['#prefix'] =
+                              "<ul class='description_stars'>
+                                      <li>5* - Fully compliant: meets requirements of the criterion completely.</li>
+                                      <li>4* - Almost fully compliant: meets requirements almost completely but there are some points for improvement.</li>
+                                      <li>3* - Satisfactory: meets the minimum requirements but has many points that can be improved</li>
+                                      <li>2* - Weak: most requirements are not met, requiring additional work and effort by the quality manager to bring it to an acceptable level. </li>
+                                      <li>1* - Unacceptable: fails to comply with the requirements of the criterion completely – should be redone.</li>
+                                </ul>";
+      }else
+      if($form['form_id']['#value'] == 'ef_comparative_analytical_report_node_form') {
+
+          $form['field_ef_balance_in_reporting_ca']['#prefix'] =
+                              "<ul class='description_stars'>
+                                      <li>5* - Fully compliant: meets requirements of the criterion completely.</li>
+                                      <li>4* - Almost fully compliant: meets requirements almost completely but there are some points for improvement.</li>
+                                      <li>3* - Satisfactory: meets the minimum requirements but has many points that can be improved</li>
+                                      <li>2* - Weak: most requirements are not met, requiring additional work and effort by the quality manager to bring it to an acceptable level. </li>
+                                      <li>1* - Unacceptable: fails to comply with the requirements of the criterion completely – should be redone.</li>
+                                </ul>";
+      }else
+      if($form['form_id']['#value'] == 'ef_ic_quarterly_report_node_form') {
+
+          $form['field_ef_balance_in_reporting_ic']['#prefix'] =
+                              "<ul class='description_stars'>
+                                      <li>5* - Fully compliant: meets requirements of the criterion completely.</li>
+                                      <li>4* - Almost fully compliant: meets requirements almost completely but there are some points for improvement.</li>
+                                      <li>3* - Satisfactory: meets the minimum requirements but has many points that can be improved</li>
+                                      <li>2* - Weak: most requirements are not met, requiring additional work and effort by the quality manager to bring it to an acceptable level. </li>
+                                      <li>1* - Unacceptable: fails to comply with the requirements of the criterion completely – should be redone.</li>
+                                </ul>";
+      }else
+      if($form['form_id']['#value'] == 'ef_network_quarterly_report_node_form') {
+
+          $form['field_ef_balance_in_reporting_nq']['#prefix'] =
+                              "<ul class='description_stars'>
+                                      <li>5* - Fully compliant: meets requirements of the criterion completely.</li>
+                                      <li>4* - Almost fully compliant: meets requirements almost completely but there are some points for improvement.</li>
+                                      <li>3* - Satisfactory: meets the minimum requirements but has many points that can be improved</li>
+                                      <li>2* - Weak: most requirements are not met, requiring additional work and effort by the quality manager to bring it to an acceptable level. </li>
+                                      <li>1* - Unacceptable: fails to comply with the requirements of the criterion completely – should be redone.</li>
+                                </ul>";
+      }
+
+    }
+  }

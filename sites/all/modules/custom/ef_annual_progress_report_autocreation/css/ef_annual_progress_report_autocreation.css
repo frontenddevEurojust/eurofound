@@ -1,0 +1,162 @@
+
+/* ---  Auto creation form --- */
+
+@media only screen and (max-width: 40em) {
+
+	#edit-national-countries,
+	#edit-field-ef-country-und{
+		-moz-column-count: 2;
+	    -webkit-column-count: 2;
+	    column-count: 2;
+	}
+
+
+}
+
+@media only screen and (min-width: 40.01em) and (max-width: 64.062em) {
+
+	#edit-national-countries,
+	#edit-field-ef-country-und{
+		-moz-column-count: 3;
+	    -webkit-column-count: 3;
+	    column-count: 3;
+	}
+
+	#edit-submit{
+		margin-left: 65%;
+	}
+
+}
+
+@media only screen and (min-width: 64.063em) {
+
+	#edit-national-countries,
+	#edit-field-ef-country-und{
+		-moz-column-count: 5;
+	    -webkit-column-count: 5;
+	    column-count: 5;
+	}
+
+	#edit-submit{
+		margin-left: 82%;
+	}
+
+}
+
+.page-ef-annual-progress-report .tooltip{
+	position: absolute;
+	left: 152px !important;
+}
+#edit-national-countries{
+    -moz-column-gap: 0px;
+    -moz-column-rule: 1px dotted #ccc;
+    -webkit-column-gap: 0px;
+    -webkit-column-rule: 1px dotted #ccc;
+    column-gap: 0px;
+    column-rule: 1px dotted #ccc;
+    list-style: none;
+}
+
+#ef-annual-progress-report-ct-form .form-item-deliverable-kind-parent{
+	margin-bottom: 0;
+}
+#edit-deliverable-kind-parent{
+	cursor: default;
+	background-color: #E1E2DC;
+}
+#ef-annual-progress-report-ct-form .form-item-deliverable-kind-childrens{
+	margin-top: 0;
+}
+#edit-scheduled-date-from label, #edit-scheduled-date-from .description,
+#edit-scheduled-date-to label, #edit-scheduled-date-to .description,
+#edit-approved-for-payment-from label, #edit-approved-for-payment-from .description,
+#edit-approved-for-payment-to label, #edit-approved-for-payment-to .description,
+#edit-requested-on label, #edit-requested-on .description{
+	display: none;
+}
+#edit-metadata-fieldset #edit-scheduled-record-delivery-date .container-inline-date,
+#edit-metadata-fieldset #edit-approved-for-payment .container-inline-date{
+	display: inline-block;
+}
+#edit-scheduled-record-delivery-date,
+#edit-approved-for-payment{
+	display: inline-block;
+	width: 50%;
+	border: 1px solid #F0F0F0 !important;
+}
+#edit-approved-for-payment{
+	width: 49%;
+}
+#edit-metadata-fieldset .form-item-type-of-report,
+.form-item-deliverable-kind-parent,
+.form-item-deliverable-kind-childrens{
+	min-width: 250px;
+    width: 25% !important;
+}
+#edit-metadata-fieldset .form-item-eu-level{
+	border: 1px dotted #424242;
+    min-width: 250px;
+    padding: 10px 0;
+    width: 25%;
+}
+#edit-metadata-fieldset .form-item-eu-level.form-disabled{
+	border: 1px dotted #ccc;
+}
+#edit-metadata-fieldset .form-item-national-countries #edit-national-countries{
+	border: 1px dotted #424242;
+    padding: 8px 2px;
+}
+#edit-metadata-fieldset .form-item-national-countries.form-disabled #edit-national-countries{
+	border: 1px dotted #ccc;
+}
+
+.form-item-eu-level > label:before{
+	content: "\f00c";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+.form-item-eu-level.form-disabled > label:before{
+	content: "\f00d";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+
+#edit-national-countries label:before,
+#edit-national-countries label.unchecked:before{
+	content: "\f1db";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+#edit-national-countries label.checked:before{
+	content: "\f058";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+#edit-national-countries label:before{
+	content: "\f058";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+#edit-metadata-fieldset .form-item-national-countries.form-disabled label,
+#edit-metadata-fieldset .form-item-eu-level.form-disabled label{
+	color: #c5c5c5;
+}
+#edit-metadata-fieldset .form-item-national-countries input,
+#edit-metadata-fieldset #edit-eu-level{
+	visibility: hidden;
+}
+#edit-metadata-fieldset .form-item-national-countries.form-disabled:hover{
+	cursor: default;
+}
+
+#ef-annual-progress-report-autocreation-form .container-inline-date {
+    margin-top: 30px;
+}
+#edit-field-ef-year-und-0-value .form-item-field-ef-year-und-0-value-year > label{
+	display: none!important;
+}
+
+
+
+
+

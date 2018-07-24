@@ -1,0 +1,5 @@
+name = ef_comment_sector
+description = Removes the log in  or register to comment section.
+package = EF modules
+core = 7.x
+dependencies[] = statistics

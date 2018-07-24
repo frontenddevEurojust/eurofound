@@ -1,0 +1,4 @@
+name = EF proposals
+description = Functionality related to S.2 workflow request assignee and contract when the states is a proposal.
+package = EF modules
+core = 7.x

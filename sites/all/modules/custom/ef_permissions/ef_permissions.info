@@ -1,0 +1,4 @@
+name = ef_permissions
+description = Module for create/edit/quit/management EF permissions
+core = 7.x
+package = ef_permissions

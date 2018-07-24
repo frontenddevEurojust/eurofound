@@ -1,0 +1,333 @@
+<?php
+
+/*
+*  Implements hook_node_access($node, $op, $account). Make publications visible to everyone when forthcoming status
+*/
+function ef_publications_ct_node_access($node, $op, $account) {
+
+	if(isset($node->workbench_moderation) && ($node->type == 'ef_publication') && ($op == 'view') && ($node->workbench_moderation['current']->state == 'forthcoming'))
+	{
+		return NODE_ACCESS_ALLOW;
+	}
+}
+
+/*
+*  Implements hook_node_view_alter(&$build).
+*/
+function ef_publications_ct_node_view_alter(&$build)
+{
+
+	$node = $build['#node'];
+
+    if($node->type == "ef_publication"){
+
+    	if($node->field_ef_subscription_msg['und'][0]['value'])
+    	{
+
+    		$build['field_term_subscription_url'][0]['#markup'] = "<p class='topic-subscription'><a href='" . $node->field_term_subscription_url['und'][0]['safe_value'] . "'><i class='fa fa-envelope-o' aria-hidden='true'></i>" . $node->field_term_subscription_text['und'][0]['value'] . "</a></p>";
+
+    	}
+
+	    if(isset($build['field_ef_document']['#items']))
+	    {
+
+	      $file_size=$build['field_ef_document']['#items'][0]['filesize'];
+	      $file_size = intval($file_size);
+
+	      if ($file_size < 1024)
+	      {
+	      		 $file_size = round($file_size, 0);
+			     $file['formatted_filesize']['size_type'] = 'bytes';
+				 $file_size_format = strval($file_size);
+		  }
+		  else if ($file_size >= 1048576)
+		  {
+				 $file_size = round(($file_size / 1024 / 1024), 0);
+				 $file_size_format = strval($file_size) . "MB";
+		  }
+		  elseif ($file_size >= 1024)
+		  {
+				 $file_size = round(($file_size / 1024), 0);
+				 $file_size_format = strval($file_size) . "KB";
+		  }
+
+		  $build['field_ef_document'][0]['#file']->filename = t('Download PDF') . ' (' . $file_size_format . ')';
+
+	    }
+
+	    if($node->field_show_order_button['und'][0]['value'])
+	    {
+
+			$build['field_order_label'][0]['#markup'] = '<p class="orange-formatting"><a class="orange-link" href="' .  $node->field_order_url['und'][0]['value'].'">' .
+	    		$build['field_order_label'][0]['#markup'] . '</a></p>';
+
+	    }
+
+	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
+
+	    if($node->workbench_moderation['current']->state == 'forthcoming')
+	    {
+	    	drupal_set_title($node->title . '<span class="forthcoming-label">Forthcoming</span>', $output = PASS_THROUGH);
+
+	    	drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_forthcoming.js');
+	    }
+
+    }
+}
+/*
+* Implements hook_form_alter(&$form, &$form_state, $form_id)
+*/
+function ef_publications_ct_form_alter(&$form, &$form_state, $form_id)
+{
+	
+
+	if($form['#id'] == 'ef-publication-node-form')
+
+	{
+		$form['actions']['submit']['#validate'][] = 'ef_publications_ct_form_validate';
+
+		// Hide publication date as it is no longer relevant
+		$form['field_ef_publication_date']['#access'] = FALSE;
+
+
+		// For checkboxes 'checked' condition needs to be used
+	    // Show Subscription message
+	    $form['field_term_subscription_url']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
+	    $form['field_term_subscription_text']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+	        )
+	    );
+
+	    // Show Order button
+	    $form['field_order_label']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
+	    $form['field_order_url']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_order_button[und]"]' => array('checked' => TRUE))
+	    );
+
+	    // Show info checkbox
+	    $form['field_ef_origin_organisation']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_publication_show_info[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
+	    $form['field_event_policy_initiative_co']['#states'] = array(
+	      'visible' => array(
+	      	'input[name="field_publication_show_info[und]"]' => array('checked' => TRUE),
+	        'input[name="field_ef_origin_organisation[und][0][value]"]' => array('filled' => TRUE)
+	        )
+	    );
+
+	    // Show Permalink checkbox
+	    $form['field_permalink']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_permalink[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+
+	    drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_ct.css');
+	    drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_edit_mode.js');
+
+	}
+
+	if($form['#id'] == 'blog-node-form' || $form['#id'] == 'presentation-node-form'){
+
+		$form['actions']['submit']['#validate'][] = 'ef_publications_ct_form_validate';
+
+		// Show Permalink checkbox
+	    $form['field_permalink']['#states'] = array(
+	      'visible' => array(
+	        'input[name="field_show_permalink[und]"]' => array('checked' => TRUE)
+	       )
+	    );
+	}
+
+
+	if($form['#id'] == 'views-exposed-form-ef-publications-view-page')
+
+	{
+
+		$query = "SELECT * FROM workbench_moderation_node_history a WHERE a.state = 'forthcoming' AND a.current = 1";
+
+		$forthcoming_nodes = db_query($query)->fetchAll();
+
+
+		if( count($forthcoming_nodes) > 0 )
+		{
+			$form['checkbox_forthcoming_filtering'] = array(
+		      '#type' => 'checkbox',
+		      '#title' => t('Show forthcoming publications'),
+	      	);
+
+			drupal_add_js(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.js');
+		}
+
+	  	drupal_add_css(drupal_get_path('module', 'ef_publications_ct') . '/ef_publications_landing_page.css');
+
+	}
+
+	return $form;
+}
+
+
+function ef_publications_ct_form_validate($form, &$form_state) {
+	
+	$showpermalink = $form_state['values']['field_show_permalink']['und'][0]['value'];
+	$permalink = $form_state['values']['field_permalink']['und'][0]['url'];
+	$permalink_label = $form_state['values']['field_permalink']['und'][0]['title'];
+
+	if ($showpermalink == '1'){
+		
+		if ( empty($permalink) && !empty($permalink_label) ){
+			form_set_error('field_permalink',t('Permalink URL cannot be blank if Permalink title has value'));
+		}
+
+		if ( empty($permalink_label) && !empty($permalink) ){
+			form_set_error('field_permalink',t('Permalink title cannot be blank if Permalink URL has value'));
+		}
+
+		if ( empty($permalink_label) && empty($permalink) ){
+			form_set_error('field_permalink',t('Permalink title and Permalink URL cannot be blank if Show Permalink is checked'));
+		}
+	}
+}
+
+
+/*
+* Implements hook_views_query_alter(&$view, &$query)
+*/
+function ef_publications_ct_views_query_alter(&$view, &$query)
+{
+	if($view->name == 'ef_publications_view')
+	{
+
+		if($view->exposed_input['checkbox_forthcoming_filtering'] === '1')
+		{
+
+			foreach ($query->where[1]['conditions'] as $key => $condition)
+			{
+
+				if($condition['field'] == 'workbench_moderation_node_history.state')
+				{
+					$query->where[1]['conditions'][$key]['value'][] = 'forthcoming';
+				}
+			}
+		}
+	}
+}
+/*
+ * Implements hook_update_N().
+ * Add index to field_ef_publication_date field to improve performance as it's used as ordering field (Avoid creating temporary tables due to ORDER BY clause)
+ */
+function ef_publications_ct_update_7100()
+{
+	db_add_index('field_data_field_ef_publication_date', 'field_ef_publication_date_value_index', array('field_ef_publication_date_value'));
+}
+
+/*
+ * Implements hook_update_N().
+ * As index is not used any more, delete it.
+ */
+function ef_publications_ct_update_7101()
+{
+	db_drop_index('field_data_field_ef_publication_date', 'field_ef_publication_date_value_index');
+}
+
+/*
+ * Implements HOOK_pathauto_alias_alter 
+ * For the EF Articles, Comparative Analytical Reports and National Contributions, the URL must be different if their observatory is EurWORK
+*/
+function ef_publications_ct_pathauto_alias_alter(&$alias, array &$context)
+{
+	// Get the Taxonomy ID for the EurWORK term
+	$taxonomy = taxonomy_get_term_by_name('EurWORK');
+	$tid = -1;
+	if (sizeof($taxonomy) > 0)
+	{
+		$tid = array_values($taxonomy)[0]->tid;
+	}
+
+	// If the Taxonomy ID has a value
+	if ($tid != -1)
+	{
+		// Check that $node has at least one value at field_ef_observatory
+		$node = $context['data']['node'];
+		if (sizeof($node->field_ef_observatory['und']) > 0)
+		{
+			$observatoryValue = $node->field_ef_observatory['und'];
+			// The node has at least one observatory
+			for ($i = 0; $i < sizeof($observatoryValue); $i++)
+			{
+				// Check if one of the observatories of $node is EurWORK
+				if ($observatoryValue[$i]['tid'] == $tid)
+				{
+					// Get the publication year of the $node
+					$publicationYear = -1;
+					if ($node->published_at != 0)
+					{
+						$publicationYear = date('Y',$node->published_at);
+					}
+					else if ($node->workbench_moderation_state_new == 'published')
+					{
+						// If the node has just been published, get the current year
+						$publicationYear = date('Y', $node->timestamp);
+					}
+					else 
+					{
+						// If the node is not published, get the current year
+						$publicationYear = date('Y', $node->timestamp);
+					}
+					// Make the title of the node URL-friendly
+					$urlTitle = $node->title;
+					$urlTitle = pathauto_cleanstring($urlTitle);
+					// The current node has the observatory EurWORK selected
+					// Check the type of the node
+					if ($node->type == 'ef_national_contribution' || $node->type == 'ef_comparative_analytical_report')
+					{
+						// National Contribution or Comparative Analytical Report
+						$path = 'publications/reports/'.$publicationYear.'/'.$urlTitle;
+						// If the current path already exists, add a number at the end to make it different
+						if(_pathauto_alias_exists($path, $context['source']))
+						{
+							$i = 0;
+							while ((_pathauto_alias_exists($path, $context['source'])))
+							{
+								$path = '/publications/reports/'.$publicationYear.'/'.$urlTitle . '-' . $i;
+								$i++;
+							}
+						}
+						$alias = $path;
+					} 
+					else if ($node->type == 'ef_report')
+					{
+						// EF Article
+						$path = 'publications/article/'.$publicationYear.'/'.$urlTitle;
+						if(_pathauto_alias_exists($path, $context['source']))
+						{
+							// If the current path already exists, add a number at the end to make it different
+							$i = 0;
+							while ((_pathauto_alias_exists($path, $context['source'])))
+							{
+								$path = '/publications/article/'.$publicationYear.'/'.$urlTitle . '-' . $i;
+								$i++;
+							}
+						}
+						$alias = $path;
+					}
+				}
+			}
+		}
+	}
+}

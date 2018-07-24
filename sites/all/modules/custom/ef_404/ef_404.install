@@ -1,0 +1,35 @@
+<?php
+/***
+* EFDR-792 kp eworx gr 2014
+* ---------------------------------
+* Install, update and uninstall functions for the ef_404 module.
+*/
+
+/**
+ * Setup Search 404 by changing Drupal's 404-page to ef_404.
+ */
+
+function ef_404_install() {
+  variable_set('site_404', 'ef_404');
+}
+
+/**
+ * uninstall
+ */
+
+function ef_404_uninstall() {
+  if (variable_get('site_404', '') == 'ef_404') {
+    variable_del('site_404');
+  }
+
+  variable_del('ef_404_redirect_301');
+  variable_del('ef_404_ignore_extensions');
+  
+  variable_del('ef_404_images_extensions'); 
+  variable_del('ef_404_files_extensions'); 
+
+  /* translatable 404 strings*/
+  variable_del('ef_404_page_title');
+  variable_del('ef_404_page_text');
+
+}

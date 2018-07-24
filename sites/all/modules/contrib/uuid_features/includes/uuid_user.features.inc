@@ -1,0 +1,258 @@
+<?php
+/**
+ * @file
+ * Features hooks for the user features component.
+ */
+
+/**
+ * Implements hook_features_export_options().
+ */
+function uuid_user_features_export_options() {
+ 
+  $options = array();
+
+  $query = 'SELECT u.uid, u.name, u.mail, u.uuid
+    FROM {users} u WHERE uid > 0 ORDER BY u.name ASC';
+  $results = db_query($query);
+  foreach ($results as $user) {
+    $options[$user->uuid] = t('@name: @mail', array(
+      '@name' => $user->name,
+      '@mail' => $user->mail,
+    ));
+  }
+
+  return $options;
+}
+
+/**
+ * Implements hook_features_export().
+ */
+function uuid_user_features_export($data, &$export, $module_name = '') {
+   
+  $pipe = array();
+
+  $export['dependencies']['uuid_features'] = 'uuid_features';
+
+  $uids = entity_get_id_by_uuid('user', $data);
+  foreach ($uids as $uuid => $uid) {
+    // Load the existing user.
+    $user = user_load($uid, TRUE);
+
+    $export['features']['uuid_user'][$uuid] = $uuid;
+
+    $data = &$export;
+    $data['__drupal_alter_by_ref']['pipe'] = &$pipe;
+    $entity_type = 'user';
+    drupal_alter('uuid_entity_features_export', $entity_type, $data, $user, $module_name);
+    drupal_alter('uuid_user_features_export', $data, $user, $module_name);
+    unset($data['__drupal_alter_by_ref']);
+  }
+
+  return $pipe;
+}
+
+/**
+ * Implements hook_features_export_render().
+ */
+function uuid_user_features_export_render($module, $data) {
+  
+  $translatables = $code = array();
+
+  $code[] = '  $users = array();';
+  $code[] = '';
+  $uids = entity_get_id_by_uuid('user', $data);
+  foreach ($uids as $uuid => $uid) {
+    // Only export the user if it exists.
+    if ($uid === FALSE) {
+      continue;
+    }
+    // Attempt to load the user, using a fresh cache.
+    $account = user_load($uid, TRUE);
+    if (empty($account)) {
+      continue;
+    }
+    // Clone entity to avoid changes by reference.
+    $export = clone $account;
+
+    // Use date instead of created - same format used by node_object_prepare.
+    $export->date = format_date($export->created, 'custom', 'Y-m-d H:i:s O');
+    unset($export->uid, $export->pass);
+
+    $entity_type = 'user';
+    drupal_alter('uuid_entity_features_export_render', $entity_type, $export, $account, $module);
+    drupal_alter('uuid_user_features_export_render', $export, $account, $module);
+
+    $code[] = '  $users[] = ' . features_var_export($export) . ';';
+  }
+
+  if (!empty($translatables)) {
+    $code[] = features_translatables_export($translatables, '  ');
+  }
+
+  $code[] = '  return $users;';
+  $code = implode("\n", $code);
+  return array('uuid_features_default_users' => $code);
+}
+
+/**
+ * Implements hook_features_revert().
+ */
+function uuid_user_features_revert($module) {
+ 
+  uuid_user_features_rebuild($module);
+}
+
+
+function printUserDetails($user){
+  echo "\n<br>";
+  echo "name ". $user->name ."\n<br>";
+  echo "mail ". $user->mail ."\n<br>";
+  echo "uuid ". $user->uuid ."\n<br>";  
+
+}
+/**
+ * Implements hook_features_rebuild().
+ *
+ * Rebuilds users based on UUID from code defaults.
+ */
+function uuid_user_features_rebuild($module) {
+    
+  $users = features_get_default('uuid_user', $module);
+  uuid_node_features_rebuild($module);
+  cache_clear_all();
+
+$count=1;
+
+  if (!empty($users)) {
+    module_load_include('inc', 'user', 'user.pages');
+    $entity_type = 'user';
+
+    foreach ($users as $data) {
+      $count++;
+      $account = (object) $data;
+      $existing = new stdClass();
+/*
+$account->field_ef_work_telephone_number['en']= $account->field_ef_work_telephone_number['und'];
+$account->field_ef_first_name['en'] = $account->field_ef_first_name['und'];
+$account->field_ef_last_name['en'] = $account->field_ef_last_name['und'];
+$account->field_ef_organisation['en'] = $account->field_ef_organisation['und'];
+*/
+
+
+//kprint_r($account);
+//  die();
+
+$pos = strrpos($account->mail, "eworx");
+if (!($pos === false)) { 
+
+    echo "<br><br><br> Bypassing eworx user ". $account->mail;
+    
+}else{  
+      
+
+      // Find the matching uid.
+      $efq = new EntityFieldQuery();
+      $efq->entityCondition('entity_type', 'user');
+      //$efq->propertyCondition('name', $account->name);//mlt
+      $efq->propertyCondition('mail', $account->mail);//mlt
+      $result = $efq->execute();
+
+
+      $efqn = new EntityFieldQuery();//mlt
+      $efqn->entityCondition('entity_type', 'user');//mlt
+      $efqn->propertyCondition('name', $account->name);//mlt      
+      $resultn = $efqn->execute();//mlt
+      $userExistWithUsername= false;
+      if (isset($resultn['user'])) {
+        $userExistWithUsername = true;
+      }
+
+
+      if (isset($result['user'])) {
+
+        $uids = array_keys($result['user']);
+  
+        $uid = reset($uids);
+      }
+      else {
+
+        if(isset($resultn['user'])){
+          $uids = array_keys($resultn['user']);    
+          $uid = reset($uids);
+        }else
+          $uid="";
+
+      }//mlt
+ 
+
+      if (!empty($uid)) {
+
+            if ($uid == 1) {
+              global $user;
+              if (!empty($user->uid) && $user->uid == 1) {
+                $existing = $user;
+              }
+              else {
+                $existing = user_load(1);
+              }
+            }else {
+              // Find the matching user by name with a fresh cache.
+              $existing = user_load($uid, TRUE);
+              $existing->uid = $uid;
+            }
+        $account->uid = $uid;
+      } else {
+        $existing->uid = NULL;
+      }
+ 
+ 
+
+      drupal_alter('uuid_entity_features_rebuild', $entity_type, $account, $data, $module);
+      drupal_alter('uuid_user_features_rebuild', $account, $module);
+
+      if ($existing->uid === NULL) {
+        echo "\n<br><br> new user";                    
+        printUserDetails($account);
+        
+
+        // Ensure a new user gets a new password.
+        $account->pass = user_password(16);
+        $account->is_new = TRUE;//mltadd
+
+       if(!$userExistWithUsername)
+       $account = user_save(NULL, $edit = (array) $account);//mlt change
+        else echo "problema another user exists by the same nickname";
+      }
+      else {
+
+echo "\n\ns1 " . ($existing->access>$account->access?"newer":"older")." than s2 ";
+echo "uuid " . ($existing->uuid==$account->uuid?"equal":"not equal");
+
+printUserDetails($existing);
+
+echo "\ns2 " . ($existing->access<$account->access?"newer":"older")." than s1";
+printUserDetails($account);
+unset($account->uid);
+
+
+        // Ensure we don't reset the password.
+        
+        unset($account->pass);//mlt
+        if(true)$account = user_save($existing, (array) $account);
+      }
+      // Clear out previously loaded user account if one was found.
+      unset($existing);
+
+
+//echo $count;
+//if($count==10) 
+ 
+
+    }}
+//die("uuid_user_features_rebuild   ");    
+    if(true)module_invoke_all('uuid_entity_features_rebuild_complete', $entity_type, $users, $module);
+
+
+  }
+  uuid_node_features_rebuild($module);
+}

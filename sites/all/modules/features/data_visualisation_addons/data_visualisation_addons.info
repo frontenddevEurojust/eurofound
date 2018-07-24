@@ -1,0 +1,8 @@
+name = Data visualisation addons
+core = 7.x
+package = Features
+ctools[] = views:views_default:3.0
+features[features_api][] = api:2
+mtime = 1413414080
+project path = sites/all/modules/features
+views_view[] = data_visualisation

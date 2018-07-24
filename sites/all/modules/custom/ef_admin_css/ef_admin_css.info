@@ -1,0 +1,6 @@
+name = Ef Admin Css
+description = Add some extra rules on the admin css theme file.
+package = EF modules
+core = 7.x
+dependencies[] = webform
+

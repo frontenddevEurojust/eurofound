@@ -1,0 +1,57 @@
+drush sql-query "insert into schema_migrations(code,extra)values('017', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+drush dl -y conditional_styles
+drush en -y conditional_styles
+
+drush en -y statistics
+
+:: custom modules
+drush en -y ef_qr_autocreation
+drush en -y ef_concurrent_editing_notification
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+drush field-delete field_ef_dissemination_title --bundle=field_ef_dissemination
+drush field-delete field_ef_dissemination_channel --bundle=field_ef_dissemination
+drush field-delete field_ef_num_of_outputs_sent_out --bundle=field_ef_dissemination
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+drush field-delete field_ef_activity_title --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_activity_timeline --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_activity_source --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_activity_context --bundle=ef_ic_quarterly_report
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: goto admin/config/system/tabtamer
+:: make visible: User -> 'Create new account' & 'Log in' & 'Request new password'
+
+:: patch for autosave
+:: patches/v017-autosave.module.txt
+
+:: navigate to admin/config/system/statistics
+:: Enable 'Enable access log'
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+drush vset -y maintenance_mode 0
+drush cc all

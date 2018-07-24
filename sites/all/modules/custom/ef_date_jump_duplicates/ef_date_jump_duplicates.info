@@ -1,0 +1,5 @@
+name = EF Date Jump Duplicates
+description = Remove Date Jump block Duplicates.
+core = 7.x
+package = EF modules
+dependencies[] = workbench

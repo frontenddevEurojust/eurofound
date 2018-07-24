@@ -1,0 +1,4 @@
+name = EF CKEditor height
+description = EF CKEditor height based on rows
+core = 7.x
+package = EF modules

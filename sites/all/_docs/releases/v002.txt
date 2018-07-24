@@ -1,0 +1,80 @@
+drush sql-query "insert into schema_migrations(code,extra)values('002', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+::update drupal core and modules
+::can be commented out in fresh db installations
+drush pm-update -y
+
+
+
+:: MODULES ::
+
+:: Field group
+drush pm-download -y field_group
+drush pm-enable -y field_group
+drush cc all
+
+:: Block class
+drush pm-download -y block_class
+drush pm-enable -y block_class
+drush cc all
+
+:: Display Suite
+drush pm-download -y ds
+drush pm-enable -y ds
+drush pm-enable -y ds_ui
+drush pm-enable -y ds_extras
+drush cc all
+:: DS layout created with command
+:: drush ds-build "EF Foundation Two column stacked" --regions="Node Sub Header, Node Languages, Node Metadata, Node Side Info, Node Content, Node Downloads, Node Comments" --image
+
+:: Publish Content
+drush pm-download -y publishcontent
+drush pm-enable -y publishcontent
+drush cc all
+
+:: Menu Attributes
+drush pm-download -y menu_attributes
+drush pm-enable -y menu_attributes
+drush cc all
+
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+
+:: CONFIGURATIONS ::
+
+:: Bulk update content paths to pathauto url patterns:
+:: http://ef.1/admin/config/search/path/settings
+:: Check: Update Action : Create a new alias. Delete the old alias. 
+:: http://ef.1/admin/config/search/path/update_bulk
+:: Bulk update: Content Paths
+
+:: Import Menu Links
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+::
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

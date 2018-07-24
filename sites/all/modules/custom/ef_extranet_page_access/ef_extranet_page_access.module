@@ -1,0 +1,123 @@
+<?php
+
+
+//To set role level permissions on viewing content from a specific content type, use Hook_node_access.
+// Add perms to the super cool content type
+
+/**
+ * Implements hook_node_access
+ */
+function ef_extranet_page_access_node_access($node, $op, $account) {
+
+  $boardmemberpage_roles = array(
+    'Quality Manager',
+    'Quality Manager +',
+    'Editor',
+    'Eurofound Content Manager',
+    'Eurofound Administrator',
+    'administrator',
+    'Event Administrator',
+    'Media Manager',
+    'Governing Board',
+    'Governing Board Member',
+    'Metadata Manager',
+    'OSU',
+    'Assistant'
+  );
+  $networkextranetpages_roles = array(
+    'Quality Manager',
+    'Quality Manager +',
+    'Editor',
+    'External Editor',
+    'Eurofound Content Manager',
+    'Eurofound Administrator',
+    'administrator',
+    'Author',
+    'Author +',
+    'External Editor',
+    'OSU',
+  );
+  $finished_extranet_roles = array(
+    'Author',
+    'Author +',
+    'External Editor',
+    'Governing Board Member'
+  );
+
+  if (!$node) {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  isset($node->field_ef_finished_status) ? $finished_status = $node->field_ef_finished_status['und'][0]['value'] : $finished_status = 0;
+
+  $allowed_role = 0;
+  $finished_allowed_role = 0;
+
+  switch ($node->type) {
+    case 'board_member_page':
+      foreach ($account->roles as $key => $role) {
+        in_array($role, $boardmemberpage_roles) ? $allowed_role = 1 : FALSE;
+      }
+      foreach ($account->roles as $key => $role) {
+        in_array($role, $finished_extranet_roles) ? $finished_allowed_role = 1 : FALSE;
+      }
+      $allowed_role ? $extranet_access = 1 : $extranet_access = 0;
+      if ($extranet_access && $finished_allowed_role) {
+        $finished_status ? $extranet_access = 1 : $extranet_access = 0;
+      }
+      break;
+
+    case 'ef_network_extranet_page':
+      foreach ($account->roles as $key => $role) {
+        in_array($role, $networkextranetpages_roles) ? $allowed_role = 1 : FALSE;
+      }
+      foreach ($account->roles as $key => $role) {
+        in_array($role, $finished_extranet_roles) ? $finished_allowed_role = 1 : FALSE;
+      }
+      $allowed_role ? $extranet_access = 1 : $extranet_access = 0;
+      if ($extranet_access && $finished_allowed_role) {
+        $finished_status ? $extranet_access = 1 : $extranet_access = 0;
+      }
+      break;
+
+    default:
+      return NODE_ACCESS_IGNORE;
+      break;
+  }
+
+  if (!$extranet_access) {
+    return NODE_ACCESS_DENY;
+  }
+
+  return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * Implements hook_node_presave
+ */
+function ef_extranet_page_access_node_presave($node) {
+  $locked_finished_nodes = array(55566);
+  if (in_array($node->nid, $locked_finished_nodes)) {
+    $node->field_ef_finished_status['und'][0]['value'] = 1;
+  }
+  return $node;
+}
+
+function _ef_extranet_page_access_field_values() {
+
+  $sql = db_select('node', 'n')
+   ->fields('n', array('nid'))
+   ->condition('type', 'board_member_page', '=');
+
+  $result = $sql->execute()->fetchAll();
+
+  foreach ($result as $key => $value) {
+   $nid = $value->nid;
+   $node = node_load($nid);
+   node_object_prepare($node);
+   $node->field_ef_finished_status[und][0]['value'] = 1;
+   node_submit($node);
+   node_save($node);
+  }
+
+}

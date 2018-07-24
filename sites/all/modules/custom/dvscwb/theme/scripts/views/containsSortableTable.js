@@ -1,0 +1,1 @@
+(function(f){var c=".tablefield";var b;var g=false;var h=0;var i=300;var k=300;function j(){h++;b=f(c);if(b.length>0){return true}return false}function e(){if(!g&&h<i){if(j()){d();g=true}else{setTimeout(e,k)}}}setTimeout(e,100);function d(){a()}function a(){b.tablesorter({sortList:[[0,0]]})}})(jQuery);

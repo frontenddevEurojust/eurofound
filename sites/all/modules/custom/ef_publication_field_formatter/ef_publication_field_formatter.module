@@ -1,0 +1,34 @@
+<?php
+
+function ef_publication_field_formatter_views_pre_render(&$view){
+	if($view->name=="ef_publications_view"){
+		foreach ($view->result as $publication) {
+			foreach ($publication->field_field_ef_observatory as $key => $value) {
+				$to_change = $publication->field_field_ef_observatory[$key]['rendered']['#href'];
+				$path_array = explode('/',$to_change);
+				$term = $path_array[2];
+				$new_path = url('publications', array('query'=>array('field_ef_observatory_tid[]'=>$term),'absolute' => TRUE));
+				$publication->field_field_ef_observatory[$key]['rendered']['#href'] = $new_path;
+			}
+		}
+	}
+}
+
+function ef_publication_field_formatter_form_views_exposed_form_alter(&$form, $form_state) {
+	if($form["#id"] == "views-exposed-form-ef-publications-view-page" ) {
+		$query=db_query("	select distinct a.field_ef_publ_contributors_tid, ttd.name
+							from field_data_field_ef_publ_contributors a
+							left join taxonomy_term_data ttd on a.field_ef_publ_contributors_tid=ttd.tid
+							where bundle =  'ef_publication' 
+								AND ttd.name is not NULL
+							order by ttd.name ASC");
+
+		$result = $query->fetchAll();
+
+		$form['field_ef_publ_contributors_tid']['#options']="";
+
+		foreach ($result as $value) {
+			$form['field_ef_publ_contributors_tid']['#options'][$value->field_ef_publ_contributors_tid]=$value->name;
+		}
+	}
+}

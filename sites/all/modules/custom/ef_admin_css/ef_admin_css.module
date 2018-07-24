@@ -1,0 +1,9 @@
+<?php
+
+function ef_admin_css_preprocess_html(&$variables) {
+  if(arg(0)=="admin"){
+   $theme_path = drupal_get_path('theme', 'seven'); 
+   drupal_add_css(drupal_get_path('module', 'ef_admin_css') . '/css/ef_admin_css.css', array('weight' => CSS_THEME));
+  
+ }
+}

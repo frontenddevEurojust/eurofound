@@ -1,0 +1,61 @@
+.cke_dialog_contents_body .ui-autocomplete {
+  height: 260px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.cke_dialog_contents_body .ui-autocomplete .ui-corner-all, 
+.cke_dialog_contents_body .ui-autocomplete .ui-corner-all.ui-state-focus{
+  top: 0;
+  left: 5px;
+  padding: 7px 0px 7px 7px;
+  margin: 1px;
+  background: #fff;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+.cke_dialog_contents_body .ui-autocomplete .ui-corner-all .ui-autocomplete-field:before{
+	content: "\f0c1";	
+  margin-right: 5px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.cke_dialog_contents_body .ui-autocomplete .ui-corner-all.ui-state-focus:hover, .cke_dialog_contents_body .ui-autocomplete .ui-autocomplete-field:hover{
+	background: #f9f9f9;
+	cursor: pointer;
+}
+
+table.cke_dialog_contents tr td.cke_dialog_contents_body:last-child, td.cke_dialog_ui_vbox_child:last-child {
+    border-right:none !important;
+}
+
+.cke_dialog_contents .error-message{
+  padding: 15px;
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+.cke_dialog_contents .error-message:before{
+  content: "\f071";
+  margin-right: 5px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.cke_dialog_body label {
+    margin-bottom: auto;
+    cursor: default;
+    padding: 6px 0;
+    display: inline-block !important;
+}
+

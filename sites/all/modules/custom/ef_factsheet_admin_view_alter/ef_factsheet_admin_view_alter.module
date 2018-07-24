@@ -1,0 +1,272 @@
+<?php
+
+function ef_factsheet_admin_view_alter_views_query_alter(&$view, &$query) {
+
+  if(isset($view->name)) {
+    if( $view->name == 'ef_factsheets_view') {
+      if (isset($view->exposed_input['ef_search']) && $view->exposed_input['ef_search'] != '') {
+        $title_filter_value = $view->exposed_input['ef_search'];
+        $title_filter_value_before = $title_filter_value . " %";
+        $title_filter_value_after = "% " . $title_filter_value;
+
+        $or = db_or()
+          ->condition('node.title', $title_filter_value, 'LIKE')
+          ->condition('node.title', $title_filter_value_before, 'LIKE')
+          ->condition('node.title', $title_filter_value_after, 'LIKE');
+        $query->add_where(2,$or);
+      }
+    }
+
+    if( $view->name == 'ef_factsheets_admin_view') {
+      //BOTH SECTOR AND COUNTRY
+      if (isset($view->exposed_input['shs_term_node_tid_depth']) && isset($view->exposed_input['shs_term_node_tid_depth_1'])
+        && ($view->exposed_input['shs_term_node_tid_depth'] != 'All') && ($view->exposed_input['shs_term_node_tid_depth'] != '0')
+        && ($view->exposed_input['shs_term_node_tid_depth_1'] != 'All') && ($view->exposed_input['shs_term_node_tid_depth_1'] != '0')) {
+        $tid_country = $view->exposed_input['shs_term_node_tid_depth'];
+        $tid_sector = $view->exposed_input['shs_term_node_tid_depth_1'];
+        $filter_replace = 'both';
+        foreach ($query->where[1]['conditions'] as $key => $filter) {
+          if (is_object($filter['value'])) {
+            $query->where[1]['conditions'][$key]['value'] = array();
+            $removed_filters[] = $key;
+          }
+        }
+      }
+      //ONLY COUNTRY
+      elseif (isset($view->exposed_input['shs_term_node_tid_depth'])
+        && ($view->exposed_input['shs_term_node_tid_depth'] != 'All') && ($view->exposed_input['shs_term_node_tid_depth'] != '0')) {
+        $filter_replace = 'country';
+        $tid_country = $view->exposed_input['shs_term_node_tid_depth'];
+        foreach ($query->where[1]['conditions'] as $key => $filter) {
+          if (is_object($filter['value'])) {
+            $query->where[1]['conditions'][$key]['value'] = array();
+            $removed_filters = $key;
+          }
+        }
+      }
+      //ONLY SECTOR
+      elseif (isset($view->exposed_input['shs_term_node_tid_depth_1'])
+        && ($view->exposed_input['shs_term_node_tid_depth_1'] != 'All') && ($view->exposed_input['shs_term_node_tid_depth_1'] != '0')) {
+        $filter_replace = 'sector';
+        $tid_sector = $view->exposed_input['shs_term_node_tid_depth_1'];
+        foreach ($query->where[1]['conditions'] as $key => $filter) {
+          if (is_object($filter['value'])) {
+            $query->where[1]['conditions'][$key]['value'] = array();
+            $removed_filters = $key;
+          }
+        }
+      }
+
+      switch ($filter_replace) {
+        case 'both':
+          $query_country = "SELECT tn.entity_id AS entity_id
+                            FROM
+                            field_data_field_ef_nuts tn
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th ON th.tid = tn.field_ef_nuts_tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th1 ON th.parent = th1.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th2 ON th1.parent = th2.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th3 ON th2.parent = th3.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th4 ON th3.parent = th4.tid
+                            WHERE ( ( tn.field_ef_nuts_tid = :tid) OR (th1.tid = :tid) OR (th2.tid = :tid) OR (th3.tid = :tid) OR (th4.tid = :tid)) ";
+          $country_nids_obj = db_query($query_country, array(':tid' => $tid_country))->fetchAll();
+          $size = sizeof($country_nids_obj);
+
+          for($i = 0; $i < $size; $i++) {
+            $country_nids[$i] = $country_nids_obj[$i]->entity_id;
+          }
+
+          $query->where[1]['conditions'][$removed_filters[0]]['value'] = $country_nids;
+
+          $query_sector = "SELECT tn.entity_id AS entity_id
+                          FROM
+                          field_data_field_ef_nace tn
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th ON th.tid = tn.field_ef_nace_tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th1 ON th.parent = th1.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th2 ON th1.parent = th2.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th3 ON th2.parent = th3.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th4 ON th3.parent = th4.tid
+                          WHERE ( ( tn.field_ef_nace_tid = :tid) OR (th1.tid = :tid) OR (th2.tid = :tid) OR (th3.tid = :tid) OR (th4.tid = :tid)) ";
+          $sector_nids_obj = db_query($query_sector, array(':tid' => $tid_sector))->fetchAll();
+          $size = sizeof($sector_nids_obj);
+
+          for($i = 0; $i < $size; $i++) {
+            $sector_nids[$i] = $sector_nids_obj[$i]->entity_id;
+          }
+
+          $query->where[1]['conditions'][$removed_filters[1]]['value'] = $sector_nids;
+
+          break;
+
+        case 'country':
+          $query_country = "SELECT tn.entity_id AS entity_id
+                            FROM
+                            field_data_field_ef_nuts tn
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th ON th.tid = tn.field_ef_nuts_tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th1 ON th.parent = th1.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th2 ON th1.parent = th2.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th3 ON th2.parent = th3.tid
+                            LEFT OUTER JOIN taxonomy_term_hierarchy th4 ON th3.parent = th4.tid
+                            WHERE ( ( tn.field_ef_nuts_tid = :tid) OR (th1.tid = :tid) OR (th2.tid = :tid) OR (th3.tid = :tid) OR (th4.tid = :tid)) ";
+          $country_nids_obj = db_query($query_country, array(':tid' => $tid_country))->fetchAll();
+          $size = sizeof($country_nids_obj);
+
+          for($i = 0; $i < $size; $i++) {
+            $country_nids[$i] = $country_nids_obj[$i]->entity_id;
+          }
+
+          $query->where[1]['conditions'][$removed_filters]['value'] = $country_nids;
+
+          break;
+
+        case 'sector':
+
+          $query_sector = "SELECT tn.entity_id AS entity_id
+                          FROM
+                          field_data_field_ef_nace tn
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th ON th.tid = tn.field_ef_nace_tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th1 ON th.parent = th1.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th2 ON th1.parent = th2.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th3 ON th2.parent = th3.tid
+                          LEFT OUTER JOIN taxonomy_term_hierarchy th4 ON th3.parent = th4.tid
+                          WHERE ( ( tn.field_ef_nace_tid = :tid) OR (th1.tid = :tid) OR (th2.tid = :tid) OR (th3.tid = :tid) OR (th4.tid = :tid)) ";
+          $sector_nids_obj = db_query($query_sector, array(':tid' => $tid_sector))->fetchAll();
+          $size = sizeof($sector_nids_obj);
+
+          for($i = 0; $i < $size; $i++) {
+            $sector_nids[$i] = $sector_nids_obj[$i]->entity_id;
+          }
+
+          $query->where[1]['conditions'][$removed_filters]['value'] = $sector_nids;
+
+          break;
+
+        default:
+          # code...
+          break;
+      }
+
+      if (isset($view->exposed_input['title']) && $view->exposed_input['title'] != '') {
+        $title_filter_value = $view->exposed_input['title'];
+        $title_filter_value_before = $title_filter_value . " %";
+        $title_filter_value_after = "% " . $title_filter_value;
+
+        $or = db_or()
+          ->condition('node_workbench_moderation_node_history.title', $title_filter_value, 'LIKE')
+          ->condition('node_workbench_moderation_node_history.title', $title_filter_value_before, 'LIKE')
+          ->condition('node_workbench_moderation_node_history.title', $title_filter_value_after, 'LIKE');
+        $query->add_where(2,$or);
+      }
+    }
+  }
+}
+
+  /*
+  **
+  Validates introduced dates. Show a message if those are wrong and selectors turn into red
+  */
+  function date_validation($form, &$form_state){
+
+
+
+    //Every group of IFs define a variable
+    //Announcement date
+
+    if( $form_state['input']['field_ef_announcement_date_value']['min']['date'] != ''){
+      // needs conversion in order to create a DateTime object
+      date_default_timezone_set('UTC');
+      $min_format = date('Y-m-d',strtotime($form_state['input']['field_ef_announcement_date_value']['min']['date']));
+
+      try {
+          $min_date = new DateTime($min_format);
+
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    if( $form_state['input']['field_ef_announcement_date_value']['max']['date'] != ''){
+      // needs conversion in order to create a DateTime object
+      $max_format = date('Y-m-d',strtotime($form_state['input']['field_ef_announcement_date_value']['max']['date']));
+
+      try {
+          $max_date = new DateTime($max_format);
+
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    if(isset($min_date) && isset($max_date)){
+      if($min_date > $max_date){
+
+        form_set_error('field_ef_announcement_date_value', t('Dates are wrong. Revise and correct them please.'));
+      }
+    }
+
+    //Created date
+    if( $form_state['input']['created']['min'] != ''){
+      // needs conversion in order to create a DateTime object
+      $min_created_format = date('Y-m-d',strtotime($form_state['input']['created']['min']));
+
+      try {
+          $min_created_date = new DateTime($min_created_format);
+
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    if( $form_state['input']['created']['max'] != ''){
+      // needs conversion in order to create a DateTime object
+      $max_created_format = date('Y-m-d',strtotime($form_state['input']['created']['max']));
+
+      try {
+         $max_created_date = new DateTime($max_created_format);
+
+      } catch (Exception $e) {
+        echo $e->getMessage();
+      }
+    }
+
+    if(isset($min_created_date) && isset($max_created_date)){
+      if($min_created_date > $max_created_date){
+
+          form_set_error('created', t('Dates are wrong. Revise and correct them please.'));
+      }
+    }
+  }
+
+
+  function ef_factsheet_admin_view_alter_form_alter(&$form, &$form_state, $form_id){
+
+    if($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-ef-factsheets-admin-view-factsheets-view-admin')
+    {
+
+      // Factsheets admin view
+      // Announcement date format change
+      /*
+      $form['#attached']['js'] = array(
+        drupal_get_path('module', 'ef_factsheet_admin_view_alter') . '/ef_factsheet_admin_view_alter.js',
+      );
+      */
+
+      $form['#validate'][] = 'date_validation';
+
+
+
+      //$form['field_ef_announcement_date_value']['min']['#type'] = 'date_popup';
+      $form['field_ef_announcement_date_value']['min']['#date_format'] = 'm/d/Y';
+      unset($form['field_ef_announcement_date_value']['min']['#title']);
+
+      //$form['field_ef_announcement_date_value']['max']['#type'] = 'date_popup';
+      $form['field_ef_announcement_date_value']['max']['#date_format'] = 'm/d/Y';
+      unset($form['field_ef_announcement_date_value']['max']['#title']);
+
+
+
+      return $form;
+    }
+  }
+
+
+

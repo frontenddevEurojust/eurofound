@@ -1,0 +1,127 @@
+﻿<pre><style>.error{background:red;margin-left:5px;margin-right:5px}</style><pre><style>.warning{background:orange;margin-left:5px;margin-right:5px}</style><pre><style>.message{background:#6FE302;margin-left:5px;margin-right:5px}</style>processing row: 1Array
+(
+    [Country] => Germany
+    [Sector] => all
+    [Target Groups] => workers/suppliers
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 2Array
+(
+    [Country] => Malta
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 3Array
+(
+    [Country] => Montenegro
+    [Sector] => hotel restaurant and catering
+    [Target Groups] => employers/purchasers, other
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 4Array
+(
+    [Country] => Spain
+    [Sector] => maintenance and cleaning
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => legitimising undeclared work, prevention
+)
+<br/>processing row: 5Array
+(
+    [Country] => France
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => prevention
+)
+<br/>processing row: 6Array
+(
+    [Country] => Netherlands
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 7Array
+(
+    [Country] => Czech republic
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 8Array
+(
+    [Country] => Netherlands
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 9Array
+(
+    [Country] => Luxembourg
+    [Sector] => construction and woodworking
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 10Array
+(
+    [Country] => Greece
+    [Sector] => all
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 11Array
+(
+    [Country] => Poland
+    [Sector] => childcare
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => legitimising undeclared work, prevention
+)
+<br/>processing row: 12Array
+(
+    [Country] => Iceland
+    [Sector] => hotel restaurant and catering
+    [Target Groups] => workers/suppliers
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 13Array
+(
+    [Country] => Romania
+    [Sector] => all
+    [Target Groups] => 
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 14Array
+(
+    [Country] => Slovenia
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => legitimising undeclared work, prevention
+)
+<br/>processing row: 15Array
+(
+    [Country] => Slovakia
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 16Array
+(
+    [Country] => Poland
+    [Sector] => all
+    [Target Groups] => workers/suppliers
+    [Type of Measure] => legitimising undeclared work, prevention
+)
+<br/>processing row: 17Array
+(
+    [Country] => Portugal
+    [Sector] => all
+    [Target Groups] => other
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 18Array
+(
+    [Country] => Portugal
+    [Sector] => all
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => legitimising undeclared work, deterrence
+)
+<br/><br/><br/>----------------------------------------------<br /><strong>ef_case_study</strong><br />  <em></em><br />  <em>17 items found!</em><br />----------------------------------------------<br /><br /><br /><br /><strong>RESULTS</strong><br /><table><tr><th>No.</th><th>Title</th><th>Url</th><th>Old url</th></tr><tr><td>1</td><td>Start-up premium, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/start-up-premium-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/start-up-premium-germany</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de017.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de017.htm</a></td></tr><tr><td>2</td><td>New rules against employing third-country nationals, Malta</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/new-rules-against-employing-third-country-nationals-malta">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/new-rules-against-employing-third-country-nationals-malta</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/mt015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/mt015.htm</a></td></tr><tr><td>3</td><td>Central monitoring system for tourism, Montenegro</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/central-monitoring-system-for-tourism-montenegro">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/central-monitoring-system-for-tourism-montenegro</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/me002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/me002.htm</a></td></tr><tr><td>4</td><td>Regulating the labour relationship of domestic workers, Spain</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulating-the-labour-relationship-of-domestic-workers-spain">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulating-the-labour-relationship-of-domestic-workers-spain</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es017.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es017.htm</a></td></tr><tr><td>5</td><td>Measures to prevent undeclared work by subcontractors, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/measures-to-prevent-undeclared-work-by-subcontractors-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/measures-to-prevent-undeclared-work-by-subcontractors-france</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fr017.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fr017.htm</a></td></tr><tr><td>6</td><td>Registration requirement for temporary agencies, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/registration-requirement-for-temporary-agencies-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/registration-requirement-for-temporary-agencies-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl015.htm</a></td></tr><tr><td>7</td><td>Undeclared work inspections, Czech Republic</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/undeclared-work-inspections-czech-republic">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/undeclared-work-inspections-czech-republic</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz016.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz016.htm</a></td></tr><tr><td>8</td><td>Hotline to report illegal temporary agencies, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/hotline-to-report-illegal-temporary-agencies-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/hotline-to-report-illegal-temporary-agencies-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl016.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl016.htm</a></td></tr><tr><td>9</td><td>Identity card for construction sector, Luxembourg</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/identity-card-for-construction-sector-luxembourg">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/identity-card-for-construction-sector-luxembourg</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lu015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lu015.htm</a></td></tr><tr><td>10</td><td>Electronic labour card, Greece</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/electronic-labour-card-greece">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/electronic-labour-card-greece</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/el015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/el015.htm</a></td></tr><tr><td>11</td><td>Crèches Act to legalise childcare workers, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/crches-act-to-legalise-childcare-workers-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/crches-act-to-legalise-childcare-workers-poland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl016.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl016.htm</a></td></tr><tr><td>12</td><td>Workplace ID cards, Iceland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/workplace-id-cards-iceland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/workplace-id-cards-iceland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/is001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/is001.htm</a></td></tr><tr><td>13</td><td>Trade union study on the informal economy, Romania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/trade-union-study-on-the-informal-economy-romania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/trade-union-study-on-the-informal-economy-romania</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro016.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro016.htm</a></td></tr><tr><td>14</td><td>Mandatory employment contract for undeclared workers, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/mandatory-employment-contract-for-undeclared-workers-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/mandatory-employment-contract-for-undeclared-workers-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/si016.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/si016.htm</a></td></tr><tr><td>15</td><td>Tighter control over undeclared work, Slovakia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tighter-control-over-undeclared-work-slovakia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tighter-control-over-undeclared-work-slovakia</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/sk015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/sk015.htm</a></td></tr><tr><td>16</td><td>Amnesty for illegal migrants, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/amnesty-for-illegal-migrants-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/amnesty-for-illegal-migrants-poland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl015.htm</a></td></tr><tr><td>17</td><td>Training labour inspectors, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/training-labour-inspectors-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/training-labour-inspectors-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt017.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt017.htm</a></td></tr><tr><td>18</td><td>Fiscal Rescue Operation, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/fiscal-rescue-operation-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/fiscal-rescue-operation-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt015.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt015.htm</a></td></tr><tr><td colspan="4">Total: 18 nodes saved!</td></tr></table><br /><br />errors: 0<br /><br />

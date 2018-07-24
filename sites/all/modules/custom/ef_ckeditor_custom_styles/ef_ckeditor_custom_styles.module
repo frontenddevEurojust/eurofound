@@ -1,0 +1,31 @@
+<?php
+
+global $user;
+global $hide;
+
+/**
+ * Return True if  the user is an Author or a Quality Manager.
+ */
+ 
+    $hide = FALSE;
+    $check_array = array('Quality Manager','Author');
+    if((array_intersect($check_array, $user->roles))) {
+    	$hide = TRUE;
+    }
+
+/**
+ * Implements hook_wysiwyg_editor_settings_alter().
+ */
+function ef_ckeditor_custom_styles_wysiwyg_editor_settings_alter(&$settings, $context) {
+
+  // The $context variable contains information about the wysiwyg profile we're using
+  // In this case we just need to check that the editor being used is ckeditor
+  if ($context['profile']->editor == 'ckeditor') {
+  	global $hide;
+	if($hide){
+	 $settings['removeButtons'] = "Source";
+	}
+  	$settings['customConfig'] = base_path() . drupal_get_path('module', 'ef_ckeditor_custom_styles') .'/ckeditor_custom_config.js';
+    $settings['allowedContent'] = TRUE;
+  }
+}

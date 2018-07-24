@@ -1,0 +1,13 @@
+Token name:	Country authors emails
+
+Machine name:	country-authors-emails
+
+Token description:	Token for filling in an array of emails of authors associated with a node's country.
+
+Token type:	Nodes
+
+Content:	
+
+<?php $node = $data['node']; $authorEmails = array(); $latest_node = node_load($node->nid, $node->workbench_moderation['current']->vid); $node_country = $latest_node->field_ef_quarter_report_country['und'][0]['iso2']; $role = user_role_load_by_name('Author'); $query = 'SELECT DISTINCT(ur.uid) FROM {users_roles} AS ur WHERE ur.rid IN (:rids)'; $result = db_query($query, array(':rids' => array($role->rid))); $uids = $result->fetchCol(); $authors = user_load_multiple($uids); foreach($authors as $author) { if(isset($author->field_ef_contracts['und'])) { $userContracts=array(); foreach($author->field_ef_contracts['und'] as $term){ $userContracts[]=taxonomy_term_load($term['tid']); } $userCountries=array(); foreach($userContracts as $contract){ if(isset($contract->field_ef_eu_related_countries['und'])) { $countryIso=$contract->field_ef_eu_related_countries['und'][0]['iso2']; if(!in_array($countryIso, $userCountries)){ $userCountries[] = $countryIso; } } } if(in_array($node_country, $userCountries)){ $authorEmails[] = $author->mail; } } } if(count($authorEmails) > 0) { print implode(",",$authorEmails); } ?>
+
+ Text format:	PHP code

@@ -1,0 +1,5 @@
+name = Invalid Reference
+description = When a node is deleted all references to this node are deleted as well.
+core = 7.x
+package = EF modules
+dependencies[] = workbench

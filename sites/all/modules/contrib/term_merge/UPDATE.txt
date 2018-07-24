@@ -1,0 +1,14 @@
+// ********************************************************
+// CUSTOMIZATIONS
+// ********************************************************
+
+---------------------------
+term_merge.module
+---------------------------
+Avoid node status changes from Published to Draft (issue 3311)
+	* function --> term_merge_action
+	* Changes --> add code before entity_save
+		if ($entity_type == 'node') {
+			$entity->workbench_moderation['updating_live_revision'] = 1;
+		}
+	* Notes --> Changes enclosed by // BILBOMATICA

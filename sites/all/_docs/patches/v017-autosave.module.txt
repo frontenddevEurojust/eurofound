@@ -1,0 +1,5 @@
+patch for autosave validation errors display
+
+https://drupal.org/node/2184625
+https://drupal.org/node/2184625#comment-8521341
+https://drupal.org/files/issues/drop-restore-validation-2184625-5.patch

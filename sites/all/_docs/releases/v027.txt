@@ -1,0 +1,72 @@
+drush sql-query "insert into schema_migrations(code,extra)values('027', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: Run 'drush dl -y custom_pub' if there is another recommended release than 7.x-1.3 - 2013-Jun-10
+:: Download dev version as the recommended release 7.x-1.3 - 2013-Jun-10 has problem with features integration
+drush dl -y custom_pub-7.x-1.x-dev
+drush en -y custom_pub
+
+drush en -y ef_spotlight_summary
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+drush field-delete field_ef_regulation_english_name --bundle=ef_regulation
+drush field-delete field_ef_involvement_other --bundle=ef_regulation
+drush field-delete field_ef_english_name --bundle=ef_support_instrument
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+
+:: if exceptions
+:: goto http://ef.1/admin/structure/custom_pub and delete archived option
+drush cc all
+drush fr-all -y
+::endif exceptions
+
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Regulation Fundings  | import/ef_vocabulary_regulation_fundings_import | sites\all\_docs\feeds\vocabulary_regulation_fundings_2.csv ||
+
+:: Go to admin/structure/taxonomy/ef_publication_types
+:: Edit the term 'Foundation finding' and rename to 'Foundation findings'
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: Go to admin/config/media/browser and in 'Enabled browser plugins'
+:: Uncheck YouTube (Enabled: Upload, Library, My files, Web)
+
+:: Change the vocabulary of Regulation Funding and corresponding nodes.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts regulation-fundings
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/regulation-fundings.php
+
+:: patch for CKeditor.
+:: patches/v027-ckeditor-3.0.js
+
+:: Go to admin/config/user-interface/chosen
+:: In 'Apply Chosen to the following elements' add:
+:: .view-ef-themes-jump-block select, .view-ef-countries-jump-block select
+
+drush vset -y maintenance_mode 0
+drush cc all

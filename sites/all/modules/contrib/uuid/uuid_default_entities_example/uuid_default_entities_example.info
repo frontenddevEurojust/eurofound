@@ -1,0 +1,10 @@
+name = UUID default entities example
+description = Example feature mainly used for testing.
+core = 7.x
+package = Features
+version = 7.x-1.0-alpha5
+project = uuid_default_entities_example
+datestamp = 1373620283
+features[features_api][] = api:2
+mtime = 1413414080
+uuid_entities[] = deploy_example_plan

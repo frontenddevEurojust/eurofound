@@ -1,0 +1,237 @@
+.fieldset-wrapper{
+	float: left;
+    width: 100%;
+}
+
+
+.field-name-field-ef-publ-contributors{
+	width: 49%;
+	float: left;
+  padding: 20px 15px;
+    background: rgba(0, 91, 170, 0.36) url(userList.png) no-repeat 97% 85%;
+	min-height: 17rem;
+}
+.field-name-field-ef-publ-contributors .form-item{
+	margin:0;
+}
+.field-name-field-ef-publ-contributors .form-item label {
+  font-size: 1.3em !important;
+  padding: 0em 0 1em;
+  text-transform: uppercase;
+}
+.field-name-field-ef-publ-contributors .form-item label:before {
+	content: "\f0c0";
+	width: 32px;
+	font-size:24px;
+	display: inline-block;
+	text-align: left;
+	margin-left: 10px;
+	font-family: 'fontawesome';
+	color: #FFF;
+}
+.field-name-field-ef-publ-contributors input{
+	margin-bottom: 0;
+}
+.field-name-field-ef-publ-contributors .chosen-container-multi .chosen-choices{
+	padding: 6px;
+	border: 1px dotted #A0A0A0;
+	border-radius: 4px;
+	-moz-box-shadow: none!important;
+	-webkit-box-shadow: none!important;
+	box-shadow: none!important;
+	height: auto;
+	width: 100%!important;
+}
+
+
+
+
+/*********************************************************/
+
+#edit-add-new-contributor-wrapper{
+	width: 49%;
+	float: right;
+	padding: 20px 15px;
+	background:rgba(247, 147, 30, 0.34)  url(addUser.png) no-repeat 97% 85%;
+	min-height: 17rem;
+	
+}
+#edit-add-new-contributor-wrapper .form-item{
+	margin:0;
+}
+#edit-add-new-contributor-wrapper .form-item label {
+  font-size: 1.3em !important;
+  padding: 0em 0 1em;
+  text-transform: uppercase;
+}
+#edit-add-new-contributor-wrapper .form-item  label:before {
+	content: "\f0c0";
+	width: 32px;
+	font-size: 24px;
+	font-family: 'fontawesome';
+	display: inline-block;
+	text-align: left;
+	margin-left: 10px;
+	color: #FFF;
+}
+#edit-add-new-contributor-wrapper input{
+	margin-bottom: 0;
+}
+#edit-add-new-contributor-wrapper .author-tag{
+  position: relative;
+  display: inline-block;
+	position: relative;
+}
+
+#edit-add-new-contributor-wrapper .author-tag a{
+  display: block;
+  margin: 0px;
+  padding: 8px 22px 8px 10px;
+  border-radius: 4px;
+  text-align: left;
+  position: relative;
+  margin: 3px 0 3px 5px;
+  border: 1px solid #aaa;
+  background-color: #e4e4e4;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));
+  background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+
+}
+#edit-add-new-contributor-wrapper .author-tag a:hover{
+	background: #FFF;
+	color: #222 !important;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+	cursor: pointer;
+	text-decoration:none;
+}
+#edit-add-new-contributor-wrapper .author-tag a:after{
+	content: " ";
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	display: block;
+	width: 22px;
+	height: 10px;
+	background: url(/sites/all/libraries/chosen/chosen-sprite.png) -32px 0px;
+	font-size: 1px;
+	cursor: pointer;
+}
+#edit-add-new-contributor-wrapper button, 
+#edit-add-new-contributor-wrapper .button {
+  display: block;
+  margin: 2rem 0;
+}
+.vertical-tabs {
+	clear: both;
+}
+
+.ajax-process{
+	display: block !important;
+}
+
+/** styles for admin profile **/
+
+
+
+
+.logged-in #edit-field-ef-publ-contributors input#edit-field-ef-publ-contributors-und, 
+.logged-in #edit-add-new-contributor-wrapper input{
+  margin-bottom: 0;
+  border: 1px dotted #A0A0A0;
+  border-radius: 4px;
+  -moz-box-shadow: none!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  padding: 0.75em;
+  height: auto;
+  width: 97% !important;
+}
+
+.form-item input.error{
+  border: 2px solid red !important;
+}
+
+.logged-in #edit-add-new-contributor-wrapper input#edit-save{
+  margin: 1rem 0;
+  border: 0px;
+  border-radius: 0;
+  -moz-box-shadow: none!important;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+  padding: 0.75em;
+  height: auto;
+  background: #0074BD;
+  color: #FFF;
+  width:auto !important;
+}
+.logged-in #edit-add-new-contributor-wrapper input#edit-save:hover{
+  background:#a4c4e0;
+}
+.logged-in .field-name-field-ef-publ-contributors {
+  width: 47%;
+  float: left;
+  padding: 20px 15px;
+  background: rgba(0, 91, 170, 0.36) url(userList.png) no-repeat 97% 85%;
+  min-height: 17rem;
+}
+.logged-in #edit-add-new-contributor-wrapper {
+  width: 47%;
+  float: left;
+  padding: 20px 15px;
+  background: rgba(247, 147, 30, 0.34) url(addUser.png) no-repeat 97% 85%;
+  min-height: 17rem;
+  margin-left: 1%;
+}
+#edit-add-new-contributor-wrapper input{
+  display: block;	
+}
+
+span.success-msg {
+  display: block;
+  padding: 15px;
+  background: #C6F0C1;
+  margin: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+a.success-msg-close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+}
+a.success-msg-close:hover {
+	color: #000;
+}
+span.error-msg {
+  display: block;
+  padding: 15px;
+  color: #FFF !important;
+  background: #ef5872;
+  margin: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+a.msg-error-close {
+  position: absolute;
+  right: 7px;
+  top: 2px;
+  height: 25px;
+  width: 20px;
+  text-align: center;
+  color: #FFF;
+}
+a.msg-error-close:hover {
+	color: #000;
+}

@@ -1,0 +1,26 @@
+# Swedish translation of Workbench Email (7.x-2.2)
+# Copyright (c) 2013 by the Swedish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Workbench Email (7.x-2.2)\n"
+"POT-Creation-Date: 2013-05-29 03:41+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Subject"
+msgstr "Ämne"
+msgid "Message"
+msgstr "Meddelande"
+msgid "Save"
+msgstr "Spara"
+msgid "To"
+msgstr "Till"
+msgid "From"
+msgstr "Från"
+msgid "Your message has been sent."
+msgstr "Ditt meddelande har skickats."

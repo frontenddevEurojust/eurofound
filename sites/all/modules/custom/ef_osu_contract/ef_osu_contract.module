@@ -1,0 +1,351 @@
+<?php
+
+function getRole($uid) {
+  $sql = "SELECT * from users_roles where uid = :uid";
+  $result = db_query($sql, array(':uid' => $uid))->fetchAll();
+  return $result;
+}
+
+function getName($uid) {
+  $sql = "SELECT * from users where uid = :uid";
+  $result = db_query($sql, array(':uid' => $uid))->fetchAll();
+  return $result;
+}
+
+function getContractNumber($nid) {
+  $sql = "SELECT * from field_data_field_ef_contract_number where entity_id = :nid";
+  $result = db_query($sql, array(':nid' => $nid))->fetchAll();
+  return $result;
+}
+
+function getRolesArray($ObjectArray) {
+  foreach ($ObjectArray as $key => $value) {
+    $rolesArray[$key] = $value->rid;
+  }
+  return $rolesArray;
+}
+
+function ef_osu_contract_node_submit($node, $form, &$form_state) {
+  /*  Fill in the Responsible Staff Member field  */
+  global $user;
+
+  $form_types = array(
+    'ef_factsheet_node_form',
+    'ef_report_node_form',
+    'ef_ic_quarterly_report_node_form',
+    'ef_national_contribution_node_form',
+    'ef_network_quarterly_report_node_form',
+    'ef_erm_regulation_node_form',
+    'erm_support_instrument_node_form',
+    'ef_input_to_erm_node_form',
+    'ef_ir_dictionary_node_form'
+  );
+
+  $s2_form_types = array(
+    'ef_report_node_form',
+    'ef_national_contribution_node_form',
+    'ef_comparative_analytical_report',
+    'ef_working_life_country_profiles_node_form'
+  );
+
+
+  // Requested On behavior
+  if (in_array($form['form_id']['#value'], $s2_form_types) && !isset($node->workbench_moderation)) {
+    $node->field_ef_requested_on['und'][0]['value'] = NULL;
+  }
+
+  // New state requested, Requested On must have a value
+  if (isset($node->workbench_moderation)) {
+    if (in_array($form['form_id']['#value'], $s2_form_types) && $node->workbench_moderation_state_new == 'requested'
+        && $node->field_ef_requested_on['und'][0]['value'] == NULL ) {
+      $node->field_ef_requested_on['und'][0]['value'] = time();
+    }
+  }
+}
+
+function ef_osu_contract_form_alter(&$form, $form_state, $form_id, $account) {
+  global $user;
+  
+  if ( ($form['form_id']['#id'] == 'edit-ef-network-quarterly-report-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-ic-quarterly-report-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-input-to-erm-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-report-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-national-contribution-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-factsheet-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-erm-regulation-node-form')
+      || ($form['form_id']['#id'] == 'edit-erm-support-instrument-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-ir-dictionary-node-form')
+      || ($form['form_id']['#id'] == 'edit-ef-working-life-country-profiles-node-form') ) {
+    if(!in_array('OSU', $user->roles)) {
+      $form['field_ef_processed_for_payment']['#type'] = 'hidden';
+    }
+
+    $form['field_ef_afp_auto']['#type'] = 'hidden';
+    $form['field_ef_ordered']['#type'] = 'hidden';
+  }
+
+  if ($form['#id'] == 'views-exposed-form-ef-osu-contract-reporting-page'
+      || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page'
+      || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1' ) {
+
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_osu_contract') . '/ef_osu_contract.js';
+    
+
+    $dk = $form['field_ef_deliverable_kind_tid']['#options'];
+
+    if($form['#id'] == 'views-exposed-form-ef-osu-contract-reporting-page'
+        || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1') {
+
+      //$dk[1]->option[21294] = t('-Annual Progress Report');
+      $dk[3]->option[21149] = t('-Quarterly report - IC'); //
+      $dk[5]->option[21147] = t('-Quarterly report - EurWORK'); //
+      $dk[8]->option[20822] = t('Other research services EF');
+      //$dk[9]->option[13741] = t('Spotlight report'); //
+      //$dk[10]->option[13742] = t('Research in focus - standard'); //
+      //$dk[11]->option[13743] = t('Research in focus - extended'); //
+      $dk[14]->option[13751] = t('Legal instruments database update'); //
+      $dk[16]->option[13750] = t('Public support instruments database update');
+      $dk[18]->option[13753] = t('IR entry');
+      $dk[20]->option[13754 ] = t('ERM quarterly');
+      //$dk[21]->option[13755] = t('ERM annual'); //
+      $dk[23]->option[21150] = t('Other research services NC');
+      //$dk[24]->option[13747] = t('Standard contribution');
+      //$dk[25]->option[13748] = t('Short contribution');
+      //$dk[26]->option[13728 ] = t('Contribution to representative studies');
+      //$dk[27]->option[13729] = t('Working life country profile update');
+      $dk[37]->option[13749] = t('Factsheet');
+    }
+    else if ($form['#id'] == 'views-exposed-form-osu-contract-reporting-page'
+        || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1') {
+
+      $dk[1]->option[21149] = t('Quarterly report - IC'); //
+      $dk[3]->option[21147] = t('Quarterly report - EurWORK'); //
+      $dk[6]->option[20822] = t('Other research services EF');
+      $dk[7]->option[13741] = t('Spotlight report'); //
+      $dk[8]->option[13742] = t('Research in focus - standard'); //
+      $dk[9]->option[13743] = t('Research in focus - extended'); //
+      $dk[12]->option[13751] = t('Legal instruments database update'); //
+      $dk[14]->option[13750] = t('Public support instruments database update');
+      $dk[16]->option[13753] = t('IR entry');
+      $dk[18]->option[13754 ] = t('ERM quarterly');
+      $dk[19]->option[13755] = t('ERM annual'); //
+      $dk[21]->option[21150] = t('Other research services NC');
+      $dk[22]->option[13747] = t('Standard contribution');
+      $dk[23]->option[13748] = t('Short contribution');
+      $dk[24]->option[13728 ] = t('Contribution to representative studies');
+      $dk[25]->option[13729] = t('Working life country profile update');
+      $dk[35]->option[13749] = t('Factsheet');
+    }
+
+    //--------------------- Contract Number Filter -------------------
+      /*------------SOME MINOR UPDATES FOR OSU USERS (POINT 1)--------------------------------------------------------------*/
+      $author_contracts = $form['field_ef_author_contract_tid']['#options'];
+
+
+
+
+      foreach ($author_contracts as $key => $value) {
+        if($key != "All") {
+          $contract_number = getContractNumber($key);
+
+          if((strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-0') !== FALSE) ||
+             (strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-1') !== FALSE) ||
+             (strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-2') !== FALSE) ||
+             (strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-3') !== FALSE) ||
+             (strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-4') !== FALSE) ||
+             (strpos($contract_number[0]->field_ef_contract_number_value, '14-3030-5') !== FALSE)) {
+
+              $contract_display = $contract_number[0]->field_ef_contract_number_value." - ".$value;
+              $form['field_ef_author_contract_tid']['#options'][$key] = t($contract_display);
+          }
+        }
+      }
+
+      asort($form['field_ef_author_contract_tid']['#options']);
+
+       /*------------ END SOME MINOR UPDATES FOR OSU USERS (POINT 2)-----------------------------------------------------------*/
+
+    //---------------------End Contract Number Filter -------------------
+    //---------------------Rervision Count Filter------------------------
+    $active = array(0 => t('Any'), 1 => t('EIRD Article'), 2 => t('EIRD Article Update'));
+
+    $form['ir_entry']['active'] = array(
+      '#type' => 'radios',
+      '#title' => t('IR Entry'),
+      '#default_value' => 0,
+      '#options' => $active,
+      //'#description' => t(' EIRD article -> Revision count = 1 // EIRD article update -> Revision count > 13729'),
+      '#access' => $admin,
+      '#weight' => 0,
+      '#prefix' => '<div id="edit-ir-entry" class="views-exposed-widget view-filter">',
+      '#suffix' => '</div>',
+    );
+
+    $form['created']['#weight'] = 5;
+    $form['submit']['#weight'] = 10;
+
+    //---------------------End Revision Count Filter--------------------*/
+
+    return $form;
+  }
+}
+
+
+function ef_osu_contract_form_views_exposed_form_alter(&$form, $form_state) {
+
+
+  if ($form['#id'] == 'views-exposed-form-ef-osu-contract-reporting-page-1' || $form['#id'] == 'views-exposed-form-osu-contract-reporting-page-1' )  {
+    $form['field_ef_requested_on_value']['min']['#date_format'] = 'd F Y';
+    $form['field_ef_requested_on_value']['max']['#date_format'] = 'd F Y';
+    $form['field_ef_requested_on_value']['min']['#title'] = 'From';
+    $form['field_ef_requested_on_value']['max']['#title'] = 'To';
+  }
+
+  if($form['#id'] == 'views-exposed-form-osu-contract-reporting-views-data-export-1') {
+   /* $start_date = $form_state['view']->exposed_input['field_ef_requested_on_value']['min']['date'];
+    $end_date = $form_state['view']->exposed_input['field_ef_requested_on_value']['max']['date']; */
+    $form['field_ef_requested_on_value']['min']['#date_format'] = 'Y-m-d';
+    $form['field_ef_requested_on_value']['max']['#date_format'] = 'Y-m-d';
+  }
+
+  if ($form['#id'] == 'views-exposed-form-new-osu-contract-reporting-page-1' || $form['#id'] == 'views-exposed-form-new-osu-contract-reporting-views-data-export-1'){
+    
+    //Change the field contract year comp to a Select. 
+    //We Fill the select with the sql table of the years values.
+    $field_id = 'field_ef_contract_year_comp';
+
+      // Only alter forms with the necessary field
+      if (isset($form[$field_id .'_value'])) {    
+        // Build a query to get grouped by values of the field
+        $query = db_select('field_data_' . $field_id, 'fd');
+        $query->addField('fd', $field_id . '_value', 'field');
+        $query->groupBy($field_id . '_value');
+
+        // Execute query
+        try {
+          $result = $query->execute();
+        }
+        catch (Exception $e) {
+          // Error handling: Just a message and no change of the field
+          drupal_set_message(t('SQL Query failed when rewriting field %field from TEXT field to SELECT field.', array('%field' => $field_id)), 'warning');
+          return;
+        }
+
+        // Start with a default so the filter is optional
+        $options = array("" => t('- Any -'));
+
+        // Build the options array based on the grouped field values
+        foreach($result as $row) {
+          if($row->field > 2017){
+            $options[$row->field] = $row->field;
+          }
+        }
+        
+        // Alter the field
+        $form[$field_id .'_value']['#type'] = 'select';
+        $form[$field_id .'_value']['#options'] = $options;
+        $form[$field_id .'_value']['#size'] = 1;
+      }
+
+    
+    if (isset($form['field_ef_author_contract_tid'])) {    
+          $contract_list = array();
+          // Start with a default so the filter is optional
+          $contract_list = array("All" => t('- Any -'));
+          $vid_contract = taxonomy_vocabulary_machine_name_load('ef_contracts')->vid;
+          $con_tree = taxonomy_get_tree($vid_contract);
+
+          foreach ($con_tree as $key => $value) {
+            $tax_term = taxonomy_term_load($value->tid);
+            if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+              $contract_list[$value->tid]=$value->name;  
+            }
+           
+          }
+        
+        // Alter the field
+        $form['field_ef_author_contract_tid']['#type'] = 'select';
+        $form['field_ef_author_contract_tid']['#options'] = $contract_list;
+        $form['field_ef_author_contract_tid']['#size'] = 1;
+        $form['field_ef_author_contract_tid']['#default_value'] = 'All';
+    }
+
+    //Alter Deliverable kind field
+    if (isset($form['field_ef_deliverable_kind_tid'])) {
+          $deliverable_list = array();
+          $vid_deliverable = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds')->vid;
+          $del_tree = taxonomy_get_tree($vid_deliverable);
+
+          foreach ($del_tree as $key => $value) {
+            $tax_term = taxonomy_term_load($value->tid);
+            if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+              $deliverable_list[$value->tid]=$value->name;  
+            }
+           
+          }
+        
+        // Alter the field
+        $form['field_ef_deliverable_kind_tid']['#type'] = 'select';
+        $form['field_ef_deliverable_kind_tid']['#options'] = $deliverable_list;
+        $form['field_ef_deliverable_kind_tid']['#size'] = 1;
+    }
+        
+  }
+}
+
+function ef_osu_contract_views_query_alter(&$view, &$query) {
+  if(isset($view->name)) {
+    if($view->name == 'osu_contract_reporting' || $view->name == 'osu_contracts_reporting') {
+      //-------------------IR ENTRY REVISIONS CONTROL------------------
+      $sql = "SELECT * from field_data_field_ef_deliverable_kind where field_ef_deliverable_kind_tid = 13753";
+      $irdictionaries = db_query($sql)->fetchAll();
+
+      foreach ($irdictionaries as $key => $value) {
+        $node = node_load($value->entity_id);
+        $rev = node_revision_list($node);
+        $size = sizeof($rev);
+
+        if($size > 1) {
+          $nids_update[$key] = $value->entity_id;
+        } else {
+          $nids[$key] = $value->entity_id;
+        }
+      }
+      //-------------------END IR ENTRY REVISIONS CONTROL------------------
+      $query->table_queue['node_revision']['join']->left_field = 'nid';
+      $query->table_queue['node_revision']['join']->field = 'nid';
+
+      $query->table_queue['node_revision']['join']->definition['left_field'] = 'nid';
+      $query->table_queue['node_revision']['join']->definition['field'] = 'nid';
+      //-------------------IR ENTRY REVISIONS QUERY ALTER------------------
+      if($view->exposed_input['active'] == 2) {
+        $sizeCondition = sizeof($query->where[1]['conditions']);
+        $query->where[1]['conditions'][$sizeCondition] = array(
+          'field' => 'node.nid',
+          'value' => $nids_update,
+          'operator' => 'in',
+        );
+      }
+      else if ($view->exposed_input['active'] == 1) {
+        $sizeCondition = sizeof($query->where[1]['conditions']);
+        $query->where[1]['conditions'][$sizeCondition] = array(
+          'field' => 'node.nid',
+          'value' => $nids,
+          'operator' => 'in',
+        );
+      }
+      //-------------------END IR ENTRY REVISIONS QUERY ALTER------------------
+    }
+
+    if ($view->name == 'new_osu_contract_reporting') {
+      $query->table_queue['node_revision']['join']->left_field = 'nid';
+      $query->table_queue['node_revision']['join']->field = 'nid';
+
+      $query->table_queue['node_revision']['join']->definition['left_field'] = 'nid';
+      $query->table_queue['node_revision']['join']->definition['field'] = 'nid';
+    }
+
+  }
+}
+
+

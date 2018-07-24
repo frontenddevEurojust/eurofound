@@ -1,0 +1,1442 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function ef_notifications_menu() {
+  $items = array();
+
+  $items['admin/config/ef_notifications'] = array(
+    'title' => 'EF Notifications',
+    'description' => 'Administer and configure EF Notifications',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/ef_notifications/notification-transitions'] = array(
+    'title' => 'Notification Settings',
+    'description' => 'Configure Notifications by transition',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_notifications_transitions_form'),
+    'access arguments' => array('administer ef notifications'),
+    'file' => 'ef_notifications.admin.inc',
+  );
+  $items['admin/config/ef_notifications/comment-notifications'] = array(
+    'title' => 'Comment notification settings',
+    'description' => 'Configuration of sending methods',
+    'page callback' => 'drupal_get_form',
+    'page arguments' =>  array('ef_notifications_comment_notitication_settings'),
+    'access arguments' => array('administer ef notifications'),
+    'file' => 'ef_notifications.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ef_notifications_permission() {
+  $permissions = array();
+  $permissions['administer ef notifications'] = array(
+    'title' => t('Administer EF Notifications'),
+    'description' => t('Perform administration tasks related to EF Notifications.'),
+  );
+  return $permissions;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function ef_notifications_node_insert($node) {
+  //ef_notifications_save_for_digest($nid, $uid, $from_name, $to_name)
+  $moderated_cts = workbench_moderation_moderate_node_types();
+  $created_ct = $node->type;
+  if (in_array($created_ct, $moderated_cts)) {
+    ef_notifications_save_transition_records($node, $created_ct, 'created');
+  }
+}
+
+/**
+ * Implements hook_field_storage_pre_update().
+ */
+function ef_notifications_field_storage_pre_update($entity_type, $entity) {
+
+  if ($entity_type == 'node') {
+
+    if ($entity->status == 1  && $entity->vid != $entity->workbench_moderation['current']->vid) {
+      $current_revision = FALSE;
+    }
+    else {
+      $current_revision = TRUE;
+    }
+
+    $query_user = db_select('field_revision_field_ef_assign_to_user', 'atu');
+    $query_user->join('workbench_moderation_node_history', 'nh', 'atu.revision_id = nh.vid');
+    $query_user->fields('atu', array('field_ef_assign_to_user_target_id'));
+    $query_user->condition('nh.current', 1);
+    $query_user->condition('atu.entity_id', $entity->nid);
+  
+    $result = $query_user->execute()->fetchAssoc();
+    $previous_user = $result['field_ef_assign_to_user_target_id'];
+    $current_user = $entity->field_ef_assign_to_user['und'][0]['target_id'];
+
+    $query_author = db_select('field_revision_field_ef_assign_to_author', 'ata');
+    $query_author->join('workbench_moderation_node_history', 'nh', 'ata.revision_id = nh.vid');
+    $query_author->fields('ata', array('field_ef_assign_to_author_target_id'));
+    $query_author->condition('nh.current', 1);
+    $query_author->condition('ata.entity_id', $entity->nid);
+  
+    $result = $query_author->execute()->fetchAssoc();
+    $previous_author = $result['field_ef_assign_to_author_target_id'];
+    $current_author = $entity->field_ef_assign_to_author['und'][0]['target_id'];
+
+    if ($previous_user != $current_user && !empty($previous_user)) {
+      $user_assignment_notification = TRUE;
+    }
+
+    if ($previous_author != $current_author && !empty($previous_author)) {
+      $author_assignment_notification = TRUE;
+    }
+
+    $current_author = get_assigned_author_uid_by_mid($current_author);
+
+    if ($current_revision) {
+      if ($user_assignment_notification == TRUE) {
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_user);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_user);
+          $type = 'User assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_user, $type);
+        }
+      }
+      if ($author_assignment_notification) {
+        $duplicated = check_prevent_duplicated_notifications($entity->nid, $current_author);
+        if (!$duplicated) {
+          ef_notifications_assignment_notification($entity, $current_author);
+          $type = 'Author assignment';
+          ef_notifications_save_real_time_db($entity->nid, $current_author, $type);
+        }
+      }
+    }
+  }
+  return;
+}
+
+
+/**
+ * Function to prevent duplicated emails
+ */
+function check_prevent_duplicated_notifications($nid, $uid) {
+  $query = db_select('notifications_db_support', 'ns')
+    ->fields('ns', array('uid', 'nid', 'notification_timestamp'))
+    ->condition('ns.nid', $nid)
+    ->condition('ns.uid', $uid);
+  $result = $query->execute();
+  $db_feedback = $result->fetchAll();
+
+  foreach ($db_feedback as $key => $value) {
+    $last = $value->notification_timestamp;
+  }
+  if (empty($last)) {
+    return FALSE;
+  }
+  else {
+    $curr_ts = time();
+    if ($last >= $curr_ts - 10) {
+      return TRUE;
+    }
+  }
+}
+
+/**
+ * Generates a notification when assigned user changes
+ */
+function ef_notifications_assignment_notification($node, $assigned_notified_user) {
+  $real_time_message = ef_notifications_create_assignment_notification($node, $assigned_notified_user);
+  $assignment = TRUE;
+  $receiver = user_load($assigned_notified_user);
+  $email =  $receiver->mail;
+  foreach ($real_time_message as $uid => $message_body) {
+    $imploded = ef_notifications_implode_message($message_body);
+  }
+  ef_notifications_mail_send($email, $imploded, $receiver->mail, $node->nid, $assignment);
+}
+
+/**
+ * Determines the valid roles for a given moderation task and content type(s).
+ */
+function ef_notifications_determine_valid_roles() {
+  $valid_roles = array();
+  $types = drupal_map_assoc(workbench_moderation_moderate_node_types());
+  $all_types = node_type_get_types();
+  foreach ($types as $type) {
+    $types[$type] = $all_types[$type]->name;
+  }
+
+  $moderation_permissions = _workflow_determine_moderation_permissions();
+  $roles = user_roles();
+  foreach ($roles AS $rid => $role) {
+    // Get a full list of this role's permissions.
+    $actual_permissions_set = array();
+    $actual_permissions_set = user_role_permissions(
+      array_filter(
+        array(
+          $rid => TRUE,
+          DRUPAL_AUTHENTICATED_RID => ($rid != DRUPAL_ANONYMOUS_RID),
+        )
+      )
+    );
+
+    $valid_permissions = array();
+    foreach ($actual_permissions_set AS $role_rid => $actual_permissions) {
+      foreach ($actual_permissions AS $permission => $value) {
+        if (array_key_exists($permission, $moderation_permissions)) {
+          $valid_permissions[] = $permission;
+        }
+      }
+    }
+
+    if ($valid_permissions) {
+      $valid_roles[$rid] = $role;
+    }
+  }
+  return $valid_roles;
+}
+
+
+/**
+ * Retrieves only the moderation permission tasks.
+ */
+function _workflow_determine_moderation_permissions() {
+  // Per-node-type, per-transition permissions.
+  // Used by workbench_moderation_state_allowed().
+  $permissions = array();
+  $node_types = workbench_moderation_moderate_node_types();
+  $transitions = workbench_moderation_transitions();
+
+  foreach ($transitions as $transition) {
+    $from_state = $transition->from_name;
+    $to_state = $transition->to_name;
+
+    // Always set a permission to perform all moderation states.
+    $permissions["moderate content from $from_state to $to_state"] = TRUE;
+
+    // Per-node type permissions are very complex, and should only be used if
+    // absolutely needed. For right now, this is hardcoded to OFF. To enable it,
+    // Add this line to settings.php and then reset permissions.
+    //   $conf['workbench_moderation_per_node_type'] = TRUE;
+    if (variable_get('workbench_moderation_per_node_type', FALSE)) {
+      foreach ($node_types as $node_type) {
+        $permissions["moderate $node_type state from $from_state to $to_state"] = TRUE;
+      }
+    }
+  }
+  return $permissions;
+}
+
+/**
+ * Implements hook_cron()
+ */
+function _ef_notifications_auth() {
+  $email_bodies = ef_notifications_create_notification_body();
+  if (isset($email_bodies)) {
+    foreach ($email_bodies as $email_num => $user_body) {
+      foreach ($user_body as $uid => $message_body) {
+        $receiver = user_load($uid);
+        $email =  $receiver->mail;
+        $imploded = ef_notifications_implode_message($message_body);
+        ef_notifications_mail_send($email, $imploded, $receiver->mail);
+      }
+    }
+  }
+}
+
+function ef_notifications_implode_message($message_body) {
+  $full_body = '';
+  $last_entry = '';
+  $country_header = FALSE;
+  foreach ($message_body as $entry => $body_lines) {
+    if ($entry != $last_entry) {
+      $last_entry = $entry;
+      $country_header = TRUE;
+    }
+    $last_entry = $entry;
+    foreach ($body_lines as $key => $line) {
+      if ($entry == 'salutation') {
+        $full_body .= $line . "\n";
+      }
+      if ($entry != 'salutation' && $entry != 'closing') {
+        if ($country_header == TRUE) {
+          $full_body .= 'Country Group: ' . $entry . "\n";
+          $full_body .= ' ' . "\n";
+          $country_header = FALSE;
+        }
+        $full_body .= $line . "\n";
+      }
+      if ($entry == 'closing') {
+        $full_body .= $line . "\n";
+      }
+    }
+  }
+  return $full_body;
+}
+
+/**
+ * Determines the emails attributes.
+ *
+ * Sets the emails subject / message and sends the email.
+ */
+function ef_notifications_mail_send($email, $email_body_lines, $receiver, $moderated_nid = NULL, $assignment = NULL) {
+  $module = 'ef_notifications';
+  $key = 'workflow_notification';
+
+  if (isset($moderated_nid)) {
+    if ($assignment) {
+      $node = node_load($moderated_nid);
+      $subject_title = $node->title;
+      $real_time_subject = 'Assignment - ' . $subject_title . ' - Eurofound CMS';
+    }
+    else {
+      $node = node_load($moderated_nid);
+      $subject_title = $node->title;
+      $real_time_subject = 'Changes on - ' . $subject_title . ' - Eurofound CMS';
+    }
+  }
+
+  $to = $receiver;
+  $from = variable_get('site_mail', 'admin@example.com');
+  if (isset($real_time_subject)) {
+    $params['subject'] = $real_time_subject;
+  }
+  else {
+    $params['subject'] = 'Changes on Eurofound CMS - ' . date('d F Y', time());
+  }
+  $params['message'] = $email_body_lines;
+  $language = language_default();
+  $send = TRUE;
+
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+
+  return;
+}
+
+/**
+ * Implements hook_mail().
+ */
+function ef_notifications_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'workflow_notification':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+      break;
+    case 'comment_notification':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
+
+/**
+ *
+ */
+function ef_notifications_create_notification_body() {
+  $notifications = ef_notifications_get_for_digest();
+  if (isset($notifications)) {
+    foreach ($notifications as $uid => $notified_nodes) {
+      $message[] = ef_notifications_create_message($uid, $notified_nodes);
+    }
+  }
+  return $message;
+}
+
+/**
+ * Retrieves all notification items generated in a given date
+ */
+function ef_notifications_get_for_digest() {
+  $query = db_select('notification_emails_digest', 'ned')
+    ->fields('ned');
+  $query->orderBy('ned.to_user', 'ASC');
+  $query->orderBy('ned.item_timestamp', 'ASC');
+  $result = $query->execute();
+  foreach ($result as $row) {
+    if ($row->item_timestamp > strtotime("-1 day") && $row->item_timestamp < strtotime("now")) {
+      $notifications[$row->to_user][$row->nid] = $row;
+    }
+  }
+  return $notifications;
+}
+
+/**
+ * Bulk message dynamic generation
+ */
+function ef_notifications_create_message($uid, $transition_nodes) {
+  $message[$uid]['salutation'][] = 'Dear moderator,';
+  $message[$uid]['salutation'][] = '';
+  foreach ($transition_nodes as $nid => $transition) {
+    $node = node_load($nid);
+    $transition_get = $transition->to_name;
+    $varlines = ef_notifications_variable_lines($uid, $node, $transition_get);
+    $node_vips = ef_notifications_retrieve_vips($node);
+    $type_obj = node_type_load($node->type);
+    $node_type = $type_obj->name;
+    $group_obj = group_load($node->group);
+    $node_group = $group_obj->title;
+    $message[$uid][$node_group][] = $varlines['ini'];
+    $message[$uid][$node_group][] = '';
+    if (isset($node->field_ef_observatory['und'][0]['value'])) {
+      $message[$uid][$node_group][] = 'Observatory: ' . $node->field_ef_observatory['und'][0]['value'];
+    }
+    $message[$uid][$node_group][] = 'Type: ' . $node_type;
+    $message[$uid][$node_group][] = 'Title: ' . $node->title;
+    if (isset($node_vips['author'])) {
+      $message[$uid][$node_group][] = 'Correspondent: ' . $node_vips['author'];
+    }
+    if (isset($node_vips['user'])) {
+      $message[$uid][$node_group][] = 'Currently Assigned To: ' . $node_vips['user'];
+    }
+    if (isset($node_vips['responsible'])) {
+      $message[$uid][$node_group][] = 'Responsible Staff Member: ' . $node_vips['responsible'];
+    }
+    $message[$uid][$node_group][] = 'Last change: ' . date('d F Y \a\t H:i:s', $node->changed);
+    $message[$uid][$node_group][] = '';
+    $message[$uid][$node_group][] = $varlines['end'];
+    $message[$uid][$node_group][] = '';
+    $message[$uid][$node_group][] = '';
+  }
+
+  $message[$uid]['closing'][] = 'Regards,';
+  $message[$uid]['closing'][] = 'EF CMS Webmaster';
+
+  return $message;
+}
+
+/**
+ *
+ */
+function ef_notifications_retrieve_vips($node) {
+  if (isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
+    $vip_user = get_user_by_mid($node->field_ef_assign_to_author['und'][0]['target_id']);
+    $vips['author'] = $vip_user->name;
+  }
+  if (isset($node->field_ef_assign_to_user['und'][0]['target_id'])) {
+    $vip_user = user_load($node->field_ef_assign_to_user['und'][0]['target_id']);
+    $vips['user'] =  $vip_user->name;
+  }
+  if (isset($node->field_ef_responsible['und'][0]['target_id'])) {
+    $vip_user = user_load($node->field_ef_responsible['und'][0]['target_id']);
+    $vips['responsible'] =  $vip_user->name;
+  }
+  if (isset($node->uid)) {
+    $vip_user = user_load($node->uid);
+    $vips['node_author'] =  $vip_user->name;
+  }
+  return $vips;
+}
+
+/**
+ *
+ */
+function ef_notifications_variable_lines($uid, $node, $transition_to) {
+  global $base_url;
+  if ((!isset($base_url) || $base_url == 'http://default') && $_SERVER['HTTP_HOST'] == 'www.eurofound.europa.eu') {
+    $base_url = 'https://www.eurofound.europa.eu';
+  }
+  $transition_human = workbench_moderation_state_label($transition_to);
+  $node_vips = ef_notifications_retrieve_vips($node);
+  switch ($transition_to) {
+    case 'proposal':
+      if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
+        $var_line['ini'] = 'This proposal has been assigned to you:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
+      } else {
+        $var_line['ini'] = 'This article is a new proposal:';
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      }
+      break;
+    case 'requested':
+      if ($uid == $node->uid) {
+        $var_line['ini'] = 'The article you proposed has been accepted and assigned to you:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid;
+      } else {
+        $var_line['ini'] = 'The article proposed by ' . $node_vips['node_author'] . ' has been accepted:';
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      }
+      break;
+    case 'submitted':
+      $var_line['ini'] = 'This item needs a review:';
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+    case 'submitted_qr':
+      $var_line['ini'] = 'This item needs a review:';
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+    case 'approved_for_editing':
+      if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
+        $var_line['ini'] = 'This item has been approved_for_editing:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
+      } else {
+        $var_line['ini'] = 'This item has been approved_for_editing:';
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      }
+      break;
+    case 'on_second_editing':
+      if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
+        $var_line['ini'] = 'This item has been assigned to you for second editing:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
+      } else {
+        $var_line['ini'] = 'This item has been assigned for second editing:';
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      }
+      break;
+    case 'on_external_editing':
+      if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
+        $var_line['ini'] = 'This item has been assigned to you for editing:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
+      } else {
+        $var_line['ini'] = 'This item has been assigned for external editing:';
+        $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      }
+      break;
+    case 'ready_for_publishing':
+      //This item is ready for publishing, and has been assigned to you for a final quality review:
+      if ($uid == $node->field_ef_assign_to_user['und'][0]['target_id']) {
+        $var_line['ini'] = 'This item is ready for publishing, and has been assigned to you for a final quality review:';
+        $var_line['end'] = 'You can edit it here: ' . $base_url . '/node/' . $node->nid . '/edit';
+      }
+      break;
+    case 'published':
+      $var_line['ini'] = 'This item has been published:';
+      $var_line['end'] = 'You can view it here: ' .  $base_url . '/node/' . $node->nid;
+      break;
+    case 'approved':
+      $var_line['ini'] = 'This item has been approved:';
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+    //NODE CREATION
+    case 'created':
+      $var_line['ini'] = 'This item has been created:';
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+    case 'assignment':
+      $var_line['ini'] = 'This item has been assigned to you:';
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+    default:
+      $var_line['ini'] = 'This item has been moderated to' . $transition_human;
+      $var_line['end'] = 'You can view it here: ' . $base_url . '/node/' . $node->nid;
+      break;
+  }
+  return $var_line;
+}
+
+/**
+ * This function was originally a hook_workbench_moderation_transition implementation
+ * To improve control of the code and prevent undesirable bugs now it's called from a
+ * function declared in ef_group module
+ */
+function ef_notifications_save_transition_records($node, $previous_state, $new_state) {
+  // If the transition generates a notification...
+  if (ef_notifications_transition_generates_notification($previous_state, $new_state)) {
+    $nid = $node->nid;
+    $notified_users = array();
+    $transitions = ef_notifications_transition_generates_notification($previous_state, $new_state);
+
+    if (isset($node->group)) {
+      $this_gid = $node->group;
+    }
+    else {
+      $this_gid = $node->field_ef_assign_to_country_group['und'][0]['target_id'];
+    }
+
+    // Get users affected by this transition
+    foreach ($transitions as $key => $transition_set) {
+      // IF by role:
+      if ($transition_set->rid != 0) {
+        $user_object = ef_notifications_get_users($transition_set->rid);
+        foreach ($user_object as $key => $value) {
+          $notified_users[] = $key;
+        }
+      }
+      // IF by user task
+      else {
+        switch ($transition_set->rid2) {
+          case 'g':
+            if (isset($this_gid)) {
+              $user_object = ef_notifications_get_group_members($this_gid);
+              foreach ($user_object as $key => $value) {
+                $notified_users[] = $value->uid;
+              }
+            }
+            break;
+          case 'r':
+            if (isset($node->field_ef_responsible['und'][0]['target_id'])) {
+              $notified_users[] = $node->field_ef_responsible['und'][0]['target_id'];
+            }
+            break;
+          case 'u':
+            if (isset($node->field_ef_assign_to_user['und'][0]['target_id'])) {
+              $notified_users[] = $node->field_ef_assign_to_user['und'][0]['target_id'];
+            }
+            break;
+          case 'a':
+            if (isset($node->field_ef_assign_to_author['und'][0]['target_id'])) {
+              $notified_assigned_author = $node->field_ef_assign_to_author['und'][0]['target_id'];
+              $notified_users[] = get_assigned_author_uid_by_mid($notified_assigned_author);
+            }
+            break;
+          case 'l':
+            if (isset($this_gid)) {
+              $notified_users[] = ef_notifications_get_group_country_leader($this_gid);
+            }
+            break;
+        }
+      }
+    }
+    // Save the notification data to the table that stores all notifications for the digest version
+    foreach ($notified_users as $uid) {
+      $noti_user = user_load($uid);
+      if ($noti_user->field_ef_notification_settings['und'][0]['value'] == 1){
+        $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
+        if (!$mail_already_sent) {
+          ef_notifications_real_time($node, $uid, $previous_state, $new_state);
+          $type = 'Transition FROM ' . $previous_state . ' TO ' . $new_state;
+          ef_notifications_save_real_time_db($node->nid, $uid, $type);
+        }
+      }
+      else {
+        ef_notifications_save_for_digest($nid, $uid, $previous_state, $new_state);
+      }
+    }
+  }
+}
+
+/**
+ * Real time message dynamic generation
+ */
+function ef_notifications_real_time($node, $uid, $previous_state, $new_state) {
+  $real_time_message = ef_notifications_create_real_time_message($node, $uid, $new_state);
+  $receiver = user_load($uid);
+  $email =  $receiver->mail;
+  foreach ($real_time_message as $uid => $message_body) {
+    $imploded = ef_notifications_implode_message($message_body);
+  }
+  $mail_already_sent = check_prevent_duplicated_notifications($node->nid, $uid);
+  ef_notifications_mail_send($email, $imploded, $receiver->mail, $node->nid);
+}
+
+
+
+/**
+ * Real time message dynamic generation
+ */
+function ef_notifications_create_assignment_notification($node, $uid) {
+  // Retrieve content type
+  $type_obj = node_type_load($node->type);
+  $node_type = $type_obj->name;
+
+  // Retrieve node's country group
+  $group_obj = group_load($node->group);
+  $node_group = $group_obj->title;
+
+  // Generate variable lines
+  $varlines = ef_notifications_variable_lines($uid, $node, 'assignment');
+  $node_vips = ef_notifications_retrieve_vips($node);
+
+  $message[$uid]['salutation'][] = 'Dear moderator,';
+  $message[$uid]['salutation'][] = '';
+  $message[$uid][$node_group][] = $varlines['ini'];
+  $message[$uid][$node_group][] = '';
+  if (isset($node->field_ef_observatory['und'][0]['value'])) {
+    $message[$uid][$node_group][] = 'Observatory: ' . $node->field_ef_observatory['und'][0]['value'];
+  }
+  $message[$uid][$node_group][] = 'Type: ' . $node_type;
+  $message[$uid][$node_group][] = 'Title: ' . $node->title;
+  if (isset($node_vips['author'])) {
+    $message[$uid][$node_group][] = 'Correspondent: ' . $node_vips['author'];
+  }
+  if (isset($node_vips['user'])) {
+    $message[$uid][$node_group][] = 'Currently Assigned To: ' . $node_vips['user'];
+  }
+  if (isset($node_vips['responsible'])) {
+    $message[$uid][$node_group][] = 'Responsible Staff Member: ' . $node_vips['responsible'];
+  }
+  $message[$uid][$node_group][] = 'Last change: ' . date('d F Y \a\t H:i:s', $node->changed);
+  $message[$uid][$node_group][] = '';
+  $message[$uid][$node_group][] = $varlines['end'];
+  $message[$uid][$node_group][] = '';
+  $message[$uid][$node_group][] = '';
+
+  $message[$uid]['closing'][] = 'Regards,';
+  $message[$uid]['closing'][] = 'EF CMS Webmaster';
+  return $message;
+}
+
+
+
+/**
+ * Real time message dynamic generation
+ */
+function ef_notifications_create_real_time_message($node, $uid, $transition_new_state) {
+  // Retrieve content type
+  $type_obj = node_type_load($node->type);
+  $node_type = $type_obj->name;
+
+  // Retrieve node's country group
+  $group_obj = group_load($node->group);
+  $node_group = $group_obj->title;
+
+  // Generate variable lines
+  $varlines = ef_notifications_variable_lines($uid, $node, $transition_new_state);
+  $node_vips = ef_notifications_retrieve_vips($node);
+
+  $message[$uid]['salutation'][] = 'Dear moderator,';
+  $message[$uid]['salutation'][] = '';
+  $message[$uid][$node_group][] = $varlines['ini'];
+  $message[$uid][$node_group][] = '';
+  if (isset($node->field_ef_observatory['und'][0]['value'])) {
+    $message[$uid][$node_group][] = 'Observatory: ' . $node->field_ef_observatory['und'][0]['value'];
+  }
+  $message[$uid][$node_group][] = 'Type: ' . $node_type;
+  $message[$uid][$node_group][] = 'Title: ' . $node->title;
+  if (isset($node_vips['author'])) {
+    $message[$uid][$node_group][] = 'Correspondent: ' . $node_vips['author'];
+  }
+  if (isset($node_vips['user'])) {
+    $message[$uid][$node_group][] = 'Currently Assigned To: ' . $node_vips['user'];
+  }
+  if (isset($node_vips['responsible'])) {
+    $message[$uid][$node_group][] = 'Responsible Staff Member: ' . $node_vips['responsible'];
+  }
+  $message[$uid][$node_group][] = 'Last change: ' . date('d F Y \a\t H:i:s', $node->changed);
+  $message[$uid][$node_group][] = '';
+  $message[$uid][$node_group][] = $varlines['end'];
+  $message[$uid][$node_group][] = '';
+  $message[$uid][$node_group][] = '';
+
+  $message[$uid]['closing'][] = 'Regards,';
+  $message[$uid]['closing'][] = 'EF CMS Webmaster';
+
+  return $message;
+}
+
+/**
+ * Retrieves a username to be notified
+ */
+function notified_user_load($iduser) {
+  $users = ef_notifications_determine_valid_users();
+  foreach ($users as $user_type => $name) {
+    if ($user_type == $iduser) {
+      return $name;
+    }
+  }
+  return $iduser;
+}
+
+/**
+ * Determines the valid roles for a given moderation task and content type(s).
+ */
+function ef_notifications_determine_valid_users() {
+  //group, responsible staff member, assigned user, assigned author, country leader
+  $valid_users['g'] = 'Country Group';
+  $valid_users['r'] = 'Responsible Staff Member';
+  $valid_users['u'] = 'Assigned User';
+  $valid_users['a'] = 'Assigned Author';
+  $valid_users['l'] = 'Country Leader';
+  return $valid_users;
+}
+
+/**
+ * Returns true if the transition done generates a notification
+ */
+function ef_notifications_transition_generates_notification($from_state, $to_state) {
+  $notification_transitions = ef_notifications_get();
+  $transitions_gen_notifications = array();
+  foreach ($notification_transitions as $rid => $transition_set) {
+    foreach ($transition_set as $key => $transition_data) {
+      if ($transition_data->from_name == $from_state && $transition_data->to_name == $to_state) {
+        $transitions_gen_notifications[] = $transition_data;
+      }
+    }
+  }
+  if (empty($transitions_gen_notifications)) {
+    return FALSE;
+  }
+  else{
+    return $transitions_gen_notifications;
+  }
+}
+
+
+// --- QUERY SECTION ---
+/*
+ * Functions to retrieve data from the database
+ */
+
+/**
+ * Returns user array if they have a certain role.
+ */
+function ef_notifications_get_users($rid) {
+  $uids = array();
+  $query = db_select('users_roles', 'ur')
+    ->fields('ur', array('uid'))
+    ->condition('ur.rid', $rid);
+  $query->distinct();
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $uids[] = $row->uid;
+  }
+  $users = array();
+  $users = user_load_multiple($uids);
+  return $users;
+}
+
+/**
+ * Returns array of users (obj) if they belong to a group.
+ */
+function ef_notifications_get_group_members($gid) {
+  $uids = array();
+  $query = db_select('group_membership', 'gm')
+    ->fields('gm', array('uid'))
+    ->condition('gm.gid', $gid);
+  $query->distinct();
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $uids[] = $row->uid;
+  }
+  $users = array();
+  $users = user_load_multiple($uids);
+  return $users;
+}
+
+/**
+ * Returns the country leader of a given group
+ */
+function ef_notifications_get_group_country_leader($gid) {
+  $uids = array();
+  $query = db_select('group_membership', 'gm');
+  $query->join('group_membership_role', 'gmr', 'gm.mid = gmr.mid');
+  $query->fields('gm', array('uid'));
+  $query->condition('gmr.role', '%group_lead%', 'LIKE');
+  $query->condition('gm.gid', $gid);
+  $result = $query->execute();
+  $uid_arr = $result->fetchAssoc();
+  return $uid_arr['uid'];
+}
+
+/**
+ * Determines the email attributes to retrieve for notifications by role.
+ */
+function ef_notifications_get_by_role($transition = NULL, $rid = NULL) {
+  $emails = array();
+  $query = db_select('notifications_emails', 'ne')
+    ->fields('ne', array('rid', 'from_name', 'to_name', 'subject', 'message'));
+  if ($transition) {
+    $query->condition('ne.from_name', $transition->from_name);
+    $query->condition('ne.to_name', $transition->to_name);
+  }
+  if ($rid) {
+    $query->condition('ne.rid', $rid);
+  }
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $emails[$row->from_name . '_to_' . $row->to_name][$row->rid] = $row;
+  }
+  return $emails;
+}
+
+/**
+ * Determines the email attributes to retrieve for notifications by user.
+ */
+function ef_notifications_get_by_users($transition = NULL, $rid2 = NULL) {
+  $emails = array();
+  $query = db_select('notifications_emails', 'ne')
+    ->fields('ne', array('rid', 'from_name', 'to_name', 'subject', 'message'));
+  if ($transition) {
+    $query->condition('ne.from_name', $transition->from_name);
+    $query->condition('ne.to_name', $transition->to_name);
+  }
+  if ($rid2) {
+    $query->condition('ne.rid2', $rid2);
+  }
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $emails[$row->from_name . '_to_' . $row->to_name][$row->rid2] = $row;
+  }
+  return $emails;
+}
+
+/**
+ * Determines the email attributes to retrieve for notifications by user.
+ */
+function ef_notifications_get_by_ct($type, $rid = NULL, $rid2 =NULL) {
+  $emails = array();
+  $query = db_select('notifications_emails', 'ne')
+    ->fields('ne', array('rid', 'from_name', 'to_name', 'subject', 'message'));
+  if ($type) {
+    $query->condition('ne.from_name', $type);
+    $query->condition('ne.to_name', 'created');
+  }
+  if ($rid) {
+    $query->condition('ne.rid', $rid);
+  }
+  if ($rid2) {
+    $query->condition('ne.rid2', $rid2);
+  }
+  $result = $query->execute();
+  if ($rid) {
+    foreach ($result as $row) {
+      $emails[$type . '_created'][$row->rid] = $row;
+    }
+  }
+  if ($rid2) {
+    foreach ($result as $row) {
+      $emails[$type . '_created'][$row->rid2] = $row;
+    }
+  }
+  return $emails;
+}
+
+
+/**
+ * Determines the email attributes to retrieve for notifications.
+ */
+function ef_notifications_get($transition = NULL, $rid = NULL) {
+  $emails = array();
+  $query = db_select('notifications_emails', 'ne')
+    ->fields('ne', array('rid', 'rid2', 'from_name', 'to_name', 'subject', 'message'));
+  if ($transition) {
+    $query->condition('ne.from_name', $transition->from_name);
+    $query->condition('ne.to_name', $transition->to_name);
+  }
+  $result = $query->execute();
+  foreach ($result as $row) {
+    if ($row->rid == 0) {
+      $emails[$row->from_name . '_to_' . $row->to_name][$row->rid2] = $row;
+    } else {
+      $emails[$row->from_name . '_to_' . $row->to_name][$row->rid] = $row;
+    }
+  }
+  return $emails;
+}
+
+
+// --- DB SECTION ---
+/*
+ * Functions to update the EF Notifications tables
+ */
+
+/**
+ * Saves the email into the table.
+ */
+function ef_notifications_save_by_role($transition, $rid, $subject = NULL, $message = NULL) {
+  if (isset($rid)) {
+    $query = db_merge('notifications_emails');
+    $query->key(
+      array(
+        'from_name' => $transition->from_name,
+        'to_name' => $transition->to_name,
+        'rid' => $rid
+      )
+    );
+
+    $query->fields(
+      array(
+        'from_name' => $transition->from_name,
+        'to_name' => $transition->to_name,
+        'rid' => $rid
+      )
+    );
+
+    if ($subject) {
+      $query->fields(array('subject' => $subject));
+    }
+
+    if ($message) {
+      $query->fields(array('message' => $message));
+    }
+
+    $query->execute();
+  }
+}
+
+function ef_notifications_save_by_users($transition, $rid2, $subject = NULL, $message = NULL) {
+  if (isset($rid2)) {
+    $query = db_merge('notifications_emails');
+    $query->key(
+      array(
+        'from_name' => $transition->from_name,
+        'to_name' => $transition->to_name,
+        'rid2' => $rid2
+      )
+    );
+
+    $query->fields(
+      array(
+        'from_name' => $transition->from_name,
+        'to_name' => $transition->to_name,
+        'rid2' => $rid2
+      )
+    );
+
+    if ($subject) {
+      $query->fields(array('subject' => $subject));
+    }
+
+    if ($message) {
+      $query->fields(array('message' => $message));
+    }
+
+    $query->execute();
+  }
+}
+
+function ef_notifications_save_by_ct($type, $rid = NULL, $rid2 = NULL, $subject = NULL, $message = NULL) {
+  if (isset($rid)) {
+    $query = db_merge('notifications_emails');
+    $query->key(
+      array(
+        'from_name' => $type,
+        'to_name' => 'created',
+        'rid' => $rid
+      )
+    );
+
+    $query->fields(
+      array(
+        'from_name' => $type,
+        'to_name' => 'created',
+        'rid' => $rid
+      )
+    );
+
+    if ($subject) {
+      $query->fields(array('subject' => $subject));
+    }
+
+    if ($message) {
+      $query->fields(array('message' => $message));
+    }
+
+    $query->execute();
+  }
+  if (isset($rid2)) {
+    $query = db_merge('notifications_emails');
+    $query->key(
+      array(
+        'from_name' => $type,
+        'to_name' => 'created',
+        'rid2' => $rid2
+      )
+    );
+
+    $query->fields(
+      array(
+        'from_name' => $type,
+        'to_name' => 'created',
+        'rid2' => $rid2
+      )
+    );
+
+    if ($subject) {
+      $query->fields(array('subject' => $subject));
+    }
+
+    if ($message) {
+      $query->fields(array('message' => $message));
+    }
+
+    $query->execute();
+  }
+}
+
+function ef_notifications_save_for_digest($nid, $uid, $from_name, $to_name) {
+  if (isset($nid) && !empty($uid) && isset($from_name) && isset($to_name)) {
+    $current_date = time();
+    $query = db_insert('notification_emails_digest');
+    $query->fields(
+      array(
+        'from_name' => $from_name,
+        'to_name' => $to_name,
+        'to_user' => $uid,
+        'nid' => $nid,
+        'item_timestamp' => $current_date
+      )
+    );
+
+    $query->execute();
+  }
+}
+
+function ef_notifications_save_real_time_db($nid, $uid, $type) {
+  if (isset($nid) && !empty($uid) && isset($type)) {
+    $current_date = time();
+    $query = db_insert('notifications_db_support');
+    $query->fields(
+      array(
+        'uid' => $uid,
+        'nid' => $nid,
+        'type' => $type,
+        'notification_timestamp' => $current_date
+      )
+    );
+
+    $query->execute();
+  }
+}
+
+
+/**
+ * Deletes the email from the table.
+ */
+function ef_notifications_delete_by_role($transition, $rid) {
+  if (isset($rid)){
+    db_delete('notifications_emails')
+      ->condition('from_name', $transition->from_name)
+      ->condition('to_name', $transition->to_name)
+      ->condition('rid', $rid)
+      ->execute();
+  }
+}
+
+/**
+ * Deletes the email from the table.
+ */
+function ef_notifications_delete_by_users($transition, $rid2) {
+  if (isset($rid2)){
+    db_delete('notifications_emails')
+      ->condition('from_name', $transition->from_name)
+      ->condition('to_name', $transition->to_name)
+      ->condition('rid2', $rid2)
+      ->execute();
+  }
+}
+
+function ef_notifications_delete_by_ct($type, $rid = NULL, $rid2 = NULL) {
+  if (isset($rid)){
+    db_delete('notifications_emails')
+      ->condition('from_name', $type)
+      ->condition('to_name', 'created')
+      ->condition('rid', $rid)
+      ->execute();
+  }
+  if (isset($rid2)){
+    db_delete('notifications_emails')
+      ->condition('from_name', $type)
+      ->condition('to_name', 'created')
+      ->condition('rid2', $rid2)
+      ->execute();
+  }
+}
+
+/**
+ * Deletes all emails from the table
+ */
+function ef_notifications_delete_all() {
+  db_delete('notifications_emails')->execute();
+}
+
+
+// --- THEME ---
+
+/**
+ * Implements hook_theme().
+ */
+function ef_notifications_theme() {
+  return array(
+    'ef_notifications_transitions_form' => array(
+      'file' => 'ef_notifications.admin.inc',
+      'render element' => 'form',
+    ),
+  );
+}
+
+function get_assigned_author_uid_by_mid($mid){
+
+  $sql = db_select('group_membership', 'gm');
+  $sql->fields('gm', array('uid'));
+  $sql->condition('gm.mid', $mid, '=');
+
+  $result = $sql->execute()->fetchAll();
+
+  foreach ($result as $key => $value) {
+    $uid = $value->uid;
+  }
+
+  return $uid;
+}
+
+//**********************************COMMENTS***************************************
+
+/*
+
+$comment->nid ---- ID del contenido donde se ha añadido el comment
+$comment->pid ---- ID del comentario parent al suscrito
+$comment->cid ---- ID del comentario
+$comment->uid ---- ID del user (empty para usuarios anónimos)
+$comment->name ---- Nombre del comentarista
+$comment->mail ---- Direccion mail del comentarista (empty para logueados)
+$comment->subject ---- Asunto del comentario
+$comment->comment_body['und'][0]['value'] ---- Texto del comentario añadido
+$comment->status ---- Estado del comentario, publicado o no
+$comment->is_anonymous ---- Si el comentario es anónimo o de un logged in user (empty para logueados)
+$comment->created ---- Fecha de creación del comentario
+$comment->changed ---- Fecha de modificación del comentario
+$comment->thread ---- Hilo del comentario 00/ para el primer comentario, 01/ para el segundo, si hay una respuesta por ejemplo al segundo sería      01.00/ y una segunda respuesta 01.01/.
+
+*/
+
+/**
+ * Implements hook_comment_insert
+ */
+function ef_notifications_comment_insert($comment) {
+  if (variable_get('comment_notifications_active') == 0) {
+    return FALSE;
+  }
+  $types = variable_get('comment_notifications_active_types');
+
+  if ($comment->pid != 0) {
+    $parent_comment = comment_load($comment->pid);
+  }
+  $current_hook = 'insert';
+  $active_types = _ef_notifications_determine_active_types($types, $current_hook);
+
+  foreach ($active_types as $active_notification) {
+    _ef_notifications_comment_notitications_generate($comment, $parent_comment, $active_notification);
+  }
+}
+
+/**
+ * Implements hook_comment_publish
+ */
+function ef_notifications_comment_publish($comment) {
+  if (variable_get('comment_notifications_active') == 0) {
+    return FALSE;
+  }
+  $types = variable_get('comment_notifications_active_types');
+
+  $current_hook = 'publish';
+  $active_types = _ef_notifications_determine_active_types($types, $current_hook);
+
+  foreach ($active_types as $active_notification) {
+    _ef_notifications_comment_notitications_generate($comment, $parent_comment, $active_notification);
+  }
+}
+
+function ef_notifications_comment_notitications_send($to, $params) {
+  $module = 'ef_notifications';
+  $key = 'comment_notification';
+
+  $from = variable_get('site_mail');
+
+  $send = TRUE;
+
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+}
+
+function _ef_notifications_determine_active_types($types, $current_hook) {
+  foreach ($types as $key => $type) {
+    if ($current_hook == 'insert' && !is_int(strpos($key, 'approval'))) {
+      $type == 1 ? $active_keys[] = $key : $type = 0;
+    }
+    elseif ($current_hook == 'publish' && is_int(strpos($key, 'approval'))) {
+      $type == 1 ? $active_keys[] = $key : $type = 0;
+    }
+  }
+  return $active_keys;
+}
+
+function _ef_notifications_comment_notitications_generate($comment, $pcomment = 0, $key) {
+  $all_email_elements = variable_get('comment_notifications_mail_elements');
+  $email_elements = $all_email_elements[$key];
+
+  $is_reply = is_object($pcomment);
+
+  $email['subject'] = t(token_replace($email_elements['subject'], array('comment' => $comment)));
+  $email['message'] = t(token_replace($email_elements['body'], array('comment' => $comment)));
+
+  $email['subject'] = strip_tags($email['subject']);
+  $email['message'] = strip_tags($email['message']);
+
+  switch ($key) {
+    case 'new_author':
+      if (empty($comment->uid)) {
+        $mail_to = $comment->mail;
+      }
+      else {
+        $user = user_load($comment->uid);
+        $mail_to = $user->mail;
+      }
+      if (!$is_reply) {
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'new_administrator':
+      $mail_to = variable_get('comment_notifications_account');
+      if (!$is_reply) {
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'reply_author':
+      if (empty($pcomment->uid)) {
+        $mail_to = $pcomment->mail;
+      }
+      else {
+        $user = user_load($pcomment->uid);
+        $mail_to = $user->mail;
+      }
+      if ($is_reply) {
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'reply_replier':
+      if (empty($comment->uid)) {
+        $mail_to = $comment->mail;
+      }
+      else {
+        $user = user_load($comment->uid);
+        $mail_to = $user->mail;
+      }
+      if ($is_reply) {
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'reply_administrator':
+      $mail_to = variable_get('comment_notifications_account');
+      if ($is_reply) {
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'approval_author':
+      if (empty($comment->uid)) {
+        $mail_to = $comment->mail;
+        ef_notifications_comment_notitications_send($mail_to, $email);
+      }
+      break;
+
+    case 'approval_administrator':
+      $mail_to = variable_get('comment_notifications_account');
+      ef_notifications_comment_notitications_send($mail_to, $email);
+      break;
+
+    default:
+      drupal_set_message("No message defined for this option");
+      break;
+  }
+}
+
+function _ef_notification_initialise_drupal_vars() {
+  $active_types['new_author'] = 1;
+  $active_types['new_administrator'] = 1;
+
+  $mail_elements['new_author']['subject'] = 'Thank you for your feedback';
+  $mail_elements['new_author']['body'] = 'Dear [comment:name],
+
+On the web page [comment:node:url], you have added the following comment:
+
+[comment:comment-body:value]
+
+Thank you for this feedback, which will help us to improve. We read all feedback carefully and will contact you if your comment requires an answer.
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+  $mail_elements['new_administrator']['subject'] = 'New comment received';
+  $mail_elements['new_administrator']['body'] = 'Dear Administrator,
+
+A comment has been submitted on [comment:node:url]
+
+[comment:comment-body:value]
+
+Submitted by [comment:name]  - [comment:mail]
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+
+  $active_types['reply_author'] = 1;
+  $active_types['reply_replier'] = 1;
+  $active_types['reply_administrator'] = 1;
+
+  $mail_elements['reply_author']['subject'] = '[comment:name] has replied to your comment on [comment:node:url]';
+  $mail_elements['reply_author']['body'] = 'Dear [comment:parent:name],
+
+On the web page [comment:url] you commented:
+
+[comment:parent:comment-body:value]
+
+Your comment has just been replied to by [comment:name] who added this:
+
+[comment:comment-body:value]
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+  $mail_elements['reply_replier']['subject'] = 'Thank you for your feedback';
+  $mail_elements['reply_replier']['body'] = 'Dear [comment:name],
+
+On the web page [comment:node:url], you have added the following reply:
+
+[comment:comment-body:value]
+
+replying to this previous comment by [comment:parent:name]:
+
+[comment:parent:comment-body:value]
+
+Thank you for this feedback. We read all feedback carefully and will contact you if your comment requires an answer.
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+  $mail_elements['reply_administrator']['subject'] = 'New comment received';
+  $mail_elements['reply_administrator']['body'] = 'Dear Administrator,
+
+A reply to a comment has been submitted on [comment:node:url]
+
+[comment:comment-body:value]
+
+Submitted by [comment:name]  - [comment:mail]
+
+replying to this previous comment by [comment:parent:name]:
+
+[comment:parent:comment-body:value]
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+
+  $active_types['approval_author'] = 1;
+  $active_types['approval_administrator'] = 0;
+
+  $mail_elements['approval_author']['subject'] = 'Your comment on [comment:node:url] has been published';
+  $mail_elements['approval_author']['body'] = 'Dear [comment:name],
+
+On the web page [comment:node:url], you have added the following comment:
+
+[comment:comment-body:value]
+
+This comment has been published.
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+  $mail_elements['approval_administrator']['subject'] = 'New comment has been published';
+  $mail_elements['approval_administrator']['body'] = 'Dear Administrator,
+
+On the web page [comment:node:url], a comment has been published:
+
+[comment:comment-body:value]
+
+Eurofound web team
+
+This is an automated email. Please do not reply.';
+
+  variable_set('comment_notifications_mail_elements', $mail_elements);
+  variable_set('comment_notifications_active_types', $active_types);
+}

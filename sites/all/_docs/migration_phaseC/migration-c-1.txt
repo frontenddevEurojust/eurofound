@@ -1,0 +1,492 @@
+Script started on Wed 22 Oct 2014 14:53:53 CEST
+sh-4.2$ bash
+groups: cannot find name for group ID 1000
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ wget "http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del
+> sdsa[K[K[K[K"
+--2014-10-22 14:54:39--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del%0A
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 27374 (27K) [text/html]
+Saving to: `national-basic-pages.php?action=del%0A'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 27,374      --.-K/s   in 0s      
+
+2014-10-22 14:54:41 (185 MB/s) - `national-basic-pages.php?action=del%0A' saved [27374/27374]
+
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ wget "http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del
+"[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kwget "http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del" 
+--2014-10-22 14:55:11--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/national-basic-pages.php?action=del
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 242 [text/html]
+Saving to: `national-basic-pages.php?action=del'
+
+ 0% [                                                                                                                                                                                                    ] 0           --.-K/s              100%[===================================================================================================================================================================================================>] 242         --.-K/s   in 0s      
+
+2014-10-22 14:55:11 (57.4 MB/s) - `national-basic-pages.php?action=del' saved [242/242]
+
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where migrated=0 and node_id=0 and type_id=112"
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+count(node_id)
+0
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where migrated=0 and node_id=0 and type_id=112"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1Ptype_id=112"[1@![C[C[C[C[C[C[C[C[C[C[C[C[C[C
+bash: !0: event not found
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where migrated=0 and node_id=0 and type_id=112"[C[C[C[1@![C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+bash: !0: event not found
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where migrated=0 and node_id=0 and type_id=112"[C[C[C[C[C[1P[1@<[1@>[1@~[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+count(node_id)
+0
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where migrated<>0 and node_id=0 and type_id=112"[C[1P type_id=112"[1P type_id=112"[1P type_id=112"[1Ptype_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1Ptype_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1Ptype_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1P type_id=112"[1Ptype_id=112"[C[C[C[C[C[C[C[C[C[C[C[C[C
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+count(node_id)
+0
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select count(node_id) from efpages where type_id=112"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"[1P"s"e"l"e"c"t" "p"a"g"e"_"i"d" "f"r"o"m" "e"f"p"a"g"e"s" "w"h"e"r"e" "t"y"p"e"_"i"d"="1"1"2"
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+page_id
+22962
+22963
+22964
+22965
+22966
+22967
+22968
+22969
+22970
+22971
+22972
+22973
+22974
+22975
+22976
+22977
+22978
+22979
+22980
+22981
+22982
+22983
+22984
+22985
+22986
+22987
+22988
+22989
+22990
+22991
+22992
+22993
+22994
+22995
+22996
+22997
+22998
+22999
+23000
+23001
+23002
+23003
+23004
+23005
+23006
+23007
+23008
+23009
+23010
+23011
+23012
+23013
+23014
+23015
+23016
+23017
+23018
+23019
+23020
+23021
+23022
+23023
+23024
+23025
+23026
+23027
+23028
+23029
+23030
+23031
+23032
+23033
+23034
+23035
+23036
+23037
+23038
+23039
+23040
+23041
+23042
+23043
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select node_id from efpages where type_id=112"
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+node_id
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ select drush sql-query "select node_id from efpages where type_id=112"pag[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+page_id
+22962
+22963
+22964
+22965
+22966
+22967
+22968
+22969
+22970
+22971
+22972
+22973
+22974
+22975
+22976
+22977
+22978
+22979
+22980
+22981
+22982
+22983
+22984
+22985
+22986
+22987
+22988
+22989
+22990
+22991
+22992
+22993
+22994
+22995
+22996
+22997
+22998
+22999
+23000
+23001
+23002
+23003
+23004
+23005
+23006
+23007
+23008
+23009
+23010
+23011
+23012
+23013
+23014
+23015
+23016
+23017
+23018
+23019
+23020
+23021
+23022
+23023
+23024
+23025
+23026
+23027
+23028
+23029
+23030
+23031
+23032
+23033
+23034
+23035
+23036
+23037
+23038
+23039
+23040
+23041
+23042
+23043
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select page_id from efpages where type_id=112"[C[C[C[1P[1P[1P[1P[1@n[1@o[1@d[1@e[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+node_id
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select * from efpages where page_id=22962"
+The following restricted PHP modes have non-empty values:            [31;40m[1m[error][0m
+disable_functions. This configuration is incompatible with drush. 
+Please check your configuration settings in /etc/php5/apache2/php.ini
+or in your drush.ini file; see examples/example.drush.ini for
+details.
+page_id	type_id	page_content_id	lang	path	page_name	page_content_title	page_content_text	page_content_right_column	page_content_date_created	page_content_date_modified	page_content_date_published	new_url	node_id	migrated
+22962	112	23226	en	/EFWEB/ewco/surveys/national/countries/	uk2005_6_whass.htm	National\n          survey: United Kingdom	<a name="start-of-content" id="start-of-content"></a> \t\t \t\t \t\t \t\t \t\t <ul> \t\t <li><strong>Survey name</strong>: \t Workplace Health and Safety </li> <li><strong>Acronym: </strong>WHASS </li> <li><strong>Institute:</strong> Health and Safety Executive </li> \t\t <li><strong>Type of organisation:</strong> Government </li> \t\t <li><strong>Dates (year) of each edition of the survey: </strong>2005</li> \t\t <li><strong>Year of the next forecast edition: </strong>Depends on funds; possibly 2006/7 </li> \t\t <li><strong>Objective:</strong> <a href="http://www.hse.gov.uk/statistics/books.htm#whass">on line material </a>\t\t </li> \t\t <li><strong>Territorial scope: </strong>National </li> \t\t <li><strong>Population: </strong>Employers and employees (see <a href="http://www.hse.gov.uk/statistics/books.htm#whass">web site</a>) <br /> \t <em><strong>Inclusion criteria: </strong></em>see <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web \t site</a><br /> \t <em><strong>Population size:</strong></em> see \t <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web site</a>. For employee survey around 10,000; for employer survey around 1000. </li> \t\t <li><strong>Sample:</strong><br /> \t <strong><em>Register used for sample:</em></strong> See <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web \t site </a><br /> \t <strong><em>Sampling technique/strategy:</em></strong><em> </em>See <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web site </a> <br /> \t <strong><em>Sample size:</em></strong><em> </em>See <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web \t site </a><br /> \t Worker survey around 10,000; Employer survey around 1000 </li> \t\t <li><strong>Quality control procedures:</strong> Questionnaire design; fieldwork monitoring; data processing and weighting; public availability of survey documentation; pre-test </li> \t\t <li><strong>Interviews: </strong><br /> \t <em><strong>Type of interviews: </strong></em>By telephone <br /> \t <em><strong>Location:</strong></em> Interview \t with workers in their homes and Employers or managers at the work \t place. See <a href="http://www.hse.gov.uk/statistics/books.htm#whass">details\ton web site </a>\t </li> \t\t <li><strong>Other information: </strong>All details of employer and worker surveys published and can be found on the <a href="http://www.hse.gov.uk/statistics/books.htm#whass">web site </a> </li> \t\t <li><strong>Subjects considered: </strong>Occupational safety and health (OSH) management; design of work stations; exposure \t\t to physical agents (noise, radiation, vibration, etc.); exposure \t\t to chemical agents; exposure to biological agents; safety at the \t\t workplace; physical workload; mental strain; work organization issues; \t\t skills and competence development; social environment (participation \t\t and consultation, equal opportunities, violence at work, etc.); occupational \t\t and health outcomes; other subjects (see <a href="http://www.hse.gov.uk/statistics/books.htm#whass">web site</a>)</li> \t\t <li><strong>References:</strong> see <a href="http://www.hse.gov.uk/statistics/books.htm#whass%20">web site</a></li> \t\t <li><strong>Information public/accessible: </strong>In process of archiving employer survey and will archive worker survey </li> \t\t <li><strong>Co-ordinators \t\t / contacts:</strong><br /> \t John Hodgson<br /> \t HSE, 4S.3 Redgrave Court, Bootle <br /> \t Merseyside L20 7HS, UK<br /> \t Tel: +44 1519514566<br /> \t Email: John.Hodgson@hse.gsi.gov.uk \t <p>Simon Clarke<br /> Statistician<br /> Health &amp; Safety Executive Epidemiology and Medical Satistics Unit<br /> Room 243A Magdalen House<br /> Stanley Precinst, UK- Bootle L20 3QZ<br /> Tel: +44 1519513832<br /> Fax: +44 1519514703<br /> Email: <a href="mailto:simon.clarke@hse.gsi.gov.uk">simon.clarke@hse.gsi.gov.uk</a><br /> </p>\n\t\t </li> \t\t </ul> 		2009-11-06 13:40:29	2007-12-17 00:00:00	2009-11-27 16:48:12	/ef/node/	NULL	1
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ drush sql-query "select * from efpages where page_id=22962"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kdrush sql-query "select node_id from efpages where type_id=112"pag[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cnod[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpag[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[7@count(node_id)[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmigrated<>0 and node_id=0 and type_id=112"[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kmysql -u r[K[K[K[K[K[K[K[K[K[K^C
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ (reverse-i-search)`': [Km': drush sql-query "select node_id from efpages where type_id=112"[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cy': mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@s[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@q[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@l[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@ [C[C[C[1@-[C[C[C[1@u[C[C[C[1@ [C[C[C[36@eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+bash: efpages.migration-prod.sql: No such file or directory
+eworx@eurofound:/home/web-pub/ef/sites/all/_docs/migration_phaseC$ cd ~
+eworx@eurofound:~$ cd ~mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql
+bash: efpages.migration-prod.sql: No such file or directory
+eworx@eurofound:~$ mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kcd /prod[K[K[K[K[Kprod01/
+eworx@eurofound:~/prod01$ cd prod01/mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'eworx'@'mysql.host' (using password: YES)
+eworx@eurofound:~/prod01$ mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'eworx'@'mysql.host' (using password: YES)
+eworx@eurofound:~/prod01$ mysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'eworx'@'mysql.host' (using password: YES)
+eworx@eurofound:~/prod01$ LS[K[Kmysql -u eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql
+Enter password: 
+eworx@eurofound:~/prod01$ mysql -eworx -p
+Enter password: 
+ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'worx' at line 1
+eworx@eurofound:~/prod01$ mysql -eworx -p[C[C[C[C[C[C^C
+eworx@eurofound:~/prod01$ cd..[K[K[K[Kmysql -eworx -pu eworx -p ef-drupal -h mysql.host<efpages.migration-prod.sql[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 433134
+Server version: 5.5.38-0ubuntu0.12.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * fro[K[K[K[K[Kcount()*)[C from efpages where page_id[K[K[K[K[K[K[Knode_id is null;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select count(*) from efpages where node_id is null;[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kshow columns from efpages
+    -> ;
++-----------------------------+--------------+------+-----+---------+-------+
+| Field                       | Type         | Null | Key | Default | Extra |
++-----------------------------+--------------+------+-----+---------+-------+
+| page_id                     | int(11)      | NO   | PRI | NULL    |       |
+| type_id                     | int(11)      | YES  |     | NULL    |       |
+| page_content_id             | int(11)      | YES  |     | NULL    |       |
+| lang                        | varchar(45)  | YES  |     | NULL    |       |
+| path                        | varchar(250) | YES  |     | NULL    |       |
+| page_name                   | varchar(500) | YES  |     | NULL    |       |
+| page_content_title          | varchar(500) | YES  |     | NULL    |       |
+| page_content_text           | longtext     | YES  |     | NULL    |       |
+| page_content_right_column   | text         | YES  |     | NULL    |       |
+| page_content_date_created   | datetime     | YES  |     | NULL    |       |
+| page_content_date_modified  | datetime     | YES  |     | NULL    |       |
+| page_content_date_published | datetime     | YES  |     | NULL    |       |
+| new_url                     | varchar(500) | YES  |     | NULL    |       |
+| node_id                     | int(11)      | YES  |     | NULL    |       |
+| migrated                    | tinyint(1)   | YES  |     | 0       |       |
++-----------------------------+--------------+------+-----+---------+-------+
+15 rows in set (0.00 sec)
+
+mysql> ;show columns from efpages[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kex[K[Kselect count(*) from efpages where node_id is null;[K[K[K[K[K[K[K[K[K

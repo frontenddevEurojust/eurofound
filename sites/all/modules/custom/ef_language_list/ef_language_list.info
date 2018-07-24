@@ -1,0 +1,4 @@
+name = ef_language_list
+description = Make specific languages unavailable on the dropdown list.
+package = EF modules
+core = 7.x

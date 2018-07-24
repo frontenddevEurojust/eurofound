@@ -1,0 +1,4 @@
+name = EF publication date year filter
+description = EF publication date year filter
+package = EF modules
+core = 7.x

@@ -1,0 +1,194 @@
+body.page-observatories-eurwork-collective-wage-bargaining-timeline
+#edit-country-tid-wrapper{
+	display: none;
+}
+
+.views-widget-filter-field_cwb_level_tid_selective .views-widget,
+.views-widget-filter-field_cwb_timeline_category_tid_selective .views-widget{
+	margin-top: 5px;
+}
+
+div.container h2, div.container h3{
+	margin-left: 0px !important;
+	margin-bottom: 0px !important;
+	padding: 0px !important;
+}
+#edit-field-cwb-level-tid-selective-wrapper {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.timenav-tag h3 {
+    color: #aaa !important;
+    font-size: 1em !important;
+}
+
+.view-filters input{
+	margin-bottom: 0px !important;
+}
+
+/*.form-item.form-type-radio {
+    min-height: 25px !important;
+}*/
+
+#edit-field-cwb-level-tid-selective label.option.Sectoral{
+	background: url('../../img/timelinelevel.png') no-repeat -10px -26px;
+}
+#edit-field-cwb-level-tid-selective label.option.National{
+	background: url('../../img/timelinelevel.png') no-repeat -100px -116px;
+}
+#edit-field-cwb-level-tid-selective label.option.Intersectoral{
+	background: url('../../img/timelinelevel.png') no-repeat -70px -86px;
+}
+#edit-field-cwb-level-tid-selective label.option.Inernational{
+	background: url('../../img/timelinelevel.png') no-repeat -60px -56px;
+}
+#edit-field-cwb-level-tid-selective label.option.Company{
+	background: url('../../img/timelinelevel.png') no-repeat 20px 4px;
+}
+#edit-field-cwb-level-tid-selective label.option.Any{
+	padding-left: 20px;
+	background: none;
+}
+
+.flag-content h3 {
+    font-size: 0.7em !important;
+    text-align: left;
+}
+
+#edit_country_tid_chosen, 
+#edit_field_cwb_timeline_category_tid_selective_chosen{
+    width: 250px !important;
+}
+
+
+#edit-field-cwb-level-tid-selective label.option {
+    margin-left: -10px;
+    padding-bottom: 0;
+    padding-left: 38px;
+    padding-right: 4px;
+}
+
+
+/*
+==============================
+TIME LINE
+==============================
+*/
+
+.vco-storyjs div *{
+	 font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif!important;
+}
+.storyjs-embed.sized-embed {
+	border:1px solid #CCCCCC !important;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+	margin: 0 0 15px 0 !important;
+}
+.vco-timeline .vco-navigation .timenav .content .marker.active .flag .flag-content h3, .vco-timeline .vco-navigation .timenav .content .marker.active .flag-small .flag-content h3,
+.vco-timeline .vco-navigation .timenav .content .marker .flag .flag-content h3{
+	margin-top: 5px !important;
+}
+.vco-timeline .vco-navigation .timenav .content .marker .flag .flag-content, .vco-timeline .vco-navigation .timenav .content .marker .flag-small .flag-content {
+	padding: 0px 7px 2px 19px !important;
+}
+.timelineLevel{
+	position: absolute;
+	position: absolute;
+	top: 5px;
+	left: 4px;
+	height: 12px;
+	width: 12px;
+	text-indent: -9999px;
+	background-image: url('../../img/timelinelevel.png');
+	background-repeat: no-repeat;
+	/* relevant entries have also a class based on the name of the level so an icon can be placed instead of its text*/
+}
+.timelineLevel.Company{
+	background-position: 0 0px;
+}
+.timelineLevel.Sectoral{
+	background-position: -30px -30px;
+}
+.timelineLevel.International{
+	background-position: -60px -60px;
+}
+.timelineLevel.Intersectoral{
+	background-position: -90px -90px;
+}
+.timelineLevel.National{
+	background-position: -120px -120px;
+}
+.vco-timeline .vco-navigation .timenav .time .time-interval-major div{
+	color: #005baa !important;
+}
+/*.vco-timeline .vco-navigation .timenav-background .timenav-interval-background{
+	background-color: #f5f5f5 !important;
+}*/
+#secondaryLogo {
+    float: right;
+    margin-right: 8px;
+    margin-top: 8px;
+}
+#edit-variables-wrapper, #edit-field-variables-tid {
+   opacity: 0;
+
+}
+
+.vco-storyjs a {
+    color: #005baa !important;
+    text-decoration: none;
+}
+
+.view-filters .views-exposed-form label {    
+    display: inline !important;
+ }
+
+ .vco-slider .slider-item .content .content-container .text .container .slide-tag {
+    line-height: 18px;
+}
+
+/*timeline*/
+.vco-slider .slider-item .content .content-container .text .container .slide-tag {
+    line-height: 18px!important;
+    vertical-align: top!important;
+    letter-spacing: 0.1em;
+    font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
+}
+
+.storyjs-embed .vco-storyjs h3 {
+    line-height: 25px;
+}
+
+
+.storyjs-embed .vco-storyjs .timenav h1,
+.storyjs-embed  .vco-storyjs .flag-content h1,
+.storyjs-embed .vco-storyjs .era h1,
+.storyjs-embed .vco-storyjs .timenav h2,
+.storyjs-embed .vco-storyjs .flag-content h2,
+.storyjs-embed .vco-storyjs .era h2,
+.storyjs-embed .vco-storyjs .timenav h3,
+.storyjs-embed .vco-storyjs .flag-content h3,
+.storyjs-embed .vco-storyjs .era h3,
+.storyjs-embed .vco-storyjs .timenav h4,
+.storyjs-embed .vco-storyjs .flag-content h4,
+.storyjs-embed .vco-storyjs .era h4,
+.storyjs-embed .vco-storyjs .timenav h5,
+.storyjs-embed .vco-storyjs .flag-content h5,
+.storyjs-embed .vco-storyjs .era h5,
+.storyjs-embed .vco-storyjs .timenav h6,
+.storyjs-embed .vco-storyjs .flag-content h6,
+.storyjs-embed .vco-storyjs .era h6 {
+    font-family: 'OpenSans-Regular-webfont',Arial,Helvetica,sans-serif !important;
+}
+
+
+.storyjs-embed .vco-storyjs .vco-feature h1,
+.storyjs-embed .vco-storyjs .vco-feature h2,
+.storyjs-embed .vco-storyjs .vco-feature h3,
+.storyjs-embed .vco-storyjs .vco-feature h4,
+.storyjs-embed .vco-storyjs .vco-feature h5,
+.storyjs-embed .vco-storyjs .vco-feature h6 {
+	font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif !important;
+}

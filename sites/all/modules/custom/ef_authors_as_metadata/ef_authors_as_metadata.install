@@ -1,0 +1,16 @@
+<?php
+	/*
+	** Issue: WGS-256.
+	** Add the correct name
+	*/
+	function ef_publications_ct_update_7103(){
+		$vocabulary = taxonomy_vocabulary_machine_name_load('ef_publication_contributors ');
+		$terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
+		foreach ($terms as $term) {
+			if (!isset($term->name_field['und'][0]['value'])) {
+				$term->name_field['und'][0]['value']=$term->name;	
+				taxonomy_term_save($term);
+			}
+		}
+	}
+?>

@@ -1,0 +1,4 @@
+name = ef_factsheet_statistics
+description = Support for factsheet statistics
+package = EF modules
+core = 7.x

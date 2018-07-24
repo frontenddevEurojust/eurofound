@@ -1,0 +1,8 @@
+zurb-foundation theme patch
+1) patch to fix Error: Array to string conversion in template_process_field() (line 1089 of /*/modules/field/field.module).
+
+Found at:
+1) https://drupal.org/node/2205041
+
+Patch file:
+1) https://drupal.org/files/issues/zurb-foundation-array-2-string-2205041-6.patch

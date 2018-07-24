@@ -1,0 +1,18 @@
+<?php
+
+function ef_ckeditor_tableresize_wysiwyg_plugin($editor, $version) {
+  switch ($editor) {
+    case 'ckeditor':
+      return array(
+		'tableresize' => array( // Internal plugin name
+          'extensions' => array(
+            'tableresize' => t('Table Resize'), // Internal plugin name as key, name visible in editor profile config UI as value.
+          ),
+          'load' => TRUE,
+          'internal' => FALSE,
+          'path' => 'sites/all/libraries/ckeditor/plugins/tableresize'
+        )
+      );
+     break;
+  }
+}

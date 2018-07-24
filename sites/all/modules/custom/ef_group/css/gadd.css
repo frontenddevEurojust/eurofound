@@ -1,0 +1,33 @@
+
+.gadd-form-additional {
+    background: #f0f0f0 none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1.5em;
+}
+.gadd-form-additional > .gadd-form-additional{
+	border: none;
+	padding: none;
+}
+
+/* remove group */
+#group-operation-form #edit-cancel{
+	background-color: #666;
+    border: 1px solid #ccc;
+    color: #fff;
+    padding: 6px 12px;
+}
+#group-operation-form #edit-cancel:hover{
+	background-color: #ccc;
+	color: #666;
+}
+#group-operation-form #edit-submit{
+	margin: 29px 15px;
+}
+#group-operation-form .alert-box.warning {
+    border: medium none;
+    display: inline-block;
+    height: 25px;
+    margin: 0 5px -10px 0;
+    width: 10px;
+}

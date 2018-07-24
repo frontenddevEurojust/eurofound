@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function ef_content_inventory_install(){
+  $enabled_content_types = array(
+    'page',
+    'board_member_page',
+    'ef_call_for_tender',
+    'ef_case_study',
+    'case_study_publication',
+    'ef_comparative_analytical_report',
+    'ef_report',
+    'ef_erm_regulation',
+    'erm_support_instrument',
+    'ef_event',
+    'ef_factsheet',
+    'ef_input_to_erm',
+    'ef_ir_dictionary',
+    'ef_national_contribution',
+    'ef_network_extranet_page',
+    'ef_news',
+    'ef_photo_gallery',
+    'ef_publication',
+    'ef_restructuring_in_smes',
+    'ef_spotlight_entry',
+    'ef_survey',
+    'ef_vacancy',
+    'ef_video',
+    'webform',
+    'dvs_survey'
+  );
+  variable_set('ef_content_inventory_enabled_content_types', $enabled_content_types);
+  foreach ($enabled_content_types as $key => $value) {
+    $checked_content_types[$value] = 1;
+  }
+  variable_set('ef_content_inventory_checked_content_types', $checked_content_types);
+  variable_set('ef_content_inventory_items_on_cron_run', 100);
+}
+

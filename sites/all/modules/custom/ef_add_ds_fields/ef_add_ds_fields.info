@@ -1,0 +1,4 @@
+name = EF Add DS fields
+description = Adds Display Suite fields.
+package = EF modules
+core = 7.x

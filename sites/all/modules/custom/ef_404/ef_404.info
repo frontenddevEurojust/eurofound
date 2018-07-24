@@ -1,0 +1,12 @@
+name = "EF 404"
+description = "Custom EF 404 functionality. Automatically search for given URLs that result in 404 errors so as to resolve and display the new url result instead of Page-Not-Found. "
+dependencies[] = 'search'
+core = 7.x
+package = EF modules
+
+files[] = ef_404.module
+files[] = ef_404.install
+
+configure = admin/config/search/ef_404
+project = "ef_404"
+ 

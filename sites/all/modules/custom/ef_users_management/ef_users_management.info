@@ -1,0 +1,7 @@
+name = EF Users Management
+description = Especific permissions for different roles in order to manage another users.
+package = EF modules
+core = 7.x
+files[] = securelogin.module
+
+

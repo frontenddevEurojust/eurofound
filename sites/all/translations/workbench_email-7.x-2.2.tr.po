@@ -1,0 +1,27 @@
+# Turkish translation of Workbench Email (7.x-2.2)
+# Copyright (c) 2013 by the Turkish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Workbench Email (7.x-2.2)\n"
+"POT-Creation-Date: 2013-05-29 03:41+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Subject"
+msgstr "Konu"
+msgid "Message"
+msgstr "İleti"
+msgid "Save"
+msgstr "Kaydet"
+msgid "To"
+msgstr "Kime"
+msgid "From"
+msgstr "Kimden"
+msgid "Your message has been sent."
+msgstr "İletiniz gönderildi."
+msgid "Workbench"
+msgstr "İş Tezgahı (Workbench)"

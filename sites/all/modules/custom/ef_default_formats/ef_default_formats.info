@@ -1,0 +1,4 @@
+name = EF Default Formats
+description = Restricts a single text format per content type, per text field while hiding unnecessary text format selection from respective forms. Code taken from http://drupal.org/project/better_formats
+core = 7.x
+package=EF modules

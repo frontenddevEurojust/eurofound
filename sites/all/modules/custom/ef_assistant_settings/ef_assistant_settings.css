@@ -1,0 +1,58 @@
+
+
+.node-webform .webform-client-form .webform-component-fieldset.collapsible.form-wrapper.collapse-processed,
+.webform-submission .webform-client-form .webform-component-fieldset.collapsible.form-wrapper.collapse-processed {
+    float: left;
+    margin: 20px 10px;
+    width: 30%;
+}
+
+
+.node-webform .webform-client-form .assistant-form-wrap h3.assistant-form-title,
+.webform-submission .webform-client-form .assistant-form-wrap h3.assistant-form-title{
+	color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.node-webform .webform-client-form .assistant-form-wrap .assistant-form-title:before,
+.webform-submission .webform-client-form .assistant-form-wrap .assistant-form-title:before{
+	font-family: FontAwesome;
+	content: "\f044";
+	color: #fff;
+	margin-right: 10px;
+}
+
+.node-webform .webform-client-form .assistant-form-wrap,
+.webform-submission .webform-client-form .assistant-form-wrap{
+	background-color: #2e67aa;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #ccc;
+    margin: 50px 10px;
+    padding: 40px 30px 20px;
+
+}
+
+#webform-component-meeting-secretary > label,
+#webform-component-remarks-from-meeting-secretary > label,
+#webform-component-expert-fee > label,
+#webform-component-validate > label,
+#webform-component-assistant-comment > label {
+	color: #fff;
+	font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#webform-component-ef-webform-daily-allowance{
+	overflow: visible;
+}
+
+#edit-submitted-validate > div{
+	background-color: #2e67aa;
+}
+
+#edit-submitted-validate .form-type-radio > label,
+#webform-component-validate .form-required{
+	color: #fff;
+}

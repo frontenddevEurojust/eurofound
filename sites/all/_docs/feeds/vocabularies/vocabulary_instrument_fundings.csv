@@ -1,0 +1,33 @@
+Id	Name	Parent Id
+funding_1	Companies	0
+funding_2	European funds	0
+funding_3	Employees	0
+funding_4	Employer	0
+funding_5	Employers' organisation	0
+funding_6	Local funds	0
+funding_7	no specific funding required	0
+funding_8	National funds	0
+funding_9	Other	0
+funding_10	Regional funds	0
+funding_11	Social partners (jointly)	0
+funding_12	Trade union	0
+funding_13	Regional funds	funding_10
+funding_14	National funds	funding_8
+funding_15	Employer	funding_4
+funding_16	European Funds	funding_2
+funding_17	Employees	funding_3
+funding_18	European Funds (ESF)	funding_2
+funding_19	Other	funding_9
+funding_20	Companies	funding_1
+funding_21	Social partners (jointly)	funding_11
+funding_22	Employers' organisation	funding_5
+funding_23	Local Funds	funding_6
+funding_24	European Funds (ERDF)	funding_2
+funding_25	Trade Union	funding_12
+funding_26	no specific funding required	funding_7
+funding_27	European Funds (Leonardo da Vinci)	funding_2
+funding_28	European Funds (EURES)	funding_2
+funding_29	European Funds (Operational programme HRD)	funding_2
+funding_30	European Funds (EUROPEIDF)	funding_2
+funding_31	European Funds (Les fonds européens en Maine-et-Loire)	funding_2
+funding_32	No information available	funding_7

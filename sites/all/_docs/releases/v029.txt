@@ -1,0 +1,141 @@
+drush sql-query "insert into schema_migrations(code,extra)values('029', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+:: goto http://craigsworks.com/projects/qtip/download#
+:: check Production qtip file (not jquery lib) only and click download
+:: unzip jquery.qtip-1.0.0-rc3.custom -d sites/all/libraries/qtip
+:: rm jquery.qtip-1.0.0-rc3.custom
+
+
+
+:: MODULES ::
+
+drush en -y ef_invalid_reference
+
+drush en -y ef_date_jump_duplicates
+
+drush pm-disable -y publication_pdf_link
+drush pm-uninstall -y publication_pdf_link
+drush en -y ef_publication_pdf_link
+
+drush dl -y menu_minipanels
+drush en -y menu_minipanels
+
+drush en -y ef_admin_css
+
+
+:::: i18n ::::
+
+:: Allows (fieldable) entities to be translated into different languages, by introducing entity/field translation for the new translatable fields capability in Drupal 7. 
+drush dl -y entity_translation
+drush en -y entity_translation
+drush en -y entity_translation_i18n_menu
+
+:: Translation Management
+:: Provides a tool set for translating content from different sources. 
+drush dl -y tmgmt
+drush en -y tmgmt
+
+:: Checks the current URL for an alias and does a 301 redirect to it if it is not being used. And some other rules.
+drush dl -y globalredirect
+drush en -y globalredirect
+
+:: Allows you to map together existing pages that are translations of each other. This will allow users to use the language switcher to navigate between the associated pages.
+drush en -y i18n_path
+
+:: UI for quick translation of taxonomies and menus. 
+drush dl -y translation_table
+drush en -y translation_table
+
+:: Allows to replace entity labels with fields to make them translatable.
+drush dl -y title
+drush en -y title
+
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+
+drush field-delete field_ef_venue --bundle=ef_event
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+::patch for Views
+:: patches/v029-views_handler_filter_combine.inc
+
+
+:: goto admin/structure/pages/nojs/operation/page-emcc_landing_page/settings/basic
+:: change path to observatories/emcc/index
+:: goto admin/structure/pages/nojs/operation/page-eurwork_landing_page/settings/basic
+:: change path to observatories/eurwork/index
+
+:: import menus:
+:: with Link to existing content: Enabled
+:: reimport-menus-links.txt
+
+:: goto admin/structure/menu/manage/menu-ef-user-login-links-menu
+:: edit the 2 menu links and change language to English
+
+:: goto admin/structure/pages/nojs/operation/page-emcc_landing_page/settings/basic
+:: change path to observatories/emcc
+:: goto admin/structure/pages/nojs/operation/page-eurwork_landing_page/settings/basic
+:: change path to observatories/eurwork
+
+:: goto admin/structure/menu/manage/main-menu
+:: edit emcc and eurwork menu link urls
+:: observatories/emcc/index => observatories/emcc
+:: observatories/eurwork/index => observatories/eurwork
+
+:: manually create missing basic pages because of conflicts with views urls
+:: e.g. Data Visualisation, parent: Search, weight: 4
+
+:: Populate menu position rules.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-position-rules
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-position-rules.php
+
+:: Populates menu link translations (test greek translations).
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-link-translations
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-link-translations.php
+
+:: fix-minipanels-menu-links
+
+:: drush fr -y ef_basics
+
+
+:: Go to admin/structure/menu/manage/main-menu
+:: Settings  for all are : At HOVER POSITION CONFIGURATION -> Position type = 'Absolute' , At HIDE EFFECT CONFIGURATION Delay = 100  Length of effect = 100
+:: Edit Publications Menu Link -> Choose at option Menu minipanel   : 'Publication mini panel'  
+:: Edit News Menu Link -> Choose at option Menu minipanel : 'News mini panel' 
+:: Edit Surveys Menu Link -> Choose at option Menu minipanel : 'Surveys mini panel'
+:: Edit Themes Menu Link -> Choose at option Menu minipanel : 'Themes mini panel'
+:: Edit Observations Menu Link -> Choose at option 'Menu minipanel' : Observations 
+:: Edit About Eurofound Menu Link -> Choose at option Menu minipanel : 'About Eurofound mini panel' 
+
+
+
+
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

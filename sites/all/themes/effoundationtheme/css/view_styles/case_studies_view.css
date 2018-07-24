@@ -1,0 +1,297 @@
+/************************************************/
+/* --- Case Studies EMCC page (bilbomatica) --- */
+/************************************************/
+
+/* --- cs-header --- */
+.view-id-ef_case_studies .view-header,
+.view-id-case_studies_emcc .view-header {
+    color: #999;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+.view-id-ef_case_studies .cs-intro,
+.view-id-case_studies_emcc .cs-intro {
+    border-bottom: 0.1px solid #ccc;
+    color: #5a5a5a;
+    font-style: normal;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+/* --- forms --- */
+/*
+.view-id-ef_case_studies .views-exposed-widget,
+.view-id-case_studies_emcc .views-exposed-widget{
+  width: 32%;
+  padding: 5px;
+}
+*/
+.view-id-ef_case_studies .form-select,
+.view-id-case_studies_emcc .form-select{
+  width: 100% !important;
+}
+
+.view-id-case_studies_emcc .views-exposed-widgets .search-choice{
+    text-align: left;
+}
+
+/* --- content view --- */
+.view-id-ef_case_studies .views-row,
+.view-id-case_studies_emcc .views-row{
+  overflow: visible;
+}
+
+.view-id-ef_case_studies .view-content,
+.view-id-case_studies_emcc .view-content{
+  border-top: 1px solid #1858A2;
+}
+
+/* --- content --- */
+
+/* title */
+.view-id-ef_case_studies .case-study-title{
+  margin-left: -15px;
+}
+
+/* subtitle */
+.view-id-case_studies_emcc .view-content .case-study-subtitle > div,
+.case-study-subtitle > div {
+    color: #979797;
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+}
+.case-study-subtitle.row{
+  margin: 0;
+}
+.view-id-ef_case_studies .cs-country{
+  color: #005baa;
+}
+
+/* location */
+.view-id-case_studies_emcc .view-content .case-study-location-size,
+.case-study-location-size.row{
+  background-color: #DBE4ED;
+  padding: 2px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.view-id-ef_case_studies .view-content .fa-globe:before,
+.case-study-location-size .fa-globe:before{
+    color: #004798;
+    font-size: 1.5em;
+}
+.case-study-location-size .cs-country{
+  color: #004798;
+}
+.case-study-location-size .cs-country ul{
+  margin: 0;
+}
+.view-id-case_studies_emcc .view-content .cs-country,
+.cs-country{
+    font-weight: bold;
+}
+/* sizes */
+
+.view-id-case_studies_emcc .view-content .cs-size-list li,
+.cs-size-list li{
+  text-align: center;
+  color: #004798;
+}
+.view-id-case_studies_emcc .view-content .cs-size-list .cs-org-size > p,
+.view-id-case_studies_emcc .view-content .cs-size-list .cs-est-size > p,
+.cs-size-list .cs-org-size > p, .cs-size-list .cs-est-size > p{
+    color: #5d97a2;
+    font-size: 0.8em;
+    margin-bottom: 0;
+}
+.view-id-case_studies_emcc .view-content .cs-size-list li > i, .cs-size-list li > i{
+  display: inline-block;
+  padding-right: 4px;
+}
+
+/* --- body ---- */
+.view-id-case_studies_emcc .view-content .case-study-body, .case-study-body{
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0 10px;
+}
+.view-id-ef_case_studies .case-study-body{
+    line-height: 1.4em;
+    margin: 10px 0 20px;
+}
+.view-id-case_studies_emcc .view-content .gradient, .view-content .gradient{
+
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: -ms-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: -o-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    height: 60%;
+    position: absolute;
+    width: 100%;
+}
+
+/* features */
+.view-id-case_studies_emcc .view-content .case-study-features,
+.case-study-features.row{
+  margin: 10px 0;
+  padding: 10px;
+}
+.view-id-case_studies_emcc .view-content .case-study-features > ul,
+.case-study-features > ul{
+  margin: 0;
+  list-style: none;
+}
+.case-study-features > ul.cs-features-list-left ul{
+  margin-left: 0 !important;
+}
+.case-study-features .cs-features-list-left .cs-type-restructuring,
+.case-study-features .cs-features-list-left .cs-ownership,
+.case-study-features .cs-features-list-left .cs-sectors,
+.view-id-ef_case_studies .cs-features-list-left .cs-type-restructuring,
+.view-id-ef_case_studies .cs-features-list-left .cs-ownership,
+.view-id-ef_case_studies .cs-features-list-left .cs-sectors{
+  border-bottom: 1px solid #dfdfdf;
+    margin-bottom: 5px;
+}
+.view-display-id-emcc_greening .cs-features-list-left .cs-sectors,
+.view-display-id-emcc_tackling .cs-features-list-left .cs-sectors,
+.view-display-id-eurwork_workers .cs-features-list-left .cs-sectors,
+.view-display-id-eurwork_attractive .cs-features-list-left .cs-sectors{
+  border:none;
+}
+
+.view-id-ef_case_studies  .view-content .case-study-features .cs-features-list-left li > span,
+.case-study-features .cs-features-list-left li > span{
+    font-weight: bold;
+}
+
+.view-id-ef_case_studies .view-content .case-study-features .cs-features-list-left li > p,
+.case-study-features .cs-features-list-left li > p{
+    font-size: 0.9em;
+    text-align: left;
+}
+.view-id-ef_case_studies .view-content .case-study-features .cs-features-list-right,
+.case-study-features .cs-features-list-right.columns{
+  background-color: rgba(93, 151, 162, 0.7);
+  box-shadow: 4px 4px 5px -2px rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+}
+.view-id-ef_case_studies .view-content .case-study-features .cs-features-list-right p,
+.case-study-features .cs-features-list-right.columns p{
+  color: #dbe4ed;
+    font-size: 0.9em;
+}
+.case-study-features .no-bullet > li{
+  font-size: 0.9em;
+  text-align: left;
+  margin-bottom: 0.6em;
+
+}
+.case-study-features .cs-features-list-right .no-bullet > li{
+  color: #fdfdfd;
+}
+/* keywords */
+.cs-keywords{
+  background-color: #DBE4ED;
+  padding: 10px;
+}
+.cs-keywords > div{
+  margin-bottom: 8px;
+}
+.cs-keywords .fa-tag{
+  margin-right: 1em;
+}
+
+
+/* custom AUTOCOMPLETE */
+.view-id-ef_case_studies #title-autocomplete-eurwork-workers .form-item-title-field-value input,
+.view-id-case_studies_emcc #title-autocomplete-wrapper .form-item-title-field-value input{
+  height: 38px;
+}
+
+.view-id-ef_case_studies  #autocomplete li,
+.view-id-case_studies_emcc #autocomplete li {
+   white-space: normal;
+   margin: 0;
+   background: #ffffff;
+   padding: 5px 10px 5px 8px;
+   text-align: left;
+   font-size: 0.9em;
+}
+.view-id-ef_case_studies  #autocomplete li:nth-child(even),
+.view-id-case_studies_emcc #autocomplete li:nth-child(even){
+  background: #f0f0f0;
+}
+.view-id-ef_case_studies  #autocomplete li.selected,
+.view-id-case_studies_emcc #autocomplete li.selected {
+   background: #2E68AA;
+   color: #fff;
+}
+.view-id-ef_case_studies #autocomplete ul.links,
+.view-id-ef_case_studies #autocomplete ul.links li,
+.view-id-case_studies_emcc #autocomplete ul.links,
+.view-id-case_studies_emcc #autocomplete ul.links li {
+   background: none;
+}
+.view-id-ef_case_studies #autocomplete p,
+.view-id-case_studies_emcc #autocomplete p {
+   margin: 0;
+}
+
+
+/* --- end case studies --- */
+
+/* --- template --- */
+.node-type-case-study-publication .case-study-body {
+    margin: 20px 0;
+    padding: 20px 18px 15px;
+}
+.node-type-case-study-publication .case-study-body > h2 {
+    color: #004798;
+}
+.node-type-case-study-publication .pub-pdf-img {
+    margin-top: 25px;
+    max-width: 25%;
+}
+
+.node-type-case-study-publication .field-name-field-ef-document .file{
+  display: block;
+  background-color: #F99E35;
+  text-align: left;
+  clear: both;
+  position: relative;
+  font-size: 1.2em;
+  margin-bottom:20px;
+  width: 232px;
+}
+
+.node-type-case-study-publication .field-name-field-ef-document .file a {
+    padding: 18px 30px 18px 15px !important;
+    color: #fff;
+    margin: 0px;
+    padding-right: 0px;
+    display: block;
+}
+
+.node-type-case-study-publication .field-name-field-ef-document .file a:after {
+    font-family: 'ef-icon-font';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e62a";
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.8em;
+}
+
+    

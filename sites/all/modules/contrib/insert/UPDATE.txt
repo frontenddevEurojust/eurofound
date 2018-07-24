@@ -1,0 +1,29 @@
+// ********************************************************
+// CUSTOMIZATIONS
+// ********************************************************
+
+---------------------------
+insert.js
+---------------------------
+Embed link with selected text on editor(http://eurofound.europa.eu/mantis/view.php?id=3204#c12896)
+	* function --> insert
+	* Changes --> check if there is selection on editor and replace pattern with it's content
+		var editor = CKEDITOR.instances[Drupal.wysiwyg.instances[Drupal.wysiwyg.activeId].field];
+        var selectedContent = editor.getSelection().getSelectedText();
+        if (selectedContent) {
+          content = content.replace(fieldRegExp,selectedContent);
+        } else {
+          content = content.replace(fieldRegExp, filename);
+        }
+	* Notes --> Changes enclosed by // BILBOMATICA
+Check if the button is inside a table (multifile fields). In that case we need to find wrapper in the row (http://eurofound.europa.eu/mantis/view.php?id=3204#c13012)
+	* function --> insert
+	* Changes --> overwrite wrapper variable if the Insert button is inside a table
+		if ($(this).parent().get(0).tagName == 'TD' || $(this).parent().parent().get(0).tagName == 'TD') {
+		  wrapper = $(this).closest('tr').find(settings.wrapper).get(0);
+		  style = $('.insert-style', $(this).parent().get(0)).val();
+		}	
+	* Notes --> Changes enclosed by // BILBOMATICA
+
+	
+

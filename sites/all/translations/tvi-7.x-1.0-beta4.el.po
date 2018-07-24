@@ -1,0 +1,22 @@
+# Greek translation of Taxonomy Views Integrator (7.x-1.0-beta4)
+# Copyright (c) 2013 by the Greek translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Taxonomy Views Integrator (7.x-1.0-beta4)\n"
+"POT-Creation-Date: 2013-10-29 04:42+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Greek\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Home"
+msgstr "Αρχική"
+msgid "The configuration options have been saved."
+msgstr ""
+"Οι επιλογές διευθέτησης "
+"αποθηκεύτηκαν."
+msgid "Save"
+msgstr "Αποθήκευση"

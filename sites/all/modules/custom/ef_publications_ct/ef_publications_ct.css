@@ -1,0 +1,268 @@
+.publication-date-popup .ui-datepicker-calendar{
+	display:none;
+}
+.orange-formatting {
+	//border: 2px solid #F99E35;
+}
+.orange-link{
+	border: 2px solid #F99E35;
+	color: #F99E35 !important;
+	font-size: 1.2em;
+	text-align: left;
+	padding: 18px 60px 18px 15px;
+	display: block;
+	background: url('package.gif') no-repeat 98%;	
+}
+.orange-link:hover{
+	border: 2px solid #CCC;
+	color: #666 !important;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.field-name-field-ef-document .file a{
+	padding: 18px 30px 18px 15px !important;
+	color: #fff;
+	margin: 0px;
+	padding-right: 0px;
+	display: block;
+} 
+.field-name-field-ef-document .file a:after{
+	content: "\e62a";
+	color: #fff;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 1.8em;
+}
+
+.page-node-edit.node-type-ef-publication .form-managed-file{
+  background: #f2f2f2;
+  margin: 15px 0;
+  padding: 15px 15px 0;
+}
+.page-node-edit.node-type-ef-publication .form-managed-file .form-type-managed-file{
+  margin: 0;
+  padding:0;
+}
+.page-node-edit.node-type-ef-publication .form-managed-file .form-type-checkbox{
+  padding: 20px 0 5px;
+  margin: 0;
+  border: 0;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a{
+  color: #FFF;
+  margin: 0px;
+  padding: 3px 15px !important;
+  display: inline-block;
+  font-size: 14px;
+  background: #0074BD;
+  border-radius: 4px;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a:hover {
+  text-decoration: none;
+  opacity: 0.6;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document .file a:after{
+  content: "\f019";
+  color: #FFF;
+  position: relative !important;
+  top: 0;
+  right: 0;
+  font-size: 1.2rem;
+  font-family: 'fontawesome';
+  background: #0074BD;
+  padding: 0;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+.page-node-edit.node-type-ef-publication .field-name-field-ef-document span.file-size:after {
+  content: "-";
+  display: block;
+  color: transparent !important;
+}
+.page-node-edit.node-type-ef-publication .insert-button{
+  background: #2E67AA !important;
+  border:1px solid #004798;
+  font-weight: normal;
+  font-family: 'OpenSans-SemiBold-webfont', Arial, Helvetica, sans-serif;
+  border-radius: 0;
+  color: #fff;
+  padding: 3px 15px;
+  position: relative;
+  top: 1px;
+  left: 15px;
+  cursor: pointer;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5)inset !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.5)inset !important;
+  -webkit-transition: background-color 300ms ease-out !important;
+  -moz-transition: background-color 300ms ease-out !important;
+  transition: background-color 300ms ease-out !important;
+}
+.page-node-edit.node-type-ef-publication .insert-button:hover{
+	background-color: #004798;
+}
+
+/* */
+/* @group PUBLICATIONS----------*/
+#node_ef_publication_full_group_ef_node_details{
+	width: 100%;
+}
+#node_ef_publication_full_group_ef_node_details .field{
+	padding-left: 30%;
+	line-height: 1.1em;
+	overflow: hidden;
+	text-align: left;
+}
+#node_ef_publication_full_group_ef_node_details .label-inline{
+	font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
+}
+#node_ef_publication_full_group_ef_node_details .label-content {
+    display: inline-block;
+}
+#node_ef_publication_full_group_ef_node_details a{
+  margin-right:3px;
+  padding-bottom: 4px;
+}
+#node_ef_publication_full_group_ef_node_details .topic-list li a:after{
+	content: "; ";
+}
+#node_ef_publication_full_group_ef_node_details .topic-list li:last-child a:after{
+	content: "";
+}
+.node-ef-publication .field-name-publication-preview{
+	margin-bottom:25px;
+}
+.node-ef-publication .field-name-publication-preview img{
+	margin-top:0px !important;
+}
+.node-ef-publication .field-name-field-ef-document .file{
+	display: block;
+	background-color: #F99E35;
+	text-align: left;
+	clear: both;
+	position: relative;
+	font-size: 1.2em;
+	margin-bottom:20px;
+}
+/*.node-ef-publication .field-name-field-ef-document .file .file-icon{
+	margin-left: 0px;
+}*/
+.node-ef-publication .field-name-field-ef-document .file img{display: none;}
+.node-ef-publication .field-name-field-ef-document .file:after{
+	color: #fff;
+	position: absolute;
+	top:10px;
+	right: 10px;
+	font-size:1.8em;
+}
+.ef-main .node .field .field-name-publication-preview img{
+	float: none
+}
+
+ul.metadata-publications{
+	font-size: 0.9em;
+}
+ul.metadata-publications > li{
+    padding: 12px 0px!important;
+    border-bottom: 1px dotted #ccc;
+    width: 100%;
+    text-indent: 0 !important;
+}
+ul.metadata-publications li:before {
+    content: " " !important;
+
+}
+ul.metadata-publications > li > span.label-inline {
+    width:20%;
+    font-family: 'OpenSans-Semibold-webfont',Arial,Helvetica,sans-serif;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    text-indent: 0;
+}
+ul.metadata-publications > li > ul {
+    width: 78%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    text-indent: 0;
+}
+ul.metadata-publications > li > ul li {
+    display: inline-block;
+    text-indent: 0;
+    padding: 0;
+}
+
+.field-name-field-term-subscription-url{
+  padding-left: 0%!important;
+}
+.field-name-field-term-subscription-url .topic-subscription {
+    margin-bottom: 2.5em;
+    margin-top: 1em;
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.field-name-field-term-subscription-url .topic-subscription a {
+    border: 2px solid #F99E35;
+    color: #F7931E;
+    font-weight: bold;
+    display: block;
+    padding: 6px 10px 6px 12px;
+    text-align: center;
+}
+.field-name-field-term-subscription-url .topic-subscription a:hover {
+    border: 2px solid #CCC;
+    background: #FFF;
+    color: #666;
+}
+.field-name-field-term-subscription-url .topic-subscription a .fa:before {
+    content: "\f003";
+    font-size: 1.4rem;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+}
+.ef-main .node .field-name-field-ef-main-image img{
+	float: none !important;
+	margin: 0px 25px 20px 0px !important;
+}
+.forthcoming-label{
+    margin: inherit;
+    background: #f7931e;
+    padding: 1px 6px;
+    text-align: center;
+    color: #FFF;
+    font-size: 12px;
+    letter-spacing: 0;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: super;
+    text-transform: uppercase;
+    font-family: 'OpenSans-Semibold-webfont';
+}
+.field-name-field-ef-main-image img{
+	width:100%;
+}
+.logged-in .node-ef_publication-form .media-widget .preview {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 120px;
+  height: 120px;
+  background: #F2F3F3 url(no-image.svg);
+  background-size: cover;
+  vertical-align: bottom;
+}
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) { 
+	ul.metadata-publications > li > ul {
+	    width: 77%;
+	}
+	#node_ef_publication_full_group_ef_node_details .label-content {
+	  vertical-align: top;
+	}
+}

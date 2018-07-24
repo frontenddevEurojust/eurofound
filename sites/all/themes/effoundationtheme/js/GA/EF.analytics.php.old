@@ -1,0 +1,68 @@
+
+<script type='text/javascript'>
+	var _gaq = _gaq || [];
+
+	var pluginUrl ='//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+	_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+
+<?php if(false){ // outdated code?>
+	var sra = '<?php echo base64_encode(((isset($_SERVER['REMOTE_ADDR']))?$_SERVER['REMOTE_ADDR']:'1.1.1.1')); ?>';
+<?php }?>
+
+	_gaq.push(['_setAccount', 'UA-845481-1']);
+	_gaq.push(['_setDomainName', 'eurofound.europa.eu']);
+
+<?php if(false){ // outdated code?>
+	_gaq.push(['_setCustomVar', 1, 'SRA', base64_decode(sra), 3]);
+<?php }?>
+
+	 if(document.referrer.match(/google\.com\/(cse|custom)/)) {
+		ref = document.referrer;
+		re = /(\?|&)q=([^&]*)/;
+		searchq = re.exec(ref);
+		if(searchq) {
+			_gaq.push(['_addIgnoredOrganic', searchq[2]]);
+		}
+	}
+
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+
+
+<script type="text/javascript">
+    var _paq = _paq || [];
+    (function(){ var u=(("https:" == document.location.protocol) ? "https://www.eurofound.europa.eu/piwik/" : "http://www.eurofound.europa.eu/piwik/");
+    _paq.push(['setSiteId', 1]);
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setLinkTrackingTimer', 750]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript'; g.defer=true; g.async=true; g.src=u+'piwik.js';
+    s.parentNode.insertBefore(g,s); })();
+</script>
+
+
+<script type="text/javascript"> 
+   var cdJsHost = (("https:" == document.location.protocol) ? "https://" : "http://"); 
+   document.write(unescape("%3Cscript src='" + cdJsHost + "analytics-eu.clickdimensions.com/ts.js' type='text/javascript'%3E%3C/script%3E")); 
+ </script> 
+
+ <script type="text/javascript"> 
+   var cdAnalytics = new clickdimensions.Analytics('analytics-eu.clickdimensions.com'); 
+   cdAnalytics.setAccountKey('awRRlRSsgWkGOddXEXBvL9'); 
+   cdAnalytics.setDomain('eurofound.europa.eu'); 
+   cdAnalytics.trackPage(); 
+ </script>
+
+
+<noscript>
+    <?php $siteUrl = ($_SERVER['HTTPS']) ? 'https://www.eurofound.europa.eu/piwik/' : 'http://www.eurofound.europa.eu/piwik/'; ?>
+    <p><img src="<?php echo $siteUrl; ?>piwik.php?idsite=1&rec=1" style="border:0" alt="" /></p>
+</noscript>

@@ -1,0 +1,4 @@
+name = EF ERM support instrument
+description = Module for ERM Support instrument CT
+core = 7.x
+package = EF modules

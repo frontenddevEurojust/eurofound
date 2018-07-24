@@ -1,0 +1,71 @@
+
+.block.block-facetapi{
+	background-color: #fff;
+    padding: 20px;
+}
+
+#views-exposed-form-search-site{
+	
+	background-color: -ms-linear-gradient(top, #F87F20 0%, #EBA03A 100%);
+	background-color: -moz-linear-gradient(top, #F87F20 0%, #EBA03A 100%);
+	background-color: -o-linear-gradient(top, #F87F20 0%, #EBA03A 100%);
+	background-color: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F87F20), color-stop(1, #EBA03A));
+	background-color: -webkit-linear-gradient(top, #F87F20 0%, #EBA03A 100%);
+	background-color: linear-gradient(to bottom, #F87F20 0%, #EBA03A 100%);
+
+	padding: 10px;
+}
+
+/** search topics **/
+section.block-ef-search-ef-search-topics-block{
+	padding: 25px;
+}
+section.block-ef-search-ef-search-topics-block .searched-topic-box {
+  margin-top: 0;
+  position: relative;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 8px 1px #ccc;
+  margin-right: 0;
+  padding: 15px;
+}
+section.block-ef-search-ef-search-topics-block h2{
+	color: #005baa;
+	font-size: 1.3em;
+	font-weight: bold;
+	font-family: "OpenSans-Semibold-webfont",Arial,Helvetica,sans-serif;
+	line-height: 1.5em;
+	margin-top: 15px;
+}
+section.block-ef-search-ef-search-topics-block .img-searched-topic{
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 15px;
+  margin-bottom: 0;
+}
+section.block-ef-search-ef-search-topics-block .description-searched-topic{
+	display: inline-block;
+	width: 70%;
+}
+
+section.block-ef-search-ef-search-topics-block ul.metadata-items {
+  font-size: 1em;
+ 
+}
+section.block-ef-search-ef-search-topics-block ul.metadata-items li{
+	display: inline-block;
+	font-family:'OpenSans-Semibold-webfont' !important;
+	padding: 0 !important;
+	margin: 0;
+	border:none !important; 
+}
+section.block-ef-search-ef-search-topics-block ul.metadata-items li a{
+	padding: 0 !important;
+	margin: 0;
+}
+section.block-ef-search-ef-search-topics-block ul.metadata-items li a:after{
+	content: ", ";
+	margin-right: 5px;
+}
+section.block-ef-search-ef-search-topics-block ul.metadata-items li:last-child a:after{
+	content: ".";
+}

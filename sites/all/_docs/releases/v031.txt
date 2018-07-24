@@ -1,0 +1,135 @@
+drush sql-query "insert into schema_migrations(code,extra)values('031', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+:: Delete Test content type
+:: goto admin/structure/types/manage/test_content_type/delete and Delete
+
+:: Delete deprecated Quarterly report CT
+:: goto admin/structure/types/manage/ef_quarterly_report/delete and Delete
+
+::Go to node/add/page and create a Basic Page.
+:: Title  = Board Members Extranet
+:: Content - Body = Welcome to the Eurofound extranet for members of the Governing Board and Advisory Committees
+:: Menu settings  = not in menu 
+
+
+
+:: MODULES ::
+
+drush dis content_access
+drush pm-uninstall -y content_access
+
+drush dis deny_access
+drush pm-uninstall -y deny_access
+
+drush dis -y languageicons
+drush pm-uninstall -y languageicons
+
+drush dl -y entity_translation-7.x-1.x-dev
+
+drush dl -y synchronize_translation_paths
+drush en -y synchronize_translation_paths
+drush cc all
+
+drush dl -y l10n_client
+drush en -y l10n_client
+
+drush cc all
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: replace countries basic page with view
+:: Go to /countries and delete the existing node before importing the menu.
+
+:: replace sectors basic page with view
+:: Go to /sectors and delete the existing node before importing the menu.
+
+:: Go to admin/config/content/diff and select  Diff default state : Plain view. 
+
+
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Footer Links| sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: NOT Checked 
+:: Language: English
+
+:: Populates menu link translations (test greek translations).
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-link-translations
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-link-translations.php
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+:: make title translatable for all field translatable CTs
+
+:: populate workbench emails programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-workbench-emails
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-workbench-emails.php
+
+::Add lnaguages
+
+drush dl drush_language
+
+drush language-add en
+drush language-add bg
+drush language-add cs
+drush language-add hr
+drush language-add da
+drush language-add de
+drush language-add et
+drush language-add el
+drush language-add fi
+drush language-add fr
+drush language-add it
+drush language-add lv
+drush language-add lt
+drush language-add hu
+drush language-add mt
+drush language-add nl
+drush language-add pl
+drush language-add pt
+drush language-add ro
+drush language-add sk
+drush language-add sl
+drush language-add es
+drush language-add sv
+drush language-add tr
+drush language-add ga
+drush language-add mk
+drush language-add is
+drush language-add sq
+drush language-add sr
+
+--language for Montenegro seems to have been added by mistake. not found in translations or imported languages
+--drush language-add me
+
+drush l10n-update-refresh
+drush l10n-update
+
+drush vset -y maintenance_mode 0
+drush cc all

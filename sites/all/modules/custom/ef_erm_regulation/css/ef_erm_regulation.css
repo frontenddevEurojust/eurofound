@@ -1,0 +1,412 @@
+
+.field-name-field-country-erm-reg{
+	min-width: 300px;
+	max-width: 500px;
+}
+.field-name-field-type-phase-erm-reg{
+	display: inline-block;
+	width: 49%;
+}
+
+
+
+.node-ef_erm_regulation-form .form-item-field-country-erm-reg-und label{
+    display: inline-block;
+}
+.node-ef_erm_regulation-form .form-item-field-country-erm-reg-und select{
+    width: 50%;
+    display: inline-block;
+    border-radius:4px;
+}
+.node-ef_erm_regulation-form  .form-item-field-type-phase-erm-reg-und select{
+    padding: 0.8em;
+    border-radius: 4px;
+    border: 1px dotted #aaa;
+}
+@-moz-document url-prefix() {
+    .node-ef_erm_regulation-form  .form-item-field-type-phase-erm-reg-und select{
+        padding: 0.5em;
+    }
+}
+.node-ef_erm_regulation-form  .taxonomy-management {
+    display: inline-block;
+    background-color: #005BAA;
+    border: none;
+    border-radius: 4px;
+    width: auto;
+    margin: 0;
+    margin-left: 1em;
+    padding: 0 1em;
+    position: relative;
+    top: 0px;
+}
+
+.node-ef_erm_regulation-form  .form-checkboxes label, .node-ef_erm_regulation-form .form-radios label {
+    width: auto;
+    display: inline-block;
+    padding-top: 2px;
+}
+
+.taxonomy-management{
+	display: inline-block;
+    background-color: #e8e8e8;
+    border: 1px solid #e2e2e2;
+    border-radius: 0 10px 10px 0;
+    width: 50%;
+}
+.taxonomy-management > ul{
+    list-style: outside none none;
+    margin: 0.5em;
+}
+.taxonomy-management ul > li{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    color: #FFF;
+}
+.taxonomy-management ul > li:hover{
+    opacity: 0.6;
+}
+.taxonomy-management ul > li:before{
+    font-family: fontawesome;
+    margin-right: 0.5em;
+}
+.taxonomy-management ul > li:nth-child(1):before{
+    content: "\f0fe";
+}
+.taxonomy-management ul > li:nth-child(2){
+    display: none;
+}
+.taxonomy-management ul > li:nth-child(2):before{
+    content: "\f044";
+}
+
+fieldset.group-involved-actors-erm-reg{
+
+}
+#edit-field-erm-fundings-erm-reg {
+    border: 1px solid #c4c4c4;
+    border-bottom: 0;
+    padding: 1.25em;
+}
+.field-name-field-cost-covered-by-notes{
+    background: #f9f9f9;
+    display: block;
+    margin-top: -21px;
+    padding: 0 1.25em;
+    border: 1px solid #c4c4c4;
+    border-top: 0;
+}
+.field-name-field-erm-fundings-erm-reg{
+    background: #f9f9f9;
+}
+.form-item-field-erm-fundings-erm-reg-und label{
+       display: inline-block;
+}
+#edit-field-erm-fundings-erm-reg-und{
+    width: 80%;
+    padding-left: 2%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -5px;
+}
+#edit-field-erm-fundings-erm-reg-und .fundings-col .form-type-checkbox{
+    display: inline-block;
+    margin-right: 1em;
+    width: 20%;
+}
+#edit-field-erm-fundings-erm-reg-und .fundings-col .form-type-checkbox label{
+    display: inline-block;
+    margin-top: 3px;
+    width: 90%;
+}
+#node_ef_erm_regulation_form_group_thresholds_erm_reg .fieldset-wrapper > div{
+	display: inline-block;
+}
+.field-name-field-thresholds-notes{
+    display: block !important;
+}
+#node_ef_erm_regulation_form_group_thresholds_erm_reg .fieldset-wrapper > div:last-child{
+	display: inline;
+}
+
+#edit-field-company-size{
+    width: 35%;
+    margin: 0 5%;
+}
+
+#edit-field-affected-employees{
+    width: 35%;
+}
+
+.logged-in #edit-field-company-size-und-0-value ,
+.logged-in #edit-field-affected-employees-und-0-value  {    
+    width:100%;
+}
+
+.node-type-ef-erm-regulation .field-add-more-submit:before{
+    content: "\f196";
+    font-family: fontawesome;
+    margin-right: 1em;
+}
+
+/* --- hierarchical select --- */
+#edit-field-type-phase-erm-reg .phase-erm-reg{
+	background-color: #DFDFD7;
+	color: #343434;
+	text-align: right;
+	font-weight: bold;
+	padding: 4px;
+}
+
+/* --- Internal comments --- */
+#ef-erm-regulation-node-form .erm-notes label{
+	cursor: pointer;
+	color: #0074c9;
+}
+#ef-erm-regulation-node-form .erm-notes label:before{
+	margin-right: 0.5em;
+	font-size: 1em;
+	font-weight: bold;
+	color: #0074c9;
+	font-family: fontawesome;
+}
+#ef-erm-regulation-node-form .erm-notes label.closed:before{
+	content: "\f0fe";
+}
+#ef-erm-regulation-node-form .erm-notes label.opened:before{
+	 content: "\f13a";
+}
+#ef-erm-regulation-node-form .erm-notes textarea,
+#ef-erm-regulation-node-form .notes-erm-reg textarea{
+	background-color: #f2f2f2;
+    border: 1px solid #0074c9;
+    color: #0074c9;
+    font-style: italic;
+    padding: 10px;
+}
+#ef-erm-regulation-node-form .erm-notes-memo  textarea{
+  opacity: 0.5;
+  border: 1px solid #ccc;
+  background: #f2f2f2 url(text-no-edit.svg) no-repeat center;
+ }
+
+ /*  dialogs */
+.ui-dialog-new-type .ui-dialog-buttonset,
+.ui-dialog-list-types .ui-dialog-buttonset{
+    margin: auto;
+    width: 50%;
+    float: none !important;
+}
+.ui-dialog-new-type .ui-dialog-buttonset > button,
+.ui-dialog-list-types .ui-dialog-buttonset > button{
+    display: inline-block;
+    margin: 10px;
+    width: 40% !important;
+}
+.ui-dialog-new-type #select-phase{
+    margin-right: 20px;
+    display: inline-block;
+}
+.ui-dialog-new-type #new-type-dialog > label,
+.ui-dialog-edit-type #new-type-dialog > label,
+.ui-dialog-edit-type #edit-type-dialog > label {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.node-type-ef-erm-regulation .ui-dialog-list-types .ui-dialog-content.ui-widget-content,
+.node-type-ef-erm-regulation .ui-dialog-new-type .ui-dialog-content.ui-widget-content{
+    background-color: #f1f1f1;
+    font-size: 0.9rem;
+    padding: 20px;
+    text-align: left;
+}
+.node-type-ef-erm-regulation  .ui-dialog-list-types .edit-term-form .form-text{
+    border-radius: 4px;
+    padding: 1.5em;
+    width: 80%;
+    margin: auto;
+    display: inline-block;
+}
+
+.node-type-ef-erm-regulation .ui-dialog .ui-dialog-title{
+    font-size: 0.8rem;
+}
+.node-type-ef-erm-regulation .ui-dialog-new-type #select-phase{
+    width: 100%;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    color: rgba(0,0,0,.75);
+}
+.node-type-ef-erm-regulation .ui-widget-content #add-new-term{
+    border-radius: 4px;
+    height: 4em;
+    padding: 0.5em 1em;
+}
+.node-type-ef-erm-regulation .field-add-more-submit:before{
+    content: "\f196";
+    font-family: "fontawesome";
+    margin-right: 1em;
+}
+
+.ui-dialog-new-type #select-phase + label {
+    display: block;
+    margin-top: 2em;
+    clear: both;
+}
+.ui-dialog-new-type input.add-new-term{
+    display: inline-block;
+    border-radius: 4px;
+    height: 3em;
+}
+
+
+.ui-dialog-list-types .list-terms-phase{
+    padding: 10px;
+}
+.ui-dialog-list-types #add-new-term{
+    display: inline-block;
+}
+.ui-dialog-list-types #list-terms ul {
+    padding: 10px 0;
+    list-style: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+.ui-dialog-list-types #list-terms ul > li{
+    padding: 2px 0;
+    cursor: pointer;
+    -webkit-transition: color .4s ease; /* Safari */
+    transition: color .4s ease;
+    font-weight: normal;
+    text-align: left;
+    font-size: 0.8rem;
+    margin: -5px 2px;
+}
+.ui-dialog-list-types #list-terms ul > li.selected{
+    color: #2E68AA;
+}
+.ui-dialog-list-types #list-terms ul > li.no-selected{
+    color: #828282;
+}
+.ui-dialog-list-types #list-terms ul > li:hover,
+.ui-dialog-list-types #list-terms ul > li:focus{
+    color: #F78122;
+}
+.ui-dialog-list-types #list-terms ul > li:before{
+    font-family: fontawesome;
+    content: "\f096";
+    margin-right: 0.5em;
+    font-size: 1.1em;
+}
+.ui-dialog-list-types #list-terms ul > li.selected:before{
+    content: "\f044";
+}
+.ui-dialog-list-types #list-terms .list-terms-phase p {
+    background-color: #004284;
+    border-radius: 4px;
+    color: #fff;
+    margin: 4px 0;
+    padding: 6px 40px;
+}
+.ui-dialog-list-types #list-terms .list-terms-phase span {
+    font-size: 1rem;
+}
+
+.ui-dialog-list-types .edit-term-form > label {
+    display: inline-block;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+.ui-dialog-list-types .edit-term-form {
+    background-color: #e2e2e2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 20px auto 10px;
+    padding: 30px 0;
+    text-align: center;
+    width: 90%;
+}
+.ui-dialog-list-types .edit-term-form .form-text {
+    border-radius: 4px;
+    display: inline-block;
+    height: 4em;
+    margin: auto;
+    padding: 0.5em 1em;
+    width: 80%;
+}
+.form-item-field-involved-actors-erm-reg-und{
+    margin-top: 0 !important;
+}
+.form-item-field-involved-actors-erm-reg-und > label{
+    display: none;
+}
+#edit-field-involved-actors-erm-reg-und{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+/* Revision log messages */
+/* css copy */
+.revision-log-messages-summary{
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.page-node-edit .revision-log-messages-summary{
+    margin: 10px 0;
+}
+.revision-log-messages-summary > h3{
+    margin-left: 10px;
+    cursor: pointer;
+}
+.revision-log-messages-summary > h3:before{
+    font-family: fontawesome;
+    margin-right: 0.5em;
+}
+.revision-log-messages-summary > h3.opened:before{
+    content: "\f0da";
+
+}
+.revision-log-messages-summary > h3.closed:before{
+    content: "\f0d7";
+}
+.revision-log-messages-summary ul{
+    margin: 0;
+}
+
+.revision-log-messages-summary ul > li{
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    cursor: pointer;
+    list-style-type: none;
+}
+.revision-log-messages-summary ul > li > a{
+    color: #424242 !important;
+}
+.revision-log-messages-summary ul > li:nth-child(odd){
+    background-color: #E2E2E2;
+}
+.revision-log-messages-summary ul > li:nth-child(even){
+    background-color: #D4D4D4;
+}
+.revision-log-messages-summary ul > li:hover{
+    background-color: #F0F0F0;
+}
+.revision-log-messages-summary ul li span{
+    font-weight: bold;
+}
+/* end css copy */

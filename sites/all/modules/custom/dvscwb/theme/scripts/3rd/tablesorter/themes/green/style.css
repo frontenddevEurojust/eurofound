@@ -1,0 +1,41 @@
+ 
+table.tablesorter  {
+    border: 1px solid #cde8dc;
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+ 
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+
+table.tablesorter tbody tr:nth-of-type(odd){
+    /*background-color: #F2F6FA;
+    border-bottom: 1px solid #D0DDEB;
+    */
+    background-color: #f2f2f2;
+    
+    border-bottom: 1px solid #cde8dc;
+    padding: 0.1em 0.6em;
+}
+
+table.tablesorter tbody tr:nth-of-type(even){
+	/*background-color: #FBFCFD;
+    border-bottom: 1px solid #D0DDEB;
+    */
+    border-bottom: 1px solid #cde8dc;
+    padding: 0.1em 0.6em;
+}
+
+
+ .country{
+ 	font-weight:bold;
+ }

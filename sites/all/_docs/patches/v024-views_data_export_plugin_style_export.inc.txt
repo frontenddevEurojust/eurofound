@@ -1,0 +1,7 @@
+patch for #EFDR-462 Views data export does not work appropriately in IE
+see also: https://drupal.org/node/2070711#comment-8891691
+
+line 173:
+    // added by mi
+    // see #EFDR-462 Views data export does not work appropriately in IE
+    $query['field_names'] = array();

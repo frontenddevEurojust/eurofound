@@ -1,0 +1,45 @@
+<?php
+function ef_quarterly_report_authors_view_views_pre_view(&$view, &$display_id, &$args) {
+	global $user;
+	if ($view->name == 'ef_quarterly_reports' && $view->current_display == 'authors' ) {
+		$account = user_load($user->uid);
+		$userContracts=array();
+		foreach($account->field_ef_contracts['und'] as $term){
+			$userContracts[]=taxonomy_term_load($term['tid']);
+		}
+		$userCountriesByContracts=array();
+		foreach($userContracts as $contract){
+			$countryIso=$contract->field_ef_eu_related_countries['und'][0]['iso2'];
+			if(!in_array($countryIso,$userCountriesByContracts)){
+				$userCountriesByContracts[$countryIso]=$countryIso;
+			}
+		}
+		$filters = $view->display_handler->get_option('filters');
+		$filters['name_list']['value']=$userCountriesByContracts;
+		$view->display_handler->override_option('filters', $filters);
+	}
+}
+
+
+function ef_quarterly_report_authors_view_form_alter(&$form, &$form_state, $form_id) {
+ if (isset($form_state['view']->name) &&  $form_state['view']->name== 'ef_quarterly_reports' && $form_state['view']->current_display == 'authors' ) {
+    // Add our custom All buttons.
+	if(isset($form['name_list'])){
+		//$options= $form['name_list']['#options'];
+		$allValue=array("-ALL-" => t("- All -"));
+		$form['name_list']['#options'] = array_merge($allValue, $form['name_list']['#options'] );
+		array_unshift($form['#submit'], 'ef_quarterly_report_authors_view_form_submit');
+	}
+  }
+}
+
+function ef_quarterly_report_authors_view_form_submit(&$form, &$form_state) {
+ if (!empty($form_state['values']['name_list']['-ALL-'])) {
+    $options = $form['name_list']['#options'];
+    unset($options['-ALL-']);
+	$optionsKeys=array_keys($options);
+	$updatedOptions = array_combine($optionsKeys, $optionsKeys);
+    $form_state['values']['name_list'] = $updatedOptions;
+  }
+}
+

@@ -1,0 +1,28 @@
+# Slovenian translation of Module Filter (7.x-1.8)
+# Copyright (c) 2013 by the Slovenian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Module Filter (7.x-1.8)\n"
+"POT-Creation-Date: 2013-08-10 01:48+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovenian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(((n%100)==1)?(0):(((n%100)==2)?(1):((((n%100)==3)||((n%100)==4))?(2):3)));\n"
+
+msgid "Operations"
+msgstr "Operacije"
+msgid "Description"
+msgstr "Opis"
+msgid "Disabled"
+msgstr "Onemogočeno"
+msgid "Enabled"
+msgstr "Omogočeno"
+msgid "Required"
+msgstr "Obvezno"
+msgid "Name"
+msgstr "Ime"
+msgid "All"
+msgstr "Vsi"

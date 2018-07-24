@@ -1,0 +1,28 @@
+# Danish translation of Webform Rules (7.x-1.6)
+# Copyright (c) 2013 by the Danish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Webform Rules (7.x-1.6)\n"
+"POT-Creation-Date: 2013-03-17 10:38+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Danish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Content"
+msgstr "Indhold"
+msgid "Node ID"
+msgstr "Indholdselement ID"
+msgid "Webforms"
+msgstr "Webformularer"
+msgid "Webform"
+msgstr "Webformular"
+msgid "Save Draft"
+msgstr "Gem kladde"
+msgid "Component value"
+msgstr "Komponentværdi"
+msgid "Submission ID"
+msgstr "Indsendelses-ID"

@@ -1,0 +1,5 @@
+name = EF contract
+description = Functionality related to workflow request assignee, contract and country groups
+package = EF modules
+core = 7.x
+dependencies[] = ef_workbench_moderation_state_access

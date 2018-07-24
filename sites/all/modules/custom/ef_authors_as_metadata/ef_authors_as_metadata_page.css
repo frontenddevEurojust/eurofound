@@ -1,0 +1,161 @@
+.page-author .ef-main{
+	overflow: visible;
+}
+#page-title{
+    background: #f9f9f9;
+	padding: 1rem 1rem 1rem 1rem;
+	margin: 0 0 2rem 0;
+    border-bottom: 3px solid #DDDDDD;
+}
+.view-authors-as-metadata .image{
+  float: left;
+  width: 15%;
+  margin: 0 !important;
+}
+.view-authors-as-metadata .image a, 
+.view-authors-as-metadata .image > span{
+  border-radius: 110px;
+  border: 1px solid #CCC;
+  overflow: hidden;
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.view-authors-as-metadata .image a img, 
+.view-authors-as-metadata .image span img{
+  height: auto !important;
+  width: 100%!important;
+}
+.view-authors-as-metadata .view-content{
+	clear: both;
+	display: flex;
+  flex-wrap: wrap;
+}
+.view-authors-as-metadata ul.user-details {
+	list-style-type: none;
+}
+.view-authors-as-metadata ul.user-details li span.email-author-label, 
+.view-authors-as-metadata ul.user-details li span.organisation-author-label{
+	font-family: 'OpenSans-semibold-webfont';
+	width: 100px;
+	display: inline-block;
+}
+.view-authors-as-metadata ul.user-details li span.email-author-text, 
+.view-authors-as-metadata ul.user-details li span.organisation-author-text{
+	color: #666;
+	font-family: 'OpenSans-light-webfont';
+	display: inline-block;
+}
+
+.view-authors-as-metadata .authors-as-metadata{
+  overflow: auto;
+  width: 48%;
+  margin-left: 4%;
+  margin-bottom: 2rem;
+}
+.view-authors-as-metadata .authors-as-metadata .content-author-as-metadata{
+	font-family: inherit;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 1.25em;
+    text-rendering: optimizeLegibility;
+    word-break: break-all;
+}
+.view-authors-as-metadata .authors-as-metadata:nth-child(odd){
+ margin-left: 0%;
+}
+
+.view-authors-as-metadata .authors-as-metadata h2{
+	font-family: 'OpenSans-Bold-webfont', Arial, Helvetica, sans-serif;
+	letter-spacing: -0.01em;
+	line-height: 1.3em;
+	font-size: 1rem;
+	margin: 0;
+}
+
+.view-authors-as-metadata .authors-as-metadata .item-list{
+	overflow: auto;
+	margin-bottom: 1rem;
+}
+.view-authors-as-metadata .authors-as-metadata .item-list li{
+	padding: 0 !important;
+	display: inline-block;
+	font-size: 12px;
+	margin-right: 6px !important;
+	float: left;
+}
+.view-authors-as-metadata .authors-as-metadata .item-list li:after{
+	content: ', ';
+}
+.view-authors-as-metadata .authors-as-metadata .item-list li:last-child:after{
+	content: '';
+}
+.data-and-read span{
+	display: inline-block;
+	width: 50%;
+}
+.data-and-read span.published-at{
+	font-family: 'OpenSans-Italic-webfont';
+}
+.data-and-read span.total-reads{
+	text-align: right;
+}
+.data-and-read span.total-reads:before{
+	content: "\f097";
+	font-family: 'Fontawesome';
+	margin-right: 5px;
+}
+
+p.image-content {
+	float: left;
+	margin-right: 1.5rem;
+	margin-top: 6px;
+}
+.view-authors-as-metadata .view-footer-wrapper{
+	clear: both;
+}
+.view-authors-as-metadata h1{
+	border-bottom: none !important;
+}
+
+
+@media only screen and (min-width : 901px) and (max-width : 1024px)  { 
+	.view-authors-as-metadata .authors-as-metadata {
+	  min-height: 400px;
+	}
+}
+
+@media only screen and (max-width : 900px)  { 
+
+	.view-authors-as-metadata .authors-as-metadata {
+	  width: 100%;
+	  display: block;
+	  vertical-align: top;
+	  margin-left: 0;
+	  margin-bottom: 2rem;
+	  min-height: auto;
+	}
+	.page-author .ef-filters .views-submit-button, 
+	.page-author .ef-filters .views-reset-button {
+	  border: none;
+	  padding: 0px 7%;
+	  float: none;
+	  width: 100%;
+	  text-align: center;
+	}
+	.page-author .views-exposed-form .views-exposed-widget .form-submit {
+	  margin-top: 1.3em;
+	  width: 100%;
+	}
+	.view-authors-as-metadata h1.user-name {
+	  width: 100%;
+	  text-align: center;
+	}
+
+	.views-page #page-title{
+		padding-right: 0 !important;
+	}
+}
+
+

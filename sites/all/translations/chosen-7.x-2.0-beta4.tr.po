@@ -1,0 +1,19 @@
+# Turkish translation of Chosen (7.x-2.0-beta4)
+# Copyright (c) 2014 by the Turkish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Chosen (7.x-2.0-beta4)\n"
+"POT-Creation-Date: 2014-03-08 08:58+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Turkish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "User interface"
+msgstr "Kullanıcı arayüzü"
+msgid "Installed"
+msgstr "Kurulu"
+msgid "Apply"
+msgstr "Uygula"

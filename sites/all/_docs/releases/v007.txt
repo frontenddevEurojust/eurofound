@@ -1,0 +1,83 @@
+drush sql-query "insert into schema_migrations(code,extra)values('007', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+::update all modules except core
+::can be commented out in fresh db installations
+drush up -y --no-core
+
+
+
+:: MODULES ::
+
+::custom eworx module
+drush en -y ef_ckeditor_word_counter
+
+:: User role field
+drush dl -y user_role_field
+drush en -y user_role_field
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Sectors | import/ef_vocabulary_sectors_import | sites\all\_docs\feeds\vocabulary_sectors_level_1.csv ||
+:: || Sectors | import/ef_vocabulary_sectors_import | sites\all\_docs\feeds\vocabulary_sectors_level_2.csv ||
+:: || Sectors | import/ef_vocabulary_sectors_import | sites\all\_docs\feeds\vocabulary_sectors_level_3.csv ||
+:: || Contracts | import/vocabulary_ef_contracts_import | sites\all\_docs\feeds\vocabulary_contracts.csv ||
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: apply patch on zurb-foundation theme to fix an exception
+:: patches/v007-zurb-foundation-template..txt
+
+::Update CKEditor and add word count plugin
+
+::sites/all/libraries - rm ckeditor folder
+::wget http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.3/ckeditor_4.3_standard.zip
+::unzip ckeditor*.zip -d sites/all/libraries
+::rm ckeditor*.zip
+:: edit sites\all\libraries\ckeditor\ckeditor.js and add the following in the comment section (https://drupal.org/comment/7153730#comment-7153730)
+  :: version:'CKEditor 4.3 SVN',revision:'2184'
+  :: version:'CKEditor 4.3 SVN',revision:'d2184ac'
+::wget http://download.ckeditor.com/wordcount/releases/wordcount_1.09.zip
+::unzip wordcount_1.09.zip -d sites/all/libraries/ckeditor/plugins
+::rm wordcount_1.09.zip
+
+:: populate EU Level country
+drush sql-query "INSERT INTO `ef-drupal`.`countries_country` (`iso2`, `iso3`, `name`, `official_name`, `numcode`, `continent`, `enabled`, `language`) VALUES ('EU', '', 'EU Level', 'European Union Level', 0, 'EU', 1, 'und');  -- EU Level"
+drush sql-query "INSERT INTO `ef-drupal`.`field_data_field_ef_eu_member` (`entity_type`,`bundle`,`entity_id`,`revision_id`,`language`,`delta`,`field_ef_eu_member_value`) VALUES ('country','country',251,251,'und',0,1);  -- EU Level"
+
+:: goto admin/config/people/accounts/fields/field_ef_contracts
+:: Apply only to: Author (user_role_field)
+
+:: goto admin/structure/ds/list/extras
+:: Set Default Field Template: Drupal default
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

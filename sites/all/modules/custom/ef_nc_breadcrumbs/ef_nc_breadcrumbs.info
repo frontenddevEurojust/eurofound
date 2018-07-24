@@ -1,0 +1,5 @@
+name = EF NC-CAR Breadcrumbs
+description = Generate Breadcrumbs for specified pages based on the current URL Path Alias
+package = EF modules
+core = 7.x
+

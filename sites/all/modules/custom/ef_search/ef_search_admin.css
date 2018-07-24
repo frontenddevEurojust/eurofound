@@ -1,0 +1,86 @@
+input.form-submit, a.button {
+    padding: 4px 17px !important;
+    margin-bottom: 0!important;
+    -moz-border-radius: 3px !important;
+    -webkit-border-radius: 3px!important;
+    border-radius: 3px!important;
+}
+input[name^="edit_topic_search"]{
+    background: #0074BD !important;
+    border: none !important;
+    color: #FFF !important;
+}
+input[name^="edit_topic_search"]:hover{
+    background: #0081CE !important;
+}
+input[name^="delete_topic_search"]{
+    background: #F0AD4E !important;
+    border: none !important;
+    color: #FFF !important;
+}
+input[name^="delete_topic_search"]:hover{
+    background: #EA8E13 !important;
+}
+input[name="search_terms_button"]{
+        margin-top: 25px;
+}
+
+table th:last-child {
+    text-align: center;
+}
+tr td:last-child {
+    border-right: 1px solid #bebfb9;
+    width: 200px!important;
+    text-align: right;
+}
+fieldset {
+    width: 49% !important;
+    float: left !important;
+    margin-right: 1% !important;
+    border: none !important;
+    padding: 0em !important;
+    background: #f2f2f2 !important;
+}
+fieldset#edit-add{
+      margin-right: 0% !important;  
+}
+fieldset .fieldset-wrapper {
+    padding: 30px !important;
+    min-height: 260px;
+}
+legend {
+    font-weight: bold;
+    background: #E0E0D8;
+    display: block;
+    width: 100%;
+    height: 35px;
+}
+fieldset#edit-add legend{
+    background:#B4CCD3;
+}
+fieldset#edit-add .fieldset-wrapper{
+    background: #EBF1F3 !important;
+}
+
+
+legend .fieldset-legend{
+    display: block !important;
+    width: 100%;
+    background-position: 5px 19% !important;
+}
+legend .fieldset-legend a{
+    display: block;
+}
+.fieldset-wrapper .form-item {
+    width: auto;
+    padding: 0 40px 0 0;
+}
+
+.fieldset-wrapper .form-item input.form-autocomplete, 
+.fieldset-wrapper .form-item input.form-text, 
+.fieldset-wrapper .form-item input.form-file, 
+.fieldset-wrapper .form-item textarea.form-textarea, 
+.fieldset-wrapper .form-item select.form-select {
+    color: #333;
+    padding: 10px !important;
+}

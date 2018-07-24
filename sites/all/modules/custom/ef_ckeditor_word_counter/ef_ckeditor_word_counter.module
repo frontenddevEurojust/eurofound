@@ -1,0 +1,18 @@
+<?php
+
+function ef_ckeditor_word_counter_wysiwyg_plugin($editor, $version) {
+  switch ($editor) {
+    case 'ckeditor':
+      return array(
+        'wordcount' => array( // Internal plugin name
+          'extensions' => array(
+            'wordcount' => t('Word count'), // Internal plugin name as key, name visible in editor profile config UI as value.
+          ),
+          'load' => TRUE,
+          'internal' => FALSE,
+          'path' => 'sites/all/libraries/ckeditor/plugins/wordcount'
+        ),
+      );
+     break;
+  }
+}

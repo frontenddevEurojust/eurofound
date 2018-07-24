@@ -1,0 +1,478 @@
+<?php
+
+  require_once 'helpers/functions.inc';
+
+
+  function ef_find_content_form_alter(&$form, $form_state, $form_id) {
+
+    if($form['#id'] == 'views-exposed-form-ef-find-content-page-1'){
+
+
+      $array_general_search = array($form_state['input']['field_ef_observatory_tid'],
+                                        $form_state['input']['field_ef_theme_tid'],
+                                        $form_state['input']['field_ef_topic_tid'],
+                                        $form_state['input']['language'],
+                                        $form_state['input']['field_ef_deliverable_kind_tid'],
+                                        $form_state['input']['name_list'],
+                                        $form_state['input']['field_ef_quarter_report_country_iso2'],
+                                        $form_state['input']['field__ef_nuts_comp_country_value']
+                                        );
+
+      $date_fieldset_particular_search = array($form_state['input']['field_ef_flag_value'],
+                                        $form_state['input']['field_ef_spotlight_theme_tid'],
+                                        $form_state['input']['field_ef_eurwork_issue_tid'],
+                                        $form_state['input']['field_ef_unit_tid'],
+                                        $form_state['input']['field_ef_quarter_value_1'],
+                                        $form_state['input']['field_ef_quartely_report_year_value']
+                                        );
+
+      $date_fieldset_search_date = array($form_state['input']['created'],
+                                        $form_state['input']['stamp'],
+                                        $form_state['input']['field_ef_approved_for_payment_value'],
+                                        $form_state['input']['field_ef_approved_for_payment_value'],
+                                        $form_state['input']['field_ef_quarter_value_1'],
+                                        $form_state['input']['field_ef_quartely_report_year_value']
+                                        );
+
+
+      /* CREAMOS Y ORGANIZAMOS FIELDSET */
+
+      $form['date_fieldset_basic_search'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Basic Search'),
+        '#collapsible' => TRUE,
+        '#weight' => '-100'
+      );
+
+      $form['date_fieldset_general_search'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('General Search'),
+        '#collapsible' => TRUE,
+        '#collapsed' => get_current_fieldset_state($array_general_search),
+        '#weight' => '-99'
+      );
+
+      $form['date_fieldset_particular_search'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Particular Search (By Content Type)'),
+        '#collapsible' => TRUE,
+        '#collapsed' => get_current_fieldset_state($date_fieldset_particular_search),
+        '#weight' => '-98'
+      );
+      $form['date_fieldset_search_date'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Search by Date'),
+        '#collapsible' => TRUE,
+       // '#collapsed' => get_current_fieldset_state($date_fieldset_search_date),
+        '#collapsed' => true,
+        '#weight' => '-97'
+      );
+      $form['date_fieldset_buttons'] = array(
+       // '#type' => 'fieldset',
+        //'#title' => t('Botones'),
+        '#collapsible' => false,
+        '#weight' => '0'
+      );
+
+
+      $form['#pre_render'][] = 'fieldset_to_form';
+
+      $form['#attached']['js'][] = drupal_get_path('module', 'ef_find_content') . '/ef_find_content.js';
+
+
+      /* END CREAR Y ORGANIZAR FIELDSET */
+
+      /* Format change for Updated date */
+
+
+       $uids = getAuthors();
+       $size = sizeof($uids);
+
+      for($i = 0; $i < $size; $i++) {
+
+        $authors[$uids[$i]->field_ef_assign_to_target_id] = getAuthorNames($uids[$i]->field_ef_assign_to_target_id);
+
+      }
+
+      $authors_list = getArrayAuthors($authors);
+
+      $country_groups = getExistentCountryGroupsId();
+
+
+
+     /*ASSIGN TO AUTHOR DROPDOWN*/
+
+      foreach($country_groups as $key => $value){
+
+        $aux = getAuthorsbyCountryGroup($value->gid);
+
+        foreach($aux as $k => $v){
+           $assign_to_author_options[$v->title][$v->mid] = $v->name;
+        }
+
+      }
+
+      $form['field_ef_assign_to_author_target_id'] = array(
+          '#type' => 'select',
+          '#options' => $assign_to_author_options,
+          '#default_value' => NULL,
+          '#empty_option' => '- Any -',
+          '#empty_value' => NULL,
+
+      );
+
+      /*END ASSIGN TO DROPDOWN*/
+
+      /* QUARTERLY REPORTS COUNTRIES */
+
+
+
+      $countries = getCountries();
+      $country_list = getArrayCountries($countries);
+
+      $country_EU28_key = array('AT','BE','BG','HR','CY','CZ,','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL',
+        'PT','RO','SK','SI','ES','SE','GB','NO');
+      foreach ($country_EU28_key as $k => $v) {
+        foreach ($country_list as $key => $value) {
+          if($v == $key){
+            $country_EU28[$key] = $value;
+          }
+        }
+      }
+
+      $form['field_ef_quarter_report_country_iso2'] = array(
+          '#type' => 'select',
+          '#title' => t('Selected'),
+          '#options' => $country_EU28,
+          '#default_value' => NULL,
+          '#empty_option' => '- Any -',
+          '#empty_value' => NULL,
+      );
+      /* END QUARTERLY REPORTS COUNTRIES */
+
+       /** ---- VIEW: Find content ----
+        ***
+        *** Display name: Find Content with Workflow
+        *** Path: /find-content
+        ***
+        *** Issue: Date formats
+        ***/
+  /*
+        $form['#attached']['js'] = array(
+        drupal_get_path('module', 'ef_customised_forms') . '/ef_customised_forms.js',
+        );
+
+  */
+
+      $form['field__ef_nuts_comp_country_value']['#type'] = 'select';
+      $form['field__ef_nuts_comp_country_value']['#options'] = nuts_find_content();
+      $form['field__ef_nuts_comp_country_value']['#size'] = 1;
+      $form['field__ef_nuts_comp_country_value']['#validated'] = TRUE;
+      $form['field__ef_nuts_comp_country_value']['#default_value'] = NULL;
+      $form['field__ef_nuts_comp_country_value']['#empty_option'] = '- Any -';
+      $form['field__ef_nuts_comp_country_value']['#empty_value'] = NULL;
+
+      $form['changed']['#type'] = 'date_popup';
+      $form['changed']['#date_format'] = 'd/m/Y';
+
+      global $user;
+
+      if(in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles) || in_array('administrator', $user->roles) ){
+        $form['type']['#options']["ef_network_extranet_page"]="Network Extranet page";
+      }
+
+
+      return $form;
+
+    }
+
+  }
+
+
+  function fieldset_to_form($form, &$form_state){
+
+
+
+      /* BASIC SEARCH */
+      $form['date_fieldset_basic_search']['title'] = $form['title'];
+      $form['date_fieldset_basic_search']['title']['#title'] =  $form['#info']['filter-title']['label'];
+
+
+      $form['date_fieldset_basic_search']['type'] = $form['type'];
+      $form['date_fieldset_basic_search']['type']['#title'] =  $form['#info']['filter-type']['label'];
+
+
+
+      $form['date_fieldset_basic_search']['state'] = $form['state'];
+      $form['date_fieldset_basic_search']['state']['#title'] =  $form['#info']['filter-state']['label'];
+
+      $form['date_fieldset_basic_search']['uid'] = $form['uid'];
+      $form['date_fieldset_basic_search']['uid']['#title'] =  $form['#info']['filter-uid']['label'];
+
+
+      $form['date_fieldset_basic_search']['field_ef_assign_to_author_target_id'] = $form['field_ef_assign_to_author_target_id'];
+      $form['date_fieldset_basic_search']['field_ef_assign_to_author_target_id']['#title'] =  $form['#info']['filter-field_ef_assign_to_author_target_id']['label'];
+
+      $form['date_fieldset_basic_search']['status'] = $form['status'];
+      $form['date_fieldset_basic_search']['status']['#title'] =  $form['#info']['filter-status']['label'];
+
+      $form['date_fieldset_basic_search']['changed'] = $form['changed'];
+      $form['date_fieldset_basic_search']['changed']['#title'] =  $form['#info']['filter-changed']['label'];
+
+
+      unset($form['title']);
+      unset($form['#info']['filter-title']);
+      unset($form['type']);
+      unset($form['#info']['filter-type']);
+      unset($form['state']);
+      unset($form['#info']['filter-state']);
+      unset($form['uid']);
+      unset($form['#info']['filter-uid']);
+      unset($form['field_ef_assign_to_author_target_id']);
+      unset($form['#info']['filter-field_ef_assign_to_author_target_id']);
+      unset($form['status']);
+      unset($form['#info']['filter-status']);
+      unset($form['changed']);
+      unset($form['#info']['filter-changed']);
+
+
+
+      /* GENERAL SEARCH */
+      $form['date_fieldset_general_search']['field_ef_observatory_tid'] = $form['field_ef_observatory_tid'];
+      $form['date_fieldset_general_search']['field_ef_observatory_tid']['#title'] =  $form['#info']['filter-field_ef_observatory_tid']['label'];
+
+      $form['date_fieldset_general_search']['field_ef_theme_tid'] = $form['field_ef_theme_tid'];
+      $form['date_fieldset_general_search']['field_ef_theme_tid']['#title'] =  $form['#info']['filter-field_ef_theme_tid']['label'];
+
+      $form['date_fieldset_general_search']['field_ef_topic_tid'] = $form['field_ef_topic_tid'];
+      $form['date_fieldset_general_search']['field_ef_topic_tid']['#title'] =  $form['#info']['filter-field_ef_topic_tid']['label'];
+
+      $form['date_fieldset_general_search']['language'] = $form['language'];
+      $form['date_fieldset_general_search']['language']['#title'] =  $form['#info']['filter-language']['label'];
+
+      $form['date_fieldset_general_search']['field_ef_deliverable_kind_tid'] = $form['field_ef_deliverable_kind_tid'];
+      $form['date_fieldset_general_search']['field_ef_deliverable_kind_tid']['#title'] =  $form['#info']['filter-field_ef_deliverable_kind_tid']['label'];
+
+      $form['date_fieldset_general_search']['name_list'] = $form['name_list'];
+      $form['date_fieldset_general_search']['name_list']['#title'] =  $form['#info']['filter-name_list']['label'];
+
+      $form['date_fieldset_general_search']['field_ef_quarter_report_country_iso2'] = $form['field_ef_quarter_report_country_iso2'];
+      $form['date_fieldset_general_search']['field_ef_quarter_report_country_iso2']['#title'] =  $form['#info']['filter-field_ef_quarter_report_country_iso2']['label'];
+
+      $form['date_fieldset_general_search']['field_ef_nuts_tid'] = $form['field__ef_nuts_comp_country_value'];
+      $form['date_fieldset_general_search']['field_ef_nuts_tid']['#title'] =  $form['#info']['filter-field__ef_nuts_comp_country_value']['label'];
+
+
+      unset($form['field_ef_observatory_tid']);
+      unset($form['#info']['filter-field_ef_observatory_tid']);
+      unset($form['field_ef_theme_tid']);
+      unset($form['#info']['filter-field_ef_theme_tid']);
+      unset($form['field_ef_topic_tid']);
+      unset($form['#info']['filter-field_ef_topic_tid']);
+      unset($form['language']);
+      unset($form['#info']['filter-language']);
+      unset($form['field_ef_deliverable_kind_tid']);
+      unset($form['#info']['filter-field_ef_deliverable_kind_tid']);
+      unset($form['name_list']);
+      unset($form['#info']['filter-name_list']);
+      unset($form['field_ef_quarter_report_country_iso2']);
+      unset($form['#info']['filter-field_ef_quarter_report_country_iso2']);
+      unset($form['field__ef_nuts_comp_country_value']);
+      unset($form['#info']['filter-field__ef_nuts_comp_country_value']['label']);
+
+
+
+      /* PARTICULAR SEARCH BY CONTENT TYPE*/
+      $form['date_fieldset_particular_search']['field_ef_flag_value'] = $form['field_ef_flag_value'];
+      $form['date_fieldset_particular_search']['field_ef_flag_value']['#title'] =  $form['#info']['filter-field_ef_flag_value']['label'];
+
+      $form['date_fieldset_particular_search']['field_ef_spotlight_theme_tid'] = $form['field_ef_spotlight_theme_tid'];
+      $form['date_fieldset_particular_search']['field_ef_spotlight_theme_tid']['#title'] =  $form['#info']['filter-field_ef_spotlight_theme_tid']['label'];
+
+      $form['date_fieldset_particular_search']['field_ef_eurwork_issue_tid'] = $form['field_ef_eurwork_issue_tid'];
+      $form['date_fieldset_particular_search']['field_ef_eurwork_issue_tid']['#title'] =  $form['#info']['filter-field_ef_eurwork_issue_tid']['label'];
+
+      $form['date_fieldset_particular_search']['field_ef_unit_tid'] = $form['field_ef_unit_tid'];
+      $form['date_fieldset_particular_search']['field_ef_unit_tid']['#title'] =  $form['#info']['filter-field_ef_unit_tid']['label'];
+
+      $form['date_fieldset_particular_search']['field_ef_quarter_value_1'] = $form['field_ef_quarter_value_1'];
+      $form['date_fieldset_particular_search']['field_ef_quarter_value_1']['#title'] =  $form['#info']['filter-field_ef_quarter_value_1']['label'];
+
+      $form['date_fieldset_particular_search']['field_ef_quartely_report_year_value'] = $form['field_ef_quartely_report_year_value'];
+      $form['date_fieldset_particular_search']['field_ef_quartely_report_year_value']['value']['#title'] =  $form['#info']['filter-field_ef_quartely_report_year_value']['label'];
+
+
+
+
+      unset($form['field_ef_flag_value']);
+      unset($form['#info']['filter-field_ef_flag_value']);
+      unset($form['field_ef_spotlight_theme_tid']);
+      unset($form['#info']['filter-field_ef_spotlight_theme_tid']);
+      unset($form['field_ef_eurwork_issue_tid']);
+      unset($form['#info']['filter-field_ef_eurwork_issue_tid']);
+      unset($form['field_ef_unit_tid']);
+      unset($form['#info']['filter-field_ef_unit_tid']);
+      unset($form['field_ef_quarter_value_1']);
+      unset($form['#info']['filter-field_ef_quarter_value_1']);
+      unset($form['field_ef_quartely_report_year_value']);
+      unset($form['#info']['filter-field_ef_quartely_report_year_value']);
+
+
+
+      /* SEARCH BY DATE*/
+      $form['date_fieldset_search_date']['created'] = $form['created'];
+      //$form['date_fieldset_search_date']['created']['value']['#title'] =  $form['#info']['filter-created']['label'];
+
+      $form['date_fieldset_search_date']['stamp'] = $form['stamp'];
+      //$form['date_fieldset_search_date']['stamp']['value']['#title'] =  $form['#info']['filter-stamp']['label'];
+
+
+      $form['date_fieldset_search_date']['field_ef_approved_for_payment_value'] = $form['field_ef_approved_for_payment_value'];
+    //  $form['date_fieldset_search_date']['field_ef_approved_for_payment_value']['min']['#title']=  $form['#info']['filter-field_ef_approved_for_payment_value']['label'];
+
+
+      $form['date_fieldset_search_date']['field_ef_report_delivery_date_value'] = $form['field_ef_report_delivery_date_value'];
+     // $form['date_fieldset_search_date']['field_ef_report_delivery_date_value']['value']['#title'] =  $form['#info']['filter-field_ef_report_delivery_date_value']['label'];
+
+
+      unset($form['created']);
+      unset($form['#info']['filter-created']);
+      unset($form['stamp']);
+      unset($form['#info']['filter-stamp']);
+      unset($form['field_ef_approved_for_payment_value']);
+      unset($form['#info']['filter-field_ef_approved_for_payment_value']);
+      unset($form['field_ef_report_delivery_date_value']);
+      unset($form['#info']['filter-field_ef_report_delivery_date_value']);
+
+
+      /* BOTONES*/
+      $form['date_fieldset_buttons']['submit'] = $form['submit'];
+      $form['date_fieldset_buttons']['submit']['#title'] =  $form['#info']['filter-submit']['label'];
+      $form['date_fieldset_buttons']['reset'] = $form['reset'];
+      $form['date_fieldset_buttons']['reset']['#title'] =  $form['#info']['filter-reset']['label'];
+
+      unset($form['submit']);
+      unset($form['reset']);
+
+      return $form;
+
+  }
+
+
+  function ef_find_content_views_query_alter(&$view, &$query) {
+    if($view->name == 'ef_find_content') {
+      /*----------------------Get Nids Depending First Submitted Date-----------------------*/
+      for($i = 0; $i < sizeof($query->where[1]['conditions']); $i++) {
+        $array[$i] = $query->where[1]['conditions'][$i]['field'];
+      }
+      foreach ($array as $key => $value) {
+        if(strpos($value, 'workbench_moderation_node_history.stamp BETWEEN') === 0) {
+          $position = $key;
+        }
+      }
+      $field = $array[$position];
+      $to = substr($field, -10);
+      $from = substr($field, -25, 10);
+      if(isset($to) && isset($from)) {
+        $sql = "SELECT distinct(nid) from workbench_moderation_node_history where state = 'submitted' or state = 'submitted_qr'";
+        $result = db_query($sql)->fetchAll();
+        foreach ($result as $key => $value) {
+          $sql1 = "SELECT *
+                   FROM workbench_moderation_node_history
+                   where (state = 'submitted' or state = 'submitted_qr')
+                   and nid = :nid
+                   limit 1";
+          $first_submitted[$key] = db_query($sql1, array(':nid' => $value->nid))->fetchAll();
+        }
+        $j = 0;
+        foreach ($first_submitted as $key => $value) {
+          if (($value[0]->stamp >= $from ) && ($value[0]->stamp <= $to)) {
+            $nids[$j] = $value[0]->nid;
+            $j++;
+          }
+        }
+      /*--------------------------$nids => All the nids filtered ---------------------------*/
+        if($from > 0) {
+          foreach ($query->where[1]['conditions'] as $key => $value) {
+            if(strpos($value['field'], 'workbench_moderation_node_history.stamp BETWEEN') === 0) {
+              unset($query->where[1]['conditions'][$key]);
+            }
+          }
+          $where_size = sizeof($query->where[1]['conditions']);
+          $query->where[1]['conditions'][$where_size] = array(
+            'field' => 'node.nid',
+            'value' => $nids,
+            'operator' => 'IN'
+          );
+
+        }
+
+        //--------------- Condition to include content types without workflow ----------------
+
+        unset($query->where[1]['conditions'][0]);
+        $position = sizeof($query->where);
+        $query->where[$position + 1] = array(
+          'conditions' => array(
+            0 => array(
+              'field' => 'workbench_moderation_node_history.current',
+              'value' => 0,
+              'operator' => '<>'
+              ),
+            1 => array(
+              'field' => 'workbench_moderation_node_history.current',
+              //'value' => '',
+              'operator' => 'IS NULL'
+              )
+            ),
+          'args' => array(),
+          'type' => 'OR'
+          );
+
+        //----------------- End Condition to include content types without workflow ---------------
+
+        $query->table_queue['workbench_moderation_node_history']['join']->type = 'LEFT';
+        $query->table_queue['workbench_moderation_node_history']['join']->definition['type'] = 'LEFT';
+
+        $query->table_queue['workbench_moderation_node_history']['join']->left_field = 'nid';
+        $query->table_queue['workbench_moderation_node_history']['join']->field = 'nid';
+        $query->table_queue['workbench_moderation_node_history']['join']->definition['left_table'] = 'node';
+        $query->table_queue['workbench_moderation_node_history']['join']->definition['left_field'] = 'nid';
+        $query->table_queue['workbench_moderation_node_history']['join']->definition['field'] = 'nid';
+      }
+    }
+  }
+
+function ef_find_content_form_views_exposed_form_alter(&$form, $form_state) {
+  /*  Modify the date format in Find Content */
+
+    if($form['#id'] == 'views-exposed-form-ef-find-content-page-1') {
+    /*--------------------Submitted On Filter----------------------------*/
+      $form['stamp']['min']['#type'] = 'date_popup';
+      $form['stamp']['min']['#date_format'] = 'd F Y';
+      unset($form['stamp']['min']['#description']);
+      $form['stamp']['max']['#type'] = 'date_popup';
+      $form['stamp']['max']['#date_format'] = 'd F Y';
+      unset($form['stamp']['max']['#description']);
+    /*--------------------Requested On Filter----------------------------*/
+      $form['created']['min']['#type'] = 'date_popup';
+      $form['created']['min']['#date_format'] = 'd F Y';
+      unset($form['created']['min']['#description']);
+      $form['created']['max']['#type'] = 'date_popup';
+      $form['created']['max']['#date_format'] = 'd F Y';
+      unset($form['created']['max']['#description']);
+
+      global $user;
+
+      if ( in_array("Author", $user->roles) ) {
+        if(!user_access('edit any board_member_page content')) {
+          unset($form['type']['#options']["board_member_page"]);
+        }
+        if(!user_access('edit any ef_network_extranet_page content')) {
+          unset($form['type']['#options']["ef_network_extranet_page"]);
+        }
+      }
+    }
+}
+
+
+

@@ -1,0 +1,4 @@
+name = Data Visualization System DVS
+description = Intergrates DVS with drupal
+package = EF modules
+core = 7.x

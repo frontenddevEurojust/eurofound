@@ -1,0 +1,32 @@
+<?php
+
+function ef_date_jump_duplicates_views_pre_render(&$view){
+
+
+ if ($view->name == 'date_jump_menu'){
+
+    $usedValues = array();
+
+     foreach ($view->result as $row){
+
+        if(isset($row->publication_date_published_at)){
+
+            $year = format_date($row->publication_date_published_at, 'year');
+            $currentYear = date('Y');
+
+            $yearDiff = $currentYear - $year;
+
+            if(!in_array($year, $usedValues) && $yearDiff <= 6){
+              $newViewResult[] = $row;
+              $usedValues[] = $year;
+            }
+
+         }
+
+     }//end foreach
+
+     $view->result = $newViewResult;
+
+  }//end view
+
+}

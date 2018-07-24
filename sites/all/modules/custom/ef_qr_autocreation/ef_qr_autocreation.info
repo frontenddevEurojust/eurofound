@@ -1,0 +1,4 @@
+name = Auto-creation of the Quarterly reports 
+description = Auto-creation of the Quarterly reports
+package = EF modules
+core = 7.x

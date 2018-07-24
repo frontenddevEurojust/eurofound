@@ -1,0 +1,92 @@
+drush sql-query "insert into schema_migrations(code,extra)values('016', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: custom eworx
+drush en -y ef_quarterly_report_authors_view
+drush en -y ef_default_formats
+drush en -y ef_ckeditor_tableresize
+drush en -y ef_ckeditor_height
+
+drush dl -y token_custom
+drush en -y token_custom
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+drush vset workbench_moderation_per_node_type TRUE
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+drush field-delete field_ef_dissemination_title --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_dissemination_timeline --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_dissemination_channel --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_target_audience --bundle=ef_ic_quarterly_report
+drush field-delete field_ef_num_of_outputs_sent_out --bundle=ef_ic_quarterly_report
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: goto admin/config/system/tabtamer
+:: make visible: User -> 'Request new password'
+
+:: go to admin/config/user-interface/print/pdf
+:: in Link visibility  add:
+	:: ic-quarterly-report/*/*
+    :: network-quarterly-report/*/*
+:: Disable 'Printer-friendly URLs list in system pages'
+	
+:: go to admin/config/user-interface/print/common
+:: Disable 'Printer-friendly URLs list'
+:: in Logo type select 'Current theme's logo'
+
+:: go to admin/config/content/formats/php_code
+:: check the PHP Evaluator filter
+
+:: go to admin/structure/token-custom/country-authors-emails/edit
+:: create the custom token:
+:: /_docs/custom-tokens/country-authors-emails.txt
+
+::wget http://download.ckeditor.com/tableresize/releases/tableresize_4.3.4.zip
+::unzip tableresize_4.3.4.zip -d sites/all/libraries/ckeditor/plugins
+::rm tableresize_4.3.4.zip
+
+	
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+:: populate workbench emails programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-workbench-emails
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-workbench-emails.php
+
+:: patch for rules (only if data selectors not work)
+:: patches/v016-rules.autocomplete.js.txt
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

@@ -1,0 +1,1201 @@
+﻿<pre><style>.error{background:red;margin-left:5px;margin-right:5px}</style><pre><style>.warning{background:orange;margin-left:5px;margin-right:5px}</style><pre><style>.message{background:#6FE302;margin-left:5px;margin-right:5px}</style>processing row: 1Array
+(
+    [Date Created] => 2005-08-25
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Women
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 2Array
+(
+    [Date Created] => 2005-09-01
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 3Array
+(
+    [Date Created] => 2007-01-10
+    [Organisation Size] => Medium
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices, Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 4Array
+(
+    [Date Created] => 2007-01-29
+    [Organisation Size] => Small
+    [Sector] => Maintenance and Cleaning
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices, Ergonomics/job design, Comprehensive             approach
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 5Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery, Transport and Storage
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual
+    [Initiative Type] => Training, development, etc , Health and well-being, Exit Policy, Comprehensive approach
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 6Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Training, development, etc , Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 7Array
+(
+    [Date Created] => 2005-10-01
+    [Organisation Size] => Medium
+    [Sector] => Consultancy Business Services, Energy
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Recruitment
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 8Array
+(
+    [Date Created] => 2005-10-01
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Exit Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 9Array
+(
+    [Date Created] => 2005-05-18
+    [Organisation Size] => Small
+    [Sector] => Health and Social Work
+    [Legal Form] => 
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 10Array
+(
+    [Date Created] => 2005-11-02
+    [Organisation Size] => Small
+    [Sector] => Construction and Woodworking
+    [Legal Form] => Private
+    [Social Dialogue] => No social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Comprehensive approach
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 11Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual, Unskilled Manual
+    [Initiative Type] => Training, development, etc , Flexible working practices, Redeployment, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 12Array
+(
+    [Date Created] => 2005-07-06
+    [Organisation Size] => Small
+    [Sector] => Consultancy Business Services
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 13Array
+(
+    [Date Created] => 2005-10-11
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Redeployment, Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 14Array
+(
+    [Date Created] => 2005-07-26
+    [Organisation Size] => Medium
+    [Sector] => Consultancy Business Services
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 15Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Health and Social Work
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Recruitment, Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 16Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Health and Social Work
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual, Women
+    [Initiative Type] => Recruitment, Training, development, etc , Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 17Array
+(
+    [Date Created] => 2005-05-03
+    [Organisation Size] => Medium
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Skilled Manual, Women, Men, Persons with health problems
+    [Initiative Type] => Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 18Array
+(
+    [Date Created] => 2005-10-13
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 19Array
+(
+    [Date Created] => 2006-01-15
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 20Array
+(
+    [Date Created] => 2006-12-15
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Health and well-being, Wage Policy, Changing attitudes, Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 21Array
+(
+    [Date Created] => 2006-12-14
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Ergonomics/job design, Exit Policy
+    [Scope] => Old
+    [Social Dialogue Type] => 
+)
+<br/>processing row: 22Array
+(
+    [Date Created] => 2005-09-26
+    [Organisation Size] => Large
+    [Sector] => Energy
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual
+    [Initiative Type] => Comprehensive approach
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 23Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Construction and Woodworking
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => No social dialogue
+    [Target Groups] => Skilled Manual, Men
+    [Initiative Type] => Recruitment, Flexible working practices, Health and well-being, Ergonomics/job design
+    [Scope] => Old
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 24Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Publishing and Media
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union, Informal social dialogue, Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Women, Men, Persons with health problems
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being, Ergonomics/job design,             Changing attitudes, Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 25Array
+(
+    [Date Created] => 2006-12-14
+    [Organisation Size] => Large
+    [Sector] => Electrical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Unskilled Manual, Women, Men
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 26Array
+(
+    [Date Created] => 2006-08-01
+    [Organisation Size] => Small
+    [Sector] => Consultancy Business Services
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Other non-manual
+    [Initiative Type] => Training, development, etc , Exit Policy, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 27Array
+(
+    [Date Created] => 2007-01-12
+    [Organisation Size] => Small
+    [Sector] => Health and Social Work
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Redeployment, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 28Array
+(
+    [Date Created] => 2007-03-15
+    [Organisation Size] => Medium
+    [Sector] => Health and Social Work
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Women, Men, Persons with health problems
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 29Array
+(
+    [Date Created] => 2005-09-14
+    [Organisation Size] => Large
+    [Sector] => Commerce
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual, Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 30Array
+(
+    [Date Created] => 2005-11-16
+    [Organisation Size] => Large
+    [Sector] => Publishing and Media
+    [Legal Form] => Public
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Persons with health problems
+    [Initiative Type] => Health and well-being
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 31Array
+(
+    [Date Created] => 2007-01-15
+    [Organisation Size] => Small
+    [Sector] => Food Beverage and Tobacco
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Exit Policy, Redeployment, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 32Array
+(
+    [Date Created] => 2007-09-25
+    [Organisation Size] => Small
+    [Sector] => Publishing and Media
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 33Array
+(
+    [Date Created] => 2007-03-19
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Wage Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 34Array
+(
+    [Date Created] => 2005-10-17
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 35Array
+(
+    [Date Created] => 2006-12-15
+    [Organisation Size] => Medium
+    [Sector] => Construction and Woodworking
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Comprehensive approach
+    [Scope] => 
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 36Array
+(
+    [Date Created] => 2007-01-31
+    [Organisation Size] => Large
+    [Sector] => Food Beverage and Tobacco
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Unskilled Manual, Women
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 37Array
+(
+    [Date Created] => 2005-06-16
+    [Organisation Size] => Large
+    [Sector] => Electrical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => 
+    [Initiative Type] => Training, development, etc , Flexible working practices, Exit Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 38Array
+(
+    [Date Created] => 2005-04-21
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 39Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Skilled Manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 40Array
+(
+    [Date Created] => 2005-11-04
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Training, development, etc , Health and well-being, Ergonomics/job design, Exit Policy, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 41Array
+(
+    [Date Created] => 2005-11-14
+    [Organisation Size] => Small
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Skilled Manual, Men
+    [Initiative Type] => Exit Policy, Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 42Array
+(
+    [Date Created] => 2005-06-21
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Persons with health problems
+    [Initiative Type] => Health and well-being
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 43Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Small
+    [Sector] => Metal and Machinery, Textiles and Leather
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual
+    [Initiative Type] => Exit Policy, Redeployment
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 44Array
+(
+    [Date Created] => 2005-11-14
+    [Organisation Size] => Medium
+    [Sector] => Commerce
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Unskilled Manual, Men, Persons with health problems
+    [Initiative Type] => Health and well-being
+    [Scope] => Old
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 45Array
+(
+    [Date Created] => 2005-10-10
+    [Organisation Size] => Large
+    [Sector] => Education
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Exit Policy, Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 46Array
+(
+    [Date Created] => 2005-09-23
+    [Organisation Size] => Large
+    [Sector] => Energy
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 47Array
+(
+    [Date Created] => 2007-03-27
+    [Organisation Size] => Large
+    [Sector] => Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 48Array
+(
+    [Date Created] => 2007-02-12
+    [Organisation Size] => Large
+    [Sector] => Education
+    [Legal Form] => Public
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Women, Men
+    [Initiative Type] => Recruitment, Training, development, etc , Exit Policy
+    [Scope] => Old
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 49Array
+(
+    [Date Created] => 2007-04-27
+    [Organisation Size] => Medium
+    [Sector] => Publishing and Media
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 50Array
+(
+    [Date Created] => 2005-05-09
+    [Organisation Size] => Large
+    [Sector] => Electrical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 51Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 52Array
+(
+    [Date Created] => 2005-10-18
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union, Works council
+    [Target Groups] => Persons with health problems
+    [Initiative Type] => Health and well-being, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 53Array
+(
+    [Date Created] => 2005-10-21
+    [Organisation Size] => Medium
+    [Sector] => Agriculture and Fishing
+    [Legal Form] => Public
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Training, development, etc , Flexible working practices, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 54Array
+(
+    [Date Created] => 2005-10-05
+    [Organisation Size] => Large
+    [Sector] => Information Technology
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Women, Men
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 55Array
+(
+    [Date Created] => 2006-01-15
+    [Organisation Size] => Medium
+    [Sector] => Glass and Cement
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 56Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 57Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Food Beverage and Tobacco
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union, Informal social dialogue, Works council
+    [Target Groups] => Other non-manual, Skilled Manual, Women, Men, Persons with health problems
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being, Ergonomics/job design, Wage             Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 58Array
+(
+    [Date Created] => 2007-03-01
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Recruitment, Training, development, etc , Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 59Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 60Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices, Health and well-being, Ergonomics/job             design, Wage Policy, Exit Policy, Redeployment, Changing attitudes, Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 61Array
+(
+    [Date Created] => 2005-11-04
+    [Organisation Size] => Large
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual, Unskilled Manual
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being, Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 62Array
+(
+    [Date Created] => 2007-05-24
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Health and well-being, Redeployment, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 63Array
+(
+    [Date Created] => 2005-08-25
+    [Organisation Size] => Large
+    [Sector] => Information Technology, Post and Telecommunications
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Women, Men
+    [Initiative Type] => Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 64Array
+(
+    [Date Created] => 2005-09-28
+    [Organisation Size] => Large
+    [Sector] => Hotel Restaurant and Catering
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Women, Persons with health problems
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices, Exit Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 65Array
+(
+    [Date Created] => 2005-10-27
+    [Organisation Size] => Large
+    [Sector] => Commerce
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 66Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Unskilled Manual, Men, Persons with health problems
+    [Initiative Type] => Ergonomics/job design, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 67Array
+(
+    [Date Created] => 2005-11-20
+    [Organisation Size] => Medium
+    [Sector] => Education
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Women, Men
+    [Initiative Type] => Recruitment
+    [Scope] => Old
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 68Array
+(
+    [Date Created] => 2007-01-09
+    [Organisation Size] => Small
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual, Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 69Array
+(
+    [Date Created] => 2007-03-22
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual, Skilled Manual
+    [Initiative Type] => Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 70Array
+(
+    [Date Created] => 2005-11-16
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 71Array
+(
+    [Date Created] => 2005-10-01
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Health and well-being, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 72Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Pulp and Paper
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 73Array
+(
+    [Date Created] => 2007-03-28
+    [Organisation Size] => Medium
+    [Sector] => Financial Services
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Training, development, etc , Health and well-being
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 74Array
+(
+    [Date Created] => 2005-06-15
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual
+    [Initiative Type] => Flexible working practices, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 75Array
+(
+    [Date Created] => 2005-11-15
+    [Organisation Size] => Large
+    [Sector] => Education
+    [Legal Form] => Public
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 76Array
+(
+    [Date Created] => 2007-01-17
+    [Organisation Size] => Large
+    [Sector] => Commerce
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 77Array
+(
+    [Date Created] => 2005-05-17
+    [Organisation Size] => Large
+    [Sector] => Hotel Restaurant and Catering
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 78Array
+(
+    [Date Created] => 2005-10-01
+    [Organisation Size] => Large
+    [Sector] => Pulp and Paper
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Recruitment, Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 79Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 80Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => No social dialogue
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 81Array
+(
+    [Date Created] => 2007-02-16
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Retention, Exit Policy
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 82Array
+(
+    [Date Created] => 2005-06-24
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 83Array
+(
+    [Date Created] => 2005-10-01
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => Old
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 84Array
+(
+    [Date Created] => 2007-01-23
+    [Organisation Size] => Large
+    [Sector] => Construction and Woodworking
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Skilled Manual
+    [Initiative Type] => Training, development, etc , Health and well-being
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 85Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Motor
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual, Women, Men
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 86Array
+(
+    [Date Created] => 2005-05-24
+    [Organisation Size] => Large
+    [Sector] => Construction and Woodworking, Maintenance and Cleaning
+    [Legal Form] => Public
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being, Ergonomics/job design,             Redeployment, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 87Array
+(
+    [Date Created] => 2005-06-23
+    [Organisation Size] => Medium
+    [Sector] => Chemical, Energy
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 88Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union, Works council
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 89Array
+(
+    [Date Created] => 2005-06-03
+    [Organisation Size] => Medium
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union, Works council
+    [Target Groups] => 
+    [Initiative Type] => Recruitment, Training, development, etc , Flexible working practices, Wage Policy, Changing attitudes
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 90Array
+(
+    [Date Created] => 2006-01-15
+    [Organisation Size] => Large
+    [Sector] => Textiles and Leather
+    [Legal Form] => Private
+    [Social Dialogue] => Trade union
+    [Target Groups] => Skilled Manual, Unskilled Manual
+    [Initiative Type] => Flexible working practices, Health and well-being, Ergonomics/job design, Wage Policy, Exit Policy
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 91Array
+(
+    [Date Created] => 2007-03-18
+    [Organisation Size] => Large
+    [Sector] => Education
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Women, Men
+    [Initiative Type] => Training, development, etc , Flexible working practices, Wage Policy, Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 92Array
+(
+    [Date Created] => 2007-05-21
+    [Organisation Size] => Medium
+    [Sector] => Health and Social Work
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Trade union
+    [Target Groups] => Women
+    [Initiative Type] => Training, development, etc , Redeployment, Comprehensive approach, Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/>processing row: 93Array
+(
+    [Date Created] => 2006-07-18
+    [Organisation Size] => Large
+    [Sector] => Financial Services
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Consultation
+)
+<br/>processing row: 94Array
+(
+    [Date Created] => 2005-11-14
+    [Organisation Size] => Large
+    [Sector] => Construction and Woodworking
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 95Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Persons with health problems
+    [Initiative Type] => Recruitment
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 96Array
+(
+    [Date Created] => 2007-02-14
+    [Organisation Size] => Small
+    [Sector] => Textiles and Leather
+    [Legal Form] => Private
+    [Social Dialogue] => No social dialogue
+    [Target Groups] => Skilled Manual, Unskilled Manual, Women, Men
+    [Initiative Type] => Recruitment, Exit Policy, Redeployment
+    [Scope] => Old
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 97Array
+(
+    [Date Created] => 2005-06-16
+    [Organisation Size] => Large
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Skilled Manual, Women, Men, Persons with health problems
+    [Initiative Type] => Flexible working practices, Health and well-being, Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 98Array
+(
+    [Date Created] => 2005-10-12
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial
+    [Initiative Type] => Flexible working practices
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 99Array
+(
+    [Date Created] => 2005-06-23
+    [Organisation Size] => Medium
+    [Sector] => Chemical, Energy
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Professional/managerial, Other non-manual, Skilled Manual, Unskilled Manual, Women, Men, Persons with health             problems
+    [Initiative Type] => Training, development, etc , Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 100Array
+(
+    [Date Created] => 2007-01-07
+    [Organisation Size] => Large
+    [Sector] => Health and Social Work
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Health and well-being, Ergonomics/job design
+    [Scope] => All
+    [Social Dialogue Type] => Information
+)
+<br/><br/><br/>----------------------------------------------<br /><strong>ef_case_study</strong><br />  <em></em><br />  <em>99 items found!</em><br />----------------------------------------------<br /><br /><br /><br /><strong>RESULTS</strong><br /><table><tr><th>No.</th><th>Title</th><th>Url</th><th>Old url</th></tr><tr><td>1</td><td>National charity, United Kingdom: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/national-charity-united-kingdom-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/national-charity-united-kingdom-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk011.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk011.htm</a></td></tr><tr><td>2</td><td>Newham NHS Trust, United Kingdom: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/newham-nhs-trust-united-kingdom-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/newham-nhs-trust-united-kingdom-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk013.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk013.htm</a></td></tr><tr><td>3</td><td>Dial-it – Telepage, Malta: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dial-it-telepage-malta-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dial-it-telepage-malta-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/mt003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/mt003.htm</a></td></tr><tr><td>4</td><td>Velké Hoštice workshop, Czech Republic: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/velk-hotice-workshop-czech-republic-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/velk-hotice-workshop-czech-republic-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cz001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cz001.htm</a></td></tr><tr><td>5</td><td>EADS, France: Health and well-being, exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/eads-france-health-and-well-being-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/eads-france-health-and-well-being-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fr005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fr005.htm</a></td></tr><tr><td>6</td><td>Viennese Hospital Association, Austria Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/viennese-hospital-association-austria-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/viennese-hospital-association-austria-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/at002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/at002.htm</a></td></tr><tr><td>7</td><td>National Research and Development Institute for Environmental Protection, Romania: Recruitment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/national-research-and-development-institute-for-environmental-protection-romania-recruitment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/national-research-and-development-institute-for-environmental-protection-romania-recruitment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ro004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ro004.htm</a></td></tr><tr><td>8</td><td>Bulgarian Telecommunications Company, Bulgaria: Exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/bulgarian-telecommunications-company-bulgaria-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/bulgarian-telecommunications-company-bulgaria-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/bg004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/bg004.htm</a></td></tr><tr><td>9</td><td>De Klink, Belgium: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/de-klink-belgium-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/de-klink-belgium-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/be006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/be006.htm</a></td></tr><tr><td>10</td><td>Emerol, Latvia: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/emerol-latvia-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/emerol-latvia-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/lv004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/lv004.htm</a></td></tr><tr><td>11</td><td>KPN Telecom, the Netherlands: Training and development, flexible working practices, changing attitudes, exit policies</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kpn-telecom-the-netherlands-training-and-development-flexible-working-practices-changing-attitudes">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kpn-telecom-the-netherlands-training-and-development-flexible-working-practices-changing-attitudes</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl003.htm</a></td></tr><tr><td>12</td><td>Baker Harding Recruitment Services, United Kingdom: Recruitment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/baker-harding-recruitment-services-united-kingdom-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/baker-harding-recruitment-services-united-kingdom-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk002.htm</a></td></tr><tr><td>13</td><td>Tallinn Bus Company, Estonia: Redeployment and changing attitudes</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tallinn-bus-company-estonia-redeployment-and-changing-attitudes">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tallinn-bus-company-estonia-redeployment-and-changing-attitudes</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ee003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ee003.htm</a></td></tr><tr><td>14</td><td>Eden Brown, United Kingdom: A comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/eden-brown-united-kingdom-a-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/eden-brown-united-kingdom-a-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk006.htm</a></td></tr><tr><td>15</td><td>L'Incontro Cooperative, Italy Job recruitment and flexible work practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lincontro-cooperative-italy-job-recruitment-and-flexible-work-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lincontro-cooperative-italy-job-recruitment-and-flexible-work-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/it004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/it004.htm</a></td></tr><tr><td>16</td><td>Les Amis, France: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/les-amis-france-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/les-amis-france-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fr002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fr002.htm</a></td></tr><tr><td>17</td><td>Länsilinjat Oy, Finland: flexible working practices, redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lnsilinjat-oy-finland-flexible-working-practices-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lnsilinjat-oy-finland-flexible-working-practices-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fi007.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fi007.htm</a></td></tr><tr><td>18</td><td>Estonian Post, Estonia: Recruitment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/estonian-post-estonia-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/estonian-post-estonia-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ee002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ee002.htm</a></td></tr><tr><td>19</td><td>Zaragoza Firefighting Service, Spain: Redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/zaragoza-firefighting-service-spain-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/zaragoza-firefighting-service-spain-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/es004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/es004.htm</a></td></tr><tr><td>20</td><td>Schön-KAEV-Eger, Hungary: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/schn-kaev-eger-hungary-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/schn-kaev-eger-hungary-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/hu001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/hu001.htm</a></td></tr><tr><td>21</td><td>Kauno Autobusai, Lithuania: Exit policy/Recruitment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kauno-autobusai-lithuania-exit-policyrecruitment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kauno-autobusai-lithuania-exit-policyrecruitment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/li001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/li001.htm</a></td></tr><tr><td>22</td><td>Energy Company, United Kingdom: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/energy-company-united-kingdom-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/energy-company-united-kingdom-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk017.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk017.htm</a></td></tr><tr><td>23</td><td>Case study on a comprehensive approach: Hazenberg Bouw BV, the Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-a-comprehensive-approach-hazenberg-bouw-bv-the-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-a-comprehensive-approach-hazenberg-bouw-bv-the-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl001.htm</a></td></tr><tr><td>24</td><td>Finnish News Agency, Finland: comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/finnish-news-agency-finland-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/finnish-news-agency-finland-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fi001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fi001.htm</a></td></tr><tr><td>25</td><td>Loewe, Germany: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/loewe-germany-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/loewe-germany-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de024.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de024.htm</a></td></tr><tr><td>26</td><td>Hardcastle Burton, United Kingdom: Exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hardcastle-burton-united-kingdom-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hardcastle-burton-united-kingdom-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk020.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk020.htm</a></td></tr><tr><td>27</td><td>Materia, Cyprus: Recruitment/Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/materia-cyprus-recruitmenttraining-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/materia-cyprus-recruitmenttraining-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cy001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cy001.htm</a></td></tr><tr><td>28</td><td>Aalborg Hospital, Denmark: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/aalborg-hospital-denmark-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/aalborg-hospital-denmark-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk003.htm</a></td></tr><tr><td>29</td><td>OHG Netto Supermarkt, Germany: recruitment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ohg-netto-supermarkt-germany-recruitment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ohg-netto-supermarkt-germany-recruitment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de007.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de007.htm</a></td></tr><tr><td>30</td><td>RTV Slovenija, Slovenia: Health and well-being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/rtv-slovenija-slovenia-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/rtv-slovenija-slovenia-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/si003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/si003.htm</a></td></tr><tr><td>31</td><td>British American Tobacco, Cyprus: Redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/british-american-tobacco-cyprus-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/british-american-tobacco-cyprus-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cy004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cy004.htm</a></td></tr><tr><td>32</td><td>TV2/NORD, Denmark: Changing attitudes, development and flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tv2nord-denmark-changing-attitudes-development-and-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tv2nord-denmark-changing-attitudes-development-and-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk013.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk013.htm</a></td></tr><tr><td>33</td><td>Hayes Lemmerz Autokola, Czech Republic: Wage policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hayes-lemmerz-autokola-czech-republic-wage-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hayes-lemmerz-autokola-czech-republic-wage-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cz006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cz006.htm</a></td></tr><tr><td>34</td><td>Hounslow Council, United Kingdom: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hounslow-council-united-kingdom-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/hounslow-council-united-kingdom-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk014.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk014.htm</a></td></tr><tr><td>35</td><td>Penta, Hungary: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/penta-hungary-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/penta-hungary-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/hu004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/hu004.htm</a></td></tr><tr><td>36</td><td>Delvita, Czech Republic: Recruitment / Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/delvita-czech-republic-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/delvita-czech-republic-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cz005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cz005.htm</a></td></tr><tr><td>37</td><td>Siemens, the Netherlands: Flexible working practices, training and development, and exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/siemens-the-netherlands-flexible-working-practices-training-and-development-and-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/siemens-the-netherlands-flexible-working-practices-training-and-development-and-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl004.htm</a></td></tr><tr><td>38</td><td>Citibank International, Greece: equal opportunities policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/citibank-international-greece-equal-opportunities-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/citibank-international-greece-equal-opportunities-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/el006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/el006.htm</a></td></tr><tr><td>39</td><td>Unicredit Produzioni Accentrate Spa, Italy: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/unicredit-produzioni-accentrate-spa-italy-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/unicredit-produzioni-accentrate-spa-italy-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/it009.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/it009.htm</a></td></tr><tr><td>40</td><td>TNT, the Netherlands: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tnt-the-netherlands-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tnt-the-netherlands-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl016.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl016.htm</a></td></tr><tr><td>41</td><td>Zemat, Poland: Changing attitudes, exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/zemat-poland-changing-attitudes-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/zemat-poland-changing-attitudes-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/pl002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/pl002.htm</a></td></tr><tr><td>42</td><td>Denso Manufacturing, United Kingdom: Health and well-being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/denso-manufacturing-united-kingdom-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/denso-manufacturing-united-kingdom-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk005.htm</a></td></tr><tr><td>43</td><td>Michelin Italy S.p.a., Italy: Retirement policy, redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/michelin-italy-spa-italy-retirement-policy-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/michelin-italy-spa-italy-retirement-policy-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/it008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/it008.htm</a></td></tr><tr><td>44</td><td>Trading company, Slovenia: Health and well-being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/trading-company-slovenia-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/trading-company-slovenia-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/si002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/si002.htm</a></td></tr><tr><td>45</td><td>Tallinn University of Technology, Estonia: Exit policy and changing attitudes</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tallinn-university-of-technology-estonia-exit-policy-and-changing-attitudes">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/tallinn-university-of-technology-estonia-exit-policy-and-changing-attitudes</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ee001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ee001.htm</a></td></tr><tr><td>46</td><td>Electricity Company, United Kingdom: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/electricity-company-united-kingdom-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/electricity-company-united-kingdom-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk016.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk016.htm</a></td></tr><tr><td>47</td><td>Post Danmark, Denmark: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/post-danmark-denmark-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/post-danmark-denmark-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk008.htm</a></td></tr><tr><td>48</td><td>Klaipeda University, Lithuania: Training/Recruitment/Exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/klaipeda-university-lithuania-trainingrecruitmentexit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/klaipeda-university-lithuania-trainingrecruitmentexit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/li002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/li002.htm</a></td></tr><tr><td>49</td><td>Lidergraf, Portugal: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lidergraf-portugal-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lidergraf-portugal-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/pt003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/pt003.htm</a></td></tr><tr><td>50</td><td>Barco, Belgium: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/barco-belgium-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/barco-belgium-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/be001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/be001.htm</a></td></tr><tr><td>51</td><td>Bekaert, Belgium: redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/bekaert-belgium-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/bekaert-belgium-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/be002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/be002.htm</a></td></tr><tr><td>52</td><td>Ford Werke, Germany: Redeployment, health and well-being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ford-werke-germany-redeployment-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ford-werke-germany-redeployment-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de011.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de011.htm</a></td></tr><tr><td>53</td><td>COKZ, the Netherlands: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/cokz-the-netherlands-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/cokz-the-netherlands-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl011.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl011.htm</a></td></tr><tr><td>54</td><td>Dell, Slovakia: Training, health and well-being, flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dell-slovakia-training-health-and-well-being-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dell-slovakia-training-health-and-well-being-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/sk001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/sk001.htm</a></td></tr><tr><td>55</td><td>Mataró, Spain: Recruitment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/matar-spain-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/matar-spain-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/es001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/es001.htm</a></td></tr><tr><td>56</td><td>AMI International, Austria: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ami-international-austria-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ami-international-austria-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/at008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/at008.htm</a></td></tr><tr><td>57</td><td>Ruoka-Saarioinen Oy, Finland: comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ruoka-saarioinen-oy-finland-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ruoka-saarioinen-oy-finland-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fi002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fi002.htm</a></td></tr><tr><td>58</td><td>Messier Bugatti, France: Changing attitudes</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/messier-bugatti-france-changing-attitudes">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/messier-bugatti-france-changing-attitudes</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fr001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fr001.htm</a></td></tr><tr><td>59</td><td>Case study on flexible working practices: Azienda Napoletana Mobilità Spa, Italy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-flexible-working-practices-azienda-napoletana-mobilit-spa-italy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-flexible-working-practices-azienda-napoletana-mobilit-spa-italy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/it002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/it002.htm</a></td></tr><tr><td>60</td><td>Voestalpine Austria: a comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/voestalpine-austria-a-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/voestalpine-austria-a-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/at003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/at003.htm</a></td></tr><tr><td>61</td><td>Teijin Twaron, the Netherlands: Redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/teijin-twaron-the-netherlands-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/teijin-twaron-the-netherlands-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl012.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl012.htm</a></td></tr><tr><td>62</td><td>Kerry County Council, Ireland: Redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kerry-county-council-ireland-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kerry-county-council-ireland-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ie005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ie005.htm</a></td></tr><tr><td>63</td><td>Telecommunications Company, United Kingdom: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/telecommunications-company-united-kingdom-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/telecommunications-company-united-kingdom-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk003.htm</a></td></tr><tr><td>64</td><td>Retail catering company, United Kingdom: Recruitment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/retail-catering-company-united-kingdom-recruitment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/retail-catering-company-united-kingdom-recruitment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk008.htm</a></td></tr><tr><td>65</td><td>Segmüller, Germany: Recruitment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/segmller-germany-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/segmller-germany-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de014.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de014.htm</a></td></tr><tr><td>66</td><td>Continental AG, Germany: ergonomics and job design</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/continental-ag-germany-ergonomics-and-job-design">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/continental-ag-germany-ergonomics-and-job-design</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de003.htm</a></td></tr><tr><td>67</td><td>Academy of Management, Poland: Recruitment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/academy-of-management-poland-recruitment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/academy-of-management-poland-recruitment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/pl003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/pl003.htm</a></td></tr><tr><td>68</td><td>Motherwell Bridge, Malta: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/motherwell-bridge-malta-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/motherwell-bridge-malta-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/mt002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/mt002.htm</a></td></tr><tr><td>69</td><td>Renault, France: Ergonomics</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/renault-france-ergonomics">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/renault-france-ergonomics</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fr006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fr006.htm</a></td></tr><tr><td>70</td><td>Revoz, Slovenia: Ergonomics and job design</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/revoz-slovenia-ergonomics-and-job-design">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/revoz-slovenia-ergonomics-and-job-design</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/si004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/si004.htm</a></td></tr><tr><td>71</td><td>Production company, Romania: Training and redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/production-company-romania-training-and-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/production-company-romania-training-and-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ro002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ro002.htm</a></td></tr><tr><td>72</td><td>SCA Laakirchen, Austria: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/sca-laakirchen-austria-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/sca-laakirchen-austria-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/at007.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/at007.htm</a></td></tr><tr><td>73</td><td>Foyer, Luxembourg: Training and Development/ Health and Well-Being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/foyer-luxembourg-training-and-development-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/foyer-luxembourg-training-and-development-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/lu002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/lu002.htm</a></td></tr><tr><td>74</td><td>Ministry of the Interior, the Netherlands: Redeployment and flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ministry-of-the-interior-the-netherlands-redeployment-and-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ministry-of-the-interior-the-netherlands-redeployment-and-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl017.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl017.htm</a></td></tr><tr><td>75</td><td>Windesheim, the Netherlands: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/windesheim-the-netherlands-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/windesheim-the-netherlands-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl015.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl015.htm</a></td></tr><tr><td>76</td><td>Ermes Group, Cyprus: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ermes-group-cyprus-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ermes-group-cyprus-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cy003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cy003.htm</a></td></tr><tr><td>77</td><td>Atheneum InterContinental Hotel, Greece: Training and flexible working</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/atheneum-intercontinental-hotel-greece-training-and-flexible-working">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/atheneum-intercontinental-hotel-greece-training-and-flexible-working</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/el005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/el005.htm</a></td></tr><tr><td>78</td><td>Stamboliiski Paper Factory, Bulgaria: Recruitment and flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/stamboliiski-paper-factory-bulgaria-recruitment-and-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/stamboliiski-paper-factory-bulgaria-recruitment-and-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/bg002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/bg002.htm</a></td></tr><tr><td>79</td><td>Proviron, Belgium: redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/proviron-belgium-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/proviron-belgium-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/be007.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/be007.htm</a></td></tr><tr><td>80</td><td>Fahrion Engineering GmbH &amp; Co KG, Germany: recruitment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/fahrion-engineering-gmbh-co-kg-germany-recruitment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/fahrion-engineering-gmbh-co-kg-germany-recruitment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de004.htm</a></td></tr><tr><td>81</td><td>Nordea Bank Danmark, Denmark: Exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/nordea-bank-danmark-denmark-exit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/nordea-bank-danmark-denmark-exit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk007.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk007.htm</a></td></tr><tr><td>82</td><td>Daikin Europe, Belgium: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/daikin-europe-belgium-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/daikin-europe-belgium-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/be004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/be004.htm</a></td></tr><tr><td>83</td><td>Elias Hospital, Romania: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/elias-hospital-romania-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/elias-hospital-romania-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ro003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ro003.htm</a></td></tr><tr><td>84</td><td>OHL ŽS, Czech Republic: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ohl-s-czech-republic-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ohl-s-czech-republic-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cz004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cz004.htm</a></td></tr><tr><td>85</td><td>Volvo cars Torslanda, Sweden: flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/volvo-cars-torslanda-sweden-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/volvo-cars-torslanda-sweden-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/se008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/se008.htm</a></td></tr><tr><td>86</td><td>City of Helsinki Public Works Department, Finland: redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/city-of-helsinki-public-works-department-finland-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/city-of-helsinki-public-works-department-finland-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fi006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fi006.htm</a></td></tr><tr><td>87</td><td>Public Power Corporation, Greece: Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/public-power-corporation-greece-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/public-power-corporation-greece-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/el011.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/el011.htm</a></td></tr><tr><td>88</td><td>Case study on flexible working practices: Verkehrs Aktiengesellschaft (VAG) Nuremberg, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-flexible-working-practices-verkehrs-aktiengesellschaft-vag-nuremberg-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-flexible-working-practices-verkehrs-aktiengesellschaft-vag-nuremberg-germany</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de002.htm</a></td></tr><tr><td>89</td><td>Neopost, the Netherlands: recruitment, training and development, performance assessment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/neopost-the-netherlands-recruitment-training-and-development-performance-assessment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/neopost-the-netherlands-recruitment-training-and-development-performance-assessment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl005.htm</a></td></tr><tr><td>90</td><td>Pikolin, Spain: Health and well-being</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/pikolin-spain-health-and-well-being">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/pikolin-spain-health-and-well-being</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/es005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/es005.htm</a></td></tr><tr><td>91</td><td>Public schools in the Municipality of Horsens, Denmark: Changing attitudes / Training and development / Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/public-schools-in-the-municipality-of-horsens-denmark-changing-attitudes-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/public-schools-in-the-municipality-of-horsens-denmark-changing-attitudes-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk004.htm</a></td></tr><tr><td>92</td><td>Obra Diocesana de Promoção Social, Portugal: Redeployment/Training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/obra-diocesana-de-promoo-social-portugal-redeploymenttraining-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/obra-diocesana-de-promoo-social-portugal-redeploymenttraining-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/pt002.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/pt002.htm</a></td></tr><tr><td>93</td><td>Die Continentale, Germany: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/die-continentale-germany-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/die-continentale-germany-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de021.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de021.htm</a></td></tr><tr><td>94</td><td>Lip Bled, Slovenia: Redeployment</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lip-bled-slovenia-redeployment">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lip-bled-slovenia-redeployment</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/sl001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/sl001.htm</a></td></tr><tr><td>95</td><td>Case study on recruitment Goldsborough Home Care, United Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-recruitment-goldsborough-home-care-united-kingdom">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-recruitment-goldsborough-home-care-united-kingdom</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk001.htm</a></td></tr><tr><td>96</td><td>VVK, Lithuania: Redeployment/Recruitment/Exit policy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/vvk-lithuania-redeploymentrecruitmentexit-policy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/vvk-lithuania-redeploymentrecruitmentexit-policy</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/li006.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/li006.htm</a></td></tr><tr><td>97</td><td>Ovako Koverhar and Ovako Dalsbruk , Finland: a comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ovako-koverhar-and-ovako-dalsbruk-finland-a-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/ovako-koverhar-and-ovako-dalsbruk-finland-a-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/fi005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/fi005.htm</a></td></tr><tr><td>98</td><td>North-Estonian Regional Hospital Foundation, Estonia: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/north-estonian-regional-hospital-foundation-estonia-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/north-estonian-regional-hospital-foundation-estonia-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ee004.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ee004.htm</a></td></tr><tr><td>99</td><td>International energy company, Greece: flexible working practices and training</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/international-energy-company-greece-flexible-working-practices-and-training">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/international-energy-company-greece-flexible-working-practices-and-training</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/el012.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/el012.htm</a></td></tr><tr><td>100</td><td>Lohmann and Rauscher, Czech Republic: Health and well-being / ergonomics</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lohmann-and-rauscher-czech-republic-health-and-well-being-ergonomics">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/lohmann-and-rauscher-czech-republic-health-and-well-being-ergonomics</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/cz003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/cz003.htm</a></td></tr><tr><td colspan="4">Total: 100 nodes saved!</td></tr></table><br /><br />errors: 0<br /><br />

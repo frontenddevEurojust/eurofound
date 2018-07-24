@@ -1,0 +1,4 @@
+https://drupal.org/node/1307166
+Cannot redeclare _mimemail_replace_files  (fatal error when installing messaging module and mimemail)
+
+https://drupal.org/node/1307166#comment-8748149

@@ -1,0 +1,4 @@
+name = EF ERM regulaion
+description = Module for ERM Regulation CT
+core = 7.x
+package = EF modules

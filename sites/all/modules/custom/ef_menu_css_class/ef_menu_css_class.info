@@ -1,0 +1,4 @@
+name = Menu Css Class
+description = Add corresponding class to menu link 
+core = 7.x
+package = EF modules

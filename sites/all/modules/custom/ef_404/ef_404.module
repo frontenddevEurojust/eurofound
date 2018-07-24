@@ -1,0 +1,371 @@
+<?php
+/***
+* EFDR-792 kp eworx gr 2014
+* ---------------------------------
+* The ef_404 module file, does all the manipulation handling
+* when a 404 occurs
+*/
+
+//-----------------------------------------------
+
+ 
+
+
+/**
+ * Implements hook_menu().
+ */
+function ef_404_menu() {
+  $items = array();
+
+  $items['ef_404'] = array(
+    'title' => 'Page not found',
+    'access callback' => TRUE,
+    'page callback' => 'ef_404_page',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/search/ef_404'] = array(
+    'title' => 'EF 404',
+    'description' => 'Configure 404 searching functionality. Search old ef urls, pages, files, images etc on a 404 event and redirect to the new paths',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_404_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+//-----------------------------------------------
+
+function ef_404endswith($string, $test) {
+    $strlen = strlen($string);
+    $testlen = strlen($test);
+    if ($testlen > $strlen) return false;
+    return substr_compare($string, $test, $strlen - $testlen, $testlen) === 0;
+}
+
+//-----------------------------------------------
+
+function ef_404_clean_requested_url($requestedUrl = '') {
+
+  //remove if urls starts with /ef
+ 
+  $pos = strrpos($requestedUrl, "/");
+  if (!($pos === false)) {
+    $requestedUrl = substr($requestedUrl, 1);
+  }
+
+  //remove if urls has parameters
+  $pos = strrpos($requestedUrl, "?");
+  if (!($pos === false)) {
+    $requestedUrl = substr($requestedUrl, 0, $pos);
+  }
+  //remove if url is an anchor
+  $pos = strrpos($requestedUrl, "#");
+  if (!($pos === false)) {
+    $requestedUrl = substr($requestedUrl, 0, $pos);
+  }
+
+
+
+  return $requestedUrl;
+}
+
+//-----------------------------------------------
+ 
+function ef_404_ends_with_array($requestedUrl, $extensions) {
+
+  foreach ($extensions as $ext) {    
+    if(ef_404endswith($requestedUrl, $ext)){      
+      return true;
+    }
+  }
+  return false;
+}
+
+function ef_404_should_ignore($requestedUrl) {
+  $extensions = explode(' ', variable_get('ef_404_ignore_extensions', 'php exe sh'));  
+  return ef_404_ends_with_array($requestedUrl, $extensions);
+}
+
+function ef_404_is_image($requestedUrl) {
+  $extensions = explode(' ', variable_get('ef_404_images_extensions', 'gif jpg png swf bmp'));  
+  return ef_404_ends_with_array($requestedUrl, $extensions);
+}
+
+function ef_404_is_file($requestedUrl) {
+  $extensions = explode(' ', variable_get('ef_404_files_extensions', "pdf xls doc mp3 zip ppt xlsx docx dot swf PPTX csv"));  
+  return ef_404_ends_with_array($requestedUrl, $extensions);
+}
+//-----------------------------------------------
+
+/**
+ * Main search function.
+ * Started with: http://drupal.org/node/12668
+ * Updated to be more similar to search_view
+ */
+
+function ef_404_page() {
+  $output = '';
+
+  //-----------------------------------------------
+
+  $requestedUrl = $_SERVER['REQUEST_URI'];
+  $requestedUrl = ef_404_clean_requested_url($requestedUrl);
+  $should_ignore = ef_404_should_ignore($requestedUrl);
+  
+  //-------------------------------------   
+
+  /*
+  * search in old urls
+  */
+
+  if(!$should_ignore){
+
+
+    if(ef_404_is_image($requestedUrl)){
+
+      $uri = 'public://ef_images/'. $requestedUrl;
+      if (file_exists($uri)) {
+        ef_404_goto("sites/default/files/ef_images".$requestedUrl);
+      }else{
+        $should_ignore = TRUE;
+      }
+
+    }else
+    if(ef_404_is_file($requestedUrl)){
+
+      $uri = 'public://ef_files/'. $requestedUrl;
+      if (file_exists($uri)) {
+        ef_404_goto("sites/default/files/ef_files/".$requestedUrl);
+      }else{
+        $should_ignore = TRUE;
+      }
+      
+    }else{
+
+      $result = db_query(
+          "select entity_id 
+            from 
+            {field_data_field_ef_migration_old_url} 
+              WHERE 
+                field_ef_migration_old_url_url like :requestedUrl", 
+              array(':requestedUrl' => ("%" . $requestedUrl))
+      );
+ 
+      $resultNodeId = -1;
+      $resultsCount = 0;
+
+      foreach ($result as $row) {
+        $resultsCount ++;
+        if($resultsCount == 1){
+          $resultNodeId = $row->entity_id; 
+        }
+      }
+
+
+      if($resultsCount > 0){
+        $location = drupal_get_path_alias('node/' . $resultNodeId);
+        ef_404_goto($location);
+      }else{
+
+
+        $aditionalRedirects = array(
+          'about/index'=>'about',
+          'about/work/index'=>'about/what-we-do',
+          'about/work/customisedreports'=>'about/what-we-do/customised-reports',
+          'about/organisation/index'=>'about/who-we-are',
+          'about/staff/index'=>'about/who-we-are/staff',
+          'about/staff/industrialteam'=>'about/who-we-are/staff/industrial-relations-unit',
+          'about/staff/livingteam'=>'about/who-we-are/staff/living-conditions-unit',
+          'about/staff/observatories'=>'about/who-we-are/staff/observatories-unit',
+          'about/staff/surveys'=>'about/who-we-are/staff/surveys-unit',
+          'surveys/collaborations/index'=>'surveys/about-eurofound-surveys/international-collaboration',
+          'about/staff/workingteam'=>'about/who-we-are/staff/working-conditions-unit',
+          'about/organisation/board'=>'about/who-we-are/governing-board',
+          'stakeholders/index'=>'about/who-we-are/stakeholders-and-partners',
+          'stakeholders/eu'=>'about/who-we-are/stakeholders-and-partners/eu',
+          'stakeholders/government'=>'about/who-we-are/stakeholders-and-partners/government',
+          'stakeholders/others'=>'about/who-we-are/stakeholders-and-partners/other',
+          'stakeholders/socialpartners'=>'about/who-we-are/stakeholders-and-partners/social',
+          'about/procurement/index'=>'about/procurement',
+          'about/procurement/generalinfo'=>'about/procurement/information-on-procurement',
+          'about/vacancies/positions/recruitment-information'=>'about/vacancies/applicants',
+          'about/vacancies/positions/grading-and-remuneration'=>'about/vacancies/applicants/grading-renumeration',
+          'about/vacancies/positions/graduate-traineeships'=>'about/vacancies/graduate-traineeships',
+          'surveys/index'=>'surveys',
+          'surveys/ecs/index'=>'surveys/ecs',
+          'surveys/ecs/2013/index'=>'surveys/ecs/2013/european-company-survey-2013',
+          'surveys/ecs/2013/questionnaire'=>'surveys/ecs/2013/european-company-survey-2013/questionnaire',
+          'surveys/ecs/2009/index'=>'surveys/ecs/2009/european-company-survey-2009',
+          'surveys/ecs/2009/methodology'=>'surveys/ecs/2009/european-company-survey-2009/methodology',
+          'surveys/ecs/2004/index'=>'surveys/ecs/2004/european-company-survey-2004',
+          'surveys/eqls/index'=>'surveys/eqls',
+          'surveys/eqls/2011/enlargementcountries'=>'surveys/eqls/2012/european-quality-of-life-survey-2012',
+          'surveys/eqls/2011/methodology'=>'surveys/eqls/2012/european-quality-of-life-survey-2012/methodology',
+          'surveys/eqls/2007/findings'=>'surveys/eqls/2007/european-quality-of-life-survey-2007/findings',
+          'surveys/eqls/2007/secondary_analysis'=>'surveys/eqls/2007/european-quality-of-life-survey-2007/secondary-analysis',
+          'surveys/ewcs/index'=>'surveys/ewcs',
+          'surveys/ewcs/2010/index'=>'surveys/ewcs/2010/european-working-conditions-survey-2010',
+          'surveys/ewcs/2010/methodology'=>'surveys/ewcs/2010/european-working-conditions-survey-2010/methodology',
+          'surveys/ewcs/2010/notes'=>'surveys/ewcs/2010/european-working-conditions-survey-2010/notes',
+          'surveys/ewcs/2010/sampling'=>'surveys/ewcs/2010/european-working-conditions-survey-2010/sampling',
+          'surveys/ewcs/2005/index'=>'surveys/ewcs/2005/european-working-conditions-survey-2005',
+          'surveys/methodology/index'=>'surveys/about-eurofound-surveys/methodology',
+          'surveys/qa/index'=>'surveys/about-eurofound-surveys/quality-assurance',
+          'surveys/availability/index'=>'surveys/about-eurofound-surveys/data-availability',
+          'surveys/schedule/index'=>'surveys/about-eurofound-surveys/schedule',
+          'emcc/ejm/index'=>'observatories/emcc/european-jobs-monitor',
+          'emcc/labourmarket/index'=>'observatories/emcc/labour-market-research',
+          'about/faq/index'=>'faq',
+          'legal/legalnotices'=>'legal-notices',
+          'legal/dataprotection'=>'data-protection-policy',
+          'about/publicaccess/index'=>'public-access',
+          'about/publicaccess/categories/finance/2014'=>'financial-information',
+          'about/publicaccess/archive/index'=>'archives',
+          'about/info/index'=>'information-centre'
+        );
+        
+        $languageIso = "";
+        if(substr($requestedUrl, 2,1) == "/"){
+          $languageIso = substr($requestedUrl, 0, 3);
+          $requestedUrl = substr($requestedUrl, 3);
+        }
+
+        if(array_key_exists($requestedUrl , $aditionalRedirects)){
+          ef_404_goto(  $aditionalRedirects[$requestedUrl]);
+        }else 
+        
+        $should_ignore = true;
+      }
+    }
+  }
+
+  //-------------------------------------
+
+  if($should_ignore){ // not found      
+
+    drupal_add_js('jQuery(document).ready(function () { jQuery("body").addClass("section-404");});', 'inline');
+
+    drupal_set_title(
+      t(variable_get('ef_404_page_title', t('Page not found')))
+    );
+
+    $ef_404_page_text = t(variable_get('ef_404_page_text', ''));
+
+    if (!empty($ef_404_page_text)) {
+      $output = '<div id="ef_404-page-text">' . $ef_404_page_text . '</div>' . $output;
+      return $output;
+    }
+
+  }
+
+  //-------------------------------------   
+
+}
+
+//-----------------------------------------------
+
+/**
+ * ef_404 drupal_goto function.
+ */
+function ef_404_goto($path = '') {
+  // Overwrite $_GET['destination'] because it is set by drupal_not_found().
+  $_GET['destination'] = $path;
+  // Set 302 redirect if so specified in settings else do default 301 redirect.
+  if (variable_get('ef_404_redirect_301', FALSE)) {
+    $http_status = 302;
+  }else {
+    $http_status = 301;    
+  }
+  drupal_goto($path, array(), $http_status);
+}
+
+//-----------------------------------------------
+
+/**
+ * ef_404 administration settings.
+ */
+
+function ef_404_settings() {
+ 
+  // Added for having a 301 redirect instead of the standard 302 (offered by the drupal_goto).
+  // TODO: jump to search pages should still return 404 and not 301 or 302 for searches other
+  // than Core, Apache Solr, Lucene and Xapian. Can this even be done? Meta refresh?
+
+  $form['ef_404_redirect_301'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use a 302 Redirect instead of 301 Redirect'),
+    '#description' => t('301 is the default option so as to let the search engines move the url scores to the new url'),
+    '#default_value' => variable_get('ef_404_redirect_301', FALSE),
+  );
+  
+  $form['ef_404_ignore_extensions'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Extensions to ignore'),
+    '#description' => t('These extensions will be ignored from the search query, e.g.: http://www.example.com/invalid/page.php will result in a 404 directly, e.g.: "php". Do not include leading dot.'),
+    '#default_value' => variable_get('ef_404_ignore_extensions', 'php exe bin'),
+  );
+
+  $form['ef_404_images_extensions'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Extensions identify as image files'),
+    '#description' => t('These extensions will clasify the requested url as an image file reference, Do not include leading dot.'),
+    '#default_value' => variable_get('ef_404_images_extensions', 'gif jpg png swf bmp'),
+  );
+
+  $form['ef_404_files_extensions'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Extensions identify as files'),
+    '#description' => t('These extensions will clasify the requested url as a file reference, Do not include leading dot.'),
+    '#default_value' => variable_get('ef_404_files_extensions', 'pdf xls doc mp3 zip ppt xlsx docx dot swf PPTX csv'),
+  );  
+
+//------------------------------
+
+ 
+  // Show custom title for the 404 search results page.
+  $form['ef_404_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom page title'),
+    '#description' => t('You can enter a value that will displayed at the title of the webpage e.g. "Page not found".'),
+    '#default_value' => variable_get('ef_404_page_title', t('404 - Page not found')) 
+  );
+
+  // Show custom text below the search form for the 404 search results page.
+  $form['ef_404_page_text'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Custom page text'),
+    '#default_value' => variable_get('ef_404_page_text', ''),
+    '#description' => t('You can enter a custom text message that can be displayed at the top of the search results, HTML formatting can be used.'),
+    '#default_value' => variable_get('ef_404_page_text', t('The requested URL was not found on this server.')) 
+  );
+ 
+
+  // Helps reset the site_404 variable to ef_404 in case the user changes it manually.
+  $form['site_404'] = array(
+    '#type' => 'hidden',
+    '#value' => 'ef_404',
+  );
+
+  // Tell the user about the site_404 issue.
+  $form['ef_404_variable_message'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<p>',
+    '#suffix' => '</p>',
+    '#value' => t('Saving this form will revert the 404 handling on the site to this module.'),
+  );
+
+  return system_settings_form($form);
+}
+
+function ef_404_page_build(&$page) {
+  global $user;
+  $tid = arg(2);
+  $term = menu_get_object('taxonomy_term', 2);
+  if (isset($term->tid) && $term->vocabulary_machine_name == 'ef_activities' && $term->tid == $tid && !$user->uid) {
+    drupal_not_found();
+  }
+}

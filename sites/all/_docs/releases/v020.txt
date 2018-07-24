@@ -1,0 +1,97 @@
+drush sql-query "insert into schema_migrations(code,extra)values('020', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+drush up -y core
+drush up -y colorbox
+drush up -y devel
+drush up -y email
+drush up -y entity
+drush up -y field_collection_fieldset
+drush up -y i18n
+drush up -y menu_block
+drush up -y menu_import
+drush up -y revisioning
+drush up -y rules
+drush up -y variable
+
+
+
+:: MODULES ::
+drush dl -y panels
+drush en -y panels
+drush en -y panels_node
+
+drush dl -y page_manager
+drush en -y page_manager
+
+drush en -y views_content
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: navigate to admin/structure/taxonomy/ef_observatories 
+:: edit each term and enable 'Generate automatic URL alias' and save
+:: re-run features revert. As we replaced the taxonomy default url with the panel url
+
+:: fix-panels.txt
+
+drush fr-all -y
+drush cc all
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+
+
+:: MENU LINKS :: (re-import )
+::
+:: Before import:
+:: go to admin/structure/types/manage/page
+:: and uncheck the following revision options, else menu importing does not work:
+:: Uncheck: Create new revision 
+:: Uncheck: New revision in draft, pending moderation (requires "Create new revision") 
+::
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+:: Link to existing content: Disabled
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+::
+:: After import:
+:: go to admin/structure/types/manage/page
+:: and re-check the following revision options:
+:: Check: Create new revision 
+:: Check: New revision in draft, pending moderation (requires "Create new revision") 
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

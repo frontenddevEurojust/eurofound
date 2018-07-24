@@ -1,0 +1,333 @@
+
+/* --- TYPE --- */
+.taxonomy-management{
+    background-color: #e8e8e8;
+    border: 1px solid #e2e2e2;
+    border-radius: 0 0 10px 10px;
+    margin: -21px 0 50px 50%;
+    width: 50%;
+}
+.taxonomy-management > ul{
+    list-style: outside none none;
+}
+.taxonomy-management ul > li{
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+    cursor: pointer;
+    color: #0074C9;
+}
+.taxonomy-management ul > li:before{
+    font-family: fontawesome;
+    margin-right: 0.5em;
+}
+.taxonomy-management ul > li:nth-child(1):before{
+    content: "\f0fe";
+}
+.taxonomy-management ul > li:nth-child(2):before{
+    content: "\f044";
+}
+.taxonomy-management #edit-type-popup:after{
+    font-family: fontawesome;
+    margin-left: 0.5em;
+}
+.taxonomy-management #edit-type-popup.edit-mode-on {
+    font-family: 'OpenSans-bold-webfont';
+}
+.taxonomy-management #edit-type-popup.edit-mode-on:after{
+    content: "\f205";
+    color: #85B000;
+    font-size: 1.2em;
+}
+.taxonomy-management #edit-type-popup.edit-mode-off:after{
+    content: "\f204";
+    color: #FF4D4D;
+    font-size: 1.2em;
+}
+#edit-field-country-erm-si{
+    margin-top: 30px;
+}
+#edit-field-type-erm-si-und.form-checkboxes{
+    margin-top: 1em; 
+    border: 1px solid #E8E8E8;
+    border-top: 0;
+}
+#edit-field-type-erm-si-und .form-checkboxes > p,
+#edit-field-type-erm-si-und p.p-checkbox-title{
+    background-color: #f9f9f9;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    padding: 10px;
+    font-family: "Opensans-Semibold-webfont";
+
+}
+#edit-field-type-erm-si-und .si-phase-title{
+    display: none;
+}
+#edit-field-type-erm-si-und .anticipation-items-wrapper,
+#edit-field-type-erm-si-und .management-items-wrapper{
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+    column-count: 4;
+    border:none;
+    border-top: 4px solid #ccc;
+    display: block;
+    padding: 10px;
+    margin-bottom: 0px;
+
+}
+#edit-field-type-erm-si-und .anticipation-items-wrapper.edit-mode-on,
+#edit-field-type-erm-si-und .management-items-wrapper.edit-mode-on{
+   /* border:1px dotted #005BAA;*/
+    border-top: 4px solid #005BAA;
+
+}
+
+#edit-field-type-erm-si-und .anticipation-items-wrapper.disabled,
+#edit-field-type-erm-si-und .management-items-wrapper.disabled {
+    background-color: #F9F9F9;
+}
+#edit-field-type-erm-si-und .anticipation-items-wrapper.disabled .form-checkbox,
+#edit-field-type-erm-si-und .management-items-wrapper.disabled .form-checkbox{
+    cursor: not-allowed;
+}
+#edit-field-type-erm-si-und .anticipation-items-wrapper.disabled label,
+#edit-field-type-erm-si-und .management-items-wrapper.disabled label{
+    color: #aaa !important;
+    cursor: default;
+}
+#edit-field-type-erm-si-und span.edit-type-term{
+    cursor: pointer;
+    color: #0074C9;
+    font-size: 0.9em;
+    text-align: left;
+    transition: color ease 0.4s;
+}
+#edit-field-type-erm-si-und span.edit-type-term.active{
+    color: #F8931F;
+}
+#edit-field-type-erm-si-und span.edit-type-term:hover,
+#edit-field-type-erm-si-und span.edit-type-term:focus{
+    color: #F8931F;
+}
+
+#edit-field-type-erm-si-und .form-type-checkbox.edit-mode-on span.edit-type-term:before{
+    content: "\f044";
+    font-family: 'fontawesome';
+    color: #0074C9;
+    margin-right: 0.5em;
+    transition: color ease 0.4s;
+    font-size: 1rem;
+}
+#edit-field-type-erm-si-und .form-type-checkbox.edit-mode-on span.edit-type-term.active:before{
+    color: #F8931F;
+}
+#edit-field-type-erm-si-und .form-type-checkbox.edit-mode-on span.edit-type-term:hover:before,
+#edit-field-type-erm-si-und .form-type-checkbox.edit-mode-on span.edit-type-term:focus:before{
+    color: #F8931F;
+}
+#edit-field-type-erm-si-und label.option.new-term:after{
+    content: "\f08d";
+    font-family: fontawesome;
+    margin-left: 0.5em;
+    color: #85B000;
+    font-size: 1.3em;
+}
+/*  dialogs */
+.ui-dialog-new-type .ui-dialog-buttonset,
+.ui-dialog-edit-type .ui-dialog-buttonset{
+    margin: auto;
+    width: 50%;
+    float: none !important;
+}
+.ui-dialog-new-type .ui-dialog-buttonset > button,
+.ui-dialog-edit-type .ui-dialog-buttonset > button{
+    display: inline-block;
+    margin: 10px;
+    width: 40% !important;
+}
+.ui-dialog-new-type #select-phase{
+    margin-right: 20px;
+}
+.ui-dialog-new-type #new-type-dialog > label,
+.ui-dialog-edit-type #new-type-dialog > label,
+.ui-dialog-edit-type #edit-type-dialog > label {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* --- FUNDING --- */
+.european-funds-options-wrap {
+    padding-left: 30px;
+}
+.form-item-field-funding-erm-si-und > label{
+    display: none;
+}
+#edit-field-funding-erm-si-und{
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+
+/* --- Involved actors --- */
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label{
+    display: block;
+    width: auto;
+    text-align: left;
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label:before{
+    margin-right: 5px;
+    font-family: 'fontawesome';
+    color: #005BAA;
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label.inv-act-open:before{
+    content: "\f13a";
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item label.inv-act-closed:before{
+    content:  "\f138";
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si .form-item .form-textarea-wrapper{
+    display: inline-block;
+    vertical-align: top;
+    width: 74%;
+    margin: 1em;
+}
+#node_erm_support_instrument_form_group_involved_actors_erm_si label{
+    cursor: pointer;
+}
+.node-erm_support_instrument-form .field-name-field-involved-actors-notes, 
+.node-erm_support_instrument-form .field-name-field-funding-notes-erm-si{
+    background: #f9f9f9;
+    display: block;
+    margin-top: -21px;
+    padding: 1.25em;
+    border: 1px solid #c4c4c4;
+    border-top: 0;
+}
+
+#node_erm_support_instrument_form_group_sources_erm_si .field-add-more-submit:before {
+    content: "\f196";
+    font-family: fontawesome;
+    margin-right: 1em;
+}
+/* --- Internal comments --- */
+#erm-support-instrument-node-form .erm-notes label{
+    cursor: pointer;
+    color: #0074c9;
+}
+#erm-support-instrument-node-form .erm-notes label:before{
+    margin-right: 0.5em;
+    font-size: 1em;
+    font-weight: bold;
+    color: #0074c9;
+    font-family: fontawesome;
+}
+#erm-support-instrument-node-form .erm-notes label.closed:before{
+    content: "\f0fe";
+}
+#erm-support-instrument-node-form .erm-notes label.opened:before{
+     content: "\f13a";
+}
+#erm-support-instrument-node-form .erm-notes textarea,
+#erm-support-instrument-node-form .erm-notes-memo textarea{
+    background-color: #f2f2f2;
+    border: 1px solid #0074c9;
+    color: #0074c9;
+    font-style: italic;
+    padding: 10px;
+}
+/* Revision log messages */
+/* css copy */
+.revision-log-messages-summary{
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.page-node-edit .revision-log-messages-summary{
+    margin: 10px 0;
+}
+.revision-log-messages-summary > h3{
+    margin-left: 10px;
+    cursor: pointer;
+}
+.revision-log-messages-summary > h3:before{
+    font-family: fontawesome;
+    margin-right: 0.5em;
+}
+.revision-log-messages-summary > h3.opened:before{
+    content: "\f0da";
+    
+}
+.revision-log-messages-summary > h3.closed:before{
+    content: "\f0d7";
+}
+.revision-log-messages-summary ul{
+    margin: 0;
+}
+
+.revision-log-messages-summary ul > li{
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    cursor: pointer;
+}
+.revision-log-messages-summary ul > li > a{
+    color: #424242 !important;
+}
+.revision-log-messages-summary ul > li:nth-child(odd){
+    background-color: #E2E2E2;
+}
+.revision-log-messages-summary ul > li:nth-child(even){
+    background-color: #D4D4D4;
+}
+.revision-log-messages-summary ul > li:hover{
+    background-color: #F0F0F0;
+}
+.revision-log-messages-summary ul li span{
+    font-weight: bold;
+}
+/* end css copy */
+.revision-log-messages-summary ul {
+    list-style: none !important;
+    margin: 0 !important;
+}
+/* BACKEND view */
+.view-display-id-support_instrument_admin_view .view-header > a{
+    color: #FFF;
+    background: #2d68aa;
+    padding: 0.5em;
+    border-radius: 4px;
+    float: right;
+    margin: 1em 20px 1em 1em;
+    float: right;
+  /*  transition: box-shadow 0.5s, color 0.5s !important, background-color 0.5s;
+    -webkit-transition: box-shadow 0.5s, color 0.5s !important, background-color 0.5s;*/
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+
+}
+.view-display-id-support_instrument_admin_view .view-header > a:hover{
+   opacity: 0.8;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+   /* background-color: #FFF;
+    box-shadow: 0 0 4px 1px #F7931E;*/
+}
+.view-display-id-support_instrument_admin_view .view-header > a i{
+    font-size: 1.5em;
+}
+.view-display-id-support_instrument_bulk_authors .view-header > a,
+.view-display-id-support_instrument_bulk_qm .view-header > a {
+    float: right;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-top: -30px;
+}
+/* updated date */
+#edit-field-updated-date-erm-si{
+    display: none;
+}

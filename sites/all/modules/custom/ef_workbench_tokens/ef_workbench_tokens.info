@@ -1,0 +1,5 @@
+name = EF Workbench Tokens
+description = Provides more token related to workbench.
+core = 7.x
+package = EF modules
+dependencies[] = workbench

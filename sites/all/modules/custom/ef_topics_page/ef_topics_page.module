@@ -1,0 +1,197 @@
+<?php
+
+require_once 'helpers/db_functions.inc';
+
+/*
+* Implements hook_permission()
+*/
+function ef_topics_page_permission(){
+    return array(
+        'access_ef_topics_page' => array(
+            'title' => t('Access to EF Topics page'),
+            'description' => t('Allow access to contextual topics page'),
+        ),
+    );
+}
+
+/*
+* Implements hook_menu()
+*/
+function ef_topics_page_menu(){
+
+  $items['topic/%'] = array(
+    'title' => '%',
+    'page callback' => 'topics_page',
+    'page arguments' => array(1),
+    'access arguments' => array('access_ef_topics_page'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['get_topic/ajax/%/%/%'] = array(
+    'page callback' => '_update_topics_tab',
+    'page arguments' => array(2,3,4),
+    'type' => MENU_CALLBACK, 
+    'access arguments' => array('access_ef_topics_page'),
+  );
+
+
+   return $items;
+}
+/*
+*  Form building function
+*/
+function topics_page($contextual_term = ''){
+  
+    // Call defined theme for ef_topics_page
+    return theme('ef_topics_page',[
+            'contextual_term' => $contextual_term,
+            'term' => NULL,
+            'main_image' => NULL, 
+            'summary' => NULL,
+            'subscription' => NULL,
+            'description' => NULL,
+            'topics' => NULL,
+            'tabs' => NULL,
+            'featured_block' => NULL, 
+            'related_links_block' => NULL,
+            'ef_activities' => NULL,
+            'print_tabs' => NULL,
+            'title' => NULL,
+        ]
+    );
+}
+
+/*
+* Implements hook_theme()
+*/
+function ef_topics_page_theme(){
+    return [
+        'ef_topics_page' => [
+            'template' => 'ef-topics-page',
+            'variables' => [
+                'contextual_term' => NULL,
+                'term' => NULL,
+                'main_image' => NULL,
+                'summary' => NULL,
+                'subscription' => NULL,
+                'description' => NULL,
+                'topics' => NULL,
+                'tabs' => NULL,
+                'featured_block' => NULL,
+                'related_links_block' => NULL,
+                'ef_activities' => NULL,
+                'subscription_url' => NULL,
+                'print_tabs' => NULL,
+                'title' => NULL,
+            ],
+            'file' => 'preprocessor.inc'
+        ],
+    ];
+}
+
+
+/*
+ * Implements HOOK_form_alter(&$form, &$form_state, $form_id)
+ */
+function ef_topics_page_form_alter(&$form, &$form_state, $form_id){
+    
+  if($form['#id'] == 'taxonomy-form-term') {
+    // For checkboxes checked condition needs to be used
+    $form['field_term_subscription_url']['#states'] = array(
+      'visible' => array(
+        'input[name="field_ef_subscription_msg[und]"]' => array('checked' => TRUE)
+      )
+    );
+
+    $form['field_term_key_topic']['#states'] = array(
+      'visible' => array(
+        'input[name="field_term_promote_to_home_page[und]"]' => array('checked' => TRUE)
+      )
+    );
+
+    // Hide last updated field as it is populated automatically
+    $form['field_term_last_updated']['#type'] = 'hidden';
+    
+    drupal_add_js(drupal_get_path('module', 'ef_topics_page') . '/ef_topics_edit_form.js');
+  }
+}
+
+function _update_topics_tab($tid, $content_type_name, $page){
+    
+    global $language;
+
+    $page_number = intval(str_replace("page=", "", $page));
+    
+    switch($content_type_name)
+    {
+
+        case 'Highlights':
+
+            $data = add_highlights_tab($tid, $page_number);
+
+            break;
+
+        case 'All':
+
+            $data = add_all_tab($tid, $page_number);
+
+            break;
+          
+        case 'Publications':
+            
+            $data = add_publications_tab($tid, $page_number);
+
+            break;
+
+        case 'Articles':
+            
+            $data = add_articles_tab($tid, $page_number);
+
+            break;
+
+        case 'News':
+            
+            $data = add_news_tab($tid, $page_number);
+
+            break;
+
+        case 'Events':
+            
+            $data = add_events_tab($tid, $page_number);
+
+            break;
+    }
+
+    if (count($data))
+    {
+        drupal_json_output(array('status' => 200, 'data' => $data)); 
+    }
+    else
+    {
+        drupal_json_output(array('status' => 500, 'data' => 'There was an error processing your request'));
+    }
+ 
+}
+
+/**
+ * Implements hook_entity_update()
+ */
+function ef_topics_page_entity_update($entity, $type) {
+  if ($type == 'taxonomy_term' && $entity->vocabulary_machine_name == 'ef_topics') {
+    cache_clear_all($entity->tid, 'cache_entity_taxonomy_term');
+    cache_clear_all($entity->path['alias'], 'cache_path');
+    entity_get_controller('taxonomy_term')->resetCache(array($entity->tid));
+  }
+  if (isset($entity->tid)) {
+    module_load_include('inc', 'purge', 'purge');
+    $alias = $entity->path['alias'];
+    $source = $entity->path['source'];
+    $link[$alias] = $alias;
+    $link[$source] = $source;
+    $result = purge_urls($link);
+  }
+}
+
+function ef_topics_page_taxonomy_term_presave($term) {
+  $term->field_term_last_updated['und'][0]['value'] = strtotime("now");
+}

@@ -1,0 +1,112 @@
+drush sql-query "insert into schema_migrations(code,extra)values('033', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+:: goto http://www.heise.de/extras/socialshareprivacy/jquery.socialshareprivacy.zip
+:: unzip jquery.socialshareprivacy.zip -d sites/all/libraries/socialshareprivacy
+:: rm jquery.socialshareprivacy.zip
+
+:: import Reimbursement of Meeting Expenses with webforms
+:: navigate to node/add/node_export and for each file below copy and paste the code for import
+	:: sites\all\_docs\imports\nodes\node-export--quarterly-report-network-of-correspondents.txt
+
+
+:: MODULES ::
+
+drush dis -y l10n_client
+drush dis -y tmgmt
+
+drush en -y ef_404
+
+drush en -y ef_language_list
+
+drush language-disable ga
+drush language-disable mt
+
+drush en -y ef_comment_sector
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: goto admin/structure/taxonomy/ef_case_study_names
+:: change CS Name to: Attractive workplace for all
+
+:: check that the following menu links exist:
+
+:: about
+:: about/what-we-do
+:: about/what-we-do/background
+:: about/what-we-do/mission-and-tasks
+:: about/what-we-do/current-research
+:: about/what-we-do/eurofound-services
+:: about/who-we-are
+:: about/who-we-are/staff
+:: about/who-we-are/governing-board
+:: about/who-we-are/governing-board/gb-documents
+:: about/who-we-are/stakeholders-and-partners
+:: about/procurement
+:: about/procurement/information-on-procurement
+:: about/procurement/awarded-contracts
+:: about/vacancies
+:: about/vacancies/applicants
+:: about/vacancies/applicants/recruitment-process
+:: about/vacancies/applicants/grading-renumeration
+:: about/vacancies/applicants/eu-language-self-assessment-grid
+:: about/vacancies/information-for-graduate-traineeships
+
+:: observatories/emcc
+:: observatories/emcc/comparative-information
+:: observatories/emcc/erm
+:: observatories/emcc/european-jobs-monitor
+:: observatories/emcc/labour-market-research
+:: observatories/emcc/case-studies
+:: observatories/eurwork
+:: observatories/eurwork/comparative-information
+:: observatories/eurwork/case-studies
+:: observatories/eurwork/case-studies/attractive-workplace-for-all
+
+
+:: Populates menu link translations (test greek translations).
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-link-translations
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-link-translations.php
+
+:: check that all menu links in all languages are enabled
+
+:: NOTE: ignore Simplenews newsletters and spotlight themes warnings for the following php script (due to missing translations)
+
+:: Populate menu position rules.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-position-rules
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-position-rules.php
+
+:: i18n
+
+:: goto admin/config/regional/i18n/select and uncheck the 2 options:
+:: Select nodes by language
+:: Select taxonomy terms by language 
+:: IGNORE: drush sql-query "update taxonomy_term_data set language = 'en' where tid > 0"
+:: refresh all strings from admin/config/regional/translate/i18n_string
+:: IGNORE: [or/and import all po translations]
+
+:: NOTE: the following has already been applied on efstaging
+:: goto ERM main menu link (and all its translations) and set them as expanded
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

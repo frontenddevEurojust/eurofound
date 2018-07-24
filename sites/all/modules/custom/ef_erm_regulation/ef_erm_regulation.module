@@ -1,0 +1,579 @@
+<?php
+
+include 'functions/ef_erm_regulation.functions.inc';
+include 'functions/ef_erm_regulation.ajax_submit_validate.inc';
+
+/**
+ ** HOOK node access
+ */
+function ef_erm_regulation_node_access($node, $op, $account){
+
+	if(isset($node->workbench_moderation) && $node->type == 'ef_erm_regulation'){
+		if($node->workbench_moderation['current']->state == 'submitted_qr' && $op == 'update'){
+			if(in_array('Author', $account->roles)){ return NODE_ACCESS_DENY; }
+		}
+	}
+}
+
+/**
+ ** HOOK FORM ALTER
+ */
+function ef_erm_regulation_form_alter(&$form, &$form_state, $form_id){
+
+  global $user;
+  
+  // EDIT MODE
+  if($form_id == 'ef_erm_regulation_node_form'){
+    
+    //Unset old fields company size and afected employees
+    unset($form['field_company_size_erm_reg']);
+    unset($form['field_affected_employees_erm_reg']);
+
+    $form['title_field']['#type'] = 'hidden';
+    $form['field_observatory_erm_reg']['#type'] = 'hidden';
+    $form['field_theme_erm_reg']['#type'] = 'hidden';
+    $form['field_phase_erm_reg']['#type'] = 'hidden';
+
+    if(in_array('Author', $user->roles)){
+      $form['field_approved_payment_erm_reg']['#type'] = 'hidden';
+    }
+    
+    if(empty($form['nid']['#value'])){
+      $form['field_type_phase_erm_reg']['#element_validate'] = array('title_validate');  
+    }
+
+    // ADD adn EDIT term TYPE
+    $type_taxonomy_machine_name = 'erm_regulation_phase_type';
+
+    // Defining ID to AJAX callback
+    $form['field_type_phase_erm_reg']['#id'] = 'edit-field-type-phase-erm-reg';    
+
+    // Getting weight in order to order the new elemtns within the form
+    $type_weight = $form['field_type_phase_erm_reg']['#weight'];    
+    // High permissions roles
+    $type_edit_roles = array(
+      'Quality Manager', 'Quality Manager +', 'administrator',
+    );
+    // Allowed roles
+    $allow_to_edit = FALSE;
+    foreach ($type_edit_roles as $index => $role) {
+      if ( in_array($role, $user->roles) ) {
+        $allow_to_edit = TRUE;
+      }
+    }
+    if ( $allow_to_edit ) {
+      
+      $form['type_taxonomy_management'] = array(
+        '#markup' => '<div class="taxonomy-management"><ul><li><span id="new-type-popup">'.t('Add new Category').'</span></li><li><span id="edit-type-popup" class="edit-mode-off">'.t('Edit categories').'</span></li></ul></div>',
+        '#weight' => $type_weight + 1,
+      );
+
+      $form['taxonomy_management'] = array(
+        '#type' => 'fieldset',
+        '#title' => 'Taxonomy TYPE',
+        '#weight' => $type_weight + 1,
+        '#prefix' => '<div class="element-invisible">',
+        '#suffix' => '</div>',
+      );
+
+      $form['taxonomy_management']['select_phase'] = array(
+        '#group' => 'taxonomy_management',
+        '#type' => 'select',
+        '#title' => 'Phase',
+        // !! get_phase_options(taxonomy_vocabulary) is defined within ef_support_instruments module
+        '#options' => get_phase_options($type_taxonomy_machine_name),
+        '#empty_option' => '- Select -',
+        '#default_value' => '- Select -',     
+      );
+
+      $form['taxonomy_management']['add_new_term'] = array(
+        '#group' => 'taxonomy_management',
+        '#type' => 'textfield',
+        '#title' => 'New term',
+        '#size' => 60,
+        '#max_length' => 128,
+      );
+      $form['taxonomy_management']['edit_term'] = array(
+        '#group' => 'taxonomy_management',
+        '#type' => 'textfield',
+        '#title' => 'Edit term',
+        '#size' => 60,
+        '#max_length' => 128,     
+
+      );
+      $form['taxonomy_management']['edit_tid'] = array(
+        '#group' => 'taxonomy_management',
+        '#type' => 'textfield',
+        '#title' => 'Term id',
+        '#size' => 30,
+        '#max_length' => 128,
+      );
+      $form['taxonomy_management']['term_submit'] = array(
+        '#group' => 'taxonomy_management',
+        '#type' => 'submit',
+        '#value' => t('Submit'),
+        '#submit' => array('erm_regulation_submit_taxonomy_management'),
+        '#limit_validation_errors' => array(),
+        '#ajax' => array(
+          'callback' => 'erm_regulation_taxonomy_management_ajax_callback',
+          'wrapper' => 'edit-field-type-phase-erm-reg',
+          'method' => 'replace',  
+          'effect' => 'fade',
+          'event' => 'click',
+        ),
+        '#validate' => array('erm_regulation_validate_taxonomy_management'),
+      );                 
+
+    }
+    // end ADD and EDIT term TYPE    
+
+    // Moderate Revision log messages
+    if (in_array('Author', $user->roles) || in_array('Author +', $user->roles) || in_array('Quality Manager', $user->roles) || in_array('Quality Manager +', $user->roles)) {
+      
+      $moderation_cause_weight = $form['field_moderation_cause']['#weight'];
+      $revision_log_messages_summary = '<div class="revision-log-messages-summary">';
+      $revision_log_messages_summary = $revision_log_messages_summary . '<h5>'.t('Previous revision log messages').'</h5>';
+      $revision_log_messages_summary = $revision_log_messages_summary . '<ul>';
+      if ( isset($form['nid']['#value']) ) {
+        $node = node_load($form['nid']['#value']);
+        $revisions = node_revision_list($node);
+        foreach ($revisions as $vid => $revision) {
+          $node_revision = node_load($node->nid, $revision->vid);
+          if (isset($node_revision->workbench_moderation['my_revision'])) {
+            $from_state = $node_revision->workbench_moderation['my_revision']->from_state;
+            $current_state = $node_revision->workbench_moderation['my_revision']->state;
+          } else {
+            $from_state = $node_revision->workbench_moderation['current']->from_state;
+            $current_state = $node_revision->workbench_moderation['current']->state;
+          }
+          if ($from_state == ''){$from_state = '-';}
+          $log = '<li><a href="' . $base_url . '/node/' . $node->nid . '/moderation"><p>';
+          $log = $log . 'From <span>' . $from_state;
+          $log = $log . '</span> to <span>' . $current_state . '</span>';
+          $log = $log . ', ' . t('revised by ') . '<span>' . $revision->name . '</span><br>';
+          $log = $log . $revision->log;
+          $log = $log . '</p></a></li>';
+          $revision_log_messages_summary = $revision_log_messages_summary . $log;
+        }
+      }
+      $revision_log_messages_summary = $revision_log_messages_summary . '</ul></div>';
+      $form['revision_log_messages_summary'] = array(
+        '#markup' => $revision_log_messages_summary,
+        '#weight' => $moderation_cause_weight + 1,
+      );
+      $form['#groups']['group_ef_publishing_options']->children[] = 'revision_log_messages_summary';
+      $form['#group_children']['revision_log_messages_summary'] = 'group_ef_publishing_options';
+      
+    }
+
+    // end Revision log messages
+
+
+
+
+
+
+    // AJAX callback: Assign to - Contracts
+    //if node create/edit form and contains fields assign_to and contract
+    if (isset($form['field_assign_to_erm_reg']) && isset($form['field_contract_erm_reg'])) {
+
+        place_request_contract_group($form);
+        apply_ajax_select($form, $form_state);
+
+      }
+    // --- end AJAX callback
+
+    // CSS & JS
+    //drupal_add_js(drupal_get_path('module', 'ef_erm_regulation') . '/js/ef_erm_regulation.js');
+    //drupal_add_css(drupal_get_path('module', 'ef_erm_regulation') . '/css/ef_erm_regulation.css');
+    
+    $form['#attached']['js'][] = drupal_get_path('module', 'ef_erm_regulation') . '/js/ef_erm_regulation.js';
+    $form['#attached']['css'][] = drupal_get_path('module', 'ef_erm_regulation') . '/css/ef_erm_regulation.css';
+    
+    $key_anticipation = get_aticipation_key($type_taxonomy_machine_name);
+    $key_management = get_management_key($type_taxonomy_machine_name);
+    $settings['key_anticipation'] = variable_get('ef_erm_regulation', $key_anticipation);
+    $settings['key_management'] = variable_get('ef_erm_regulation', $key_management);
+    $settings['allow_to_edit_notes'] = variable_get('ef_erm_regulation', $allow_to_edit);
+    drupal_add_js(array('ef_erm_regulation' => $settings), 'setting');    
+
+    return $form;
+
+  }
+
+  // BACKEND & FRONTEND VIEWS
+  if($form['#id'] == 'views-exposed-form-erm-regulations-page-admin' && $form['reset']['#access'] == TRUE){
+
+    $form['nid']['#autocomplete_path'] = 'ef_erm_regulation/autocomplete';
+    $form['nid']['#id'] = 'nid-autocomplete';
+    $form['#submit'][] = 'erm_regulation_user_session_variable_saving_function';
+
+  }
+  if ($form['#id'] == 'views-exposed-form-erm-regulations-page') {
+    $types_array = $form['field_type_phase_erm_reg_tid_selective']['#options'];
+    $types_with_opt = array();
+
+    foreach ($types_array as $key => $value) {
+       $parent = taxonomy_get_parents($key);
+
+       //20871 tid for management
+       //20864 tid for anticipation
+       if($parent[20871]->name == 'Management'){
+        $types_with_opt['Management'][$key] = $value;
+       }else if($parent[20864]->name == 'Anticipation'){
+        $types_with_opt['Anticipation'][$key] =  $value;
+       }else{
+        $types_with_opt['Not Found'][$key] =  $value;
+       }
+    }
+    ksort($types_with_opt);
+    $form['field_type_phase_erm_reg_tid_selective']['#options'] = $types_with_opt;
+  }  
+  if ($form['#id'] == 'views-exposed-form-erm-support-instruments-support-instrument-admin-view' && count($form['field_type_erm_si_tid_selective']['#options']) > 0 ) {
+    foreach ($form['field_type_erm_si_tid_selective']['#options'] as $key => $value) {
+      $parents=taxonomy_get_parents($key);
+      foreach ($parents as $parent) {
+        $id_parent=$parent;
+      }
+      $form['field_type_erm_si_tid_selective']['#options'][$id_parent->name][$key]=$value;
+      unset($form['field_type_erm_si_tid_selective']['#options'][$key]);
+    }
+  }
+}
+
+/**
+ ** HOOK PRE SAVE
+ */
+function ef_erm_regulation_node_presave($node){
+
+  if($node->type == 'ef_erm_regulation'){
+    $country = 'country';
+    $type = 'type';
+    $observatory = 'observatory';
+
+
+    if(isset($node->field_country_erm_reg['und'][0]['tid'])){
+      $country_tid = $node->field_country_erm_reg['und'][0]['tid'];
+      $country = taxonomy_term_load($country_tid);
+    }
+
+    if(isset($node->field_type_phase_erm_reg['und'][0]['tid'])){
+      $type_tid = $node->field_type_phase_erm_reg['und'][0]['tid'];
+      $type = taxonomy_term_load($type_tid);
+
+        $phase_array = taxonomy_get_parents($type_tid);
+        foreach ($phase_array as $key => $value) {
+          $phase = $value->name;
+        }
+
+
+        switch ($phase) {
+          case 'Management':
+            $node->field_phase_erm_reg['und'][0]['value'] = 0;
+            break;
+
+          case 'Anticipation':
+            $node->field_phase_erm_reg['und'][0]['value'] = 1;
+            break;
+
+          default:
+            $node->field_phase_erm_reg['und'][0]['value'] = null;
+            break;
+        }
+
+
+    }
+
+    if(isset($node->field_observatory_erm_reg['und'][0]['tid'])){
+      $observatory_tid = $node->field_observatory_erm_reg['und'][0]['tid'];
+      $observatory = taxonomy_term_load($observatory_tid);
+    }
+
+
+    // New node title
+    $title = $country->name . ': ' . $type->name;
+    $node->title = $title;
+
+
+  }
+
+   if($node->type == 'ef_erm_regulation'){
+
+    $new_note = array();
+    $all_notes = array();
+
+    $new_note['title'] = $node->field_native_name_com_erm_reg['und'][0]['value'];
+    $new_note['article'] = $node->field_article_notes['und'][0]['value'];
+    $new_note['invol'] = $node->field_involvedactors_com_erm_reg['und'][0]['value'];
+    $new_note['covered'] = $node->field_cost_covered_by_notes['und'][0]['value'];
+    $new_note['threshold'] = $node->field_thresholds_notes['und'][0]['value'];
+    $new_note['sources'] = $node->field_sources_notes['und'][0]['value'];
+
+    $all_notes['title'] = $node->field_name_notes_memory_erm_reg['und'][0]['value'];
+    $all_notes['article'] = $node->field_article_notes_memo_erm_reg['und'][0]['value'];
+    $all_notes['invol'] = $node->field_invol_notes_memo_erm_reg['und'][0]['value'];
+    $all_notes['covered'] = $node->field_costcov_notes_memo_erm_reg['und'][0]['value'];
+    $all_notes['threshold'] = $node->field_thres_notes_memo_erm_reg['und'][0]['value'];
+    $all_notes['sources'] = $node->field_sources_notes_memo_erm_reg['und'][0]['value'];
+
+    foreach ($new_note as $key => $value) {
+      if(isset($value)){
+
+        if(isset($all_notes[$key])){
+          $memo = $all_notes[$key];
+        }else{
+          $memo = null;
+        }
+
+        $full_note = get_last_note($memo, $value);
+
+        switch ($key) {
+          case 'title':
+            unset($node->field_native_name_com_erm_reg['und'][0]['value']);
+            $node->field_name_notes_memory_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+          case 'article':
+            unset($node->field_article_notes['und'][0]['value']);
+            $node->field_article_notes_memo_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+          case 'invol':
+            unset($node->field_involvedactors_com_erm_reg['und'][0]['value']);
+            $node->field_invol_notes_memo_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+          case 'covered':
+            unset($node->field_cost_covered_by_notes['und'][0]['value']);
+            $node->field_costcov_notes_memo_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+          case 'threshold':
+            unset($node->field_thresholds_notes['und'][0]['value']);
+            $node->field_thres_notes_memo_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+          case 'sources':
+            unset($node->field_sources_notes['und'][0]['value']);
+            $node->field_sources_notes_memo_erm_reg['und'][0]['value'] = $full_note;
+            break;
+
+        }
+
+      }
+    }
+
+   }
+
+}
+
+// notes function
+function get_last_note($memo, $value){
+
+  global $user;
+
+  $u = user_load($user->uid);
+  if( isset( $u->field_ef_first_name['und'][0]['safe_value']) && isset($u->field_ef_last_name['und'][0]['safe_value']) ){
+      $u_firstname = $u->field_ef_first_name['und'][0]['safe_value'];
+      $u_secondname = $u->field_ef_last_name['und'][0]['safe_value'];
+  }
+
+  $date = date('Y/m/d, H:i');
+  $last_note = 'By ' . $u_firstname . ' ' . $u_secondname . ' ('.$user->name.')' . ' on ' . $date . ' => ' . $value;
+
+  if(!is_null($memo)){
+    $notes = $memo;
+    $notes = $notes . "\n" . $last_note;
+    $memo = $notes;
+
+  }else{
+    $memo = $last_note;
+  }
+
+  return $memo;
+
+}
+
+
+// hook_menu()
+function ef_erm_regulation_menu(){
+
+
+  $items['ef_erm_regulation/autocomplete'] = array(
+
+      'title' => 'Autocomplete for nid',
+      'page callback' => '_nid_autocomplete',
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK
+
+    );
+
+  return $items;
+}
+
+
+// Definimos la función de callback, necesario pasarle la variable - $string -
+// Hacemos una consulta a la base de datos para poder completar el nombre de los usuarios
+// que tengan el rol de profesionales (para no mostrar los demás usuarios)
+function _nid_autocomplete($string){
+
+
+  $nids = array();
+
+  $sql = "SELECT node.nid AS nid FROM node
+      where node.type IN ('ef_erm_regulation')
+      and cast(node.nid as char) like :cadena
+      limit 10";
+
+  $result = db_query($sql, array(':cadena' => '%' . $string . '%'))->fetchAll();
+
+
+  foreach ($result as $i => $row) {
+    $nid = check_plain($row->nid);
+    $nids[$nid] = $nid;
+  }
+
+
+  drupal_json_output($nids);
+
+}
+
+
+// --- AJAX functions
+
+function place_request_contract_group(&$form) {
+
+  // add weight to the Request assignee field group > than Publishing options (=90+30) to appear below it
+  // see field_group.module 1014 about the +30
+  if (isset($form['#groups']['group_contract_erm_reg '])) {
+    $form['#groups']['group_contract_erm_reg']->weight = 150;
+  }
+
+}
+
+function apply_ajax_select(&$form, &$form_state) {
+
+  unset($form['field_assign_to_erm_reg']['und']['#options']['_none']);
+  unset($form['field_contract_erm_reg']['und']['#options']['_none']);
+
+  if (!isset($form_state['assignee_options'])) {
+    $form_state['assignee_options'] = $form['field_assign_to_erm_reg']['und']['#options'];
+  }
+  $assignee_options = $form_state['assignee_options'];
+  if (!isset($form_state['contract_options'])) {
+    $form_state['contract_options'] = $form['field_contract_erm_reg']['und']['#options'];
+  }
+
+  $contract_options = $form_state['contract_options'];
+
+  $initial_assignee = isset($form['#node']->field_assign_to_erm_reg) && isset($form['#node']->field_assign_to_erm_reg['und'])
+    && isset($assignee_options[$form['#node']->field_assign_to_erm_reg['und'][0]['target_id']]) ?
+    $form['#node']->field_assign_to_erm_reg['und'][0]['target_id'] : key($assignee_options);
+
+  $selected_assignee = isset($form_state['values']['field_assign_to_erm_reg']['und']) && isset($form_state['values']['field_assign_to_erm_reg']['und'][0]['target_id'])
+    ? $form_state['values']['field_assign_to_erm_reg']['und'][0]['target_id'] : $initial_assignee;
+
+  $initial_contract = isset($form['#node']->field_contract_erm_reg) && isset($form['#node']->field_contract_erm_reg['und'])
+    && isset($contract_options[$form['#node']->field_contract_erm_reg['und'][0]['tid']]) ?
+    $form['#node']->field_contract_erm_reg['und'][0]['tid'] : key($contract_options);
+
+  $selected_contract = isset($form_state['values']['field_contract_erm_reg']['und']) && isset($form_state['values']['field_contract_erm_reg']['und'][0]['tid'])
+    ? $form_state['values']['field_contract_erm_reg']['und'][0]['tid'] : $initial_contract;
+
+  $form['field_assign_to_erm_reg']['und']['#ajax'] = array(
+    'callback' => 'ajax_callback',
+    'wrapper' => 'dropdown-second-replace',
+  );
+
+  $form['field_assign_to_erm_reg']['und']['#default_value'] = $selected_assignee;
+  $form['field_contract_erm_reg']['und']['#prefix'] = '<div id="dropdown-second-replace">';
+  $form['field_contract_erm_reg']['und']['#suffix'] = '</div>';
+  $form['field_contract_erm_reg']['und']['#options'] = ajax_get_options($form_state, $selected_assignee);
+  $form['field_contract_erm_reg']['und']['#default_value'] = $selected_contract;
+
+}
+
+
+function ajax_callback($form, $form_state) {
+  return $form['field_contract_erm_reg']['und'];
+}
+
+
+function ajax_get_options($form_state, $key = '') {
+  $assignee_options = $form_state['assignee_options'];
+  $options = array();
+
+  foreach ($assignee_options as $assignee_id => $assignee_name) {
+    if ($assignee_id !== '_none') {
+      $assignee = user_load($assignee_id);
+      if (isset($assignee) && isset($assignee->field_ef_contracts) && isset($assignee->field_ef_contracts['und'])) {
+        $assignee_contracts = $assignee->field_ef_contracts['und'];
+        foreach ($assignee_contracts as $assignee_contract) {
+          $contract = taxonomy_term_load($assignee_contract['tid']);
+          $contract_number = $contract->field_ef_contract_number['und'][0]['safe_value'];
+          $options[$assignee_id][$assignee_contract['tid']] = $contract_number . ': ' . $contract->name;
+        }
+      }
+    }
+  }
+
+  if (isset($options[$key])) {
+    return $options[$key];
+  } else {
+    return array();
+  }
+}
+
+function title_validate($form,&$form_state){
+    global $base_url;
+    
+    if(!empty($form_state['values']['field_type_phase_erm_reg']['und'][0]['tid'])
+        && !empty($form_state['values']['field_country_erm_reg']['und'][0]['tid'])){
+      
+      $type_tid = $form_state['values']['field_type_phase_erm_reg']['und'][0]['tid'];
+      $type = taxonomy_term_load($type_tid);
+
+      $country_tid = $form_state['values']['field_country_erm_reg']['und'][0]['tid'];
+      $country = taxonomy_term_load($country_tid);
+
+      $title = $country->name . ': ' . $type->name;
+
+      $query = "SELECT *
+                FROM node a
+                WHERE a.`type` = 'ef_erm_regulation'
+                AND a.title LIKE '" . $title . "'";
+
+      $result = db_query($query)->fetchAll();
+
+      if(!empty($result)){
+
+        $url = $base_url . "/node" ."/" . $result[0]->nid . "/edit";
+        form_set_error('field_country_erm_reg', "This entry already exists.<a href ='"
+          . $url . "' target=blank'> Add your new information to the existing entry.</a>");
+      }
+
+    }
+
+  }
+
+
+/**
+ ** HOOK VIEWS QUERY ALTER
+ */
+
+function ef_erm_regulation_views_query_alter(&$view, &$query){
+
+	if(isset($view->name)){
+		if( $view->name == 'erm_regulations'){
+			if(isset($query->table_queue['workbench_moderation_node_history'])){
+				$query->table_queue['workbench_moderation_node_history']['join']->left_field = 'nid';
+				$query->table_queue['workbench_moderation_node_history']['join']->field = 'nid';
+
+				$query->table_queue['workbench_moderation_node_history']['join']->definition['left_field'] = 'nid';
+				$query->table_queue['workbench_moderation_node_history']['join']->definition['field'] = 'nid';
+			}
+		}
+	}
+
+}
+

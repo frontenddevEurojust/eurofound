@@ -1,0 +1,6 @@
+name = EF Webform Limited Supply Options
+description = Enhances webforms by removing options from select lists (and checkboxes and radio buttons) once they get chosen/used in a webform submission. To use, just check the 'limited supply' checkbox in the webform component edit form.
+package = EF modules
+core = 7.x
+dependencies[] = webform
+

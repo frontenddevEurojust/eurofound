@@ -1,0 +1,487 @@
+<?php
+
+/**
+ * @file
+ * Creates a breadcrumb trail based on the current aliased path.
+ */
+
+
+/**
+ * Implements hook_page_build().
+ */
+function ef_nc_breadcrumbs_page_build(&$page) {
+  global $user;
+  global $base_url;
+  global $language;
+  // Start with getting the current URL
+  $path = current_path();
+  $uri = drupal_get_path_alias($path);
+
+  $term_array_blog = taxonomy_get_term_by_name('Blog');
+  $term_blog = reset($term_array_blog); # get the first element of the array which is our term object
+  $term_array_presentation = taxonomy_get_term_by_name('Presentation');
+  $term_presentation = reset($term_array_presentation); # get the first element of the array which is our term object
+
+  // build a breadcrumb trail and set the breadcrumb
+  $trail = _ef_nc_breadcrumbs_build_trail($uri);
+  
+    if(isset($page['content']['system_main']['nodes'])){
+
+      $array_nodes = $page['content']['system_main']['nodes'];
+      
+      $node = current($array_nodes);
+
+      $content_type = $node['#bundle'];
+	  
+      switch ($content_type) {
+        //It's fine
+        case 'ef_annual_progress_report':
+          # code...
+          break;
+        //It's fine
+        case 'ef_call_for_tender':
+          # code...
+          break;
+
+        case 'ef_case_study':
+          // Remove case study name for these cases: Pecs,Egs,Restructuring in SMEs in Europe as there are no linked views.
+          unset($trail['4']);
+
+          if ($node['field_ef_case_study_name'][0]['#href'] == 'taxonomy/term/13776'){
+            // Change breadcrumb to fit new Data explorer structure
+            unset($trail['1']);
+            unset($trail['2']);
+            unset($trail['3']);
+            $trail['1'] = '<a href="/data">Data and Resources</a>';
+            $trail['2'] = '<a href="/data/tackling-undeclared-work-in-europe">Tackling undeclared work in Europe</a>';
+            $trail['3'] = '<a href="/data/tackling-undeclared-work-in-europe/database">Database</a>';
+          }
+
+
+          break;
+
+        case 'ef_report':
+            //Remove themes
+          unset($trail['4']);
+
+          break;
+
+        case 'erm_support_instrument':
+          $trail[2] = '<a href="/observatories/emcc">EMCC</a>';
+          $trail[3] = '<a href="/observatories/emcc/erm">ERM</a>';
+          $trail[4] = '<a href="/observatories/emcc/erm/support-instrument">Restructuring support instruments</a>';
+
+          break;
+
+        case 'ef_factsheet':
+          $trail[2] = '<a href="/observatories/emcc">EMCC</a>';
+          $trail[3] = '<a href="/observatories/emcc/erm">ERM</a>';
+          $trail[4] = '<a href="/observatories/emcc/erm/factsheets">Restructuring events database</a>';
+
+          break;
+
+        case 'ef_event':
+          reset($array_nodes);
+          $nid = key($array_nodes);
+          $node = node_load($nid);
+
+          $trail[1] = "<a href='/events'>Events</a>";
+
+          if(!empty($node->field_ef_theme)){
+            unset($trail[2]);
+          }
+        
+          break;
+
+        //Not published content type
+        case 'ef_ic_quarterly_report':
+          unset($trail[1]);
+
+          break;
+
+        //Not published content type
+        case 'ef_input_to_erm':
+          unset($trail[1]);
+          unset($trail[2]);
+          unset($trail[3]);
+          unset($trail[4]);
+
+          break;
+
+        case 'ef_national_contribution':
+          unset($trail[4]);
+          unset($trail[5]);
+
+          break;
+
+        //Not published content type
+        case 'ef_network_quarterly_report':
+          unset($trail[1]);
+
+          break;
+
+        case 'blog':
+
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_blog->tid&published_at='>" . t('Blogs') . "</a>";
+          break;
+        
+        case 'presentation':
+
+          unset($trail[1]);
+          $trail[2] = '<a href="/publications/">Publications</a>';
+          $trail[3] = "<a href='/publications?ef_search=&field_ef_document_type_tid%5B%5D=$term_presentation->tid&published_at='>" . t('Presentations') . "</a>";
+
+          break;
+
+
+        case 'ef_news':
+          reset($array_nodes);
+          $nid = key($array_nodes);
+          $node = node_load($nid);
+
+          $published_at = $node->published_at;
+          $node_year = date('Y',$published_at);
+          $date_view_value = date('Y') - $node_year;
+          
+          $trail[1] = "<a href='/news'>News</a>";
+          $trail[3] = "<a href='/news/news-articles?ef_search=&published_at=" . $date_view_value ."'>" . $node_year ." </a>";
+        
+          break;
+
+        case 'ef_photo_gallery':
+          $trail[1] = "<a href='/news'>News</a>";
+
+          break;
+
+        case 'ef_publication':
+          
+          reset($array_nodes);
+          $nid = key($array_nodes);
+
+          $query = "SELECT a.vid FROM workbench_moderation_node_history a WHERE a.current = 1 AND a.nid =" . $nid;
+
+          $vid = db_query($query)->fetchAll()[0]->vid;
+
+          $node = node_load($nid, $vid);
+
+          $trail[1] = "<a href='/publications'>Publications</a>";
+          
+          unset($trail[2]);
+          
+          unset($trail[3]);
+          unset($trail[4]);
+
+          if($node->workbench_moderation['current']->state != 'draft' && $node->published_at != 0)
+
+          {
+              $node_year = date('Y',$node->published_at);
+
+              $date_view_value = date('Y') - $node_year;
+
+              $trail[2] = "<a href='/publications?ef_search=&published_at=" . $date_view_value ."'>" . $node_year ." </a>";
+          }  
+
+          break;
+
+        case 'ef_restructuring_in_smes':
+        
+          $trail[2] = "<a href='/observatories/emcc'>EMCC</a>";
+          $trail[3] = "<a href='/observatories/european-monitoring-centre-on-change-emcc/european-restructuring-monitor'>ERM</a>";
+          $trail[4] = "<a href='/restructuring-in-smes-in-europe'>Restructuring in SMEs</a>";
+
+          break;
+        //Not published content type
+        case 'simplenews':
+          unset($trail[1]);
+          unset($trail[2]);
+          break;
+
+        case 'ef_spotlight_entry':
+            $trail[1] = "<a href='/news'>News</a>";
+            //$trail[3] = '<a href=';
+          break;
+        //It's fine
+        case 'ef_vacancy':
+          break;
+
+        //Not published content type. No need changes
+        case 'webform':
+          # code...
+          break;
+		  
+		//Used to create the Extranet content types breadcrumb.
+		case 'board_member_page':
+			if(isset($trail[1]))
+			{
+				$trail[1] = "<a href='/extranet'>Extranet</a>";
+			}
+		break;
+		  
+        default:
+          # code...
+          break;
+      }
+	  
+	  
+    }
+	//Used to create the governing board view breadcrumb.
+	else if('_extranet_for_the_governing_board' === views_get_page_view()->name)
+	{
+		if(isset($trail[1]))
+		{
+			$trail[1] = "<a href='/extranet'>Extranet</a>";
+		}
+	}
+	
+  $current_URL = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+  //collective wage bargaing exception #issue 3522. They show blocks instead of nodes, hence, URL approach
+  $cwb = '/observatories/eurwork/collective-wage-bargaining/';
+  $emcc = '/observatories/emcc/';
+  $deliverable_country_update = '/deliverable-kinds/country-update';
+  $deliverable_topical_update = '/observatories/eurwork/topical-update';
+  $deliverable_research_extended = '/deliverable-kinds/research-in-focus-extended';
+  $working_life_country_profiles = '/observatories/eurwork/comparative-information/working-life-country-profiles';
+  $array_spotlight_on = array(
+    'Employment' => 'news/spotlight-on/employment',
+    'Youth' =>'news/spotlight-on/youth',
+    'Quality of life' => 'news/spotlight-on/quality-of-life',
+    'Older people' => 'news/spotlight-on/older-people',
+    'Sustainable work' => 'news/spotlight-on/sustainable-work',
+    'Win-win practices' => 'news/spotlight-on/win-win-practices',
+    'Mobility and migration' => 'news/spotlight-on/mobility-and-migration',
+    'Social dialogue' => 'news/spotlight-on/social-dialogue');
+  $country_profiles = 'country-profile';
+  $countries = '/country/';
+  $themes = '/ef-themes/';
+  $news = '/news/';
+  $newsletter = 'publication-types/newsletter';
+  $topics = '/topic/';
+  //Variables that control all specific cases needed to control by code
+  if(strpos($current_URL,$deliverable_country_update) || strpos($current_URL,$deliverable_topical_update) || strpos($current_URL,$deliverable_research_extended))
+    $pos_deliverables  = 1;
+  $pos_themes = strpos($current_URL,$themes);
+  $pos_wlcp = strpos($current_URL,$working_life_country_profiles);
+  $pos_cwb = strpos($current_URL, $cwb);
+  $pos_wlcpnode = strpos($current_URL,$country_profiles);
+  $pos_countriesnode = strpos($current_URL,$countries);  
+  $pos_spotlight_on = strpos($current_URL,'news/spotlight-on');
+  $pos_news = strpos($current_URL,$news);
+  $pos_newsletter = strpos($current_URL,$newsletter);
+  $pos_topics = strpos($current_URL,$topics);
+  
+  if($pos_cwb > 0){
+    // if the URL contains collective wage bargaining we need to fix the breadcrumb
+    $trail[3] = "<a href='/observatories/eurwork/collective-wage-bargaining/context'>collective wage bargaining</a>";
+    //find the tab to build the breadcrumb with
+    /*
+    $array = explode('?',$current_URL);
+    $pos2 = strpos($array[0],'sources');
+    $variable = substr($array[0],$pos2,strlen($array[0]));
+    $variable = rtrim($variable);
+
+    if($variable == 'outcomes' || $variable == 'eiro-timeline' || $variable == 'context' || $variable == 'sources' ){
+      $trail[4] = "<a href='/observatories/eurwork/collective-wage-bargaining/" . $variable . "'>" . $variable . "</a>";
+    }else{
+
+    }
+
+    if(isset($_GET['country_tid'])){
+
+    }
+  */
+  }elseif($pos_wlcp > 0){
+    unset($trail[3]);
+  }elseif ($pos_themes > 0){
+    $request = $_SERVER['REQUEST_URI'];
+    $request = str_replace('/ef-themes/','',$request);
+    $request = str_replace('-', ' ', $request);
+    $request = ucfirst($request);
+    $trail[2] = $request;
+  }elseif($pos_deliverables > 0){
+    $trail[1] = '<a href="/observatories">observatories</a>';
+    $trail[2] = '<a href="/observatories/eurwork">EurWORK</a>';
+    $trail[3] = '<a href="/observatories/eurwork/articles">Articles</a>';
+  }elseif ($pos_wlcpnode > 0) {
+    $trail[3] = '<a href="/observatories/eurwork/comparative-information/working-life-country-profiles">Working life country profiles</a>';
+  }elseif ($pos_countriesnode > 0) {
+    $trail[1] = '<a href="/country">Country</a>';
+  }elseif ($pos_news > 0){
+    $trail[1] = '<a href="/news">News</a>';
+  }elseif ($pos_newsletter > 0){
+    $trail[1] = '<a href="/news">News</a>';
+  }elseif ($pos_topics > 0){
+
+    $langUrl = substr($_SERVER['REQUEST_URI'],0,6);
+    if($langUrl == '/topic'){
+      $langUrl = '';
+    }else{
+      $langUrl = substr($_SERVER['REQUEST_URI'],0,3);
+    }
+
+    $trail[1] = '<a href="' .  $langUrl . '/topic">Topics</a>';
+
+    //unset($trail[2]);
+    $request = $_SERVER['REQUEST_URI'];
+    $term = str_replace("topic/", "", $request);
+    $term =  str_replace("-", " ", $term);
+    $term = ucfirst($term);
+
+  }
+  //Out of if .. else as we want to override spotlight on cases. Conflict with news
+  if ($pos_spotlight_on > 0){
+    foreach ($array_spotlight_on as $key => $value) {
+      if($base_url . '/' . $value == 'http://' . $current_URL){
+        $found_title = $key;
+      }
+    }
+    $trail[3] = $found_title;
+  }
+ // If the setting is enabled, add the current page title to the end of the
+ // trail.
+ // $trail[] = '<span class="active active-trail">' . _ef_nc_breadcrumbs_clean_string(drupal_get_title()) . '</span>';
+  drupal_set_breadcrumb($trail);
+
+  
+}
+/**
+ * Build a breadcrumb trail based on a URI.
+ */
+function _ef_nc_breadcrumbs_build_trail($uri) {
+  $previous_page = $_SERVER['HTTP_REFERER'];  //  To get the URL of the current page
+  $host= $_SERVER["HTTP_HOST"];                 //  and the previus page URL
+  $url= $_SERVER["REQUEST_URI"];               //
+  $current_page = "http://" . $host . $url;  //
+
+  $trail = array();
+
+  // if we're on the home page, skip everything and return just the home link
+  if (!drupal_is_front_page()) {
+
+    $i = 0;
+
+    // strip the current page from the request
+    $uri = dirname($uri);
+
+    // recursively trim uri and look for available path
+    while ($uri && $uri != '.') {
+
+      // First we see if the uri is an alias.
+      $path = drupal_lookup_path('source', $uri);
+
+      // figure out the title of the current item
+      if ($path) {
+        $item = menu_get_item($path);
+
+        // If this item is a forum, load the appropriate taxonomy term and get
+        // it's title.
+        if ($item['path'] == 'forum/%') {
+          $exploded = explode('/', $path);
+          $tid = $exploded[1];
+          $trail[$i]['title'] = taxonomy_term_load($tid)->name;
+        }
+        elseif ($item['path'] == 'taxonomy/term/%') {
+          $exploded = explode('/', $path);
+          $tid = $exploded[2];
+          $trail[$i]['title'] = taxonomy_term_load($tid)->name;
+        }
+        else {
+          $trail[$i]['title'] = $item['title'];
+        }
+      }
+      else {
+        // if it's not a valid path, load the menu item for the path
+        $item = menu_get_item($uri);
+
+        // if we still didn't get a valid menu item, skip this
+        if (!$item) {
+          $uri = dirname($uri);
+          continue;
+        }
+
+        // original_map holds the full list of args passed in to the menu item
+        $last_arg = array_pop($item['original_map']);
+
+        // check to see if the end of the path is the same as the menu path, meaning there are no additional args
+        if ($item['path'] == $last_arg) {
+          $trail[$i]['title'] = $item['title'];
+        }
+        else {
+          // Check if item is a taxonomy term and if so get title from term
+          if ($item['path'] == 'taxonomy/term/%') {
+            $term = taxonomy_term_load($last_arg);
+            $trail[$i]['title'] = $term->name;
+          }
+          else {
+            $trail[$i]['title'] = _ef_nc_breadcrumbs_clean_string($last_arg);
+          }
+        }
+      }
+
+      // Add in the path if we set something.
+      if (isset($trail[$i])) {
+        $url = check_url($uri);
+        $trail[$i]['path'] = $url;
+      }
+
+      // prepare for the next iteration
+      $uri = dirname($uri);
+      $i++;
+    }
+
+    // reverse the trail so that it will be in the correct order when returned
+    $trail = array_reverse($trail);
+  }
+
+  // Now build the actual breadcrumb trail in the right format.
+  $bc = array(l(t('Home'), '<front>'));
+  foreach ($trail as $c) {
+    if (isset($c['title']) && isset($c['path'])) {
+      $bc[] = l($c['title'], $c['path']);
+    }
+  }
+
+
+
+
+  $national_contontribution = "comparative-information/national-contributions/"; //Check it if the current and
+  $car = "comparative-information/";                         // the previus page are CAR or NC
+  $exist = strpos($current_page, $natcont);                    // nodes
+  $exist2 = strpos($previous_page, $coanre);
+
+   if($exist !== FALSE)         // If it es a NC
+  {
+      $len = count($bc);        // Remove the last two positions of the array because of the wrong default value
+      unset($bc[$len-1]);
+      unset($bc[$len-2]);
+
+      if(($exist2 !== FALSE)){          //If besides being NC, its previus page has been CAR
+
+        $pos = strrpos($previous_page, "/");                    // To get the breadcrumbs item through the URL
+        $brcr = substr($previous_page, $pos +1);
+        $brcr = str_replace("-", " ", $brcr);
+        $brcr = ucfirst($brcr);
+
+        $newItem = "<a href='".$previous_page."'>".$brcr."</a>";      // Insert the CAR's title in the breadcrumbs trail
+        $bc[$len-1] = $newItem;
+
+    }
+  }
+
+
+    return $bc;
+}
+
+/**
+ * Clean a string for display as a breadcrumb title.
+ */
+function _ef_nc_breadcrumbs_clean_string($string) {
+  // replace hyphens and underscores with spaces
+  $string = str_replace(array('-', '_'), ' ', $string);
+
+  // Make the first character of the title uppercase
+  $string = drupal_ucfirst($string);
+
+  return $string;
+}

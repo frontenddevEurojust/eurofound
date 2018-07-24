@@ -1,0 +1,24 @@
+# Latvian translation of PDFPreview (7.x-2.1)
+# Copyright (c) 2012 by the Latvian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PDFPreview (7.x-2.1)\n"
+"POT-Creation-Date: 2012-04-24 19:51+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Latvian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):((n!=0)?(1):2));\n"
+
+msgid "Description"
+msgstr "Apraksts"
+msgid "Yes"
+msgstr "Jā"
+msgid "No"
+msgstr "Nē"
+msgid "hidden"
+msgstr "slēpts"
+msgid "Media"
+msgstr "Multivide"

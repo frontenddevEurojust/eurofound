@@ -1,0 +1,246 @@
+/* --- APR edit form --- */
+.node-form.node-ef_annual_progress_report-form strong{
+	font-weight: lighter;
+}
+.node-form.node-ef_annual_progress_report-form strong:hover,
+.node-form.node-ef_annual_progress_report-form strong:active,
+.node-form.node-ef_annual_progress_report-form strong:focus,
+.node-form.node-ef_annual_progress_report-form li:hover strong,
+.node-form.node-ef_annual_progress_report-form li:active strong,
+.node-form.node-ef_annual_progress_report-form li:focus strong,
+.node-form.node-ef_annual_progress_report-form a:hover strong,
+.node-form.node-ef_annual_progress_report-form a:active strong,
+.node-form.node-ef_annual_progress_report-form a:focus strong{
+	text-decoration: none !important;
+}
+.node-form.node-ef_annual_progress_report-form .field-group-tabs-wrapper .vertical-tabs ul{
+	text-align: left;
+}
+.node-form.node-ef_annual_progress_report-form legend{
+	background-color: #005BAA !important;
+}
+.node-form.node-ef_annual_progress_report-form fieldset legend{
+	border: none !important;
+}
+.admin-menu .node-form.node-ef_annual_progress_report-form legend{
+  color: #000 !important;
+}
+.node-form.node-ef_annual_progress_report-form .description-text,
+.node-form.node-ef_annual_progress_report-form .vertical-tabs-panes .tab-description .fieldset-description{
+    font-size: 1.1em;
+    color: #005baa;
+    margin-top: 10px;
+    padding-bottom: 0;
+}
+.node-form.node-ef_annual_progress_report-form .description-text > p:before,
+.node-form.node-ef_annual_progress_report-form .vertical-tabs-panes .tab-description .fieldset-description:before{
+	content: "\f044";
+	font-family: fontawesome;
+	margin-right: 0.3em;
+}
+.node-form.node-ef_annual_progress_report-form .help-text {
+    color: #848484;
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: -10px;
+    text-align: right;
+    margin-bottom: 40px;
+}
+.node-form.node-ef_annual_progress_report-form .help-text.left{
+	margin-top: 20px;
+	text-align: left;
+}
+.node-form.node-ef_annual_progress_report-form #node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li{
+	margin: 1px;
+	text-align: center;
+	font-size: 1.2em;
+}
+.node-form.node-ef_annual_progress_report-form #node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet span {
+    border: 1px solid #000;
+    height: 15px;
+    text-align: center;
+    width: 50px;
+    cursor: pointer;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics #edit-field-ef-working-methods-rating-und{
+	visibility: hidden;
+	height: 1px;
+	overflow: hidden;
+}
+body.admin-menu #node_ef_annual_progress_report_form_group_working_methods_topics #edit-field-ef-working-methods-rating-und{
+	visibility: visible;
+	height: auto;
+	overflow: visible;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(5) span.rating-hover,
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(5) span.rating-selected{
+	background-color: #0E549D;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(4) span.rating-hover,
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(4) span.rating-selected{
+	background-color: #3E76B1;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(3) span.rating-hover,
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(3) span.rating-selected{
+	background-color: #6E98C4;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(2) span.rating-hover,
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(2) span.rating-selected{
+	background-color: #9FBBD8;
+}
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(1) span.rating-hover,
+#node_ef_annual_progress_report_form_group_working_methods_topics .inline-list.no-bullet li:nth-child(1) span.rating-selected{
+	background-color: #DBE4ED;
+}
+.node-form.node-ef_annual_progress_report-form .apr-mandatory-field{
+    color: #F7931E;
+    font-size: 1.1em;
+    margin: 20px 0 10px;
+}
+.node-form.node-ef_annual_progress_report-form .apr-mandatory-field:before{
+	content:  "\f040";
+	font-family: fontawesome;
+	margin-right: 0.2em;
+}
+.node-form.node-ef_annual_progress_report-form .apr-mandatory-textarea{
+	border: 4px solid rgba(247, 147, 30, 0.6);
+	border-radius: 8px;
+}
+.node-form.node-ef_annual_progress_report-form .apr-mandatory-list{
+	border: 4px solid rgba(247, 147, 30, 0.6);
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px;
+}
+.node-form.node-ef_annual_progress_report-form strong.apr-tab-required{
+	color: #F7931E;
+}
+.node-form.node-ef_annual_progress_report-form strong.apr-tab-required:before{
+	content: "\f040";
+	font-family: fontawesome;
+	margin-right: 0.5em;
+}
+
+
+#node_ef_annual_progress_report_form_group_ef_metadata .fieldset-wrapper > div legend,
+#node_ef_annual_progress_report_form_group_ef_contract legend{
+	border: 1px solid #005BAA;
+}
+#node_ef_annual_progress_report_form_group_ef_metadata .fieldset-wrapper > div legend > span{
+	background: none;
+}
+#edit-field-ef-year fieldset > div,
+#edit-field-ef-report-delivery-date fieldset > div{
+	background-color: #F0F0F0;
+	padding-top: 0;
+}
+#edit-field-ef-year,
+#edit-field-ef-new-contract,
+#edit-field-ef-new-contract-date{
+    display: inline-block;
+    height:150px;
+    width: 30%;
+    overflow: hidden;
+    padding: 0 5px;
+}
+#edit-field-ef-new-contract{
+	text-align: center;
+	position: relative;
+    width: 20%;
+    height: 135px;
+    margin-left: 10%;
+    border: 1px dotted #CCC;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+#edit-field-ef-new-contract .description,
+#edit-field-ef-new-contract label.option,
+#edit-field-ef-new-contract input.form-checkbox{
+	position: absolute;
+}
+#edit-field-ef-new-contract .description {
+    bottom: 30px;
+    left: 51px;
+}
+.admin-menu #edit-field-ef-new-contract .description {
+    top: 5px;
+    left: 0;
+    height: 2.5rem;
+}
+#edit-field-ef-new-contract label.option{
+	left: 80px;
+    top: 50px;
+}
+.admin-menu #edit-field-ef-new-contract label.option{
+    left: 100px;
+    top: 50px;
+}
+#edit-field-ef-new-contract input.form-checkbox{
+    left: 60px;
+    top: 53px;
+}
+.admin-menu #edit-field-ef-new-contract input.form-checkbox{
+    left: 80px;
+    top: 53px;
+   /* width: 50px;
+    height: 50px;*/
+}
+
+
+
+
+#edit-field-ef-new-contract-date:before{
+    content: "\f061";
+    /* border: 1px solid #000; */
+    display: inline-block;
+    float: left;
+    margin-left: 0;
+    margin-top: 80px;
+    font-family: fontawesome;
+    font-size: 3rem;
+    padding-right: 1rem;
+}
+#edit-field-ef-new-contract-date-und-0-value-date{
+	    width: 100%;
+}
+
+#edit-field-ef-requested-on,
+#edit-field-ef-apr-submitted-on{
+	display: inline-block;
+    height: 200px;
+    margin: 0 2%;
+    overflow: hidden;
+    width: 45%;
+}
+
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-checkbox > label:before{
+    content: "\f096";
+    font-family: fontawesome;
+    margin-right: 0.5em;
+    font-size: 1.1em;
+}
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-radio > label:before{
+    content:  "\f1db";
+    font-family: fontawesome;
+    margin-right: 0.5em;
+    font-size: 1.1em;
+}
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-checkbox > label.apr-checkbox-selected:before{
+    content: "\f14a";
+    font-family: fontawesome;
+    margin-right: 0.5em;
+    font-size: 1.1em;
+}
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-radio > label.apr-checkbox-selected:before{
+    content: "\f058";
+    font-family: fontawesome;
+    margin-right: 0.5em;
+    font-size: 1.1em;
+}
+
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-checkbox > input,
+#node_ef_annual_progress_report_form_group_additional_info_page .form-type-radio > input{
+    display: none;
+}
+

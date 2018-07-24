@@ -1,0 +1,218 @@
+	.cover-print{
+		display: none;
+	}
+
+  	.page-break{
+    	page-break-before:always !important;
+    	background: #FFF !important;
+  	}
+	
+	.title-general-comparison{
+		display: none;
+		position: relative!important;
+		top:0!important;
+	}
+
+	.hide-overlay{
+		display: none;
+	}
+
+	#overlay-eurofound{
+		display: none!important;
+	}
+
+	#overlay-eurofound-print{
+	  position:fixed;
+	  z-index:99999;
+	  top:0;
+	  left:0;
+	  bottom:0;
+	  right:0;
+	  background: rgba(255,255,255,0.8);
+	  transition: 1s 0.4s;
+	}
+
+	#overlay-eurofound-print .loading-position{
+		position: absolute;
+	    top: 50%;
+	    left: 45%;
+	    
+	}
+
+	#overlay-eurofound-print .loading-position img{
+		border: 0px;
+	    outline-width: 0px;
+	}
+
+	#overlay-eurofound-print .loading-position span{
+		padding-left: 0.5em;
+	}
+
+span.restructuring-view-title {
+    display: none;
+}
+  	.view-grouping .view-grouping-header{
+        display: none !important;
+    }
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
+	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
+	  font-size: 1.5rem !important;
+	}
+	.erm-nat-title span, .erm-en-title span {
+	  padding-left: 0 !important;
+	  width: auto !important;
+	}
+	.erm-nat-title h2, .erm-titles h2 {
+		border-bottom: 0;
+		padding-bottom: 10px;
+		float: left !important;
+		margin: -8px 0 0 0 !important;
+	}
+
+	.node-case-study-publication ul{
+		padding-left: 1em !important;
+	}
+
+	.node-case-study-publication .cs-org-size{
+		margin-left: 0 !important;
+	}
+
+	.case-study-location.large-6.columns .cs-location-list > li:nth-child(1){
+		padding-top: 1em;
+	}
+	
+	.case-study-location-size .cs-country{
+		margin-left: 0.5em !important;
+	}
+
+	.case-study-location-size .cs-country ul{
+		padding: 1em 0 0 0 !important;;
+		margin: 0 !important;;
+	}
+
+	.node-case-study-publication .cs-keywords{
+		margin-left: 2em !important;
+	}
+	.erm-phase-type{
+		width: auto !important;
+	}
+	.erm-phase{
+		text-align: left;
+	}
+	.field.field-name-field-type-erm-si, .field.field-name-field-type-phase-erm-reg {
+    text-align: left;
+    padding-left: 33px !important;
+	}
+
+ @media only print{
+ 	html, body{
+ 		overflow: auto !important;
+ 	}
+span.restructuring-view-title {
+    display: none;
+}
+	.cover-print{
+		position: absolute;
+		top: 0cm;
+		left:0;
+		width: 100% !important;
+		height: 90vh !important;
+		display: block;
+		z-index: 9;
+		background: #FFF !important;
+	}
+  .page-break{
+    page-break-before:always !important;
+    background: #FFF !important;
+  }
+	.view-grouping .view-grouping-header{
+   	display: none !important;
+  }
+	.cover-print img{
+		position: absolute;
+		width: 92% !important;
+		z-index: 9;
+		left:0cm;
+		top: 1cm;
+	}
+	.title-cover{
+		position: absolute;
+		top:6cm;
+		left: 20%;
+		width: 80%;
+		z-index: 10;
+		font-size:26pt;
+	}
+	.subtitle-cover{
+		position: absolute;
+		top:8cm;
+		left: 20%;
+		width: 80%;
+		z-index: 10;
+		font-size:18pt;
+	}
+	.description-cover{
+		position: absolute;
+		top: 10cm;
+		left: 20%;
+		width: 80%;
+		z-index: 10;
+		font-size: 11pt;
+	}
+	.disclaimer-cover{
+		position: absolute;
+		border-top: 1px solid #666 !important;
+		font-size: 10px !important;
+		text-align: center !important;
+		top:100%;
+		left: 0%;
+		width: 100%;
+		z-index: 10;
+	}
+	.print-date-cover{
+		position: absolute;
+		text-align: right !important;
+		top: 25.2cm;
+		right:5%;
+		width: 30% !important;
+		display: block;
+		z-index: 10;
+	}
+	.content-comparision-item {
+		page-break-before:always !important;
+	}
+  .view-grouping-content > h3{
+    font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif !important;
+    font-size: 1.5em !important;
+  }
+	.erm-nat-title h2 .field-type-text-long, .erm-en-title h2 .field-type-text-long {
+	  font-size: 1.5rem !important;
+	}
+	.erm-nat-title h2, .erm-titles h2 {
+	  margin: 0px 0 0 0 !important;
+	}
+	.erm-title-info.row{
+	  margin: 0 !important;
+	}
+	.field.field-name-field-country-erm-reg{
+		padding-bottom: 1em!important;
+	}
+  .erm-sources{
+  float: none !important;
+  page-break-before: auto;
+  }
+	.erm-phase{
+		text-align: left!important
+	}
+
+	.field.field-name-field-type-erm-si, .field.field-name-field-type-phase-erm-reg{
+		text-align: left!important
+	}
+	.erm-country {
+    font-size: 1.4em;
+    margin: 2rem 0;
+	}
+}

@@ -1,0 +1,160 @@
+<?php
+
+
+require_once 'helpers/functions.inc';
+
+
+
+
+function ef_browse_by_jump_block_permission() {
+
+  return array(
+    'access_ef_browse_by' => array(
+      'title' => t('Access to browse by page'),
+      'description' => t('Allow access to browse by block'),
+    ),
+  );
+}
+
+function ef_browse_by_jump_block_block_info() {
+
+  $block = array();
+
+  $block['info'] = array(
+    'info' => t('EF browse by jump block')
+  );
+
+  return $block;
+}
+
+function ef_browse_by_jump_block_block_view($delta = ''){
+
+  $block = array();
+  $block['subject'] = t('Browse By');
+  $block['content'] = drupal_get_form('ef_browse_by_jump_block_form');
+
+   return $block;
+}
+
+
+
+
+/**
+ * Implements hook_form($node, &$form_state).
+ */
+
+//$form, &$form_state
+
+function ef_browse_by_jump_block_form() {
+
+
+  $form['combine'] = array(
+   '#type' => 'textfield',
+   '#title' => '<span class="ef-icon_title_body">'.t('Title/Body').'</span>'   
+  );
+  
+  $form['country'] = array(
+   '#type' => 'select',
+   '#title' => '<span class="ef-icon_country">'.t('Country').'</span>',
+   '#options' => selective_country_eurwork(),
+   '#empty_option' => t('Any'),
+   );
+  
+
+  $form['field_ef_topic_tid'] = array(
+   '#type' => 'select',
+   '#title' => '<span class="ef-icon_topic">'.t('Topic').'</span>',
+   '#options' => selective_topic_eurwork(),
+   '#empty_option' => t('Any'),
+   );
+   
+  $form['field_ef_sector_tid'] = array(
+   '#type' => 'select',
+   '#title' => '<span class="ef-icon_sector">'.t('Sector').'</span>',
+   '#options' => selective_sector_eurwork(),
+   '#empty_option' => t('Any'),
+   );
+  
+  $form['published_at'] = array(
+   '#type' => 'select',
+   '#title' => '<span class="ef-icon_publication_date">'.t('Publication Year').'</span>',
+   '#options' => get_years_list(),
+   '#empty_option' => t('Any'),
+   );
+ 
+  $form['submit'] = array(
+   '#type' => 'submit',
+   '#value' => t('Apply'),
+   '#prefix' => '<div class="form-submit-button">',
+   '#suffix' => '</div>'
+   );
+
+
+   return $form;
+
+}
+
+
+function ef_browse_by_jump_block_form_submit($form, &$form_state) {
+  
+  if((!empty($form_state['values']['field_ef_topic_tid'])) || (!empty($form_state['values']['published_at'])) || (!empty($form_state['values']['combine'])) || (!empty($form_state['values']['country'])) || (!empty($form_state['values']['field_ef_sector_tid']))){
+
+
+     $parameters = array();   
+     
+     if(!empty($form_state['values']['combine'])){
+      $string = 'Title' . '%2F' . 'Body';
+      $parameters[rawurldecode($string)] = $form_state['values']['combine'];
+     
+     }
+     
+     if(!empty($form_state['values']['field_ef_topic_tid'])){
+      $parameters['field_ef_topic_tid[]'] = $form_state['values']['field_ef_topic_tid'];
+     }
+     
+     if(!empty($form_state['values']['published_at'])){
+      $date = date('Y');
+      $parameters['published_at'] = $form_state['values']['published_at'];
+     }
+     
+     
+     if(!empty($form_state['values']['country'])){
+
+      $country_name = $form_state['values']['country'];
+      $sql ="SELECT c.iso2
+             FROM countries_country c
+             WHERE name = :country_name";
+
+   
+
+
+      $result = db_query($sql,array(':country_name' => $country_name))->fetchAll();
+         
+
+      $parameters['name_list[]'] = $result[0]->iso2;
+     }
+  
+     if(!empty($form_state['values']['field_ef_sector_tid'])){
+        $parameters['field_ef_sector_tid[]'] = $form_state['values']['field_ef_sector_tid'];
+     }
+      
+    
+  
+     $form_state['redirect'] = array(
+     'observatories/eurwork/content',
+     array(
+       'query' => $parameters,
+     ),
+    );
+  } else{
+
+    global $base_url;
+    $path = $base_url . '/observatories/eurwork/content';
+    $form_state['redirect'] = $path;
+  } 
+
+}
+
+
+
+

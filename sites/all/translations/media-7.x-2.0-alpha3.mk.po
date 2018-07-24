@@ -1,0 +1,28 @@
+# Macedonian translation of Media (7.x-2.0-alpha3)
+# Copyright (c) 2013 by the Macedonian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Media (7.x-2.0-alpha3)\n"
+"POT-Creation-Date: 2013-10-26 00:41+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Macedonian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(((n==1)||((n%10)==1))?(0):1);\n"
+
+msgid "Type"
+msgstr "Тип"
+msgid "Confirm"
+msgstr "Потврда"
+msgid "Remove"
+msgstr "Одстрани"
+msgid "‹ previous"
+msgstr "‹ претходно"
+msgid "« first"
+msgstr "« прв"
+msgid "last »"
+msgstr "последно »"
+msgid "- All -"
+msgstr "- Сите -"

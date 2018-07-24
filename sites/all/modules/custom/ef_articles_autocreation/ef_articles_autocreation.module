@@ -1,0 +1,724 @@
+<?php
+
+/**
+ * Implementation of hook_permission().
+ */
+
+/* --- This function creates a new permission to access to 'articles_autocreation' page --- [Bilbomatica] */
+function ef_articles_autocreation_permission() {
+  return array(
+    'access_article' => array(
+      'title' => t('Access to articles_autocreation page'),
+      'description' => t('Allow access to articles_autocreation'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function ef_articles_autocreation_menu() {
+  $items = array();
+  $items['articles-autocreation'] = array(
+    'title' => 'Articles Autocreation',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('articles_autocreation_form'),
+    'access arguments' => array('access_article'),
+  );
+
+   return $items;
+}
+
+function articles_autocreation_form($form, &$form_state) {
+
+	global $user;
+	$form = array();
+	$obse_list = array();
+	$vid_obse = taxonomy_vocabulary_machine_name_load('ef_observatories')->vid;
+	$obse_tree = taxonomy_get_tree($vid_obse);
+	foreach ($obse_tree as $key => $value) {
+		$obse_list[$value->tid]=$value->name;
+	}
+
+	$service_list = array();
+	$vid_sectors =$vid = taxonomy_vocabulary_machine_name_load('ef_service_types')->vid;
+	$services_tree = taxonomy_get_tree($vid_sectors);
+	foreach ($services_tree as $key => $value) {
+		$service_list[$value->tid]=$value->name;
+	}
+		
+	$deliver_list = array();
+	$vid_deliver = taxonomy_vocabulary_machine_name_load('ef_deliverable_kinds')->vid;
+	$del_tree = taxonomy_get_tree($vid_deliver);
+
+	foreach ($del_tree as $key => $value) {
+		$tax_term = taxonomy_term_load($value->tid);
+		
+		if ($tax_term->field_ef_nec_period['und'][0]['value'] == "2018 - 2022"){
+			//Harcoded by bm WEM-920
+			if ($value->name =='Country update on latest developments in working life' ||  $value->name =='On-demand service'){
+				$deliver_list[$value->tid]=$value->name;	
+			}
+		}
+	}
+
+	$groups = entity_load('group');
+
+	foreach ($groups as $record) {
+	  $countriesList[$record->gid]= $record->title;
+	}
+	
+	natsort($countriesList);
+	foreach ($countriesList as $key => $value) {
+		if ($value == "EU level"){
+			$key_eu = $key;
+		}	
+	}
+	$countriesList = array_diff($countriesList, ["Eurofound", "Overview Report","EU level"]);
+	
+	
+	$countriesList[$key_eu] = "EU level";
+
+	foreach ($countriesList as $key => $value) {
+		if (strpos($value, '2014') == true) {
+		    $countriesList = array_diff($countriesList, [$value]);
+		}
+	}
+
+  	$form['title'] = array(
+		'#title' => t('Title'),
+		'#type' => 'textfield',
+		'#required' => TRUE,
+		'#validated' => TRUE,
+  	);
+
+  	$form['scheduled_record_delivery_date'] = array(
+		'#type' => 'date_popup',
+		'#title' => t('Scheduled Record Delivery Date'),
+		'#date_format' => 'd F Y',
+		'#default_value' => date('YYYY/mm/dd'),
+		'#date_label_position' => 'within',
+		'#datepicker_options' => array(
+    	'minDate' => 0, //Disable the days previous to the current date
+  		),
+		'#required' => TRUE,
+		'#validated' => TRUE,
+	);
+	
+
+  	$form['observatory']=array(
+		'#type' => 'select',
+		'#title' => t('Observatories'),
+		'#options' => $obse_list,
+		'#required' => FALSE,
+		'#multiple' => TRUE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+	  ),
+	);
+ 
+	$form['body'] = array(
+		'#title' => t('Body'),
+		'#type' => 'text_format',
+    	'#base_type' => 'textarea',
+	);
+
+	/* --- Changed by Bilbomatica --- */
+	$form['country'] = array(
+		'#type' => 'checkboxes',
+		'#title' => t('NCs/Countries'),
+		'#options' => $countriesList,
+		'#required' => TRUE,
+		'#multiple' => TRUE,
+		'#validated' => TRUE,
+	);
+
+	$form['addAllButton'] = array(
+		'#type' => 'button',
+		'#value' => 'Select all',
+	);
+	
+	$form['quitAllButton'] = array(
+		'#type' => 'button',
+		'#value' => 'Remove all',
+	);
+	
+	$form['deliver']=array(
+		'#type' => 'select',
+		'#title' => t('Deliverable Kind'),
+		'#options' => $deliver_list,
+		'#required' => FALSE,
+		'#multiple' => FALSE,
+		'#attributes' => array(
+			'class' => array('car-nc-creation'),
+		),
+		'#required' => TRUE,
+		'#ajax' => array(
+	      	'callback' => 'articles_autocreation_deliver_select_ajax',
+	      	'wrapper' => 'service-wrap',
+	      	'method' => 'replace',
+	      	'effect' => 'fade',
+	  	),
+	  	'#validated' => TRUE,
+	);
+	
+	$form['service']=array(
+		'#type' => 'select',
+		'#title' => t('Service type'),
+		'#prefix' => '<div id="service-wrap">',
+		'#suffix' => '</div>',
+		'#options' => $service_list,
+		'#required' => TRUE,
+		'#multiple' => FALSE,
+		'#validated' => TRUE,
+		
+	);
+
+	//Add extra remove buttons 
+  	for($cont==0; $cont < 20; $cont++){
+  		$i =  (int)$cont;
+
+
+	  	$form['remove_'.$i]= array(
+	  		'#name' => 'remove_'.$i,
+	  		'#type' => 'button',
+	  		'#prefix' => '<div id=remove-back_'.$i.' class="remove-button-file">',
+			'#suffix' => '</div>',
+	  		'#value' => t('Remove'),
+	  		'#attributes' => array('file-id' => $i),
+	  		'#ajax' => array(
+		      		'callback' => 'remove_article_file_by_id',
+		      		'#attributes' => array('file-id' => $i),
+		      		'wrapper' => 'container_file',
+		      		'method' => 'replace',
+		      		'effect' => 'fade',
+		  		),
+		);
+  	}
+
+  	//Container for the file list
+	$form['con_file'] = array(
+      '#type' => 'container',
+      '#prefix' => '<div id="container_file">',
+	  '#suffix' => '</div>',
+      '#attributes' => array(
+        'class' => array(
+            'container_file',
+        ),
+      ),
+      '#weight' => $instance['widget']['weight'],
+    );
+	
+
+	$form['con_file']['source_documents'] = array(
+  		'#type' => 'file',
+  		'#title' => t('Source documents'),
+  	);
+
+  	$form['con_file']['upload'] = array(
+    	'#type' => 'submit',
+    	'#value' => t('Upload file'),
+    	'#name' => 'upload',
+    	'#ajax' => array(
+      		'callback' => 'articles_autocreation_file_upload_ajax',
+      		'wrapper' => 'container_file',
+      		'method' => 'replace',
+      		'effect' => 'fade',
+  		),
+	);
+
+	$header = $header = array(
+    	'file' => array('data' => t('File')),
+    	'user' => t('User'),
+    	'submitted' => array('data' => t('Submitted On')),
+    	'actions' => array('data' => t('Actions'))
+  	);
+ 
+  	
+	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
+		$form['con_file']['file_list'] = array(
+				'#prefix' => '<div id="file-list-wrapper">',
+				'#suffix' => '</div>',
+				'#theme' => 'table',
+				'#header' => $header,
+			);
+
+	 	foreach ($_SESSION['source_documents'] as $key => $value) {
+	 		$remove_button = $form['remove_'.$key];
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
+	  			'file' => $value['name'],
+	  			'user' => $user->name,
+	  			'submitted' => date("d F Y"),
+	  			'actions' => array('data' => &$remove_button),
+	  		);
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
+	  		unset($remove_button);
+	  	}
+	  	
+	}
+  	else {
+  		$form['con_file']['file_list'] = array(
+			'#prefix' => '<div id="file-list-wrapper">',
+			'#suffix' => '</div>',
+			'#theme' => 'table',
+			'#header' => $header,
+    		'#rows' => $rows,
+    		'#empty' => 'No files attached',
+    	);
+    	$form['con_file']['file_list']['#rows']['0'] = array(
+	  			'file' => 'No file',
+	  			'user' => '',
+	  			'submitted' => '',
+	  			'actions' => '',
+	  	);
+  	}
+
+  	$form['con_file']['remove_last']= array(
+	  		'#name' => 'remove_last',
+	  		'#type' => 'button',
+	  		'#prefix' => '<div id="remove-back">',
+			'#suffix' => '</div>',
+	  		'#value' => t('Remove'),
+	  		'#attributes' => array('file-id' => "last"),
+	  		'#ajax' => array(
+		      		'callback' => 'remove_article_file_by_id',
+		      		'#attributes' => array('file-id' => "last"),
+		      		'wrapper' => 'container_file',
+		      		'method' => 'replace',
+		      		'effect' => 'fade',
+		  		),
+		);
+
+	/* --- Attached files (bilbomatica) --- */
+	$form['#attached']['js'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.js';
+	$form['#attached']['css'][] = drupal_get_path('module', 'ef_articles_autocreation') . '/ef_articles_autocreation.css';
+  	/* --- end --- */
+
+	$form['submit'] = array(
+		'#type' => 'submit',
+		'#value' => 'Submit',
+		'#weight' => 15,
+	);
+
+	return $form;
+}
+
+
+function articles_autocreation_form_validate($form, &$form_state) {
+
+	//   txt, pdf, doc, docx, xls, xlsx, ppt, pptx
+	//   10 MB.
+	// File validation
+	global $user;
+	if($form_state['clicked_button']['#value'] !="Submit"){
+		$form_state['rebuild'] = TRUE;
+	}
+	$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
+
+	if($form_state['complete form']['con_file']['file_list']['#rows'][0]['file'] == "No file"){
+		unset($form_state['complete form']['con_file']['file_list']['#rows'][0]);
+	}
+
+	//If session source documents have less elements we need to unset the one we have removed previously
+	if (count($form_state['complete form']['con_file']['file_list']['#rows']) > count($_SESSION['source_documents'])){
+
+		foreach ($form_state['complete form']['con_file']['file_list']['#rows'] as $key => $value) {
+			if ($value['file']!=$_SESSION['source_documents'][$key]['name']){
+				unset ($form_state['complete form']['con_file']['file_list']['#rows'][$key]);
+				break;
+			}
+		}
+	}
+
+	//If session source documents have more elements we need to add the last element into the table
+	if(count($form_state['complete form']['con_file']['file_list']['#rows']) < count($_SESSION['source_documents']) && $form_state['clicked_button']['#value']=='Submit'){
+		
+		$form_state['complete form']['con_file']['remove_last']['#prefix'] = '<div id="remove-backs">';
+		$key = 	count($_SESSION['source_documents']) - 1;
+		$remove_button = $form['remove_'.$key];
+	 	$form['con_file']['file_list']['#rows'][$key] = array(
+	  		'file' => $_SESSION['source_documents'][$key]['name'],
+	  		'user' => $user->name,
+	  		'submitted' => date("d F Y"),
+	  		'actions' => array('data' => $remove_button),
+	  	);
+	  	$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
+
+
+	  	$form_state['complete form']['con_file']['file_list']['#rows'][$key] = array(
+	  		'file' => $_SESSION['source_documents'][$key]['name'],
+	  		'user' => $user->name,
+	  		'submitted' => date("d F Y"),
+	  		'actions' => '<div id="remove-back"></div>',
+	  	);
+
+	  	$form_state['complete form']['con_file']['file_list']['remove_' . $key] = &$remove_button;
+
+	}
+
+	//Validation only when you click the Submit button
+	if(!isset($form_state['clicked_button']['#attributes']['file-id']) && $form_state['clicked_button']['#value']=='Submit'){
+
+		
+		//validate the requerired fields -Title -Delivery date -Delivery kind -Service type
+		if ($form_state['values']['title']==""){
+			form_set_error('title', 'Title field is required');
+		}
+		
+		if ($form_state['values']['scheduled_record_delivery_date']['date']==""){
+			form_set_error('scheduled_record_delivery_date', 'Scheduled record delivery date field is required');
+		}
+
+
+		if ($form_state['values']['deliver']==""){
+			form_set_error('deliver', 'Deliverable kind field is required');
+		}
+
+		if ($form_state['values']['service']==""){
+			form_set_error('service', 'Service type field is required');
+		}
+
+		$selectedCountries = array();
+		foreach ($form_state['values']['country'] as $key => $value) {
+			if($value != '0'){
+				$selectedCountries[] = $key;
+			}
+		}
+		
+		if (count($selectedCountries)==0){
+			form_set_error('country', 'NCs/Countries field is required');
+		}
+	}
+}
+
+
+function remove_article_file_by_id($form, &$form_state){
+	global $user;
+	$key = $form_state['clicked_button']['#attributes']['file-id'];
+	if ($key=='last'){
+		$key = count($_SESSION['source_documents'])-1;
+	}
+	//Remove the document from the session and the form
+	unset($_SESSION['source_documents'][$key]);
+	unset($_SESSION['documents'][$key]);
+	unset($form_state['file_list']['#rows'][$key]);
+	unset($form['con_file']['file_list']['#rows'][$key]);
+
+	//Delete the empty spaces into the session documents
+	$_SESSION['source_documents'] = array_values($_SESSION['source_documents']);
+	$_SESSION['documents'] = array_values($_SESSION['documents']);
+	
+	$header = $header = array(
+    	'file' => array('data' => t('File')),
+    	'user' => t('User'),
+    	'submitted' => array('data' => t('Submitted On')),
+    	'actions' => array('data' => t('Actions'))
+  	);
+
+	//Create the table
+	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>0) {
+		$form['con_file']['file_list'] = array(
+				'#prefix' => '<div id="file-list-wrapper">',
+				'#suffix' => '</div>',
+				'#theme' => 'table',
+				'#header' => $header,
+			);
+
+	 	foreach ($_SESSION['source_documents'] as $key => $value) {
+	
+	 		$remove_button = $form['remove_'.$key];
+		  	$form['con_file']['file_list']['#rows'][$key] = array(
+	  			'file' => $value['name'],
+	  			'user' => $user->name,
+	  			'submitted' => date("d F Y"),
+	  			'actions' => array('data' => &$remove_button),
+	  		);
+	  		$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
+	  		unset($remove_button);
+	  	}
+	  	
+	}
+  	else {
+  		$form['con_file']['file_list'] = array(
+			'#prefix' => '<div id="file-list-wrapper">',
+			'#suffix' => '</div>',
+			'#theme' => 'table',
+			'#header' => $header,
+    		'#rows' => $rows,
+    		'#empty' => 'No files attached',
+    	);
+    	$form['con_file']['file_list']['#rows']['0'] = array(
+	  			'file' => 'No file',
+	  			'user' => '',
+	  			'submitted' => '',
+	  			'actions' => '',
+	  	);
+	  
+  	}
+  	//Hide the remove_last button
+	$form['con_file']['remove_last']['#prefix'] = '<div id="remove-back">';
+	return $form['con_file'];
+
+}
+
+function articles_autocreation_form_submit($form, &$form_state){
+	
+	// --- check selected countries
+	$selectedCountries = array();
+	$groups = entity_load('group');
+
+	foreach ($form_state['values']['country'] as $key => $value) {
+		if($value != '0'){
+			$selectedCountries[] = $key;
+		}
+	}
+	// --- end
+
+	foreach($selectedCountries as $country){
+		global $user;
+		$country_name = $groups[$country]->title;
+		$node = new stdClass();
+		$node->language = "en";
+		$node->title = $country_name .": ".$form_state['values']['title'];
+		$node->type = 'ef_report';
+		$node->language = "en";
+		node_object_prepare($node);
+		$node->uid = $user->uid;
+	
+		//Get country code
+		$list_count = country_get_list();
+		
+		foreach ($list_count as $key => $value) {
+			if ($value == $country_name){
+				$country_code = $key;
+				break;		
+			}
+		}
+
+		$node->field_ef_country['und'][]['iso2']=$country_code;
+
+	 	$node->body['en'][0] = array('value'=>$form_state['values']['body']['value'],'format'=>$form_state['values']['body']['format']);
+	 	
+	 	$node->field_ef_author_contract['und'][]['tid'] =  $groups[$country]->field_ef_contract['und'][0]['tid'];
+		$node->field_ef_assign_to_country_group['und'][]['target_id'] = $groups[$country]->gid;
+	 	
+	 	$uid_leader = get_group_leader_uid($country);
+	 	if (isset($uid_leader)&& $uid_leader!=""){
+		 	$name = 'country_group_members';
+			$display_id = 'group_membership_entity_reference';
+			$membership_view_results = views_get_view_result($name, $display_id, array($country));
+			  
+			foreach ($membership_view_results as $key => $object) {
+			    if ($object->group_membership_uid == $uid_leader){
+			    	$leader_mid = $object->mid;
+			    	break;
+			    }
+			}
+			//asign the node to the group leader
+			$node->field_ef_assign_to_author['und'][0]['target_id'] =$leader_mid;
+			$node->field_ef_assign_to_user['und'][0]['target_id'] =$uid_leader;
+	 	}	 	
+
+	 	if(isset($_SESSION['documents'])){
+			foreach ($_SESSION['documents'] as $file1) {
+				$file1->status = FILE_STATUS_PERMANENT;
+	    		// Save file status.
+	    		file_save($file1);
+	    		$file1->display = 1;
+	    		$file1->description = "";
+				$node->field_ef_source_documents[LANGUAGE_NONE][] = (array)$file1;
+			}
+		
+		}
+
+	 	$term_index = 0 ;
+		foreach ($form_state['values']['observatory'] as $key => $value) {
+			$node->field_ef_observatory[LANGUAGE_NONE][$term_index]['tid'] = $value;
+			$term_index++;
+		}
+
+	 	if (isset($form_state['values']['deliver'])){
+			$node->field_ef_deliverable_kind['und'][]['tid'] = $form_state['values']['deliver'];
+		}
+
+		if (isset($form_state['values']['scheduled_record_delivery_date'])){
+	 		$node->field_ef_report_delivery_date['und'][]['value'] = date("Y-m-d", strtotime($form_state['values']['scheduled_record_delivery_date']['date']));
+	 	}
+
+		if (isset($form_state['values']['service'])){
+			$node->field_ef_service_type['und'][]['tid'] = $form_state['values']['service'];
+		}
+
+		$node->status = 0;
+		$node->promote = 0;
+
+		$dsm_title = $node->title;
+		$node = node_submit($node); // Prepare node for saving
+		
+		node_save($node);
+
+		$nodeUrl = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));	
+		
+		drupal_set_message( "Node: '" . $dsm_title . "' saved!\n");
+		drupal_set_message(l("View Article: " . $dsm_title, $nodeUrl));
+
+		workbench_moderation_moderate($node, 'requested');
+
+	}
+
+ 	unset($_SESSION['source_documents']);
+	unset($_SESSION['documents']);
+}
+
+function articles_autocreation_file_upload_ajax($form, &$form_state) {
+	$allowed_types = array("txt", "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx");
+	$doc_error = false;
+	global $user;
+	
+	if (isset($_SESSION['source_documents']) && count($_SESSION['source_documents'])>=20) {
+		form_set_error ('source_documents',"No more than 20 documents are allowed.");
+		$doc_error = true;
+	}
+	//Validate that we don't choose the same document twice
+	foreach ($_SESSION['source_documents'] as $key => $value) {
+		$att_doc[] = $value['name'];
+	}
+	$new_doc = $form_state['values']['source_documents']['name'];
+	if (in_array($new_doc,$att_doc)){
+		form_set_error ('source_documents',"The file: " .$new_doc. " had been already uploaded");
+		$doc_error = true;	
+	}
+
+	$header = $header = array(
+    'file' => t('File'),
+    'user' => t('User'),
+    'submitted' => t('Submitted On'),
+    'actions' => t('Actions'),
+  	);
+
+	if (isset($form['con_file']['file_list']['files'])) {
+  		$files = $form['con_file']['file_list']['files']['#value'];
+	}
+
+	if (isset($form_state['values']['source_documents']) && !empty($form_state['values']['source_documents'])) {
+  		$file_name = $form_state['values']['source_documents']['name'];
+		$file_size = $form_state['values']['source_documents']['size'];
+		$file_type = explode(".",$file_name);
+		$file_type_extension = array_pop($file_type);
+
+		if(!in_array($file_type_extension, $allowed_types)){
+			
+			form_set_error('source_documents','Please provide a file with one of these extensions pdf , txt , doc , docx , xlx , xlsx , log.');
+	 		$form_state['rebuild'] = TRUE;
+	 		$doc_error = true;
+
+		}
+		if($file_size>10000000){
+			form_set_error('source_documents', 'File must be below 10MB.');
+			$form_state['rebuild'] = TRUE;
+			$doc_error = true;
+		}
+
+	if ($doc_error == false){	
+	
+	/**********************************************************SAVE THE DOCUMENTS****************************************/
+	 $file = file_save_upload('source_documents', array(
+	    'file_validate_extensions' => array('pdf xls html doc txt docx xlsx'),
+	    // 'file_validate_is_image' => array(),
+	  ));
+	
+	// If the file passed validation:
+	  if (isset($file->filename)) {
+	      // Move the file, into the Drupal file system
+		  // $newpath = variable_get('file_directory_path');
+	  	if ($file = file_move($file, 'public:///ef_comparative_analytical_report/field_ef_source_documents', FILE_EXISTS_RENAME)) {
+		// Update the new file location in the database.
+	      drupal_write_record('files', $file, 'fid');
+	      // Save the file for use in the submit handler.
+	      $form_state['storage']['file'][] = $file;
+	      $_SESSION['source_documents'][] = $form_state['values']['source_documents'];
+	      $_SESSION['documents'][] = $file;
+
+	    }
+	    else {
+	    	form_set_error('file', t('Failed to write the uploaded file the site\'s file folder.'));
+	    }
+	  }
+	  else {
+	    form_set_error('file', t('Invalid file, only files with the extension pdf xls html doc txt are allowed'));
+	  }
+	  
+	  
+	/**********************************************************SAVE THE DOCUMENTS******************************************/
+	}
+
+  	$form['con_file']['file_list'] = array(
+			'#prefix' => '<div id="file-list-wrapper">',
+			'#suffix' => '</div>',
+			'#theme' => 'table',
+			'#header' => $header,
+		);
+  	
+ 	foreach ($_SESSION['source_documents'] as $key => $value) {
+ 		
+ 		$remove_button = $form['remove_'.$key];
+
+	  	$form['con_file']['file_list']['#rows'][$key] = array(
+  			'file' => $value['name'],
+  			'user' => $user->name,
+  			'submitted' => date("d F Y"),
+  			'actions' => array('data' => $remove_button),
+  		);
+  		//$form['con_file']['file_list']['remove_' . $key] = &$remove_button;
+  		unset($remove_button);
+  	}
+
+  }
+  $form_state['rebuild'] = TRUE;
+  return $form['con_file'];
+}
+
+
+function articles_autocreation_deliver_select_ajax($form, &$form_state){
+	$deliver_id = $form_state['complete form']['deliver']['#value'];
+	$tax_term = taxonomy_term_load($deliver_id);
+	$service_list = array();
+	$service_list[0] = "- Select -";
+
+	foreach ($tax_term->field_ef_service_type['und'] as $key => $tid) {
+		$service_type = taxonomy_term_load($tid['tid']);
+		$options[$tid['tid']] = $service_type->name;
+	}
+
+	$form['service']['#options'] = $options;
+
+	return $form['service'];
+
+}
+
+
+/**
+ * Implements hook_form_alter(&$form, &$form_state, $form_id).
+ */
+function ef_articles_autocreation_form_alter(&$form, &$form_state, $form_id){
+	if ($form_id == 'ef_report_node_form') {
+		$form['field_ef_document_type']['#access'] = false;
+	}
+}
+
+/**
+ * Implements hook_node_presave($node)
+ */
+function ef_articles_autocreation_node_presave($node){
+
+	if ($node->type == 'ef_report') {
+		$taxonomy = taxonomy_get_term_by_name('Article', $vocabulary = 'ef_publication_types');	
+		if (count($taxonomy == 1)) {
+			$taxonomy = reset($taxonomy);
+			$taxonomy = $taxonomy->tid;
+
+			$node->field_ef_document_type['und'][] = array('tid' => $taxonomy);
+		}
+	} 
+}
+

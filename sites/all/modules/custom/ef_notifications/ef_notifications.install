@@ -1,0 +1,159 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function ef_notifications_schema() {
+  $schema = array();
+  $schema['notifications_emails'] = array(
+    'description' => 'Custom table to save the transitions for a given mail is sent and the related email template',
+    'fields' => array(
+      'sid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'An auto increment id for each state transition',
+      ),
+      'from_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'From state of the sent email',
+      ),
+      'to_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'To state of the sent email',
+      ),
+      'rid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'role id of the receiver',
+      ),
+      'rid2' => array(
+        'type' => 'varchar',
+        'length' => 1,
+        'not null' => TRUE,
+        'default' => '0',
+        'description' => 'role id of the receiver',
+      ),
+      'subject' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'Subject of the email',
+      ),
+      'message' => array(
+        'description' => 'Body of the email',
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'translatable' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'rid' => array('rid'),
+    ),
+    'primary key' => array('sid'),
+  );
+
+  $schema['notification_emails_digest'] = array(
+    'description' => 'Custom table to save daily items for the digest',
+    'fields' => array(
+      'iid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'An auto increment id for each notification item',
+      ),
+      'to_user' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'User Id recieving the notification',
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Node that generates the notification',
+      ),
+      'from_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'From state of the sent email',
+      ),
+      'to_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'To state of the sent email',
+      ),
+      'item_timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'to_user' => array('to_user')
+    ),
+    'primary key' => array('iid'),
+  );
+  return $schema;
+}
+
+function ef_notifications_update_7001() {
+  $schema['notifications_db_support'] = array(
+    'description' => t('Table to store real time notifications for logging purposes'),
+    'fields' => array(
+      'rtnid' => array(
+        'description' => 'Real time notification ID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'Receiver user ID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Node generating the notification',
+      ),
+      'type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => 'Notification type, can be transition or assignment',
+      ),
+      'notification_timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'indexes' => array(
+      'rtnid' => array('rtnid'),
+    ),
+    'primary key' => array('rtnid'),
+    'foreign keys' => array(
+      'fk_notifications_db_node' => array(
+        'table' => 'node',
+        'columns' => array('nid' => 'nid'),
+      ),
+      'fk_notifications_db_users' => array(
+        'table' => 'users',
+        'columns' => array('uid' => 'uid'),
+      ),
+    ),
+  );
+  
+  db_create_table('notifications_db_support', $schema['notifications_db_support']);
+}

@@ -1,0 +1,122 @@
+drush sql-query "insert into schema_migrations(code,extra)values('036', '...')"
+
+drush vset -y maintenance_mode 1
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+:: patch for mega menu position.
+:: patches/v036-jquery.qtip-1.0.0-rc3.min.js.txt	
+
+:: MODULES ::
+
+drush dl -y site_map
+drush en -y site_map
+
+drush en -y ef_publication_field_formatter
+
+drush dl -y i18n_menu_overview
+drush en -y i18n_menu_overview
+
+drush dl -y panels_breadcrumbs
+drush en -y panels_breadcrumbs
+
+drush dl -y eu_cookie_compliance
+drush en -y eu_cookie_compliance
+
+drush dl -y multifield
+drush en -y multifield
+
+drush cc all
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: fix language on created nodes based on translatability.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts fix_language_nodes
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/fix_language_nodes.php
+
+:: Importing:
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: || Target Menu | Menu File ||
+:: || Footer Links| sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: NOT Checked 
+:: Language: English
+
+:: Before import:
+:: go to admin/structure/types/manage/page
+:: and uncheck the following revision options, else menu importing does not work:
+:: Uncheck: Create new revision 
+:: Uncheck: New revision in draft, pending moderation (requires "Create new revision") 
+
+:: || Target Menu | Menu File ||
+:: || Main Menu | sites\all\_docs\imports\menus\main-menu-export.txt ||
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Default Language: English
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+::
+:: After import:
+:: go to admin/structure/types/manage/page
+:: and re-check the following revision options:
+:: Check: Create new revision 
+:: Check: New revision in draft, pending moderation (requires "Create new revision") 
+
+
+:: Populates menu link translations (test greek translations).
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-link-translations
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-link-translations.php
+
+:: Populate menu position rules.
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-menu-position-rules
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-menu-position-rules.php
+
+:: fix-minipanels-menu-links
+
+:: drush fr -y ef_basics
+
+:: go to admin/structure/menu/manage/main-menu
+:: Edit  the menu links : Publications , News , Surveys , Themes  , Observatories , About Eurofound
+:: Fill in the field  Container  : .ef-navigation-menus
+:: Do this for all 6 menu links.
+
+:: Go to admin/structure/menu/manage/main-menu
+:: Settings  for all are : At HOVER POSITION CONFIGURATION -> Position type = 'Absolute' , At HIDE EFFECT CONFIGURATION Delay = 100  Length of effect = 100
+:: Edit Publications Menu Link -> Choose at option Menu minipanel   : 'Publication mini panel'  
+:: Edit News Menu Link -> Choose at option Menu minipanel : 'News mini panel' 
+:: Edit Surveys Menu Link -> Choose at option Menu minipanel : 'Surveys mini panel'
+:: Edit Themes Menu Link -> Choose at option Menu minipanel : 'Themes mini panel'
+:: Edit Observations Menu Link -> Choose at option 'Menu minipanel' : Observations 
+:: Edit About Eurofound Menu Link -> Choose at option Menu minipanel : 'About Eurofound mini panel' 
+
+
+:: navigate to admin/config/regional/i18n_menu_overview/config
+:: Ensure that options 'Do you want to manage main-menu ' is selected (checked)
+:: In 'What kind of menu listing do you want at : /admin/structure? ' select 'Default'
+:: In 'What kind of menu detail do you want at : /admin/structure/[your-menu]? ' select 'Local action links'
+:: Save and then clear the cache
+
+drush cc all
+
+drush vset -y maintenance_mode 0
+drush cc all

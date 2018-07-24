@@ -1,0 +1,38 @@
+drush sql-query "insert into schema_migrations(code,extra)values('026', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: More Buttons
+drush dl -y mb
+drush en -y mb
+drush en -y mb_content
+drush cc all
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+:: fix-panels.txt
+:: fix-term-ids.txt
+
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

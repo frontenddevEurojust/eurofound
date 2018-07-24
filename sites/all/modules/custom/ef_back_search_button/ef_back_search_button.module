@@ -1,0 +1,121 @@
+<?php
+/*
+
+Perform setup tasks for all page requests.
+This hook is run at the beginning of the page request.
+It is typically used to set up global parameters that are needed later in the request.
+Only use this hook if your code must run even for cached page views.
+This hook is called before the theme, modules, or most include files are loaded into memory.
+It happens while Drupal is still in bootstrap mode.
+
+*/
+
+function ef_back_search_button_boot() {
+
+	// uri valid from view with filters
+	// We define a global variable $_SESSION['back_search'] 
+	// $_SESSION['back_search'] is $referrer if $valid_url is within $referers
+	$array_valid_uri =array( 
+					// DATA and RESOURCES
+					'/data/tackling-undeclared-work-in-europe/database',
+
+					// EMCC
+					'/observatories/emcc/erm/factsheets',
+					'/observatories/emcc/erm/support-instrument',
+					'/observatories/emcc/erm/legislation',
+					'/observatories/emcc/erm/restructuring-case-studies',
+					'/observatories/emcc/erm/restructuring-in-smes',
+					'/observatories/emcc/erm/annual-reports',
+					'/observatories/emcc/erm/erm-quarterly-newsletters',
+					'/observatories/emcc/case-studies/the-greening-of-industries-in-the-eu',
+					'/observatories/emcc/case-studies/tackling-undeclared-work-in-europe',
+					
+					// EURWORK
+					'/observatories/eurwork/articles',
+					'/observatories/eurwork/comparative-information',
+					'/observatories/eurwork/industrial-relations-dictionary',
+					'/observatories/eurwork/case-studies/attractive-workplace-for-all',
+					'/observatories/eurwork/case-studies/ageing-workforce',
+					'/observatories/eurwork/case-studies/workers-with-care-responsibilities',
+					'/observatories/eurwork/content',
+
+					//PUBLICATIONS
+					'/observatories/eurwork/publications',
+					'/publications',
+					'/publication-types/annual-report',
+
+					//NEWS
+					'/news/news-articles',
+					
+					//EVENTS
+					'/events',
+
+					//MY EUROFOUND MENU SHORTCUTS
+					'/find-content',
+					'/admin/content/ef-qrr',
+					'/admin/content/ef-qrr/comments',
+					'/admin/content/ef-qrr/status',
+					'/needs-review',
+					'/quarterly-reports',
+					'/national-contributions-export',
+					'/national-correspondents',
+					'/observatories/emcc/erm/support-instrument/admin',
+					'/factsheets-admin-view',
+					'/annual-progress-report-view',
+					'/observatories/emcc/erm/legislation/admin',
+					'/osu-contracts-reporting',
+					'/admin/content',
+
+					//TOPICS
+					'/topics',
+
+					//SEARCH
+					'/search',
+					);
+	// check if are edit, moderation,.. pages 
+	if(strlen(arg(2))==0){
+		$_SESSION['back_search_invisible']='true';
+	}
+	$referer=$_SERVER['HTTP_REFERER'];
+	$referer_len=strlen($_SERVER['HTTP_REFERER']);
+	$var_in_referer_len=strlen(parse_url($referer, PHP_URL_QUERY));
+
+	// if uri has some variables, we add 1, the character ?,  its length
+
+		if($var_in_referer_len > 0){
+			$var_in_referer_len=$var_in_referer_len+1;
+			$_SESSION['back_search_invisible']='false';
+		}else{
+			if(strlen(arg(2))==0){
+				$_SESSION['back_search_invisible']='true';
+			}
+			
+		}
+
+
+
+		// check newsletters page
+		if(strpos($referer,'publication-types/newsletter')>0){
+			$_SESSION['back_search_invisible']='true';
+		}
+	
+	
+	//check  $valid_url items are in the correct position within $referers 
+	foreach ($array_valid_uri as $valid_uri) {	
+			$pos = strpos($referer, $valid_uri);
+			if($referer_len==(strlen($valid_uri) + $pos + $var_in_referer_len) and $pos!=0){
+				$_SESSION['back_search'] = $referer;
+				$_SESSION['back_search_invisible']='false';
+
+			}
+			if(strpos($referer, $valid_uri)!=0 and $valid_uri=="/topics"){
+				$_SESSION['back_search'] = $referer;
+				$_SESSION['back_search_invisible']='false';
+			}
+	}
+
+
+}
+
+
+

@@ -1,0 +1,4 @@
+name = ef_browse_by_jump_block
+description = Jump block for EurWORK landing page
+package = EF modules
+core = 7.x

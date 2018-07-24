@@ -1,0 +1,376 @@
+<?php
+
+/**
+ * @file
+ * The Synchronize Translation Paths module allows entity-translated node
+ * content with different languages have the same path.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function ef_synchronize_translation_paths_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#synchronize_translation_paths':
+      return t('The Synchronize Translation Paths module allows entity-translated node content with different languages have the same path.');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ef_synchronize_translation_paths_menu() {
+  $items['admin/config/regional/synchronize_translation_paths'] = array(
+    'title' => 'Synchronize Translation Paths',
+    'access arguments' => array('administer site configuration'),
+  );
+
+  $items['admin/config/regional/synchronize_translation_paths/settings'] = array(
+    'title' => 'Synchronize Translation Paths settings',
+    'description' => 'Administration settings for the Synchronize Translation Paths module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_synchronize_translation_paths_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_synchronize_translation_paths.admin.inc',
+  );
+
+  $items['admin/config/regional/synchronize_translation_paths/refresh'] = array(
+    'title' => 'Synchronize Translation Paths refresh',
+    'description' => 'Refresh all paths',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_synchronize_translation_paths_refresh_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ef_synchronize_translation_paths.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function ef_synchronize_translation_paths_node_insert($node) {
+  ef_synchronize_translation_paths_update_node($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function ef_synchronize_translation_paths_node_update($node) {
+  ef_synchronize_translation_paths_update_node($node);
+}
+
+/*
+function ef_synchronize_translation_paths_pathauto_alias_alter(&$alias, array &$context) {
+}
+*/
+
+/**
+ * Do the real work of updating the paths for the given node.
+ *
+ * Currently, this function only works for nodes translated using Entity
+ * Translation.
+ *
+ * @param $node
+ *   The node whose paths are being updated.
+ * @param $show_message
+ *   Boolean determining if a status message should be shown. Defaults to TRUE.
+ *
+ * @TODO
+ *   Update so this works for nodes translated using Content Translation.
+ */
+function ef_synchronize_translation_paths_update_node($node, $show_message = TRUE) {
+  module_load_include('inc', 'pathauto');
+
+  $res_vid = db_query("SELECT vid FROM {node} WHERE nid = :nid",
+                  array(':nid' => $node->nid));
+  $cur_vid = $res_vid->fetchField();
+
+  $enabled = ef_synchronize_translation_paths_get_enabled_content_types();
+
+  // Detecting if user is trying to translate a node
+  $uri = request_uri();
+  $languages_enabled = language_list();
+  foreach ($languages_enabled as $language_prefix => $lang_object) {
+    $language_prefix_needle = '/' . $language_prefix . '/';
+    $translation_compare = substr_compare($uri, $language_prefix_needle, 0, 4) == 0 ? TRUE : FALSE;
+    if ($translation_compare == TRUE) {
+      $is_translation = TRUE;
+      break;
+    }
+  }
+
+  // Retrieving the value from url_alias
+  $uri = entity_uri('node', $node);
+  $res = db_query("SELECT alias FROM {url_alias} WHERE source = :source AND language = 'en'",
+                  array(':source' => $uri['path']));
+  $aliasnew = $res->fetchField();
+
+  // Save the new alias if everything is ok
+  if (!empty($node) && isset($node->nid) && in_array($node->type, $enabled)) {
+    if (!empty($aliasnew) && !$is_translation) {
+      _ef_synchronize_translation_paths_update_alias($node, $aliasnew, $show_message);
+    }
+    if ($is_translation && !empty($node->path['alias'])) {
+      $alias = $node->path['alias'];
+      _ef_synchronize_translation_paths_update_alias($node, $alias, $show_message);
+    }
+  }
+}
+  /* ---- THIS IS THE APPROACH BY ALBERTO
+  $uri = entity_uri('node', $node);
+
+  if (! empty($node) && isset($node->nid) && in_array($node->type, $enabled)) {
+    if ( $language->language != 'en' ) { // $language is the user language and not the node language
+      $res = db_query("SELECT alias FROM {url_alias} WHERE source = :source AND language = 'en'",
+                                        array(':source' => $uri['path']));
+      $alias = $res->fetchField();
+
+      $node->path['alias'] = $alias; // To prevent override by pathauto
+      $node->path['pathauto'] = false;
+    }
+    else {
+      if ( $node->path['pathauto'] ) {
+        $path = pathauto_create_alias('node', 'return', $uri['path'], array('node' => $node), $node->type, 'en');
+        $alias = $node->path['alias'] = $path;
+      }
+      else {
+        $alias = $node->path['alias'];
+      }
+
+      if ( !empty($alias) ) {
+        _ef_synchronize_translation_paths_update_alias($node, $alias, $show_message);
+      }
+    }
+  }
+  */
+
+function _ef_synchronize_translation_paths_update_alias($node, $alias, $show_message = FALSE) {
+  $languages = language_list();
+  foreach ($languages as $langcode => $language) {
+    // Insert or update the alias.
+    db_merge('url_alias')
+      ->key(array(
+      'source' => 'node/' . $node->nid,
+      'language' => $langcode
+    ))
+      ->fields(array('alias' => $alias))
+      ->execute();
+    /*
+    if ($show_message) {
+      drupal_set_message(t('The !language alias for this content has been updated to !alias.', array('!language' => $language->name, '!alias' => $alias)));
+    }
+    */
+  }
+}
+
+/**
+ * Refresh the paths for all enabled content types.
+ */
+
+function _ef_synchronize_translation_paths_refresh_paths($content_type) {
+  module_load_include('inc', 'pathauto');
+  drupal_set_time_limit(1200);
+
+  if (!empty($content_type)) {
+     $res = db_query("SELECT nid FROM {node} WHERE type = :type",
+                        array(':type' => $content_type));
+
+     foreach ($res as $row) {
+        $node = node_load($row->nid);
+        $uri = entity_uri('node', $node);
+        $alias = pathauto_create_alias('node', 'return', $uri['path'], array('node' => $node), $node->type,'en');
+        _ef_synchronize_translation_paths_update_alias($node, $alias, false);
+        drupal_set_message(t('The alias for "!title" has been updated in all languages.', array('!title' => $node->title)));
+      }
+   }
+}
+
+/**
+ * Get list of enabled content types.
+ *
+ * @return
+ *   A list of content types with this functionality enabled.
+ */
+function ef_synchronize_translation_paths_get_enabled_content_types() {
+  $enabled = array();
+  $content_types = ef_synchronize_translation_paths_get_setting('content_types');
+  if (!empty($content_types)) {
+    foreach ($content_types as $content_type) {
+      if (is_string($content_type)) {
+        $enabled[] = $content_type;
+      }
+    }
+  }
+  return $enabled;
+}
+
+/**
+ * Get a particular admin setting.
+ *
+ * @param $key
+ *   The setting ID.
+ *
+ * @return
+ *   The config info the the given setting ID.
+ */
+function ef_synchronize_translation_paths_get_setting($key) {
+  $settings = variable_get('synchronize_translation_paths_settings', array());
+  if (! empty($settings) && isset($settings[$key])) {
+    return $settings[$key];
+  }
+}
+
+/**
+ *
+ * Implements hook_taxonomy_term_update
+ *
+ */
+function ef_synchronize_translation_paths_taxonomy_term_update($term) {
+  $languages = language_list();
+  if (isset($term->path['alias']) && !empty($term->path['alias'])) {
+    if ($term->path['pathauto'] == 1 && $term->vid == 21) {
+      $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
+      foreach ($languages as $langcode => $language) {
+        // Insert or update the alias.
+        db_merge('url_alias')
+          ->key(array(
+          'source' => 'taxonomy/term/' . $term->tid,
+          'language' => $langcode
+        ))
+        ->fields(array('alias' => $term->path['alias']))
+        ->execute();
+      }
+    }
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
+      db_merge('url_alias')
+        ->key(array(
+        'source' => 'taxonomy/term/' . $term->tid,
+        'language' => 'und'
+      ))
+      ->fields(array('alias' => $term->path['alias']))
+      ->execute();
+    } 
+  }
+}
+
+/**
+ *
+ * Implements hook_taxonomy_term_insert
+ *
+ */
+function ef_synchronize_translation_paths_taxonomy_term_insert($term) {
+  $languages = language_list();
+  if (isset($term->path['alias']) && !empty($term->path['alias'])) {
+    if ($term->path['pathauto'] == 1 && $term->vid == 21) {
+      $term->path['alias'] = 'topics/'. pathauto_cleanstring($term->name_field['en'][0]['value']);
+      foreach ($languages as $langcode => $language) {
+        // Insert or update the alias.
+        db_merge('url_alias')
+          ->key(array(
+          'source' => 'taxonomy/term/' . $term->tid,
+          'language' => $langcode
+        ))
+        ->fields(array('alias' => $term->path['alias']))
+        ->execute();
+      }
+    }
+    if ($term->path['pathauto'] == 1 && $term->vid == 12) {
+      $term->path['alias'] = 'authors/'. pathauto_cleanstring($term->name_field['und'][0]['value']);
+      db_merge('url_alias')
+        ->key(array(
+        'source' => 'taxonomy/term/' . $term->tid,
+        'language' => 'und'
+      ))
+      ->fields(array('alias' => $term->path['alias']))
+      ->execute();
+    } 
+  }
+}
+
+
+function ef_synchronize_translation_paths_pathologic_alter(&$url_params, $parts, $settings) {
+  global $language;
+  if ($language->language != 'en') {
+    if ($url_params['options']['language']->language == 'en') {
+      $url_params['path'] = url($url_params['path']);
+    }
+  }
+}
+
+/**
+ * WGS-442 Fix "Translate" tab
+ */
+function fix_translate_tab() {
+  $query_translation = db_select('field_data_title_field', 'tf');
+  $query_translation->fields('tf', array('entity_id', 'language', 'title_field_value'));
+  $query_translation->condition('tf.entity_type', 'node');
+  $query_translation->condition('tf.language', array('en', 'und'), 'NOT IN');
+
+  $result_translation = $query_translation->execute()->fetchAll();
+
+  foreach ($result_translation as $key => $translation) {
+    $query_english = db_select('field_data_title_field', 'tf');
+    $query_english->fields('tf', array('entity_id', 'title_field_value'));
+    $query_english->condition('tf.entity_type', 'node');
+    $query_english->condition('tf.language', 'en');
+    $query_english->condition('tf.entity_id', $translation->entity_id);
+
+    $result_english = $query_english->execute()->fetchAll();
+
+    if ($translation->title_field_value != $result_english[0]->title_field_value) {
+      $query = db_select('entity_translation', 'et');
+      $query->fields('et');
+      $query->condition('et.entity_type', 'node');
+      $query->condition('et.entity_id', $translation->entity_id);
+      $query->condition('et.language', $translation->language);
+
+      $result = $query->execute()->fetchAll();
+
+      if (empty($result)) {
+        $query_en = db_select('entity_translation', 'et');
+        $query_en->fields('et');
+        $query_en->condition('et.entity_type', 'node');
+        $query_en->condition('et.entity_id', $translation->entity_id);
+        $query_en->condition('et.language', 'en');
+
+        $result_en = $query_en->execute()->fetchAll();
+
+        print_r($translation->entity_id . '-' . $translation->language);
+
+        if (!empty($result_en)) {
+          db_insert('entity_translation')->fields(array(
+            'entity_type' => $result_en[0]->entity_type,
+            'entity_id' => $result_en[0]->entity_id,
+            'language' => $translation->language,
+            'source' => $result_en[0]->source,
+            'uid' => $result_en[0]->uid,
+            'status' => $result_en[0]->status,
+            'translate' => $result_en[0]->translate,
+            'created' => $result_en[0]->created,
+            'changed' => $result_en[0]->changed,
+            'revision_id' => $result_en[0]->revision_id,
+          ))
+          ->execute();
+        }
+        else {
+          db_insert('entity_translation')->fields(array(
+            'entity_type' => 'node',
+            'entity_id' => $translation->entity_id,
+            'language' => 'en',
+            'source' => '',
+            'uid' => 403,
+            'status' => 1,
+            'translate' => 0,
+            'created' => time(),
+            'changed' => time(),
+            'revision_id' => $translation->entity_id,
+          ))
+          ->execute();
+        }
+      }
+    }
+  }
+}

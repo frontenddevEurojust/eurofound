@@ -1,0 +1,12 @@
+Contact us {"url":"contact-form/contact-us"}
+Feedback {"url":"feedback"}
+FAQ {"url":"faq"}
+Copyright {"url":"copyright"}
+Legal notices {"url":"legal-notices"}
+Policies and procedures {"url":"procedures-policies"}
+Privacy{"url":"privacy"}
+Topics {"url":"topics"}
+Countries {"url":"countries-list"}
+Sectors {"url":"sectors"}
+Sitemap {"url":"sitemap"}
+Emire   {"url":"emire-dictionary"}

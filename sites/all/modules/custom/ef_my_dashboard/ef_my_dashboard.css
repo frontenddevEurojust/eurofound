@@ -1,0 +1,434 @@
+
+  .section-ef-my-dashboard h1{
+    padding-right: 0.6em;
+    font-size: 44px !important;
+    color: #064C99;
+    border: none !important;
+  }
+  /** main menu **/
+  .main-menu-dashboard ul li{
+    width: 20%;
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+
+  }
+  .main-menu-dashboard ul li a:hover i{
+    opacity: 0.5;
+    -webkit-transition: all 0.6s; /* Safari */
+    transition: all 0.6s;
+  }
+  .main-menu-dashboard ul li a i{
+    display: block;
+  }
+  .main-menu-dashboard ul li a i.fa-arroba:before{
+    content: "@";
+    font-family:"Opensans-bold-webfont";
+  }
+  .main-menu-dashboard ul li a i.fa-mantis:before{
+    content: "M";
+    font-family:"Opensans-bold-webfont";
+    background: #98D000;
+  }
+  .main-menu-dashboard ul li a i:before{
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 5px;
+    background: #C3C9DC;
+    color: #FFF;
+    font-size: 35px;
+    padding: 12px 12px 0;
+    margin: auto;
+  }
+
+
+
+  nav.add-content-nav ul{
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+  }
+  nav.add-content-nav ul li {
+    padding-left: 0em;
+  }
+  nav.add-content-nav ul li a{
+    color: #FFF !important;
+    padding-left: 2em;
+    display: inline-block;
+  }
+  nav.add-content-nav ul li a:before{
+    content: "\f055";
+    font-family:"FontAwesome";
+    margin-right: 5px;
+    font-size: 18px;
+    margin-left: -1.4em;
+  }
+  nav.add-content-nav ul li a i:before{
+    margin-right: 5px;
+
+  }
+  .main-menu-dashboard ul li a i.fa-power-off:before{
+    background: #F7931E;
+  }
+  .my-dashboard-imgprofile .user-picture{
+    border-radius: 90px;
+    overflow: hidden;
+    border: 1px solid #CCC;
+    width: 161px;
+    margin-top: -40px;
+    margin-left: 40px;
+  }
+  .user-picture img{
+   /* width: 161px; */
+     height: 161px !important;
+  }
+  .my-dashboard-data {
+    border-top: 1px dotted #C3C9DC;
+    border-bottom: 1px dotted #C3C9DC;
+  }
+  .my-dashboard-data > ul{
+    margin: 20px 0px 10px 0px !important;
+    padding: 0;
+    list-style-type: none;
+  }
+  .my-dashboard-data > ul li {
+      float: left;
+      width: 50%;
+  }
+  .my-dashboard-data > ul li:last-child {
+      width: 100%;
+  }
+
+  .my-dashboard-data ul > li > span{
+    font-family: "OpenSans-Regular-webfont";
+    color:#323232;
+  }
+  .my-dashboard-data ul > li > span.label{
+    font-family: "OpenSans-Light-webfont";
+    color:#1F5999;
+    background-color: #FFF;
+  }
+
+  .my-dashboard-container{
+      margin-top: 2.5em !important;
+  }
+  nav.my-dashboard-todolist{
+      margin-top: 8px;
+  }
+  .my-dashboard-todolist ul {
+      margin: 0 !important;
+      padding: 0;
+      list-style-type: none;
+  }
+  .my-dashboard-todolist li {
+    padding: 1.5em 1.2em;
+    border: 2px solid #C3C9DC;
+    border-radius: 5px;
+    margin: 0em 0 1.5em;
+  }
+  .my-dashboard-todolist li a{
+    font-family: "OpenSans-Semibold-webfont";
+    font-size: 16px;
+    color: #064C99;
+    display: block;
+    -webkit-transition: all 0.6s; /* Safari */
+    transition: all 0.6s;
+  }
+  .my-dashboard-todolist li a:hover{
+    opacity: 0.5;
+    -webkit-transition: all 0.6s; /* Safari */
+    transition: all 0.6s;
+  }
+  .my-dashboard-todolist li a i{
+      width: 50px;
+  }
+  .my-dashboard-todolist li a span{
+      margin-left:0.5em;
+  }
+  .my-dashboard-todolist i.fa.fa-file-text-o:before {
+      font-size: 45px;
+      margin-right: 15px;
+  }
+  .my-dashboard-todolist i.fa.fa-file-text-o:after {
+      position: relative;
+      left: -30px;
+      padding: 4px 6px;
+      overflow: hidden;
+      border-radius: 90px;
+  }
+
+  .my-dashboard-todolist li:first-child a{
+    color:#F7931E;
+  }
+  .my-dashboard-todolist li:first-child a i:after{
+    content: "\f007";
+    color: #FFF;
+    background: #F7931E;
+  }
+  .my-dashboard-todolist li:last-child a{
+    color:#074C9A;
+  }
+  .my-dashboard-todolist li:last-child a i:after{
+    content: "\f0c0";
+    color: #FFF;
+    padding:6px;
+    background: #074C9A;
+  }
+
+
+
+
+
+
+  .my-dashboard-shortcuts nav{
+    border-radius: 16px 16px 0 0;
+    border: 8px solid #FFF;
+    min-height: 310px;
+    background: #F3F4F8;
+    padding: 0;
+    overflow: hidden;
+    margin:0;
+  }
+  .my-dashboard-shortcuts nav a:hover{
+    opacity: 0.5;
+    -webkit-transition: all 0.6s; /* Safari */
+    transition: all 0.6s;
+  }
+  .my-dashboard-shortcuts nav h2 i:before{
+    margin-right: 5px;
+  }
+  .my-dashboard-shortcuts ul{
+    margin: 10px 0px 10px 10px !important;
+    padding:0;
+    list-style-type: none;
+  }
+  .my-dashboard-shortcuts ul li{
+    text-align: left !important;
+    margin-bottom: 0.4em;
+    padding-left: 1.4em;
+  }
+  .my-dashboard-shortcuts ul li:before{
+    margin: 0;
+    padding:0;
+    list-style-type: none;
+  }
+  .my-dashboard-shortcuts ul li a i:before{
+    font-size: 18px;
+    margin-right: 0px;
+    margin-left: -1.2em;
+  }
+  .my-dashboard-shortcuts h2{
+    font-family: "OpenSans-Semibold-webfont";
+    font-size: 18px !important;
+    color: #064C99;
+    background: #C3C9DC;
+    padding: 9px !important;
+  }
+
+  nav.contribution-nav i.fa-cogs:before{
+    content: "\f016";
+  }
+  nav.reports-nav i.fa-cogs:before,
+  nav.erm-nav i.fa-cogs:before{
+    content: "\e60a";
+    font-family: 'ef-icon-font';
+  }
+
+
+
+  nav.add-content-nav{
+    background: #85A6D0;
+  }
+  nav.add-content-nav h2{
+    background: #85A6D0;
+    color: #FFF !important;
+    border-bottom: 1px solid #FFF;
+  }
+  nav.add-content-nav h2 i{
+    width: 20px;
+  }
+  nav.add-content-nav h2 i:after{
+    content: "\f055";
+    font-size: 12px;
+    color: #084D9B;
+    position: relative;
+    top: 4px;
+    left: -10px;
+    background: #FFF;
+    border-radius: 10px;
+  }
+
+  nav.extranets-nav{
+    background:#3D71B5;
+  }
+  nav.extranets-nav h2{
+    background:#3D71B5;
+    color: #FFF !important;
+    border-bottom: 1px solid #FFF;
+  }
+  nav.extranets-nav ul li a{
+    color: #FFF !important;
+  }
+  nav.extranets-nav ul li a i{
+    vertical-align: top;
+    margin-top: 5px;
+  }
+  nav.extranets-nav ul li a span{
+    margin-left: 2%;
+    display: inline-block;
+    width: 88%;
+  }
+
+
+ul.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+}
+
+ul.panel.show {
+    display: block !important;
+}
+
+
+
+/* RESPOSIVE IPAD */
+@media only screen and (max-width : 1024px) {
+  .section-ef-my-dashboard h1 {
+      text-align: left !important;
+  }
+  nav.main-menu-dashboard{
+    position: absolute;
+    top: -9em;
+    right: 1px;
+  }
+  .my-dashboard-data{
+    margin-top: 3em;
+  }
+  .my-dashboard-imgprofile {
+    margin: 3em 0 0;
+    padding: 0;
+    z-index: 10;
+  }
+  .my-dashboard-imgprofile .user-picture {
+      margin-left: 0;
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width : 1024px) {
+  nav.main-menu-dashboard{
+    width: 55%;
+  }
+  .my-dashboard-data > ul {
+    width: 100%;
+    margin-left: 0% !important;
+  }
+
+}
+@media only screen and (max-width: 768px) {
+  nav.main-menu-dashboard{
+    width: 72%;
+  }
+  .my-dashboard-data > ul {
+    width: 92%;
+    margin-left: 8% !important;
+  }
+  .my-dashboard-todolist li a i {
+      margin-left: 33%;
+  }
+  .my-dashboard-todolist li a span {
+    margin: 0.5em;
+    display: block;
+    text-align: center;
+  }
+  .my-dashboard-shortcuts nav {
+    min-height: auto;
+    width: 100%;
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+.my-dashboard-shortcuts nav {
+    border: 8px solid #FFF;
+    min-height: auto;
+  }
+  .my-dashboard-data > ul {
+    width: 100%;
+    margin-left: 0% !important;
+  }
+  .my-dashboard-todolist li {
+    width: 49%;
+    display: inline-block;
+  }
+}
+@media only screen and (max-width: 667px) {
+  nav.main-menu-dashboard {
+    width: 100% !important;
+    top: 0;
+    padding: 0;
+  }
+  nav.main-menu-dashboard {
+    width: 100%;
+  }
+  .my-dashboard-data {
+    margin-top: 0em !important;
+    width: 100% !important;
+  }
+  .my-dashboard-imgprofile {
+    padding: 0 1em 0 0 !important;
+    display: none;
+  }
+  .my-dashboard-imgprofile .user-picture {
+    width: 60%;
+    margin-left: 0px;
+  }
+  .user-picture img {
+      height: 60% !important;
+  }
+  .my-dashboard-data > ul {
+    margin-top: 10em !important;
+  }
+  .my-dashboard-data > ul li {
+    width: 100% !important;
+    float: none !important;
+  }
+  .my-dashboard-data > ul li:last-child span {
+    word-break: break-all;
+    display: inline-block;
+  }
+  .my-dashboard-todolist li {
+    width: 100%;
+    display: inline-block;
+  }
+  .my-dashboard-todolist li a i {
+    margin-left: 40%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .my-dashboard-data > ul {
+    margin-top: 19em !important;
+  }
+  .main-menu-dashboard ul li {
+    width: 30%;
+    margin: 1em 0em;
+    font-size: 12px !important;
+  }
+  nav.add-content-nav ul {
+    -webkit-column-count: 1;
+    -moz-column-count: 1;
+    column-count: 1;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .my-dashboard-data > ul li  span {
+    padding-left: 0;
+  }
+}
+
+
+
+/* END RESPOSIVE IPAD */

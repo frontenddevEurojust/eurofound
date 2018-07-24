@@ -1,0 +1,30 @@
+<?php
+
+/**
+* Implements hook_element_info_alter().
+*
+* Sets the text format processor to a custom callback function.
+* This code is taken from the Better Formats module. (http://drupal.org/project/better_formats)
+*/
+function ef_default_formats_element_info_alter(&$type) {
+  if (isset($type['text_format']['#process'])) {
+    foreach ($type['text_format']['#process'] as &$callback) {
+      if ($callback === 'filter_process_format') {
+        $callback = 'ef_default_formats_process_format';
+      }
+    }
+  }
+}
+
+function ef_default_formats_process_format($element) {
+	global $user;
+	$element = filter_process_format($element);
+	$allowedUserRoles=array("administrator", "Eurofound Content Manager", "Eurofound Administrator");
+	if(count(array_intersect($user->roles, $allowedUserRoles))==0){
+		// Hide the 'text format' pane below certain text area fields.
+		$element['format']['guidelines'] = null;
+		$element['format']['help'] = null;
+		$element['format']['#attributes']['style'] = 'display:none';
+	}
+	return $element;
+}

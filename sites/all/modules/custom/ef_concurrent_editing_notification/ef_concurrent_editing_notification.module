@@ -1,0 +1,38 @@
+<?php
+/**
+ * Implements hook_form_alter().
+ */
+function ef_concurrent_editing_notification_form_alter(&$form, &$form_state, $form_id) {
+	global $user;
+	$path=truncate_utf8($_GET['q'], 255);
+	if (isset($form['#node_edit_form'])) {
+			$record = db_query("select * from {accesslog} where path LIKE '%edit%' and path= :path and title!= :title and TIMESTAMPDIFF(MINUTE, FROM_UNIXTIME(timestamp),NOW()) < :minutes",
+				array(':path' => $path, ':title' => "Access denied", ':minutes' => 5))->fetch();
+			if(!empty($record) && $user->uid!=$record->uid){
+				$concurrentUser=user_load($record->uid);
+				$userInfo="User ".(isset($concurrentUser->field_ef_first_name['und'][0]['safe_value']) ? $concurrentUser->field_ef_first_name['und'][0]['safe_value']." ".$concurrentUser->field_ef_last_name['und'][0]['safe_value']  : '')." (".$concurrentUser->name .")";
+				drupal_set_message($userInfo." is currently editing this page so your changes will not be saved. Please try later.", "error");
+				// Disabled save buttons when there is another user editing this node
+				$form['actions']['submit']['#disabled'] = TRUE;
+				$form['actions']['save_edit']['#disabled'] = TRUE;
+				$form['actions']['sac']['#disabled'] = TRUE;
+			}
+	}
+}
+
+//hook module_implements_alter in order to change the execution order of the form_alter's hooks
+function ef_concurrent_editing_notification_module_implements_alter(&$implementations, $hook) {
+	//
+	if (strpos($hook, 'form') !== FALSE) {
+	    if (isset($implementations['save_edit'], $implementations['ef_concurrent_editing_notification'])) {
+	      $concurrent_editing_notification = $implementations['ef_concurrent_editing_notification'];
+	      unset($implementations['ef_concurrent_editing_notification']);
+
+	      $save_edit = $implementations['save_edit'];
+	      unset($implementations['save_edit']);
+
+	      $implementations['save_edit'] = $save_edit;
+	      $implementations['ef_concurrent_editing_notification'] = $concurrent_editing_notification;
+	    }
+  	}
+}

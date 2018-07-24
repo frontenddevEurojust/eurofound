@@ -1,0 +1,21 @@
+<?php
+/*********************************************************
+* Eworx S.A. 2014
+* @Author kp@eworx.gr
+* EFDR-413 // implements DVS intergration with drupal.
+* Expects dvs_survey content type and field dvs srv code
+**********************************************************/
+
+function dvs_preprocess_node(&$vars) {
+	if($vars['type'] == 'dvs_survey' && $vars['view_mode'] == 'full'){
+		//DVS
+		//FRADVS-54
+		//kprint_r($vars['content']);
+		$survey = $vars['content']['field_dvs_code'][0]['#markup'];
+		global $language ;
+		$lang_name = $language->language ;
+		$DVScontent = file_get_contents('http://localhost:81/DVS/DVT/survey.php?dataSource=' . $survey."&locale=" . strtoupper($lang_name));
+		$vars['content']['field_dvs_code'][0]['#markup'] = $DVScontent;
+	}
+}
+

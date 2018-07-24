@@ -1,0 +1,2 @@
+File directory : sites\all\modules\contrib\jquery_update\jquery_update.module
+Added  so as to be able to use different version of jquery plugin on specific pages.

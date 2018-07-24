@@ -1,0 +1,4 @@
+name = EF show contract numbers in contract fields
+description = Shows contract numbers together with contract titles in contract select fields.
+core = 7.x
+package = EF modules

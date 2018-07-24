@@ -1,0 +1,8 @@
+shortcuts not translated in shortcuts block
+
+Found at:
+https://www.drupal.org/node/1028538
+
+Patch code:
+https://www.drupal.org/node/1028538#comment-9068103
+

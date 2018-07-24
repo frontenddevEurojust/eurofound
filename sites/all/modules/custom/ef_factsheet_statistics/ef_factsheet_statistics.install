@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function ef_factsheet_statistics_schema() {
+  $schema = array();
+  $schema['factsheet_statistics'] = array(
+    'description' => 'Custom table to store all data from factsheets',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'description' => 'Factsheet ID',
+      ),
+      'country' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'Country, text value',
+      ),
+      'restructuring_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'Restructuring type, text value',
+      ),
+      'sector' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'description' => 'Sector, text value',
+      ),
+      'job_loss' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => 'Value Job Loss',
+      ),
+      'job_gain' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => 'Value Job Gain',
+      ),
+      'date' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'DATETIME',
+        'not null' => FALSE,
+      ),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function ef_factsheet_statistics_install() {
+
+}

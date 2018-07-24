@@ -1,0 +1,4 @@
+name = Auto-creation of Articles	
+description = Auto-creation of Articles
+package = EF modules
+core = 7.x

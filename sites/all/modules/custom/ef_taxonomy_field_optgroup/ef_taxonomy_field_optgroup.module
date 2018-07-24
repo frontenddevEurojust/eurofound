@@ -1,0 +1,10 @@
+<?php
+
+function ef_taxonomy_field_optgroup_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $child_field = 'field_ef_topic';
+  if (isset($form[$child_field])) {
+    //add js file conditionally
+    drupal_add_js(drupal_get_path('module', 'ef_taxonomy_field_optgroup') .'/ef_taxonomy_field_optgroup.js');
+  }
+}
+

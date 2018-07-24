@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function ef_add_ds_fields_ds_fields_info($entity_type) {
+  if ($entity_type == 'node') {
+
+    $field_name = 'ds_publish_on';
+    $fields['node'][$field_name] = array(
+      'title' => t('Publish on'), 
+      'field_type' => DS_FIELD_TYPE_FUNCTION, 
+      'function' => 'render_publish_on_field',
+      'ui_limit' => array(
+        'ef_input_to_erm|default',
+        'ef_ir_dictionary|default',
+        'ef_report|default',
+        'ef_comparative_analytical_report|default',
+        'ef_national_contribution|default',
+      ), 
+      'properties' => array(
+        'formatters' => get_date_formatters_for_field_name($field_name),
+      ),
+    );
+
+    $field_name = 'ds_publication_date';
+    $fields['node'][$field_name] = array(
+      'title' => t('Date of last publication'), 
+      'field_type' => DS_FIELD_TYPE_FUNCTION, 
+      'function' => 'render_publication_date_field',
+      'ui_limit' => array(
+        'ef_input_to_erm|default',
+        'ef_ir_dictionary|default',
+        'ef_report|default',
+        'ef_comparative_analytical_report|default',
+        'ef_national_contribution|default',
+      ), 
+      'properties' => array(
+        'formatters' => get_date_formatters_for_field_name($field_name),
+      ),
+    );
+
+    $field_name = 'ds_submission_date';
+    $fields['node'][$field_name] = array(
+      'title' => t('Date of last submission'), 
+      'field_type' => DS_FIELD_TYPE_FUNCTION, 
+      'function' => 'render_submission_date_field',
+      'ui_limit' => array(
+        'ef_input_to_erm|default',
+        'ef_ir_dictionary|default',
+        'ef_report|default',
+        'ef_comparative_analytical_report|default',
+        'ef_national_contribution|default',
+      ), 
+      'properties' => array(
+        'formatters' => get_date_formatters_for_field_name($field_name),
+      ),
+    );
+
+
+    return $fields;
+  }
+}
+
+function get_date_formatters_for_field_name($field_name) {
+  $format_types = system_get_date_types();
+  $date_formatters = array();
+  foreach ($format_types as $formatter) {
+    $date_formatters[$field_name . '_' . $formatter['type']] = t($formatter['title']);
+  }
+  return $date_formatters;
+}
+
+function get_date_format_for_field($field) {
+  return str_replace($field['field_name'] . '_', '', $field['formatter']);
+}
+
+function render_publish_on_field($field) {
+  $node = $field['entity'];
+
+  $query = db_select('scheduler', 's');
+  $query->fields('s', array('publish_on'));
+  $query->condition('s.nid', $node->nid, '=');
+  $scheduler =  $query->execute()->fetchObject();
+
+  if (!empty($scheduler)) {
+    $publish_on_date = $scheduler->publish_on;
+  }
+
+  return isset($publish_on_date) ? format_date($publish_on_date, get_date_format_for_field($field)) : null;
+}
+
+function render_workbench_date_field($field, $workbench_state) {
+  $node = $field['entity'];
+
+  $query = db_select('workbench_moderation_node_history', 'h');
+  $query->fields('h', array('stamp'));
+  $query->condition('h.nid', $node->nid, '=');
+  $query->condition('h.state', $workbench_state, '=');
+  $query->orderBy('h.stamp', 'DESC');
+  $last_revision = $query->execute()->fetchObject();
+
+  if (!empty($last_revision)) {
+    $workbench_date = $last_revision->stamp;
+  }
+
+  return isset($workbench_date) ? format_date($workbench_date, get_date_format_for_field($field)) : null;
+}
+
+function render_publication_date_field($field) {
+  return render_workbench_date_field($field, 'published');
+}
+
+function render_submission_date_field($field) {
+  return render_workbench_date_field($field, 'submitted');
+}

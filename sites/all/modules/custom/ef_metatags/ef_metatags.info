@@ -1,0 +1,7 @@
+name = EF Metatags
+Description = Provides custom metatags for Eurofound site
+core = 7.x
+version = 7.x-1.x
+
+dependencies[] = metatag
+files[] = my_metatags.metatag.inc

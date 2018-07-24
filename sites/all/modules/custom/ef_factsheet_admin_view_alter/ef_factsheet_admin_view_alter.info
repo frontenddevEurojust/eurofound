@@ -1,0 +1,4 @@
+name = EF Factsheet Admin View Alter
+description = Modify Factsheet Admin View Query
+package = EF modules
+core = 7.x

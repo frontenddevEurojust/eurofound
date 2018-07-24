@@ -1,0 +1,279 @@
+<?php
+
+/*
+ * Updates the URLs of old EF Articles, Comparative Analytical Reports and National Contributions
+ * The ones with the EurWORK observatory will be updated
+ */
+function ef_publications_ct_update_7201()
+{
+	$observatory = "EurWORK";
+
+	// Launch the select to get the taxonomy tid
+	$query = db_select('taxonomy_term_data', 't');
+	$query->fields('t', array("tid"));
+	$query->condition('t.name', $observatory, "=");
+	$result=$query->execute();
+
+	// Get the taxonomy id for the EurWORK term
+	$tid = 0;
+	while ($record = $result->fetchAssoc())
+	{
+		// The query has results, save the tid 
+		$tid = $record['tid'];
+	}
+
+	if ($tid && is_numeric($tid))
+	{
+		$concat = "url.source=CONCAT('node/', n.nid)";
+		// Launch the new select to get the IDs of the nodes with the old URL
+		$query = db_select('node', 'n');
+		$query->join('field_data_field_ef_observatory', 'o', 'n.nid = o.entity_id');
+		$query->join('url_alias', 'url', $concat);
+		$query->join('publication_date', 'p', 'p.nid=n.nid');
+		$query->distinct();
+		$query->fields('n', array("nid", "title", "type"));
+		$query->fields('url', array("source", "alias"));
+		$query->fields('p',array("published_at"));
+		$query->condition('o.field_ef_observatory_tid', $tid, "=");
+		$query->condition('n.status', 1, '=');
+		$query->condition('n.type', array("ef_report", "ef_comparative_analytical_report","ef_national_contribution"), 'IN');
+
+		$result = $query->execute();
+
+		// Include the pathauto module
+		module_load_include('inc', 'pathauto');
+
+		// Array for the URL redirects
+		$redirects = array();
+
+		// Read the rows returned by the SELECT
+		while ($record = $result->fetchAssoc())
+		{
+			// Get the year when the node was published
+			$year = date('Y', $record['published_at']);
+
+			// Change the title to make it URL-friendly
+			$title = pathauto_cleanstring($record['title']);
+
+			$pathPrefix = "";
+
+			// Prefix for the URL
+			if ($record['type'] == 'ef_national_contribution' || $record['type'] == 'ef_comparative_analytical_report')
+			{
+				$pathPrefix = 'publications/report/';
+			}
+			else if ($record['type'] == 'ef_report')
+			{
+				$pathPrefix = 'publications/article/';
+			}
+
+			if ($pathPrefix != "")
+			{
+				$path = $pathPrefix . $year .'/' . $title;
+
+				// Check if it exists an alias with the current $path value
+				if(_pathauto_alias_exists($path, $record['source']))
+				{
+					// If the current path already exists, add a number at the end to make it different
+					$i = 0;
+					while ((_pathauto_alias_exists($path, $record['source'])))
+					{
+						$path = $pathPrefix . $year . '/' . $title . '-' . $i;
+						$i++;
+					}
+				}
+
+				// Update the current URL for the node on the database
+				db_update('url_alias')
+					->fields(array('alias' => $path))
+					->condition('alias', $record['alias'], '=')
+					->execute();
+
+				$urlData = new stdClass();
+				$urlData->nid = $record['nid'];
+				$urlData->oldURL = $record['alias'];
+				$urlData->newURL = $path;
+
+				// Add the new redirects to the Database
+
+				// Load the system languages list
+				$languages = language_list();
+
+				foreach ($languages as $language)
+				{
+					// Create a redirect objct for each language
+					$redirect = new stdClass();
+					redirect_object_prepare($redirect);
+					$redirect->source = $urlData->oldURL;
+					$redirect->redirect = $urlData->newURL;
+					$redirect->language = $language->language;
+
+					// Get the hash for the created redirect object
+					$hash = redirect_hash($redirect);
+
+					// Check if the hash for the redirect object already exists
+					$exists = redirect_load_by_hash($hash);
+					if (!$exists)
+					{
+						// If there is no value for the hash, save the redirect
+						redirect_save($redirect);
+					}
+				}
+			}
+		}
+	}
+}
+
+/**
+ * Conversion from ef_report with deliverable kind "Topical Update" to ef_publications_ct_update_7001
+ * FIELD MAP:
+ * 
+ * Title -> Title
+ * Main Image -> Main Image
+ * Abstract -> Abstract
+ * Body -> Description
+ * Observatory -> Observatory 
+ * Topic -> Topic
+ * Sector -> Sector
+ * Country -> Country
+ * Unit -> Unit
+ * Work Programme Area -> Work Programme Area
+ * Authors -> Authors
+ * "Authored by" must remain as is
+ *
+ *     ----   DATES ----
+ * "Authored on" must remain as is
+ * Publication date must remain as is
+ * 
+ */
+function ef_publications_ct_update_7202() {
+	//include pathauto.inc so we can use pathauto_cleanstring()
+	module_load_include('inc', 'pathauto');
+	//Get the "Topical update" tid from the term entity
+	$term = taxonomy_get_term_by_name('Topical update', 'ef_deliverable_kinds');
+  $topical_update_tid = key($term);
+
+  //Query for articles with deliverable kind "Topical update"
+  $query = db_select('node', 'n');
+  $query->fields('n', array('nid'));
+  $query->join('field_data_field_ef_deliverable_kind', 'dk', 'n.nid = dk.entity_id');
+  $query->condition('n.type', 'ef_report');
+  $query->condition('dk.field_ef_deliverable_kind_tid', $topical_update_tid);
+
+  $results = $query->execute()->fetchAll();
+
+  //For each relevant article we create a new publication.
+  foreach ($results as $key => $value) {
+  	global $user;
+  	$user = user_load(403);
+
+  	$nid = $value->nid;
+  	$vid = get_node_current_vid($nid);
+  	//Load the article, the whole entity
+  	$article = node_load($nid);
+  	//Create the publication
+  	$publication = new stdClass();
+  	node_object_prepare($publication);
+  	//Load the values in the new entity
+  	//Language
+  	$publication->language = "en";
+  	//Title Drupal + Entity Translation
+		$publication->title = $article->title;
+		$publication->title_field = $article->title_field;
+		//Type
+		$publication->type = 'ef_publication';
+		//Status, for the time being we are converting all the relevant articles
+		//maybe later we'll discard the unpublished ones and then $article->status
+		//will be just a "1".
+		$publication->status = $article->status;
+		//Main Image
+		if (isset($article->field_ef_main_image['und'][0]['uri'])) {
+  		$image = file_get_contents($article->field_ef_main_image['und'][0]['uri']);
+    	$file  = file_save_data($image, $article->field_ef_main_image['und'][0]['uri'], FILE_EXISTS_RENAME);
+    	if (is_object($file)) {
+ 				$file->status = 1;
+  			$file = file_save($file);
+			}
+  		$publication->field_ef_main_image[LANGUAGE_NONE][0]['fid'] = $file->fid;
+  	}
+		//Observatory
+		$publication->field_ef_observatory = $article->field_ef_observatory;
+		//Topic
+		$publication->field_ef_topic = $article->field_ef_topic;
+		//Sector
+		$publication->field_ef_sector = $article->field_ef_sector;
+		//Country
+		$publication->field_ef_eu_related_countries = $article->field_ef_country;
+		//Unit
+		$publication->field_ef_unit = $article->field_ef_unit;
+		//Work programme area
+		$publication->field_ef_work_programme_area = $article->field_ef_work_programme_area;
+		//Authors
+		$publication->field_ef_publ_contributors = $article->field_ef_publ_contributors;
+		//Publication_date
+		$publication->published_at = $article->published_at;
+		//Node creator
+		$publication->uid = $article->uid;
+		//Node creation date
+		$publication->created = $article->created;
+		//EF Activities
+		$publication->field_ef_activities = $article->field_ef_activities;
+		//Body
+		$publication->body = $article->body;
+		//New Publication Field to show is a Topical Update converted node
+		$publication->field_ef_article['und'][0]['value'] = 1;
+		//Document_type
+		$term = taxonomy_get_term_by_name('Report', 'ef_publication_types');
+  	$report_tid = key($term);
+  	$publication->field_ef_document_type['und'][0]['tid'] = $report_tid;
+
+		node_save($publication);
+
+		print_r($publication->nid . PHP_EOL);
+
+		$destination = 'node/' . $publication->nid;
+
+		if ($article->status == 1) {
+			workbench_moderation_moderate($publication, 'published');
+		}
+		workbench_moderation_moderate($article, 'unpublished');
+		$article->status = 0;
+		$article->title = $article->title . ' (Archived)';
+		$article->ef_archived = 1;
+
+		node_save($article);
+
+		$old_alias = $article->path['alias'];
+
+		$clean_title = pathauto_cleanstring($article->title);
+
+		$new_alias = 'observatories/eurwork/articles/archive/' . $clean_title;
+		db_update('url_alias')
+			->fields(array('alias' => $new_alias))
+			->condition ('url_alias.source', 'node' . $article->nid)
+			->execute();
+
+		// Add the new redirects to the Database
+		// Load the system languages list
+		$languages = language_list();
+
+		foreach ($languages as $language) {
+			// Create a redirect objct for each language
+			$redirect = new stdClass();
+			redirect_object_prepare($redirect);
+			$redirect->source = $old_alias;
+			$redirect->redirect = $destination;
+			$redirect->language = $language->language;
+
+			// Get the hash for the created redirect object
+			$hash = redirect_hash($redirect);
+
+			// Check if the hash for the redirect object already exists
+			$exists = redirect_load_by_hash($hash);
+			if (!$exists) {
+				// If there is no value for the hash, save the redirect
+				redirect_save($redirect);
+			}
+		}
+  }
+}

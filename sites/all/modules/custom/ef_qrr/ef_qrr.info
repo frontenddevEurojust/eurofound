@@ -1,0 +1,12 @@
+name = EF Quality Rating and Reporting
+description = Provides a mechanism for evaluating and obtaining reports.
+core = 7.x
+dependencies[] = votingapi
+dependencies[] = fivestar
+dependencies[] = workbench_moderation
+
+configure = admin/config/content/ef_qrr
+
+version = "7.x-1.20-dev"
+core = "7.x"
+datestamp = "1448884139"

@@ -1,0 +1,4 @@
+name = EF Nuts
+description = Include region selects in the nuts
+package = EF modules
+core = 7.x

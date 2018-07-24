@@ -1,0 +1,22 @@
+# Irish translation of Flex Slider (7.x-2.0-alpha3)
+# Copyright (c) 2013 by the Irish translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Flex Slider (7.x-2.0-alpha3)\n"
+"POT-Creation-Date: 2013-09-09 18:06+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Irish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=((n==1)?(0):((n==2)?(1):((n<7)?(2):((n<11)?(3):4))));\n"
+
+msgid "Cancel"
+msgstr "Cealaigh"
+msgid "more"
+msgstr "Tuilleadh"
+msgid "None"
+msgstr "Roghnaigh ón liosta"
+msgid "Apply"
+msgstr "Cuir i bhfeidhm"

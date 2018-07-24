@@ -1,0 +1,6 @@
+name = EF Missing Revisions
+description = Generate alert messages for a better usability of the site.
+package = EF modules
+core = 7.x
+dependencies[] = ctools
+dependencies[] = views

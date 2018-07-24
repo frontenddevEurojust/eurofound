@@ -1,0 +1,165 @@
+drush sql-query "insert into schema_migrations(code,extra)values('028_cwb', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+
+- http://jira.eworx.gr:8090/browse/EFDR-587?focusedCommentId=48896&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_48896
+
+
+
+: For the deployment make sure to rise the apache time out time to 600 seconds 10 minutes.
+
+:    Being able to perform a re-deployment faster faster with less instructions    max_execution_time = 800
+
+:   this setting can be returned back to 150 seconds ( best is 30 seconds for non administrative tasks )    
+
+: dependencies
+
+cd /web-pub/ef
+drush cc all
+drush dl -y field_validation
+drush en -y field_validation
+drush en -y field_validation_ui
+drush en -y field_validation_extras
+drush dl -y views_dependent_filters
+drush en -y views_dependent_filters
+
+drush dl -y views_selective_filters
+:: in case module downloaded to location all/s, move it to modules/contrib and delete s folder
+drush en -y views_filters_selective
+
+drush dl -y tablefield
+drush en -y tablefield
+drush dl -y uuid_features-7.x-1.x-dev
+drush en -y uuid_features
+
+
+
+: (tranfer dvscwb and views_timelinejs into /web-pub/ef/sites/all/modules/custom/)
+
+chown -R eworx:www-data /web-pub/ef/sites/all/modules/custom/dvscwb
+cd /web-pub/ef/sites/all/modules/custom/dvscwb
+mv timeline/ ../../../libraries/
+
+
+:    login ot the site
+
+:    user/login?current=admin/structure/features
+:    we enable the first 4 features
+
+:    CWB migrated content A
+:    CWB migrated content B
+:    CWB DVS model
+:    CWB schema content
+
+ 
+
+: we enable the module views_timelinejs
+
+drush en -y views_timelinejs
+
+: we enable the following 4 features from the interface
+
+:    http://efstaging.eworx.gr/ef/admin/structure/features
+
+:    CWB timelines content 1
+:    CWB timelines content 2
+:    DVS CWB interface
+:    CWB timelines
+
+ 
+
+drush cc all
+
+drush fr -y cwb_model
+drush fr -y cwb_schema_content
+drush fr -y cwb_migrated_content_a
+drush fr -y cwb_migrated_content_b
+drush fr -y dvs_cwb_interface
+
+drush fr -y views_timelinejs_feature
+drush fr -y cwb_timelines_content_1
+drush fr -y cwb_timelines_content_2
+
+drush cc all
+
+
+:: goto admin/structure/features
+:: disable the one-off content features:
+
+:: CWB migrated content A
+:: CWB migrated content B
+:: CWB schema content
+:: CWB timelines content 1
+:: CWB timelines content 2
+
+
+
+:::::
+::::: CRON related
+
+drush dl elysia_cron
+: Important enable the module from the interface 
+
+
+: visit http://efstaging.eworx.gr/ef/admin/config/system/cron
+:copy the cron triggering authorization url
+
+: - http://efstaging.eworx.gr/ef/cron.php?cron_key=ZLDz6i-j_7Kk5QvPrK2eq4t8mfvZO52Fq3ETNhvyAkA
+
+: as root
+
+crontab -e 
+
+0 * * * * wget -O - -q -t 1 http://efstaging.eworx.gr/ef/cron.php?cron_key=ZLDz6i-j_7Kk5QvPrK2eq4t8mfvZO52Fq3ETNhvyAkA
+
+
+: http://efstaging.eworx.gr/ef/admin/modules
+: enable elysia cron : from the interface
+
+: visit http://efstaging.eworx.gr/ef/admin/config/system/cron/settings
+:
+:  Installation settings
+
+: select Never / Use external crontab
+
+: Single job settings
+:
+: l10n_update_cron every Once a day
+: update_cron Once a week
+: further fintuning possible
+
+
+: Save configuration 
+
+wget -O - -q -t 1 http://efstaging.eworx.gr/ef/cron.php?cron_key=ZLDz6i-j_7Kk5QvPrK2eq4t8mfvZO52Fq3ETNhvyAkA
+
+:check initiation http://efstaging.eworx.gr/ef/admin/config/system/cron
+
+: done
+
+:Extra
+
+drush en -y data_visualisation_addons
+
+
+:: FEATURES ::
+ 
+:: VOCABULARIES ::
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+: create 1 menu link under Observatories > European Observatory of Working Life - EurWORK (after European Industrial Relations Dictionary)
+: Collective wage bargaining	/observatories/eurwork/collective-wage-bargaining/context
+: create a menu position that places any url that matches the following, under the previous CWB menu link
+: observatories/eurwork/collective-wage-bargaining/*
+::   addPathRule('Collective wage bargaining','observatories/eurwork/collective-wage-bargaining/*','Collective wage bargaining');
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

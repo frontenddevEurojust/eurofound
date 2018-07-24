@@ -1,0 +1,680 @@
+﻿<pre><style>.error{background:red;margin-left:5px;margin-right:5px}</style><pre><style>.warning{background:orange;margin-left:5px;margin-right:5px}</style><pre><style>.message{background:#6FE302;margin-left:5px;margin-right:5px}</style>processing row: 1Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Medium
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => Skilled Manual
+    [Initiative Type] => Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 2Array
+(
+    [Date Created] => 2007-03-28
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Other non-manual, Skilled Manual
+    [Initiative Type] => Recruitment, Flexible working practices, Changing attitudes
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 3Array
+(
+    [Date Created] => 2005-09-13
+    [Organisation Size] => Large
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Women
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 4Array
+(
+    [Date Created] => 2007-03-28
+    [Organisation Size] => Large
+    [Sector] => Information Technology
+    [Legal Form] => Social economy/voluntary/other
+    [Social Dialogue] => Trade union
+    [Target Groups] => Professional/managerial, Skilled Manual, Persons with health problems
+    [Initiative Type] => Training, development, etc , Flexible working practices, Health and well-being
+    [Scope] => Old
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 5Array
+(
+    [Date Created] => 2009-10-29
+    [Organisation Size] => Large
+    [Sector] => Chemical
+    [Legal Form] => Private
+    [Social Dialogue] => Works council
+    [Target Groups] => 
+    [Initiative Type] => Comprehensive approach
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 6Array
+(
+    [Date Created] => 2005-08-09
+    [Organisation Size] => Small
+    [Sector] => Metal and Machinery
+    [Legal Form] => Private
+    [Social Dialogue] => Informal social dialogue
+    [Target Groups] => Professional/managerial, Skilled Manual
+    [Initiative Type] => Recruitment, Training, development, etc
+    [Scope] => All
+    [Social Dialogue Type] => None
+)
+<br/>processing row: 7Array
+(
+    [Date Created] => 2007-03-09
+    [Organisation Size] => Medium
+    [Sector] => Public Sector
+    [Legal Form] => Public
+    [Social Dialogue] => Trade union
+    [Target Groups] => Unskilled Manual
+    [Initiative Type] => Flexible working practices
+    [Scope] => All
+    [Social Dialogue Type] => Agreement
+)
+<br/>processing row: 8Array
+(
+    [Country] => Finland
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, financial             support and advice, confidence building, environmental adaptations
+)
+<br/>processing row: 9Array
+(
+    [Country] => Hungary
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses
+    [Initiative type] => work placements, training, job search support, job application support, general careers guidance, financial             support and advice
+)
+<br/>processing row: 10Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, confidence building, environmental adaptations
+)
+<br/>processing row: 11Array
+(
+    [Country] => Germany
+    [Target Groups] => the long-term unemployed, the short-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses, men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, confidence building, awareness raising
+)
+<br/>processing row: 12Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, job search support, job application support, environmental adaptations
+)
+<br/>processing row: 13Array
+(
+    [Country] => United Kingdom
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, job application support, confidence building
+)
+<br/>processing row: 14Array
+(
+    [Country] => Germany
+    [Target Groups] => the short-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             job seekers under 30 years of age
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, financial             support and advice, confidence building, awareness raising
+)
+<br/>processing row: 15Array
+(
+    [Country] => Ireland
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, job search support, awareness raising
+)
+<br/>processing row: 16Array
+(
+    [Country] => Estonia
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, job search support, job application support, confidence building, awareness             raising
+)
+<br/>processing row: 17Array
+(
+    [Country] => Greece
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, job search support, job application support, financial support and advice,             confidence building, awareness raising
+)
+<br/>processing row: 18Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => training, job search support, job application support, confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 19Array
+(
+    [Country] => Netherlands
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women
+    [Initiative type] => general careers guidance, training, job search support, job application support, confidence building
+)
+<br/>processing row: 20Array
+(
+    [Country] => Belgium
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses
+    [Initiative type] => work placements, job application support, confidence building
+)
+<br/>processing row: 21Array
+(
+    [Country] => Italy
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, job search support, job application support
+)
+<br/>processing row: 22Array
+(
+    [Country] => Belgium
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, financial             support and advice, confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 23Array
+(
+    [Country] => Finland
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses
+    [Initiative type] => work placements, training, financial support and advice, confidence building
+)
+<br/>processing row: 24Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, job search support, job application support, confidence building
+)
+<br/>processing row: 25Array
+(
+    [Country] => Poland
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses, men, women, job             seekers under 30 years of age
+    [Initiative type] => general careers guidance, work placements, training, job search support, confidence building, awareness             raising
+)
+<br/>processing row: 26Array
+(
+    [Country] => Lithuania
+    [Target Groups] => unemployed with additional job seeking needs
+    [Initiative type] => job search support, job application support, confidence building, awareness raising
+)
+<br/>processing row: 27Array
+(
+    [Country] => Italy
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, job search support, job application support, financial support and             advice
+)
+<br/>processing row: 28Array
+(
+    [Country] => Hungary
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => job search support, job application support, confidence building
+)
+<br/>processing row: 29Array
+(
+    [Country] => Lithuania
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, training, job search support, confidence building
+)
+<br/>processing row: 30Array
+(
+    [Country] => Lithuania
+    [Target Groups] => the long-term unemployed, the short-term unemployed, unemployed with additional job seeking needs, people with             disabilities or illnesses, men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, providing access to voluntary work, job search support, job application support,             confidence building, awareness raising
+)
+<br/>processing row: 31Array
+(
+    [Country] => Netherlands
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => training, confidence building
+)
+<br/>processing row: 32Array
+(
+    [Country] => Portugal
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, providing access to voluntary work, work placements, training, job search support,             job application support, financial support and advice, confidence building, awareness raising
+)
+<br/>processing row: 33Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, job search support, environmental adaptations
+)
+<br/>processing row: 34Array
+(
+    [Country] => Lithuania
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, training, job search support, confidence building, awareness raising
+)
+<br/>processing row: 35Array
+(
+    [Country] => France
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, job search support, confidence building
+)
+<br/>processing row: 36Array
+(
+    [Country] => Hungary
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => work placements, training, confidence building
+)
+<br/>processing row: 37Array
+(
+    [Country] => Sweden
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses, men, women, job seekers over 50 years of age,             job seekers under 30 years of age
+    [Initiative type] => general careers guidance, training, job search support, financial support and advice, awareness raising
+)
+<br/>processing row: 38Array
+(
+    [Country] => Hungary
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses, men, women, job seekers under 30 years of             age
+    [Initiative type] => job search support, confidence building, awareness raising
+)
+<br/>processing row: 39Array
+(
+    [Country] => Portugal
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, financial             support and advice, confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 40Array
+(
+    [Country] => Netherlands
+    [Target Groups] => people with disabilities or illnesses, men, women
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, confidence             building, environmental adaptations, awareness raising
+)
+<br/>processing row: 41Array
+(
+    [Country] => Belgium
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => work placements, job application support
+)
+<br/>processing row: 42Array
+(
+    [Country] => Lithuania
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => job search support, job application support
+)
+<br/>processing row: 43Array
+(
+    [Country] => Sweden
+    [Target Groups] => the long-term unemployed, men, women, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, work placements
+)
+<br/>processing row: 44Array
+(
+    [Country] => Lithuania
+    [Target Groups] => people with disabilities or illnesses, men, women, job seekers under 30 years of age
+    [Initiative type] => training, job search support, confidence building, awareness raising
+)
+<br/>processing row: 45Array
+(
+    [Country] => Sweden
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses, men, women
+    [Initiative type] => training
+)
+<br/>processing row: 46Array
+(
+    [Country] => Ireland
+    [Target Groups] => the long-term unemployed, the short-term unemployed, unemployed with additional job seeking needs, people with             disabilities or illnesses, men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, providing access to voluntary work, training, job search support, job application             support, financial support and advice, confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 47Array
+(
+    [Country] => Belgium
+    [Target Groups] => the short-term unemployed, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, job search support, job application support
+)
+<br/>processing row: 48Array
+(
+    [Country] => Belgium
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, confidence             building, environmental adaptations, awareness raising
+)
+<br/>processing row: 49Array
+(
+    [Country] => Hungary
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => job search support, confidence building
+)
+<br/>processing row: 50Array
+(
+    [Country] => United Kingdom
+    [Target Groups] => unemployed with additional job seeking needs, people with disabilities or illnesses
+    [Initiative type] => general careers guidance, providing access to voluntary work, work placements, training, job search support,             job application support, confidence building, awareness raising
+)
+<br/>processing row: 51Array
+(
+    [Country] => Netherlands
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses, men, women, job             seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => training, confidence building
+)
+<br/>processing row: 52Array
+(
+    [Country] => Estonia
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, environmental adaptations, awareness             raising
+)
+<br/>processing row: 53Array
+(
+    [Country] => Slovenia
+    [Target Groups] => the long-term unemployed, the short-term unemployed, unemployed with additional job seeking needs, people with             disabilities or illnesses, men, women, job seekers over 50 years of age
+    [Initiative type] => work placements, training, job search support, job application support, confidence building, environmental             adaptations, awareness raising
+)
+<br/>processing row: 54Array
+(
+    [Country] => France
+    [Target Groups] => the long-term unemployed, the short-term unemployed, people with disabilities or illnesses, men, women, job             seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => training, job search support, confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 55Array
+(
+    [Country] => Slovenia
+    [Target Groups] => people with disabilities or illnesses, men, women, job seekers under 30 years of age
+    [Initiative type] => general careers guidance, training, job application support, financial support and advice, confidence             building, environmental adaptations, awareness raising
+)
+<br/>processing row: 56Array
+(
+    [Country] => Sweden
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses, men, women, job seekers over 50 years of age,             job seekers under 30 years of age
+    [Initiative type] => work placements, training, job search support, job application support, financial support and advice,             confidence building, environmental adaptations, awareness raising
+)
+<br/>processing row: 57Array
+(
+    [Country] => Poland
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, confidence             building
+)
+<br/>processing row: 58Array
+(
+    [Country] => Sweden
+    [Target Groups] => the long-term unemployed, people with disabilities or illnesses, men, women, job seekers over 50 years of             age
+    [Initiative type] => general careers guidance, training, job search support, job application support, confidence building,             environmental adaptations
+)
+<br/>processing row: 59Array
+(
+    [Country] => Sweden
+    [Target Groups] => people with disabilities or illnesses, women
+    [Initiative type] => work placements, training
+)
+<br/>processing row: 60Array
+(
+    [Country] => Netherlands
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women, job seekers over 50 years of age, job seekers under 30 years of age
+    [Initiative type] => training, job application support, confidence building
+)
+<br/>processing row: 61Array
+(
+    [Country] => Belgium
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, work placements, training, job search support, job application support, financial             support and advice
+)
+<br/>processing row: 62Array
+(
+    [Country] => Greece
+    [Target Groups] => the long-term unemployed, unemployed with additional job seeking needs, people with disabilities or illnesses,             men, women
+    [Initiative type] => training, job search support, job application support, financial support and advice, confidence building,             awareness raising
+)
+<br/>processing row: 63Array
+(
+    [Country] => Hungary
+    [Target Groups] => people with disabilities or illnesses
+    [Initiative type] => general careers guidance, training, job search support, confidence building, environmental adaptations
+)
+<br/>processing row: 64Array
+(
+    [Country] => Finland
+    [Sector] => health and social work
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 65Array
+(
+    [Country] => Finland
+    [Sector] => construction and woodworking
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 66Array
+(
+    [Country] => United kingdom
+    [Sector] => agriculture and fishing
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 67Array
+(
+    [Country] => Czech republic
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, government, sectoral organisations
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 68Array
+(
+    [Country] => Belgium
+    [Sector] => public sector
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 69Array
+(
+    [Country] => Austria
+    [Sector] => health and social work
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 70Array
+(
+    [Country] => Czech republic
+    [Sector] => public sector
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 71Array
+(
+    [Country] => Estonia
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => prevention, changing attitudes
+)
+<br/>processing row: 72Array
+(
+    [Country] => Lithuania
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, sectoral organisations
+    [Type of Measure] => 
+)
+<br/>processing row: 73Array
+(
+    [Country] => Italy
+    [Sector] => construction and woodworking
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 74Array
+(
+    [Country] => Netherlands
+    [Sector] => consultancy business services
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 75Array
+(
+    [Country] => Romania
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 76Array
+(
+    [Country] => Germany
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 77Array
+(
+    [Country] => Malta
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, government, sectoral organisations
+    [Type of Measure] => 
+)
+<br/>processing row: 78Array
+(
+    [Country] => Lithuania
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 79Array
+(
+    [Country] => Spain
+    [Sector] => maintenance and cleaning
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 80Array
+(
+    [Country] => Sweden
+    [Sector] => hair and beauty care
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 81Array
+(
+    [Country] => Norway
+    [Sector] => construction and woodworking
+    [Target Groups] => workers/suppliers, employers/purchasers, sectoral organisations
+    [Type of Measure] => 
+)
+<br/>processing row: 82Array
+(
+    [Country] => United kingdom
+    [Sector] => public sector
+    [Target Groups] => other
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 83Array
+(
+    [Country] => Denmark
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 84Array
+(
+    [Country] => Portugal
+    [Sector] => hotel restaurant and catering
+    [Target Groups] => employers/purchasers, government
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 85Array
+(
+    [Country] => Luxembourg
+    [Sector] => construction and woodworking
+    [Target Groups] => employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 86Array
+(
+    [Country] => Denmark
+    [Sector] => public sector
+    [Target Groups] => employers/purchasers, other
+    [Type of Measure] => 
+)
+<br/>processing row: 87Array
+(
+    [Country] => Belgium
+    [Sector] => maintenance and cleaning
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 88Array
+(
+    [Country] => Finland
+    [Sector] => construction and woodworking
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 89Array
+(
+    [Country] => Bulgaria
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, sectoral organisations
+    [Type of Measure] => 
+)
+<br/>processing row: 90Array
+(
+    [Country] => Belgium
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 91Array
+(
+    [Country] => Italy
+    [Sector] => public sector
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 92Array
+(
+    [Country] => Austria
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, sectoral organisations
+    [Type of Measure] => 
+)
+<br/>processing row: 93Array
+(
+    [Country] => Denmark
+    [Sector] => construction and woodworking
+    [Target Groups] => workers/suppliers, other
+    [Type of Measure] => changing attitudes
+)
+<br/>processing row: 94Array
+(
+    [Country] => Spain
+    [Sector] => health and social work
+    [Target Groups] => workers/suppliers, employers/purchasers, other
+    [Type of Measure] => legitimising undeclared work
+)
+<br/>processing row: 95Array
+(
+    [Country] => Germany
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => deterrence
+)
+<br/>processing row: 96Array
+(
+    [Country] => Latvia
+    [Sector] => commerce
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => prevention
+)
+<br/>processing row: 97Array
+(
+    [Country] => France
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 98Array
+(
+    [Country] => Poland
+    [Sector] => public sector
+    [Target Groups] => workers/suppliers, other
+    [Type of Measure] => 
+)
+<br/>processing row: 99Array
+(
+    [Country] => Romania
+    [Sector] => construction and woodworking
+    [Target Groups] => workers/suppliers, employers/purchasers
+    [Type of Measure] => 
+)
+<br/>processing row: 100Array
+(
+    [Country] => Estonia
+    [Sector] => 
+    [Target Groups] => workers/suppliers, employers/purchasers, government, sectoral organisations
+    [Type of Measure] => prevention, changing attitudes
+)
+<br/><br/><br/>----------------------------------------------<br /><strong>ef_case_study</strong><br />  <em></em><br />  <em>99 items found!</em><br />----------------------------------------------<br /><br /><br /><br /><strong>RESULTS</strong><br /><table><tr><th>No.</th><th>Title</th><th>Url</th><th>Old url</th></tr><tr><td>1</td><td>Case study on a comprehensive approach: Polyfelt Geo-synthetics, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-a-comprehensive-approach-polyfelt-geo-synthetics-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/case-study-on-a-comprehensive-approach-polyfelt-geo-synthetics-austria</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/at001.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/at001.htm</a></td></tr><tr><td>2</td><td>Dublin Bus, Ireland: Recruitment / Changing attitudes</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dublin-bus-ireland-recruitment-changing-attitudes">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dublin-bus-ireland-recruitment-changing-attitudes</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/ie003.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/ie003.htm</a></td></tr><tr><td>3</td><td>Cambridge City Council, United Kingdom: Comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/cambridge-city-council-united-kingdom-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/cambridge-city-council-united-kingdom-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/uk018.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/uk018.htm</a></td></tr><tr><td>4</td><td>KMD, Denmark: Health and well-being / Exit policy / Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kmd-denmark-health-and-well-being-exit-policy-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/kmd-denmark-health-and-well-being-exit-policy-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk005.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk005.htm</a></td></tr><tr><td>5</td><td>DSM, Netherlands: A comprehensive approach</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dsm-netherlands-a-comprehensive-approach">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/dsm-netherlands-a-comprehensive-approach</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/nl008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/nl008.htm</a></td></tr><tr><td>6</td><td>MicroTEC, Germany: redeployment, training and development</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/microtec-germany-redeployment-training-and-development">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/microtec-germany-redeployment-training-and-development</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/de008.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/de008.htm</a></td></tr><tr><td>7</td><td>Vordingborg Municipal Home Care, Denmark: Flexible working practices</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/vordingborg-municipal-home-care-denmark-flexible-working-practices">http://efstaging.eworx.gr/observatories/eurwork/case-studies/ageing-workforce/vordingborg-municipal-home-care-denmark-flexible-working-practices</a></td><td><a href="http://eurofound.europa.eu/areas/populationandsociety/cases/dk009.htm">http://eurofound.europa.eu/areas/populationandsociety/cases/dk009.htm</a></td></tr><tr><td>8</td><td>Employment service centres, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-service-centres-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-service-centres-finland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fi001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fi001.htm</a></td></tr><tr><td>9</td><td>VAS county employment services, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vas-county-employment-services-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vas-county-employment-services-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu003.htm</a></td></tr><tr><td>10</td><td>ESAT initiative, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/esat-initiative-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/esat-initiative-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr001.htm</a></td></tr><tr><td>11</td><td>Füngeling Router job creation project, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/fngeling-router-job-creation-project-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/fngeling-router-job-creation-project-germany</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/de002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/de002.htm</a></td></tr><tr><td>12</td><td>Delta Insertion, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/delta-insertion-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/delta-insertion-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr002.htm</a></td></tr><tr><td>13</td><td>Want 2 Work, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/want-2-work-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/want-2-work-uk</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/uk001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/uk001.htm</a></td></tr><tr><td>14</td><td>Cooperative training and access to employment, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/cooperative-training-and-access-to-employment-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/cooperative-training-and-access-to-employment-germany</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/de001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/de001.htm</a></td></tr><tr><td>15</td><td>Disability awareness training, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/disability-awareness-training-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/disability-awareness-training-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ie001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ie001.htm</a></td></tr><tr><td>16</td><td>Career guidance course, Estonia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/career-guidance-course-estonia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/career-guidance-course-estonia</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ee001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ee001.htm</a></td></tr><tr><td>17</td><td>Proteus Developmental Consortium, Greece</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/proteus-developmental-consortium-greece">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/proteus-developmental-consortium-greece</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/el002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/el002.htm</a></td></tr><tr><td>18</td><td>Functional re-education and rehabilitation centre, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/functional-re-education-and-rehabilitation-centre-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/functional-re-education-and-rehabilitation-centre-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr004.htm</a></td></tr><tr><td>19</td><td>Arthritis project, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/arthritis-project-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/arthritis-project-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl005.htm</a></td></tr><tr><td>20</td><td>Flemish Federation of Sheltered Workplaces, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-federation-of-sheltered-workplaces-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-federation-of-sheltered-workplaces-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be004.htm</a></td></tr><tr><td>21</td><td>‘SIL 22’ job integration service, Italy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/sil-22-job-integration-service-italy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/sil-22-job-integration-service-italy</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/it002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/it002.htm</a></td></tr><tr><td>22</td><td>Agency for the integration of people with disabilities, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/agency-for-the-integration-of-people-with-disabilities-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/agency-for-the-integration-of-people-with-disabilities-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be006.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be006.htm</a></td></tr><tr><td>23</td><td>Social enterprises, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/social-enterprises-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/social-enterprises-finland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fi002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fi002.htm</a></td></tr><tr><td>24</td><td>Isatis, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/isatis-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/isatis-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr003.htm</a></td></tr><tr><td>25</td><td>Integralia Foundation, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/integralia-foundation-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/integralia-foundation-poland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pl001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pl001.htm</a></td></tr><tr><td>26</td><td>Project Angel, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/project-angel-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/project-angel-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li001.htm</a></td></tr><tr><td>27</td><td>Medialabor service, Italy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/medialabor-service-italy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/medialabor-service-italy</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/it001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/it001.htm</a></td></tr><tr><td>28</td><td>4M programme, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/4m-programme-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/4m-programme-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu005.htm</a></td></tr><tr><td>29</td><td>Vocational training and labour market integration of disabled persons, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vocational-training-and-labour-market-integration-of-disabled-persons-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vocational-training-and-labour-market-integration-of-disabled-persons-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li005.htm</a></td></tr><tr><td>30</td><td>Employment agency for people with hearing difficulties, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-agency-for-people-with-hearing-difficulties-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-agency-for-people-with-hearing-difficulties-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li002.htm</a></td></tr><tr><td>31</td><td>Horizon project, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/horizon-project-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/horizon-project-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl002.htm</a></td></tr><tr><td>32</td><td>Neuropsychological Rehabilitation Programme, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/neuropsychological-rehabilitation-programme-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/neuropsychological-rehabilitation-programme-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pt002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pt002.htm</a></td></tr><tr><td>33</td><td>Passmo, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/passmo-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/passmo-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr006.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr006.htm</a></td></tr><tr><td>34</td><td>Business Encouragement Centres, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/business-encouragement-centres-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/business-encouragement-centres-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li006.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li006.htm</a></td></tr><tr><td>35</td><td>Messidor, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/messidor-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/messidor-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr005.htm</a></td></tr><tr><td>36</td><td>Salva Vita work experience programme, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/salva-vita-work-experience-programme-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/salva-vita-work-experience-programme-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu001.htm</a></td></tr><tr><td>37</td><td>Green Staircase, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/green-staircase-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/green-staircase-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv006.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv006.htm</a></td></tr><tr><td>38</td><td>Salva Vita supported employment programme, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/salva-vita-supported-employment-programme-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/salva-vita-supported-employment-programme-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu006.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu006.htm</a></td></tr><tr><td>39</td><td>Gaia Vocational Rehabilitation Centre, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/gaia-vocational-rehabilitation-centre-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/gaia-vocational-rehabilitation-centre-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pt001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pt001.htm</a></td></tr><tr><td>40</td><td>Eminus project, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/eminus-project-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/eminus-project-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl004.htm</a></td></tr><tr><td>41</td><td>Flemish Emancipation Affairs Service, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-emancipation-affairs-service-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-emancipation-affairs-service-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be002.htm</a></td></tr><tr><td>42</td><td>Employment of people with mental and intellectual disorders, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-of-people-with-mental-and-intellectual-disorders-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/employment-of-people-with-mental-and-intellectual-disorders-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li004.htm</a></td></tr><tr><td>43</td><td>Competence Pool, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/competence-pool-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/competence-pool-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv001.htm</a></td></tr><tr><td>44</td><td>Valakuniai Rehabilitation Centre, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/valakuniai-rehabilitation-centre-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/valakuniai-rehabilitation-centre-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/li003.htm</a></td></tr><tr><td>45</td><td>Vocational rehabilitation in cooperation, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vocational-rehabilitation-in-cooperation-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vocational-rehabilitation-in-cooperation-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv004.htm</a></td></tr><tr><td>46</td><td>Mainstreaming employment services, Ireland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/mainstreaming-employment-services-ireland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/mainstreaming-employment-services-ireland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ie002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ie002.htm</a></td></tr><tr><td>47</td><td>Vooruitzenden project, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vooruitzenden-project-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/vooruitzenden-project-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be003.htm</a></td></tr><tr><td>48</td><td>Success Network, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/success-network-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/success-network-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be005.htm</a></td></tr><tr><td>49</td><td>Social and employment counselling service, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/social-and-employment-counselling-service-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/social-and-employment-counselling-service-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu002.htm</a></td></tr><tr><td>50</td><td>Work preparation for disabled people, UK</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/work-preparation-for-disabled-people-uk">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/work-preparation-for-disabled-people-uk</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/uk002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/uk002.htm</a></td></tr><tr><td>51</td><td>Early Intervention Service, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/early-intervention-service-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/early-intervention-service-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl001.htm</a></td></tr><tr><td>52</td><td>Supported employment services, Estonia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/supported-employment-services-estonia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/supported-employment-services-estonia</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ee002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/ee002.htm</a></td></tr><tr><td>53</td><td>New Way training programme, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/new-way-training-programme-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/new-way-training-programme-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/si001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/si001.htm</a></td></tr><tr><td>54</td><td>Sickness insurance fund of Île-de-France, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/sickness-insurance-fund-of-le-de-france-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/sickness-insurance-fund-of-le-de-france-france</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr007.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/fr007.htm</a></td></tr><tr><td>55</td><td>Training job mentors, Slovenia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/training-job-mentors-slovenia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/training-job-mentors-slovenia</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/si002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/si002.htm</a></td></tr><tr><td>56</td><td>Spektra project, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/spektra-project-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/spektra-project-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv003.htm</a></td></tr><tr><td>57</td><td>Service for computer specialists with disabilities, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/service-for-computer-specialists-with-disabilities-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/service-for-computer-specialists-with-disabilities-poland</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pl002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/pl002.htm</a></td></tr><tr><td>58</td><td>Forum 50+ work marketplace for older workers, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/forum-50-work-marketplace-for-older-workers-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/forum-50-work-marketplace-for-older-workers-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv002.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv002.htm</a></td></tr><tr><td>59</td><td>Rehabilitation for high-skilled workers, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/rehabilitation-for-high-skilled-workers-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/rehabilitation-for-high-skilled-workers-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv005.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/sv005.htm</a></td></tr><tr><td>60</td><td>Bacalao Project, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/bacalao-project-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/bacalao-project-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl003.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/nl003.htm</a></td></tr><tr><td>61</td><td>Flemish Public Employment Service, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-public-employment-service-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/flemish-public-employment-service-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/be001.htm</a></td></tr><tr><td>62</td><td>Netjob Hellas, Greece</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/netjob-hellas-greece">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/netjob-hellas-greece</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/el001.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/el001.htm</a></td></tr><tr><td>63</td><td>Active Workshop Programme, Hungary</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/active-workshop-programme-hungary">http://efstaging.eworx.gr/observatories/eurwork/case-studies/egs/active-workshop-programme-hungary</a></td><td><a href="http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu004.htm">http://eurofound.europa.eu/areas/socialcohesion/egs/cases/hu004.htm</a></td></tr><tr><td>64</td><td>Tax credit for domestic help, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tax-credit-for-domestic-help-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tax-credit-for-domestic-help-finland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi004.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi004.htm</a></td></tr><tr><td>65</td><td>Obligatory personal ID in construction, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/obligatory-personal-id-in-construction-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/obligatory-personal-id-in-construction-finland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi001.htm</a></td></tr><tr><td>66</td><td>Gangmaster licensing awareness campaign, United Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/gangmaster-licensing-awareness-campaign-united-kingdom">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/gangmaster-licensing-awareness-campaign-united-kingdom</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/uk001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/uk001.htm</a></td></tr><tr><td>67</td><td>Multiministerial body to combat illegal employment of foreign workers, Czech Republic</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/multiministerial-body-to-combat-illegal-employment-of-foreign-workers-czech-republic">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/multiministerial-body-to-combat-illegal-employment-of-foreign-workers-czech-republic</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz002.htm</a></td></tr><tr><td>68</td><td>LIMOSA, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/limosa-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/limosa-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be002.htm</a></td></tr><tr><td>69</td><td>Reform of private geriatric nursing system, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/reform-of-private-geriatric-nursing-system-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/reform-of-private-geriatric-nursing-system-austria</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/at001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/at001.htm</a></td></tr><tr><td>70</td><td>Employment Act and the fight against illegal labour, Czech Republic</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/employment-act-and-the-fight-against-illegal-labour-czech-republic">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/employment-act-and-the-fight-against-illegal-labour-czech-republic</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/cz003.htm</a></td></tr><tr><td>71</td><td>Notification letters from Tax and Customs Board, Estonia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/notification-letters-from-tax-and-customs-board-estonia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/notification-letters-from-tax-and-customs-board-estonia</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ee001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ee001.htm</a></td></tr><tr><td>72</td><td>Coordination of undeclared work control, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/coordination-of-undeclared-work-control-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/coordination-of-undeclared-work-control-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lt001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lt001.htm</a></td></tr><tr><td>73</td><td>Certification of labour compliance, Italy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/certification-of-labour-compliance-italy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/certification-of-labour-compliance-italy</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/it003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/it003.htm</a></td></tr><tr><td>74</td><td>Regulation of domestic work, Netherlands</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulation-of-domestic-work-netherlands">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulation-of-domestic-work-netherlands</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/nl001.htm</a></td></tr><tr><td>75</td><td>Report on informal employment, Romania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/report-on-informal-employment-romania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/report-on-informal-employment-romania</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro003.htm</a></td></tr><tr><td>76</td><td>Public subsidy for entrenprenurial business start-ups, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/public-subsidy-for-entrenprenurial-business-start-ups-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/public-subsidy-for-entrenprenurial-business-start-ups-germany</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de002.htm</a></td></tr><tr><td>77</td><td>Benefit fraud and investigation directorate, Malta</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/benefit-fraud-and-investigation-directorate-malta">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/benefit-fraud-and-investigation-directorate-malta</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/mt002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/mt002.htm</a></td></tr><tr><td>78</td><td>Inspection of undeclared work, Lithuania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/inspection-of-undeclared-work-lithuania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/inspection-of-undeclared-work-lithuania</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lt002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lt002.htm</a></td></tr><tr><td>79</td><td>District employment services for domestic work, Spain</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/district-employment-services-for-domestic-work-spain">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/district-employment-services-for-domestic-work-spain</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es002.htm</a></td></tr><tr><td>80</td><td>Statutory staff registers in restaurants and hairdressers, Sweden</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/statutory-staff-registers-in-restaurants-and-hairdressers-sweden">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/statutory-staff-registers-in-restaurants-and-hairdressers-sweden</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/se003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/se003.htm</a></td></tr><tr><td>81</td><td>Coordinated inspections against social dumping and undeclared work, Norway</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/coordinated-inspections-against-social-dumping-and-undeclared-work-norway">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/coordinated-inspections-against-social-dumping-and-undeclared-work-norway</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/no001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/no001.htm</a></td></tr><tr><td>82</td><td>Test-trading scheme, United Kingdom</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/test-trading-scheme-united-kingdom">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/test-trading-scheme-united-kingdom</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/uk007.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/uk007.htm</a></td></tr><tr><td>83</td><td>Fair play campaign, Denmark</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/fair-play-campaign-denmark">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/fair-play-campaign-denmark</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk004.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk004.htm</a></td></tr><tr><td>84</td><td>Campaign against undeclared work in hotels and restaurants, Portugal</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/campaign-against-undeclared-work-in-hotels-and-restaurants-portugal">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/campaign-against-undeclared-work-in-hotels-and-restaurants-portugal</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pt001.htm</a></td></tr><tr><td>85</td><td>Interadministrative unit for combating illegal work, Luxembourg</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/interadministrative-unit-for-combating-illegal-work-luxembourg">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/interadministrative-unit-for-combating-illegal-work-luxembourg</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lu002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lu002.htm</a></td></tr><tr><td>86</td><td>Information campaign, Denmark</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/information-campaign-denmark">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/information-campaign-denmark</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk002.htm</a></td></tr><tr><td>87</td><td>Service vouchers, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/service-vouchers-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/service-vouchers-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be004.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be004.htm</a></td></tr><tr><td>88</td><td>Tax allowance for household services, Finland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tax-allowance-for-household-services-finland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/tax-allowance-for-household-services-finland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fi003.htm</a></td></tr><tr><td>89</td><td>‘Work legally’ campaign, Bulgaria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/work-legally-campaign-bulgaria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/work-legally-campaign-bulgaria</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/bg002.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/bg002.htm</a></td></tr><tr><td>90</td><td>OASIS, Belgium</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/oasis-belgium">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/oasis-belgium</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/be003.htm</a></td></tr><tr><td>91</td><td>Regulations to promote regular employment, Italy</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulations-to-promote-regular-employment-italy">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/regulations-to-promote-regular-employment-italy</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/it006.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/it006.htm</a></td></tr><tr><td>92</td><td>Introduction of household services cheque, Austria</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/introduction-of-household-services-cheque-austria">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/introduction-of-household-services-cheque-austria</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/at003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/at003.htm</a></td></tr><tr><td>93</td><td>Home improvements subsidy, Denmark</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/home-improvements-subsidy-denmark">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/home-improvements-subsidy-denmark</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/dk003.htm</a></td></tr><tr><td>94</td><td>Law to support care of dependent people, Spain</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/law-to-support-care-of-dependent-people-spain">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/law-to-support-care-of-dependent-people-spain</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/es001.htm</a></td></tr><tr><td>95</td><td>Lower tax and insurance for low-wage employees, Germany</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/lower-tax-and-insurance-for-low-wage-employees-germany">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/lower-tax-and-insurance-for-low-wage-employees-germany</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/de003.htm</a></td></tr><tr><td>96</td><td>Control measures to limit illegal employment, Latvia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/control-measures-to-limit-illegal-employment-latvia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/control-measures-to-limit-illegal-employment-latvia</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lv003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/lv003.htm</a></td></tr><tr><td>97</td><td>Universal service employment cheque, France</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/universal-service-employment-cheque-france">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/universal-service-employment-cheque-france</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fr003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/fr003.htm</a></td></tr><tr><td>98</td><td>Voluntary Work Teams, Poland</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/voluntary-work-teams-poland">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/voluntary-work-teams-poland</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/pl003.htm</a></td></tr><tr><td>99</td><td>Builders’ Social Fund, Romania</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/builders-social-fund-romania">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/builders-social-fund-romania</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro001.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ro001.htm</a></td></tr><tr><td>100</td><td>Social partner cooperation agreement, Estonia</td><td><a href="http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/social-partner-cooperation-agreement-estonia">http://efstaging.eworx.gr/observatories/eurwork/case-studies/tackling-undeclared-work-in-europe/social-partner-cooperation-agreement-estonia</a></td><td><a href="http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ee003.htm">http://eurofound.europa.eu/areas/labourmarket/tackling/cases/ee003.htm</a></td></tr><tr><td colspan="4">Total: 100 nodes saved!</td></tr></table><br /><br />errors: 0<br /><br />

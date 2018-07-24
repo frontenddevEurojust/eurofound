@@ -1,0 +1,851 @@
+/* INDICE
+1.- CARS comparative analitycal reports
+2.- ERM_REGULATION
+3.- FACTSHEET
+4.- NC
+
+ */
+
+  .info
+  {
+  font-size: 8pt;
+  }
+
+  .info ul
+  {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  }
+
+  .info ul li
+  {
+  border-right: 1px solid #d3d3d3;
+  padding-right: 1%;
+  }
+
+  .info ul li:last-child
+  {
+  border-right: 3px solid orange;
+  padding-right: 1%;
+  }
+
+  .nc-lis
+  {
+  border-right: 1px solid #d3d3d3 ;
+  }
+
+  .firstl
+  {
+  border-right-width: 0px !important;
+  }
+
+  ul li.obserli
+  {
+  border-right: 3px solid orange;
+  padding-right: 1%;
+  }
+
+  /*ul.nc-lis li:last-child
+  {
+  border-right: 2px solid orange ;
+  } */
+
+  .car-summary h2,
+.summary_body h2
+  {
+  color:#004698 !important;
+  background-color: #EDEDF7 !important;
+  padding: 2%;
+  }
+ .summary_body.case-study-body h2
+  {
+  color:#004698 !important;
+  background-color:#DBE4ED !important;
+  padding: 2%;
+  }
+   .summary_body.case-study-body  h2.acordeon:hover{
+    background: #BACBDC !important;
+  }
+  .md_about
+  {
+  border:1px solid #B6CBDE;
+  padding: 4px;
+  width:40%;
+  font-size: 8pt;
+  margin: 10px 0 10px 20px;
+
+  }
+
+  .md_body.row
+  {
+  margin: 0 auto;
+    	padding: 11px 0;
+   	 	width: 90%;
+   	 	border-top: 1px dotted #ccc;
+  }
+
+  .summary-body
+  {
+  font-size: 10pt;
+  margin-right: auto;
+  }
+
+  .md_tit h5 {
+
+    font-size: 1.5em;
+    padding-bottom: 4px;
+    padding-left: 24px;
+  }
+
+  .md_body .small-3.columns {
+    font-weight: bold;
+  }
+
+  .md_body_row {
+    padding-left: 25px;
+  }
+
+  .fa.fa-angle-down {
+    float: right;
+  }
+
+  .fa.fa-angle-up {
+    float: right;
+  }
+  a.seccion0[href$='.pdf']:before{
+   content: "\f1c1" !important;
+   font-family: fontAwesome;
+  font-size: 1.3em;
+  padding: 7px;
+   }
+  .acordeon{
+    cursor: pointer;
+    margin-top: 15px !important;
+  }
+  .no-arrow{
+    cursor: default !important
+  }
+   .acordeon:hover{
+    background:#DDDDF0 !important;
+  }
+  .no-arrow:hover{
+      background:#EDEDF7 !important
+  }
+  .acordeon:after{
+  content:"\f107";
+  font-family: FontAwesome;
+  float: right;
+  }
+  .acordeon.no-arrow:after{
+  content:"" !important;
+  }
+  .acordeon.arrow-down:after
+  {
+  content:"\f106"!important;
+  font-family: FontAwesome;
+  float: right;
+  }
+  h2.element-invisible.acordeon + .fold{
+    display: block !important;
+  }
+  .topic-lis li
+  {
+  border-right: 1px solid #d3d3d3;
+  }
+
+  ul.dop-list li:last-child
+  {
+  border-right: none;
+  }
+
+
+ /* ERM styles for templates:
+    1 - ERM REGULATION
+    2 - SUPPORT INSTRUMENT
+*/
+
+/*************************************************
+***** - 0 - ******* COMMON STYLES ***************
+*************************************************/
+
+
+/* --- Back to list (link) --- */
+.back-erm-list-button-div{
+    margin: 1.5em 0 0.7em 9px;
+    display: inline-block;
+}
+.back-erm-list-button-div > a{
+    margin-left: 0;
+    border-top: 0px;
+    /* IE10 Consumer Preview */
+    background-image: -ms-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Mozilla Firefox */
+    background-image: -moz-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Opera */
+    background-image: -o-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* Webkit (Safari/Chrome 10) */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F77D1E), color-stop(1, #EA9F39));
+    /* Webkit (Chrome 11+) */
+    background-image: -webkit-linear-gradient(top, #F77D1E 0%, #EA9F39 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background-image: linear-gradient(to bottom, #F77D1E 0%, #EA9F39 100%);
+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F77D1E', endColorstr='#EA9F39',GradientType=0 ); /* IE6-8 */
+    color: #fff;
+    padding: 0.5em 1.5em;
+    border-radius: 4px;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+}
+.back-erm-list-button-div > a:before {
+  content: "\e62e";
+  font-size: 1.4em;
+  margin-right: 5px;
+  margin-left: -12px;
+  display:inline-block;
+  margin-top:-3px;
+  vertical-align: middle;
+  font-family: 'ef-icon-font';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.back-erm-list-button-div > a:hover{
+    opacity: 0.8;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+}
+
+/* --- Legal disclamer --- */
+.erm-legal-disclaimer {
+    font-size: 0.95em;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+/* --- BASIC INFO --- */
+.erm-title-info.row{
+	background-color: #efefef;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #2e67aa;
+    margin: 2px 2px 15px;
+    padding: 15px;
+	color: #2e67aa;
+  margin-top: 3em;
+}
+.erm-title-info .field-name-field-country-erm-si:before,
+.erm-title-info .field-name-field-country-erm-reg:before{
+	font-family: fontAwesome;
+	content: "\f0ac";
+	margin-right: 5px;
+}
+.erm-country{
+    font-size: 1.4em;
+}
+.erm-info-label{
+	color: #888;
+	float: left;
+	margin-right: 5px;
+}
+.erm-phase{
+    margin-bottom: 5px;
+    text-align: right;
+}
+.field.field-name-field-type-erm-si,
+.field.field-name-field-type-phase-erm-reg {
+    text-align: right;
+}
+.erm-type {
+    margin-top: 10px;
+}
+
+/* --- Date --- */
+.erm-edit-date {
+    color: #949494;
+    font-style: italic;
+    text-align: right;
+    padding: 10px;
+}
+
+/* --- TITLES --- */
+.erm-titles{
+	border: 1px solid #ccc;
+	padding: 12px;
+	border-radius: 5px;
+    box-shadow: 2px 2px 2px #ccc;
+    margin-top: 15px;
+}
+.erm-titles h2{
+	margin: 0;
+	padding: 0;
+	font-size: 1.3em;
+}
+.erm-titles > div{
+	margin: 12px 8px 12px;
+}
+.erm-nat-title h2{
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 10px;
+}
+
+/* -- MAIN CONTENT --- */
+.erm-content .erm-content-title {
+    border-bottom: 1px solid #2e67aa;
+    color: #2e67aa;
+    font-weight: bold;
+}
+.erm-content {
+    margin: 10px 2px;
+    padding: 10px;
+}
+.erm-content .erm-text-field{
+	margin-bottom: 10px;
+}
+
+.erm-si-comments{
+	border-bottom: 1px solid #2e67aa;
+	margin-bottom: 20px;
+}
+
+/* --- FEATURES --- */
+.erm-features.row {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #ccc;
+    margin: 0 5px;
+    padding: 10px;
+}
+.erm-features > div{
+	margin-bottom: 10px;
+}
+.field-name-field-involvement-other-erm-si,
+.field-name-field-involvement-other-erm-reg {
+    margin-left: 20px;
+}
+
+/* --- SOURCES --- */
+.erm-sources {
+    background: none repeat scroll 0 0 #f0f0f0;
+    border: 1px solid #2e67aa;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #2e67aa;
+    margin: 20px;
+    padding: 10px;
+}
+.field-name-field-sources-erm-si > li::before,
+.field-name-field-sources-erm-reg > li::before {
+    content: "\f02d";
+    font-family: fontawesome;
+    margin-right: 5px;
+}
+
+/* --- OPEN COMMENTS --- */
+.erm-open-comments {
+    border: 1px solid #ccc;
+    margin: 30px 10px;
+    padding: 10px 20px;
+}
+
+/* --- LINKS ---
+.erm-links{
+    margin-top: 50px;
+    height: 60px;
+}
+.erm-links .links{
+    list-style: none;
+    position: relative;
+}
+.erm-links .links > .print_html{
+    position: absolute;
+    right: 5%;
+    top: 5px;
+
+}
+.erm-links .links > .statistics_counter:before{
+    content: "\f097";
+    font-family: fontawesome;
+    margin-right: 5px;
+}
+.erm-links .links > .statistics_counter {
+    font-size: 0.9em;
+    left: 43%;
+    position: absolute;
+    top: 15px;
+}
+.erm-links .links > .print_pdf{
+    position: absolute;
+    top: 0;
+    left: 5%;
+}
+.erm-links .links .print_pdf > a.print-pdf:before{
+    content: "\f1c1";
+    font-family: fontAwesome;
+    color: red;
+    border: 1px solid red;
+    font-size: 1.3em;
+    padding: 7px;
+}
+.erm-links .links .print_pdf a.print-pdf img.print-icon{
+    display: none;
+}
+*/
+
+
+
+
+/*************************************************
+***** - 1 - ******* ERM REGULATION ***************
+*************************************************/
+
+/* --- ARTICLE --- */
+.erm-reg-article .field-name-field-article-erm-reg{
+    letter-spacing: 0.01em;
+    line-height: 1.2em;
+    word-spacing: 0.3em;
+}
+/* --- COMMENTS --- */
+.erm-reg-comments{
+	border-bottom: 1px solid #2e67aa;
+	margin-bottom: 20px;
+}
+/* --- THRESHOLDS --- */
+.erm-reg-thresholds-item .field-name-field-company-size-erm-si,
+.erm-reg-thresholds-item .field-name-field-affected-employees-erm-si{
+    padding: 8px;
+}
+.erm-reg-thresholds-item .field-name-field-company-size-erm-si:after,
+.erm-reg-thresholds-item .field-name-field-affected-employees-erm-si:after{
+    content: " employees";
+}
+/* --- NOTES --- */
+.node-ef-erm-regulation .erm-reg-notes-icon,
+.node-erm-support-instrument .erm-si-notes-icon {
+    color: #13549f;
+    font-size: 1.2em;
+    padding: 10px;
+    text-align: right;
+}
+.node-ef-erm-regulation .erm-reg-article-notes-icon{
+    margin-top: -30px;
+}
+.node-ef-erm-regulation .erm-reg-cost-covered-by-notes-icon,
+.node-ef-erm-regulation .erm-reg-involved-notes-icon,
+.node-ef-erm-regulation .erm-reg-thresholds-notes-icon{
+    font-size: 1em;
+    padding-left: 1px;
+    text-align: left;
+    padding-top: 5px;
+}
+.node-ef-erm-regulation .erm-reg-sources-notes-icon {
+    margin-top: -20px;
+    padding-right: 25px;
+}
+.node-ef-erm-regulation .erm-reg-notes-icon > i,
+.node-erm-support-instrument .erm-si-notes-icon > i{
+    cursor: help;
+}
+.node-ef-erm-regulation .erm-reg-notes,
+.node-erm-support-instrument .erm-si-notes{
+    background-color: #FFFBD9;
+    border: 1px solid #ccc;
+    box-shadow: -5px -5px 9px 1px #888;
+    color: #4f4f4f;
+    font-size: 0.85em;
+    padding: 10px;
+    margin-left: 15px;
+    margin-top: -50px;
+    position: absolute;
+    width: 75%;
+    display: none;
+    line-height: 2em;
+}
+.node-ef-erm-regulation .erm-reg-cost-covered-by-notes,
+.node-ef-erm-regulation .erm-reg-involved-notes,
+.node-ef-erm-regulation .erm-reg-thresholds-notes{
+    width: 150%;
+    z-index: 10;
+}
+.node-ef-erm-regulation .erm-reg-thresholds-notes{
+    margin-left: -420px;
+    margin-top: -60px;
+}
+.node-ef-erm-regulation .erm-reg-notes .note-author {
+    font-weight: bold;
+}
+.node-ef-erm-regulation .erm-reg-notes .note-text {
+    font-style: italic;
+    margin-left: 0.5em;
+}
+
+/* hide duplicated notes in edit mode */
+.node-ef_erm_regulation-form .note-author,
+.node-ef_erm_regulation-form .note-text{
+    display: none;
+}
+.node-ef_erm_regulation-form .com-erm-reg br{
+    display: none;
+}
+
+/*************************************************
+*** - 2 - **** ERM SUPPORT INSTRUMENT ************
+*************************************************/
+
+/* ---- EFFEC / STRENGHTS / WEAK */
+.erm-si-esw{
+    text-align: left;
+}
+/* --- FUNDING --- */
+.erm-si-funding {
+    /*background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;*/
+    padding: 10px 15px;
+}
+/* --- INVOLVED ACTORS --- */
+.erm-si-involved-actors{
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.erm-si-involved-actors h3{
+    margin-bottom: 20px;
+}
+.erm-si-involved-actors > .field{
+    margin-bottom: 20px;
+}
+
+/* --- EXAMPLES --- */
+.erm-si-example.erm-si-content {
+    margin: 10px 10px 40px;
+}
+
+ /**************************/
+ /*** 3. FACTSHEET *******/
+ /*************************/
+
+ .content_factsheet
+{
+	 border: 0px solid #cccccc;
+    margin: 40px 2% 0;
+    padding: 0 1.5em 1.5em;
+    width: 96%;
+}
+
+.ef_fs_comp_tit
+{
+	font-weight: bold;
+	color: #000;
+	font-size: 1.5em;
+    padding-left: 275px;
+}
+
+.ef_fs_company.row {
+    border-bottom: 1px solid #ccc;
+    margin: 15px 0;
+    padding: 15px 0;
+}
+
+.fs_indoor.row {
+    margin-left: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+
+.fs_data {
+    padding-left: 7em;
+}
+
+.fs_additional_info {
+    padding: 0 20px;
+}
+
+.fs_col_date
+{
+  padding-right: 1em;
+  padding-left: 0em;
+  width: auto;
+  display: inline-block;
+}
+
+
+
+.ef_fs_source_link.fs_indoor.row{
+    clear: both;
+}
+
+.ef_fs_source_link.fs_indoor.row {
+    margin-left: -5px;
+}
+
+.ef_fs_source_previous{
+  padding: 20px 0px 10px 0px;
+}
+.ef_fs_source_previous .ef_fs_source_link.fs_indoor.row{
+  margin-left: 0;
+}
+.ef_fs_source_previous .fs_data.pro {
+  list-style-type: none;
+  width: 65%;
+  display: inline-block;
+  margin: 0;
+  padding-left: 3.5em;
+  float: right;
+}
+.ef_fs_source_previous h4.source_link{
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  vertical-align: top;
+  float: left;
+}
+.ef_fs_geo_loc div:nth-child(even)
+{
+    background-color: #fafafa;
+}
+
+.ef_fs_comp div:nth-child(even)
+{
+    background-color: #fafafa;
+}
+
+.ef_fs_emp_eff div:nth-child(even)
+{
+    background-color: #fafafa;
+}
+
+.ef_fs_addit_info {
+  clear: both;
+}
+.source-area{
+  background-color: #fafafa; 
+}
+.source-area .fs_col_name i{
+  font-size: 10px;
+}
+.ef_fs_addit_info h4{
+  width: 28%;
+  display: inline-block;
+  padding-left: 6px;
+  margin-left: 28px;
+  padding: 10px;
+  font-weight: normal !important;
+  font-family: 'OpenSans-regular-webfont', Arial, Helvetica, sans-serif;
+}
+.ef_fs_addit_info ul{
+  list-style-type: none;
+  width: 65%;
+  display: inline-block;
+  margin: 20px 0px 10px 20px;
+  padding-left: 5em;
+  background-color: #fafafa;
+}
+.ef_fs_addit_info ul li{
+  display: block;
+  float: none;
+  list-style-type: none;
+  margin: 10px 0;
+}
+.ef_fs_addit_info .source-area ul li a{
+  display: inline-block;
+  width: 75%;
+  vertical-align: top;
+  word-break: break-word;
+}
+
+.ef_fs_source_pdf .others-sources{
+  width: 31% !important;
+  padding-right: 0;
+  margin-right: 4px;
+}
+.ef_fs_source_pdf .fs_data{
+  padding-left: 5em;  
+}
+  
+
+.ef_fs_addit_info div:nth-child(even)
+{
+  /*  background-color: #fafafa; */
+}
+
+.fs_data.pro {
+    padding-left: 21em;
+}
+.ef_fs_cont.row {
+    margin-bottom: 1em;
+}
+
+.fs_data.plus {
+    padding-left: 20.8em;
+    display: block;
+}
+
+.node-type-ef-factsheet .fs_data.plus {
+    padding-left: 23.8em;
+    display: block;
+}
+
+.source_link{
+    margin-left: -6px;
+}
+
+ /**************************/
+ /*** 4. NC  *******/
+ /*************************/
+
+  .nc_info {
+  font-size: 8pt;
+  }
+  .nc_info ul {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  }
+  .nc_info ul li {
+  border-right: 1px solid #d3d3d3;
+  padding-right: 1%;
+  }
+  .nc_info ul li:last-child {
+  border-right: 3px solid orange;
+  padding-right: 1%;
+  }
+  .firstl{
+  border-right-width: 0px !important;
+  }
+  .nc-summary h2{
+  color:#004698 !important;
+  background-color: #EDEDF7 !important;
+  padding: 2%;
+  }
+    .nc-summary h2.acordeon{
+      clear: both;
+    }
+  .md_about{
+  border:1px solid #B6CBDE;
+  padding: 4px;
+  width:40%;
+  font-size: 8pt;
+  margin: 10px 0 10px 20px;
+  }
+  .md_body.row
+  {
+  margin: 0 auto;
+    	padding: 11px 0;
+   	 	width: 90%;
+   	 	border-top: 1px dotted #ccc;
+  }
+  .summary_body {
+    font-size: 10pt;
+    margin-right: auto;
+  }
+  .md_tit h5 {
+    font-size: 1.5em;
+    padding-bottom: 4px;
+    padding-left: 24px;
+  }
+  .md_body .small-3.columns {
+    font-weight: bold;
+  }
+  .md_body_row {
+    padding-left: 25px;
+  }
+  .nc_back_button {
+    	padding-left: 15px !important;
+  }
+  .nc_bt_back
+  {
+  background-color: #FFFFFF;
+  color:#004798;
+  border:1px solid #E3E3E3;
+  padding: 10px;
+  font-weight: bold !important;
+  }
+  ul li.obserli
+  {
+  border-right: 3px solid orange;
+  padding-right: 1%;
+  }
+  ul.dop-list li:last-child
+  {
+  border-right: none;
+  }
+  /* --- Attached files (Edu) --- */
+  .nc-attached-documents {
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+/* icon documentos Revision of Greece: Housing in Europe */
+.nc-documents  li:before{
+  content:"\f1c1"!important;
+  font-family: fontAwesome;
+  margin-right: 5px;
+  color: #005baa;
+ }
+
+.nc-source-documents  li:before{
+  content:"\f1c2"!important;
+  font-family: fontAwesome;
+  margin-right: 5px;
+  color: #005baa;
+ }
+
+.nc-source-documents {
+  margin-top: 20px;
+}
+
+.node-type-ef-factsheet .content_factsheet .small-3.columns {
+    width: 28%;
+}
+
+
+@media only screen and (min-width : 768px) and (max-width : 1024px) { 
+  .ef_fs_addit_info h4{
+    width: 100%;
+    display: block;
+    padding-left: 6px;
+    margin-left: 10px;
+    padding: 10px;
+  }
+  .ef_fs_addit_info ul {
+    width: 100%;
+    display:block;
+    margin: 0px 0px 10px 20px;
+    padding-left: 0;
+  }
+  .ef_fs_source_pdf{
+    margin-left: 0 !important;
+  }
+}
+@media only screen and (max-width : 767px){
+  .ef_fs_addit_info h4{
+    width: 100%;
+    display: block;
+    padding-left: 6px;
+    margin-left: 10px;
+    padding: 10px;
+  }
+  .ef_fs_addit_info ul {
+    width: 100%;
+    display:block;
+    margin: 0px 0px 10px 20px;
+    padding-left: 0;
+  }
+  .ef_fs_source_pdf{
+    margin-left: 0 !important;
+  }
+  .ef_fs_source_pdf .others-sources {
+    width: auto !important;
+  }
+  .ef_fs_source_pdf  .fs_data {
+    padding-left: 0;
+  }
+}

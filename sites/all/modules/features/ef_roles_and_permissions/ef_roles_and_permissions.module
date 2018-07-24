@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Roles and Permissions feature.
+ */
+
+include_once 'ef_roles_and_permissions.features.inc';

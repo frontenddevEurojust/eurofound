@@ -1,0 +1,5 @@
+name = Ef Topic Form
+description = Autocomplete the topic field when redirected from topic pages.
+core = 7.x
+package = EF modules
+dependencies[] = workbench

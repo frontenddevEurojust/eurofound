@@ -1,0 +1,22 @@
+# Slovak translation of me aliases (7.x-1.1)
+# Copyright (c) 2012 by the Slovak translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: me aliases (7.x-1.1)\n"
+"POT-Creation-Date: 2012-06-27 07:52+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Slovak\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((n>=2)&&(n<=4))?(1):2));\n"
+
+msgid "Paths"
+msgstr "Cesty"
+msgid ""
+"If the PHP-mode is chosen, enter PHP code between %php. Note that "
+"executing incorrect PHP-code can break your Drupal site."
+msgstr ""
+"Ak je zvolený režim PHP, zadajte PHP kód medzi %php. Poznámka: "
+"spustenie nevhodného kódu môže znefunkčniť váš web."

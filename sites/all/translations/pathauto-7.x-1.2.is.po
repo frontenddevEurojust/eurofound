@@ -1,0 +1,18 @@
+# Icelandic translation of Pathauto (7.x-1.2)
+# Copyright (c) 2013 by the Icelandic translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Pathauto (7.x-1.2)\n"
+"POT-Creation-Date: 2013-10-11 21:28+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Icelandic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Content"
+msgstr "Efni"
+msgid "Users"
+msgstr "Notendur"

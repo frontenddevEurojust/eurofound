@@ -1,0 +1,5 @@
+name = EF Workbench State Premissions
+description = Custom Permissions to Workbench Moderation States
+core = 7.x
+package = EF modules
+dependencies[] = workbench

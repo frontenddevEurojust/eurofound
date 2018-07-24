@@ -1,0 +1,5 @@
+name = EF Publications
+description = Publication content type features
+core = 7.x
+package = EF modules
+dependencies[] = workbench

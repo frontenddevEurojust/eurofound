@@ -1,0 +1,349 @@
+drush sql-query "insert into schema_migrations(code,extra)values('001', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+::
+:: i18n support
+::
+drush pm-download -y i18n
+drush pm-enable -y i18n
+:: content translation, language field
+drush pm-enable -y i18n_node
+drush cc all
+
+:: email field
+drush pm-download -y email
+drush pm-enable -y email
+
+:: hierarchical select
+drush pm-download -y hierarchical_select
+drush pm-enable -y hierarchical_select
+drush pm-enable -y hs_taxonomy
+drush pm-enable -y hs_taxonomy_views
+
+:: simple hierarchical select
+drush pm-download -y shs
+drush pm-enable -y shs
+
+:: better exposed filters in views
+drush pm-download -y better_exposed_filters
+drush pm-enable -y better_exposed_filters
+
+:: dates in views
+drush pm-enable -y date_views
+
+
+:: feed import to import taxonomy terms, nodes, etc
+drush pm-download -y feeds
+drush pm-enable -y feeds_import
+drush pm-enable -y feeds_ui
+drush pm-download -y feeds_tamper
+drush pm-enable -y feeds_tamper_ui
+
+
+:: cascade drop-downs
+drush pm-download -y reference_option_limit
+drush pm-enable -y reference_option_limit
+
+:: Geolocation Field
+drush pm-download -y geolocation
+drush pm-enable -y geolocation
+drush pm-enable -y geolocation_googlemaps
+
+:: Calendar
+drush pm-download -y calendar
+drush pm-enable -y calendar
+drush cc all
+
+:: countries
+drush pm-download -y countries
+drush pm-enable -y countries
+:: after installing countries module and adding extra ef_eu_member_field (tracked by ef_basics feature) some extra info and fixes need to be inserted with sql scripts, see below in the relevant step
+:: these may need to be re-applied after futute module updates
+
+
+:: wysiwig and ckeditor (rich text formats)
+drush pm-download -y wysiwyg
+drush pm-enable -y wysiwyg
+wget http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.3/ckeditor_3.6.3.zip
+:: unzip ckeditor*.zip -d sites/all/libraries
+:: rm ckeditor*.zip
+
+:: unique field
+drush pm-download -y unique_field
+drush pm-enable -y unique_field
+
+
+:: php code in views
+drush pm-download -y views_php
+
+:: if dev version not downloading, then manually:
+wget http://ftp.drupal.org/files/projects/views_php-7.x-1.x-dev.zip
+:: unzip views_php-7.x-1.x-dev.zip sites/all/modules/contrib
+:: rm views_php-7.x-1.x-dev.zip
+
+drush pm-enable -y views_php
+
+
+:: Need to install the ImageMagick http://www.imagemagick.org/script/index.php which is used by pdfpreview module below
+:: For Windows download the binary release http://www.imagemagick.org/script/binary-releases.php#windows
+
+drush pm-download -y pdfpreview
+drush pm-enable -y pdfpreview
+drush cc all
+
+
+:: features extra to track blocks (can also track other objects, like vocabularies, nodes, etc)
+drush pm-download -y features_extra
+drush pm-enable -y  fe_block
+
+
+:: Media Management Module
+:: Notice: We need the version 2.x of the media module and not the current 1.x stable version. 
+:: If there is a stable version 2.x change the drush command below about media.
+
+drush pm-download -y file_entity
+drush pm-enable -y file_entity
+
+:: media module
+:: if there is a stable v2 of the module change the drush command below
+drush pm-download -y media-7.x-2.0-alpha3
+drush pm-enable -y media
+drush pm-enable -y media_wysiwyg_view_mode
+drush pm-enable -y mediafield
+drush pm-enable -y media_internet
+
+drush pm-download -y media_youtube
+drush pm-enable -y media_youtube
+
+drush pm-download -y media_vimeo
+drush pm-enable -y media_vimeo
+
+drush cc all
+
+:: Quicktabs module
+drush pm-download -y quicktabs
+drush pm-enable -y quicktabs
+drush pm-enable -y quicktabs_tabstyles
+drush cc all
+
+:: Navigate to Configuration->System->Cron admin/config/system/cron and run cron
+
+
+:: PDF Export functionality
+
+:: prerequisite: pdf conversion library, chose tcpdf
+wget "http://sourceforge.net/projects/tcpdf/files/tcpdf_6_0_044.zip/download"
+:: unzip tcpdf_6_0_044.zip -d sites/all/libraries
+:: rm tcpdf_6_0_044.zip
+
+:: Printer, email and PDF versions module 
+drush pm-download -y print
+drush pm-enable -y print_pdf
+
+:: Scheduler, used for "published at" datetime
+drush pm-download -y scheduler
+drush pm-enable -y scheduler
+drush cc all
+
+:: Lightbox module
+drush pm-download -y lightbox2
+drush pm-enable -y lightbox2
+drush cc all
+
+:: Webform
+drush pm-download -y webform
+drush pm-enable -y webform
+drush pm-download -y webform_share
+drush pm-enable -y webform_share
+drush cc all
+
+:: Menu Import/Export
+drush pm-download -y menu_import
+drush pm-enable -y menu_import
+drush cc all
+
+:: Language Switcher Dropdown
+drush pm-download -y lang_dropdown
+drush pm-enable -y lang_dropdown
+drush cc all
+
+:: Pathologic
+drush pm-download -y pathologic
+drush pm-enable -y pathologic
+drush cc all
+
+
+:: apply patch on module reference_option_limit
+:: patches/v001-reference_option_limit.module
+
+:: apply patch on module calendar
+:: patches/v001-calendar-theme.inc
+
+
+
+:: features
+
+:: ef basics feature
+drush pm-enable -y ef_basics
+drush fr -y ef_basics
+
+:: news feature
+drush pm-enable -y ef_news
+drush fr -y ef_news
+
+:: restructuring feature
+drush pm-enable -y ef_restructuring
+drush fr -y ef_restructuring
+
+:: ef publications feature
+drush pm-enable -y ef_publications
+drush fr -y ef_publications
+
+:: events feature
+drush pm-enable -y ef_events
+drush fr -y ef_events
+
+:: spotlight (like blog posts) feature
+drush pm-enable -y ef_spotlight
+drush fr -y ef_spotlight
+
+:: business components feature
+drush pm-enable -y ef_business_components
+drush fr -y ef_business_components
+drush cc all
+
+:: media feature
+drush pm-enable -y ef_media
+drush fr -y ef_media
+drush cc all
+
+
+:: vocabularies
+:: populate taxonomy terms using feeds module and csv exports
+::
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+::
+:: || Instrument Phases | import/ef_vocabulary_instrument_phases_import | sites\all\_docs\feeds\vocabulary_instrument_phases.csv ||
+:: || Instrument Categories | import/ef_vocabulary_instrument_categories_import | sites\all\_docs\feeds\vocabulary_instrument_categories.csv ||
+:: || Instrument Fundings | import/ef_vocabulary_instrument_fundings_import | sites\all\_docs\feeds\vocabulary_instrument_fundings.csv ||
+:: || Factsheet Nace Codes | import/ef_vocabulary_nace_codes_import | sites\all\_docs\feeds\vocabulary_nace_codes_level_1.csv ||
+:: || Factsheet Nace Codes | import/ef_vocabulary_nace_codes_import | sites\all\_docs\feeds\vocabulary_nace_codes_level_2.csv ||
+:: || Factsheet Nace Codes | import/ef_vocabulary_nace_codes_import | sites\all\_docs\feeds\vocabulary_nace_codes_level_3.csv ||
+:: || Factsheet Nuts | import/ef_vocabulary_nuts_import | sites\all\_docs\feeds\vocabulary_nuts.csv ||
+:: || Factsheet Restructuring Types | import/ef_vocabulary_restructuring_types_import | sites\all\_docs\feeds\vocabulary_restructuring_types.csv ||
+:: || Instrument Involvement Types | import/ef_vocabulary_instrument_involvement_types_import | sites\all\_docs\feeds\vocabulary_instrument_involvement_types.csv ||
+:: || Publication Sectors | import/ef_vocabulary_publication_sectors_import | sites\all\_docs\feeds\vocabulary_publication_sectors.csv ||
+:: || Publication Types | import/ef_vocabulary_publication_types_import | sites\all\_docs\feeds\vocabulary_publication_types.csv ||
+:: || EF Themes | import/ef_vocabulary_themes_import | sites\all\_docs\feeds\vocabulary_themes.csv ||
+:: || Observatories | import/ef_vocabulary_observatories_import | sites\all\_docs\feeds\vocabulary_observatories.csv ||
+:: || Topics | import/ef_vocabulary_topics_import | sites\all\_docs\feeds\vocabulary_topics.csv ||
+:: || Regulation Fundings | import/ef_vocabulary_regulation_fundings_import | sites\all\_docs\feeds\vocabulary_regulation_fundings.csv ||
+:: || Regulation Involvements | import/ef_vocabulary_regulation_involvements_import | sites\all\_docs\feeds\vocabulary_regulation_involvements.csv ||
+:: || Regulation Thresholds | import/ef_vocabulary_regulation_thresholds_import | sites\all\_docs\feeds\vocabulary_regulation_thresholds.csv ||
+:: || Regulation Phases | import/ef_vocabulary_regulation_phases_import | sites\all\_docs\feeds\vocabulary_regulation_phases.csv ||
+:: || Regulation Types | import/ef_vocabulary_regulation_types_import | sites\all\_docs\feeds\vocabulary_regulation_types.csv ||
+:: || Company Sizes | import/ef_vocabulary_company_sizes_import | sites\all\_docs\feeds\vocabulary_company_sizes.csv ||
+:: || Restructuring Keywords | import/ef_vocabulary_restructuring_keywords_import | sites\all\_docs\feeds\vocabulary_restructuring_keywords.csv ||
+:: || Event Types | import/ef_vocabulary_event_types_import | sites\all\_docs\feeds\vocabulary_event_types.csv ||
+:: || Spotlight Themes | import/ef_vocabulary_spotlight_themes_import | sites\all\_docs\feeds\vocabulary_spotlight_themes.csv ||
+:: || EF Report Types | import/ef_vocabulary_ef_report_types_import | sites\all\_docs\feeds\vocabulary_ef_report_types.csv ||
+:: || Vendor Service Types | import/ef_vocabulary_vendor_service_types_import | sites\all\_docs\feeds\vocabulary_vendor_service_types.csv ||
+:: || Procurement Statuses | import/ef_vocabulary_procurement_statuses_import| sites\all\_docs\feeds\vocabulary_procurement_statuses.csv ||
+:: || Procurement Types | import/ef_vocabulary_procurement_types_import | sites\all\_docs\feeds\vocabulary_procurement_types.csv ||
+
+
+::post features actions
+
+:: countries additions and fixes
+::
+:: after installing countries module and adding extra ef_eu_member_field (tracked by ef_basics feature) some extra info and fixes need to be inserted with sql scripts (as mentioned above in countries module installation)
+:: these may need to be re-applied after futute module updates
+::
+:: Fix countries related info, e.g. Cyprus should be in Europe and not Asia
+run _docs\sql_scripts\v001-fix-countries.txt
+::
+:: Set which countries are EU Member countries, based on existing Eurofound site's countries (may need to be updated)
+run _docs\sql_scripts\v001-populate-eu-member-countries.txt
+
+:: Factsheet Content Type - Nace field Hierarchical Select widget options
+:: Navigate to admin/structure/types/manage/ef-factsheet/fields/field_ef_nace/widget-type  
+:: In 'Save lineage' select  'Save term lineage'
+:: In 'Level choice' select  'Force the user to choose a term from a deepest level'
+:: Click 'Continue' to save the configuration
+
+:: Factsheet Content Type - Nuts field Hierarchical Select widget options
+:: Navigate to admin/structure/types/manage/ef-factsheet/fields/field_ef_nuts/widget-type and
+:: and select 'Save term lineage' in Hierarchical Select configuration
+
+:: Navigate to Configuration -> Media -> PDF Preview  admin/config/media/pdfpreview. In the 'Generated filenames' select 'From pdf filename'
+:: Navigate to Configuration -> Media -> Image toolkit admin/config/media/image-toolkit. In 'Select an image processing toolkit' select ImageMagick and 'Save'. Then set the path 'Path to the "convert" binary *' and Save.
+
+:: remove URL aliases' strings to remove
+:: /admin/config/search/path/settings
+:: empty Strings to Remove field
+:: "a, an, as, at, before, but, by, for, from, is, in, into, like, of, off, on, onto, per, since, than, the, this, that, to, up, via, with"
+
+
+:: print module settings
+:: go to admin/config/user-interface/print/common
+:: Custom stylesheet: %t/css/print-my.css
+:: enable: user specified logo and upload logo
+:: enable footer and write static footer: 'European Foundation for the Improvement of Living and Working Conditions'
+:: go to admin/config/user-interface/print
+:: and to admin/config/user-interface/print/pdf and configure:
+:: enable: Use URL alias instead of node ID
+:: enable: Links area
+:: enable: Icon only
+:: Link visiblity:  Show on only the listed pages:  restructuring-in-smes/*/*
+
+:: webform configuration
+:: navigate to admin/config/content/webform and in 'Webform-enabled content types' select the "Call for Tender" CT and also set the 
+:: 'Default e-mail values' and 'Save configuration'
+:: How to add the vendors webform to a "Call for Tender" node:
+:: Add a new node/content of "Call for Tender" (node/add/ef-call-for-tender).
+:: Then select the tab 'Webform' in the node view.
+:: In the node's Webform page select the sub-tab "Import".
+:: Copy and Paste the code of the file "sites\all\_docs\misc\v001-vendors-webform.txt" in the 'Import code' text area and click Import 
+  
+
+
+:: Import Menu Links
+:: go to admin/structure/menu/import and make the following imports with the following options:
+::
+:: Link to existing content: Checked
+:: Remove existing menu items: Checked
+:: Create initial content: Checked 
+:: Content Type: Basic Page
+:: Body: 'Page is under construction.'
+:: Body Format: Filtered HTML
+:: Published: Checked 
+:: Create path alias: Checked 
+::
+:: || Target Menu | Menu File ||
+::
+:: || Footer Links | sites\all\_docs\imports\menus\menu-ef-footer-links-export.txt ||
+:: || Quick Links | sites\all\_docs\imports\menus\menu-ef-quick-links-export.txt ||
+
+
+:: Language Selector
+:: go to admin/config/regional/language and add one or more languages on top of English
+:: go to admin/config/regional/language/configure and select URL (1st) and Session (2nd) on top of Default
+
+:: Search Form
+:: go to admin/people/permissions and give Use Search permission to all roles (even anonymous user)
+
+
+:: Fix relative paths in text format urls with pathologic (stag and prod machines only)
+:: go to admin/config/content/formats/full_html and admin/config/content/formats/filtered_html
+:: and configure as following:
+:: Correct URLs with Pathologic: check (should be put last in filters processing order)
+:: All base paths for this site: (e.g.) 
+:: http://192.168.0.221/
+:: http://192.168.0.221/ef
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

@@ -1,0 +1,29 @@
+:: import latest version of easa old db locally and use MySqlFront to run some queries and export results as csv
+
+select i.name, english_name,c.name as country,coverage,main_characteristics,effectiveness,strengths,weakness,example, t.title as phase, LCASE(GROUP_CONCAT(DISTINCT ics.title SEPARATOR '*'))
+,LCASE(GROUP_CONCAT(DISTINCT ifus.title SEPARATOR '*')),(GROUP_CONCAT(DISTINCT CONCAT_WS('#',LCASE(inv.title),invs.comment) SEPARATOR '*')),source,url
+from instruments i 
+	left join countries c on  i.country=c.id 
+	left join instrument_types t on t.id=i.type 
+	left join instruments_categories ic on ic.instrument_id=i.id 
+	inner join instrument_categories ics on ics.id=ic.category_id
+	left join instruments_fundings ifu on ifu.instrument_id=i.id 
+	inner join instrument_fundings ifus on ifus.id=ifu.funding_id
+	left join instruments_involvement_types invs on invs.instrument_id=i.id 
+	inner join instrument_involvement_types inv on inv.id=invs.involvement_type_id
+where 
+	i.isRevision=0 and status=1
+group by i.id
+
+
+:: select all results (ctrl+A)
+:: right click, export as text file
+:: change file name to 'instruments.csv'
+:: options
+  :: Write Headline, checked
+  :: Delimiter, character '~'
+  :: Quote Strings checked
+:: leave field names as is and 'Finish'
+:: move generated file to 'sites\all\_docs\scripts\migration\files' (or save it there in the first place)
+
+:: run sites/all/_docs/scripts/migration/instruments.php

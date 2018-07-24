@@ -1,0 +1,12 @@
+[Thu Jan 16 17:22:18 2014] [error] [client 127.0.0.1] File does not exist: C:/_projects/drupal/ef/ef-website/favicon.ico
+[Thu Jan 16 17:22:18 2014] [error] [client 127.0.0.1] File does not exist: C:/_projects/drupal/ef/ef-website/favicon.ico
+[Fri Jan 17 10:55:40 2014] [error] [client 127.0.0.1] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/, referer: http://ef.1/
+[Fri Jan 17 10:55:40 2014] [error] [client 127.0.0.1] File does not exist: C:/_projects/drupal/ef/ef-website/favicon.ico
+[Fri Jan 17 10:55:40 2014] [error] [client 127.0.0.1] File does not exist: C:/_projects/drupal/ef/ef-website/favicon.ico
+[Fri Jan 17 11:00:10 2014] [error] [client 127.0.0.1] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/
+[Fri Jan 17 11:04:09 2014] [error] [client 127.0.0.1] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/
+[Fri Jan 17 11:05:12 2014] [error] [client 192.168.0.52] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/, referer: http://ef1.192.168.0.54.xip.io/about-eurofound
+[Fri Jan 17 11:05:12 2014] [error] [client 192.168.0.52] File does not exist: C:/_projects/drupal/ef/ef-website/favicon.ico
+[Fri Jan 17 11:16:26 2014] [error] [client 127.0.0.1] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/, referer: http://ef.1/about-eurofound
+[Fri Jan 17 11:18:14 2014] [error] [client 192.168.0.52] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/, referer: http://ef1.192.168.0.54.xip.io/observatories/emcc
+[Fri Jan 17 11:24:26 2014] [error] [client 127.0.0.1] Directory index forbidden by Options directive: C:/_projects/drupal/ef/ef-website/themes/, referer: http://ef.1/

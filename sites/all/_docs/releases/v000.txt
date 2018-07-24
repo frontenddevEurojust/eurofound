@@ -1,0 +1,199 @@
+:: Software Requirements
+
+1A. Download and setup apache, mysql and php
+1B. Download and setup xampp with apache, mysql and php
+2. Download and setup drush
+3. Download and setup drush helper applications (if not downloaded together with drush as a bundle): gtar, gzip, libarchive, wget
+4. Put everything in path as follows:
+	C:\xampp\php;C:\PortableApps\wget;C:\PortableApps\libarchive\bin;C:\PortableApps\gzip\bin;C:\PortableApps\gtar\bin;C:\drush
+5. edit php.ini
+5.1 set upload_max_filesize = 8M
+
+local db setup
+--------------
+drop database if exists `ef-drupal`;
+create database `ef-drupal` default character set utf8;
+grant select, insert, update, delete, create, drop, index, alter on `ef-drupal`.* to 'ef-drupal'@'localhost' identified by 'ef-drupal-123';
+
+
+staging db setup
+--------------------------
+drop database if exists `ef-drupal`;
+create database `ef-drupal` default character set utf8;
+grant select, insert, update, delete, create, drop, index, alter, lock tables on `ef-drupal`.* to 'ef-drupal'@'localhost' identified by 'ef-drupal-123';
+grant usage, select, lock tables on *.* to 'ef-backup'@'localhost' identified by 'ef-backup-123';
+
+prod db setup
+-------------
+drop database if exists `ef-drupal`;
+create database `ef-drupal` default character set utf8;
+grant select, insert, update, delete, create, drop, index, alter, lock tables on `ef-drupal`.* to 'ef-drupal'@'localhost' identified by 'ef-drupal-123p';
+grant usage, select, lock tables on *.* to 'ef-backup'@'localhost' identified by 'ef-backup-123';
+
+:: on root folder of your projects
+
+drush dl drupal --drupal-project-rename=ef-website
+cd ef-website
+
+:: import sites\all to svn://sauron.eworx.sa/ef/drupal-website/ef-website
+:: and checkout
+
+mkdir sites\all\modules\contrib
+mkdir sites\all\modules\custom
+mkdir sites\all\modules\features
+mkdir sites\all\libraries
+mkdir logs
+
+
+drush site-install standard ^
+  --account-name=eworx ^
+  --account-pass=eworx123 ^
+  --account-mail="ef-drupal@eworxsa.com" ^
+  --db-url=mysql://ef-drupal:ef-drupal-123@localhost/ef-drupal ^
+  --site-name="ef" ^
+  -y
+ 
+   
+:: copy paste all\_docs\settings.dev.php to default\settings.php and edit appropriately
+
+:: setup some hosts on c:\windows\system32\drivers\etc\HOSTS
+:: eg:
+127.0.0.1 ef.1
+127.0.0.1 ef.11
+127.0.0.1 ef.111
+127.0.0.1 ef.1111
+
+
+:: setup a VirtualHost on apache
+:: eg:
+<VirtualHost *:80>
+ 	ServerName ef.1
+ 	ServerAlias ef.11 ef.111 ef.1111 ef1.192.168.0.52.xip.io
+ 	DocumentRoot C:\projects\drupal\ef\ef-website
+	CustomLog C:\projects\drupal\ef\ef-website\logs\access.log combined_time
+	LogLevel warn
+	ErrorLog C:\projects\drupal\ef\ef-website\logs\error.log
+ 	<Directory />	
+ 	AllowOverride All
+ 	</Directory>
+</VirtualHost>
+
+:: versioning
+:: ----------
+drush sql-query "create table schema_migrations (runAt timestamp not null default CURRENT_TIMESTAMP, code varchar(255) not null, extra varchar(255), primary key (code)) ENGINE=InnoDB;"
+drush sql-query "insert into schema_migrations(code,extra)values('000', 'v000.txt')"
+
+drush sql-query "select * from schema_migrations order by runAt"
+
+
+
+:: initial modules setup
+:: ---------------------
+
+
+:: allows smtp configuration
+drush pm-download  -y smtp
+drush pm-enable    -y smtp
+
+:: externalizes some theme variables. unecessary to ef 
+drush pm-disable -y color
+
+:: mandatory for modern drupal development
+drush pm-download -y token
+drush pm-enable   -y token
+drush pm-download -y ctools
+drush pm-enable   -y ctools
+drush pm-download -y views
+drush pm-enable   -y views
+drush pm-enable   -y views_ui
+drush pm-download -y variable
+drush pm-enable   -y variable
+drush pm-enable   -y variable_admin variable_advanced variable_realm variable_store
+drush pm-download -y features
+drush pm-enable   -y features
+drush pm-download -y strongarm
+drush pm-enable   -y strongarm
+drush pm-download -y context
+drush pm-enable   -y context
+drush pm-enable   -y context_ui
+
+:: dev optional module
+drush pm-download -y devel
+drush pm-enable   -y devel
+drush pm-download -y admin_menu
+drush pm-enable   -y admin_menu admin_menu_toolbar admin_devel
+drush pm-disable  -y toolbar
+drush pm-disable  -y overlay
+drush pm-download -y module_filter
+drush pm-enable   -y module_filter
+
+:: automatic friendly URLs
+drush pm-download -y pathauto
+drush pm-enable   -y pathauto
+drush vset -y --always-set pathauto_node_pattern "[node:title]"
+
+:: menu block capability
+drush pm-download -y menu_block
+drush pm-enable -y menu_block
+
+:: good to exist - provides help inengestructure for other modules
+drush pm-download -y advanced_help
+drush pm-enable   -y advanced_help
+
+drush pm-download -y entityreference
+drush pm-enable   -y entityreference
+
+drush pm-download -y security_review
+drush pm-enable   -y security_review
+
+:: required content fields
+drush pm-download -y link
+drush pm-enable   -y link
+drush pm-download -y date
+drush pm-enable   -y date
+drush pm-enable   -y date_popup
+:: Project date contains 11 modules: date_views, date_tools, date_repeat_field, date_repeat, date_popup, date_migrate_example, date_migrate, date_context, date_api, date_all_day, date.
+:: The Date API requires that you set up the site timezone and first day of week settings and the date format settings to function correctly.
+
+:: good for troubleshooting users and permission issues
+drush pm-download -y masquerade
+drush pm-enable   -y masquerade
+
+drush pm-download -y jquery_update
+drush pm-enable   -y jquery_update
+
+:: Rules module
+drush pm-download -y rules
+drush pm-enable   -y rules
+drush pm-enable   -y rules_scheduler
+drush pm-enable   -y rules_admin
+drush pm-enable   -y rules_i18n
+drush cc all
+
+
+:: themes setup
+:: ---------------------
+
+:: install foundation theme (sub-theme for EF)
+drush pm-download zurb-foundation
+:: install starter sub-theme of foundation for EF
+drush fst "zurb-foundation" "EF Foundation Theme" "effoundation"
+:: go to admin/config/development/jquery_update
+:: and set jquery version to 1.7 (not 1.8 for the moment as it breaks views admin functionality)
+:: https://drupal.org/node/1934310
+:: go to admin/appearance/settings/effoundationtheme and set
+:: settings[zurb_foundation_top_bar_enable] = 2
+:: settings[zurb_foundation_top_bar_grid] = 1
+:: settings[zurb_foundation_top_bar_sticky] = 1
+:: go to admin/structure/menu/settings and set
+:: No Secondary Links
+
+drush pm-disable -y seven
+drush pm-enable -y effoundationtheme
+drush vset -y --always-set theme_default "effoundationtheme"
+drush pm-disable -y bartik
+
+
+
+
+drush cc all

@@ -1,0 +1,28 @@
+# Icelandic translation of Messaging (7.x-1.0-alpha2)
+# Copyright (c) 2013 by the Icelandic translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Messaging (7.x-1.0-alpha2)\n"
+"POT-Creation-Date: 2013-10-11 15:36+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Icelandic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Body"
+msgstr "Meginmál"
+msgid "Delete"
+msgstr "Eyða"
+msgid "Content"
+msgstr "Efni"
+msgid "Description"
+msgstr "Lýsing"
+msgid "Disabled"
+msgstr "Óvirkt"
+msgid "Date"
+msgstr "Dagsetning"
+msgid "Default"
+msgstr "Sjálfgefið"

@@ -1,0 +1,54 @@
+<?php
+
+require_once 'functions/ef_my_news_desk.auxiliar_functions.inc';
+/*
+  Implements hook_permission()
+*/
+function ef_my_news_desk_permission(){
+  return array(
+    'access_ef_my_news_desk_view' => array(
+      'title' => t('Access to MyNewsDeskImport page'),
+      'description' => t('Allow access to MyNewsDeskImport'),
+    ),
+  );
+}
+/*
+  Implements hook_menu()
+*/
+function ef_my_news_desk_menu(){
+
+  $items['mynewsdesk-import'] = array(
+    'title' => 'MyNewsDesk import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mynewsdesk_form'),
+    'access arguments' => array('access_ef_my_news_desk_view'),
+    'file' => 'ef_my_news_desk.admin.inc',
+  );
+
+   return $items;
+}
+/*
+  Implements hook_cron()
+
+*/
+function ef_my_news_desk_cron(){
+
+  // Get All the data from MyNewsDesk
+  // this will require php.ini to be setup to allow fopen over URLs
+  // Make one request per content type involved. Not possible to request all nodes.
+  $news_data = json_decode(file_get_contents("http://www.mynewsdesk.com/services/pressroom/search/QyV_cMTUnQb_GEKta7cd0Q/?type_of_media=news&limit=100&format=json"));
+  $blog_post_data = json_decode(file_get_contents("http://www.mynewsdesk.com/services/pressroom/search/QyV_cMTUnQb_GEKta7cd0Q/?type_of_media=blog_post&limit=100&format=json"));
+  $pressrelease_data = json_decode(file_get_contents("http://www.mynewsdesk.com/services/pressroom/search/QyV_cMTUnQb_GEKta7cd0Q/?type_of_media=pressrelease&limit=100&format=json"));
+
+  $news_array = $news_data->search_result->items->item;
+  $blog_post_array = $blog_post_data->search_result->items->item;
+  $pressrelease_array = $pressrelease_data->search_result->items->item;
+
+  //Merge obtained data sets into one array
+  $imported_results = array_merge($news_array, $blog_post_array, $pressrelease_array);
+  // Modify array before saving it as session variable. Change key value to MyNewsDeskId for easier manipulation
+  $imported_results = change_key($imported_results);
+
+  variable_set('mynewsdesk_data',$imported_results);
+
+}

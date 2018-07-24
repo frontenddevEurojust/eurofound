@@ -1,0 +1,21 @@
+--2014-10-22 13:33:38--  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=del
+Resolving eurofound.europa.eu (eurofound.europa.eu)... 127.0.0.1
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2014-10-22 13:48:39--  (try: 2)  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=del
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... Read error (Connection timed out) in headers.
+Retrying.
+
+--2014-10-22 14:03:41--  (try: 3)  http://eurofound.europa.eu/ef/sites/all/_docs/migration/basic-pages.php?action=del
+Connecting to eurofound.europa.eu (eurofound.europa.eu)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2555 (2.5K) [text/html]
+Saving to: `basic-pages.php?action=del'
+
+     0K ..                                                    100%  451M=0s
+
+2014-10-22 14:16:08 (451 MB/s) - `basic-pages.php?action=del' saved [2555/2555]
+

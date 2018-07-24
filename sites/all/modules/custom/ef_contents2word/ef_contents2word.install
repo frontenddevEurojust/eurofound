@@ -1,0 +1,24 @@
+<?php
+/***
+* EFW2C 2015
+* ----------
+* Install, update and uninstall functions for the ef_contents2word module.
+*/
+
+/**
+ * Setup variable defaults...
+ */
+
+function ef_contents2word_install() {
+  //variable_set('ef_w2c_v1', 'ejemplo');
+}
+
+/**
+ * uninstall
+ */
+
+function ef_contents2word_uninstall() {
+
+  //variable_del('ef_w2c_v1');
+
+}

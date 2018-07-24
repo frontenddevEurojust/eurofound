@@ -1,0 +1,30 @@
+/*! Grey tooltip style */
+.qtip-grey {
+	background-color: #eee;
+	border-color: #333;
+	color: #333;
+}
+
+.qtip-grey .qtip-titlebar{
+	background-color: #ccc;
+}
+
+.qtip-grey .qtip-close .qtip-icon{
+	background-position: -2px 0;
+}
+
+/*! Orange tooltip style */
+
+.qtip-orange {
+	background-color: #F9D423;
+	border-color: #6F5E0f;
+	color: #6F5E0F;
+}
+
+.qtip-orange .qtip-titlebar{
+	background-color: #C3A61B;
+}
+
+.qtip-orange .qtip-close .qtip-icon{
+	background-position: -2px 0;
+}

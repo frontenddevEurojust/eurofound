@@ -1,0 +1,4 @@
+name = EF CRM wrapper
+description = Provides EF crm iframe deligation pages for drupal.
+package = EF modules
+core = 7.x

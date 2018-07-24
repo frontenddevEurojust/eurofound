@@ -1,0 +1,23 @@
+# Hungarian translation of me aliases (7.x-1.1)
+# Copyright (c) 2012 by the Hungarian translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: me aliases (7.x-1.1)\n"
+"POT-Creation-Date: 2012-06-27 07:52+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Hungarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "Paths"
+msgstr "Útvonalak"
+msgid ""
+"If the PHP-mode is chosen, enter PHP code between %php. Note that "
+"executing incorrect PHP-code can break your Drupal site."
+msgstr ""
+"Ha a PHP-mód lett kiválasztva, akkor a PHP kód megadható %php "
+"jelölések között. Hibásan megadott PHP kód "
+"működésképtelenné teheti a webhelyet!"

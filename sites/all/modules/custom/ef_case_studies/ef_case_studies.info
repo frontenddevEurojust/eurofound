@@ -1,0 +1,4 @@
+name = ef_case_studies	
+description = Module for Case Studies View forms
+core = 7.x
+package = EF modules

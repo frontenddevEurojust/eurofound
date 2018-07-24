@@ -1,0 +1,4 @@
+<?php
+
+/* --- hooks --- */
+include 'ef_case_studies.autocomplete.inc';

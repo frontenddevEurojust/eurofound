@@ -1,0 +1,4 @@
+name = ef_customised_forms
+description = Container for all non-specific alter EF forms
+package = EF modules
+core = 7.x

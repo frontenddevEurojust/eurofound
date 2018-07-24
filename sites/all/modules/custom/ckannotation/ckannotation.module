@@ -1,0 +1,102 @@
+<?php
+function ckannotation_ckeditor_plugin()
+{
+   $module_path = drupal_get_path('module', 'ckannotation');
+   $plugins = array (
+      'annotation' => array(
+         'name' => 'annotation',
+         'desc' => 'Annotations for CKEditor',
+         'path' => $module_path . '/plugins/annotation',
+         'default' => 't'
+       )
+   );
+
+   return $plugins;
+}
+
+function ckannotation_init() {
+   global $user;
+
+    // High permissions roles
+    $type_edit_roles = array(
+      'Quality Manager', 'Quality Manager +', 'Editor', 'administrator',
+    );
+    // Allowed roles
+    $allow_to_edit = FALSE;
+    foreach ($type_edit_roles as $index => $role) {
+      if ( in_array($role, $user->roles) ) {
+        $allow_to_edit = TRUE;
+      }
+    }
+
+   $colors = array(
+      3 => 'cream',
+      4 => 'green',
+      6 => 'blue',
+      7 => 'red',
+      8 => 'grey',
+      9 => 'orange'
+   );
+
+   $max_role = (max(array_keys($user->roles))%10);
+
+   if ( $user->uid != 0 ) {
+      drupal_add_js(
+         array(
+            'ckannotation' => array(
+               'uid' => $user->uid,
+               'username' => $user->name,
+               'color' => $colors[$max_role],
+               'allow_to_edit' => $allow_to_edit,
+            )
+         ),
+         'setting'
+      );
+   }
+
+   libraries_load('qtip');
+   drupal_add_js( drupal_get_path('module', 'ckannotation') . '/js/ckannotationview.js');
+   drupal_add_css( 'body.logged-in .annotation { background-color: yellow;cursor:help; }', 'inline');
+   drupal_add_css( 'td a.cke_disabled { color: #A0A0A0;}', 'inline');
+   drupal_add_css( drupal_get_path('module', 'ckannotation') . '/css/ckannotation.css', 'file');
+
+}
+
+function ckannotation_libraries_info() {
+  $libraries['qtip'] = array(
+	    'name' => 'qTip2',
+	    'description' => 'qTip2 - Pretty powerful tooltips',
+	    'vendor url' => 'http://qtip2.com',
+	    'download url' => 'http://qtip2.com/download',
+	    'version arguments' => array(
+	      'file' => 'jquery.qtip.min.js',
+	      'pattern' => '@v([0-9a-zA-Z\.-]+)@',
+	    ),
+	    'files' => array(
+	      'js' => array('jquery.qtip.min.js'),
+	      'css' => array('jquery.qtip.min.css'),
+	    ),
+  );
+  return $libraries;
+}
+
+/*
+function ckannotation_filter_info() {
+  $filters['ckannotation'] = array(
+    'title' => t('CKannotation Filter'),
+    'description' => t('Removes annotation <span> tags for anonymous users.'),
+    'process callback'  => '_ckannotation_filter_process',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+
+function _ckannotation_filter_process($text, $filter) {
+   global $user;
+
+   if ( $user->uid == 0 )
+      return preg_replace('/<span annotation(.*?)>/', '<span>', $text);
+   else
+      return $text;
+}
+*/

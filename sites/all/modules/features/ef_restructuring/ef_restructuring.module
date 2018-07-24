@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Factsheets feature.
+ */
+
+include_once 'ef_restructuring.features.inc';

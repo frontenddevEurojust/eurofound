@@ -1,0 +1,75 @@
+<?php
+
+function ef_irdictionary_reset_button_form_alter(&$form, $form_state, $form_id) {
+
+  if ($form['#id'] == 'views-exposed-form-ef-ir-dictionary-page') {
+    global $base_url;
+
+
+    $url = current_path();
+    $reset_url = '/observatories/eurwork/industrial-relations-dictionary';
+
+    drupal_add_js(drupal_get_path('module','ef_irdictionary_reset_button') . '/ef_ir_dictionary_view.js');
+      //'Reset all' button behaviour modification
+    $form['reset_all'] = array(
+      '#markup' => '<a id="edit-reset" href="'. $base_url . $reset_url .'"> Reset </a>',
+    );
+
+    $form['checkbox_title'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Search Titles only'),
+      '#default_value' => $_SESSION['IR_only_title'],
+      //'#return_value' => 1,
+      );
+    $form['#submit'][] = 'filtering_session_variable_saving_function';
+
+    return $form;
+  }
+
+}
+
+function filtering_session_variable_saving_function($form, &$form_state){
+  // Filters
+  if(!empty($form_state['values']['combine']))
+    $combine = $form_state['values']['combine'];
+  if(isset($form_state['values']['published_at']))
+    $date = $form_state['values']['published_at'];
+  if($form_state['values']['checkbox_title'] == 1)
+    $checkbox = $form_state['values']['checkbox_title'];
+
+  if($form_state['values']['checkbox_title'] == 1){
+    $_SESSION['IR_only_title'] = TRUE;
+  }else{
+    $_SESSION['IR_only_title'] = FALSE;
+  }
+
+  // Variable to pass to JS
+  $settings['title'] = $combine;
+  $settings['date'] = $date;
+  $settings['checkbox'] = $checkbox;
+
+
+
+  drupal_add_js(array('ef_irdictionary_reset_button' => $settings), 'setting');
+
+}
+
+/**
+ * Implements hook_views_api()
+ */
+
+function ef_irdictionary_reset_button_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+
+/**
+ * Implements hook_views_data()
+ * Exposes our playcount table to views
+ */
+
+function ef_irdictionary_reset_button_views_data() {
+
+}
+

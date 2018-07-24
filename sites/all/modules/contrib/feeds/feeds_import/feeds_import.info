@@ -1,0 +1,13 @@
+name = Feeds Import
+description = An example of a node importer and a user importer.
+core = 7.x
+package = Feeds
+version = 7.x-2.0-alpha8
+project = feeds_import
+ctools[] = feeds:feeds_importer_default:1
+datestamp = 1366671911
+features[features_api][] = api:2
+feeds_importer[] = node
+feeds_importer[] = user
+files[] = feeds_import.test
+mtime = 1413414080

@@ -1,0 +1,6 @@
+name = ef_irdictionary_reset_button
+description = IR dictionary view reset button behavior modifier
+core = 7.x
+package = EF modules
+version = 7.x-1.0
+project = ef_irdictionary_reset_button

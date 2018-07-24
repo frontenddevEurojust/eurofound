@@ -1,0 +1,4 @@
+name =  Change the exposed filter value 
+description = Change programatically so that the field searches for the contract number and not the contract name on the exposed filter of the view
+package = EF modules
+core = 7.x

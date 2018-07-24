@@ -1,0 +1,95 @@
+drush sql-query "insert into schema_migrations(code,extra)values('004', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+
+:: MODULES ::
+
+:: chosen module for multiple selects with search
+::
+:: https://drupal.org/project/chosen
+:: 1: Download the Chosen jQuery plugin and extract the file under sites/all/libraries in folder named chosen
+:: 2: Download and enable the module
+drush dl -y chosen
+drush en -y chosen
+drush cc all
+:: 3: Configure at Administer > Configuration > User interface > Chosen
+:: set minimum width 400px
+:: Apply Chosen to the following elements: leave as is (select:visible)
+
+:: disable reference option limit module as it breaks opt groups and chosen functionality
+ drush dis -y reference_option_limit
+ drush cc all
+
+:: eworx custom module
+drush en -y ef_taxonomy_field_optgroup
+drush cc all
+
+:: popup module with popup_block plugin
+drush dl -y popup
+drush en -y popup_block
+drush cc all
+
+:: me aliases module e.g user/me -> user/1
+drush dl -y me
+drush en -y me
+drush cc all
+
+:: shortcuts per role module
+drush dl -y shortcutperrole
+drush en -y shortcutperrole
+drush cc all
+
+:: VBO module for admin views actions and their access rights
+drush en -y views_bulk_operations
+drush cc all
+
+:: lexicon module
+drush dl -y lexicon
+drush en -y lexicon
+drush cc all
+
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+:: apply patch on module shortcut
+:: patches/v004-shortcut.module
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Industrial Relations Terms | import/ef_vocabulary_industrial_relations_terms_import | sites\all\_docs\feeds\vocabulary_industrial_relations_terms.csv ||
+
+
+
+:: MENU LINKS ::
+
+:: || Menu Link Title | Menu Link Title | Menu Link Parent ||
+:: | European industrial relations dictionary | themes/industrial-relations/industrial-relations-terms | INDUSTRIAL RELATIONS |
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+
+
+
+drush vset -y maintenance_mode 0
+drush cc all

@@ -1,0 +1,593 @@
+<?php
+
+
+require_once 'helpers/functions.inc';
+
+/**
+* Implements hook_permissions().
+* This hook can supply permissions that the module defines, so that they can be selected on the user permissions page and
+* used to grant or restrict access to actions the
+* module performs.
+*/
+
+function ef_annual_progress_report_autocreation_permission() {
+
+  return array(
+    'access_ef_annual_progress_report' => array(
+      'title' => t('Access EF Annual Progress Report page'),
+      'description' => t('Allow access EF Annual Progress Report'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ * Define menu items and page callbacks.
+ */
+
+
+function ef_annual_progress_report_autocreation_menu() {
+
+  $items = array();
+
+  $items['annual_progress_report_autocreation'] = array(
+    'title' => 'Annual Progress Report Autocreation',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ef_annual_progress_report_autocreation_form'),
+    'access arguments' => array('access_ef_annual_progress_report'),
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_form($node, &$form_state).
+ * Display a node editing form.
+ */
+
+function ef_annual_progress_report_autocreation_form($node, &$form_state){
+
+  $form = array();
+
+  // dates
+  $format = 'Y-m-d';
+  $today = date($format);
+  $two_weeks_more = date($format, strtotime($today . '+2 week'));
+
+  //METADATA GROUP
+  $form['metadata_fieldset'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Metadata'),
+        '#collapsible' => FALSE,
+      );
+
+  // TITLE
+  $form['metadata_fieldset']['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#size' => 80,
+    '#maxlength' => 256,
+    '#required' => TRUE,
+  );
+
+  // TYPE OF REPORT
+   $form['metadata_fieldset']['type_of_report'] = array(
+     '#type' => 'select',
+     '#title' => t('Type of Report'),
+     '#options' => array(
+        'EU level' => t('EU level'),
+        'National' => t('National'),
+     ),
+     '#required' => TRUE,
+   );
+
+  // EU level
+  $form['metadata_fieldset']['eu_level'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('EU level'),
+    '#options' => array(
+      '0' => 'National',
+      '1' => 'EU level',
+    ),
+    '#states' => array(
+      'enabled' => array('select[name="type_of_report"]' => array('value' => 'EU level'))
+    ),
+    '#default_value' => 1,
+  );
+
+  // National countries
+  $country_tax_name = 'country';
+  $array_countries = get_taxonomy_options_by_name($country_tax_name, $parent = 0);
+
+  $form['metadata_fieldset']['national_countries'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Countries'),
+    '#options' => $array_countries,
+    '#states' => array(
+      'enabled' => array('select[name="type_of_report"]' => array('value' => 'National'))
+    ),
+    '#default_value' => get_country_tids(),
+    '#element_validate' => array('ef_annual_progress_report_autocreation_validate'),
+  );
+
+
+  //unset not EU27 countries: Iceland,Macedonia,Montenegro,Turkey,EU level
+  $no_EU_countries = array("Iceland","Macedonia","Montenegro","Turkey","EU level","Other European country","Non-European country");
+  foreach($form['metadata_fieldset']['national_countries']['#options'] as $key=>$value){
+    if(in_array($value, $no_EU_countries)){
+      unset($form['metadata_fieldset']['national_countries']['#options'][$key]);
+    }
+  }
+
+
+  $form['metadata_fieldset']['remove_all_countries'] = array(
+    '#type' => 'button',
+    '#value' => 'Remove all'
+  );
+
+  $form['metadata_fieldset']['add_all_countries'] = array(
+    '#type' => 'button',
+    '#value' => 'Select all'
+  );
+
+
+  // YEAR
+  $form['metadata_fieldset']['year'] = array(
+    '#type' => 'date_select',
+    //'#title' => t('Year'),
+    '#date_timezone' => 'Europe/Dublin',
+    '#date_year_range' => '-3:+3',
+    '#date_format' => 'Y',
+    '#default_value' => date('Y'),
+    '#required' => true,
+  );
+
+
+  // SCHEDULED RECORD DELIVERY DATE
+  $form['metadata_fieldset']['scheduled_record_delivery_date'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Scheduled record delivery date'),
+  );
+
+
+  $form['metadata_fieldset']['scheduled_record_delivery_date']['scheduled_date_from'] = array(
+    '#type' => 'date_popup',
+    '#timepicker' => 'timepicker',
+    '#title' => t('Date'),
+    '#date_format' => $format,
+    '#default_value' => $two_weeks_more,
+    '#date_increment' => 15,
+  );
+
+
+  // APPROVED FOR PAYMENT
+  /*
+  $form['metadata_fieldset']['approved_for_payment'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Approved for payment date'),
+  );
+  $format = 'Y-m-d';
+  $form['metadata_fieldset']['approved_for_payment']['approved_for_payment_from'] = array(
+    '#type' => 'date_popup',
+    '#timepicker' => 'timepicker',
+    '#title' => t('Date'),
+    '#date_format' => $format,
+    '#default_value' => $two_weeks_more,
+  );
+  */
+
+  // DELIVERABLE KIND
+  // Taxonomy term = Annual Progress Report (TID = 21293)
+  $deliverable_tax_name = 'ef_deliverable_kinds';
+  $form['metadata_fieldset']['deliverable_kind_parent'] = array(
+   '#type' => 'select',
+   '#title' => t('Deliverable kind'),
+   '#required' => TRUE,
+   '#options' => array('21293' => 'Annual Progress Report'),
+   '#default_value' => 21293,
+  );
+
+  $form['metadata_fieldset']['deliverable_kind_childrens'] = array(
+   '#type' => 'select',
+   '#required' => TRUE,
+   '#options' => get_taxonomy_options_by_name($deliverable_tax_name, $parent = 21293),
+   '#default_value' => 21294,
+  );
+
+
+
+  // REQUESTED ON
+  $today = date('Y-m-d h:m');
+  $format = 'Y-m-d';
+  $form['metadata_fieldset']['requested_on'] = array(
+    '#type' => 'date_popup',
+    '#title' =>t('Requested on'),
+    '#default_value' => $today,
+    '#date_format' => $format,
+  );
+
+
+  // JS and CSS files
+  $form['#attached']['js'][] = drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_autocreation.js';
+
+  $form['#attached']['css'][] = drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_autocreation.css';
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Request Reports'),
+  );
+
+  return $form;
+
+}
+
+/**
+ * Implements hook_validate().
+ */
+function ef_annual_progress_report_autocreation_validate($element, &$form_state){
+
+  if (isset($form_state['values']['field_ef_new_contract']) ){
+
+    if ($form_state['values']['field_ef_new_contract']['und'] == 1) {
+      if ($form_state['values']['field_ef_new_contract_date']['und'][0]['value']['date'] == '') {
+        $now = date('Y-m-d');
+        form_set_error('field_ef_new_contract_date',
+          'New contract date is checked, therefore you must insert a new contract dat(Format: ' . $now . ')');
+      }
+    }
+  }
+  if($form_state['input']['workbench_moderation_state_new'] == 'submitted'){
+    if($form_state['input']['field_ef_approved_for_payment']['und'][0]['value']['date'] == ''){
+      $date = date('Y-m-d');
+      form_set_error('field_ef_approved_for_payment','Approved for payment must be filled in. (Format: ' . $date . ')');
+    }
+  }
+  if ($form_state['input']['field_ef_moderation_state'] == 'submitted'){
+
+    drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_form.js');
+    drupal_add_css(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_form.css');
+
+    if(empty($form_state['values'][$element['und']['#field_name']]['und'][0]['value'])){
+      if ($element['und'][0]['#title'] != 'New contract date') {
+        $msg = 'Missing" ' .  $element['und']['#title'] . '" field';
+        form_error($element, $msg);
+      }
+    }
+
+  }
+
+  $node = node_load($form_state['values']['nid']);
+  $year_timestamp = date('Y-m-d',$node->field_ef_year['und'][0]['value']);
+  $year_date_exploded = explode('-',$year_timestamp);
+  $year = $year_date_exploded[0] . '-11-30';
+  $year_to_validate = strtotime($year);
+
+  if (isset($form_state['values']['field_ef_new_contract_date']['und'][0]['value']['date'])) {
+    $new_contract_ts = strtotime($form_state['values']['field_ef_new_contract_date']['und'][0]['value']['date']);
+
+    if ($new_contract_ts > $year_to_validate) {
+
+      form_set_error('field_ef_new_contract_date', 'Incorrect date selected');
+    }
+
+  }
+
+  if (isset($form_state['values']['type_of_report']) &&  $form_state['values']['type_of_report'] == 'National') {
+
+    $countries = array();
+    foreach ($form_state['input']['national_countries'] as $index => $country) {
+      if (isset($country)) {
+        $countries[] = $country;
+      }
+    }
+
+    if (empty($countries)) {
+      $error_message = t('At least you must select one country');
+      form_error($element, $error_message);
+    }
+
+  }
+
+}
+/**
+ ** FORM SUBMIT
+ **/
+function ef_annual_progress_report_autocreation_form_submit($form, &$form_state) {
+
+  global $user;
+
+  // TYPE of REPORT and SELECTED COUNTRIES
+  $countries = array();
+  if (isset($form_state['values']['type_of_report'])) {
+    $type_of_report = $form_state['values']['type_of_report'];
+
+    if ($type_of_report == 'National') {
+      foreach ($form_state['values']['national_countries'] as $country_tid => $value) {
+        if ($value != 0) {
+          $country = taxonomy_term_load($country_tid);
+          $countries[$country->tid] = $country->name;
+        }
+      }
+    }
+
+  }
+
+  if ($type_of_report == 'EU level') {
+
+    $node = new stdClass();
+    $node = node_basic_conf($node);
+
+    // title
+    $node->title = $type_of_report . ": " . $form_state['values']['title'];
+
+    // user
+    $node->uid = $user->uid;
+
+    // Type of report
+    $node->field_ef_type_of_report['und'][0]['value'] = 0;
+
+    // Year
+    $year = $form_state['values']['year'].'-10-02';
+    $node->field_ef_year['und'][0]['value'] = strtotime($year);
+
+    // Dates
+    //$node->field_ef_approved_for_payment['und'][0]['value'] = $form_state['values']['approved_for_payment_from'];
+    $node->field_ef_report_delivery_date['und'][0]['value'] = $form_state['values']['scheduled_date_from'];
+    $node->field_ef_requested_on['und'][0]['value'] = strtotime($form_state['values']['requested_on']);
+    // Country
+    $country_EU_tid = taxonomy_get_term_by_name('EU level', $vocabulary = 'country');
+    $node->field_country['und'][0]['tid'] = key($country_EU_tid);
+
+    $group = group_load_by_name($type_of_report);
+    $node = node_contract($node, $group);
+
+    // Saving
+    node_object_prepare($node);
+    $node = node_submit($node); // Prepare node for saving
+    node_save($node);
+
+    workbench_moderation_moderate($node, 'requested');
+
+    $node_url = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+
+    drupal_set_message( "Annual Progress Report -> '" . $node->title . "' saved!\n");
+    drupal_set_message(l("View APR: " . $node->title, $node_url));
+
+  } else {
+
+    foreach ($countries as $country_id => $country) {
+
+      $node = new stdClass();
+      $node = node_basic_conf($node);
+
+      $node->title = $country .": " . $form_state['values']['title'];
+      $node->uid = $user->uid;
+      $node->field_ef_type_of_report['und'][0]['value'] = 1;
+      $node->field_country['und'][0]['tid'] = $country_id;
+      $year = $form_state['values']['year'].'-10-02';
+      $node->field_ef_year['und'][0]['value'] = strtotime($year);
+      //$node->field_ef_approved_for_payment['und'][0]['value'] = $form_state['values']['approved_for_payment_from'];
+      $node->field_ef_report_delivery_date['und'][0]['value'] = $form_state['values']['scheduled_date_from'];
+      $node->field_ef_requested_on['und'][0]['value'] = strtotime($form_state['values']['requested_on']);
+
+      $group = group_load_by_name($country);
+      $node = node_contract($node, $group);
+
+      // Saving
+      node_object_prepare($node);
+      $node = node_submit($node); // Prepare node for saving
+      node_save($node);
+
+      workbench_moderation_moderate($node, 'requested');
+
+      $node_url = url(drupal_get_path_alias('node/'. $node->nid),array('absolute' => TRUE));
+
+      drupal_set_message( "Annual Progress Report -> '" . $node->title . "' saved!\n");
+      drupal_set_message(l("View APR: " . $node->title, $node_url));
+
+    }
+
+  }
+
+
+}
+
+/**
+ * Implements hook_form_alter(&$form, &$form_state, $form_id).
+ */
+function ef_annual_progress_report_autocreation_form_alter(&$form, &$form_state, $form_id){
+
+  global $user;
+
+  if($form['#id'] == 'views-exposed-form-annual-progress-report-view-annual-progress-report-view'){
+
+    //Set an explanation for a proper use of the filter. Avoid strange behaviors.
+
+    $form['#info']['filter-field_ef_report_delivery_date_value']['description'] = t('Fill in both fields in order to filter by Deadline.');
+
+    // Delete Date initial and final tags
+    unset($form['field_ef_report_delivery_date_value']['min']['#title']);
+    unset($form['field_ef_report_delivery_date_value']['max']['#title']);
+
+    // Populate assign to author filter
+    $form['field_ef_assign_to_user_target_id']['#type'] = 'select';
+    $form['field_ef_assign_to_user_target_id']['#size'] = 1;
+    $form['field_ef_assign_to_user_target_id']['#validated'] = TRUE;
+    $form['field_ef_assign_to_user_target_id']['#options'] = usersAvailable();
+    $form['field_ef_assign_to_user_target_id']['#empty_option'] = t('Any');
+    $form['field_ef_assign_to_user_target_id']['#default_value'] = t('Any');
+
+
+    $form['changed']['#type'] = 'date_popup';
+    $form['changed']['#date_format'] = 'd F Y';
+
+    drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_view.js');
+
+
+
+    return $form;
+
+  }
+
+  if($form_id == 'ef_annual_progress_report_node_form'){
+
+    $form['field_ef_yammer_rating']['und']['#title'] = $form['field_ef_yammer_rating']['und']['#title'] . ' (multiple answers posible)';
+    //Limit or hide Country options for editing depending on the role
+    if (isset($form['nid']['#value'])) {
+      if (!in_array('Quality Manager',$user->roles) && !in_array('administrator',$user->roles) && !in_array('OSU',$user->roles)) {
+        $form['field_country']['#type'] = 'hidden';
+        drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_country.js');
+      }else{
+        $node = node_load($form['nid']['#value']);
+        $options = $form['field_country']['und']['#options'];
+        foreach ($options as $key => $value) {
+          if($node->field_country['und'][0]['tid'] == $key)
+          $new_options[$key] = $value;
+        }
+        $form['field_country']['und']['#options'] = $new_options;
+      }
+    }
+
+    // JS and CSS files
+    //drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_form.js');
+    //drupal_add_css(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_form.css');
+    if(isset($form['field_ef_new_contract_date']['und'][0]['#default_value']['value'])){
+      $form['field_ef_new_contract']['und']['#default_value'] = 1;
+    }
+
+    $form['#after_build'] = array('ef_annual_progress_report_node_form_after_build');
+
+    //validation for mandatory fields
+    $mandatory_array = get_apr_mandatory_fields();
+    foreach ($mandatory_array as $key => $value) {
+      //unset all mandatory fields Not Applicable option
+      unset($form[$value]['und']['#options']['_none']);
+      $form[$value]['#element_validate'] = array('ef_annual_progress_report_autocreation_validate');
+    }
+
+
+
+    $form['field_ef_new_contract_date']['#states']= array(
+      'visible' => array(
+        'input[name="field_ef_new_contract[und]"]' => array('checked' => TRUE),
+      ),
+    );
+    $form['field_ef_new_contract_date']['#element_validate'] = array('ef_annual_progress_report_autocreation_validate');
+
+
+
+    $form['field_ef_checking_arp_fields']['#type'] = 'hidden';
+
+    /* --- HELP TEXT --- */
+
+    $sc_help = t('Regarding particular deliverables provided during the reporting period (e.g. contributions to CAR on XYZ or REP on XYZ)');
+    $gc_help = t('Regarding, e.g. the length, the form of the questionnaires, potential for improvement, etc.');
+
+    // DELIVERABLES descriptions
+    $suffix_fields = get_field_suffix_description('sc');
+    foreach ($suffix_fields as $field_name) {
+      $form[$field_name]['#suffix'] = '<div class="help-text"><p>'.$sc_help.'</p></div>';
+    }
+    $suffix_fields = get_field_suffix_description('gc');
+    foreach ($suffix_fields as $field_name) {
+      $form[$field_name]['#suffix'] = '<div class="help-text"><p>'.$gc_help.'</p></div>';
+    }
+
+    // REPORTING
+    $details_description = t('(e.g. number of participants, dates of meetings, tweets made….)');
+
+    $form['field_ef_reports_webpage_details']['#suffix'] = '<div class="help-text"><p>'.$details_description.'</p></div>';
+    $form['field_ef_sharing_ef_res_details']['#suffix'] = '<div class="help-text"><p>'.$details_description.'</p></div>';
+    $form['field_ef_mentioning_task_details']['#suffix'] = '<div class="help-text"><p>'.$details_description.'</p></div>';
+    $form['field_ef_promoting_ef_re_details']['#suffix'] = '<div class="help-text"><p>'.$details_description.'</p></div>';
+
+
+    // WORKING METHODS
+    $summary_help = t('(e.g communication within the team, difficulties encountered, reasons for deadlines not reached)');
+    $rating_topics_help = t('Rating: from 1 = not relevant at all to 5 = very meaningful');
+
+    $form['field_ef_workmeth_short_summary']['#suffix'] = '<div class="help-text"><p>'.$summary_help.'</p></div>';
+
+    if (!in_array('administrator', $user->roles)){
+      $form['field_ef_working_methods_rating']['#suffix'] =
+        '<ul id="methods-rating" class="inline-list no-bullet">
+          <li>1<span></span></li>
+          <li>2<span></span></li>
+          <li>3<span></span></li>
+          <li>4<span></span></li>
+          <li>5<span></span></li>
+        </ul>
+        <div class="help-text left"><p>'.$rating_topics_help.'</p></div>';
+      } else{
+        $form['field_ef_working_methods_rating']['#suffix'] = '<div class="help-text left"><p>'.$rating_topics_help.'</p></div>';
+      }
+
+    // ADDITIONAL INFO
+    $support_admin_rating_help = t('(ordering, payments, requesting team members change etc.)');
+
+    $form['field_ef_support_admin_rating']['#suffix'] = '<div class="help-text"><p>'.$support_admin_rating_help.'</p></div>';
+
+
+    return $form;
+
+  }
+
+}
+
+/**
+ * Implements hook_node_presave($node)
+ */
+function ef_annual_progress_report_autocreation_node_presave($node){
+
+  if ($node->type == 'ef_annual_progress_report') {
+
+    fill_in_cheking_fields($node);
+
+    //set submitted on value to current date when status is changed to submitted
+    if($node->field_ef_moderation_state == 'submitted'){
+      $node->field_ef_apr_submitted_on['und'][0]['value'] = date('Y-m-d');
+      $node->field_ef_apr_submitted_on['und'][0]['timezone'] = 'Europe/Dublin';
+      $node->field_ef_apr_submitted_on['und'][0]['timezone_db'] = 'Europe/Dublin';
+      $node->field_ef_apr_submitted_on['und'][0]['date_type'] = 'datetime';
+    }
+
+  }
+
+}
+
+function ef_annual_progress_report_node_form_after_build($form, &$form_state) {
+
+    if (isset($form['nid']['#value'])) {
+
+      $node = node_load($form['nid']['#value']);
+      $type_of_report = $node->field_ef_type_of_report['und'][0]['value'];
+
+      $mandatory_fields = get_apr_mandatory_fields();
+      
+      foreach ($mandatory_fields as $key => $mandatory_field) {
+        if (empty($form_state['values'][$mandatory_field]['und'])) {
+          $empty_mandatory_fields[] = $mandatory_field;
+        }
+      }
+      if (empty($form_state['values']['field_ef_date_and_partici_bm']['und'][0]['value'])) {
+        $empty_mandatory_fields[] = 'field_ef_date_and_partici_bm';
+      }
+
+      $settings['type_of_report'] = $type_of_report;
+      $settings['empty_fields'] = $empty_mandatory_fields;
+      drupal_add_js(array('ef_annual_progress_report_autocreation' => $settings), 'setting');
+
+    }
+
+    // JS and CSS files
+    drupal_add_js(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/js/ef_annual_progress_report_form.js');
+    drupal_add_css(drupal_get_path('module', 'ef_annual_progress_report_autocreation') . '/css/ef_annual_progress_report_form.css');
+
+    //------------------- Add jQuery Dialog css and js ----------------------------------------------
+    drupal_add_js(drupal_get_path('module', 'jquery_update') . '/replace/ui/ui/minified/jquery.ui.dialog.min.js');
+    drupal_add_css(drupal_get_path('module', 'jquery_update') . '/replace/ui/themes/base/minified/jquery.ui.dialog.min.css');
+
+    return $form;
+
+}

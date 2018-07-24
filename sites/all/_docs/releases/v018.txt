@@ -1,0 +1,86 @@
+drush sql-query "insert into schema_migrations(code,extra)values('018', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+drush dl -y simplenews
+drush en -y simplenews
+
+drush dl -y mimemail
+drush en -y mimemail
+
+drush dl -y simplenews_content_selection
+drush en -y scs
+drush en -y scs_views
+
+
+
+:: PRE-FEATURES ::
+
+:: fix-roles.txt
+
+drush field-delete field_ef_additional_information --bundle=ef_factsheet
+drush field-delete field_ef_direct_dismissals --bundle=ef_factsheet
+drush field-delete field_ef_number_employed --bundle=ef_factsheet
+drush field-delete field_ef_other_job_reduction --bundle=ef_factsheet
+drush field-delete field_ef_planned_job_creation --bundle=ef_factsheet
+drush field-delete field_ef_planned_job_reductions --bundle=ef_factsheet
+
+
+:: FEATURES ::
+
+drush fr-all -y
+drush cc all
+
+drush field-delete field_ef_price --bundle=ef_publication
+drush field-delete field_ef_country --bundle=ef_publication
+drush field-delete field_ef_topic --bundle=ef_factsheet
+drush field-delete field_ef_description --bundle=ef_factsheet
+drush field-delete field_ef_company --bundle=ef_factsheet
+drush field-delete field_ef_eu_related_countries --bundle=ef_support_instrument
+drush field-delete field_ef_topic --bundle=ef_support_instrument
+drush field-delete field_ef_topic --bundle=ef_regulation
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+:: || Company Sizes | import/ef_vocabulary_company_sizes_import | sites\all\_docs\feeds\vocabulary_company_sizes_2.csv ||
+:: || Deliverable Kinds | import/ef_vocabulary_deliverable_kinds_import | sites\all\_docs\feeds\vocabulary_deliverable_kinds.csv||
+:: || Contracts | import/vocabulary_ef_contracts_import | sites\all\_docs\feeds\vocabulary_contracts.csv ||
+:: || Publication Types | import/ef_vocabulary_publication_types_import | sites\all\_docs\feeds\vocabulary_publication_types_2.csv||
+:: || Spotlight Themes | import/ef_vocabulary_spotlight_themes_import | sites\all\_docs\feeds\vocabulary_spotlight_themes_2.csv||
+:: || Procurement Types | import/ef_vocabulary_procurement_types_import | sites\all\_docs\feeds\vocabulary_procurement_types_2.csv|
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: patch for messaging htmlmail
+:: patches/v018-messaging_htmlmail.inc.txt
+
+:: navigate to admin/config/system/mailsystem
+:: click on the New Class fieldset to show its options. Then select MimeMailSystem for the format method, and SmtpMailSystem for the mail method, and click on the Save Settings button at the bottom.
+:: Select the newly-created MimeLMailSystem__SmtpMailSystem class for both the site-wide default mailer and the Mime Mail module mailer.
+
+:: admin/config/services/simplenews/settings
+:: set 'HTML' in Format and change any other setting about mail e.g Sender information etc
+
+:: navigate to admin/structure/taxonomy/ef_observatories
+:: edit the term 'EOWL' and change the Name to 'EurWORK'
+
+:: navigate to admin/structure/taxonomy/ef_report_types
+:: Rename term 'Research in focus' to 'Research in focus - standard'
+:: Add new term "Research in focus - extended"
+
+
+:: **at the end**
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\php-scripts populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/php-scripts/populate-shortcuts.php
+
+drush vset -y maintenance_mode 0
+drush cc all

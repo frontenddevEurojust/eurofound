@@ -1,0 +1,4 @@
+name = Single sign in services SSI
+description = Supports the SSI services
+package = EF modules
+core = 7.x

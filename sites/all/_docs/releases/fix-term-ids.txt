@@ -1,0 +1,4 @@
+:: edit the file sites\all\modules\features\ef_publications\ef_publications.views_default.inc
+
+:: change 12177 (mi's dev) => eurwork id (e.g. 13188 staging)
+:: change 13238 (som's dev) => eurwork id (e.g. 13188 staging)

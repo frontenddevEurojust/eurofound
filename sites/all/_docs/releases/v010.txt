@@ -1,0 +1,122 @@
+drush sql-query "insert into schema_migrations(code,extra)values('010', '...')"
+
+drush vset -y maintenance_mode 1
+
+
+:: MODULES ::
+
+:: custom eworx
+
+
+:: Mail Templates Edit
+
+drush dl -y mail_edit
+drush en -y mail_edit
+drush cc all
+
+
+:: Webform Rules
+
+drush dl -y webform_rules
+drush en -y webform_rules
+drush cc all
+
+
+:: PRE-REVERT CONFIGURATIONS ::
+
+
+
+:: PRE-FEATURES ::
+
+:: Fix for features exported roles ids - the id of the role 'Author' in the development environment is  '5' but in the production is '7'. 
+:: Apply the change below BEFORE feature revert and ONLY in the production-staging environment.
+:: Ensure before apply the patch: drush sql-query "select * from role"
+
+:: Fix 1
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.views_default.inc and change the code below
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+:: 5 => '5',
+:: );
+
+:: TO
+
+:: $handler->display->display_options['filters']['rid']['value'] = array(
+::  7 => '7',
+::  );
+
+:: Fix 2
+:: edit the file sites\all\modules\features\ef_roles_and_permissions\ef_roles_and_permissions.features.field_base.inc and change the code below
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        5 => 5,
+:: ...
+
+:: TO
+
+:: $field_bases['field_ef_contracts'] = array(
+:: ...
+:: 	'user_role_field' => array(
+:: ...
+        7 => 7,
+:: ...
+
+
+:: FEATURES ::
+
+drush field-delete field_ef_deadline --bundle=ef_comparative_analytical_report
+drush field-delete field_ef_deadline --bundle=ef_national_contribution
+drush field-delete field_ef_deadline --bundle=ef_report
+
+drush fr-all -y
+drush cc all
+
+
+
+:: VOCABULARIES ::
+
+:: || Vocabulary Name | Import Action URL | Import File Location ||
+
+
+
+:: MENU LINKS ::
+
+
+
+:: POST-REVERT CONFIGURATIONS ::
+
+:: navigate to admin/config/people/accounts
+:: In Emails Section for tabs 'Welcome (awaiting approval)' and 'Account activation' copy and paste the respective subject and body text from the files 
+:: sites\all\_docs\imports\email-templates\welcome-awaiting-approval.txt and sites\all\_docs\imports\email-templates\account-activation.txt
+
+:: navigate to admin/config/system/mail-edit/user_register_pending_approval_admin/en and set the respective subject and body text from the file register-pending-approval-admin.txt
+
+:: navigate to admin/config/regional/settings and disable Users may set their own time zone.
+
+
+:: populate shortcut sets and shortcuts programmatically
+:: windows (dev)
+:: drush php-script --script-path=sites\all\_docs\releases populate-shortcuts
+:: linux (stag)
+drush -r /var/www/ef scr sites/all/_docs/releases/populate-shortcuts.php
+
+:: webform configuration for Contact form CT
+:: navigate to admin/config/content/webform and in 'Webform-enabled content types' select the "Contact form" CT
+
+:: import contact form node with webforms
+:: navigate to node/add/node_export and for the file below copy and paste the code for import
+	:: sites\all\_docs\imports\nodes\node-contact-form.txt
+
+
+drush vset -y user_password_reset_timeout 345600
+
+:: apply contracts field only to authors
+:: go to admin/config/people/accounts/fields/field_ef_contracts
+:: select Apply only to: Author
+
+
+drush vset -y maintenance_mode 0
+drush cc all
