@@ -58,6 +58,11 @@ function ef_workbench_moderation_state_access_permission() {
  */
 function ef_workbench_moderation_state_access_node_access($node, $op, $account) {
 
+  if (!is_object($node)) {
+    // $node is a string specifying a node type.
+    return NODE_ACCESS_IGNORE;
+  }
+
   if (($op == 'update' || $op == 'view') && isset($node->workbench_moderation)) {
 
     if ($op == 'update') {
