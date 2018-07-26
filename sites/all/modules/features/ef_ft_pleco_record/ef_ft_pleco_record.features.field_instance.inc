@@ -220,6 +220,65 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pleco_record-field_pleco_external_link'
+  $field_instances['node-pleco_record-field_pleco_external_link'] = array(
+    'bundle' => 'pleco_record',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'link_default',
+        'weight' => 9,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_pleco_external_link',
+    'label' => 'External link',
+    'required' => FALSE,
+    'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'rel' => '',
+        'target' => 'default',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
+      'title' => 'optional',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 23,
+    ),
+  );
+
   // Exported field_instance: 'node-pleco_record-field_pleco_keywords'
   $field_instances['node-pleco_record-field_pleco_keywords'] = array(
     'bundle' => 'pleco_record',
@@ -782,6 +841,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
   t('Date');
   t('Description');
   t('Disclaimer');
+  t('External link');
   t('Keywords');
   t('Languages');
   t('Methodologies');
