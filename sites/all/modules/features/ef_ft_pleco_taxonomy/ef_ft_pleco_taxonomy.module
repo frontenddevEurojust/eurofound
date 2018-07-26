@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_pleco_taxonomy feature.
+ */
+
+include_once 'ef_ft_pleco_taxonomy.features.inc';
