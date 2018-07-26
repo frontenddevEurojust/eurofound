@@ -190,7 +190,7 @@ function _pathologic_replace($matches) {
     $custom_lang_object = $languages[$url_lang_prefix];
   }
   else {
-    $custom_lang_object = $languages[en];
+    $custom_lang_object = $languages['en'];
   }
 
   // Get the settings for the filter. Since we can't pass extra parameters
