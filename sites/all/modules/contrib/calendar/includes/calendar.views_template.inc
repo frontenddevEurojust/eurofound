@@ -12,6 +12,7 @@
  *
 */
 function calendar_views_templates() {
+  return array();
 
   $views = array();
 
