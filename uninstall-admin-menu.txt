@@ -1,0 +1,59 @@
+Uninstall admin_menu and admin_menu_toolbar to possibly reduce number of menu items.
+
+~/sites/eurofound $ drush vget --format=json admin_menu
+{
+    "admin_menu_cache_client": 1,
+    "admin_menu_components": {
+        "admin_menu.icon": true,
+        "admin_menu.menu": true,
+        "admin_menu.search": true,
+        "admin_menu.users": true,
+        "admin_menu.account": true,
+        "shortcut.links": false
+    },
+    "admin_menu_devel_modules_enabled": {
+        "admin_devel": "admin_devel",
+        "context_ui": "context_ui",
+        "delete_all": "delete_all",
+        "field_ui": "field_ui",
+        "l10n_update": "l10n_update",
+        "rules_admin": "rules_admin",
+        "stringoverrides": "stringoverrides",
+        "views_ui": "views_ui",
+        "devel": "devel"
+    },
+    "admin_menu_devel_modules_skip": {
+        "admin_devel": 0,
+        "context_ui": 0,
+        "delete_all": 0,
+        "devel": 0,
+        "devel_node_access": 0,
+        "field_ui": 0,
+        "l10n_update": 0,
+        "rules_admin": 0,
+        "stringoverrides": 0,
+        "views_ui": 0
+    },
+    "admin_menu_display": "plid",
+    "admin_menu_margin_top": 1,
+    "admin_menu_position_fixed": 0,
+    "admin_menu_show_all": 0,
+    "admin_menu_tweak_modules": 0,
+    "admin_menu_tweak_permissions": 0,
+    "admin_menu_tweak_tabs": 0,
+    "features_admin_menu_links_menus": {
+        "devel": "devel",
+        "menu-ef-events-menu": "menu-ef-events-menu",
+        "features": "features",
+        "menu-ef-footer-links": "menu-ef-footer-links",
+        "main-menu": "main-menu",
+        "management": "management",
+        "navigation": "navigation",
+        "menu-ef-quick-links": "menu-ef-quick-links",
+        "menu-test-menu": "menu-test-menu",
+        "menu-ef-user-login-links-menu": "menu-ef-user-login-links-menu",
+        "user-menu": "user-menu"
+    },
+    "menu_minipanels_admin_menu_enabled": false
+}
+
