@@ -92,6 +92,12 @@ class FieldInfo {
   protected $bundleExtraFields = array();
 
   /**
+   * @var array[][][]|null
+   *   Format: $[$entity_type][$bundle][$extra_field_name] = $extra_field_definition
+   */
+  protected $allExtraFields;
+
+  /**
    * Clears the "static" and persistent caches.
    */
   public function flush() {
@@ -464,8 +470,8 @@ class FieldInfo {
     // shape of the hook, we have no other way than collecting extra fields on
     // all bundles.
     $info = array();
-    $extra = module_invoke_all('field_extra_fields');
-    drupal_alter('field_extra_fields', $extra);
+    $extra = $this->getAllExtraFields();
+
     // Merge in saved settings.
     if (isset($extra[$entity_type][$bundle])) {
       $info = $this->prepareExtraFields($extra[$entity_type][$bundle], $entity_type, $bundle);
@@ -479,6 +485,38 @@ class FieldInfo {
     }
 
     return $this->bundleExtraFields[$entity_type][$bundle];
+  }
+
+  /**
+   * @return array[][][]|null
+   *   Format: $[$entity_type][$bundle][$extra_field_name] = $extra_field_definition
+   */
+  public function getAllExtraFields() {
+    // Read from the "static" cache.
+    if (isset($this->allExtraFields)) {
+      return $this->allExtraFields;
+    }
+
+    // Read from the persistent cache.
+    if ($cached = cache_get('field_info:bundle_extra_all', 'cache_field')) {
+      $this->allExtraFields = $cached->data;
+      return $this->allExtraFields;
+    }
+
+    // Cache miss: read from hook_field_extra_fields(). Note: given the current
+    // shape of the hook, we have no other way than collecting extra fields on
+    // all bundles.
+    $extra = module_invoke_all('field_extra_fields');
+    drupal_alter('field_extra_fields', $extra);
+
+    // Store in the 'static' and persistent caches.
+    $this->allExtraFields = $extra;
+    if (lock_acquire('field_info:bundle_extra_all')) {
+      cache_set('field_info:bundle_extra_all', $extra, 'cache_field');
+      lock_release('field_info:bundle_extra_all');
+    }
+
+    return $extra;
   }
 
   /**
