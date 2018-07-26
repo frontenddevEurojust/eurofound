@@ -44,7 +44,8 @@ function ef_extranet_page_access_node_access($node, $op, $account) {
     'Governing Board Member'
   );
 
-  if (!$node) {
+  if (!is_object($node)) {
+    // $node is a string specifying a node type.
     return NODE_ACCESS_IGNORE;
   }
 
