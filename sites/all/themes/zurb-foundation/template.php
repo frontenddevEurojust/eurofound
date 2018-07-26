@@ -705,7 +705,11 @@ function zurb_foundation_preprocess_page(&$variables) {
 
   // Dynamic sidebars
   $arg = explode('/', $_GET['q']);
-   if (($arg[2] == 'edit') || ($arg[4] == 'edit') || ($arg[1] == 'add')) {
+   if (0
+     || (isset($arg[2]) && $arg[2] === 'edit')
+     || (isset($arg[4]) && $arg[4] === 'edit')
+     || (isset($arg[1]) && $arg[1] === 'add')
+   ) {
   	$edit = true;
    } else {
 	$edit = false;
