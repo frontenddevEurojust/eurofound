@@ -1,0 +1,33 @@
+
+/*
+ * This CSS file contains styles that target directly this node type and fields,
+ * and which cannot be easily generalized as "components".
+ */
+
+/* full
+ * -------------------------------------------------------------------------- */
+
+.node-pleco-record.view-mode-full .field-name-field-pleco-record-abstract {
+  font-size: 110%;
+}
+
+.node-pleco-record.view-mode-full .field-name-field-pleco-disclaimer,
+.node-pleco-record.view-mode-full .field-name-ef-pleco-record-default-disclaimer {
+  font-style: italic;
+  margin-top: 2em;
+}
+
+/* teaser
+ * -------------------------------------------------------------------------- */
+
+.node-pleco-record.view-mode-teaser > .ef-pleco-record-metadata-inline > .__item {
+  border-color: #005BAA;
+}
+
+.node-pleco-record.view-mode-teaser > .ef-pleco-record-metadata-inline > .__item.field-name-field-pleco-record-types {
+  color: #005BAA;
+}
+
+.node-pleco-record.view-mode-teaser > .ef-pleco-record-metadata-inline > .__item.field-name-field-pleco-work-typologies {
+  color: #f7931E;
+}

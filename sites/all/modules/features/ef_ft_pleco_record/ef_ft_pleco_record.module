@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_pleco_record feature.
+ */
+
+include_once 'ef_ft_pleco_record.features.inc';
+
+/**
+ * Implements hook_node_view_alter().
+ *
+ * @param array $build
+ */
+function ef_ft_pleco_record_node_view_alter(array &$build) {
+  /** @var object $node */
+  $node = $build['#node'];
+
+  if ('pleco_record' !== $node->type) {
+    return;
+  }
+
+  $build['#attached']['css'][] = drupal_get_path('module', 'ef_ft_pleco_record') . '/css/ef_ft_pleco_record.css';
+}
