@@ -4,5 +4,7 @@ package = EF Features
 dependencies[] = features
 dependencies[] = text
 features[features_api][] = api:2
+features[field_base][] = body
 features[field_base][] = description_field
 features[field_base][] = name_field
+features[field_base][] = title_field
