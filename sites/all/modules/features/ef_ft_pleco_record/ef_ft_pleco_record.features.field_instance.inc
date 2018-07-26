@@ -64,8 +64,8 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-pleco_record-field_pleco_availabilities'
-  $field_instances['node-pleco_record-field_pleco_availabilities'] = array(
+  // Exported field_instance: 'node-pleco_record-field_pleco_availability'
+  $field_instances['node-pleco_record-field_pleco_availability'] = array(
     'bundle' => 'pleco_record',
     'default_value' => NULL,
     'deleted' => 0,
@@ -95,8 +95,8 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
     'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'field_pleco_availabilities',
-    'label' => 'Availabilities',
+    'field_name' => 'field_pleco_availability',
+    'label' => 'Availability',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -505,55 +505,6 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-pleco_record-field_record_types'
-  $field_instances['node-pleco_record-field_record_types'] = array(
-    'bundle' => 'pleco_record',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'i18n_taxonomy',
-        'settings' => array(
-          'conditions' => array(),
-        ),
-        'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_record_types',
-    'label' => 'Record types',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 41,
-    ),
-  );
-
   // Exported field_instance: 'node-pleco_record-title_field'
   $field_instances['node-pleco_record-title_field'] = array(
     'bundle' => 'pleco_record',
@@ -605,7 +556,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Availabilities');
+  t('Availability');
   t('Body');
   t('Countries');
   t('Keywords');
