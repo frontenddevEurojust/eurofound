@@ -60,6 +60,7 @@ function getDVSHttpRelativeURL(){
 }
 
 function getDVSBaseFolder(){
+  throw new \Exception(__FUNCTION__ . ' not supported.');
 	return "/web-pub/foundation/html/DVS/";
 }
 
