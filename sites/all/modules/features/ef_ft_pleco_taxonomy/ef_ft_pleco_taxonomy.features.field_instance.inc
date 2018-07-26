@@ -429,6 +429,41 @@ function ef_ft_pleco_taxonomy_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-pleco_organisation-field_pleco_organisation_type'
+  $field_instances['taxonomy_term-pleco_organisation-field_pleco_organisation_type'] = array(
+    'bundle' => 'pleco_organisation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_pleco_organisation_type',
+    'label' => 'Organisation type',
+    'required' => FALSE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 41,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-pleco_organisation-name_field'
   $field_instances['taxonomy_term-pleco_organisation-name_field'] = array(
     'bundle' => 'pleco_organisation',
@@ -850,6 +885,7 @@ function ef_ft_pleco_taxonomy_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Description');
   t('Name');
+  t('Organisation type');
 
   return $field_instances;
 }
