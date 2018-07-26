@@ -248,7 +248,7 @@ function _pdfpreview_create_preview($file) {
   if (!is_array($file)) $file = (array) $file;
   $output_filename = _pdfpreview_output_filename($file);
   // Create preview image using ImageMagick
-  if (!file_exists($output_filename) && function_exists('_imagemagick_convert')) {
+  if (false && !file_exists($output_filename) && function_exists('_imagemagick_convert')) {
     _pdfpreview_convert_first_page($file['uri'], $output_filename);
   }
   return $output_filename;
