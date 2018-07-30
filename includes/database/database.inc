@@ -2224,7 +2224,12 @@ class DatabaseStatementBase extends PDOStatement implements DatabaseStatementInt
       $query_start = microtime(TRUE);
     }
 
-    $return = parent::execute($args);
+    try {
+      $return = parent::execute($args);
+    }
+    catch (\Exception $e) {
+      throw $e;
+    }
 
     if (!empty($logger)) {
       $query_end = microtime(TRUE);
