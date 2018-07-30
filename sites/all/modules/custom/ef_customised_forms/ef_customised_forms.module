@@ -112,7 +112,11 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
    * Annual Progress Report changes #3691
    *
    */
-  if($form['#node_edit_form'] == TRUE && $form['type']['#value'] == 'ef_annual_progress_report'){
+  if (1
+    && !empty($form['#node_edit_form'])
+    && isset($form['type']['#value'])
+    && $form['type']['#value'] == 'ef_annual_progress_report'
+  ){
 	$form['field_ef_network_tend_other']['#states'] = array(
 	  'visible' => array(
 		':input[name="field_ef_network_tend_main_area[und][6 ]"]' => array('checked' => TRUE),
@@ -128,7 +132,11 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
   }
 
   //Hide some Timeline_data content type fields. Issue #3608
-  if ($form['type']['#value'] == 'timeline_date' && $form['#node_edit_form'] == TRUE){
+  if (1
+    && !empty($form['#node_edit_form'])
+    && isset($form['type']['#value'])
+    && $form['type']['#value'] == 'timeline_date'
+  ) {
 	$form['field_cmscode']['#type'] = 'hidden';
 	$form['field_timeline_media_image']['#type'] = 'hidden';
 	$form['field_timeline_media_link']['#type'] = 'hidden';
@@ -515,14 +523,16 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		}
 	}
 
-	//WGS-388
-	//When deleting a term, drupal loads it as an object
-	//and can lead to a fatal error, the fix will prevent this 
-	if (!is_object($form['#term'])) {
-		$vocabulary_machine_name = $form['#term']['vocabulary_machine_name'];
-	}
-
-	if ($form['#form_id'] =='taxonomy_form_term' && $vocabulary_machine_name == 'ef_topics') {
+	if (1
+    && $form['#form_id'] === 'taxonomy_form_term'
+    //WGS-388
+    //When deleting a term, drupal loads it as an object
+    //and can lead to a fatal error, the fix will prevent this
+    // @todo Review this fix.
+    && isset($form['#term'])
+    && is_array($form['#term'])
+    && $form['#term']['vocabulary_machine_name'] === 'ef_topics'
+  ) {
 		$form['#submit'][] = "ef_customised_forms_related_content_taxonmy_submit";
 		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
 		$form['field_ef_related_content']['#element_validate'] = array("ef_customised_forms_field_related_content_validate");
