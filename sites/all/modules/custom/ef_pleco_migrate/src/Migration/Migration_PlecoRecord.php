@@ -2,19 +2,7 @@
 
 namespace Drupal\ef_pleco_migrate\Migration;
 
-class Migration_PlecoRecord extends \Migration {
-
-  const EXPLODE_FIELDS = [
-    'record_types' => 'Type',
-    'platform_sectors' => 'Platform sector',
-    'platforms' => 'Platform name',
-    'platform_work_typologies' => 'Platform work typology',
-    'countries' => 'Country',
-    'keywords' => 'Keywords',
-    'languages' => 'Language',
-    'organisations' => 'Organisation',
-    'methodologies' => 'Methodology',
-  ];
+class Migration_PlecoRecord extends MigrationBase {
 
   // A Migration constructor takes an array of arguments as its first parameter.
   // The arguments must be passed through to the parent constructor.
@@ -57,7 +45,7 @@ class Migration_PlecoRecord extends \Migration {
         'escape' => '\\',
       ],
       // Additional fields that are computed.
-      self::EXPLODE_FIELDS);
+      []);
 
     $this->destination = new \MigrateDestinationNode(
       'pleco_record',
@@ -69,7 +57,7 @@ class Migration_PlecoRecord extends \Migration {
     $this->map = new \MigrateSQLMap(
       $this->machineName,
       [
-        'ID' => [
+        'Id' => [
           # 'type' => 'int',
           'type' => 'varchar',
           'length' => 255,
@@ -86,23 +74,25 @@ class Migration_PlecoRecord extends \Migration {
     $this->addFieldMapping('title', 'Title');
     $this->addFieldMapping('title_field', 'Title');
 
-    $taxomap = [];
-    foreach (array_keys(self::EXPLODE_FIELDS) as $plural_source_field_name) {
-      $taxomap['field_pleco_' . $plural_source_field_name] = $plural_source_field_name;
-    }
-    unset($taxomap['field_pleco_platform_work_typologies']);
-    $taxomap['field_pleco_work_typologies'] = 'platform_work_typologies';
+    $this->addTermReferenceMapping('field_pleco_record_types', 'Type', 'pleco_record_type');
+    $this->addTermReferenceMapping('field_pleco_platform_sectors', 'Platform sector', 'pleco_platform_sector');
+    $this->addTermReferenceMapping('field_pleco_platforms', 'Platform name', 'pleco_platform');
+    $this->addTermReferenceMapping('field_pleco_work_typologies', 'Platform work typology', 'pleco_platform_work_typology');
+    $this->addTermReferenceMapping('field_pleco_countries', 'Country', 'pleco_country');
+    $this->addTermReferenceMapping('field_pleco_keywords', 'Keywords', 'pleco_keyword');
+    $this->addTermReferenceMapping('field_pleco_languages', 'Language', 'pleco_language');
+    $this->addTermReferenceMapping('field_pleco_organisations', 'Organisation', 'pleco_organisation');
+    $this->addTermReferenceMapping('field_pleco_methodologies', 'Methodology', 'pleco_methodology');
+    $this->addTermReferenceMapping('field_pleco_availability', 'Availability', 'pleco_availability');
 
-    foreach ($taxomap as $field_name => $plural_source_field_name) {
-      $this->addFieldMapping($field_name, $plural_source_field_name);
-    }
+    $this->addFulltextFieldMapping('field_pleco_record_abstract', 'Abstract');
+    $this->addFulltextFieldMapping('field_pleco_record_description', 'Description');
+    $this->addFulltextFieldMapping('field_pleco_disclaimer', NULL);
 
-    $this->addFieldMapping('field_pleco_abstract', 'Abstract');
-    $this->addFieldMapping('field_pleco_description', 'Description');
-    $this->addFieldMapping('field_pleco_date', 'Date');
-    $this->addFieldMapping('field_pleco_external_link', 'Link URL');
-    $this->addFieldMapping('field_pleco_external_link:title', 'Link Label');
-    $this->addFieldMapping('field_pleco_availability', 'Availability');
+    $this->addDateFieldMapping('field_pleco_date', 'Date');
+    $this->addDateFieldMapping('field_pleco_publication_date', NULL);
+
+    $this->addLinkFieldMapping('field_pleco_external_link', 'Link URL', 'Link Label');
 
 
     $this->addUnmigratedDestinations(
@@ -116,9 +106,11 @@ class Migration_PlecoRecord extends \Migration {
         'revision', 'revision_uid', 'log',
         'is_new',
         'path', 'pathauto',
+        'title_field:language',
+        'totalcount', 'daycount', 'timestamp',
       ));
 
-    $this->addUnmigratedSources(array_values(self::EXPLODE_FIELDS));
+    # $this->addUnmigratedSources(array_values(self::EXPLODE_FIELDS));
 
     $this->addUnmigratedSources(
       [
@@ -127,36 +119,72 @@ class Migration_PlecoRecord extends \Migration {
         'Organisation type',
         'Publication specifications',
       ]);
-  }
 
-  private function getError() {
-    return "
-CREATE TABLE migrate_map_plecorecord (
-  `sourceid1`  unsigned NOT NULL COMMENT 'Source ID', 
-  `destid1` INT unsigned NULL DEFAULT NULL COMMENT 'ID of destination node', 
-  `needs_update` TINYINT unsigned NOT NULL DEFAULT 0 COMMENT 'Indicates current status of the source row',
-  `rollback_action` TINYINT unsigned NOT NULL DEFAULT 0 COMMENT 'Flag indicating what to do for this item on rollback', 
-  `last_imported` INT unsigned NOT NULL DEFAULT 0 COMMENT 'UNIX timestamp of the last time this row was imported',
-  `hash` VARCHAR(32) NULL DEFAULT NULL COMMENT 'Hash of source row data, for detecting changes',
-  PRIMARY KEY (`sourceid1`)
-) 
-ENGINE = InnoDB
-DEFAULT CHARACTER SET utf8
-COMMENT 'Mappings from source key to destination key'";
+    // Ignore all metatag destination fields.
+    foreach ($this->destination->fields() as $dest_field_machine_name => $dest_field_label) {
+      if (0 === strpos($dest_field_machine_name, 'metatag_')) {
+        $this->addUnmigratedDestinations([$dest_field_machine_name]);
+      }
+    }
   }
 
   /**
-   * @param array $row
+   * @param object $row
    *
    * @return bool
+   *   TRUE to process the row, FALSE to skip the row.
    */
   public function prepareRow($row) {
-    foreach (self::EXPLODE_FIELDS as $plural_field => $source_field) {
-      $row->$plural_field = explode(';', $row->$source_field);
+
+    foreach ($this->getTermAliasLookupMaps() as $source_field_name => $lookup) {
+
+      if (!empty($row->$source_field_name)) {
+        $terms = explode(';', $row->$source_field_name);
+        $terms_map = [];
+        foreach ($terms as $term) {
+          $term_lowercase = strtolower($term);
+          if (isset($lookup[$term_lowercase])) {
+            $term = $lookup[$term_lowercase];
+          }
+          $terms_map[$term] = TRUE;
+        }
+        $row->$source_field_name = implode(';', array_keys($terms_map));
+      }
     }
+
     return TRUE;
   }
 
+  /**
+   * @return string[][]
+   *   Format: [$source_field_name][$alias] = $canonical
+   */
+  private function getTermAliasLookupMaps() {
+    static $lookup_maps = NULL;
 
+    if ($lookup_maps !== NULL) {
+      return $lookup_maps;
+    }
+
+    $lookup_maps = [];
+    foreach ([
+      'field_pleco_methodologies' => [
+        'Quantitative research' => ['Quantitative'],
+        'Qualitative research' => ['Qualitative'],
+      ],
+    ] as $source_field_name => $aliasess) {
+
+      $lookup = [];
+      foreach ($aliasess as $canonical => $aliases) {
+        foreach ($aliases as $alias) {
+          $lookup[$alias] = $canonical;
+        }
+      }
+
+      $lookup_maps[$source_field_name] = $lookup;
+    }
+
+    return $lookup_maps;
+  }
 
 }
