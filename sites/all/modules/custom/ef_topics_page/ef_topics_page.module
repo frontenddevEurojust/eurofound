@@ -182,7 +182,7 @@ function ef_topics_page_entity_update($entity, $type) {
     cache_clear_all($entity->path['alias'], 'cache_path');
     entity_get_controller('taxonomy_term')->resetCache(array($entity->tid));
   }
-  if (isset($entity->tid)) {
+  if (isset($entity->tid, $entity->path['source'], $entity->path['alias'])) {
     module_load_include('inc', 'purge', 'purge');
     $alias = $entity->path['alias'];
     $source = $entity->path['source'];
