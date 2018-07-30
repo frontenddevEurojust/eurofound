@@ -264,7 +264,7 @@ function ef_publications_ct_pathauto_alias_alter(&$alias, array &$context)
 	{
 		// Check that $node has at least one value at field_ef_observatory
 		$node = $context['data']['node'];
-		if (sizeof($node->field_ef_observatory['und']) > 0)
+		if (!empty($node->field_ef_observatory['und']))
 		{
 			$observatoryValue = $node->field_ef_observatory['und'];
 			// The node has at least one observatory
