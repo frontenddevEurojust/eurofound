@@ -166,7 +166,7 @@ function ef_contents2word_form_alter(&$form, &$form_state, $form_id) {
 	drupal_add_js(drupal_get_path('module', 'ef_contents2word') . '/ef_contents2word.js');
 
 
-  if (isset($form ['type']) && $form ['type']['#value'] . '_node_form' == $form_id) {
+  if (isset($form['type']['#value']) && $form ['type']['#value'] . '_node_form' == $form_id) {
 
 	if ((arg(2) == 'edit') || ((arg(2) == 'revisions') && (arg(4) == 'edit'))){
 
