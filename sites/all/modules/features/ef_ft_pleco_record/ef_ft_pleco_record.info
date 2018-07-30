@@ -38,6 +38,7 @@ features[field_instance][] = node-pleco_record-field_pleco_publication_date
 features[field_instance][] = node-pleco_record-field_pleco_record_abstract
 features[field_instance][] = node-pleco_record-field_pleco_record_description
 features[field_instance][] = node-pleco_record-field_pleco_record_types
+features[field_instance][] = node-pleco_record-field_pleco_work_typologies
 features[field_instance][] = node-pleco_record-title_field
 features[node][] = pleco_record
 features[variable][] = comment_anonymous_pleco_record
