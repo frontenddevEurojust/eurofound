@@ -415,13 +415,13 @@
                   <?php print $title ?>
                  </h1>
 
-            <?php elseif($node->type == 'board_member_page'): ?>
+            <?php elseif (isset($node) && $node->type == 'board_member_page'): ?>
                 <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>       
 
 
             <?php else : ?>
 
-                 <?php  if($node->type != "data_explorer_page"): ?>
+                 <?php  if (isset($node) && $node->type != "data_explorer_page"): ?>
                   
                     <?php  if (isset($sai_label)): ?>
                       <span class="sai-label">
@@ -482,12 +482,12 @@
         }
         ?>
 
-        <?php if (!drupal_is_front_page() && $hide_pdf == false && $survey_print == true): ?>
+        <?php if (!drupal_is_front_page() && empty($hide_pdf) && !empty($survey_print)): ?>
           <?php if (!strpos($aux,'print-pdf')): ?>
                 <?php print print_pdf_insert_link();?>
           <?php endif; ?>
         <?php endif; ?>
-        <?php if (!drupal_is_front_page() && $hide_print == false && $survey_print == true ): ?>
+        <?php if (!drupal_is_front_page() && empty($hide_print) && !empty($survey_print)): ?>
           <?php if (!strpos($aux,'print-page')): ?>
             <?php print print_insert_link();?>
           <?php endif; ?>
