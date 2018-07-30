@@ -255,8 +255,13 @@ $ext  = (new SplFileInfo($path_extension))->getExtension();
         <?php if ($node->field_related_taxonomy['und'][0]['target_id'] != '' || $node->field_ef_related_content['und'][0]['target_id'] != '' ) : ?>
             <div class="related-content-aside-3">
                 <?php
-                    $block = block_load('block','54');
-                    print drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+                    // See https://www.drupal.org/project/drupal/issues/957038#comment-12723048
+                    $block = block_load('block', '54');
+                    if (!empty($block->bid)) {
+                      $block_element = _block_get_renderable_array(_block_render_blocks(array($block)));
+                      $block_output = drupal_render($block_element);
+                      print $block_output;
+                    }
                 ?>
             </div>
         <?php endif; ?>

@@ -63,9 +63,13 @@
           <?php endif; ?>
 
           <?php
+          // See https://www.drupal.org/project/drupal/issues/957038#comment-12723048
           $block = block_load('block', '25');
-          $output = drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
-          print $output;
+          if (!empty($block->bid)) {
+            $block_element = _block_get_renderable_array(_block_render_blocks(array($block)));
+            $block_output = drupal_render($block_element);
+            print $block_output;
+          }
           ?>
 
 
