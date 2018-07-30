@@ -576,7 +576,7 @@ function _ef_qrr_last_revision($nid, $uid = NULL) {
 
 function _ef_qrr_allowed_content_type($type) {
    $settings = variable_get('qrr_content_types');
-   return ( $settings['rating'][$type] );
+   return !empty($settings['rating'][$type]);
 }
 
 function _ef_qrr_ratings_present($nid) {
