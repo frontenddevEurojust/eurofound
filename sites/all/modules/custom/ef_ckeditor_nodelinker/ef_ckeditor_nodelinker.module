@@ -24,12 +24,17 @@ function ef_ckeditor_nodelinker_wysiwyg_plugin($editor, $version) {
 }
 
 function ef_ckeditor_nodelinker_form_alter(&$form, &$form_state, $form_id){
-	
-	if($form['#node_edit_form'] == TRUE || $form['form_id']['#id'] == 'edit-taxonomy-form-term')
-	{
+
+  // @todo Review the if() condition.
+  if (0
+    || !empty($form['#node_edit_form'])
+    || (1
+      && isset($form['form_id']['#id'])
+      && $form['form_id']['#id'] === 'edit-taxonomy-form-term'
+    )
+  ) {
 		drupal_add_css(drupal_get_path('module', 'ef_ckeditor_nodelinker') . '/ef_ckeditor_nodelinker.css');
 	}
-
 }
 
 function ef_ckeditor_nodelinker_menu(){
