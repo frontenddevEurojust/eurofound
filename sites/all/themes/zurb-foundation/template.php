@@ -502,30 +502,32 @@ function zurb_foundation_preprocess_node(&$variables) {
     $img = field_get_items('node', $variables['node'], 'field_ef_photo_gallery_images');
   }
 
-  //if (count($img) > 0) {
+  if (isset($img[0]['uri'])) {
     $img_url = file_create_url($img[0]['uri']);
-    if (strpos($img_url,'sites/') == false) {
-	preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $variables['body'][0]['value'], $matches);
-	if (strpos($matches[1][0],'sites/') == false) {
-		if ($variables['type'] == 'ef_publication') {
-			//$img_url = $img_url . 'sites/all/themes/effoundationtheme/vacio.png';
-			$img_url = $img_url . 'sites/all/themes/effoundationtheme/logo_facebook.jpg';
-		} else {
-    		$img_url = $img_url . 'sites/all/themes/effoundationtheme/logo_facebook.jpg';
-		}
-	} else {
-		$img_url = $matches[1][0];
-	}
+    if (strpos($img_url, 'sites/') == false) {
+      preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $variables['body'][0]['value'], $matches);
+      if (strpos($matches[1][0], 'sites/') == false) {
+        if ($variables['type'] == 'ef_publication') {
+          //$img_url = $img_url . 'sites/all/themes/effoundationtheme/vacio.png';
+          $img_url = $img_url . 'sites/all/themes/effoundationtheme/logo_facebook.jpg';
+        }
+        else {
+          $img_url = $img_url . 'sites/all/themes/effoundationtheme/logo_facebook.jpg';
+        }
+      }
+      else {
+        $img_url = $matches[1][0];
+      }
     }
     $og_image = array(
-	'#tag'  => 'meta',
-        '#attributes' => array(
-	   'property'  => 'og:image',
-	   'content'  => $img_url,
-        ),
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'property' => 'og:image',
+        'content' => $img_url,
+      ),
     );
-  drupal_add_html_head($og_image, 'og_image');
-  //}
+    drupal_add_html_head($og_image, 'og_image');
+  }
 
 }
 
