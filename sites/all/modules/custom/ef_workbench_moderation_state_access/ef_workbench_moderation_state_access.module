@@ -95,7 +95,10 @@ function ef_workbench_moderation_state_access_node_access($node, $op, $account) 
 }
 
 function ef_workbench_moderation_state_access_field_attach_update($entity_type, $entity){
-  if ($entity_type == 'node' && isset($entity->workbench_moderation['current']->state)) {
+  if ($entity_type !== 'node') {
+    return;
+  }
+  if (isset($entity->workbench_moderation['current']->state)) {
     if ($entity->workbench_moderation['current']->state == "unpublished" && $entity->status == 1) {
       $query = db_update('node')
         ->fields(array('status' => 0))
