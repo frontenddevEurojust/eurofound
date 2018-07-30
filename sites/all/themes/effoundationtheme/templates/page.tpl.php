@@ -64,7 +64,8 @@
 
           <?php
           $block = block_load('block', '25');
-          $output = drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+          $block_element = _block_get_renderable_array(_block_render_blocks(array($block)));
+          $output = drupal_render($block_element);
           print $output;
           ?>
 
