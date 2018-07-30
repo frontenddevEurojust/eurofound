@@ -38,7 +38,7 @@ function ef_authors_as_metadata_form_alter(&$form, &$form_state, $form_id){
 
 
 
-	if ($form['#node_edit_form'] == TRUE && isset($form['field_ef_publ_contributors'])){	
+	if (!empty($form['#node_edit_form']) && isset($form['field_ef_publ_contributors'])){
 
 		$form['field_ef_publ_contributors']['#element_validate'] = array("ef_customised_forms_field_contributors_validate");
 
