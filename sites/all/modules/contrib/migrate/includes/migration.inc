@@ -996,6 +996,13 @@ abstract class Migration extends MigrationBase {
    *  Pass TRUE to refresh the cached count.
    */
   public function sourceCount($refresh = FALSE) {
+    if (!isset($this->source)) {
+      self::displayMessage(
+        t(
+          'No source found in migration @migration',
+          ['@migration' => $this->getMachineName()]));
+      return t('N/A');
+    }
     try {
       $count = $this->source->count($refresh);
     } catch (Exception $e) {
