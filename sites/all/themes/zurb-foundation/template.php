@@ -445,7 +445,7 @@ function zurb_foundation_preprocess_html(&$variables) {
         $section = 'node-' . $arg[2];
       }
     //-----Issue 3203
-      if ($arg[4] == 'edit') {
+      if (isset($arg[4]) && $arg[4] === 'edit') {
 	  $variables['edit_mode'] = 'ssssssssssss';
 	} else {
 	  $variables['edit_mode'] = 'nnnnnnnnnnnn';
