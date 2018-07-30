@@ -449,8 +449,8 @@ function _ef_nc_breadcrumbs_build_trail($uri) {
 
   $national_contontribution = "comparative-information/national-contributions/"; //Check it if the current and
   $car = "comparative-information/";                         // the previus page are CAR or NC
-  $exist = strpos($current_page, $natcont);                    // nodes
-  $exist2 = strpos($previous_page, $coanre);
+  $exist = FALSE; // strpos($current_page, $natcont);                    // nodes
+  $exist2 = FALSE; // strpos($previous_page, $coanre);
 
    if($exist !== FALSE)         // If it es a NC
   {
