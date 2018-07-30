@@ -139,7 +139,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
   $css_add = drupal_add_css(drupal_get_path('module', 'ef_d3_dataexplorer') . '/css/ejmcss.css');
   
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'EJM') {
 
     drupal_add_js(drupal_get_path('module', 'ef_d3_dataexplorer') . '/js/d3.ejm.js');
 
@@ -150,7 +150,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'happiness'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'happiness'){
 
     $chart = [
 
@@ -169,7 +169,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'optimism'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] === 'optimism'){
 
     $chart = [
 
@@ -187,7 +187,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'overall_improv'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] === 'overall_improv'){
 
     $chart = [
 
@@ -205,7 +205,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'social_excl'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] === 'social_excl'){
 
     $chart = [
 
@@ -223,7 +223,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'tensions'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'tensions'){
 
     $chart = [
 
@@ -241,7 +241,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'work_life'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'work_life'){
 
     $chart = [
 
@@ -259,7 +259,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_optimistic'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'living_optimistic'){
 
     $chart = [
 
@@ -277,7 +277,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_satisfaction'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'living_satisfaction'){
 
     $chart = [
 
@@ -295,7 +295,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_ends'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'living_ends'){
 
     $chart = [
 
@@ -313,7 +313,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'living_economising'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'living_economising'){
 
     $chart = [
 
@@ -331,7 +331,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'balance_care'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'balance_care'){
 
     $chart = [
 
@@ -349,7 +349,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
     return;
   }
 
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'quality_dimensions'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'quality_dimensions'){
 
     $chart = [
 
@@ -366,7 +366,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
 
     return;
   }
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'internet'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'internet'){
     $chart = [
 
       'id' => 'internet-chart',
@@ -382,7 +382,7 @@ function ef_d3_dataexplorer_node_view($node, $view_mode) {
 
     return;
   }
-  if ($node->field_ef_de_chart_id['und'][0]['value'] == 'happiness_pyramid'){
+  if (isset($node->field_ef_de_chart_id['und'][0]['value']) && $node->field_ef_de_chart_id['und'][0]['value'] == 'happiness_pyramid'){
     $chart = [
 
       'id' => 'happiness-pyramid-chart',
