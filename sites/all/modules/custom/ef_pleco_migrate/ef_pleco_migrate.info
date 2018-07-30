@@ -1,0 +1,14 @@
+name = EF PLECO Migrate
+description = Imports Platform Economy Record nodes from csv.
+package = EF PLECO
+core = 7.x
+
+dependencies[] = migrate
+dependencies[] = ef_ft_pleco_record
+
+; Load namespaced migration classes.
+dependencies[] = xautoload
+
+; Allow alternative PSR-4 autoloader.
+alternatives[xautoload] = registry_autoload
+registry_autoload[] = PSR-4
