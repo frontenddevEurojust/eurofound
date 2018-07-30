@@ -61,7 +61,8 @@ function ef_publication_date_year_filter_form_alter(&$form, &$form_state, $form_
 function ef_publication_date_year_filter_views_query_alter(&$view, &$query){
   
   if(isset($view->name)){
-    
+
+    $type = '';
     if($view->name == 'ef_publications_view' && $view->vid == 75)
     {
       $type = 'ef_publication';
