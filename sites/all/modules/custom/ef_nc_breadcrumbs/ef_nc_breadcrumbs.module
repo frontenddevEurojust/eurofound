@@ -227,8 +227,10 @@ function ef_nc_breadcrumbs_page_build(&$page) {
 	  
     }
 	//Used to create the governing board view breadcrumb.
-	else if('_extranet_for_the_governing_board' === views_get_page_view()->name)
-	{
+  elseif (1
+    && ($page_view = views_get_page_view()) instanceof \view
+    && '_extranet_for_the_governing_board' === $page_view->name
+  )	{
 		if(isset($trail[1]))
 		{
 			$trail[1] = "<a href='/extranet'>Extranet</a>";
@@ -299,7 +301,7 @@ function ef_nc_breadcrumbs_page_build(&$page) {
     $request = str_replace('-', ' ', $request);
     $request = ucfirst($request);
     $trail[2] = $request;
-  }elseif($pos_deliverables > 0){
+  } elseif (isset($pos_deliverables) && $pos_deliverables > 0) {
     $trail[1] = '<a href="/observatories">observatories</a>';
     $trail[2] = '<a href="/observatories/eurwork">EurWORK</a>';
     $trail[3] = '<a href="/observatories/eurwork/articles">Articles</a>';
