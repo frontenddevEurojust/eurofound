@@ -1001,6 +1001,9 @@ function ef_car_nc_autocreation_node_presave($node){
 	} else if ($node->type == 'ef_national_contribution') {
 		$taxonomy = taxonomy_get_term_by_name('NC', $vocabulary = 'ef_publication_types');
 	}
+	else {
+	  return;
+  }
 
 	if (count($taxonomy == 1)) {
 		$taxonomy = reset($taxonomy);
