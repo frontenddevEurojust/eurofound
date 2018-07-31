@@ -1,0 +1,18 @@
+<?php
+
+require_once __DIR__ . '/ef_pleco_components.field_group.inc';
+require_once __DIR__ . '/ef_pleco_components.ds.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function ef_pleco_components_theme() {
+  return [
+    /* @see ef_pleco_keyvaluetable() */
+    'ef_pleco_keyvaluetable' => [
+      'render element' => 'element',
+      'file' => 'ef_pleco_components.theme.inc',
+      'template' => 'ef-pleco-keyvaluetable',
+    ],
+  ];
+}
