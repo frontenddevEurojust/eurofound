@@ -109,11 +109,7 @@ function ef_ft_pleco_record_field_group_info() {
     ),
     'format_type' => 'ef_pleco_keyvaluetable',
     'format_settings' => array(
-      'formatter' => 'collapsible',
-      'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-metadata field-group-fieldset',
-      ),
+      'label' => 'Metadata',
     ),
   );
   $export['group_metadata|node|pleco_record|full'] = $field_group;
