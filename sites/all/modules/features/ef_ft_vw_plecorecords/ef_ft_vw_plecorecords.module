@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_vw_plecorecords feature.
+ */
+
+include_once 'ef_ft_vw_plecorecords.features.inc';
