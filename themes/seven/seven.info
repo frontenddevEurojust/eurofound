@@ -18,6 +18,3 @@ version = "7.53"
 project = "drupal"
 datestamp = "1481152423"
 
-; font-awesome (icons)
-stylesheets[all][] = font-awesome/css/font-awesome.min.css
-

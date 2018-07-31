@@ -30,7 +30,7 @@
  *   or an empty array to use default values.
  * @param $form
  *   An array representing the form that the editing element will be attached
- *   to.
+ *   to. 
  * @param $form_state
  *   An array containing the current state of the form.
  * @param $get_delta
@@ -185,8 +185,6 @@ function field_multiple_value_form($field, $instance, $langcode, $items, &$form,
   switch ($field['cardinality']) {
     case FIELD_CARDINALITY_UNLIMITED:
       $field_state = field_form_get_state($parents, $field_name, $langcode, $form_state);
-      $field_state['items_count'] = ($field_state['items_count'] < 4 ? 4 : $field_state['items_count']);
-      field_form_set_state($parents, $field_name, $langcode, $form_state, $field_state);
       $max = $field_state['items_count'];
       break;
 
