@@ -74,11 +74,13 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 17,
       ),
       'full' => array(
@@ -134,11 +136,13 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 9,
       ),
       'full' => array(
@@ -397,9 +401,11 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => TRUE,
+          'taxonomy_term_separator' => ', ',
         ),
         'type' => 'ds_taxonomy_separator_localized',
         'weight' => 13,
@@ -457,20 +463,24 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 14,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 16,
       ),
       'scs' => array(
@@ -515,20 +525,24 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 16,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 18,
       ),
       'scs' => array(
@@ -573,20 +587,24 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 15,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 17,
       ),
       'scs' => array(
@@ -630,21 +648,25 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'i18n_taxonomy',
+        'label' => 'inlinec',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 0,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 9,
       ),
       'scs' => array(
@@ -689,20 +711,24 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 7,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 8,
       ),
       'scs' => array(
@@ -941,20 +967,24 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 12,
       ),
       'full' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_plain',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 14,
       ),
       'scs' => array(
@@ -999,11 +1029,13 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inlinec',
-        'module' => 'i18n_taxonomy',
+        'module' => 'ds',
         'settings' => array(
           'conditions' => array(),
+          'taxonomy_term_link' => 0,
+          'taxonomy_term_separator' => ', ',
         ),
-        'type' => 'i18n_taxonomy_term_reference_link',
+        'type' => 'ds_taxonomy_separator_localized',
         'weight' => 8,
       ),
       'full' => array(
@@ -1104,23 +1136,6 @@ function ef_ft_pleco_record_field_default_field_instances() {
       'weight' => 0,
     ),
   );
-
-  foreach ($field_instances as $longkey => $instance) {
-    foreach ($instance['display'] as $view_mode => $display) {
-      if ($display['type'] === 'i18n_taxonomy_term_reference_link') {
-        $field_instances[$longkey]['display'][$view_mode] = array(
-          'label' => 'inlinec',
-          'module' => 'ds',
-          'settings' => array(
-            'conditions' => array(),
-            'taxonomy_term_link' => 0,
-            'taxonomy_term_separator' => ', ',
-          ),
-          'type' => 'ds_taxonomy_separator_localized',
-        ) + $display;
-      }
-    }
-  }
 
   // Translatables
   // Included for use with string extractors like potx.
