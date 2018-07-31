@@ -1,0 +1,4 @@
+name = Update Helper
+core = 7.x
+
+dependencies[] = update
