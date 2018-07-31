@@ -1,0 +1,12 @@
+
+.ef-pleco-common {
+}
+
+.ef-pleco-common > .__columns {
+  margin: 0 -13px;
+}
+
+.ef-pleco-common > .__columns > * {
+  padding: 0 13px;
+  float: left;
+}

@@ -1,0 +1,33 @@
+
+.ef-pleco-keyvaluetable > h2 {
+
+}
+
+.ef-pleco-keyvaluetable > ul {
+  list-style: none !important;
+  padding: 0;
+  margin: 10px 0 !important;
+  font-size: 0.9em;
+  border-top: 1px dotted #ccc;
+}
+
+.ef-pleco-keyvaluetable > ul > li {
+  padding: 12px 0 !important;
+  margin: 0;
+  border-bottom: 1px dotted #ccc;
+  width: 100%;
+  text-indent: 0 !important;
+}
+
+.ef-pleco-keyvaluetable > ul > li > .__label {
+  width: 20%;
+  font-family: 'OpenSans-Semibold-webfont', Arial, Helvetica, sans-serif;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  text-indent: 0;
+}
+
+.ef-pleco-keyvaluetable > ul > li > .__content {
+  display: inline-block;
+}

@@ -1,0 +1,10 @@
+name = Eurofound PLECO Miscellaneous
+description = Various components for the Eurofound Platform Economy Repository.
+core = 7.x
+
+dependencies[] = xautoload
+
+; Allow alternative PSR-4 autoloader.
+alternatives[xautoload] = registry_autoload
+registry_autoload[] = PSR-4
+
