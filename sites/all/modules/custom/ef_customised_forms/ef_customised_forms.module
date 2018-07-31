@@ -476,9 +476,18 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
 		$form['field_related_taxonomy']['#element_validate'] = array("ef_customised_forms_field_related_taxonomy_validate");
 		$form['field_ef_related_content']['#element_validate'] = array("ef_customised_forms_field_related_content_validate");
 		//Set Default Value
-		foreach ( $form['field_related_taxonomy']['und'] as $key => $value) {
-			$tid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->field_related_taxonomy['und'][$key]['target_id'];
-			$nid=$form['field_related_taxonomy']['und'][$key]['target_id']['#entity']->nid;
+    if (!empty($form['field_ef_related_content']['und'])) foreach (element_children($form['field_related_taxonomy']['und']) as $key) {
+      if (!isset($form['field_related_taxonomy']['und'][$key]['target_id'])) {
+        // This is not a field item element.
+        // It could be an "Add more" button or something else.
+        continue;
+      }
+      if (!isset($form['#node']->field_related_taxonomy['und'][$key]['target_id'])) {
+        // This is an empty form element to add new field items.
+        continue;
+      }
+			$tid = $form['#node']->field_related_taxonomy['und'][$key]['target_id'];
+			$nid = $form['#node']->nid;
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
@@ -492,9 +501,18 @@ function ef_customised_forms_form_alter(&$form, &$form_state, $form_id){
         }
 			}
 		}
-		foreach ( $form['field_ef_related_content']['und'] as $key => $value) {
-			$tid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->field_ef_related_content['und'][$key]['target_id'];
-			$nid=$form['field_ef_related_content']['und'][$key]['target_id']['#entity']->nid;
+		if (!empty($form['field_ef_related_content']['und'])) foreach (element_children($form['field_ef_related_content']['und']) as $key) {
+		  if (!isset($form['field_ef_related_content']['und'][$key]['target_id'])) {
+		    // This is not a field item element.
+        // It could be an "Add more" button or something else.
+		    continue;
+      }
+      if (!isset($form['#node']->field_ef_related_content['und'][$key]['target_id'])) {
+        // This is an empty form element to add new field items.
+        continue;
+      }
+      $tid = $form['#node']->field_ef_related_content['und'][$key]['target_id'];
+      $nid = $form['#node']->nid;
 			if (is_numeric($key) && is_numeric($tid)) {
 				//Get real weight
 				$query = db_select('related_content_and_taxonomies', 'rc');
