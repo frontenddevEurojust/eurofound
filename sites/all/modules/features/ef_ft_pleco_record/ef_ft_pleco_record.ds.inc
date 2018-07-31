@@ -24,16 +24,6 @@ function ef_ft_pleco_record_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_pleco_keywords' => array(
-      'formatter_settings' => array(
-        'ft' => array(),
-      ),
-    ),
-    'field_pleco_work_typologies' => array(
-      'formatter_settings' => array(
-        'ft' => array(),
-      ),
-    ),
   );
   $export['node|pleco_record|full'] = $ds_fieldsetting;
 
@@ -52,7 +42,7 @@ function ef_ft_pleco_record_ds_layout_settings_info() {
   $ds_layout->entity_type = 'node';
   $ds_layout->bundle = 'pleco_record';
   $ds_layout->view_mode = 'full';
-  $ds_layout->layout = 'ds_1col';
+  $ds_layout->layout = 'ef_pleco_common';
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
@@ -61,18 +51,21 @@ function ef_ft_pleco_record_ds_layout_settings_info() {
         2 => 'field_pleco_external_link',
         3 => 'group_metadata',
         4 => 'field_pleco_disclaimer',
-        5 => 'field_pleco_platforms',
-        6 => 'field_pleco_platform_sectors',
-        7 => 'field_pleco_work_typologies',
-        8 => 'field_pleco_countries',
-        9 => 'field_pleco_date',
-        10 => 'field_pleco_publication_date',
-        11 => 'field_pleco_record_types',
-        12 => 'field_pleco_keywords',
-        13 => 'field_pleco_languages',
-        14 => 'field_pleco_organisations',
-        15 => 'field_pleco_methodologies',
-        16 => 'field_pleco_availability',
+        6 => 'field_pleco_platforms',
+        7 => 'field_pleco_platform_sectors',
+        8 => 'field_pleco_work_typologies',
+        9 => 'field_pleco_countries',
+        10 => 'field_pleco_date',
+        11 => 'field_pleco_publication_date',
+        12 => 'field_pleco_record_types',
+        13 => 'field_pleco_keywords',
+        14 => 'field_pleco_languages',
+        15 => 'field_pleco_organisations',
+        16 => 'field_pleco_methodologies',
+        17 => 'field_pleco_availability',
+      ),
+      'right' => array(
+        5 => 'field_pleco_related_dossiers',
       ),
     ),
     'fields' => array(
@@ -81,6 +74,7 @@ function ef_ft_pleco_record_ds_layout_settings_info() {
       'field_pleco_external_link' => 'ds_content',
       'group_metadata' => 'ds_content',
       'field_pleco_disclaimer' => 'ds_content',
+      'field_pleco_related_dossiers' => 'right',
       'field_pleco_platforms' => 'ds_content',
       'field_pleco_platform_sectors' => 'ds_content',
       'field_pleco_work_typologies' => 'ds_content',
@@ -97,6 +91,7 @@ function ef_ft_pleco_record_ds_layout_settings_info() {
     'classes' => array(),
     'wrappers' => array(
       'ds_content' => 'div',
+      'right' => 'div',
     ),
     'layout_wrapper' => 'div',
     'layout_attributes' => '',
