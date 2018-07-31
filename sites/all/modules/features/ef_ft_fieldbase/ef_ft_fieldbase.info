@@ -1,10 +1,14 @@
 name = ef_ft_fieldbase
 core = 7.x
 package = EF Features
+dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = text
 features[features_api][] = api:2
 features[field_base][] = body
 features[field_base][] = description_field
+features[field_base][] = field_ef_related_content
+features[field_base][] = field_related_taxonomy
 features[field_base][] = name_field
 features[field_base][] = title_field
+mtime = 1533034454
