@@ -34,7 +34,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -61,7 +61,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 25,
+      'weight' => 13,
     ),
   );
 
@@ -123,7 +123,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 17,
+      'weight' => 30,
     ),
   );
 
@@ -185,7 +185,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 12,
+      'weight' => 21,
     ),
   );
 
@@ -261,7 +261,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 21,
+      'weight' => 22,
     ),
   );
 
@@ -320,7 +320,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 20,
+      'weight' => 5,
     ),
   );
 
@@ -388,7 +388,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 23,
+      'weight' => 3,
     ),
   );
 
@@ -450,7 +450,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 13,
+      'weight' => 25,
     ),
   );
 
@@ -512,7 +512,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 15,
+      'weight' => 26,
     ),
   );
 
@@ -574,7 +574,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 16,
+      'weight' => 29,
     ),
   );
 
@@ -636,7 +636,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 14,
+      'weight' => 27,
     ),
   );
 
@@ -836,7 +836,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 22,
+      'weight' => 23,
     ),
   );
 
@@ -895,7 +895,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 6,
+      'weight' => 1,
     ),
   );
 
@@ -954,7 +954,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 7,
+      'weight' => 2,
     ),
   );
 
@@ -1016,7 +1016,69 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'node-pleco_record-field_pleco_related_dossiers'
+  $field_instances['node-pleco_record-field_pleco_related_dossiers'] = array(
+    'bundle' => 'pleco_record',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 21,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_pleco_related_dossiers',
+    'label' => 'Related dossiers',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 16,
     ),
   );
 
@@ -1082,6 +1144,66 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pleco_record-field_related_taxonomy'
+  $field_instances['node-pleco_record-field_related_taxonomy'] = array(
+    'bundle' => 'pleco_record',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 19,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_related_taxonomy',
+    'label' => 'Related Taxonomy',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 14,
+    ),
+  );
+
   // Exported field_instance: 'node-pleco_record-title_field'
   $field_instances['node-pleco_record-title_field'] = array(
     'bundle' => 'pleco_record',
@@ -1099,7 +1221,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 19,
       ),
       'scs' => array(
         'label' => 'above',
@@ -1156,6 +1278,8 @@ function ef_ft_pleco_record_field_default_field_instances() {
   t('Publication date');
   t('Record types');
   t('Related Content');
+  t('Related Taxonomy');
+  t('Related dossiers');
   t('Title');
 
   return $field_instances;

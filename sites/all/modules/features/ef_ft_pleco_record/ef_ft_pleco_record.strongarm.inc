@@ -111,16 +111,16 @@ function ef_ft_pleco_record_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '4',
+          'weight' => '8',
         ),
         'path' => array(
-          'weight' => '2',
+          'weight' => '10',
         ),
         'xmlsitemap' => array(
-          'weight' => '3',
+          'weight' => '9',
         ),
         'language' => array(
-          'weight' => '1',
+          'weight' => '7',
         ),
       ),
       'display' => array(),
