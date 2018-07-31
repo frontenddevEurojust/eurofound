@@ -24,6 +24,16 @@ function ef_ft_pleco_record_ds_field_settings_info() {
         ),
       ),
     ),
+    'field_pleco_keywords' => array(
+      'formatter_settings' => array(
+        'ft' => array(),
+      ),
+    ),
+    'field_pleco_work_typologies' => array(
+      'formatter_settings' => array(
+        'ft' => array(),
+      ),
+    ),
   );
   $export['node|pleco_record|full'] = $ds_fieldsetting;
 
