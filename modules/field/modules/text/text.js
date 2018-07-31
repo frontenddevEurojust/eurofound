@@ -23,18 +23,18 @@ Drupal.behaviors.textSummary = {
         }
 
         // Setup the edit/hide summary link.
-        var $link = $('<span class="field-edit-link">(<a class="link-edit-summary" href="#">' + Drupal.t('Hide summary') + '</a>)</span>');
+        var $link = $('<span class="field-edit-link">(<a class="link-edit-summary" href="#">' + Drupal.t('Hide abstract') + '</a>)</span>');
         var $a = $link.find('a');
         var toggleClick = true;
         $link.bind('click', function (e) {
           if (toggleClick) {
             $summary.hide();
-            $a.html(Drupal.t('Edit summary'));
+            $a.html(Drupal.t('Edit abstract'));
             $link.appendTo($fullLabel);
           }
           else {
             $summary.show();
-            $a.html(Drupal.t('Hide summary'));
+            $a.html(Drupal.t('Hide abstract'));
             $link.appendTo($summaryLabel);
           }
           toggleClick = !toggleClick;

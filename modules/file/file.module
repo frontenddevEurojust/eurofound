@@ -236,6 +236,9 @@ function file_file_download($uri, $field_type = 'file') {
  * or processing.
  */
 function file_ajax_upload() {
+
+  global $user;
+
   $form_parents = func_get_args();
   $form_build_id = (string) array_pop($form_parents);
 

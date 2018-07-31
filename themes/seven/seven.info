@@ -17,3 +17,6 @@ regions_hidden[] = sidebar_first
 version = "7.59"
 project = "drupal"
 datestamp = "1524673284"
+
+; font-awesome (icons)
+stylesheets[all][] = font-awesome/css/font-awesome.min.css
