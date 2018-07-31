@@ -10,6 +10,61 @@
 function ef_ft_pleco_record_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-pleco_record-field_ef_related_content'
+  $field_instances['node-pleco_record-field_ef_related_content'] = array(
+    'bundle' => 'pleco_record',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'colorbox_node_height' => 600,
+          'colorbox_node_link' => FALSE,
+          'colorbox_node_width' => 600,
+          'conditions' => array(),
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 18,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_ef_related_content',
+    'label' => 'Related Content',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 25,
+    ),
+  );
+
   // Exported field_instance: 'node-pleco_record-field_pleco_availability'
   $field_instances['node-pleco_record-field_pleco_availability'] = array(
     'bundle' => 'pleco_record',
@@ -18,13 +73,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 17,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 19,
       ),
       'scs' => array(
         'label' => 'above',
@@ -67,13 +131,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 9,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 11,
       ),
       'scs' => array(
         'label' => 'above',
@@ -115,7 +188,7 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'date',
         'settings' => array(
           'conditions' => array(),
@@ -126,7 +199,21 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 7,
+        'weight' => 10,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 12,
       ),
       'scs' => array(
         'label' => 'above',
@@ -184,7 +271,16 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'conditions' => array(),
         ),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 5,
+      ),
+      'full' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 4,
       ),
       'scs' => array(
         'label' => 'above',
@@ -234,7 +330,16 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'conditions' => array(),
         ),
         'type' => 'link_default',
-        'weight' => 9,
+        'weight' => 3,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'link_default',
+        'weight' => 2,
       ),
       'scs' => array(
         'label' => 'above',
@@ -287,13 +392,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 13,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 15,
       ),
       'scs' => array(
         'label' => 'above',
@@ -336,13 +450,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 14,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 16,
       ),
       'scs' => array(
         'label' => 'above',
@@ -385,13 +508,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 16,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 18,
       ),
       'scs' => array(
         'label' => 'above',
@@ -434,13 +566,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 15,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 17,
       ),
       'scs' => array(
         'label' => 'above',
@@ -489,7 +630,16 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 9,
       ),
       'scs' => array(
         'label' => 'above',
@@ -524,55 +674,6 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-pleco_record-field_pleco_platform_sectors'
-  $field_instances['node-pleco_record-field_pleco_work_typologies'] = array(
-    'bundle' => 'pleco_record',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'i18n_taxonomy',
-        'settings' => array(
-          'conditions' => array(),
-        ),
-        'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
-      ),
-      'scs' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_pleco_work_typologies',
-    'label' => 'Platform work typologies',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 19,
-    ),
-  );
-
   // Exported field_instance: 'node-pleco_record-field_pleco_platforms'
   $field_instances['node-pleco_record-field_pleco_platforms'] = array(
     'bundle' => 'pleco_record',
@@ -581,13 +682,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 7,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 8,
       ),
       'scs' => array(
         'label' => 'above',
@@ -640,7 +750,21 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 8,
+        'weight' => 11,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'date',
+        'settings' => array(
+          'conditions' => array(),
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 13,
       ),
       'scs' => array(
         'label' => 'above',
@@ -698,7 +822,16 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'conditions' => array(),
         ),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 1,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 0,
       ),
       'scs' => array(
         'label' => 'above',
@@ -748,7 +881,16 @@ function ef_ft_pleco_record_field_default_field_instances() {
           'conditions' => array(),
         ),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 2,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'text',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'text_default',
+        'weight' => 1,
       ),
       'scs' => array(
         'label' => 'above',
@@ -792,13 +934,22 @@ function ef_ft_pleco_record_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inlinec',
         'module' => 'i18n_taxonomy',
         'settings' => array(
           'conditions' => array(),
         ),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 12,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 14,
       ),
       'scs' => array(
         'label' => 'above',
@@ -833,6 +984,64 @@ function ef_ft_pleco_record_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-pleco_record-field_pleco_work_typologies'
+  $field_instances['node-pleco_record-field_pleco_work_typologies'] = array(
+    'bundle' => 'pleco_record',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 8,
+      ),
+      'full' => array(
+        'label' => 'inlinec',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(
+          'conditions' => array(),
+        ),
+        'type' => 'i18n_taxonomy_term_reference_plain',
+        'weight' => 10,
+      ),
+      'scs' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_pleco_work_typologies',
+    'label' => 'Platform work typologies',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'node-pleco_record-title_field'
   $field_instances['node-pleco_record-title_field'] = array(
     'bundle' => 'pleco_record',
@@ -844,7 +1053,13 @@ function ef_ft_pleco_record_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 6,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 16,
       ),
       'scs' => array(
         'label' => 'above',
@@ -896,9 +1111,11 @@ function ef_ft_pleco_record_field_default_field_instances() {
   t('Methodologies');
   t('Organisations');
   t('Platform sectors');
+  t('Platform work typologies');
   t('Platforms');
   t('Publication date');
   t('Record types');
+  t('Related Content');
   t('Title');
 
   return $field_instances;
