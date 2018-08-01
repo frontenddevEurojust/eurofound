@@ -244,7 +244,12 @@ function block_block_save($delta = 0, $edit = array()) {
 function block_block_view($delta = '') {
   $block = db_query('SELECT body, format FROM {block_custom} WHERE bid = :bid', array(':bid' => $delta))->fetchObject();
   $data['subject'] = NULL;
-  $data['content'] = check_markup($block->body, $block->format, '', TRUE);
+  if (empty($block)) {
+    $data['content'] = t('A block with delta = @delta was not found.', ['@delta' => $delta]);
+  }
+  else {
+    $data['content'] = check_markup($block->body, $block->format, '', TRUE);
+  }
   return $data;
 }
 
