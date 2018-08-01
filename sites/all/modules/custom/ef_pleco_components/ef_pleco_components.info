@@ -2,6 +2,8 @@ name = Eurofound PLECO Components
 description = Various components for the Eurofound Platform Economy Repository.
 core = 7.x
 
+dependencies[] = ef_customised_forms
+dependencies[] = publication_date
 dependencies[] = xautoload
 
 ; Allow alternative PSR-4 autoloader.

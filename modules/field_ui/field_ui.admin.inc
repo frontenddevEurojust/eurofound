@@ -1523,7 +1523,17 @@ function field_ui_formatter_options($field_type = NULL) {
 function field_ui_existing_field_options($entity_type, $bundle) {
   $info = array();
   $field_types = field_info_field_types();
-
+  /*
+  foreach (field_info_fields() as $field_name => $field) {
+    $info[$field_name] = array(
+      'type' => $field['type'],
+      'type_label' => $field_types[$field['type']]['label'],
+      'field' => $field['field_name'],
+      'label' => $field_name,
+      'widget_type' => NULL,
+    );
+  }
+  */
   foreach (field_info_instances() as $existing_entity_type => $bundles) {
     foreach ($bundles as $existing_bundle => $instances) {
       // No need to look in the current bundle.

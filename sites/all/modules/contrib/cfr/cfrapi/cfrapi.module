@@ -1,0 +1,7 @@
+<?php
+
+if (PHP_VERSION_ID < 70100) {
+  return;
+}
+
+require_once __DIR__ . '/cfrapi.inc';
