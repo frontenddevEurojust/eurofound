@@ -283,6 +283,80 @@ function ef_ft_fieldbase_field_default_field_bases() {
     'type' => 'file',
   );
 
+  // Exported field_base: 'field_ef_eu_related_countries'
+  $field_bases['field_ef_eu_related_countries'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_ef_eu_related_countries',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'iso2' => array(
+        0 => 'iso2',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'countries',
+    'settings' => array(
+      'continents' => array(),
+      'countries' => array(
+        'AT' => 'AT',
+        'BE' => 'BE',
+        'BG' => 'BG',
+        'CY' => 'CY',
+        'CZ' => 'CZ',
+        'DE' => 'DE',
+        'DK' => 'DK',
+        'EE' => 'EE',
+        'EM' => 'EM',
+        'ES' => 'ES',
+        'FI' => 'FI',
+        'FR' => 'FR',
+        'GB' => 'GB',
+        'GR' => 'GR',
+        'HR' => 'HR',
+        'HU' => 'HU',
+        'IE' => 'IE',
+        'IT' => 'IT',
+        'LT' => 'LT',
+        'LU' => 'LU',
+        'LV' => 'LV',
+        'MT' => 'MT',
+        'NL' => 'NL',
+        'NO' => 'NO',
+        'PL' => 'PL',
+        'PT' => 'PT',
+        'RO' => 'RO',
+        'SE' => 'SE',
+        'SI' => 'SI',
+        'SK' => 'SK',
+      ),
+      'enabled' => 1,
+      'entity_translation_sync' => FALSE,
+      'extra_country_filters' => array(
+        'eu_members_only' => 'eu_members_only',
+      ),
+      'size' => 5,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'country',
+  );
+
   // Exported field_base: 'field_ef_featured_block_content'
   $field_bases['field_ef_featured_block_content'] = array(
     'active' => 1,
@@ -644,6 +718,67 @@ function ef_ft_fieldbase_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_ef_quarter_report_country'
+  $field_bases['field_ef_quarter_report_country'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_ef_quarter_report_country',
+    'field_permissions' => array(
+      'type' => 2,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'iso2' => array(
+        0 => 'iso2',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'countries',
+    'settings' => array(
+      'continents' => array(),
+      'countries' => array(
+        'AT' => 'AT',
+        'BE' => 'BE',
+        'BG' => 'BG',
+        'CY' => 'CY',
+        'CZ' => 'CZ',
+        'DE' => 'DE',
+        'DK' => 'DK',
+        'EE' => 'EE',
+        'EM' => 'EM',
+        'ES' => 'ES',
+        'EU' => 'EU',
+        'FI' => 'FI',
+        'FR' => 'FR',
+        'GB' => 'GB',
+        'GR' => 'GR',
+        'HR' => 'HR',
+        'HU' => 'HU',
+        'IE' => 'IE',
+        'IT' => 'IT',
+        'LT' => 'LT',
+        'LU' => 'LU',
+        'LV' => 'LV',
+        'MT' => 'MT',
+        'NL' => 'NL',
+        'NO' => 'NO',
+        'PL' => 'PL',
+        'PT' => 'PT',
+        'RO' => 'RO',
+        'SE' => 'SE',
+        'SI' => 'SI',
+        'SK' => 'SK',
+      ),
+      'enabled' => 1,
+      'entity_translation_sync' => FALSE,
+      'size' => 5,
+    ),
+    'translatable' => 0,
+    'type' => 'country',
   );
 
   // Exported field_base: 'field_ef_related_content'
