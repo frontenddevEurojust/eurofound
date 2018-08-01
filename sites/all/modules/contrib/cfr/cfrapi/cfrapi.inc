@@ -1,0 +1,110 @@
+<?php
+
+use Drupal\cfrapi\ConfToForm\ConfToFormInterface;
+
+/**
+ * Implements hook_element_info().
+ */
+function cfrapi_element_info() {
+  return [
+    'cfrapi' => [
+      '#input' => TRUE,
+      '#tree' => TRUE,
+      /* @see _cfrapi_element_process() */
+      '#process' => ['_cfrapi_element_process'],
+      '#cfrapi_confToForm' => NULL,
+    ],
+    'cfrapi_id_conf' => [
+      /* @see _cfrapi_id_conf_element_process() */
+      '#process' => ['_cfrapi_id_conf_element_process'],
+      '#theme_wrappers' => ['themekit_container'],
+      '#cfrapi_confToForm' => NULL,
+    ],
+  ];
+}
+
+/**
+ * @param array $element
+ * @param array $form_state
+ *
+ * @return array
+ */
+function _cfrapi_element_process(
+  array $element,
+  /** @noinspection PhpUnusedParameterInspection */ array &$form_state
+) {
+
+  $confToForm = $element['#cfrapi_confToForm'];
+  if (!$confToForm instanceof ConfToFormInterface) {
+    return [
+      '#markup' => '<!-- Invalid form setup. -->',
+    ];
+  }
+  $conf = isset($element['#value']) ? $element['#value'] : NULL;
+  $label = isset($element['#title']) ? $element['#title'] : NULL;
+  $element['cfrapi'] = $confToForm->confGetForm($conf, $label);
+  $element['cfrapi']['#parents'] = $element['#parents'];
+  unset($element['#cfrapi_confToForm']);
+  return $element;
+}
+
+/**
+ * @param array $form
+ * @param array $form_state
+ *
+ * @return array
+ *
+ * @see \Drupal\cfrapi\Util\FormUtil::elementsBuildDependency()
+ */
+function _cfrapi_depended_element_ajax_callback(
+  /** @noinspection PhpUnusedParameterInspection */ array $form,
+  array &$form_state
+) {
+  return $form_state['triggering_element']['#depending_element_reference'];
+}
+
+/**
+ * @param array $element
+ * @param mixed|false $input
+ *   Raw value from form submission, or FALSE to use #default_value.
+ * @param array $form_state
+ *
+ * @return mixed
+ */
+function _cfrapi_generic_value_callback(array $element, $input, array &$form_state) {
+
+  if (1
+    && null !== ($value_callback = $element['#cfrapi_value_callback'] ?? null)
+    && is_callable($value_callback)
+  ) {
+    // @todo Is this sufficient?
+    return $value_callback($element, $input, $form_state);
+  }
+
+  if (false === $input) {
+    return $element['#default_value'] ?? null;
+  }
+
+  return $input;
+}
+
+/**
+ * @param array $element
+ *
+ * @return array
+ */
+function _cfrapi_generic_pre_render(array $element) {
+
+  if (1
+    && null !== ($pre_render_callbacks = $element['#cfrapi_pre_render'] ?? null)
+    && is_array($pre_render_callbacks)
+  ) {
+    foreach ($pre_render_callbacks as $pre_render_callback) {
+      if (is_callable($pre_render_callback)) {
+        $element = $pre_render_callback($element);
+      }
+    }
+  }
+
+  return $element;
+}

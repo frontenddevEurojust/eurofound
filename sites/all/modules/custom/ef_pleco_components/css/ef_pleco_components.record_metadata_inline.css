@@ -1,0 +1,35 @@
+
+.ef-pleco-record-metadata-inline {
+  color: #5A5A5A;
+  line-height: 1.5em;
+  font-size: 0.8em;
+  margin: 0 0 1em;
+}
+
+.ef-pleco-record-metadata-inline > .__item {
+  display: inline-block;
+  margin-right: 10px;
+  padding-right: 10px;
+  margin-left: 0;
+  padding-left: 0;
+  /* The method with border-right guarantees that the separator does not break to next line. */
+  border-right: 1px solid #f7931E;
+}
+
+.ef-pleco-record-metadata-inline > .__item:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.ef-pleco-record-metadata-inline > .__separator {
+  display: inline-block;
+  padding: 0;
+  /* Width cannot be zero, otherwise copy+paste will ignore this. */
+  width: 1px;
+  margin: 0 -1px 0 0;
+  overflow: hidden;
+  text-indent: -100px;
+  position: relative;
+  vertical-align: bottom;
+}

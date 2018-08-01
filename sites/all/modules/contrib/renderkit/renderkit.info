@@ -1,0 +1,12 @@
+name = Render Kit
+description = Tools for dealing with render arrays.
+core = 7.x
+
+dependencies[] = xautoload
+dependencies[] = themekit (>=7.x-1.0-alpha1)
+
+; Information added by Drupal.org packaging script on 2018-06-15
+version = "7.x-1.5"
+core = "7.x"
+project = "renderkit"
+datestamp = "1529035427"

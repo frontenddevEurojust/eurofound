@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_ct_page feature.
+ */
+
+include_once 'ef_ft_ct_page.features.inc';
