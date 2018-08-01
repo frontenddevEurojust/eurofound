@@ -69,3 +69,41 @@ function ef_pleco_components_ds_layout_info() {
   ];
   return $layouts;
 }
+
+/**
+ * Implements hook_ds_fields_info().
+ *
+ * @param string $entity_type
+ *
+ * @return array[][]
+ *   Format: $[$entity_type][$field_name] = $ds_field_definition
+ */
+function ef_pleco_components_ds_fields_info($entity_type) {
+
+  if ('node' !== $entity_type) {
+    return [];
+  }
+
+  $node_fields = [];
+
+  $node_fields['ef_pleco_record_metadata_inline'] = [
+    'title' => 'PLECO Record Metadata, inline',
+    'field_type' => DS_FIELD_TYPE_FUNCTION,
+    'ui_limit' => ['pleco_record|full'],
+    /* @see _ef_pleco_components_record_metadata_inline() */
+    'function' => '_ef_pleco_components_record_metadata_inline',
+  ];
+
+  return ['node' => $node_fields];
+}
+
+/**
+ * Display Suite field callback.
+ *
+ * @param array $field
+ *
+ * @return string
+ */
+function _ef_pleco_components_record_metadata_inline(array $field) {
+  return __FUNCTION__;
+}
