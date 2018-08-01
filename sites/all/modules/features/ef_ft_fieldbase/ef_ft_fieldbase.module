@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the ef_ft_fieldbase feature.
  */
+
+include_once 'ef_ft_fieldbase.features.inc';
