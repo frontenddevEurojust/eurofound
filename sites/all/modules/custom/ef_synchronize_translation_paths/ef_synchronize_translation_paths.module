@@ -345,7 +345,7 @@ function fix_translate_tab() {
             'entity_type' => $result_en[0]->entity_type,
             'entity_id' => $result_en[0]->entity_id,
             'language' => $translation->language,
-            'source' => $result_en[0]->source,
+            'source' => 'en',
             'uid' => $result_en[0]->uid,
             'status' => $result_en[0]->status,
             'translate' => $result_en[0]->translate,
