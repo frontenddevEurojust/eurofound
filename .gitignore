@@ -4,3 +4,18 @@ sites/*/settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+sites/default/temp/*
+solr/*
+myscripts/*
+
+# Ignore site configuration files
+modules.txt
+robots.txt
+.htaccess
+sites/all/themes/effoundationtheme/js/GA/EF.analytics.php
+phpinfo.php
+test.sh
+version.txt
+
+# Ignore git commit message template for each environment due to different file structure
+.git-commit-template.txt
