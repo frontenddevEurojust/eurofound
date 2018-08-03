@@ -99,7 +99,7 @@ function ef_pleco_components_ds_fields_info($entity_type) {
   $node_fields['ef_pleco_related_content_and_taxonomy'] = [
     'title' => 'PLECO Related content and taxonomy',
     'field_type' => DS_FIELD_TYPE_FUNCTION,
-    'ui_limit' => ['pleco_record|full'],
+    'ui_limit' => ['*|full'],
     /* @see _ef_pleco_components_related_content_and_taxonomy() */
     'function' => '_ef_pleco_components_related_content_and_taxonomy',
   ];
@@ -206,6 +206,9 @@ function _ef_pleco_components_related_content_and_taxonomy(array $field) {
     $field['entity_type'],
     $field['entity']);
 
+  $element['#type'] = 'ef_pleco_block_with_title';
+  $element['#title'] = t('Related content');
+
   return drupal_render($element);
 }
 
@@ -223,6 +226,9 @@ function _ef_pleco_components_related_dossiers(array $field) {
   $element = $entityDisplay->buildEntity(
     $field['entity_type'],
     $field['entity']);
+
+  $element['#type'] = 'ef_pleco_block_with_title';
+  $element['#title'] = t('Related dossiers');
 
   return drupal_render($element);
 }

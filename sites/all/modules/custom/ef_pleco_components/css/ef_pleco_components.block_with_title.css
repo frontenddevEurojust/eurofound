@@ -1,0 +1,13 @@
+
+.ef-pleco-block-with-title {
+  margin: 0 0 2em;
+}
+
+.ef-pleco-block-with-title > .__title {
+  color: #6B6B6B;
+  font-family: 'OpenSans-Regular-webfont', Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid #BCBCBC;
+  padding-bottom: 5px;
+  font-size: 1.4em;
+  line-height: 1.2em;
+}
