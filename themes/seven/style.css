@@ -682,6 +682,26 @@ a.button {
   -webkit-border-radius: 20px;
   border-radius: 20px;
 }
+input.form-submit-disabled,
+a.button {
+  cursor: pointer;
+  padding: 4px 17px;
+  margin-bottom: 1em;
+  margin-right: 1em; /* LTR */
+  color: #bbbbbb;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.077em;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  border: 1px solid #e4e4e4;
+  border-bottom: 1px solid #b4b4b4;
+  border-left-color: #d2d2d2;
+  border-right-color: #d2d2d2;
+  background: url(images/buttons.png) 0 0 repeat-x;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+}
 a.button:link,
 a.button:visited,
 a.button:hover,
@@ -998,4 +1018,127 @@ div.add-or-remove-shortcuts {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
+}
+
+
+/* Geolocation CSS backend - Two columns */
+
+.field-type-getlocations-fields fieldset .form-type-textfield{
+  float: left;
+  clear: both;
+}
+
+.field-type-getlocations-fields fieldset  .form-submit{
+  float: left;
+  clear: both;
+}
+
+.getlocations_fields_map_wrapper{
+    float: right;
+    clear: both;
+    position: absolute;
+    margin-left: 479px;
+    width: 50%;
+    top: -70px;
+}
+
+.form-item-field-address-und-0-province label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-province label:before{
+  content:'/ Country / Nuts-3 / Nuts-2 / Nuts-1';
+  visibility: visible;
+}
+
+.form-item-field-address-und-0-additional label{
+  visibility: hidden;
+}
+
+.form-item-field-address-und-0-additional label:before{
+  content:'Additional Information';
+  visibility: visible;
+}
+
+.getlocations_fields_latlon_wrapper{
+  clear: both;
+}
+
+
+.getlocations_fields_marker_wrapper{
+  display: none;
+}
+
+#message-location{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    display: block;
+    padding: 1em;
+    width: 372px;
+    margin-bottom: 1.5em;
+    float: left;
+}
+
+.getlocations_fields_map_wrapper p{
+  margin: 0;
+  width: 67%;
+}
+
+.getlocations_fields_map{
+  margin-top: 1em;
+}
+
+.form-item-field-address-und-0-delete-location{
+  float: left;
+}
+
+.form-item-field-address-und-0-delete-location .description{
+  margin-left: 0 !important;
+}
+
+.field-type-getlocations-fields .fieldset-wrapper{
+  height: 250px;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-additional{
+  display: none;
+}
+
+.field-type-getlocations-fields .form-item-field-address-und-0-province{
+  display: none;
+}
+
+#getlocations_geocodebutton_key_1{
+  display: none;
+}
+
+#field-address-add-more-wrapper .fieldset-wrapper .form-type-checkbox{
+  display: none;
+}
+
+.hide-authors-map{
+  display: none;
+}
+
+#edit-field-address-und-0{
+  border:0px;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#edit-field-address-und-0 > legend > span{
+  display: none;
+}
+
+#edit-field-address-und-0 > div{
+  padding-left: 0;
+}
+
+.btn-payment.disabled{
+  pointer-events: none;
+  opacity: 0.5;
+}
+#edit-field-term-key-topic{
+  display: block !important;
 }
