@@ -1101,6 +1101,11 @@ function template_process_field(&$variables, $hook) {
   // here. For best performance, only call drupal_attributes() when needed, and
   // note that template_preprocess_field() does not initialize the
   // *_attributes_array variables.
+  foreach ($variables['classes_array'] as $class) {
+    if (is_array($class)) {
+      $x = 5;
+    }
+  }
   $variables['classes'] = implode(' ', $variables['classes_array']);
   $variables['attributes'] = empty($variables['attributes_array']) ? '' : drupal_attributes($variables['attributes_array']);
   $variables['title_attributes'] = empty($variables['title_attributes_array']) ? '' : drupal_attributes($variables['title_attributes_array']);
