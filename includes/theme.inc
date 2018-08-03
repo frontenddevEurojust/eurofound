@@ -1116,6 +1116,13 @@ function theme($hook, $variables = array()) {
   }
   if (isset($info['preprocess functions']) || isset($info['process functions'])) {
     $variables['theme_hook_suggestions'] = array();
+    if (!empty($variables['classes_array'])) {
+      foreach ($variables['classes_array'] as $class) {
+        if (is_array($class)) {
+          $x = 5;
+        }
+      }
+    }
     foreach (array('preprocess functions', 'process functions') as $phase) {
       if (!empty($info[$phase])) {
         foreach ($info[$phase] as $processor_function) {
@@ -1123,6 +1130,13 @@ function theme($hook, $variables = array()) {
             // We don't want a poorly behaved process function changing $hook.
             $hook_clone = $hook;
             $processor_function($variables, $hook_clone);
+            if (!empty($variables['classes_array'])) {
+              foreach ($variables['classes_array'] as $class) {
+                if (is_array($class)) {
+                  $x = 5;
+                }
+              }
+            }
           }
         }
       }
