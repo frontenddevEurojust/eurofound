@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/ef_pleco_components.field_formatter.inc';
 require_once __DIR__ . '/ef_pleco_components.field_group.inc';
 require_once __DIR__ . '/ef_pleco_components.ds.inc';
 
@@ -8,6 +9,30 @@ require_once __DIR__ . '/ef_pleco_components.ds.inc';
  */
 function ef_pleco_components_cfrplugin_info() {
   return cfrplugindiscovery()->moduleFileScanPsr4(__FILE__);
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function ef_pleco_components_element_info() {
+  $css_dir = drupal_get_path('module', 'ef_pleco_components') . '/css';
+  return [
+    /* @see template_preprocess_ef_pleco_keyvaluetable() */
+    $k = 'ef_pleco_keyvaluetable' => [
+      '#theme' => $k,
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.keyvaluetable.css']],
+    ],
+    /* @see template_preprocess_ef_pleco_related_entity() */
+    $k = 'ef_pleco_related_entity' => [
+      '#theme' => $k,
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.related_entity.css']],
+    ],
+    $k = 'ef_pleco_block_with_title' => [
+      /* @see template_preprocess_ef_pleco_block_with_title() */
+      '#theme_wrappers' => [$k],
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.block_with_title.css']],
+    ],
+  ];
 }
 
 /**
@@ -26,6 +51,12 @@ function ef_pleco_components_theme() {
       'render element' => 'element',
       'file' => 'ef_pleco_components.theme.inc',
       'template' => 'ef-pleco-related-entity',
+    ],
+    /* @see template_preprocess_ef_pleco_block_with_title() */
+    'ef_pleco_block_with_title' => [
+      'render element' => 'element',
+      'file' => 'ef_pleco_components.theme.inc',
+      'template' => 'ef-pleco-block-with-title',
     ],
   ];
 }

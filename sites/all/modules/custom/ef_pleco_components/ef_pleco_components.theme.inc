@@ -51,3 +51,14 @@ function template_preprocess_ef_pleco_related_entity(array &$variables) {
 
   $variables['meta_parts'] = $meta_parts;
 }
+
+/**
+ * @param array $variables
+ */
+function template_preprocess_ef_pleco_block_with_title(array &$variables) {
+
+  $element = $variables['element'];
+
+  $variables['children'] = $element['#children'];
+  $variables['title'] = $element['#title'];
+}
