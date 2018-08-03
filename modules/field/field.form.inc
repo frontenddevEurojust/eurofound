@@ -30,7 +30,7 @@
  *   or an empty array to use default values.
  * @param $form
  *   An array representing the form that the editing element will be attached
- *   to. 
+ *   to.
  * @param $form_state
  *   An array containing the current state of the form.
  * @param $get_delta
