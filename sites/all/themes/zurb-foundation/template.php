@@ -366,7 +366,7 @@ function zurb_foundation_preprocess_field(&$variables) {
   // Add class to a specific fields across content types.
   switch ($variables['element']['#field_name']) {
     case 'body':
-      $variables['classes_array'][] = array('body');
+      $variables['classes_array'][] = 'body';
       break;
 
     case 'field_summary':
