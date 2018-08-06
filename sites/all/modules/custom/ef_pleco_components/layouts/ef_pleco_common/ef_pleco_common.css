@@ -1,0 +1,25 @@
+
+.ef-pleco-common {
+}
+
+.ef-pleco-common > .__columns {
+  box-sizing: border-box;
+  margin: 0 -13px;
+}
+
+.ef-pleco-common > .__columns > * {
+  box-sizing: border-box;
+  padding: 0 13px;
+  float: left;
+}
+
+@media only screen and (min-width:768px) {
+
+  .ef-pleco-common > .__columns > .__content {
+    width: 75%;
+  }
+
+  .ef-pleco-common > .__columns > .__right {
+    width: 25%;
+  }
+}

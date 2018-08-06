@@ -1,0 +1,18 @@
+
+.ef-pleco-subscription-box {
+  margin-bottom: 2.5em;
+  margin-top: 1em;
+  clear: both;
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+
+.ef-pleco-subscription-box > a {
+  border: 2px solid #F99E35;
+  color: #F7931E;
+  font-weight: bold;
+  display: block;
+  padding: 6px 10px 6px 12px;
+  text-align: center;
+}

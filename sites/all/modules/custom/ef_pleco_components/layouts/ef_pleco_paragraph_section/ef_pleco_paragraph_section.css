@@ -1,0 +1,9 @@
+
+.ef-pleco-paragraph-section {
+  margin: 2em 0;
+}
+
+.ef-pleco-paragraph-section > h2.__title {
+  margin: 0;
+  padding: 0;
+}

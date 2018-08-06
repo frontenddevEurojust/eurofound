@@ -1,0 +1,24 @@
+
+.ef-pleco-record-resource {
+  margin: 1em 0 2em;
+}
+
+.ef-pleco-record-resource > h2 {
+
+}
+
+.ef-pleco-record-resource > a.__link {
+  border: 2px solid #F99E35;
+  color: #F7931E;
+  font-weight: bold;
+  display: block;
+  padding: 0.5em 2em;
+  text-align: left;
+  display: table;
+}
+
+.ef-pleco-record-resource > a.__link > .fa {
+  font-size: 200%;
+  float: left;
+  margin: 2px 0.5em;
+}

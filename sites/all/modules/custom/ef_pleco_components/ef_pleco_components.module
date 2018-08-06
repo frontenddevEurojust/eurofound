@@ -1,0 +1,128 @@
+<?php
+
+require_once __DIR__ . '/ef_pleco_components.block.inc';
+require_once __DIR__ . '/ef_pleco_components.ds_field_theme_functions.inc';
+require_once __DIR__ . '/ef_pleco_components.ds_fields.inc';
+require_once __DIR__ . '/ef_pleco_components.ds_layouts.inc';
+require_once __DIR__ . '/ef_pleco_components.field_formatter.inc';
+require_once __DIR__ . '/ef_pleco_components.field_group.inc';
+
+/**
+ * @param string $type
+ *   One of 'css' or 'js'.
+ * @param string $name
+ *
+ * @return string
+ */
+function _ef_pleco_components_file($type, $name) {
+  return drupal_get_path('module', 'ef_pleco_components') . '/' . $type . '/ef_pleco_components.' . $name . '.' . $type;
+}
+
+/**
+ * Implements hook_cfrplugin_info().
+ */
+function ef_pleco_components_cfrplugin_info() {
+  return cfrplugindiscovery()->moduleFileScanPsr4(__FILE__);
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function ef_pleco_components_element_info() {
+  $css_dir = drupal_get_path('module', 'ef_pleco_components') . '/css';
+  return [
+    /* @see template_preprocess_ef_pleco_keyvaluetable() */
+    $k = 'ef_pleco_keyvaluetable' => [
+      '#theme' => $k,
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.keyvaluetable.css']],
+    ],
+    /* @see template_preprocess_ef_pleco_related_entity() */
+    $k = 'ef_pleco_related_entity' => [
+      '#theme' => $k,
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.related_entity.css']],
+    ],
+    $k = 'ef_pleco_block_with_title' => [
+      /* @see template_preprocess_ef_pleco_block_with_title() */
+      '#theme_wrappers' => [$k],
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.block_with_title.css']],
+    ],
+    $k = '___ef_pleco_paragraph_section___' => [
+      '#theme' => $k,
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.paragraph_section.css']],
+    ],
+    $k = 'ef_pleco_dossiers_list' => [
+      /* @see theme_themekit_item_list() */
+      '#theme' => 'themekit_item_list',
+      '#attached' => ['css' => [$css_dir . '/ef_pleco_components.dossiers_list.css']],
+    ],
+    $k = 'ef_pleco_tabs' => [
+      /* @see _ef_pleco_components_pre_render_tabs() */
+      '#pre_render' => ['_ef_pleco_components_pre_render_tabs'],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * @return array[]
+ */
+function ef_pleco_components_theme() {
+  return [
+    /* @see template_preprocess_ef_pleco_keyvaluetable() */
+    'ef_pleco_keyvaluetable' => [
+      'render element' => 'element',
+      'file' => 'ef_pleco_components.theme.inc',
+      'template' => 'ef-pleco-keyvaluetable',
+    ],
+    /* @see template_preprocess_ef_pleco_related_entity() */
+    'ef_pleco_related_entity' => [
+      'render element' => 'element',
+      'file' => 'ef_pleco_components.theme.inc',
+      'template' => 'ef-pleco-related-entity',
+    ],
+    /* @see template_preprocess_ef_pleco_block_with_title() */
+    'ef_pleco_block_with_title' => [
+      'render element' => 'element',
+      'file' => 'ef_pleco_components.theme.inc',
+      'template' => 'ef-pleco-block-with-title',
+    ],
+    'ef_pleco_paragraph_section' => [
+      'render element' => 'element',
+      'template' => 'ef-pleco-paragraph-section',
+    ],
+    'ef_pleco_tabs' => [
+      // 'render element' => 'element',
+      'variables' => ['tabs' => []],
+      'template' => 'ef-pleco-tabs',
+    ],
+    'ef_pleco_comments_collapsible' => [
+      'render element' => 'element',
+      'variables' => ['children' => ''],
+      'template' => 'ef-pleco-comments-collapsible',
+    ],
+  ];
+}
+
+/**
+ * @param array $elements
+ *
+ * @return array
+ */
+function _ef_pleco_components_pre_render_tabs(array $elements) {
+
+  $tabs = [];
+  foreach (element_children($elements) as $key) {
+    $title = $elements[$key]['#title'];
+    unset($elements[$key]['#title']);
+    $tabs[$key] = [
+      'title_markup' => check_plain($title),
+      'content_markup' => drupal_render($elements[$key]),
+    ];
+  }
+
+  return [
+    '#theme' => 'ef-pleco-tabs',
+    '#tabs' => $tabs,
+  ];
+}
