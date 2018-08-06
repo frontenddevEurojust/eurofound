@@ -1,0 +1,9 @@
+name = EUROFOUND PLECO Main
+description = Dependencies and hook_update_N() for PLECO section.
+core = 7.x
+package = EF PLECO
+dependencies[] = ef_ft_ct_plecopage
+dependencies[] = ef_ft_pleco_record
+dependencies[] = ef_ft_pleco_taxonomy
+dependencies[] = ef_ft_vw_plecorecords
+features[features_api][] = api:2
