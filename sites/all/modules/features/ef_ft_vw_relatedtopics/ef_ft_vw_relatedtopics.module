@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_vw_relatedtopics feature.
+ */
+
+include_once 'ef_ft_vw_relatedtopics.features.inc';
