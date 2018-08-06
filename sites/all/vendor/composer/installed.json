@@ -1,0 +1,143 @@
+[
+    {
+        "name": "donquixote/callback-reflection",
+        "version": "1.0.0-alpha.2",
+        "version_normalized": "1.0.0.0-alpha2",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donquixote/callback-reflection.git",
+            "reference": "5b223bb57a0f4d711b411921300faab25bcba47c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donquixote/callback-reflection/zipball/5b223bb57a0f4d711b411921300faab25bcba47c",
+            "reference": "5b223bb57a0f4d711b411921300faab25bcba47c",
+            "shasum": ""
+        },
+        "time": "2016-12-17 01:49:37",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Donquixote\\CallbackReflection\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andreas Hennings",
+                "email": "andreas@dqxtech.net"
+            }
+        ]
+    },
+    {
+        "name": "donquixote/nicetrace",
+        "version": "0.0.4",
+        "version_normalized": "0.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donquixote/nicetrace.git",
+            "reference": "774dd8f40643ee5583dd8c510ead8a511d38e0e7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donquixote/nicetrace/zipball/774dd8f40643ee5583dd8c510ead8a511d38e0e7",
+            "reference": "774dd8f40643ee5583dd8c510ead8a511d38e0e7",
+            "shasum": ""
+        },
+        "time": "2016-03-06 06:06:08",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Donquixote\\Nicetrace\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andreas Hennings",
+                "email": "andreas@dqxtech.net"
+            }
+        ],
+        "description": "Library to make human-friendly PHP backtrace arrays.",
+        "homepage": "http://github.com/donquixote/nicetrace"
+    },
+    {
+        "name": "donquixote/containerkit",
+        "version": "0.0.0-alpha.1",
+        "version_normalized": "0.0.0.0-alpha1",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donquixote/containerkit.git",
+            "reference": "b5f9a69fc91748cee771d0f4ef636e577a6656e6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donquixote/containerkit/zipball/b5f9a69fc91748cee771d0f4ef636e577a6656e6",
+            "reference": "b5f9a69fc91748cee771d0f4ef636e577a6656e6",
+            "shasum": ""
+        },
+        "time": "2016-01-11 11:19:52",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Donquixote\\Containerkit\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andreas Hennings",
+                "email": "andreas@dqxtech.net"
+            }
+        ]
+    },
+    {
+        "name": "donquixote/annotation-parser",
+        "version": "v0.0.0-alpha1",
+        "version_normalized": "0.0.0.0-alpha1",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donquixote/annotation-parser.git",
+            "reference": "8266a911c299d3034fa80d56758041ec905a30d0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donquixote/annotation-parser/zipball/8266a911c299d3034fa80d56758041ec905a30d0",
+            "reference": "8266a911c299d3034fa80d56758041ec905a30d0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5.0"
+        },
+        "time": "2016-08-23 23:32:53",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Donquixote\\Annotation\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Andreas Hennings",
+                "email": "andreas@dqxtech.net"
+            }
+        ]
+    }
+]
