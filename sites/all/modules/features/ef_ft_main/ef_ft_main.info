@@ -1,0 +1,6 @@
+name = EUROFOUND Main
+description = Global dependencies and hook_update_N() for the EUROFOUND website.
+core = 7.x
+package = EF Features
+dependencies[] = ef_ft_pleco_main
+features[features_api][] = api:2
