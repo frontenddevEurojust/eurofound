@@ -1,0 +1,22 @@
+
+ul.ef-pleco-landing-dossiers {
+  list-style: none;
+  margin: 0 !important;
+  padding: 0;
+}
+
+ul.ef-pleco-landing-dossiers > li {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5em 0;
+}
+
+ul.ef-pleco-landing-dossiers > li > a {
+  font-weight: bold;
+}
+
+div.ef-pleco-landing-dossiers-readmore {
+  text-align: right;
+}
