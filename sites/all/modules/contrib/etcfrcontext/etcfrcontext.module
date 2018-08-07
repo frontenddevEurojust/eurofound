@@ -1,0 +1,13 @@
+<?php
+
+use Drupal\etcfrcontext\EtCfrContextHub;
+
+/**
+ * @return \Drupal\etcfrcontext\EtCfrContextHubInterface
+ */
+function etcfrcontext() {
+  static $hub;
+  return isset($hub)
+    ? $hub
+    : $hub = new EtCfrContextHub();
+}
