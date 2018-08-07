@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Code for the ef_ft_pleco_paragraphs feature.
+ */
+
+include_once 'ef_ft_pleco_paragraphs.features.inc';
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ *
+ * @param object $entity
+ * @param string $view_mode
+ * @param string $langcode
+ */
+function ef_ft_pleco_paragraphs_paragraphs_item_view($entity, $view_mode, $langcode) {
+  switch ($entity->bundle) {
+    case 'pleco_landing_dossiers':
+    case 'pleco_section':
+      $entity->content['#attached']['css'][] = drupal_get_path('module', 'ef_ft_pleco_paragraphs') . '/css/ef_ft_pleco_paragraphs.' . $entity->bundle . '.css';
+      break;
+  }
+}
