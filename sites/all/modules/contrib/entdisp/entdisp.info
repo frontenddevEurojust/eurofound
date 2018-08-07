@@ -1,0 +1,17 @@
+name = Entity display plugin
+description = Exposes renderkit entity display handlers as plugins.
+core = 7.x
+
+dependencies[] = xautoload
+dependencies[] = renderkit
+dependencies[] = cfr:cfrplugin
+dependencies[] = etcfrcontext
+; This is required for all entity display plugins to be discovered in renderkit.
+dependencies[] = cfr:cfrplugindiscovery
+
+; Information added by Drupal.org packaging script on 2017-06-29
+version = "7.x-1.0"
+core = "7.x"
+project = "entdisp"
+datestamp = "1498780747"
+
