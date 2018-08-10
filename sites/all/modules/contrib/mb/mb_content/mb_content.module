@@ -419,8 +419,8 @@ function mb_content_cancel_action($form, &$form_state) {
 
   $redirect = '<front>';
   // $options query example:
- //$options = array('query' => array('destination' => 'node/' . $node->nid));
-  //$options = array();
+  // array('query' => array('destination' => 'node/' . $node->nid))
+  $options = array();
 
   if (arg(0) === 'node' && arg(1) === 'add') {
     // Limitation:
@@ -443,29 +443,7 @@ function mb_content_cancel_action($form, &$form_state) {
     $redirect = $form['storage']['#mb_redirect'];
   }
 
-  // We collect session variable that stores the last search $_SESSION['back_search'], defined in the module ef_back_sesarch_button.module
-  if (arg(0) === 'node' && is_numeric(arg(1)) && (strpos($redirect, 'admin/content') !== false)){
-    $redirect = $_SESSION['back_search'];
-  }
-
-  if (arg(0) === 'node' && is_numeric(arg(1)) && (strpos($redirect, 'find-content') !== false)){
-    $redirect = $_SESSION['back_search'];
-  } 
-  if (arg(0) === 'node' && is_numeric(arg(1)) && (strpos($redirect, 'quarterly-reports') !== false)){
-    $redirect = $_SESSION['back_search'];
-  }
-  if (arg(0) === 'node' && is_numeric(arg(1)) && (strpos($redirect, 'observatories/emcc/erm/support-instrument') !== false)){
-    $redirect = $_SESSION['back_search'];
-  } 
-
-  if (arg(0) === 'node' && is_numeric(arg(1)) && (strpos($redirect, 'observatories/emcc/erm/legislation/admin') !== false)){
-    $redirect = $_SESSION['back_search'];
-  }
-
-  
-
-$options = array('query' => array('destination' => $redirect));
-drupal_goto($redirect, $options);
+  drupal_goto($redirect, $options);
 }
 
 /**
