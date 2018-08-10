@@ -13,6 +13,76 @@
 //}
 
 /**
+ * Implements hook_node_view_alter()
+ *
+ * @param array $elements
+ *
+ * @see hook_node_view_alter()
+ */
+function effoundationtheme_node_view_alter(array &$elements) {
+  $node = $elements['#node'];
+
+  switch ($node->type) {
+
+    case 'pleco_record':
+    case 'pleco_page':
+      if (isset($elements['#view_mode']) && 'full' === $elements['#view_mode']) {
+        /* @see _effoundationtheme_node_pre_render_add_social_icons() */
+        $elements['#pre_render'][] = '_effoundationtheme_node_pre_render_add_social_icons';
+      }
+      break;
+  }
+}
+
+/**
+ * Callback for #pre_render that activates social icons for a node display.
+ *
+ * This is partially copied from node templates:
+ * - ef-foundation-two-column-stacked--node-presentation.tpl.php
+ * - ef-foundation-two-column-stacked--node-blog.tpl.php
+ *
+ * If something in here looks weird, compare with those templates.
+ *
+ * @todo This function would not be necessary, if the social icons were implemented and positioned in a smarter way.
+ *
+ * @param array $elements
+ *
+ * @return array
+ */
+function _effoundationtheme_node_pre_render_add_social_icons(array $elements) {
+
+  $node = $elements['#node'];
+  $theme_path = drupal_get_path('theme', 'effoundationtheme');
+
+  $email_link_options = [
+    'html' => true,
+    'external' => true,
+  ];
+
+  $email_subject = strip_tags(entity_label('node', $node));
+  $email_link_options['query']['subject'] = $email_subject;
+
+  $node_link = url('node/' . $node->nid, ['absolute' => true]);
+  $email_link_options['query']['body'] = '\r\n\r\n' . $node_link;
+
+  $email_link = l(
+    '<i class="fa fa-envelope-o block-easy-social-email" aria-hidden="true"></i>',
+    'mailto:',
+    $email_link_options);
+
+  $email_icon = '<div class="email-blog">' . $email_link . '</div>';
+
+  $email_icon_container = '<div style="display: none;">' . $email_icon . '</div>';
+
+  $elements['#attached']['css'][] = $theme_path . '/css/blog-presentation.css';
+  $elements['#attached']['js'][] = $theme_path . '/js/blog-presentation.js';
+
+  $elements['#suffix'] = $email_icon_container;
+
+  return $elements;
+}
+
+/**
  * Implements template_preprocess_page
  *
  */
