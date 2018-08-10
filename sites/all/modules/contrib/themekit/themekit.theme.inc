@@ -203,7 +203,9 @@ function theme_themekit_separator_list(array $variables) {
   $element = $variables['element'];
   $pieces = [];
   foreach (element_children($element) as $key) {
-    $pieces[] = drupal_render($element[$key]);
+    if ('' !== $piece = drupal_render($element[$key])) {
+      $pieces[] = $piece;
+    }
   }
   $separator = isset($element['#separator'])
     ? $element['#separator']
