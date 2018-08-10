@@ -98,6 +98,9 @@ class EntityDisplay_RelatedEntity implements EntityDisplayInterface {
     if (NULL === $relatedEntity = $this->entityToEntity->entityGetRelated($entity_type, $entity)) {
       return [];
     }
+    if (!entity_access('view', $this->entityToEntity->getTargetType(), $relatedEntity)) {
+      return [];
+    }
     return $this->relatedEntityDisplay->buildEntity($this->relatedEntityType, $relatedEntity);
   }
 }

@@ -50,11 +50,23 @@ class EntityDisplay_ListOfRelatedEntities extends EntitiesDisplayBase {
   public function buildEntities($entityType, array $entities) {
 
     $targetEntitiess = $this->entityToEntities->entitiesGetRelated($entityType, $entities);
+    $targetEntityType = $this->entityToEntities->getTargetEntityType();
+    $targetTypeInfo = entity_get_info($targetEntityType);
+
+    if (!isset($targetTypeInfo['access callback'])) {
+      return [];
+    }
+    $access_callback = $targetTypeInfo['access callback'];
 
     $builds = [];
     foreach ($targetEntitiess as $delta => $targetEntities) {
+      foreach ($targetEntities as $targetDelta => $targetEntity) {
+        if (!$access_callback('view', $targetEntity, NULL, $entityType)) {
+          unset($targetEntities[$targetDelta]);
+        }
+      }
       $builds[$delta] = $this->entitiesListFormat->entitiesBuildList(
-        $this->entityToEntities->getTargetEntityType(),
+        $targetEntityType,
         $targetEntities);
     }
 
