@@ -238,8 +238,11 @@ function effoundationtheme_preprocess_page(&$variables) {
   }
 
   drupal_add_js(drupal_get_path('theme', 'effoundationtheme') . '/js/GA/base64.js');
-}
 
+  // See EFD-49
+  // effoundationtheme.js requires chosen.jquery.js.
+  drupal_add_library('chosen', 'drupal.chosen');
+}
 
 function effoundationtheme_preprocess_html(&$variables) {
 	$status = drupal_get_http_header("status");
