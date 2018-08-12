@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/custom_pub.admin.inc';
+
 /**
  * Implements hook_help().
  */
