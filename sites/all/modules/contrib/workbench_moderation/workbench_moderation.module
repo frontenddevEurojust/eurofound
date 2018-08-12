@@ -846,18 +846,27 @@ function workbench_moderation_form_node_form_alter(&$form, $form_state) {
   );
 
   // Set a default revision log message.
+  // Added fields to accomplish new text format by Markel
+  $date = date('d-m-Y h:i:s');
+  $text = $date . ' by ' . $user->mail;
   $logged_name = (user_is_anonymous() ? variable_get('anonymous', t('Anonymous')) : $user->name);
   if (!empty($form['#node']->nid)) {
-    $form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
+    //Data changed to 11-12-2014 16:46:34 by author@email.com
+    
+    $form['revision_information']['log']['#default_value'] = t($text);
+    //$form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
   }
   else {
-    $form['revision_information']['log']['#default_value'] = t('Created by @user.', array('@user' => $logged_name));
+    $form['revision_information']['log']['#default_value'] = t($text);
+    //$form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
   }
 
   // Move the revision log into the publishing options to make things pretty.
   if ($form['options']['#access']) {
     $form['options']['log'] = $form['revision_information']['log'];
-    $form['options']['log']['#title'] = t('Moderation notes');
+    $form['options']['log']['#title'] = t('Revision log message');
+    //Title changed to  Revision log message from moderation notes by Markel
+    //$form['options']['log']['#title'] = t('Moderation notes');
     $form['options']['workbench_moderation_state_new'] = $form['revision_information']['workbench_moderation_state_new'];
 
     // Unset the old placement of the Revision log.
@@ -1783,7 +1792,9 @@ function workbench_moderation_messages($context, $node = NULL) {
     if ($revision_current && !$revision_published && _workbench_moderation_access('update', $node) && $moderate_form = drupal_get_form('workbench_moderation_moderate_form', $node, "node/{$node->nid}/current-revision")) {
       if ($moderate_form = drupal_render($moderate_form)) {
         $info_block_messages[] = array(
-          'label' => t('Set moderation state'),
+          //'label' => t('Set moderation state'),
+          // EF Assigned User integration
+          'label' => t('Set moderation state and assigned user'),
           'message' => $moderate_form,
         );
       }
