@@ -194,8 +194,6 @@ function workbench_moderation_menu_alter(&$items) {
   // For revert and delete operations, use our own access check.
   $items['node/%node/revisions/%/revert']['access callback'] = '_workbench_moderation_revision_access';
   $items['node/%node/revisions/%/delete']['access callback'] = '_workbench_moderation_revision_access';
-  $items['node/%node/revisions/%/revert']['access arguments'] =  array(1, 2);
-  $items['node/%node/revisions/%/delete']['access arguments'] =  array(1, 2); 
 
   // Provide a container administration menu item, if one doesn't already exist.
   if (!isset($items['admin/config/workbench'])) {
