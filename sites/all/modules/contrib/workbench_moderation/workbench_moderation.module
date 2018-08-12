@@ -194,8 +194,6 @@ function workbench_moderation_menu_alter(&$items) {
   // For revert and delete operations, use our own access check.
   $items['node/%node/revisions/%/revert']['access callback'] = '_workbench_moderation_revision_access';
   $items['node/%node/revisions/%/delete']['access callback'] = '_workbench_moderation_revision_access';
-  $items['node/%node/revisions/%/revert']['access arguments'] =  array(1, 2);
-  $items['node/%node/revisions/%/delete']['access arguments'] =  array(1, 2); 
 
   // Provide a container administration menu item, if one doesn't already exist.
   if (!isset($items['admin/config/workbench'])) {
@@ -846,27 +844,18 @@ function workbench_moderation_form_node_form_alter(&$form, $form_state) {
   );
 
   // Set a default revision log message.
-  // Added fields to accomplish new text format by Markel
-  $date = date('d-m-Y h:i:s');
-  $text = $date . ' by ' . $user->mail;
   $logged_name = (user_is_anonymous() ? variable_get('anonymous', t('Anonymous')) : $user->name);
   if (!empty($form['#node']->nid)) {
-    //Data changed to 11-12-2014 16:46:34 by author@email.com
-    
-    $form['revision_information']['log']['#default_value'] = t($text);
-    //$form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
+    $form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
   }
   else {
-    $form['revision_information']['log']['#default_value'] = t($text);
-    //$form['revision_information']['log']['#default_value'] = t('Edited by @user.', array('@user' => $logged_name));
+    $form['revision_information']['log']['#default_value'] = t('Created by @user.', array('@user' => $logged_name));
   }
 
   // Move the revision log into the publishing options to make things pretty.
   if ($form['options']['#access']) {
     $form['options']['log'] = $form['revision_information']['log'];
-    $form['options']['log']['#title'] = t('Revision log message');
-    //Title changed to  Revision log message from moderation notes by Markel
-    //$form['options']['log']['#title'] = t('Moderation notes');
+    $form['options']['log']['#title'] = t('Moderation notes');
     $form['options']['workbench_moderation_state_new'] = $form['revision_information']['workbench_moderation_state_new'];
 
     // Unset the old placement of the Revision log.
@@ -1228,7 +1217,7 @@ function workbench_moderation_node_is_current($node) {
  *   state object has name, description, and weight properties.
  */
 function workbench_moderation_states() {
-  $states = &drupal_static(__FUNCTION__);
+  static $states;
   if (!isset($states)) {
     $states = db_select('workbench_moderation_states', 'states')
       ->fields('states', array('name', 'label', 'description', 'weight'))
@@ -1337,7 +1326,7 @@ function workbench_moderation_state_delete($state) {
  *   'from' states, then by the weight of the 'to' states.
  */
 function workbench_moderation_transitions() {
-  $transitions = &drupal_static(__FUNCTION__);
+  static $transitions;
   if (!isset($transitions)) {
     $query = db_select('workbench_moderation_transitions', 't')
       ->fields('t', array('from_name', 'to_name'));
@@ -1792,9 +1781,7 @@ function workbench_moderation_messages($context, $node = NULL) {
     if ($revision_current && !$revision_published && _workbench_moderation_access('update', $node) && $moderate_form = drupal_get_form('workbench_moderation_moderate_form', $node, "node/{$node->nid}/current-revision")) {
       if ($moderate_form = drupal_render($moderate_form)) {
         $info_block_messages[] = array(
-          //'label' => t('Set moderation state'),
-          // EF Assigned User integration
-          'label' => t('Set moderation state and assigned user'),
+          'label' => t('Set moderation state'),
           'message' => $moderate_form,
         );
       }
