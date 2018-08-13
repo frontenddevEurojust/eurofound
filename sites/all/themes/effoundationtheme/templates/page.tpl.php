@@ -242,6 +242,9 @@
               else{
                 $link_path="none";
               }
+
+              $router_item = menu_get_item();
+              $router_path = $router_item['path'];
           ?>
 
           <?php if(sizeof($trail_holder)>3 && (!strcmp($link_path, 'observatories/emcc')) && $trail_holder[3]['link_title'] != 'Future of Manufacturing in Europe (FOME)' ) :?>
@@ -416,7 +419,13 @@
                  </h1>
 
             <?php elseif (isset($node) && $node->type == 'board_member_page'): ?>
-                <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>       
+                <h1 id="page-title" class="title secundary title-governing-board">Governing Board Extranet</h1>
+
+          <?php elseif ($_GET['q'] === 'data/platform-economy/records'): ?>
+            <h1 id="page-title"><?php print $title; ?></h1>
+
+          <?php elseif ($router_path === 'mlid/%/under-construction'): ?>
+            <h1 id="page-title"><?php print $title; ?></h1>
 
 
             <?php else : ?>
