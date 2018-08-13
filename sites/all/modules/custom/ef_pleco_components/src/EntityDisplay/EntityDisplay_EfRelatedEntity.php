@@ -51,7 +51,7 @@ class EntityDisplay_EfRelatedEntity extends EntityDisplayBase {
           [
             'field' => 'node:published_on',
             'display' => [
-              'format' => 'publication_date_short'
+              'format' => 'publication_date_ef_date_format'
             ],
           ],
           'hidden',
