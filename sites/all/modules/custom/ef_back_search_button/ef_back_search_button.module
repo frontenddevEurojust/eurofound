@@ -71,6 +71,9 @@ function ef_back_search_button_boot() {
 
 					//SEARCH
 					'/search',
+
+					// PLECO
+					'/data/platform-economy/records',
 					);
 	// check if are edit, moderation,.. pages 
 	if(strlen(arg(2))==0){
