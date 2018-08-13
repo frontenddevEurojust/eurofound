@@ -499,6 +499,12 @@ function ef_ft_vw_plecorecords_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '3';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'ef_pleco_landing_latest_record';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
 
   /* Display: landing page search */
   $handler = $view->new_display('block', 'landing page search', 'landing_page_search');

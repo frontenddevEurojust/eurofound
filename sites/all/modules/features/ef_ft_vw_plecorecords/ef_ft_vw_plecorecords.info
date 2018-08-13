@@ -1,8 +1,9 @@
 name = ef_ft_vw_plecorecords
 core = 7.x
 package = EF PLECO
+dependencies[] = ef_pleco_components
 dependencies[] = views
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = pleco_records
-mtime = 1533656147
+mtime = 1534157012
