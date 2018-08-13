@@ -11,19 +11,27 @@
  * Expire cache support for the builtin cache handler.
  */
 function authcache_builtin_expire_v2_expire_cache($urls, $wildcards, $object_type, $object) {
+
+  $wildcard_urls = [];
+  $non_wildcard_urls = [];
+  foreach (array_keys($urls) as $path) {
+    $url = url($path, ['absolute' => FALSE, 'alias' => TRUE]);
+    if (empty($wildcards[$path])) {
+      $wildcard_urls[] = $url;
+    }
+    else {
+      $non_wildcard_urls[] = $url;
+    }
+  }
+
   $cids = array();
   $wildcard_cids = array();
-
   foreach (authcache_enum_keys() as $key) {
-    foreach (array_keys($urls) as $path) {
-      $cid = $key . url($path, array('absolute' => FALSE, 'alias' => TRUE));
-
-      if (empty($wildcards[$path])) {
-        $cids[] = $cid;
-      }
-      else {
-        $wildcard_cids[] = $cid;
-      }
+    foreach ($wildcard_urls as $url) {
+      $wildcard_cids[] = $key . $url;
+    }
+    foreach ($non_wildcard_urls as $url) {
+      $cids[] = $key . $url;
     }
   }
 
