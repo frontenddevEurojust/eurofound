@@ -86,7 +86,7 @@ function ef_ft_pleco_record_ds_field_settings_info() {
     'published_on' => array(
       'weight' => '20',
       'label' => 'hidden',
-      'format' => 'publication_date_short',
+      'format' => 'publication_date_ef_date_format',
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_minimal',
