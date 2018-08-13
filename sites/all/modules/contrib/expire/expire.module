@@ -227,6 +227,7 @@ function expire_file_delete($file) {
  * Implements hook_menu_link_delete().
  */
 function expire_menu_link_delete($link) {
+  return;
   expire_execute_expiration('menu_link', $link, EXPIRE_MENU_LINK_DELETE);
 }
 
@@ -234,6 +235,7 @@ function expire_menu_link_delete($link) {
  * Implements hook_menu_link_update().
  */
 function expire_menu_link_update($link) {
+  return;
   expire_execute_expiration('menu_link', $link, EXPIRE_MENU_LINK_UPDATE);
 }
 
@@ -241,6 +243,7 @@ function expire_menu_link_update($link) {
  * Implements hook_menu_link_insert().
  */
 function expire_menu_link_insert($link) {
+  return;
   expire_execute_expiration('menu_link', $link, EXPIRE_MENU_LINK_INSERT);
 }
 
