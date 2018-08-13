@@ -56,6 +56,7 @@ function publication_date_render_published_at_field($field) {
  * Implements hook_ds_field_settings_form().
  */
 function publication_date_ds_field_settings_form($field) {
+  module_load_include('field_ui.inc', 'ds');
   return ds_ds_field_settings_form($field);
 }
 
